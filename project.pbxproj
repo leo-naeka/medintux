@@ -1,0 +1,722 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 44;
+	objects = {
+
+/* Begin PBXContainerItemProxy section */
+		AEEA16841332071E00B1EA4E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AEEA1680133206BB00B1EA4E;
+			remoteInfo = qmake;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		AE63F4C0133208430016A00F /* C_Manager.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; path = C_Manager.cpp; sourceTree = "<group>"; };
+		AE63F4C1133208430016A00F /* C_Manager.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; path = C_Manager.h; sourceTree = "<group>"; };
+		AE63F4C2133208430016A00F /* C_Manager.ui */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = text.xml; path = C_Manager.ui; sourceTree = "<group>"; };
+		AE63F4C3133208430016A00F /* CApp.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; path = CApp.cpp; sourceTree = "<group>"; };
+		AE63F4C4133208430016A00F /* CApp.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; path = CApp.h; sourceTree = "<group>"; };
+		AE63F4C5133208430016A00F /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		AE63F4C6133208430016A00F /* Manager.pro */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = text; path = Manager.pro; sourceTree = "<group>"; };
+		AE63F4CF133208D70016A00F /* C_Dlg_Agenda.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = C_Dlg_Agenda.cpp; path = "../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F4D0133208D70016A00F /* C_Dlg_Agenda.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = C_Dlg_Agenda.h; path = "../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.h"; sourceTree = SOURCE_ROOT; };
+		AE63F4D1133208D70016A00F /* C_Dlg_RdvTypeConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = C_Dlg_RdvTypeConfig.cpp; path = "../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F4D2133208D70016A00F /* C_Dlg_RdvTypeConfig.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = C_Dlg_RdvTypeConfig.h; path = "../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.h"; sourceTree = SOURCE_ROOT; };
+		AE63F4D3133208D70016A00F /* C_Dlg_RdvTypeConfig.ui */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = text.xml; name = C_Dlg_RdvTypeConfig.ui; path = "../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.ui"; sourceTree = SOURCE_ROOT; };
+		AE63F4D4133208D70016A00F /* C_RendezVous.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = C_RendezVous.cpp; path = "../../MedinTuxTools-QT4/Agenda/C_RendezVous.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F4D5133208D70016A00F /* C_RendezVous.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = C_RendezVous.h; path = "../../MedinTuxTools-QT4/Agenda/C_RendezVous.h"; sourceTree = SOURCE_ROOT; };
+		AE63F4D6133208D70016A00F /* CMoteurAgenda.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = CMoteurAgenda.cpp; path = "../../MedinTuxTools-QT4/Agenda/CMoteurAgenda.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F4D7133208D70016A00F /* CMoteurAgenda.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = CMoteurAgenda.h; path = "../../MedinTuxTools-QT4/Agenda/CMoteurAgenda.h"; sourceTree = SOURCE_ROOT; };
+		AE63F4D8133208D70016A00F /* Dlg_MainWindow.ui */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = text.xml; name = Dlg_MainWindow.ui; path = "../../MedinTuxTools-QT4/Agenda/Dlg_MainWindow.ui"; sourceTree = SOURCE_ROOT; };
+		AE63F4D9133208D70016A00F /* C_AppCore.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = C_AppCore.cpp; path = "../../MedinTuxTools-QT4/C_AppCore.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F4DA133208D70016A00F /* C_AppCore.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = C_AppCore.h; path = "../../MedinTuxTools-QT4/C_AppCore.h"; sourceTree = SOURCE_ROOT; };
+		AE63F4DB133208D70016A00F /* C_BaseCommon.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = C_BaseCommon.cpp; path = "../../MedinTuxTools-QT4/C_BaseCommon.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F4DC133208D70016A00F /* C_BaseCommon.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = C_BaseCommon.h; path = "../../MedinTuxTools-QT4/C_BaseCommon.h"; sourceTree = SOURCE_ROOT; };
+		AE63F4DE133208D70016A00F /* C_BaseDatasemp.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = C_BaseDatasemp.cpp; path = "../../MedinTuxTools-QT4/C_BaseDatasemp/C_BaseDatasemp.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F4DF133208D70016A00F /* C_BaseDatasemp.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = C_BaseDatasemp.h; path = "../../MedinTuxTools-QT4/C_BaseDatasemp/C_BaseDatasemp.h"; sourceTree = SOURCE_ROOT; };
+		AE63F4E0133208D70016A00F /* C_DSVar.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = C_DSVar.cpp; path = "../../MedinTuxTools-QT4/C_BaseDatasemp/C_DSVar.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F4E1133208D70016A00F /* C_DSVar.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = C_DSVar.h; path = "../../MedinTuxTools-QT4/C_BaseDatasemp/C_DSVar.h"; sourceTree = SOURCE_ROOT; };
+		AE63F4E2133208D70016A00F /* C_DBVarDrTux.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = C_DBVarDrTux.cpp; path = "../../MedinTuxTools-QT4/C_DBVarDrTux.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F4E3133208D70016A00F /* C_DBVarDrTux.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = C_DBVarDrTux.h; path = "../../MedinTuxTools-QT4/C_DBVarDrTux.h"; sourceTree = SOURCE_ROOT; };
+		AE63F4E5133208D70016A00F /* C_Dlg_DoList.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = C_Dlg_DoList.cpp; path = "../../MedinTuxTools-QT4/C_Dlg_DoList/C_Dlg_DoList.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F4E6133208D70016A00F /* C_Dlg_DoList.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = C_Dlg_DoList.h; path = "../../MedinTuxTools-QT4/C_Dlg_DoList/C_Dlg_DoList.h"; sourceTree = SOURCE_ROOT; };
+		AE63F4E7133208D70016A00F /* C_Dlg_DoList.ui */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = text.xml; name = C_Dlg_DoList.ui; path = "../../MedinTuxTools-QT4/C_Dlg_DoList/C_Dlg_DoList.ui"; sourceTree = SOURCE_ROOT; };
+		AE63F4E8133208D70016A00F /* C_KeyPressEater.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = C_KeyPressEater.cpp; path = "../../MedinTuxTools-QT4/C_Dlg_DoList/C_KeyPressEater.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F4E9133208D70016A00F /* C_KeyPressEater.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = C_KeyPressEater.h; path = "../../MedinTuxTools-QT4/C_Dlg_DoList/C_KeyPressEater.h"; sourceTree = SOURCE_ROOT; };
+		AE63F4EB133208D70016A00F /* C_DlgApropos.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = C_DlgApropos.cpp; path = "../../MedinTuxTools-QT4/C_DlgApropos/C_DlgApropos.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F4EC133208D70016A00F /* C_DlgApropos.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = C_DlgApropos.h; path = "../../MedinTuxTools-QT4/C_DlgApropos/C_DlgApropos.h"; sourceTree = SOURCE_ROOT; };
+		AE63F4ED133208D70016A00F /* C_DlgApropos.ui */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = text.xml; name = C_DlgApropos.ui; path = "../../MedinTuxTools-QT4/C_DlgApropos/C_DlgApropos.ui"; sourceTree = SOURCE_ROOT; };
+		AE63F4EF133208D70016A00F /* C_DragQTreeWidget.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = C_DragQTreeWidget.cpp; path = "../../MedinTuxTools-QT4/C_DragQTreeWidget/C_DragQTreeWidget.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F4F0133208D70016A00F /* C_DragQTreeWidget.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = C_DragQTreeWidget.h; path = "../../MedinTuxTools-QT4/C_DragQTreeWidget/C_DragQTreeWidget.h"; sourceTree = SOURCE_ROOT; };
+		AE63F4F1133208D70016A00F /* C_Huffman.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = C_Huffman.cpp; path = "../../MedinTuxTools-QT4/C_Huffman.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F4F2133208D70016A00F /* C_Huffman.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = C_Huffman.h; path = "../../MedinTuxTools-QT4/C_Huffman.h"; sourceTree = SOURCE_ROOT; };
+		AE63F4F3133208D70016A00F /* C_ImageList.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = C_ImageList.cpp; path = "../../MedinTuxTools-QT4/C_ImageList.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F4F4133208D70016A00F /* C_ImageList.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = C_ImageList.h; path = "../../MedinTuxTools-QT4/C_ImageList.h"; sourceTree = SOURCE_ROOT; };
+		AE63F4F6133208D70016A00F /* C_Dlg_Login.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = C_Dlg_Login.cpp; path = "../../MedinTuxTools-QT4/C_Login/C_Dlg_Login.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F4F7133208D70016A00F /* C_Dlg_Login.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = C_Dlg_Login.h; path = "../../MedinTuxTools-QT4/C_Login/C_Dlg_Login.h"; sourceTree = SOURCE_ROOT; };
+		AE63F4F8133208D70016A00F /* C_Dlg_Login.ui */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = text.xml; name = C_Dlg_Login.ui; path = "../../MedinTuxTools-QT4/C_Login/C_Dlg_Login.ui"; sourceTree = SOURCE_ROOT; };
+		AE63F4F9133208D70016A00F /* C_Macro_Core.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = C_Macro_Core.cpp; path = "../../MedinTuxTools-QT4/C_Macro_Core.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F4FA133208D70016A00F /* C_Macro_Core.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = C_Macro_Core.h; path = "../../MedinTuxTools-QT4/C_Macro_Core.h"; sourceTree = SOURCE_ROOT; };
+		AE63F4FB133208D70016A00F /* C_MedinTuxDataView.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = C_MedinTuxDataView.cpp; path = "../../MedinTuxTools-QT4/C_MedinTuxDataView.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F4FC133208D70016A00F /* C_MedinTuxDataView.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = C_MedinTuxDataView.h; path = "../../MedinTuxTools-QT4/C_MedinTuxDataView.h"; sourceTree = SOURCE_ROOT; };
+		AE63F4FD133208D70016A00F /* C_MUI_App.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = C_MUI_App.cpp; path = "../../MedinTuxTools-QT4/C_MUI_App.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F4FE133208D70016A00F /* C_MUI_App.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = C_MUI_App.h; path = "../../MedinTuxTools-QT4/C_MUI_App.h"; sourceTree = SOURCE_ROOT; };
+		AE63F4FF133208D70016A00F /* C_Organiseur.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = C_Organiseur.cpp; path = "../../MedinTuxTools-QT4/C_Organiseur.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F500133208D70016A00F /* C_Organiseur.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = C_Organiseur.h; path = "../../MedinTuxTools-QT4/C_Organiseur.h"; sourceTree = SOURCE_ROOT; };
+		AE63F502133208D70016A00F /* C_QLineEdit.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = C_QLineEdit.cpp; path = "../../MedinTuxTools-QT4/C_QLineEdit/C_QLineEdit.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F503133208D70016A00F /* C_QLineEdit.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = C_QLineEdit.h; path = "../../MedinTuxTools-QT4/C_QLineEdit/C_QLineEdit.h"; sourceTree = SOURCE_ROOT; };
+		AE63F504133208D70016A00F /* C_QLineEditPlugin.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = C_QLineEditPlugin.cpp; path = "../../MedinTuxTools-QT4/C_QLineEdit/C_QLineEditPlugin.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F505133208D70016A00F /* C_QLineEditPlugin.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = C_QLineEditPlugin.h; path = "../../MedinTuxTools-QT4/C_QLineEdit/C_QLineEditPlugin.h"; sourceTree = SOURCE_ROOT; };
+		AE63F506133208D70016A00F /* C_QLineEditPlugin.pro */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = text; name = C_QLineEditPlugin.pro; path = "../../MedinTuxTools-QT4/C_QLineEdit/C_QLineEditPlugin.pro"; sourceTree = SOURCE_ROOT; };
+		AE63F507133208D70016A00F /* libC_QLineEditPlugin.so */ = {isa = PBXFileReference; lastKnownFileType = file; name = libC_QLineEditPlugin.so; path = "../../MedinTuxTools-QT4/C_QLineEdit/libC_QLineEditPlugin.so"; sourceTree = SOURCE_ROOT; };
+		AE63F509133208D70016A00F /* C_QWebView.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = C_QWebView.cpp; path = "../../MedinTuxTools-QT4/C_QWebView/C_QWebView.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F50A133208D70016A00F /* C_QWebView.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = C_QWebView.h; path = "../../MedinTuxTools-QT4/C_QWebView/C_QWebView.h"; sourceTree = SOURCE_ROOT; };
+		AE63F50B133208D70016A00F /* C_Utils_Html.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = C_Utils_Html.cpp; path = "../../MedinTuxTools-QT4/C_Utils_Html.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F50C133208D70016A00F /* C_Utils_Html.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = C_Utils_Html.h; path = "../../MedinTuxTools-QT4/C_Utils_Html.h"; sourceTree = SOURCE_ROOT; };
+		AE63F50D133208D70016A00F /* C_Utils_Log.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = C_Utils_Log.cpp; path = "../../MedinTuxTools-QT4/C_Utils_Log.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F50E133208D70016A00F /* C_Utils_Log.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = C_Utils_Log.h; path = "../../MedinTuxTools-QT4/C_Utils_Log.h"; sourceTree = SOURCE_ROOT; };
+		AE63F50F133208D70016A00F /* C_Zip.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = C_Zip.cpp; path = "../../MedinTuxTools-QT4/C_Zip.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F510133208D70016A00F /* C_Zip.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = C_Zip.h; path = "../../MedinTuxTools-QT4/C_Zip.h"; sourceTree = SOURCE_ROOT; };
+		AE63F512133208D70016A00F /* adler32.c */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.c; name = adler32.c; path = "../../MedinTuxTools-QT4/C_Zlib/adler32.c"; sourceTree = SOURCE_ROOT; };
+		AE63F513133208D70016A00F /* C_Zlib.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = C_Zlib.cpp; path = "../../MedinTuxTools-QT4/C_Zlib/C_Zlib.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F514133208D70016A00F /* C_Zlib.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = C_Zlib.h; path = "../../MedinTuxTools-QT4/C_Zlib/C_Zlib.h"; sourceTree = SOURCE_ROOT; };
+		AE63F515133208D70016A00F /* compress.c */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.c; name = compress.c; path = "../../MedinTuxTools-QT4/C_Zlib/compress.c"; sourceTree = SOURCE_ROOT; };
+		AE63F516133208D70016A00F /* crc32.c */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.c; name = crc32.c; path = "../../MedinTuxTools-QT4/C_Zlib/crc32.c"; sourceTree = SOURCE_ROOT; };
+		AE63F517133208D70016A00F /* crc32.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = crc32.h; path = "../../MedinTuxTools-QT4/C_Zlib/crc32.h"; sourceTree = SOURCE_ROOT; };
+		AE63F518133208D70016A00F /* deflate.c */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.c; name = deflate.c; path = "../../MedinTuxTools-QT4/C_Zlib/deflate.c"; sourceTree = SOURCE_ROOT; };
+		AE63F519133208D70016A00F /* deflate.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = deflate.h; path = "../../MedinTuxTools-QT4/C_Zlib/deflate.h"; sourceTree = SOURCE_ROOT; };
+		AE63F51A133208D70016A00F /* gzio.c */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.c; name = gzio.c; path = "../../MedinTuxTools-QT4/C_Zlib/gzio.c"; sourceTree = SOURCE_ROOT; };
+		AE63F51B133208D70016A00F /* infback.c */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.c; name = infback.c; path = "../../MedinTuxTools-QT4/C_Zlib/infback.c"; sourceTree = SOURCE_ROOT; };
+		AE63F51C133208D70016A00F /* inffast.c */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.c; name = inffast.c; path = "../../MedinTuxTools-QT4/C_Zlib/inffast.c"; sourceTree = SOURCE_ROOT; };
+		AE63F51D133208D70016A00F /* inffast.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = inffast.h; path = "../../MedinTuxTools-QT4/C_Zlib/inffast.h"; sourceTree = SOURCE_ROOT; };
+		AE63F51E133208D70016A00F /* inffixed.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = inffixed.h; path = "../../MedinTuxTools-QT4/C_Zlib/inffixed.h"; sourceTree = SOURCE_ROOT; };
+		AE63F51F133208D70016A00F /* inflate.c */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.c; name = inflate.c; path = "../../MedinTuxTools-QT4/C_Zlib/inflate.c"; sourceTree = SOURCE_ROOT; };
+		AE63F520133208D70016A00F /* inflate.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = inflate.h; path = "../../MedinTuxTools-QT4/C_Zlib/inflate.h"; sourceTree = SOURCE_ROOT; };
+		AE63F521133208D70016A00F /* inftrees.c */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.c; name = inftrees.c; path = "../../MedinTuxTools-QT4/C_Zlib/inftrees.c"; sourceTree = SOURCE_ROOT; };
+		AE63F522133208D70016A00F /* inftrees.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = inftrees.h; path = "../../MedinTuxTools-QT4/C_Zlib/inftrees.h"; sourceTree = SOURCE_ROOT; };
+		AE63F523133208D70016A00F /* minigzip.c */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.c; name = minigzip.c; path = "../../MedinTuxTools-QT4/C_Zlib/minigzip.c"; sourceTree = SOURCE_ROOT; };
+		AE63F524133208D70016A00F /* trees.c */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.c; name = trees.c; path = "../../MedinTuxTools-QT4/C_Zlib/trees.c"; sourceTree = SOURCE_ROOT; };
+		AE63F525133208D70016A00F /* trees.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = trees.h; path = "../../MedinTuxTools-QT4/C_Zlib/trees.h"; sourceTree = SOURCE_ROOT; };
+		AE63F526133208D70016A00F /* uncompr.c */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.c; name = uncompr.c; path = "../../MedinTuxTools-QT4/C_Zlib/uncompr.c"; sourceTree = SOURCE_ROOT; };
+		AE63F527133208D70016A00F /* zconf.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = zconf.h; path = "../../MedinTuxTools-QT4/C_Zlib/zconf.h"; sourceTree = SOURCE_ROOT; };
+		AE63F528133208D70016A00F /* zconf.in.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = zconf.in.h; path = "../../MedinTuxTools-QT4/C_Zlib/zconf.in.h"; sourceTree = SOURCE_ROOT; };
+		AE63F529133208D70016A00F /* zlib.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = zlib.h; path = "../../MedinTuxTools-QT4/C_Zlib/zlib.h"; sourceTree = SOURCE_ROOT; };
+		AE63F52A133208D70016A00F /* zlib_test.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = zlib_test.cpp; path = "../../MedinTuxTools-QT4/C_Zlib/zlib_test.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F52B133208D70016A00F /* zutil.c */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.c; name = zutil.c; path = "../../MedinTuxTools-QT4/C_Zlib/zutil.c"; sourceTree = SOURCE_ROOT; };
+		AE63F52C133208D70016A00F /* zutil.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = zutil.h; path = "../../MedinTuxTools-QT4/C_Zlib/zutil.h"; sourceTree = SOURCE_ROOT; };
+		AE63F52E133208D70016A00F /* C_Horloge.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = C_Horloge.cpp; path = "../../MedinTuxTools-QT4/Calendar/C_Horloge.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F52F133208D70016A00F /* C_Horloge.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = C_Horloge.h; path = "../../MedinTuxTools-QT4/Calendar/C_Horloge.h"; sourceTree = SOURCE_ROOT; };
+		AE63F530133208D70016A00F /* Dlg_Calendar.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = Dlg_Calendar.cpp; path = "../../MedinTuxTools-QT4/Calendar/Dlg_Calendar.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F531133208D70016A00F /* Dlg_Calendar.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = Dlg_Calendar.h; path = "../../MedinTuxTools-QT4/Calendar/Dlg_Calendar.h"; sourceTree = SOURCE_ROOT; };
+		AE63F532133208D70016A00F /* Dlg_Calendar.ui */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = text; name = Dlg_Calendar.ui; path = "../../MedinTuxTools-QT4/Calendar/Dlg_Calendar.ui"; sourceTree = SOURCE_ROOT; };
+		AE63F533133208D70016A00F /* Dlg_Calendar.ui.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = Dlg_Calendar.ui.h; path = "../../MedinTuxTools-QT4/Calendar/Dlg_Calendar.ui.h"; sourceTree = SOURCE_ROOT; };
+		AE63F534133208D70016A00F /* dlgcalendar.ui */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = text.xml; name = dlgcalendar.ui; path = "../../MedinTuxTools-QT4/Calendar/dlgcalendar.ui"; sourceTree = SOURCE_ROOT; };
+		AE63F535133208D70016A00F /* MyDateTable.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = MyDateTable.cpp; path = "../../MedinTuxTools-QT4/Calendar/MyDateTable.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F536133208D70016A00F /* MyDateTable.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = MyDateTable.h; path = "../../MedinTuxTools-QT4/Calendar/MyDateTable.h"; sourceTree = SOURCE_ROOT; };
+		AE63F537133208D70016A00F /* CCoolPopup.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = CCoolPopup.cpp; path = "../../MedinTuxTools-QT4/CCoolPopup.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F538133208D70016A00F /* CCoolPopup.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = CCoolPopup.h; path = "../../MedinTuxTools-QT4/CCoolPopup.h"; sourceTree = SOURCE_ROOT; };
+		AE63F539133208D70016A00F /* cdlg_passwordget.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = cdlg_passwordget.cpp; path = "../../MedinTuxTools-QT4/cdlg_passwordget.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F53A133208D70016A00F /* cdlg_passwordget.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = cdlg_passwordget.h; path = "../../MedinTuxTools-QT4/cdlg_passwordget.h"; sourceTree = SOURCE_ROOT; };
+		AE63F53B133208D70016A00F /* CGenTools.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = CGenTools.cpp; path = "../../MedinTuxTools-QT4/CGenTools.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F53C133208D70016A00F /* CGenTools.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = CGenTools.h; path = "../../MedinTuxTools-QT4/CGenTools.h"; sourceTree = SOURCE_ROOT; };
+		AE63F53D133208D70016A00F /* CGestIni.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = CGestIni.cpp; path = "../../MedinTuxTools-QT4/CGestIni.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F53E133208D70016A00F /* CGestIni.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = CGestIni.h; path = "../../MedinTuxTools-QT4/CGestIni.h"; sourceTree = SOURCE_ROOT; };
+		AE63F53F133208D70016A00F /* CHtmlTools.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = CHtmlTools.cpp; path = "../../MedinTuxTools-QT4/CHtmlTools.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F540133208D70016A00F /* CHtmlTools.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = CHtmlTools.h; path = "../../MedinTuxTools-QT4/CHtmlTools.h"; sourceTree = SOURCE_ROOT; };
+		AE63F541133208D70016A00F /* CMaskedLineEdit.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = CMaskedLineEdit.cpp; path = "../../MedinTuxTools-QT4/CMaskedLineEdit.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F542133208D70016A00F /* CMaskedLineEdit.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = CMaskedLineEdit.h; path = "../../MedinTuxTools-QT4/CMaskedLineEdit.h"; sourceTree = SOURCE_ROOT; };
+		AE63F543133208D70016A00F /* CMedicaBase.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = CMedicaBase.cpp; path = "../../MedinTuxTools-QT4/CMedicaBase.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F544133208D70016A00F /* CMedicaBase.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = CMedicaBase.h; path = "../../MedinTuxTools-QT4/CMedicaBase.h"; sourceTree = SOURCE_ROOT; };
+		AE63F545133208D70016A00F /* CMedinTuxApp.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = CMedinTuxApp.cpp; path = "../../MedinTuxTools-QT4/CMedinTuxApp.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F546133208D70016A00F /* CMedinTuxApp.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = CMedinTuxApp.h; path = "../../MedinTuxTools-QT4/CMedinTuxApp.h"; sourceTree = SOURCE_ROOT; };
+		AE63F547133208D70016A00F /* CMoteur_Base.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = CMoteur_Base.cpp; path = "../../MedinTuxTools-QT4/CMoteur_Base.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F548133208D70016A00F /* CMoteur_Base.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = CMoteur_Base.h; path = "../../MedinTuxTools-QT4/CMoteur_Base.h"; sourceTree = SOURCE_ROOT; };
+		AE63F54A133208D70016A00F /* qmdcodec.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = qmdcodec.cpp; path = "../../MedinTuxTools-QT4/Codecs/qmdcodec.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F54B133208D70016A00F /* qmdcodec.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = qmdcodec.h; path = "../../MedinTuxTools-QT4/Codecs/qmdcodec.h"; sourceTree = SOURCE_ROOT; };
+		AE63F54C133208D70016A00F /* CPreview.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = CPreview.h; path = "../../MedinTuxTools-QT4/CPreview.h"; sourceTree = SOURCE_ROOT; };
+		AE63F54D133208D70016A00F /* CPrtQListBoxItem.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = CPrtQListBoxItem.cpp; path = "../../MedinTuxTools-QT4/CPrtQListBoxItem.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F54E133208D70016A00F /* CPrtQListBoxItem.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = CPrtQListBoxItem.h; path = "../../MedinTuxTools-QT4/CPrtQListBoxItem.h"; sourceTree = SOURCE_ROOT; };
+		AE63F54F133208D70016A00F /* CPrtQListViewItem.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = CPrtQListViewItem.cpp; path = "../../MedinTuxTools-QT4/CPrtQListViewItem.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F550133208D70016A00F /* CPrtQListViewItem.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = CPrtQListViewItem.h; path = "../../MedinTuxTools-QT4/CPrtQListViewItem.h"; sourceTree = SOURCE_ROOT; };
+		AE63F551133208D70016A00F /* CRubList.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = CRubList.h; path = "../../MedinTuxTools-QT4/CRubList.h"; sourceTree = SOURCE_ROOT; };
+		AE63F552133208D70016A00F /* CScriptTools.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = CScriptTools.cpp; path = "../../MedinTuxTools-QT4/CScriptTools.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F553133208D70016A00F /* CScriptTools.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = CScriptTools.h; path = "../../MedinTuxTools-QT4/CScriptTools.h"; sourceTree = SOURCE_ROOT; };
+		AE63F554133208D70016A00F /* CSetupBase.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = CSetupBase.cpp; path = "../../MedinTuxTools-QT4/CSetupBase.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F555133208D70016A00F /* CSetupBase.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = CSetupBase.h; path = "../../MedinTuxTools-QT4/CSetupBase.h"; sourceTree = SOURCE_ROOT; };
+		AE63F556133208D70016A00F /* CW_EditText.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = CW_EditText.cpp; path = "../../MedinTuxTools-QT4/CW_EditText.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F557133208D70016A00F /* CW_EditText.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = CW_EditText.h; path = "../../MedinTuxTools-QT4/CW_EditText.h"; sourceTree = SOURCE_ROOT; };
+		AE63F558133208D70016A00F /* DLG_InsertList.ui */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = text; name = DLG_InsertList.ui; path = "../../MedinTuxTools-QT4/DLG_InsertList.ui"; sourceTree = SOURCE_ROOT; };
+		AE63F559133208D70016A00F /* DLG_InsertList.ui.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = DLG_InsertList.ui.h; path = "../../MedinTuxTools-QT4/DLG_InsertList.ui.h"; sourceTree = SOURCE_ROOT; };
+		AE63F55A133208D70016A00F /* Dlg_PasswordGet.ui */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = text; name = Dlg_PasswordGet.ui; path = "../../MedinTuxTools-QT4/Dlg_PasswordGet.ui"; sourceTree = SOURCE_ROOT; };
+		AE63F55B133208D70016A00F /* DlgGetString.ui */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = text; name = DlgGetString.ui; path = "../../MedinTuxTools-QT4/DlgGetString.ui"; sourceTree = SOURCE_ROOT; };
+		AE63F55C133208D70016A00F /* DlgGetString.ui.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = DlgGetString.ui.h; path = "../../MedinTuxTools-QT4/DlgGetString.ui.h"; sourceTree = SOURCE_ROOT; };
+		AE63F55D133208D70016A00F /* DlgListOff_Listes.ui */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = text; name = DlgListOff_Listes.ui; path = "../../MedinTuxTools-QT4/DlgListOff_Listes.ui"; sourceTree = SOURCE_ROOT; };
+		AE63F55E133208D70016A00F /* DlgListOff_Listes.ui.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = DlgListOff_Listes.ui.h; path = "../../MedinTuxTools-QT4/DlgListOff_Listes.ui.h"; sourceTree = SOURCE_ROOT; };
+		AE63F55F133208D70016A00F /* DlgMyMessageBox.ui */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = text; name = DlgMyMessageBox.ui; path = "../../MedinTuxTools-QT4/DlgMyMessageBox.ui"; sourceTree = SOURCE_ROOT; };
+		AE63F560133208D70016A00F /* DlgMyMessageBox.ui.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = DlgMyMessageBox.ui.h; path = "../../MedinTuxTools-QT4/DlgMyMessageBox.ui.h"; sourceTree = SOURCE_ROOT; };
+		AE63F562133208D70016A00F /* basevalidatinglineedit.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = basevalidatinglineedit.cpp; path = "../../MedinTuxTools-QT4/Ex_Tools/basevalidatinglineedit.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F563133208D70016A00F /* basevalidatinglineedit.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = basevalidatinglineedit.h; path = "../../MedinTuxTools-QT4/Ex_Tools/basevalidatinglineedit.h"; sourceTree = SOURCE_ROOT; };
+		AE63F564133208D70016A00F /* Form_Organiseur.ui */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = text; name = Form_Organiseur.ui; path = "../../MedinTuxTools-QT4/Form_Organiseur.ui"; sourceTree = SOURCE_ROOT; };
+		AE63F565133208D70016A00F /* GestRPU.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = GestRPU.cpp; path = "../../MedinTuxTools-QT4/GestRPU.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F566133208D70016A00F /* GestRPU.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = GestRPU.h; path = "../../MedinTuxTools-QT4/GestRPU.h"; sourceTree = SOURCE_ROOT; };
+		AE63F568133208D70016A00F /* CDlg_PasswordGet.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = CDlg_PasswordGet.cpp; path = "../../MedinTuxTools-QT4/GetPassword/CDlg_PasswordGet.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F569133208D70016A00F /* CDlg_PasswordGet.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = CDlg_PasswordGet.h; path = "../../MedinTuxTools-QT4/GetPassword/CDlg_PasswordGet.h"; sourceTree = SOURCE_ROOT; };
+		AE63F56A133208D70016A00F /* CDlg_PasswordGet.ui */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = text.xml; name = CDlg_PasswordGet.ui; path = "../../MedinTuxTools-QT4/GetPassword/CDlg_PasswordGet.ui"; sourceTree = SOURCE_ROOT; };
+		AE63F56C133208D70016A00F /* C_BaseMedica.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = C_BaseMedica.cpp; path = "../../MedinTuxTools-QT4/medicabase/C_BaseMedica.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F56D133208D70016A00F /* C_BaseMedica.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = C_BaseMedica.h; path = "../../MedinTuxTools-QT4/medicabase/C_BaseMedica.h"; sourceTree = SOURCE_ROOT; };
+		AE63F56E133208D70016A00F /* C_DBVar.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = C_DBVar.cpp; path = "../../MedinTuxTools-QT4/medicabase/C_DBVar.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F56F133208D70016A00F /* C_DBVar.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = C_DBVar.h; path = "../../MedinTuxTools-QT4/medicabase/C_DBVar.h"; sourceTree = SOURCE_ROOT; };
+		AE63F570133208D70016A00F /* Dlg_AdvancedTerrain.ui */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = text; name = Dlg_AdvancedTerrain.ui; path = "../../MedinTuxTools-QT4/medicabase/Dlg_AdvancedTerrain.ui"; sourceTree = SOURCE_ROOT; };
+		AE63F571133208D70016A00F /* Dlg_AdvancedTerrain.ui.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = Dlg_AdvancedTerrain.ui.h; path = "../../MedinTuxTools-QT4/medicabase/Dlg_AdvancedTerrain.ui.h"; sourceTree = SOURCE_ROOT; };
+		AE63F572133208D70016A00F /* Dlg_HtmlView.ui */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = text; name = Dlg_HtmlView.ui; path = "../../MedinTuxTools-QT4/medicabase/Dlg_HtmlView.ui"; sourceTree = SOURCE_ROOT; };
+		AE63F573133208D70016A00F /* Dlg_HtmlView.ui.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = Dlg_HtmlView.ui.h; path = "../../MedinTuxTools-QT4/medicabase/Dlg_HtmlView.ui.h"; sourceTree = SOURCE_ROOT; };
+		AE63F574133208D70016A00F /* Dlg_MedicaAdjustPoso.ui */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = text; name = Dlg_MedicaAdjustPoso.ui; path = "../../MedinTuxTools-QT4/medicabase/Dlg_MedicaAdjustPoso.ui"; sourceTree = SOURCE_ROOT; };
+		AE63F575133208D70016A00F /* Dlg_MedicaAdjustPoso.ui.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = Dlg_MedicaAdjustPoso.ui.h; path = "../../MedinTuxTools-QT4/medicabase/Dlg_MedicaAdjustPoso.ui.h"; sourceTree = SOURCE_ROOT; };
+		AE63F576133208D70016A00F /* Dlg_MedicaTux.ui */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = text; name = Dlg_MedicaTux.ui; path = "../../MedinTuxTools-QT4/medicabase/Dlg_MedicaTux.ui"; sourceTree = SOURCE_ROOT; };
+		AE63F577133208D70016A00F /* Dlg_MedicaTux.ui.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = Dlg_MedicaTux.ui.h; path = "../../MedinTuxTools-QT4/medicabase/Dlg_MedicaTux.ui.h"; sourceTree = SOURCE_ROOT; };
+		AE63F578133208D70016A00F /* Dlg_PosoManager.ui */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = text; name = Dlg_PosoManager.ui; path = "../../MedinTuxTools-QT4/medicabase/Dlg_PosoManager.ui"; sourceTree = SOURCE_ROOT; };
+		AE63F579133208D70016A00F /* Dlg_PosoManager.ui.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = Dlg_PosoManager.ui.h; path = "../../MedinTuxTools-QT4/medicabase/Dlg_PosoManager.ui.h"; sourceTree = SOURCE_ROOT; };
+		AE63F57A133208D70016A00F /* DlgPosoAdjust.ui */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = text; name = DlgPosoAdjust.ui; path = "../../MedinTuxTools-QT4/medicabase/DlgPosoAdjust.ui"; sourceTree = SOURCE_ROOT; };
+		AE63F57B133208D70016A00F /* DlgPosoAdjust.ui.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = DlgPosoAdjust.ui.h; path = "../../MedinTuxTools-QT4/medicabase/DlgPosoAdjust.ui.h"; sourceTree = SOURCE_ROOT; };
+		AE63F57C133208D70016A00F /* IsExtraPk.xpm */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = text; name = IsExtraPk.xpm; path = "../../MedinTuxTools-QT4/medicabase/IsExtraPk.xpm"; sourceTree = SOURCE_ROOT; };
+		AE63F57D133208D70016A00F /* Rubriques.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = Rubriques.h; path = "../../MedinTuxTools-QT4/Rubriques.h"; sourceTree = SOURCE_ROOT; };
+		AE63F57E133208D70016A00F /* Switch_MUI.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = Switch_MUI.h; path = "../../MedinTuxTools-QT4/Switch_MUI.h"; sourceTree = SOURCE_ROOT; };
+		AE63F580133208D70016A00F /* Theme.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = Theme.cpp; path = "../../MedinTuxTools-QT4/Theme/Theme.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F581133208D70016A00F /* Theme.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = Theme.h; path = "../../MedinTuxTools-QT4/Theme/Theme.h"; sourceTree = SOURCE_ROOT; };
+		AE63F582133208D70016A00F /* ThemePopup.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = ThemePopup.cpp; path = "../../MedinTuxTools-QT4/Theme/ThemePopup.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F583133208D70016A00F /* ThemePopup.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = ThemePopup.h; path = "../../MedinTuxTools-QT4/Theme/ThemePopup.h"; sourceTree = SOURCE_ROOT; };
+		AE63F584133208D70016A00F /* Theme.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = Theme.cpp; path = "../../MedinTuxTools-QT4/Theme.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F585133208D70016A00F /* Theme.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = Theme.h; path = "../../MedinTuxTools-QT4/Theme.h"; sourceTree = SOURCE_ROOT; };
+		AE63F586133208D70016A00F /* ThemePopup.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = ThemePopup.cpp; path = "../../MedinTuxTools-QT4/ThemePopup.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F587133208D70016A00F /* ThemePopup.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = ThemePopup.h; path = "../../MedinTuxTools-QT4/ThemePopup.h"; sourceTree = SOURCE_ROOT; };
+		AE63F589133208D70016A00F /* C_Frm_UserList.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = C_Frm_UserList.cpp; path = "../../MedinTuxTools-QT4/UserList/C_Frm_UserList.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F58A133208D70016A00F /* C_Frm_UserList.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = C_Frm_UserList.h; path = "../../MedinTuxTools-QT4/UserList/C_Frm_UserList.h"; sourceTree = SOURCE_ROOT; };
+		AE63F58B133208D70016A00F /* C_Frm_UserList.ui */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = text.xml; name = C_Frm_UserList.ui; path = "../../MedinTuxTools-QT4/UserList/C_Frm_UserList.ui"; sourceTree = SOURCE_ROOT; };
+		AE63F58D133208D70016A00F /* C_MyUuid.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = C_MyUuid.cpp; path = "../../MedinTuxTools-QT4/uuid/C_MyUuid.cpp"; sourceTree = SOURCE_ROOT; };
+		AE63F58E133208D70016A00F /* C_MyUuid.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = C_MyUuid.h; path = "../../MedinTuxTools-QT4/uuid/C_MyUuid.h"; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		08FB7794FE84155DC02AAC07 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				AE63F4CD133208D70016A00F /* MedinTuxTools-QT4 */,
+				AE63F4C0133208430016A00F /* C_Manager.cpp */,
+				AE63F4C1133208430016A00F /* C_Manager.h */,
+				AE63F4C2133208430016A00F /* C_Manager.ui */,
+				AE63F4C3133208430016A00F /* CApp.cpp */,
+				AE63F4C4133208430016A00F /* CApp.h */,
+				AE63F4C5133208430016A00F /* main.cpp */,
+				AE63F4C6133208430016A00F /* Manager.pro */,
+			);
+			name = Manager;
+			sourceTree = "<group>";
+		};
+		AE63F4CD133208D70016A00F /* MedinTuxTools-QT4 */ = {
+			isa = PBXGroup;
+			children = (
+				AE63F4CE133208D70016A00F /* Agenda */,
+				AE63F4D9133208D70016A00F /* C_AppCore.cpp */,
+				AE63F4DA133208D70016A00F /* C_AppCore.h */,
+				AE63F4DB133208D70016A00F /* C_BaseCommon.cpp */,
+				AE63F4DC133208D70016A00F /* C_BaseCommon.h */,
+				AE63F4DD133208D70016A00F /* C_BaseDatasemp */,
+				AE63F4E2133208D70016A00F /* C_DBVarDrTux.cpp */,
+				AE63F4E3133208D70016A00F /* C_DBVarDrTux.h */,
+				AE63F4E4133208D70016A00F /* C_Dlg_DoList */,
+				AE63F4EA133208D70016A00F /* C_DlgApropos */,
+				AE63F4EE133208D70016A00F /* C_DragQTreeWidget */,
+				AE63F4F1133208D70016A00F /* C_Huffman.cpp */,
+				AE63F4F2133208D70016A00F /* C_Huffman.h */,
+				AE63F4F3133208D70016A00F /* C_ImageList.cpp */,
+				AE63F4F4133208D70016A00F /* C_ImageList.h */,
+				AE63F4F5133208D70016A00F /* C_Login */,
+				AE63F4F9133208D70016A00F /* C_Macro_Core.cpp */,
+				AE63F4FA133208D70016A00F /* C_Macro_Core.h */,
+				AE63F4FB133208D70016A00F /* C_MedinTuxDataView.cpp */,
+				AE63F4FC133208D70016A00F /* C_MedinTuxDataView.h */,
+				AE63F4FD133208D70016A00F /* C_MUI_App.cpp */,
+				AE63F4FE133208D70016A00F /* C_MUI_App.h */,
+				AE63F4FF133208D70016A00F /* C_Organiseur.cpp */,
+				AE63F500133208D70016A00F /* C_Organiseur.h */,
+				AE63F501133208D70016A00F /* C_QLineEdit */,
+				AE63F508133208D70016A00F /* C_QWebView */,
+				AE63F50B133208D70016A00F /* C_Utils_Html.cpp */,
+				AE63F50C133208D70016A00F /* C_Utils_Html.h */,
+				AE63F50D133208D70016A00F /* C_Utils_Log.cpp */,
+				AE63F50E133208D70016A00F /* C_Utils_Log.h */,
+				AE63F50F133208D70016A00F /* C_Zip.cpp */,
+				AE63F510133208D70016A00F /* C_Zip.h */,
+				AE63F511133208D70016A00F /* C_Zlib */,
+				AE63F52D133208D70016A00F /* Calendar */,
+				AE63F537133208D70016A00F /* CCoolPopup.cpp */,
+				AE63F538133208D70016A00F /* CCoolPopup.h */,
+				AE63F539133208D70016A00F /* cdlg_passwordget.cpp */,
+				AE63F53A133208D70016A00F /* cdlg_passwordget.h */,
+				AE63F53B133208D70016A00F /* CGenTools.cpp */,
+				AE63F53C133208D70016A00F /* CGenTools.h */,
+				AE63F53D133208D70016A00F /* CGestIni.cpp */,
+				AE63F53E133208D70016A00F /* CGestIni.h */,
+				AE63F53F133208D70016A00F /* CHtmlTools.cpp */,
+				AE63F540133208D70016A00F /* CHtmlTools.h */,
+				AE63F541133208D70016A00F /* CMaskedLineEdit.cpp */,
+				AE63F542133208D70016A00F /* CMaskedLineEdit.h */,
+				AE63F543133208D70016A00F /* CMedicaBase.cpp */,
+				AE63F544133208D70016A00F /* CMedicaBase.h */,
+				AE63F545133208D70016A00F /* CMedinTuxApp.cpp */,
+				AE63F546133208D70016A00F /* CMedinTuxApp.h */,
+				AE63F547133208D70016A00F /* CMoteur_Base.cpp */,
+				AE63F548133208D70016A00F /* CMoteur_Base.h */,
+				AE63F549133208D70016A00F /* Codecs */,
+				AE63F54C133208D70016A00F /* CPreview.h */,
+				AE63F54D133208D70016A00F /* CPrtQListBoxItem.cpp */,
+				AE63F54E133208D70016A00F /* CPrtQListBoxItem.h */,
+				AE63F54F133208D70016A00F /* CPrtQListViewItem.cpp */,
+				AE63F550133208D70016A00F /* CPrtQListViewItem.h */,
+				AE63F551133208D70016A00F /* CRubList.h */,
+				AE63F552133208D70016A00F /* CScriptTools.cpp */,
+				AE63F553133208D70016A00F /* CScriptTools.h */,
+				AE63F554133208D70016A00F /* CSetupBase.cpp */,
+				AE63F555133208D70016A00F /* CSetupBase.h */,
+				AE63F556133208D70016A00F /* CW_EditText.cpp */,
+				AE63F557133208D70016A00F /* CW_EditText.h */,
+				AE63F558133208D70016A00F /* DLG_InsertList.ui */,
+				AE63F559133208D70016A00F /* DLG_InsertList.ui.h */,
+				AE63F55A133208D70016A00F /* Dlg_PasswordGet.ui */,
+				AE63F55B133208D70016A00F /* DlgGetString.ui */,
+				AE63F55C133208D70016A00F /* DlgGetString.ui.h */,
+				AE63F55D133208D70016A00F /* DlgListOff_Listes.ui */,
+				AE63F55E133208D70016A00F /* DlgListOff_Listes.ui.h */,
+				AE63F55F133208D70016A00F /* DlgMyMessageBox.ui */,
+				AE63F560133208D70016A00F /* DlgMyMessageBox.ui.h */,
+				AE63F561133208D70016A00F /* Ex_Tools */,
+				AE63F564133208D70016A00F /* Form_Organiseur.ui */,
+				AE63F565133208D70016A00F /* GestRPU.cpp */,
+				AE63F566133208D70016A00F /* GestRPU.h */,
+				AE63F567133208D70016A00F /* GetPassword */,
+				AE63F56B133208D70016A00F /* medicabase */,
+				AE63F57D133208D70016A00F /* Rubriques.h */,
+				AE63F57E133208D70016A00F /* Switch_MUI.h */,
+				AE63F57F133208D70016A00F /* Theme */,
+				AE63F584133208D70016A00F /* Theme.cpp */,
+				AE63F585133208D70016A00F /* Theme.h */,
+				AE63F586133208D70016A00F /* ThemePopup.cpp */,
+				AE63F587133208D70016A00F /* ThemePopup.h */,
+				AE63F588133208D70016A00F /* UserList */,
+				AE63F58C133208D70016A00F /* uuid */,
+			);
+			name = "MedinTuxTools-QT4";
+			path = "../../MedinTuxTools-QT4";
+			sourceTree = SOURCE_ROOT;
+		};
+		AE63F4CE133208D70016A00F /* Agenda */ = {
+			isa = PBXGroup;
+			children = (
+				AE63F4CF133208D70016A00F /* C_Dlg_Agenda.cpp */,
+				AE63F4D0133208D70016A00F /* C_Dlg_Agenda.h */,
+				AE63F4D1133208D70016A00F /* C_Dlg_RdvTypeConfig.cpp */,
+				AE63F4D2133208D70016A00F /* C_Dlg_RdvTypeConfig.h */,
+				AE63F4D3133208D70016A00F /* C_Dlg_RdvTypeConfig.ui */,
+				AE63F4D4133208D70016A00F /* C_RendezVous.cpp */,
+				AE63F4D5133208D70016A00F /* C_RendezVous.h */,
+				AE63F4D6133208D70016A00F /* CMoteurAgenda.cpp */,
+				AE63F4D7133208D70016A00F /* CMoteurAgenda.h */,
+				AE63F4D8133208D70016A00F /* Dlg_MainWindow.ui */,
+			);
+			name = Agenda;
+			path = "../../MedinTuxTools-QT4/Agenda";
+			sourceTree = SOURCE_ROOT;
+		};
+		AE63F4DD133208D70016A00F /* C_BaseDatasemp */ = {
+			isa = PBXGroup;
+			children = (
+				AE63F4DE133208D70016A00F /* C_BaseDatasemp.cpp */,
+				AE63F4DF133208D70016A00F /* C_BaseDatasemp.h */,
+				AE63F4E0133208D70016A00F /* C_DSVar.cpp */,
+				AE63F4E1133208D70016A00F /* C_DSVar.h */,
+			);
+			name = C_BaseDatasemp;
+			path = "../../MedinTuxTools-QT4/C_BaseDatasemp";
+			sourceTree = SOURCE_ROOT;
+		};
+		AE63F4E4133208D70016A00F /* C_Dlg_DoList */ = {
+			isa = PBXGroup;
+			children = (
+				AE63F4E5133208D70016A00F /* C_Dlg_DoList.cpp */,
+				AE63F4E6133208D70016A00F /* C_Dlg_DoList.h */,
+				AE63F4E7133208D70016A00F /* C_Dlg_DoList.ui */,
+				AE63F4E8133208D70016A00F /* C_KeyPressEater.cpp */,
+				AE63F4E9133208D70016A00F /* C_KeyPressEater.h */,
+			);
+			name = C_Dlg_DoList;
+			path = "../../MedinTuxTools-QT4/C_Dlg_DoList";
+			sourceTree = SOURCE_ROOT;
+		};
+		AE63F4EA133208D70016A00F /* C_DlgApropos */ = {
+			isa = PBXGroup;
+			children = (
+				AE63F4EB133208D70016A00F /* C_DlgApropos.cpp */,
+				AE63F4EC133208D70016A00F /* C_DlgApropos.h */,
+				AE63F4ED133208D70016A00F /* C_DlgApropos.ui */,
+			);
+			name = C_DlgApropos;
+			path = "../../MedinTuxTools-QT4/C_DlgApropos";
+			sourceTree = SOURCE_ROOT;
+		};
+		AE63F4EE133208D70016A00F /* C_DragQTreeWidget */ = {
+			isa = PBXGroup;
+			children = (
+				AE63F4EF133208D70016A00F /* C_DragQTreeWidget.cpp */,
+				AE63F4F0133208D70016A00F /* C_DragQTreeWidget.h */,
+			);
+			name = C_DragQTreeWidget;
+			path = "../../MedinTuxTools-QT4/C_DragQTreeWidget";
+			sourceTree = SOURCE_ROOT;
+		};
+		AE63F4F5133208D70016A00F /* C_Login */ = {
+			isa = PBXGroup;
+			children = (
+				AE63F4F6133208D70016A00F /* C_Dlg_Login.cpp */,
+				AE63F4F7133208D70016A00F /* C_Dlg_Login.h */,
+				AE63F4F8133208D70016A00F /* C_Dlg_Login.ui */,
+			);
+			name = C_Login;
+			path = "../../MedinTuxTools-QT4/C_Login";
+			sourceTree = SOURCE_ROOT;
+		};
+		AE63F501133208D70016A00F /* C_QLineEdit */ = {
+			isa = PBXGroup;
+			children = (
+				AE63F502133208D70016A00F /* C_QLineEdit.cpp */,
+				AE63F503133208D70016A00F /* C_QLineEdit.h */,
+				AE63F504133208D70016A00F /* C_QLineEditPlugin.cpp */,
+				AE63F505133208D70016A00F /* C_QLineEditPlugin.h */,
+				AE63F506133208D70016A00F /* C_QLineEditPlugin.pro */,
+				AE63F507133208D70016A00F /* libC_QLineEditPlugin.so */,
+			);
+			name = C_QLineEdit;
+			path = "../../MedinTuxTools-QT4/C_QLineEdit";
+			sourceTree = SOURCE_ROOT;
+		};
+		AE63F508133208D70016A00F /* C_QWebView */ = {
+			isa = PBXGroup;
+			children = (
+				AE63F509133208D70016A00F /* C_QWebView.cpp */,
+				AE63F50A133208D70016A00F /* C_QWebView.h */,
+			);
+			name = C_QWebView;
+			path = "../../MedinTuxTools-QT4/C_QWebView";
+			sourceTree = SOURCE_ROOT;
+		};
+		AE63F511133208D70016A00F /* C_Zlib */ = {
+			isa = PBXGroup;
+			children = (
+				AE63F512133208D70016A00F /* adler32.c */,
+				AE63F513133208D70016A00F /* C_Zlib.cpp */,
+				AE63F514133208D70016A00F /* C_Zlib.h */,
+				AE63F515133208D70016A00F /* compress.c */,
+				AE63F516133208D70016A00F /* crc32.c */,
+				AE63F517133208D70016A00F /* crc32.h */,
+				AE63F518133208D70016A00F /* deflate.c */,
+				AE63F519133208D70016A00F /* deflate.h */,
+				AE63F51A133208D70016A00F /* gzio.c */,
+				AE63F51B133208D70016A00F /* infback.c */,
+				AE63F51C133208D70016A00F /* inffast.c */,
+				AE63F51D133208D70016A00F /* inffast.h */,
+				AE63F51E133208D70016A00F /* inffixed.h */,
+				AE63F51F133208D70016A00F /* inflate.c */,
+				AE63F520133208D70016A00F /* inflate.h */,
+				AE63F521133208D70016A00F /* inftrees.c */,
+				AE63F522133208D70016A00F /* inftrees.h */,
+				AE63F523133208D70016A00F /* minigzip.c */,
+				AE63F524133208D70016A00F /* trees.c */,
+				AE63F525133208D70016A00F /* trees.h */,
+				AE63F526133208D70016A00F /* uncompr.c */,
+				AE63F527133208D70016A00F /* zconf.h */,
+				AE63F528133208D70016A00F /* zconf.in.h */,
+				AE63F529133208D70016A00F /* zlib.h */,
+				AE63F52A133208D70016A00F /* zlib_test.cpp */,
+				AE63F52B133208D70016A00F /* zutil.c */,
+				AE63F52C133208D70016A00F /* zutil.h */,
+			);
+			name = C_Zlib;
+			path = "../../MedinTuxTools-QT4/C_Zlib";
+			sourceTree = SOURCE_ROOT;
+		};
+		AE63F52D133208D70016A00F /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				AE63F52E133208D70016A00F /* C_Horloge.cpp */,
+				AE63F52F133208D70016A00F /* C_Horloge.h */,
+				AE63F530133208D70016A00F /* Dlg_Calendar.cpp */,
+				AE63F531133208D70016A00F /* Dlg_Calendar.h */,
+				AE63F532133208D70016A00F /* Dlg_Calendar.ui */,
+				AE63F533133208D70016A00F /* Dlg_Calendar.ui.h */,
+				AE63F534133208D70016A00F /* dlgcalendar.ui */,
+				AE63F535133208D70016A00F /* MyDateTable.cpp */,
+				AE63F536133208D70016A00F /* MyDateTable.h */,
+			);
+			name = Calendar;
+			path = "../../MedinTuxTools-QT4/Calendar";
+			sourceTree = SOURCE_ROOT;
+		};
+		AE63F549133208D70016A00F /* Codecs */ = {
+			isa = PBXGroup;
+			children = (
+				AE63F54A133208D70016A00F /* qmdcodec.cpp */,
+				AE63F54B133208D70016A00F /* qmdcodec.h */,
+			);
+			name = Codecs;
+			path = "../../MedinTuxTools-QT4/Codecs";
+			sourceTree = SOURCE_ROOT;
+		};
+		AE63F561133208D70016A00F /* Ex_Tools */ = {
+			isa = PBXGroup;
+			children = (
+				AE63F562133208D70016A00F /* basevalidatinglineedit.cpp */,
+				AE63F563133208D70016A00F /* basevalidatinglineedit.h */,
+			);
+			name = Ex_Tools;
+			path = "../../MedinTuxTools-QT4/Ex_Tools";
+			sourceTree = SOURCE_ROOT;
+		};
+		AE63F567133208D70016A00F /* GetPassword */ = {
+			isa = PBXGroup;
+			children = (
+				AE63F568133208D70016A00F /* CDlg_PasswordGet.cpp */,
+				AE63F569133208D70016A00F /* CDlg_PasswordGet.h */,
+				AE63F56A133208D70016A00F /* CDlg_PasswordGet.ui */,
+			);
+			name = GetPassword;
+			path = "../../MedinTuxTools-QT4/GetPassword";
+			sourceTree = SOURCE_ROOT;
+		};
+		AE63F56B133208D70016A00F /* medicabase */ = {
+			isa = PBXGroup;
+			children = (
+				AE63F56C133208D70016A00F /* C_BaseMedica.cpp */,
+				AE63F56D133208D70016A00F /* C_BaseMedica.h */,
+				AE63F56E133208D70016A00F /* C_DBVar.cpp */,
+				AE63F56F133208D70016A00F /* C_DBVar.h */,
+				AE63F570133208D70016A00F /* Dlg_AdvancedTerrain.ui */,
+				AE63F571133208D70016A00F /* Dlg_AdvancedTerrain.ui.h */,
+				AE63F572133208D70016A00F /* Dlg_HtmlView.ui */,
+				AE63F573133208D70016A00F /* Dlg_HtmlView.ui.h */,
+				AE63F574133208D70016A00F /* Dlg_MedicaAdjustPoso.ui */,
+				AE63F575133208D70016A00F /* Dlg_MedicaAdjustPoso.ui.h */,
+				AE63F576133208D70016A00F /* Dlg_MedicaTux.ui */,
+				AE63F577133208D70016A00F /* Dlg_MedicaTux.ui.h */,
+				AE63F578133208D70016A00F /* Dlg_PosoManager.ui */,
+				AE63F579133208D70016A00F /* Dlg_PosoManager.ui.h */,
+				AE63F57A133208D70016A00F /* DlgPosoAdjust.ui */,
+				AE63F57B133208D70016A00F /* DlgPosoAdjust.ui.h */,
+				AE63F57C133208D70016A00F /* IsExtraPk.xpm */,
+			);
+			name = medicabase;
+			path = "../../MedinTuxTools-QT4/medicabase";
+			sourceTree = SOURCE_ROOT;
+		};
+		AE63F57F133208D70016A00F /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				AE63F580133208D70016A00F /* Theme.cpp */,
+				AE63F581133208D70016A00F /* Theme.h */,
+				AE63F582133208D70016A00F /* ThemePopup.cpp */,
+				AE63F583133208D70016A00F /* ThemePopup.h */,
+			);
+			name = Theme;
+			path = "../../MedinTuxTools-QT4/Theme";
+			sourceTree = SOURCE_ROOT;
+		};
+		AE63F588133208D70016A00F /* UserList */ = {
+			isa = PBXGroup;
+			children = (
+				AE63F589133208D70016A00F /* C_Frm_UserList.cpp */,
+				AE63F58A133208D70016A00F /* C_Frm_UserList.h */,
+				AE63F58B133208D70016A00F /* C_Frm_UserList.ui */,
+			);
+			name = UserList;
+			path = "../../MedinTuxTools-QT4/UserList";
+			sourceTree = SOURCE_ROOT;
+		};
+		AE63F58C133208D70016A00F /* uuid */ = {
+			isa = PBXGroup;
+			children = (
+				AE63F58D133208D70016A00F /* C_MyUuid.cpp */,
+				AE63F58E133208D70016A00F /* C_MyUuid.h */,
+			);
+			name = uuid;
+			path = "../../MedinTuxTools-QT4/uuid";
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXLegacyTarget section */
+		AEEA1680133206BB00B1EA4E /* qmake */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "-spec macx-g++";
+			buildConfigurationList = AEEA1683133206DA00B1EA4E /* Build configuration list for PBXLegacyTarget "qmake" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/qmake;
+			dependencies = (
+			);
+			name = qmake;
+			passBuildSettingsInEnvironment = 1;
+			productName = qmake;
+		};
+		D28A88AD04BDD90700651E21 /* Manager */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = 1DEB918F08733D9F0010E9CD /* Build configuration list for PBXLegacyTarget "Manager" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			dependencies = (
+				AEEA16851332071E00B1EA4E /* PBXTargetDependency */,
+			);
+			name = Manager;
+			passBuildSettingsInEnvironment = 1;
+			productName = Manager;
+		};
+/* End PBXLegacyTarget section */
+
+/* Begin PBXProject section */
+		08FB7793FE84155DC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 1DEB919308733D9F0010E9CD /* Build configuration list for PBXProject "Manager" */;
+			compatibilityVersion = "Xcode 3.0";
+			hasScannedForEncodings = 1;
+			mainGroup = 08FB7794FE84155DC02AAC07 /* Manager */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D28A88AD04BDD90700651E21 /* Manager */,
+				AEEA1680133206BB00B1EA4E /* qmake */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXTargetDependency section */
+		AEEA16851332071E00B1EA4E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AEEA1680133206BB00B1EA4E /* qmake */;
+			targetProxy = AEEA16841332071E00B1EA4E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB919008733D9F0010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEBUGGING_SYMBOLS = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OPTIMIZATION_CFLAGS = "-O0";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = Manager;
+				ZERO_LINK = YES;
+			};
+			name = Debug;
+		};
+		1DEB919108733D9F0010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = Manager;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		1DEB919408733D9F0010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
+			};
+			name = Debug;
+		};
+		1DEB919508733D9F0010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					ppc,
+					i386,
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
+			};
+			name = Release;
+		};
+		AEEA1681133206BB00B1EA4E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = qmake;
+			};
+			name = Debug;
+		};
+		AEEA1682133206BB00B1EA4E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = qmake;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB918F08733D9F0010E9CD /* Build configuration list for PBXLegacyTarget "Manager" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB919008733D9F0010E9CD /* Debug */,
+				1DEB919108733D9F0010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB919308733D9F0010E9CD /* Build configuration list for PBXProject "Manager" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB919408733D9F0010E9CD /* Debug */,
+				1DEB919508733D9F0010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AEEA1683133206DA00B1EA4E /* Build configuration list for PBXLegacyTarget "qmake" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AEEA1681133206BB00B1EA4E /* Debug */,
+				AEEA1682133206BB00B1EA4E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 08FB7793FE84155DC02AAC07 /* Project object */;
+}
