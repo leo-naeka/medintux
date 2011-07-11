@@ -11,7 +11,7 @@
  *                              http://www.cecill.info/                           *
  *   as published by :                                                            *
  *                                                                                *
- *   Commissariat Ã   l'Energie Atomique                                           *
+ *   Commissariat ?   l'Energie Atomique                                           *
  *   - CEA,                                                                       *
  *                            31-33 rue de la Federation, 75752 PARIS cedex 15.   *
  *                            FRANCE                                              *
@@ -54,7 +54,7 @@
 #include "../../MedinTuxTools-QT4/GetPassword/CDlg_PasswordGet.h"
 CApp* G_pCApp = 0;  // contiendra l'instance globale de l'application
 
-static char NUM_VERSION[]     = "==##@@==2.14.014==@@##==";
+static char NUM_VERSION[]     = "==##@@==2.14.015==@@##==";
 
 //--------------------------------------------- C_App -------------------------------------------------------------------
 CApp::~CApp()
@@ -481,7 +481,7 @@ void CApp::lireDroitsUtilisateurs()
        }
 }
 //--------------------------------------------- IsThisDroitExist -------------------------------------------------------------------
-// ACTION verifie si le droit : droitToFind  (trois caractÃ¨res style med adm sgn ....) existe dans la chaine de droits : listDroits
+// ACTION verifie si le droit : droitToFind  (trois caractères style med adm sgn ....) existe dans la chaine de droits : listDroits
 //        6 fois plus rapide que : listDroits.find(droitToFind) != -1
 bool CApp::IsThisDroitExist(const char *listDroits, QString droitToFind_in)
 {if (listDroits==0) return FALSE;
@@ -593,8 +593,8 @@ QString CApp::PluginExe(        QObject         * pQObject,
                                 const char      * pluginScript,
                                 int               /*waitFlag*/)
 {
-      QString     pathPlugin;  // Chemin de l'executable plugin ï¿½  actionner sans l'extension .exe
-      QString     pathIni;     // Chemin de l'executable plugin ï¿½  actionner sans l'extension .exe
+      QString     pathPlugin;  // Chemin de l'executable plugin ?  actionner sans l'extension .exe
+      QString     pathIni;     // Chemin de l'executable plugin ?  actionner sans l'extension .exe
       QString     maskExch;    // texte du fichier d'exchange
       //QString     obsPk;
       //QString     terPk;
@@ -619,7 +619,7 @@ QString CApp::PluginExe(        QObject         * pQObject,
            }
 
       return                      PluginExe(  pQObject,
-                                              pathPlugin,                       // Chemin de l'executable plugin ï¿½  actionner sans l'extension .exe
+                                              pathPlugin,                       // Chemin de l'executable plugin ?  actionner sans l'extension .exe
                                               m_PathAppli,                      // Chemin de l'executable appelant (DrTux)
                                               pathIni,                          // Chemin d'un eventuel fichier de configuration pour XXXX.ini pour l'executable plugin ou %
                                               maskExch,                         // texte du fichier d'exchange
@@ -635,13 +635,13 @@ QString CApp::PluginExe(        QObject         * pQObject,
 // un plungin est un executable communicant avec DrTux par l'intermediare du protocole suivant:
 // DrTux appelle le plugin avec dans la ligne de commande:
 // en :
-//   0  Chemin de l'executable plugin ï¿½  actionner
+//   0  Chemin de l'executable plugin ?  actionner
 //   1  Chemin d'un eventuel fichier de configuration pour XXXX.ini l'executable ou %
 //   2  Chemin de l'executable appelant
 //   3  Chemin du fichier d'echange texte masque d'entree dont l'executable devra modifier les valeurs de retour
 //                        ce fichier est retourne modifie par le plugin, ce fichier peut etre un masque html ou
-//                        tout autre delire en accord avec la syntaxe du plugin dÃ¨s fois que ...
-//                        si ce fichier est vide, oÃ¹ n'existe pas le plugin retournera son resultat dans ce fichier
+//                        tout autre delire en accord avec la syntaxe du plugin dès fois que ...
+//                        si ce fichier est vide, où n'existe pas le plugin retournera son resultat dans ce fichier
 //                        d'echange que l'appelant recupera
 //                        Le nom de ce fichier d'echange comporte : NomDuPlugin-GUID_Patient-
 //   4  GUID du patient
@@ -653,10 +653,10 @@ QString CApp::PluginExe(        QObject         * pQObject,
 //   10 Reserve
 //   11 Reserve
 //   12 Nb autres parametres d'appels specifiques au plugin
-//   13 --> 13+Nb paramÃ¨tres
+//   13 --> 13+Nb paramètres
 
 QString CApp::PluginExe(        QObject         */*pQObject*/,
-                                const QString    &pathPlugin,  // Chemin de l'executable plugin ï¿½  actionner sans l'extension .exe
+                                const QString    &pathPlugin,  // Chemin de l'executable plugin ?  actionner sans l'extension .exe
                                 const QString    &pathAppli,   // Chemin de l'executable appelant (DrTux)
                                 const QString    &pathIni,     // Chemin d'un eventuel fichier de configuration pour XXXX.ini pour l'executable plugin ou %
                                 const QString    &maskExch,    // texte du fichier d'exchange
@@ -670,17 +670,17 @@ QString CApp::PluginExe(        QObject         */*pQObject*/,
  QString     ret  = "";
  //..................... copier le masque de retour dans le dossier temporaire ......................
  QString pathExe  = pathPlugin;
- 
+
  if ( QDir::isRelativePath ( pathExe ) ) pathExe = QDir::cleanDirPath (pathExe.prepend(pathAppli) );
  #ifdef  Q_WS_WIN
-	pathExe += ".exe";
+        pathExe += ".exe";
  #endif
  #ifdef Q_WS_X11
         pathExe += "";
  #endif
  #ifdef  Q_WS_MAC
-	int pos = pathExe.lastIndexOf("/");
-	if (pos != -1) pathExe = pathExe+".app/Contents/MacOS/"+pathExe.mid(pos+1);
+        int pos = pathExe.lastIndexOf("/");
+        if (pos != -1) pathExe = pathExe+".app/Contents/MacOS/"+pathExe.mid(pos+1);
  #endif
  if (!QFile::exists (pathExe ))
     {CouCou(tr("Chemin du plugin non trouv\303\251 : ").arg(pathExe));
@@ -711,7 +711,7 @@ QString CApp::PluginExe(        QObject         */*pQObject*/,
 
  QStringList argList;
  //......................... completer les autres arguments .........................................
- //argList <<( pathExe + F_EXE );                 // 0  Chemin de l'executable plugin ï¿½  actionner
+ //argList <<( pathExe + F_EXE );                 // 0  Chemin de l'executable plugin ?  actionner
  argList <<( pathIni );                         // 1  Chemin d'un eventuel fichier de configuration pour XXXX.ini l'executable ou %
  argList <<( pathAppli + m_NameAppli );         // 2  Chemin de l'executable appelant
  argList <<( dst );                             // 3  Chemin du fichier d'echange texte masque d'entree dont l'executable devra modifier les valeurs de retour
@@ -725,12 +725,12 @@ QString CApp::PluginExe(        QObject         */*pQObject*/,
  argList <<(" ");                               // 10 reserve
  argList <<(" ");                               // 11 reserve
  argList <<(QString::number(param.count()));    // 12 Nb autres parametres d'appels specifiques au plugin
- for ( QStringList::Iterator it = param.begin(); it != param.end(); ++it )  // 13 --> 13+Nb paramÃ¨tres
+ for ( QStringList::Iterator it = param.begin(); it != param.end(); ++it )  // 13 --> 13+Nb paramètres
      {argList << (*it);
      }
  //................................. executer le process .............................................
  if ( m_PluginRun == ""  )
-    { 
+    {
 
       m_PluginRun  = pathExe;
       if (waitFlag!=CApp::endWait)

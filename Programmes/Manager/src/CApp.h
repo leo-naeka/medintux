@@ -82,7 +82,7 @@ class CApp : public QApplication
      QString getUser(){return m_User;}
      QString getSignUser(){return m_SignUser;}
      void    changeAllModuleConnectionParam(const QString &driverName,        // nom du driver: "QODBC3" "QMYSQL3" "QPSQL7"
-                                            const QString &baseToConnect,     // nom de la base: si QODBC3 -> nom de la source de données (userDSN)
+                                            const QString &baseToConnect,     // nom de la base: si QODBC3 -> nom de la source de donn�es (userDSN)
                                             const QString &userName,          // = "root"
                                             const QString &passWord,          // = ""
                                             const QString &hostName,          // = "localhost"
@@ -123,7 +123,7 @@ class CApp : public QApplication
                                 const char      * pluginScript,
                                 int               waitFlag  = CApp::endWait);
      QString  PluginExe(        QObject         *pQObject,
-                                const QString    &pathPlugin,  // Chemin de l'executable plugin Ã  actionner sans l'extension .exe
+                                const QString    &pathPlugin,  // Chemin de l'executable plugin �  actionner sans l'extension .exe
                                 const QString    &pathAppli,   // Chemin de l'executable appelant (DrTux)
                                 const QString    &pathIni,     // Chemin d'un eventuel fichier de configuration pour XXXX.ini pour l'executable plugin ou %
                                 const QString    &maskExch,    // texte du fichier d'exchange
@@ -146,27 +146,27 @@ QString              m_LastPK;           /*!< Pk de l'identite en cours     */
 QString              m_NameAppli;       /*!< Nom de l'applicatif */
 QString              m_PathAppli;       /*!< chemin du repertoire de l'applicatif (termine par /) */
 QString              m_PathIni;         /*!< chemin du fichier d'initialisation du programme (nom programme.ini) */
-QString              m_LocalParam;      /*!< chaine contenant le fichier d'initialisation du programme (charge Ã  partir de m_PathIni = nom programme.ini) */
+QString              m_LocalParam;      /*!< chaine contenant le fichier d'initialisation du programme (charge �  partir de m_PathIni = nom programme.ini) */
 
-QString              m_LastError;       /*!< derniÃ¨re erreur rencontrÃ©e */
+QString              m_LastError;       /*!< dernière erreur rencontrée */
 QString              m_MySql_Pass;      /*!< mot de passe de connexion mysql */
 QString              m_PluginRun;       /*!<indique si un process bloquant est en cours */
 //................... les objets suivants sont relatifs aux utilisateurs..............................................
-QString              m_CriptedPassWord;     /*!< mot de passe cryptÃ© de l'utilisateur MedinTux */
+QString              m_CriptedPassWord;     /*!< mot de passe crypté de l'utilisateur MedinTux */
 QString              m_SignUser;            /*!< login l'utilisateur signataire MedinTux */
 QString              m_User;                /*!< login l'utilisateur en cours */
 QString              m_Droits;              /*!< droits l'utilisateur en cours */
-bool                 m_IsAppStartWithUser;  /*!< si TRUE l'application a demarrÃ© avec un utilisateur predefini */
-QString              m_NUM_VERSION;         /*!< num�ro de version du programme */
+bool                 m_IsAppStartWithUser;  /*!< si TRUE l'application a demarré avec un utilisateur predefini */
+QString              m_NUM_VERSION;         /*!< num?ro de version du programme */
 //................... les objets suivants sont relatifs aux moteurs de bases..............................................
-CMoteurAgenda       *m_pCMoteurAgenda;      /*!< pointeur sur le gestionnaire de base de donnÃ©e de l'agenda */
-CMoteurBase         *m_pCMoteurBase;        /*!< pointeur sur le gestionnaire de base de donnÃ©e de drtux */
+CMoteurAgenda       *m_pCMoteurAgenda;      /*!< pointeur sur le gestionnaire de base de donnée de l'agenda */
+CMoteurBase         *m_pCMoteurBase;        /*!< pointeur sur le gestionnaire de base de donnée de drtux */
 int                  m_IsGestionNomadisme;  /*!< variable stockant si la gestion du nomadisme est active*/
-int                  m_IsNomadeActif;       /*!< variable stockant l'Ã©tat du nomadisme */
-//................... les objets suivants sont relatifs Ã  la gestion et outils graphiques..............................................
+int                  m_IsNomadeActif;       /*!< variable stockant l'état du nomadisme */
+//................... les objets suivants sont relatifs �  la gestion et outils graphiques..............................................
 QString              m_PathTheme;                /*!< chemin du repertoire de themes */
-CCoolPopup          *m_pCCoolPopup;              /*!< Pour afficher un message en popup surgissant en bas Ã  droite */
-int                  m_CCoolPopupTempo;          /*!< temps de persistance du menu Ã  l'Ã©cran en microsecondes */
+CCoolPopup          *m_pCCoolPopup;              /*!< Pour afficher un message en popup surgissant en bas �  droite */
+int                  m_CCoolPopupTempo;          /*!< temps de persistance du menu �  l'écran en microsecondes */
 //......................... carte PS .............................
 #ifdef SESAM_VERSION
   C_Cps     *m_pCps;            /*!< contient les donnees de la carte cps */

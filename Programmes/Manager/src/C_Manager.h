@@ -1,38 +1,38 @@
- /********************************* C_Manager.h ***********************************
- *  #include "C_Manager.h"                                                        *
- * ...............................................................................*
- *   Project   :  MedinTux  (typographie made in france)                          *
- *   Copyright : (C) 2004-2005-2006-2007-2008-2009-2010 and for the eternity      *
- *   by        :  Sevin Roland     from   MedinTux project                        *
- *   E-Mail    : roland-sevin@medintux.org                                        *
- *   Web site  : www.medintux.org                                                 *
- * ...............................................................................*
- *                                                                                *
- *   This program is free software; you can redistribute it and/or modify         *
- *   it under the terms of the CeCILL Version 1 du 21/06/2004                     *
- *   License (GPL compatible)                                                     *
- *                              http://www.cecill.info/                           *
- *   as published by :                                                            *
- *                                                                                *
- *   Commissariat Ã  l'Energie Atomique                                            *
- *   - CEA,                                                                       *
- *                            31-33 rue de la FÃ©dÃ©ration, 75752 PARIS cedex 15.   *
- *                            FRANCE                                              *
- *   Centre National de la Recherche Scientifique                                 *
- *   - CNRS,                                                                      *
- *                            3 rue Michel-Ange, 75794 Paris cedex 16.            *
- *                            FRANCE                                              *
- *   Institut National de Recherche en Informatique et en Automatique             *
- *   - INRIA,                                                                     *
- *                            Domaine de Voluceau, Rocquencourt, BP 105, 78153    *
- *                            FRANCE                                              *
- *                                                                                *
- *         This program is distributed in the hope that it will be useful,        *
- *         but WITHOUT ANY WARRANTY; without even the implied warranty of         *
- *         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.                   *
- *         CeCILL  License (GPL compatible) for more details.                     *
- *                                                                                *
- **********************************************************************************/
+/********************************* C_Manager.h ***********************************
+*  #include "C_Manager.h"                                                        *
+* ...............................................................................*
+*   Project   :  MedinTux  (typographie made in france)                          *
+*   Copyright : (C) 2004-2005-2006-2007-2008-2009-2010 and for the eternity      *
+*   by        :  Sevin Roland     from   MedinTux project                        *
+*   E-Mail    : roland-sevin@medintux.org                                        *
+*   Web site  : www.medintux.org                                                 *
+* ...............................................................................*
+*                                                                                *
+*   This program is free software; you can redistribute it and/or modify         *
+*   it under the terms of the CeCILL Version 1 du 21/06/2004                     *
+*   License (GPL compatible)                                                     *
+*                              http://www.cecill.info/                           *
+*   as published by :                                                            *
+*                                                                                *
+*   Commissariat ?  l'Energie Atomique                                            *
+*   - CEA,                                                                       *
+*                            31-33 rue de la Fédération, 75752 PARIS cedex 15.   *
+*                            FRANCE                                              *
+*   Centre National de la Recherche Scientifique                                 *
+*   - CNRS,                                                                      *
+*                            3 rue Michel-Ange, 75794 Paris cedex 16.            *
+*                            FRANCE                                              *
+*   Institut National de Recherche en Informatique et en Automatique             *
+*   - INRIA,                                                                     *
+*                            Domaine de Voluceau, Rocquencourt, BP 105, 78153    *
+*                            FRANCE                                              *
+*                                                                                *
+*         This program is distributed in the hope that it will be useful,        *
+*         but WITHOUT ANY WARRANTY; without even the implied warranty of         *
+*         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.                   *
+*         CeCILL  License (GPL compatible) for more details.                     *
+*                                                                                *
+**********************************************************************************/
 
 #ifndef C_MANAGER_H
 #define C_MANAGER_H
@@ -45,7 +45,7 @@
 
 namespace Ui
 {
-    class C_ManagerClass;
+   class C_ManagerClass;
 
 }
 
@@ -53,34 +53,34 @@ namespace Ui
 //====================================== Wdg_ButtonPtr =======================================================
 class Wdg_ButtonPtr : public QPushButton
 {
-    Q_OBJECT
+   Q_OBJECT
 
 public:
-     Wdg_ButtonPtr(QWidget *parent , const QString &name)
-     : QPushButton(parent)
-     {setObjectName(name);
-      connect( this , SIGNAL(clicked ()), this, SLOT(Slot_IsClicked ()) );
-      m_Ptr_1 = 0;
-      m_Ptr_2 = 0;
-     }
-     void  setPtr_1(void *ptr){m_Ptr_1 = ptr;}
-     void *getPtr_1() {return m_Ptr_1;}
-     void  setPtr_2(void *ptr){m_Ptr_2 = ptr;}
-     void *getPtr_2() {return m_Ptr_2;}
-     void  setPtr_3(void *ptr){m_Ptr_3 = ptr;}
-     void *getPtr_3() {return m_Ptr_3;}
+    Wdg_ButtonPtr(QWidget *parent , const QString &name)
+    : QPushButton(parent)
+    {setObjectName(name);
+     connect( this , SIGNAL(clicked ()), this, SLOT(Slot_IsClicked ()) );
+     m_Ptr_1 = 0;
+     m_Ptr_2 = 0;
+    }
+    void  setPtr_1(void *ptr){m_Ptr_1 = ptr;}
+    void *getPtr_1() {return m_Ptr_1;}
+    void  setPtr_2(void *ptr){m_Ptr_2 = ptr;}
+    void *getPtr_2() {return m_Ptr_2;}
+    void  setPtr_3(void *ptr){m_Ptr_3 = ptr;}
+    void *getPtr_3() {return m_Ptr_3;}
 
-    ~Wdg_ButtonPtr(){}
+   ~Wdg_ButtonPtr(){}
 protected:
-    void *m_Ptr_1;
-    void *m_Ptr_2;
-    void *m_Ptr_3;
+   void *m_Ptr_1;
+   void *m_Ptr_2;
+   void *m_Ptr_3;
 protected slots:
-     void Slot_IsClicked()
-     {emit clicked(this);
-     }
+    void Slot_IsClicked()
+    {emit clicked(this);
+    }
 signals:
-    void clicked(Wdg_ButtonPtr*pWdg_ButtonPtr);
+   void clicked(Wdg_ButtonPtr*pWdg_ButtonPtr);
 };
 
 //====================================== C_Manager =======================================================
@@ -102,306 +102,306 @@ class QWebView;
 class C_Vitale;
 class C_Manager : public QMainWindow
 {
-    Q_OBJECT
+   Q_OBJECT
 
 public:
-     C_Manager(CMoteurBase *pCMoteurBase, QWidget *parent = 0, const QString & name="C_Manager for MedinTux");
-    ~C_Manager();
-     //.................... nomadisme ...........................
-     int     reconnectToNomade(int gestionNomadisme);
-     int     reconnectToMaster(int gestionNomadisme);
-     void    waitForsyncEmulDemonResponse(const QString &action);  //master_Log_File, read_Master_Log_Pos
-     void    setConnectParametres(const QString &scriptSqlIn,
-                                  const QString master_Host         ="",
-                                  const QString master_User         ="",
-                                  const QString master_Port         ="",
-                                  const QString masterKey           ="",
-                                  const QString master_Log_File     ="",
-                                  const QString read_Master_Log_Pos =""
-                                 );
-     void    putScriptWaitFlag(const QString &ScriptStatusFile);
-     QString getScriptNomadePath();
-     int     waitForEndScript(const QString &ScriptStatusFile);
-     QString socketStateToString(QAbstractSocket::SocketState socketState, const QString& prefix);
-     int     testConnection(QString connexionVar,  QString *qstr=0 );
-     void    setBatchParametres(const QString &scriptSqlIn, const QStringList &parmList);
-     void    setAndSaveNomadeState (int nomadismeStateToSet);
-     QString tryToFindConnectionFromList (QString connexionVar,  QString *errMess);
-     void    action_fullSwitchReplication_triggered();
-     void    action_fullSynchroReplication_triggered();
-     QString extractVarFromMysqlStatus(const QString &repliSatus, QString var, int &pos);
-     int     setComboBoxOnValue(QComboBox *pQComboBox, const QString& value);
-     //.................. accessoires ...........................
-     void demarrerAccessoires();
-     void demarrerUnAccessoire(QString accessoire_path);
-     //.................. agenda .................................
-     void            initComboBoxAgendaUser();
-     C_Frm_UserList *getFrm_UserList() {return m_pC_Frm_UserList;}
-     void            get_RecordDispos();
-     void            reinitAgendaOnUser(const QString &user , const QString &signUser);
-     void            reinitListUserOnUser(const QString &user , const QString &signUser);
-     void            editUser(QString cps);
-     void            eraseUserAgenda(C_Frm_Agenda* pC_Frm_Agenda);
-     C_Frm_Agenda   *addUserAgenda(const QString &user, QDate date,  QFrame **ppQFrame = 0);
-     void            deleteAgenda(const QString &signUser);
-     QStringList     deleteAllAgendas();
-     QStringList     getAgendasList();
-     QString         execCalendrier(const QDate &dateIn);
-     void            setUserAgendaVisible(const QString &signUser);
-     void            allAgendasReconnect( const QString &driver,        // nom du driver: "QODBC3" "QMYSQL3" "QPSQL7"
-                                          const QString &baseToConnect, // nom de la base: si QODBC3 -> nom de la source de donnÃ©es (userDSN)
-                                          const QString &user,          // = "root"
-                                          const QString &pasword,       // = ""
-                                          const QString &hostname,      // = "localhost"
-                                          const QString &port           // = "port",          // = "port"
-                                        );
-     //.................. interface ..........................
-     void initWidgetsList();
-     void    setAllWidgetsOnFont(const QFont &font);
-     void setInterfaceOnMode(const QString &droits, int mode);
-     void setVerrouForCurrentIdent();
-     void setVerrou(bool state);
-     bool isVerrou()            {return m_IsVerrouOn;}
-     void setPushButtonDetruireStateFromDroits(bool state);
-     QString getBoxStyle(int mode);
-     QString getTabStyle(int mode);
-     void    setTitle();
-     void    replaceInitialDockVisibility();
-     //.............. liste patient ...........................
-     void lineEdit_NomDossier_textChanged(const QString &nom);
-     void lineEdit_PrenomDossier_textChanged(const QString &prenom);
-     void listPatientsByDateNss(QString dateNss);
-     QTreeWidgetItem *getSelectedListViewPatientItem();
-     QTreeWidgetItem *getSelectedListViewItem(QTreeWidget *pQTreeWidget);
-     void initListePatient( const QString & qstr_nom, const QString & qstr_prenom);
-     int  DataToFormulaire( const QTreeWidgetItem *pQTreeWidgetItem );
-     int  DataToFormulaire( const QString &refToPrimkeyDoss, const QString &nom, const QString &prenom );
-     QString ToNum(QString in);
-     void setCVonPatient (C_Vitale *pcVitale, int occurence);
-     //.............. mode graphique ..........................
-     void setInterfaceOnProfil(int mode);
-     int  getInterfaceMode(){return m_InterfaceMode;}
-     void setInterfaceOnCurrentProfil();
-     //............... identite ...............................
-     void setIdentModifiedState(int state);
-     bool identIsModified(){return m_Ident_IsModified;}
-     void setIdentiteEnabled();
-     void setIdentiteDisabled();
-     void tryToSetCodePostalFromVille();
-     void tryToSetVilleFromCodePostal();
-     void tryToSetTitreFromDateNss();
-     void tryToSetInterfaceFromAyantDroit( int qualiteAssure, int focusMustBePotionned);
-     void setFieldListData(PtrListIdentFieldData &list_field);
-     void clearIdentFields();
-     void clearDroitsFields();
-     void setInterfaceOnVitaleData(void *pcvitale_in, int occurence);
-     void setInterfaceOnDroitsSociaux(C_Vitale *pcVitale, int occurence, int anyWay  = 0 );
-     int  setSexFromQualiteAyantDroit(int qualiteAyantDroit);
-     void compareListVitaleWithBase();
-     void savModifications(const QString &oldNom, const QString &oldPrenom, const QString &oldPk, int confirmModif=1);
-     void exeAnnuaire(QString idInterv );
-     void accederDossier( QString nom,  QString prenom, const QString &primKey, const QString &guid, const QString &user, const QString &sign_user);
-     void onCreateAction(int lauchEnabled    = 1 );
-     int  alertVerrou(const QString &userBy, const QString &dossNom, const QString &dossPrenom);
-     void setMedWebTuxOnUser();
-     void tryToStopAPropos();
-     QString appelPyxvital (QString listeParametres);                   // Cz_Pyxvital
+    C_Manager(CMoteurBase *pCMoteurBase, QWidget *parent = 0, const QString & name="C_Manager for MedinTux");
+   ~C_Manager();
+    //.................... nomadisme ...........................
+    int     reconnectToNomade(int gestionNomadisme);
+    int     reconnectToMaster(int gestionNomadisme);
+    void    waitForsyncEmulDemonResponse(const QString &action);  //master_Log_File, read_Master_Log_Pos
+    void    setConnectParametres(const QString &scriptSqlIn,
+                                 const QString master_Host         ="",
+                                 const QString master_User         ="",
+                                 const QString master_Port         ="",
+                                 const QString masterKey           ="",
+                                 const QString master_Log_File     ="",
+                                 const QString read_Master_Log_Pos =""
+                                );
+    void    putScriptWaitFlag(const QString &ScriptStatusFile);
+    QString getScriptNomadePath();
+    int     waitForEndScript(const QString &ScriptStatusFile);
+    QString socketStateToString(QAbstractSocket::SocketState socketState, const QString& prefix);
+    int     testConnection(QString connexionVar,  QString *qstr=0 );
+    void    setBatchParametres(const QString &scriptSqlIn, const QStringList &parmList);
+    void    setAndSaveNomadeState (int nomadismeStateToSet);
+    QString tryToFindConnectionFromList (QString connexionVar,  QString *errMess);
+    void    action_fullSwitchReplication_triggered();
+    void    action_fullSynchroReplication_triggered();
+    QString extractVarFromMysqlStatus(const QString &repliSatus, QString var, int &pos);
+    int     setComboBoxOnValue(QComboBox *pQComboBox, const QString& value);
+    //.................. accessoires ...........................
+    void demarrerAccessoires();
+    void demarrerUnAccessoire(QString accessoire_path);
+    //.................. agenda .................................
+    void            initComboBoxAgendaUser();
+    C_Frm_UserList *getFrm_UserList() {return m_pC_Frm_UserList;}
+    void            get_RecordDispos();
+    void            reinitAgendaOnUser(const QString &user , const QString &signUser);
+    void            reinitListUserOnUser(const QString &user , const QString &signUser);
+    void            editUser(QString cps);
+    void            eraseUserAgenda(C_Frm_Agenda* pC_Frm_Agenda);
+    C_Frm_Agenda   *addUserAgenda(const QString &user, QDate date,  QFrame **ppQFrame = 0);
+    void            deleteAgenda(const QString &signUser);
+    QStringList     deleteAllAgendas();
+    QStringList     getAgendasList();
+    QString         execCalendrier(const QDate &dateIn);
+    void            setUserAgendaVisible(const QString &signUser);
+    void            allAgendasReconnect( const QString &driver,        // nom du driver: "QODBC3" "QMYSQL3" "QPSQL7"
+                                         const QString &baseToConnect, // nom de la base: si QODBC3 -> nom de la source de données (userDSN)
+                                         const QString &user,          // = "root"
+                                         const QString &pasword,       // = ""
+                                         const QString &hostname,      // = "localhost"
+                                         const QString &port           // = "port",          // = "port"
+                                       );
+    //.................. interface ..........................
+    void initWidgetsList();
+    void    setAllWidgetsOnFont(const QFont &font);
+    void setInterfaceOnMode(const QString &droits, int mode);
+    void setVerrouForCurrentIdent();
+    void setVerrou(bool state);
+    bool isVerrou()            {return m_IsVerrouOn;}
+    void setPushButtonDetruireStateFromDroits(bool state);
+    QString getBoxStyle(int mode);
+    QString getTabStyle(int mode);
+    void    setTitle();
+    void    replaceInitialDockVisibility();
+    //.............. liste patient ...........................
+    void lineEdit_NomDossier_textChanged(const QString &nom);
+    void lineEdit_PrenomDossier_textChanged(const QString &prenom);
+    void listPatientsByDateNss(QString dateNss);
+    QTreeWidgetItem *getSelectedListViewPatientItem();
+    QTreeWidgetItem *getSelectedListViewItem(QTreeWidget *pQTreeWidget);
+    void initListePatient( const QString & qstr_nom, const QString & qstr_prenom);
+    int  DataToFormulaire( const QTreeWidgetItem *pQTreeWidgetItem );
+    int  DataToFormulaire( const QString &refToPrimkeyDoss, const QString &nom, const QString &prenom );
+    QString ToNum(QString in);
+    void setCVonPatient (C_Vitale *pcVitale, int occurence);
+    //.............. mode graphique ..........................
+    void setInterfaceOnProfil(int mode);
+    int  getInterfaceMode(){return m_InterfaceMode;}
+    void setInterfaceOnCurrentProfil();
+    //............... identite ...............................
+    void setIdentModifiedState(int state);
+    bool identIsModified(){return m_Ident_IsModified;}
+    void setIdentiteEnabled();
+    void setIdentiteDisabled();
+    void tryToSetCodePostalFromVille();
+    void tryToSetVilleFromCodePostal();
+    void tryToSetTitreFromDateNss();
+    void tryToSetInterfaceFromAyantDroit( int qualiteAssure, int focusMustBePotionned);
+    void setFieldListData(PtrListIdentFieldData &list_field);
+    void clearIdentFields();
+    void clearDroitsFields();
+    void setInterfaceOnVitaleData(void *pcvitale_in, int occurence);
+    void setInterfaceOnDroitsSociaux(C_Vitale *pcVitale, int occurence, int anyWay  = 0 );
+    int  setSexFromQualiteAyantDroit(int qualiteAyantDroit);
+    void compareListVitaleWithBase();
+    void savModifications(const QString &oldNom, const QString &oldPrenom, const QString &oldPk, int confirmModif=1);
+    void exeAnnuaire(QString idInterv );
+    void accederDossier( QString nom,  QString prenom, const QString &primKey, const QString &guid, const QString &user, const QString &sign_user);
+    void onCreateAction(int lauchEnabled    = 1 );
+    int  alertVerrou(const QString &userBy, const QString &dossNom, const QString &dossPrenom);
+    void setMedWebTuxOnUser();
+    void tryToStopAPropos();
+    QString appelPyxvital (QString listeParametres);                   // Cz_Pyxvital
 private slots:
-    virtual void closeEvent(QCloseEvent *event);
-    void Slot_SauverLesMeubles();
-    void Slot_actionRecordWindowsPos_triggered (bool);
-    void Slot_actionSetGlobalFont_triggered (bool);
-    void Slot_actionHideShowLogo_triggered (bool);
-    void Slot_action_DebloquerBases (bool);
-    void Slot_retranslateUi();
+   virtual void closeEvent(QCloseEvent *event);
+   void Slot_SauverLesMeubles();
+   void Slot_actionRecordWindowsPos_triggered (bool);
+   void Slot_actionSetGlobalFont_triggered (bool);
+   void Slot_actionHideShowLogo_triggered (bool);
+   void Slot_action_DebloquerBases (bool);
+   void Slot_retranslateUi();
 
-    void Slot_tabWidget_Central_currentChanged (int index);
-    void Slot_LocationEdit_returnPressed();
-    void Slot_webView_MedWebTux_urlChanged ( const QUrl &url  );
-    void Slot_On_webView_MedWebTux_loadStarted();
-    void Slot_On_webView_MedWebTux_loadProgress(int progress);
-    void Slot_On_webView_MedWebTux_loadFinished(bool ok);
+   void Slot_tabWidget_Central_currentChanged (int index);
+   void Slot_LocationEdit_returnPressed();
+   void Slot_webView_MedWebTux_urlChanged ( const QUrl &url  );
+   void Slot_On_webView_MedWebTux_loadStarted();
+   void Slot_On_webView_MedWebTux_loadProgress(int progress);
+   void Slot_On_webView_MedWebTux_loadFinished(bool ok);
 
-    void Slot_actionWebPrint (bool);
-    void Slot_actionWebHome (bool);
-    void Slot_actionWebHelp (bool);
-    void Slot_actionWebFind (bool);
-    void Slot_actionMenuNew_clicked( bool );
-    void Slot_WebFindEdit_returnPressed();
-    void Slot_WebFindEdit_textChanged (const QString &text );
-    void Slot_action_AccesWebMedTux (bool);
-    void Slot_actionApropos (bool);
-    void Slot_actionAproposDisplay();
-    void Slot_action_Aide(bool);
-    void Slot_actionWebStop (bool);
+   void Slot_actionWebPrint (bool);
+   void Slot_actionWebHome (bool);
+   void Slot_actionWebHelp (bool);
+   void Slot_actionWebFind (bool);
+   void Slot_actionMenuNew_clicked( bool );
+   void Slot_WebFindEdit_returnPressed();
+   void Slot_WebFindEdit_textChanged (const QString &text );
+   void Slot_action_AccesWebMedTux (bool);
+   void Slot_actionApropos (bool);
+   void Slot_actionAproposDisplay();
+   void Slot_action_Aide(bool);
+   void Slot_actionWebStop (bool);
 
-    void Slot_OnTimer();
-    void Slot_OutFocuslineEdit_DtNss(QFocusEvent*, int &);
-    void Slot_OutFocusVille(QFocusEvent*, int &);
-    void Slot_OutFocusCodePostal(QFocusEvent*, int &);
-    void Slot_CharEventCodePostal(QKeyEvent *, int &);
-    void Slot_CharEventNumSecu(QKeyEvent *, int &);
-    void Slot_InFocusNumSecu(QFocusEvent*, int &);
-    void Slot_OutFocusNumSecu(QFocusEvent*, int &);
-    void Slot_comboBoxAgendaUser_activated( const QString& );
-    //.............. agenda ..................................
-    void Slot_LauchPatient(const QString &);
-    void Slot_LauchPatient(const QString &, C_RendezVous *);
-    void Slot_buttonAgendaDelete_Clicked(Wdg_ButtonPtr *pWdg_ButtonPtr);
-    void Slot_pQPushButtonAgendaDate_Clicked ( Wdg_ButtonPtr *pWdg_ButtonPtr);
-    void Slot_pQPushButtonMenuAgenda_Clicked(Wdg_ButtonPtr* pWdg_ButtonPtr);
-    void Slot_setUserAgendaVisible();
-    //........................ connecter les slot de changement ............................................................................................
-    void Slot_TextChanged_lineEdit_NomDossier(const QString & );
-    void Slot_TextChanged_lineEdit_PrenomDossier(const QString & );
-    void Slot_TextChanged_lineEdit_NomDeNss(const QString & );
-    void Slot_TextChanged_lineEdit_DtNss(const QString & );
-    void Slot_TextChanged_lineEdit_Titre(const QString & );
-    void Slot_TextChanged_lineEdit_Profession(const QString & );
-    void Slot_TextChanged_textEdit_Adresse( );
-    void Slot_TextChanged_lineEdit_Tel1(const QString & );
-    void Slot_TextChanged_lineEdit_Tel2(const QString & );
-    void Slot_TextChanged_lineEdit_Tel3(const QString & );
-    void Slot_TextChanged_lineEdit_CdPostal(const QString & );
-    void Slot_TextChanged_lineEditVille(const QString & );
-    void Slot_TextChanged_lineEdit_Email(const QString & );
-    void Slot_TextChanged_lineEdit_NumSecu(const QString & );
-    void Slot_TextChanged_lineEdit_NomAssure(const QString & );
-    void Slot_TextChanged_lineEdit_PrenomAssure(const QString & );
-    void Slot_TextChanged_textEdit_Note( );
-    void Slot_TextChanged_lineEdit_RangGeme(const QString &);
-    void Slot_TextChanged_comboBoxSexe( const QString &);
-    void Slot_TextChanged_comboBoxQualiteAyantDroit( const QString &);
-    void Slot_TextChanged_lineEdit_DtNss_Assure(const QString &);
+   void Slot_OnTimer();
+   void Slot_OutFocuslineEdit_DtNss(QFocusEvent*, int &);
+   void Slot_OutFocusVille(QFocusEvent*, int &);
+   void Slot_OutFocusCodePostal(QFocusEvent*, int &);
+   void Slot_CharEventCodePostal(QKeyEvent *, int &);
+   void Slot_CharEventNumSecu(QKeyEvent *, int &);
+   void Slot_InFocusNumSecu(QFocusEvent*, int &);
+   void Slot_OutFocusNumSecu(QFocusEvent*, int &);
+   void Slot_comboBoxAgendaUser_activated( const QString& );
+   //.............. agenda ..................................
+   void Slot_LauchPatient(const QString &);
+   void Slot_LauchPatient(const QString &, C_RendezVous *);
+   void Slot_buttonAgendaDelete_Clicked(Wdg_ButtonPtr *pWdg_ButtonPtr);
+   void Slot_pQPushButtonAgendaDate_Clicked ( Wdg_ButtonPtr *pWdg_ButtonPtr);
+   void Slot_pQPushButtonMenuAgenda_Clicked(Wdg_ButtonPtr* pWdg_ButtonPtr);
+   void Slot_setUserAgendaVisible();
+   //........................ connecter les slot de changement ............................................................................................
+   void Slot_TextChanged_lineEdit_NomDossier(const QString & );
+   void Slot_TextChanged_lineEdit_PrenomDossier(const QString & );
+   void Slot_TextChanged_lineEdit_NomDeNss(const QString & );
+   void Slot_TextChanged_lineEdit_DtNss(const QString & );
+   void Slot_TextChanged_lineEdit_Titre(const QString & );
+   void Slot_TextChanged_lineEdit_Profession(const QString & );
+   void Slot_TextChanged_textEdit_Adresse( );
+   void Slot_TextChanged_lineEdit_Tel1(const QString & );
+   void Slot_TextChanged_lineEdit_Tel2(const QString & );
+   void Slot_TextChanged_lineEdit_Tel3(const QString & );
+   void Slot_TextChanged_lineEdit_CdPostal(const QString & );
+   void Slot_TextChanged_lineEditVille(const QString & );
+   void Slot_TextChanged_lineEdit_Email(const QString & );
+   void Slot_TextChanged_lineEdit_NumSecu(const QString & );
+   void Slot_TextChanged_lineEdit_NomAssure(const QString & );
+   void Slot_TextChanged_lineEdit_PrenomAssure(const QString & );
+   void Slot_TextChanged_textEdit_Note( );
+   void Slot_TextChanged_lineEdit_RangGeme(const QString &);
+   void Slot_TextChanged_comboBoxSexe( const QString &);
+   void Slot_TextChanged_comboBoxQualiteAyantDroit( const QString &);
+   void Slot_TextChanged_lineEdit_DtNss_Assure(const QString &);
 
-     void  Slot_action_ModeConnect_triggered (bool);
-     void  Slot_action_ToModeConnect_triggered (bool){}
-     void  Slot_action_ToModeNomade_triggered (bool);
-     void  Slot_hostMasterFound ();
-     void  Slot_hostSlaveFound ();
-     void  Slot_hostMasterError (QAbstractSocket::SocketError err);
-     void  Slot_hostSlaveError  (QAbstractSocket::SocketError err);
-     void  Slot_hostMasterStateChanged (QAbstractSocket::SocketState socketState);
-     void  Slot_hostSlaveStateChanged (QAbstractSocket::SocketState socketState);
+    void  Slot_action_ModeConnect_triggered (bool);
+    void  Slot_action_ToModeConnect_triggered (bool){}
+    void  Slot_action_ToModeNomade_triggered (bool);
+    void  Slot_hostMasterFound ();
+    void  Slot_hostSlaveFound ();
+    void  Slot_hostMasterError (QAbstractSocket::SocketError err);
+    void  Slot_hostSlaveError  (QAbstractSocket::SocketError err);
+    void  Slot_hostMasterStateChanged (QAbstractSocket::SocketState socketState);
+    void  Slot_hostSlaveStateChanged (QAbstractSocket::SocketState socketState);
 
-     void Slot_listView_Praticiens_DoubleClicked( QTreeWidgetItem * , int);
-     void Slot_listView_Vitale_Clicked( QTreeWidgetItem * item, int column );
-     void Slot_listView_Vitale_DoubleClicked( QTreeWidgetItem *pQTreeWidgetItem , int);
-     void Slot_listView_Patient_Clicked( QTreeWidgetItem * , int);
-     void Slot_listView_Patient_DoubleClicked( QTreeWidgetItem *pQTreeWidgetItem , int);
-     void Slot_listView_Praticiens_contextMenuRequested (const QPoint &);
-     void Slot_pushButtonAcceder_Clicked();
-     void Slot_pushButton_AddMedTTT_clicked();
-     void Slot_pushButton_AddMedTTT_Fast_clicked ();
-     void Slot_pushButton_DelMedTTT_clicked();
-     void Slot_pushButtonCreate();
-     void Slot_pushButtonSavModifWithoutConfirmation();
-     void Slot_pushButtonSavModif();
-     void Slot_pushBut_ExitMultiCritere();
-     void Slot_pushButton_Effacer_clicked();
-     void Slot_pushButton_MultiCritere();
-     void Slot_pushBut_MultiCritFind();
-     void Slot_pushButton_ReinitListe_clicked();
-     void Slot_pushButtonInfoClicked();
-     void Slot_pushButtonDetruire_clicked();
-     void Slot_pushButtonNew_clicked();
-     void Slot_NewDossWithoutErase();
-     void Slot_pushButtonMenuNew_clicked();
-     void Slot_pushButtonCancelCreate_clicked();
-     void Slot_lineEditAutoLocator_keyPressEvent(QKeyEvent *, int &);
-     void Slot_lineEditAutoLocator_textChanged(const QString &);
-     void Slot_ListView_itemSelectionChanged();
-     void Slot_giveDraglistView_PatientItemData(QString &data, QTreeWidgetItem *pQTreeWidgetItem);
-     void Slot_ListView_ContextMenuRequested (const QPoint &);
-     void Slot_listView_DoublonsSelectionChanged();
-     void Slot_listView_Doublons_contextMenuRequested (const QPoint &);
-     void Slot_listView_Doublons_MenuRequested();
-     void Slot_listView_VitaleSelectionChanged ();
-     void Slot_listView_Vitale_ContextMenuRequested (const QPoint &);
-     void Slot_listView_Vitale_MenuRequested ();
-     void Slot_reinitManagerOnUser(QTreeWidgetItem *pUserItem , QTreeWidgetItem *pSignUserItem);
-     void Slot_reinitManagerOnUser(const QString &user        , const QString &signUser);
-     void Slot_UserSelected_InListUser(QTreeWidgetItem *pUserItem , QTreeWidgetItem *pSignUserItem);
-     void Slot_RecordPos();
-     void Slot_RecordDispos();
-     void Slot_CPS_IsClicked();
-     void Slot_pushButton_action_UserParams();
-     void Slot_EditUser(const QString&, const QString&);
-     void Slot_UserMustBeUnloged(int &ret);
-     void Slot_pushButtonVitale_clicked();
-     void Slot_action_Imprimer(bool);
-     void Slot_pushButton_SigemsPA_Clicked();
+    void Slot_listView_Praticiens_DoubleClicked( QTreeWidgetItem * , int);
+    void Slot_listView_Vitale_Clicked( QTreeWidgetItem * item, int column );
+    void Slot_listView_Vitale_DoubleClicked( QTreeWidgetItem *pQTreeWidgetItem , int);
+    void Slot_listView_Patient_Clicked( QTreeWidgetItem * , int);
+    void Slot_listView_Patient_DoubleClicked( QTreeWidgetItem *pQTreeWidgetItem , int);
+    void Slot_listView_Praticiens_contextMenuRequested (const QPoint &);
+    void Slot_pushButtonAcceder_Clicked();
+    void Slot_pushButton_AddMedTTT_clicked();
+    void Slot_pushButton_AddMedTTT_Fast_clicked ();
+    void Slot_pushButton_DelMedTTT_clicked();
+    void Slot_pushButtonCreate();
+    void Slot_pushButtonSavModifWithoutConfirmation();
+    void Slot_pushButtonSavModif();
+    void Slot_pushBut_ExitMultiCritere();
+    void Slot_pushButton_Effacer_clicked();
+    void Slot_pushButton_MultiCritere();
+    void Slot_pushBut_MultiCritFind();
+    void Slot_pushButton_ReinitListe_clicked();
+    void Slot_pushButtonInfoClicked();
+    void Slot_pushButtonDetruire_clicked();
+    void Slot_pushButtonNew_clicked();
+    void Slot_NewDossWithoutErase();
+    void Slot_pushButtonMenuNew_clicked();
+    void Slot_pushButtonCancelCreate_clicked();
+    void Slot_lineEditAutoLocator_keyPressEvent(QKeyEvent *, int &);
+    void Slot_lineEditAutoLocator_textChanged(const QString &);
+    void Slot_ListView_itemSelectionChanged();
+    void Slot_giveDraglistView_PatientItemData(QString &data, QTreeWidgetItem *pQTreeWidgetItem);
+    void Slot_ListView_ContextMenuRequested (const QPoint &);
+    void Slot_listView_DoublonsSelectionChanged();
+    void Slot_listView_Doublons_contextMenuRequested (const QPoint &);
+    void Slot_listView_Doublons_MenuRequested();
+    void Slot_listView_VitaleSelectionChanged ();
+    void Slot_listView_Vitale_ContextMenuRequested (const QPoint &);
+    void Slot_listView_Vitale_MenuRequested ();
+    void Slot_reinitManagerOnUser(QTreeWidgetItem *pUserItem , QTreeWidgetItem *pSignUserItem);
+    void Slot_reinitManagerOnUser(const QString &user        , const QString &signUser);
+    void Slot_UserSelected_InListUser(QTreeWidgetItem *pUserItem , QTreeWidgetItem *pSignUserItem);
+    void Slot_RecordPos();
+    void Slot_RecordDispos();
+    void Slot_CPS_IsClicked();
+    void Slot_pushButton_action_UserParams();
+    void Slot_EditUser(const QString&, const QString&);
+    void Slot_UserMustBeUnloged(int &ret);
+    void Slot_pushButtonVitale_clicked();
+    void Slot_action_Imprimer(bool);
+    void Slot_pushButton_SigemsPA_Clicked();
 
-     void Slot_pushButton_FSE();                                        // Cz_Pyxvital
-     void Slot_saisieFSEenCours();                                      // Cz_Pyxvital
-     void Slot_Button_Vitale_ContextMenuRequested (const QPoint &);     // Cz_Pyxvital
-     void Slot_Button_Vitale_MenuRequested ();                          // Cz_Pyxvital
-     void Controle_Solde_Patient(QString guidPatient);                  // CZ_Cpta
-     void Slot_Saisie_Reglement();                                      // CZ_Cpta
-     void appelCompta (QString nomProgCPta);                            // CZ_Cpta2
+    void Slot_pushButton_FSE();                                        // Cz_Pyxvital
+    void Slot_saisieFSEenCours();                                      // Cz_Pyxvital
+    void Slot_Button_Vitale_ContextMenuRequested (const QPoint &);     // Cz_Pyxvital
+    void Slot_Button_Vitale_MenuRequested ();                          // Cz_Pyxvital
+    void Controle_Solde_Patient(QString guidPatient);                  // CZ_Cpta
+    void Slot_Saisie_Reglement();                                      // CZ_Cpta
+    void appelCompta (QString nomProgCPta);                            // CZ_Cpta2
 
 private:
-    Ui::C_ManagerClass *m_pGUI;
-    QProcess                     *m_Apropos_Proc;
-    QMap <QString ,C_Frm_Agenda*> m_AgendaMap;
-    QFrame                       *m_pMultiAgendaFrame;
-    QBoxLayout                   *m_pAgendaQLayout;
-    QLineEdit          *m_locationEdit;
-    QLineEdit          *m_WebFindEdit;
-    QMenuBar           *m_menuBar;
-    QToolBar           *m_WebToolBar;
-    QToolBar           *m_NomadismeToolBar;
-    //............ menu fichiers .......
-    QMenu              *m_menuFichiers;
-    QAction            *m_action_ModeNomade;
-    QAction            *m_action_ToModeConnect;
-    QAction            *m_action_AccesWebMedTux;
-    QAction            *m_action_DebloquerBases;
-    QAction            *m_action_UserParams;
-    QAction            *m_action_NouveauDossier;
-    QAction            *m_actionImprimer;
-    QAction            *m_actionQuitter;
-    //............ menu fenetre .......
-    QMenu              *m_menuFenetre;
-    QAction            *m_action_dockMenu;
-    QAction            *m_actionHideShowLogo;
-    QAction            *m_actionSetGlobalFont;
-    QAction            *m_actionRecordWindowsPos;
-    //............ menu web .......
-    QAction            *m_action_WebPrint;
-    QAction            *m_action_WebHome;
-    QAction            *m_action_WebHelp;
-    QAction            *m_action_WebFind;
-    QAction            *m_action_WebStop;
-    //............ menu a propos .......
-    QMenu              *m_menuInfo;
-    QAction            *m_action_A_Propos;
-    QAction            *m_action_Aide;
+   Ui::C_ManagerClass *m_pGUI;
+   QProcess                     *m_Apropos_Proc;
+   QMap <QString ,C_Frm_Agenda*> m_AgendaMap;
+   QFrame                       *m_pMultiAgendaFrame;
+   QBoxLayout                   *m_pAgendaQLayout;
+   QLineEdit          *m_locationEdit;
+   QLineEdit          *m_WebFindEdit;
+   QMenuBar           *m_menuBar;
+   QToolBar           *m_WebToolBar;
+   QToolBar           *m_NomadismeToolBar;
+   //............ menu fichiers .......
+   QMenu              *m_menuFichiers;
+   QAction            *m_action_ModeNomade;
+   QAction            *m_action_ToModeConnect;
+   QAction            *m_action_AccesWebMedTux;
+   QAction            *m_action_DebloquerBases;
+   QAction            *m_action_UserParams;
+   QAction            *m_action_NouveauDossier;
+   QAction            *m_actionImprimer;
+   QAction            *m_actionQuitter;
+   //............ menu fenetre .......
+   QMenu              *m_menuFenetre;
+   QAction            *m_action_dockMenu;
+   QAction            *m_actionHideShowLogo;
+   QAction            *m_actionSetGlobalFont;
+   QAction            *m_actionRecordWindowsPos;
+   //............ menu web .......
+   QAction            *m_action_WebPrint;
+   QAction            *m_action_WebHome;
+   QAction            *m_action_WebHelp;
+   QAction            *m_action_WebFind;
+   QAction            *m_action_WebStop;
+   //............ menu a propos .......
+   QMenu              *m_menuInfo;
+   QAction            *m_action_A_Propos;
+   QAction            *m_action_Aide;
 
-    C_Frm_UserList     *m_pC_Frm_UserList;
-    int                 m_InterfaceMode;
-    CMoteurBase        *m_pCMoteurBase;
-    int                 m_Ident_IsModified;
-    bool                m_IsVerrouOn;
-    QLabel *            m_AgendaDockTitle;
-    QString             m_List_GUI_Mode[3];
-    QMenu*              m_ButtonNew_PopMenu;
-    bool                m_Contacts_Run;
-    QAbstractSocket    *m_pMasterSocket;
-    QAbstractSocket    *m_pSlaveSocket;
-    QString             m_tmpSignUser;
-    QTimer             *m_pReconnectTimer;
-    int                 m_AgendaInitialVisbility;
-    int                 m_UserListInitialVisbility;
-    QWebView           *m_webView_MedWebTux;
-    QString             m_ficFacturePar;                             // Cz_Pyxvital
-    QString             m_ficPatientPar;                             // Cz_Pyxvital
-    QTimer             *m_timerFSE;                                  // Cz_Pyxvital
-    bool                m_FSEenCours;                                // Cz_Pyxvital Ordre de FSE en cours sur Pyxvital
-    QString             m_Facture_Seule;                             // Cz_Pyxvital
-    QString             m_typFact;                                   // CZ_Cpta
+   C_Frm_UserList     *m_pC_Frm_UserList;
+   int                 m_InterfaceMode;
+   CMoteurBase        *m_pCMoteurBase;
+   int                 m_Ident_IsModified;
+   bool                m_IsVerrouOn;
+   QLabel *            m_AgendaDockTitle;
+   QString             m_List_GUI_Mode[3];
+   QMenu*              m_ButtonNew_PopMenu;
+   bool                m_Contacts_Run;
+   QAbstractSocket    *m_pMasterSocket;
+   QAbstractSocket    *m_pSlaveSocket;
+   QString             m_tmpSignUser;
+   QTimer             *m_pReconnectTimer;
+   int                 m_AgendaInitialVisbility;
+   int                 m_UserListInitialVisbility;
+   QWebView           *m_webView_MedWebTux;
+   QString             m_ficFacturePar;                             // Cz_Pyxvital
+   QString             m_ficPatientPar;                             // Cz_Pyxvital
+   QTimer             *m_timerFSE;                                  // Cz_Pyxvital
+   bool                m_FSEenCours;                                // Cz_Pyxvital Ordre de FSE en cours sur Pyxvital
+   QString             m_Facture_Seule;                             // Cz_Pyxvital
+   QString             m_typFact;                                   // CZ_Cpta
 signals:
-    void               Sign_applicationMustBeStop();
+   void               Sign_applicationMustBeStop();
 };
 
 #endif // C_MANAGER_H
