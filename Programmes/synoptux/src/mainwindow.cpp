@@ -230,7 +230,8 @@ bool MainWindow::RecupInit()
 // Affichage de tous les box contenus dans la table box.
 void MainWindow::Afficher_Les_Box()
 {
-    m_DernierPkencours = 0;
+    m_DernierPkencours         = 0;
+    m_DernierPkencours_taches  = 0;
     m_ListePositions.clear();
     QString requete = "SELECT BO_Code, BO_Libelle, BO_CouleurBG, BO_CouleurTitre, BO_Nb_Maxi_Pat, BO_Type  FROM " BOX;
     QSqlQuery query(requete, DATA_BASE_SYNOPTUX);
@@ -377,7 +378,7 @@ bool    premierEtat = false;
 QColor  qCouleurTache;
 
 //  On affiche en priorité les taches non terminées, par ordre de priorité, par heure de début prévue
-    requete  = "SELECT EN_Num_tache, EN_Code_tache, EN_Comment, EN_Etat_en_cours, "          // 0-1-2-3
+    requete  = " SELECT EN_Num_tache, EN_Code_tache, EN_Comment, EN_Etat_en_cours, "         // 0-1-2-3
                " TA_Libelle_tache, TA_Couleur_tache, TA_Duree_maxi, TA_Couleur_alarme, "     // 4-5-6-7
                " TA_BoutonMenu, EN_HeureDebPrevue, EN_HeureFinPrevue, "                      // 8-9-10
                " EN_HeureDebut, EN_HeureFin, EN_Priorite, EN_Note_tache, "                   // 11-12-13-14
@@ -393,6 +394,9 @@ QColor  qCouleurTache;
         QString numTache    = query.value(0).toString();
         QString boutonMenu  = query.value(8).toString();
         QString etatEnCours = query.value(3).toString();
+        if (m_DernierPkencours_taches < numTache.toInt())
+            m_DernierPkencours_taches = numTache.toInt();
+
         QHBoxLayout *horizonLayoutTache   = new QHBoxLayout();   // pour le nom de la tache + les etats
         horizonLayoutTache->setObjectName(dlgBox->objectName()+"-"+"horizonLayoutTache");
         // bouton annulation de tach
@@ -1026,7 +1030,7 @@ void MainWindow::saisieDestinationDuPatient(QString typeDeSortie, QString typeSa
     dlg->dTypeDeSortie  = typeDeSortie;
     dlg->dTypeSaisie    = typeSaisie;
     dlg->dExeCalendrier = m_ExeCalendrier;
-    if (typeDeSortie == "Absence" || typeSaisie == "GestionDest")
+    if (typeDeSortie == tr("Absence") || typeSaisie == tr("GestionDest"))
         {
          dlg->ui->dateTimeEdit_HeureSortie->setVisible(false);
          dlg->ui->label_heuresortie->setVisible(false);
@@ -1970,7 +1974,7 @@ int        EC_PK ;
            { QMessageBox::warning(0, NAME_APPLI, "Controle des entrées. Erreur recherche dernière clé!");
              return;
            }
-        if (m_DernierPkencours != query2.value(0).toInt())
+        if (m_DernierPkencours_taches != query2.value(0).toInt())
             IlFautActualiser = true;
        }
     if (IlFautActualiser)

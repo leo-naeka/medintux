@@ -132,7 +132,7 @@ void DlgDesti::ChargeDesti(QString NumEncours)
     ui->dateTimeEdit_HeureSortie->setDateTime(QDateTime::currentDateTime());
     ui->pushButton_annuler->setEnabled(false);
 
-    if (dTypeDeSortie == "Sortie")
+    if (dTypeDeSortie == tr("Sortie"))
         this->setWindowTitle(tr("Destinations à la sortie du service"));
     else
         this->setWindowTitle(tr("Destination pour absence provisoire"));

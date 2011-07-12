@@ -147,7 +147,7 @@ private:
     QString     lectureBlobDrtux(int PrimKeyBlob);
     QString     RecupStyle(QString TypeObjet);
 
-    QDir          m_DirDossierEntree;
+    QDir           m_DirDossierEntree;
     QMdiArea      *m_mdiArea;
     QSignalMapper *m_windowMapper;
     QSignalMapper *m_mapperPatient;
@@ -239,6 +239,7 @@ private:
     int         m_PeriodeAlarme;
     int         m_PeriodeClignote;
     int         m_PeriodeEntrees;
+    int         m_DernierPkencours_taches;
     int         m_DernierPkencours;
     int         m_DelaiDeSortie;
 
