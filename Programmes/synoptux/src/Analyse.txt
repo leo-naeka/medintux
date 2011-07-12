@@ -1,0 +1,106 @@
+Principe
+Au chargement du programme :
+- Affichage des box à partir de la table Box de la base Urgences.
+- Pour chaque Box, lecture de la table "occupation" et affichage éventuel
+  > nom du patient.
+    code du médecin responsable.
+    heure d'entrée
+    liste des actes à effectuer avec état de chaque acte.
+    Voir s'il faut un responsable par tache ????
+
+http://www.siteduzero.com/tutoriel-3-11302-positionner-ses-widgets-avec-les-layouts.html
+
+
+what this = Numéro de l'encours
+
+Bouton Nom tache :
+ObjectName      = "BouttonNomTache"
+accessible name = code tache
+what this       = Numéro de l'encours + "/" + Numéro de tache
+setAccessibleDescription = couleur orig /couleur clignot / Alarme
+
+Bouton Etat :
+AccessibleName  = CodeTache + "/" + NumTache + "/" + BoutonMenu + "/" + DernierEtat
+
+Box :
+setAccessibleDescription =TypeBox (Attente, soins, Sortie)
+
+
+Bouton NOm Patient
+AccessibleName = alarme
+
+Si on on une durée prévue dans la tache, on calcule la date de fin prévue
+à partir de la date de debut réelle au moment ou on clicke sur le premier bouton état.
+
+CRéer les états dans l'odre alpha dans l'ordre d'apparition dans le menu.
+
+Entree :
+- si urgent mettre une tache de prise en charge avec une date de début égale à la date en cours.
+  cela entrainera le clignotement ???
+
+SynopTux.ini
+la connexion à la base drTux n'est pas obligatoire..
+mettre un nom de base vide .
+--------------------------------------------------------------------------------------------------
+Paramètres d'entrée des patients
+---------------------------------
+A partir de Manager par la personnes à l'accueil.
+Saisie d'une fiche patient de prise en charge et génération d'une entrée dans SynnopTux.
+
+1° - par alimentation d'un fichier txt contenant :
+
+[Entree]
+Code_Box=B1                     (Non obligatoire : Un code box par défaut est paramétré dans Synoptux.ini)
+Nom_Patient=ABID
+Prenom_Patient=LISA
+GUID_Patient=7543d90c-325a-4a9c-9901-d2246e2bb9c3 (Obligatoire : permet d'identifier le patient en complément de taches)
+Code_Responsable=ro             (code de la table Sunoptux.responsables)
+Commentaire=Il est tout cassé   (modif d'entrée du patient)
+Programme_Annexe=D:/MedinTux/Programmes/drtux/bin/drtux.exe
+Arguments_Annexe=Lucette+Lucette+7543d90c-325a-4a9c-9901-d2246e2bb9c3+6521+ABID+LISA+D:/MedinTux/Programmes/Manager/bin/Manager.ini+D:/MedinTux/Programmes/Manager/bin/DataBase.cfg
+(les arguments standard de manager séparés par un + :
+ Login + LoginSgn + guid + id + nom + prénom + path.ini + path.cfg)
+
+[Tache_1]                       (non obligatoire )
+Code_Tache=A3                   (code de la table Synoptux.taches)
+Priorite=1                      (priorité de réalisation de la tâche)
+Commentaire=Tête et pieds       (précision courte sur la tâche à réaliser : ex pour RADIO >> Jambe gauche)
+Heure_Debut_Prevue=10h20        (Non obligatoire . Permet de déclancher une alerte si date dépassée)
+Heure_Fin_Prevue=11h20          (Idem)
+
+
+Paramètres d'alimentation des actes à réaliser pour un patient
+----------------------------------------------------------------
+
+A partir de drtux.exe pour renseigner les actes complémentaires .
+Le format est identique. Dans la partie [Entree] seul le GUID est obligatoire pour retrouver le patient concerné.
+
+2è méthode : Insertion directe dans la base SynopTux :
+------------------------------------------------------
+
+Créer un enregistrement dans la table Synoptux.encours :
+
+    "INSERT INTO encours ("
+    " EC_CodeBox,       = Code box (ex : AT ou S1)
+    " EC_NomPatient,    = Tartempion
+    " EC_PrenomPatient, = Marcel
+    " EC_Medecin,       = ro
+    " EC_GUIDPatient,   = 7543d90c-325a-4a9c-9901-d2246e2bb9c3
+    " EC_Replier,       = 1 (pour un ne pas afficher le détail des actes)
+    " EC_Commentaire,   = Modif d'entrée
+    " EC_HeureEntree,   = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss")
+    " EC_ProgAnnexe,    = D:/MedinTux/Programmes/drtux/bin/drtux.exe
+    " EC_ArgsAnnexe     = Lucette+Lucette+7543d90c-325a-4a9c-9901-d2246e2bb9c3+6521+ABID+LISA+D:/MedinTux/Programmes/Manager/bin/Manager.ini+D:/MedinTux/Programmes/Manager/bin/DataBase.cfg
+    " )
+
+Créer un enregsitrement par tache dans la table Synoptux.encours_taches
+
+    " INSERT INTO encours_taches ("
+    " EN_PK_encours,    = Clé autoincrément de la table encours
+    " EN_Code_tache     = code la table Synoptux.taches
+    " EN_Comment,       = Précision courte de la tache (Ex pour tache Radio : jambe gauche)
+    " EN_HeureDebPrevue,= Date à laquelle doit commencer la tache. Date en cours pour les urgences.
+    " EN_HeureFinPrevue,= Date de fin de la tache prévue. Alerte si dépassement.
+    " EN_Priorite       = chiffre de 1 à xxx sur lequel sont triées les taches non terminées."
+    " )"
+
