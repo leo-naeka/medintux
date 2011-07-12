@@ -70,4 +70,6 @@ FORMS += box.ui \
     dlgparam.ui \
     dlgdesti.ui \
     C_Dlg_Changements.ui
-OTHER_FILES += Analyse.txt
+OTHER_FILES += Analyse.txt \
+    ../bin/synoptuxBases.cfg \
+    ../bin/synoptux.ini
