@@ -202,7 +202,6 @@ void  C_BaseCommon::executeSQL( const QString &fname, QProgressBar *pQProgressBa
     QString requete       = "";
     QString line          = "";
     QString table         = "";
-    QString lastError     = "";
     m_LineNum             = 0;
     m_position            = 0;
     QSqlQuery query(QString::null, database());
