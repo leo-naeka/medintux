@@ -19,7 +19,6 @@
 
 static C_AppCore* G_AppCore = 0;  // contiendra l'instance globale de l'application accessible avec CApp::pCApp()
 
-
 //--------------------------------------------- C_AppCore -------------------------------------------------------------------
 C_AppCore::~C_AppCore()
 {writeParam((m_NameAppli+" session").toAscii(),"closed", QDateTime::currentDateTime().toString("dd-MM-yyyy hh:mm:ss:zzz").toAscii());
@@ -72,6 +71,13 @@ C_AppCore::C_AppCore(QString mui_name, int & argc, char ** argv)
     //qDebug (QString("NomOrganisation : %1").arg(organizationDomain()).toLatin1());
     //qDebug (QString("NomDomaine : %1").arg(organizationName()).toLatin1());
     G_AppCore           =    this;
+}
+
+//--------------------------------------------- initSettingVar -------------------------------------------------------------------
+/*! \brief met ? jour le fichier de parametrage la ou il veut.
+*/
+void C_AppCore::initSettingVar(const QString &var)
+{m_IniParam = var;
 }
 
 //--------------------------------------------- updateIniParamToDisk -------------------------------------------------------------------

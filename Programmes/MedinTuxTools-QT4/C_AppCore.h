@@ -44,6 +44,11 @@ public:
                        QString *val1=0, QString *val2=0, QString *val3=0, QString *val4=0, QString *val5=0,
                        QString *val6=0, QString *val7=0, QString *val8=0, QString *val9=0, QString *val10=0); /*!< lit une serie de valeurs dans la variable de parametrage */
     QString readUniqueParam(const char *section, const char  *variable);         /*!< lit une valeur dans la variable de parametrage */
+    //--------------------------------------------- initSettingVar -------------------------------------------------------------------
+    /*! \brief met a jour le fichier de parametrage la ou il veut.
+    */
+    void initSettingVar(const QString &var);
+
     //--------------------------------------------- criptedToUncripted -------------------------------------------------------------------
     /*! \brief met en clair le terme presente dans cripted
     */
