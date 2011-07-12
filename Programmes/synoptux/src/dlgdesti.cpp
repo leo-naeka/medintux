@@ -160,7 +160,7 @@ void DlgDesti::majListeDesti()
 QString requete;
 QTreeWidgetItem *pItem = 0;
 
-    requete = "SELECT DE_Destination "
+    requete =   " SELECT DE_Destination "
                 " FROM " DESTINATIONS
                 " WHERE  DE_TypeSortie  = '" + dTypeDeSortie + "'" ;
     if (ui->lineEdit_desti->text().length() > 0)
@@ -170,8 +170,8 @@ QTreeWidgetItem *pItem = 0;
    ui->treeWidget_desti->clear();
    while (query.isActive() &&  query.next())
         {pItem = new QTreeWidgetItem() ;
-        pItem->setText(0, query.value(0).toString());
-        ui->treeWidget_desti->addTopLevelItem(pItem);
+         pItem->setText(0, query.value(0).toString());
+         ui->treeWidget_desti->addTopLevelItem(pItem);
         }
 }
 //-----------------------------------ModifHeure-------------------------------------------------
