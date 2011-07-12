@@ -90,7 +90,7 @@ QString C_Utils_Log::outSQL_error( QTextEdit *logWidget, const QSqlQuery &cur, c
     QString lastError     = error.databaseText();
     if (lastError.length())
        { lastError        =  lastError.prepend(QString(messFunc) + "\n") + "\n" + requete;
-         qDebug(removeHtmlTag(lastError).toAscii());
+         qDebug(removeHtmlTag(lastError).toAscii()); // warning
          outMessage(logWidget, lastError, file, line);
        }
     return lastError;
