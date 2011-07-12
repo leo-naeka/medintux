@@ -227,6 +227,7 @@ void  C_BaseCommon::executeSQL( const QString &fname, QProgressBar *pQProgressBa
             requete = line;
             while (!file.atEnd())
             {   m_position += readLine(&file, buffer, line, nbMax);   ++m_LineNum;
+                line.remove("USING BTREE");
                 if (pQProgressBar)  {pQProgressBar->setValue(m_position/1000); qApp->processEvents();qApp->processEvents();}
                 if (line[0]==')' && (line[2]=='T' || line[2]=='E'))
                    {   if (line.left(7) == ") TYPE=" || line.left(9) == ") ENGINE=" )  // ne surtout pas inclure ';' dans la comparaison
@@ -285,7 +286,7 @@ void  C_BaseCommon::executeSQL( const QString &fname, QProgressBar *pQProgressBa
 // INSERT INTO `codes_postaux` (`id`,`code_postal`,`ville`) VALUES
 //  (26662,62153,'ABLAIN ST NAZAIRE'),
 //  (35076,80320,'ABLAINCOURT PRESSOIR');
-void  C_BaseCommon::parseSQL_InsertInto(QString &text, QTextEdit *logWidget /* = 0 */)
+void  C_BaseCommon::parseSQL_InsertInto(QString &text, QTextEdit */* logWidget  = 0 */)
 {   int len_sep, i, textLen;
     int deb           = text.indexOf("INSERT INTO");
     int pos           = text.indexOf("VALUES");

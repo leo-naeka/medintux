@@ -4,7 +4,7 @@
 #include "CApp.h"
 #include "C_BaseSynoptux.h"
 
-#define ETATS "etats"
+#define ETATS "ST_etats"
 
 DlgEtat::DlgEtat(QWidget *parent) :
     QDialog(parent),

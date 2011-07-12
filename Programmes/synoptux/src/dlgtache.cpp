@@ -4,9 +4,9 @@
 #include "CApp.h"
 #include "C_BaseSynoptux.h"
 
-#define TACHES          "taches"
-#define ETATS           "etats"
-#define ETATS_TACHES    "etats_taches"
+#define TACHES          "ST_taches"
+#define ETATS           "ST_etats"
+#define ETATS_TACHES    "ST_etats_taches"
 
 DlgTache::DlgTache(QWidget *parent) :
     QDialog(parent),

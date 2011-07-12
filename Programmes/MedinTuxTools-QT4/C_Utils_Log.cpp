@@ -156,6 +156,7 @@ QString C_Utils_Log::removeHtmlTag( const QString &txt)
             }
        }
  if (!htmlFind) return txt;
+ if (posEnd != -1) strRet += txt.mid(posEnd+1);    // rapatrier les reliquats
  return  strRet;
 }
 

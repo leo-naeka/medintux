@@ -3,8 +3,8 @@
 #include "CApp.h"
 #include "C_BaseSynoptux.h"
 
-#define DESTINATIONS "destinations"
-#define ENCOURS      "encours"
+#define DESTINATIONS "ST_destinations"
+#define ENCOURS      "ST_encours"
 #define NOM_APPLI    "SynopTux"
 
 DlgDesti::DlgDesti(QWidget *parent) :

@@ -1,5 +1,5 @@
 #include "dlgcss.h"
-#include "ui_dlgcss.h"
+#include "ui/ui_dlgcss.h"
 
 DlgCSS::DlgCSS(QWidget *parent) :
     QDialog(parent),

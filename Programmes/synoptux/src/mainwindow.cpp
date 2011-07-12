@@ -51,6 +51,14 @@
 #define DB_DRTUX              CApp::pCApp()->getDB()->database()
 #define DATA_BASE_SYNOPTUX    CApp::pCApp()->getDB()->database()
 #define BASE_SYNOPTUX         CApp::pCApp()->getDB()
+#define TACHES          "ST_taches"
+#define ETATS           "ST_etats"
+#define ETATS_TACHES    "ST_etats_taches"
+#define ENCOURS         "ST_encours"
+#define ENCOURS_TACHES  "ST_encours_taches"
+#define BOX             "ST_box"
+#define HISTORIQUE      "ST_historique"
+
 //-----------------------------------------MainWindow---------------------------------------------
 MainWindow::MainWindow()
 {
@@ -224,7 +232,7 @@ void MainWindow::Afficher_Les_Box()
 {
     m_DernierPkencours = 0;
     m_ListePositions.clear();
-    QString requete = "SELECT BO_Code, BO_Libelle, BO_CouleurBG, BO_CouleurTitre, BO_Nb_Maxi_Pat, BO_Type  FROM box ";
+    QString requete = "SELECT BO_Code, BO_Libelle, BO_CouleurBG, BO_CouleurTitre, BO_Nb_Maxi_Pat, BO_Type  FROM " BOX;
     QSqlQuery query(requete, DATA_BASE_SYNOPTUX);
     while (query.isActive() &&  query.next())
         {
@@ -306,7 +314,7 @@ void MainWindow::RemplirLeBox(C_Wdg_Box *dlgBox, QString BoxEnCours)
     QString requeteEnCours = "SELECT EC_PK, EC_CodeBox, EC_NomPatient, EC_HeureEntree,"     // 0-1-2-3
                      " EC_Medecin, EC_Replier, EC_HeureSortie, EC_PrenomPatient, "  // 4-5-6-7
                      " EC_Commentaire, EC_Destination, EC_Anonyme "                 // 8-9-10
-                     " FROM encours WHERE EC_CodeBox = '" + BoxEnCours + "'";
+                     " FROM "ENCOURS" WHERE EC_CodeBox = '" + BoxEnCours + "'";
     if (m_ResponsableSelectionne != "Tous")
         requeteEnCours.append(" AND EC_Medecin = '" + m_ResponsableSelectionne + "'");
 
@@ -374,7 +382,7 @@ QColor  qCouleurTache;
                " TA_BoutonMenu, EN_HeureDebPrevue, EN_HeureFinPrevue, "                      // 8-9-10
                " EN_HeureDebut, EN_HeureFin, EN_Priorite, EN_Note_tache, "                   // 11-12-13-14
                " EN_PrimKey_blob, EN_NomFicNote "
-               " FROM encours_taches "
+               " FROM "ENCOURS_TACHES
                " INNER JOIN taches ON EN_Code_tache = TA_Code_tache "
                " WHERE EN_PK_encours = " + numEnCours +
                " ORDER BY  EN_HeureFin, EN_Priorite, EN_HeureDebPrevue";
@@ -436,7 +444,7 @@ QColor  qCouleurTache;
         premierEtat  = false;
         QString couleurDefaut = "#FFFFFF";
         requeteEtat  = "SELECT ET_Libelle_etat, ET_Couleur_etat , ET_Tache_terminee"    // 0-1-2
-                       " FROM etats "
+                       " FROM " ETATS
                        " INNER JOIN etats_taches ON ST_Code_etat = ET_Code_etat "
                        " WHERE ST_Code_tache = '" + codeTache + "'"
                        " ORDER BY ST_Code_Etat";
@@ -1041,7 +1049,7 @@ void MainWindow::SortirLePatient(QString NumEnCours)
 {
     majHistorique(NumEnCours, "", tr("Sortie définitive."),""  );
 
-    QString requete = "DELETE from encours  WHERE  EC_PK = " + NumEnCours ;
+    QString requete = "DELETE from "ENCOURS"  WHERE  EC_PK = " + NumEnCours ;
     QSqlQuery query (requete, DATA_BASE_SYNOPTUX);
     if (!query.exec())
        { QString zlastquery = query.lastQuery ();
@@ -1052,7 +1060,7 @@ void MainWindow::SortirLePatient(QString NumEnCours)
                   "Erreur = (" +  noerr + ") " + query.lastError().text() + "<br>" + zlastquery );
        } // fin if erreur delete encours
 
-    requete = "DELETE from encours_taches WHERE EN_PK_Encours = " + NumEnCours;
+    requete = "DELETE from "ENCOURS_TACHES" WHERE EN_PK_Encours = " + NumEnCours;
     QSqlQuery queryb (requete, DATA_BASE_SYNOPTUX);
     if (!queryb.exec())
        { QString zlastquery = queryb.lastQuery ();
@@ -1115,7 +1123,7 @@ void MainWindow::Lancer_DrTux(QWidget *UnWidget)
     QString NomProg;
 
     QString requete = "SELECT EC_ProgAnnexe, EC_ArgsAnnexe "   // 0-1
-                      " FROM encours "
+                      " FROM " ENCOURS
                       " WHERE EC_PK = '" + NumEnCours + "'";
 
     QSqlQuery query(requete, DATA_BASE_SYNOPTUX);
@@ -1159,7 +1167,7 @@ void MainWindow::Recap_Tache(QWidget *UnWidget)
                         " HI_Code_tache, HI_Date, HI_Libelle_tache, HI_Action, "              // 4-5-6-7
                         " %1 , BO_Libelle, HI_Libelle_etat, HI_Commentaire, "                 // 8-9-10-11
                         " HI_PrenomPatient "      // 12
-                        " FROM historique "
+                        " FROM " HISTORIQUE
                         " INNER JOIN %2   ON HI_Code_resp = %3 "
                         " INNER JOIN box  ON HI_Code_box  = BO_Code "
                         " WHERE HI_NumEncours = '%4'").arg(BASE_SYNOPTUX->m_SIGNER_NOM,BASE_SYNOPTUX->m_SIGNER_TBL_NAME, BASE_SYNOPTUX->m_SIGNER_PK, NumEnCours);
@@ -1214,7 +1222,7 @@ void MainWindow::Note_Tache(QWidget *UnWidget)
     requete         = "SELECT EN_Code_tache, EN_Note_tache, EN_Comment, EN_HeureDebPrevue," //0-1-2-3
                       " EN_HeureFinPrevue, EN_Priorite, EC_NomPatient, EC_PrenomPatient, " // 4-5-6-7
                       " TA_Libelle_tache , EN_PrimKey_blob, EN_NomFicNote, EN_NomProgNote "  // 8-9-10-11
-                      " FROM encours_taches "
+                      " FROM " ENCOURS_TACHES
                       " INNER JOIN encours ON EC_PK = EN_PK_encours "
                       " INNER JOIN taches  ON EN_Code_tache = TA_Code_tache "
                       " WHERE EN_PK_encours = " + NumEnCours +
@@ -1283,7 +1291,7 @@ void MainWindow::Annule_Tache(QWidget *UnWidget)
     listInfoTache   = annuleTache->whatsThis().split("/");
     numEnCours      = listInfoTache.at(0);
     numTache        = listInfoTache.at(1);
-    requete         = "DELETE FROM encours_taches "
+    requete         = "DELETE FROM " ENCOURS_TACHES
                       " WHERE EN_PK_encours = " + numEnCours +
                       " AND   EN_Num_tache  = " + numTache;
     QSqlQuery query(requete, DATA_BASE_SYNOPTUX);
@@ -1347,7 +1355,7 @@ void MainWindow::modif_Etat(QWidget *UnWidget)
          m_menuEtat = new QMenu (this);
          // Recherche des états possibles de la tâche en cours
          QString requeteEtat = "SELECT ET_Libelle_etat, ET_Couleur_etat, ET_Tache_terminee "           // 0-1-2
-                              " FROM etats "
+                              " FROM " ETATS
                               " INNER JOIN etats_taches ON ST_Code_etat = ET_Code_etat "
                               " WHERE ST_Code_tache = '" + codeTache + "'";
         QSqlQuery queryb(requeteEtat, DATA_BASE_SYNOPTUX);
@@ -1536,7 +1544,7 @@ void MainWindow::majDeLaTache(QString NumEnCours, QString NumTache)
 
     // controle si la date de début n'a pas déjà été màj
     QString requete = "SELECT EN_HeureDebut, EN_HeureFinPrevue, EN_Code_tache, TA_Duree_maxi "   // 0-1-2-3
-                     " FROM encours_taches "
+                     " FROM " ENCOURS_TACHES
                      " INNER JOIN taches ON EN_Code_tache = TA_Code_tache "
                      " WHERE EN_PK_encours = " + NumEnCours +
                      " AND   EN_Num_tache  = " + NumTache ;
@@ -1566,7 +1574,7 @@ void MainWindow::majDateFinTache(QString numEnCours, QString numTache, QString d
     QString strMAJ, dateMAJ, libMAJ;
     // controle si la date de début n'a pas déjà été màj
     QString requete = "SELECT EN_HeureFin "   // 0
-                     " FROM encours_taches "
+                     " FROM " ENCOURS_TACHES
                      " WHERE EN_PK_encours = " + numEnCours +
                      " AND   EN_Num_tache  = " + numTache ;
     QSqlQuery queryb(requete, DATA_BASE_SYNOPTUX);
@@ -1597,7 +1605,7 @@ void MainWindow::majHistorique(QString NumEnCours, QString NumTache, QString Act
 
     requete = "SELECT EC_CodeBox, EC_NomPatient, EC_HeureEntree, EC_Medecin, "      // 0-1-2-3
               " EC_GUIDPatient, EC_HeureSortie, EC_PrenomPatient, EC_Commentaire "  // 4-5-6-7
-              " FROM encours "
+              " FROM " ENCOURS
               " WHERE EC_PK = " + NumEnCours;
     QSqlQuery query (requete, DATA_BASE_SYNOPTUX);
     if (query.isActive() &&  query.next())
@@ -1613,7 +1621,7 @@ void MainWindow::majHistorique(QString NumEnCours, QString NumTache, QString Act
         requete = "SELECT EN_Code_tache, EN_Comment, EN_Etat_en_cours, EN_HeureDebPrevue, "     // 0-1-2-3
                   " EN_HeureFinPrevue, EN_HeureDebut, EN_HeureFin, EN_Priorite, "               // 4-5-6-7
                   " TA_Libelle_tache, EN_Comment "                                              // 8-9
-                  " FROM encours_taches "
+                  " FROM " ENCOURS_TACHES
                   " INNER JOIN taches ON TA_Code_tache = EN_Code_Tache "
                   " WHERE   EN_PK_encours   = " + NumEnCours +
                   " AND     EN_Num_tache    = " + NumTache ;
@@ -1626,7 +1634,7 @@ void MainWindow::majHistorique(QString NumEnCours, QString NumTache, QString Act
              CommEncOuTache  = queryb.value(9).toString();
             }
        }
-    requete = "INSERT INTO historique "
+    requete = "INSERT INTO " HISTORIQUE
               " (HI_Code_box, HI_Nom_patient, HI_Code_resp, HI_Code_tache, "
               " HI_Date, HI_Action, HI_NumEncours, HI_Libelle_tache, HI_Libelle_etat,"
               " HI_PrenomPatient, HI_Commentaire)"
@@ -1684,7 +1692,7 @@ void MainWindow::Controle_Alarmes()
     requete = "SELECT EN_PK_encours, EN_Num_tache, EN_Code_tache, EN_Comment, EN_Etat_en_cours," // 0-1-2-3-4
               " EN_HeureDebPrevue, EN_HeureFinPrevue, EN_HeureDebut, EN_HeureFin, "          // 5-6-7-8
               " TA_Libelle_tache, EC_CodeBox, BO_Libelle, EC_Replier "                       // 9-10-11-12
-              " FROM encours_taches "
+              " FROM " ENCOURS_TACHES
               " INNER JOIN taches  ON TA_Code_tache = EN_Code_tache "
               " INNER JOIN encours ON EC_PK         = EN_PK_encours "
               " INNER JOIN box     ON BO_Code       = EC_CodeBox "
@@ -1848,14 +1856,14 @@ int        EC_PK ;
         ArgsAnnexe     = settingsEntree.value("Entree/Arguments_Annexe").toString();
 
         // controle du code Box qui doit exister pour apparaitre.
-        requete = "SELECT Code_Box FROM box WHERE BO_Code = '" + CodeBox + "'";
+        requete = "SELECT Code_Box FROM "BOX" WHERE BO_Code = '" + CodeBox + "'";
         QSqlQuery query (requete, DATA_BASE_SYNOPTUX);
         if (!query.isActive() ||  !query.next())
            { CodeBox = m_CodeBoxParDefaut;
            }
 
         // Controle de l'existence d'un encours pour le patient
-        requete = "SELECT EC_PK FROM encours WHERE EC_GUIDPatient = '" + GuidPatient + "'";
+        requete = "SELECT EC_PK FROM "ENCOURS" WHERE EC_GUIDPatient = '" + GuidPatient + "'";
         QSqlQuery queri (requete, DATA_BASE_SYNOPTUX);
         if (queri.isActive() &&  queri.next())
            { EC_PK = queri.value(0).toInt();
@@ -1863,7 +1871,7 @@ int        EC_PK ;
         else
            {// il n'y a pas ce patient dans l'encours
             // Création d'une entree dans table encours
-            requete = "INSERT INTO encours "
+            requete = "INSERT INTO " ENCOURS
                       " (EC_CodeBox, EC_NomPatient, EC_PrenomPatient, EC_Medecin, EC_GUIDPatient, EC_Replier, EC_Commentaire,"
                       " EC_HeureEntree, EC_ProgAnnexe, EC_ArgsAnnexe )"
                       " VALUES ('" +
@@ -1882,7 +1890,7 @@ int        EC_PK ;
                } // fin if erreur exec insert
 
             // récupération de la primkey pour créer les lignes taches
-            requete = "SELECT LAST_INSERT_ID() FROM encours WHERE EC_PK = LAST_INSERT_ID()" ;
+            requete = "SELECT LAST_INSERT_ID() FROM "ENCOURS" WHERE EC_PK = LAST_INSERT_ID()" ;
             QSqlQuery query1(requete, DATA_BASE_SYNOPTUX);
             if (!query1.isActive() ||  !query1.next())
                { QMessageBox::warning(0, NAME_APPLI, "Création de l'entrée. Erreur recherche dernière clé!");
@@ -1913,7 +1921,7 @@ int        EC_PK ;
              if (PrimKey_blob.length() == 0) PrimKey_blob = "0";
              NomFicNote   = settingsEntree.value(zTache + "/Nom_Fichier_Note").toString();
              NomProgNote  = settingsEntree.value(zTache + "/Nom_Lecteur_Note").toString();
-             requete = "INSERT INTO encours_taches "
+             requete = "INSERT INTO " ENCOURS_TACHES
                        " (EN_PK_encours, EN_Code_tache, EN_Comment,"
                        "  EN_HeureDebPrevue, EN_HeureFinPrevue, EN_Priorite, "
                        "  EN_PrimKey_blob, EN_NomFicNote, EN_NomProgNote "
@@ -1945,7 +1953,7 @@ int        EC_PK ;
     // controle si un autre prog à fait une entree directe dans la base
     if (!IlFautActualiser)
        {
-        requete = "SELECT MAX(EC_PK) FROM encours" ;
+        requete = "SELECT MAX(EC_PK) FROM " ENCOURS ;
         QSqlQuery query1(requete, DATA_BASE_SYNOPTUX);
         if (!query1.isActive() ||  !query1.next())
            { QMessageBox::warning(0, NAME_APPLI, "Controle des entrées. Erreur recherche dernière clé!");
@@ -1956,7 +1964,7 @@ int        EC_PK ;
        }
     if (!IlFautActualiser)
        {
-        requete = "SELECT MAX(EN_PK_encours) FROM encours_taches" ;
+        requete = "SELECT MAX(EN_PK_encours) FROM " ENCOURS_TACHES ;
         QSqlQuery query2(requete, DATA_BASE_SYNOPTUX);
         if (!query2.isActive() ||  !query2.next())
            { QMessageBox::warning(0, NAME_APPLI, "Controle des entrées. Erreur recherche dernière clé!");

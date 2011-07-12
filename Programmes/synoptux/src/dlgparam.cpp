@@ -5,6 +5,7 @@
 
 #define NOM_APPLI "SynopTux"
 
+//--------------------------------- DlgParam --------------------------------------------------------------------------------
 DlgParam::DlgParam(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::DlgParam)
@@ -15,11 +16,13 @@ DlgParam::DlgParam(QWidget *parent) :
     connect (ui->pushButton_annuler,    SIGNAL(clicked()),  this, SLOT (close()));
 }
 
+//--------------------------------- ~DlgParam --------------------------------------------------------------------------------
 DlgParam::~DlgParam()
 {
     delete ui;
 }
 
+//--------------------------------- changeEvent --------------------------------------------------------------------------------
 void DlgParam::changeEvent(QEvent *e)
 {
     QDialog::changeEvent(e);
@@ -32,13 +35,14 @@ void DlgParam::changeEvent(QEvent *e)
     }
 }
 
+//--------------------------------- ChargeParam --------------------------------------------------------------------------------
 void   DlgParam::ChargeParam(QString typeParam)
 {
     QString     zParam;
     QFile       *FilePARAM;
     if (typeParam == "CSS")
         {
-        nomficPARAM = QApplication::applicationDirPath()+ "/synoptux.css";
+        nomficPARAM = QApplication::applicationDirPath()+ "/Ressources/synoptux.css";
         setWindowTitle("Mise en forme des objets" );
         setWindowIcon(QIcon(":/images/css.png"));
         }
