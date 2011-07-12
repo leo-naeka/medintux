@@ -74,6 +74,7 @@ FORMS += RubTerrain.ui \
 
 HEADERS += drtux.h \
            CApp.h \
+           ../../drtux/src/C_DlgListFieldMngr.h \
            ../../MedinTuxTools/C_ImageList.h \
            C_FormGlossaire.h \
            C_TokenInterpret.h \
@@ -139,6 +140,7 @@ HEADERS += drtux.h \
 
 SOURCES += drtux.cpp \
            CApp.cpp \
+           ../../drtux/src/C_DlgListFieldMngr.cpp \
            ../../MedinTuxTools/C_ImageList.cpp \
            C_FormGlossaire.cpp \
            C_TokenInterpret.cpp \

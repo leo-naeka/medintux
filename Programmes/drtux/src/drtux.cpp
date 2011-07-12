@@ -89,7 +89,6 @@
 
 #include "ui/Dlg_AboutDrTux.h"
 #include "ui/Dlg_MedicaTux.h"
-#include "ui/DlgListFieldMngr.h"
 #include "ui/DlgPrint.h"
 #include "ui/Dlg_PermsUserChoice.h"
 
@@ -109,6 +108,7 @@
 #include "../../MedinTuxTools/GestRPU.h"
 #include "../../MedinTuxTools/CGenTools.h"
 #include "../../MedinTuxTools/C_Organiseur.h"
+#include "../../drtux/src/C_DlgListFieldMngr.h"
 
 
 
@@ -243,7 +243,7 @@ DrTux::DrTux()
     //                 surcharge celui de Theme.ini et Manager.ini
     if (READ_USER_PARAM(USER_PARAM, "Theme config", "PopupFntSize", &val1)==0)  // zero = pas d'erreur
        {int size = val1.toInt();
-        if (size !=-1) 
+        if (size !=-1)
            {Theme::setFontSize_Menu( size );
             QFont fnt (menuBar()->font());
             fnt.setPointSize( size ); menuBar()->setFont(fnt);
@@ -975,8 +975,8 @@ void DrTux::SetDefaultDoc()
      {rubName = G_pCApp->m_ListRubName[i];
       if (rubName==tr("Vigie") && m_pDock_Organiseur&&m_pC_Organiseur)
          { if (CGestIni::Param_ReadParam( G_pCApp->m_DrTuxParam, rubName, tr("Defaut"), &path)==0)
-              { 
-                if (path[0]!=':') {verbose = 0;} 
+              {
+                if (path[0]!=':') {verbose = 0;}
                 path = path.remove(":").stripWhiteSpace();
                 if (path.length() && path[0]!='*')
                    {path = G_pCApp->resolvePath(path);
@@ -999,7 +999,7 @@ void DrTux::SetDefaultDoc()
            CMDI_Generic *pCMDI_Generic = (CMDI_Generic*) IsExistRubrique(rubName);
            if (pCMDI_Generic)
               {RUBREC_LIST::iterator it = pCMDI_Generic->Current_RubList_Iterator();
-               if ( it == m_RubList.end()  ) 
+               if ( it == m_RubList.end()  )
                   { path=""; verbose = 1;
                     if (CGestIni::Param_ReadParam( G_pCApp->m_DrTuxParam, rubName, tr("Defaut"), &path)==0)
                        { if (path[0]!=':') { verbose = 0;}
@@ -1010,10 +1010,10 @@ void DrTux::SetDefaultDoc()
                              else  if (verbose)           G_pCApp->CouCou( tr("Fichier par défaut non trouvé ou non indiqué, lors ouverture de l'%1 par défaut").arg(rubName), "$Theme/MessagePopError-01.png", 30000);
                             }
                        }
-                     else 
+                     else
                        {G_pCApp->CouCou( tr("Erreur : mention \"%1\" non trouvée dans le fichier de paramètres, lors de l'ouverture du fichier initial").arg(rubName), "$Theme/MessagePopError-01.png", 30000);
                        } //if (CGestIni::Param_ReadParam( G_pCApp->m_DrTuxParam, rubName, tr("Defaut"), &path)==0)
-                  } //if ( it == m_RubList.end()  ) 
+                  } //if ( it == m_RubList.end()  )
               } //if (pCMDI_Generic)
           }  //for (int i=0; i<G_pCApp->m_ListRubName.count(); ++i)
      }
@@ -2261,13 +2261,13 @@ void DrTux::InstallCustomMenu()
     //............ Parcours le répertoire, crée les C_UserQAction et les place dans le tableau ...........................
     path                                = G_pCApp->m_PathImages + "Menus";
     dir                                 = QDir(path);
-    const QFileInfoList *pQFileInfoList = 0; 
+    const QFileInfoList *pQFileInfoList = 0;
     if (dir.exists())
        {dir.setFilter( QDir::All | QDir::NoSymLinks );
         dir.setSorting(QDir::DirsFirst | QDir::Name);
         pQFileInfoList = dir.entryInfoList();
        }
-    if (pQFileInfoList!=0) 
+    if (pQFileInfoList!=0)
        {QFileInfoListIterator it( *pQFileInfoList );
         QFileInfo     *fi;
         QString fname="";
@@ -2410,7 +2410,7 @@ C_UserQAction *DrTux::Create_CustomAction(QString path)
   //.........................OPTIONS FACULTATIVES .....................................................................................
   //........................ periode de l'option ......................................................................................
   deb_value = definition.find ( "<string>" , end_value + 9);
-  if (deb_value != -1) 
+  if (deb_value != -1)
      {deb_value += 8;
       end_value  = definition.find ( "</string>" , deb_value);
       if (end_value == -1)  {qDebug ( tr("DrTux::Create_CustomAction : missed end    </string> after property name in facultatives options \nin '%1'").arg(path));}
@@ -2436,7 +2436,7 @@ QString DrTux::On_CustomAction(QString& script, C_UserQAction *pQAction)
  if (deb != -1)
     {deb += 13;
      if ( (deb = script.find("["),deb) != -1)
-        {++deb; 
+        {++deb;
          int end = script.find("]",deb);
          if (end != -1)
             {int new_period = script.mid(deb,end-deb).stripWhiteSpace().toInt();
@@ -2464,11 +2464,11 @@ QString DrTux::Slot_On_UserQAction_TimerDone(const QString& scriptIn, C_UserQAct
 /*! \brief slot active lorsque le timer d'un custom menu est arrive au bout de sa periode
 */
 QString DrTux::Slot_On_UserQAction_Activated(const QString& scriptIn, C_UserQAction *pQAction)
-{if (scriptIn.find("{{EXECUTE_ON_EXIT}}") != -1 && scriptIn.find("{{EXIT}}") != -1)  
+{if (scriptIn.find("{{EXECUTE_ON_EXIT}}") != -1 && scriptIn.find("{{EXIT}}") != -1)
     {OnMenuQuitterDrTux();
      return QString::null;
     }
- else 
+ else
     {return Slot_On_UserQAction_TimerDone(scriptIn, pQAction);
     }
 }
@@ -3779,7 +3779,7 @@ void DrTux::ListManager()
      pMyEditText->ListManager();
     }
  else
-   {FormDlgListFieldMngr *dlg = new FormDlgListFieldMngr(this, "ListManager_Dial", TRUE, WStyle_Customize | WStyle_NormalBorder | WStyle_Title |WStyle_MinMax | WStyle_SysMenu);
+   {C_DlgListFieldMngr *dlg = new C_DlgListFieldMngr(this, "ListManager_Dial", TRUE, WStyle_Customize | WStyle_NormalBorder | WStyle_Title |WStyle_MinMax | WStyle_SysMenu);
     if (dlg ==0) return;
     dlg->initDialog(G_pCApp->m_DrTuxParam, G_pCApp->m_PathGlossaire, G_pCApp->m_PathAppli);
     dlg->exec();
@@ -3985,11 +3985,11 @@ int DrTux::SauverDossierAvantNouvelleAction(SAVE_Mode mode /*= DrTux::Inquire*/)
              else                                  actionQuit = 2;   // quitter sans enregistrer
             }
        }
-    else 
+    else
        {
         actionQuit = 1;         // quitter et enregistrer
-        if (nb && mode==DrTux::Inquire) 
-           {actionQuit = QMessageBox::question( this, tr("Fermeture du dossier actif"), 
+        if (nb && mode==DrTux::Inquire)
+           {actionQuit = QMessageBox::question( this, tr("Fermeture du dossier actif"),
                                                                             tr( "Ce dossier en cours a été modifié, faut-il :\r\n"
                                                                                 "enregistrer les modifications ?"),
                                                                             tr("&Ne pas fermer"),                            // 0

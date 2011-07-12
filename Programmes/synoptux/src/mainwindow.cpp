@@ -383,7 +383,7 @@ QColor  qCouleurTache;
                " EN_HeureDebut, EN_HeureFin, EN_Priorite, EN_Note_tache, "                   // 11-12-13-14
                " EN_PrimKey_blob, EN_NomFicNote "
                " FROM "ENCOURS_TACHES
-               " INNER JOIN taches ON EN_Code_tache = TA_Code_tache "
+               " INNER JOIN "TACHES" ON EN_Code_tache = TA_Code_tache "
                " WHERE EN_PK_encours = " + numEnCours +
                " ORDER BY  EN_HeureFin, EN_Priorite, EN_HeureDebPrevue";
     QSqlQuery query(requete, DATA_BASE_SYNOPTUX);
@@ -445,7 +445,7 @@ QColor  qCouleurTache;
         QString couleurDefaut = "#FFFFFF";
         requeteEtat  = "SELECT ET_Libelle_etat, ET_Couleur_etat , ET_Tache_terminee"    // 0-1-2
                        " FROM " ETATS
-                       " INNER JOIN etats_taches ON ST_Code_etat = ET_Code_etat "
+                       " INNER JOIN "ETATS_TACHES" ON ST_Code_etat = ET_Code_etat "
                        " WHERE ST_Code_tache = '" + codeTache + "'"
                        " ORDER BY ST_Code_Etat";
         QSqlQuery queryb(requeteEtat, DATA_BASE_SYNOPTUX);
@@ -1075,7 +1075,7 @@ void MainWindow::SortirLePatient(QString NumEnCours)
 void MainWindow::PlierDeplier(QWidget *UnWidget)
 {
     QStringList infoBouton;
-    bool        statusReplier;
+    bool        statusReplier=1;
     QPushButton             *lebouton = qobject_cast<QPushButton *>(UnWidget);
     QString                numEnCours = lebouton->whatsThis();
     QObject            *patientParent = lebouton->parent();
@@ -1100,7 +1100,7 @@ void MainWindow::PlierDeplier(QWidget *UnWidget)
         lebouton->setIcon(QIcon(":/images/1rightarrow.png"));
 
     // réécriture du status Plier ou Deplier dans la base.
-    QString requete = "UPDATE encours  SET EC_Replier = " + QString::number(statusReplier) +
+    QString requete = "UPDATE "ENCOURS"  SET EC_Replier = " + QString::number(statusReplier) +
                       "  WHERE    EC_PK = " + numEnCours ;
     QSqlQuery query (requete, DATA_BASE_SYNOPTUX);
     if (!query.exec())
@@ -1168,8 +1168,8 @@ void MainWindow::Recap_Tache(QWidget *UnWidget)
                         " %1 , BO_Libelle, HI_Libelle_etat, HI_Commentaire, "                 // 8-9-10-11
                         " HI_PrenomPatient "      // 12
                         " FROM " HISTORIQUE
-                        " INNER JOIN %2   ON HI_Code_resp = %3 "
-                        " INNER JOIN box  ON HI_Code_box  = BO_Code "
+                        " INNER JOIN %2     ON HI_Code_resp = %3 "
+                        " INNER JOIN "BOX"  ON HI_Code_box  = BO_Code "
                         " WHERE HI_NumEncours = '%4'").arg(BASE_SYNOPTUX->m_SIGNER_NOM,BASE_SYNOPTUX->m_SIGNER_TBL_NAME, BASE_SYNOPTUX->m_SIGNER_PK, NumEnCours);
                       //" ORDER BY HI_PK ASC ";
 
@@ -1223,8 +1223,8 @@ void MainWindow::Note_Tache(QWidget *UnWidget)
                       " EN_HeureFinPrevue, EN_Priorite, EC_NomPatient, EC_PrenomPatient, " // 4-5-6-7
                       " TA_Libelle_tache , EN_PrimKey_blob, EN_NomFicNote, EN_NomProgNote "  // 8-9-10-11
                       " FROM " ENCOURS_TACHES
-                      " INNER JOIN encours ON EC_PK = EN_PK_encours "
-                      " INNER JOIN taches  ON EN_Code_tache = TA_Code_tache "
+                      " INNER JOIN "ENCOURS" ON EC_PK = EN_PK_encours "
+                      " INNER JOIN "TACHES"  ON EN_Code_tache = TA_Code_tache "
                       " WHERE EN_PK_encours = " + NumEnCours +
                       " AND   EN_Num_tache  = " + NumTache;
     QSqlQuery query(requete, DATA_BASE_SYNOPTUX);
@@ -1356,7 +1356,7 @@ void MainWindow::modif_Etat(QWidget *UnWidget)
          // Recherche des états possibles de la tâche en cours
          QString requeteEtat = "SELECT ET_Libelle_etat, ET_Couleur_etat, ET_Tache_terminee "           // 0-1-2
                               " FROM " ETATS
-                              " INNER JOIN etats_taches ON ST_Code_etat = ET_Code_etat "
+                              " INNER JOIN "ETATS_TACHES" ON ST_Code_etat = ET_Code_etat "
                               " WHERE ST_Code_tache = '" + codeTache + "'";
         QSqlQuery queryb(requeteEtat, DATA_BASE_SYNOPTUX);
         while (queryb.isActive() &&  queryb.next())
@@ -1501,7 +1501,7 @@ void MainWindow::selectionDunResponsable(QString StrResp)
 //------------------------------majTableEtatEncours--------------------------------------------
 void MainWindow::majTableEtatEncours(QString NumEnCours, QString NumTache, QString ChampsMisaJour, QString /*Commentaire */)
 {
-    QString requete = "UPDATE encours_taches  SET " + ChampsMisaJour +
+    QString requete = "UPDATE "ENCOURS_TACHES"  SET " + ChampsMisaJour +
               "  WHERE    EN_PK_Encours = " + NumEnCours +
               "  AND      EN_Num_tache  = " + NumTache;
     QSqlQuery query (requete, DATA_BASE_SYNOPTUX);
@@ -1517,7 +1517,7 @@ void MainWindow::majTableEtatEncours(QString NumEnCours, QString NumTache, QStri
 //------------------------------majTableEncours--------------------------------------------
 void MainWindow::majTableEncours(QString NumEnCours, QString ChampsMisaJour, QString Commentaire)
 {
-QString requete = "UPDATE encours  SET " + ChampsMisaJour +
+QString requete = "UPDATE "ENCOURS"  SET " + ChampsMisaJour +
                   "'  WHERE EC_PK = " + NumEnCours ;
     QSqlQuery query (requete, DATA_BASE_SYNOPTUX);
     if (!query.exec())
@@ -1545,7 +1545,7 @@ void MainWindow::majDeLaTache(QString NumEnCours, QString NumTache)
     // controle si la date de début n'a pas déjà été màj
     QString requete = "SELECT EN_HeureDebut, EN_HeureFinPrevue, EN_Code_tache, TA_Duree_maxi "   // 0-1-2-3
                      " FROM " ENCOURS_TACHES
-                     " INNER JOIN taches ON EN_Code_tache = TA_Code_tache "
+                     " INNER JOIN "TACHES" ON EN_Code_tache = TA_Code_tache "
                      " WHERE EN_PK_encours = " + NumEnCours +
                      " AND   EN_Num_tache  = " + NumTache ;
     QSqlQuery queryb(requete, DATA_BASE_SYNOPTUX);
@@ -1603,8 +1603,8 @@ void MainWindow::majHistorique(QString NumEnCours, QString NumTache, QString Act
     QString  CodeBox , NomPatient, CodeResp, CodeTache, LibelleTache, PrenomPatient, CommEncOuTache;
     QSqlQuery queryh (DATA_BASE_SYNOPTUX);
 
-    requete = "SELECT EC_CodeBox, EC_NomPatient, EC_HeureEntree, EC_Medecin, "      // 0-1-2-3
-              " EC_GUIDPatient, EC_HeureSortie, EC_PrenomPatient, EC_Commentaire "  // 4-5-6-7
+    requete = " SELECT EC_CodeBox, EC_NomPatient, EC_HeureEntree, EC_Medecin, "      // 0-1-2-3
+              " EC_GUIDPatient, EC_HeureSortie, EC_PrenomPatient, EC_Commentaire "   // 4-5-6-7
               " FROM " ENCOURS
               " WHERE EC_PK = " + NumEnCours;
     QSqlQuery query (requete, DATA_BASE_SYNOPTUX);
@@ -1618,11 +1618,11 @@ void MainWindow::majHistorique(QString NumEnCours, QString NumTache, QString Act
        }
     if (NumTache > 0)
        {
-        requete = "SELECT EN_Code_tache, EN_Comment, EN_Etat_en_cours, EN_HeureDebPrevue, "     // 0-1-2-3
-                  " EN_HeureFinPrevue, EN_HeureDebut, EN_HeureFin, EN_Priorite, "               // 4-5-6-7
-                  " TA_Libelle_tache, EN_Comment "                                              // 8-9
+        requete = " SELECT EN_Code_tache, EN_Comment, EN_Etat_en_cours, EN_HeureDebPrevue, "     // 0-1-2-3
+                  " EN_HeureFinPrevue, EN_HeureDebut, EN_HeureFin, EN_Priorite, "                // 4-5-6-7
+                  " TA_Libelle_tache, EN_Comment "                                               // 8-9
                   " FROM " ENCOURS_TACHES
-                  " INNER JOIN taches ON TA_Code_tache = EN_Code_Tache "
+                  " INNER JOIN "TACHES" ON TA_Code_tache = EN_Code_Tache "
                   " WHERE   EN_PK_encours   = " + NumEnCours +
                   " AND     EN_Num_tache    = " + NumTache ;
 
@@ -1693,9 +1693,9 @@ void MainWindow::Controle_Alarmes()
               " EN_HeureDebPrevue, EN_HeureFinPrevue, EN_HeureDebut, EN_HeureFin, "          // 5-6-7-8
               " TA_Libelle_tache, EC_CodeBox, BO_Libelle, EC_Replier "                       // 9-10-11-12
               " FROM " ENCOURS_TACHES
-              " INNER JOIN taches  ON TA_Code_tache = EN_Code_tache "
-              " INNER JOIN encours ON EC_PK         = EN_PK_encours "
-              " INNER JOIN box     ON BO_Code       = EC_CodeBox "
+              " INNER JOIN "TACHES"  ON TA_Code_tache = EN_Code_tache "
+              " INNER JOIN "ENCOURS" ON EC_PK         = EN_PK_encours "
+              " INNER JOIN "BOX"     ON BO_Code       = EC_CodeBox "
               " WHERE EN_HeureFin IS NULL OR EN_HeureFin < '2000-00-00'" ;  // la tache n'est pas finie
 
     QSqlQuery query (requete, DATA_BASE_SYNOPTUX);

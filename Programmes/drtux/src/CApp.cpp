@@ -68,7 +68,7 @@
 */
 
 CApp* G_pCApp = 0;  // contiendra l'instance globale de l'application
-static char NUM_VERSION[]     = "==##@@==2.14.014==@@##=="; 
+static char NUM_VERSION[]     = "==##@@==2.14.016==@@##==";
 //--------------------------------------------- CApp -------------------------------------------------------------------
 CApp::~CApp()
 {
@@ -165,10 +165,12 @@ CApp::CApp(QString mui_name, int & argc, char ** argv)
     if (argc >= 7 &&  argv[7])      m_PathDrTuxIni =     argv[7];
     else                            m_PathDrTuxIni =     m_PathAppli + "drtux.ini";
     //for (int i=0; i<argc;++i) qDebug (tr("Argument Numero %1 : '%2'").arg(QString::number(i),argv[i]));
-  
-    //.......................Charger les parametres de connexion .............................................
+
+    //.......................Charger les parametres .ini de l'application .............................................
     CGestIni::Param_UpdateFromDisk(m_PathDrTuxIni, m_DrTuxParam);
+    QStringList list = get_PossiblesRubNameList();
     //.......................y recuperer les rubriques automatiques .............................................
+    /*
     //    [Rubriques Automatiques]
     //         1= Biologie|bi|20070000
     //         2= Imagerie|im|20040000
@@ -181,7 +183,7 @@ CApp::CApp(QString mui_name, int & argc, char ** argv)
     list.prepend ( CMDI_Prescription::S_GetRubName() +"|or|"+QString::number(CMDI_Prescription::S_GetType()));
     list.prepend ( CMDI_Terrain::S_GetRubName()      +"|at|"+QString::number(CMDI_Terrain::S_GetType()));
     list.prepend ("Observation|ob|20030000");
-
+    */
     // m_mapDroitPrefix[key] = prefix; // ???
 
     for (int i=0; i< (int)list.count(); ++i)
@@ -216,9 +218,9 @@ CApp::CApp(QString mui_name, int & argc, char ** argv)
     QFont font = this->font();
     CGestIni::Param_ReadParam( m_DrTuxParam, "Font", "PointSize", &val2 );
     CGestIni::Param_ReadParam( m_DrTuxParam, "Font", "Family", &val1 );
-    if (val1.length()) 
+    if (val1.length())
        font.setFamily(val1);
-    if (val2.length()) 
+    if (val2.length())
        {int size = val2.toInt();
         font.setPointSize( size );
         Theme::setFontSize_Menu( size );
@@ -365,6 +367,25 @@ QString CApp::getListNameRubriqueMenu(const QString &rubName)
  return QString::null;
 }
 
+//--------------------------------------------- get_PossiblesRubNameList --------------------------------------
+QStringList  CApp::get_PossiblesRubNameList()
+{
+    //.......................recuperer les rubriques automatiques definies par l'utilisateur.............................................
+    //    [Rubriques Automatiques]
+    //         1= Biologie|bi|20070000
+    //         2= Imagerie|im|20040000
+    QStringList list;
+    CGestIni::Param_GetList(m_DrTuxParam, "Rubriques Automatiques", "",  list , 1);  // 1 pour on les veut stripes
+    //.......................y ajouter les rubriques automatiques obligatoires .............................................
+    list.prepend ("Vigie|cl|20050000");
+    list.prepend ( CMDI_Ident::S_GetRubName()        +"|ie|"+QString::number(CMDI_Ident::S_GetType()));
+    list.prepend ("Documents|do|20080000");
+    list.prepend ( CMDI_Prescription::S_GetRubName() +"|or|"+QString::number(CMDI_Prescription::S_GetType()));
+    list.prepend ( CMDI_Terrain::S_GetRubName()      +"|at|"+QString::number(CMDI_Terrain::S_GetType()));
+    list.prepend ("Observation|ob|20030000");
+    return list;
+}
+
 //--------------------------------------------- SetPathGlossaire --------------------------------------
 QString  CApp::SetPathGlossaire(QString pathGlossaire)
 {  if (pathGlossaire[0] == '.')
@@ -469,7 +490,7 @@ QString CApp::RubNameToStringType( const QString &rubName , FIND_TYPE f_typ /*= 
 {return QString::number(RubNameToType( rubName , f_typ ));
 }
 //--------------------------------------------- resolvePath --------------------------------------
-/*! \brief resoud un chemin comportant les eventuelles macros $Glossaire $Vigie par le chemin absolu 
+/*! \brief resoud un chemin comportant les eventuelles macros $Glossaire $Vigie par le chemin absolu
  *  \param pathFile :  QString chemin d'entree
  *  \return Renvoie le chemin modifie
 */
@@ -602,7 +623,7 @@ void CApp::Map_Prefix_Droits()
 }
 //------------------------------ loadContentsIfBeginByTokenFile --------------------------------------------------
 /*! \brief Teste si la chaine arg commence par $File et si c'est le cas la charge avec le contenu du fichier.
- *  \param  QString& arg : argument a evaluer et eventuellement charger avec le contenu d'un fichier 
+ *  \param  QString& arg : argument a evaluer et eventuellement charger avec le contenu d'un fichier
 */
 QString CApp::loadContentsIfBeginByTokenFile(QString &arg)
 {if (arg.startsWith("$File"))
@@ -729,40 +750,58 @@ QString CApp::GetImageFileName(QString *last_path /* = 0 */, QString stringPrese
 */
 void CApp::addPopupHierarchique(const QString& path, QPopupMenu* pQPopupMenu, QString* pRetVar)  //, void  (*functionToActivateInRetSlot)()
 {
- m_PopupHeadMap.clear();            //QMap<int id, ThemePopup* >
- m_pOptionHierarch_Selectionne  = pRetVar;
+ m_PopupHeadMap.clear();      //QMap<int id, ThemePopup* >
+ int menuPrincipal_ID           = 0;
  QString menuStr                = "";
  QString section                = "";
  CGestIni::Param_UpdateFromDisk(path, menuStr);
- int posDebSection    = -1;
- int posEndSection    = 0;
- int menuPrincipal_ID = 0;
- int menuOption_ID    = 0;
- while ( (posDebSection = menuStr.find("[",posEndSection)) != -1 )
+ int posDebSection              = -1;
+ int posEndSection              =  0;
+ while ( (posDebSection  = menuStr.find("[",posEndSection)) != -1 )
     {++posDebSection;
      if ( (posEndSection = menuStr.find("]",posDebSection)) != -1 )
         {section = menuStr.mid(posDebSection,posEndSection-posDebSection).stripWhiteSpace();
          if (section.length())
             {QStringList optionsList;
-             CGestIni::Param_GetList(menuStr, section, "",  optionsList );
-             if (optionsList.count())
-                {ThemePopup* pQPopupMenuSection = new ThemePopup( pQPopupMenu, section);
-                 pQPopupMenuSection->insertItem ( section, this, SLOT(Slot_popup_HierarchOptionSelected()),0, menuPrincipal_ID*1000 + menuOption_ID );
-                 pQPopupMenuSection->insertSeparator();
-                 ++menuOption_ID;
-                 for ( QStringList::Iterator it = optionsList.begin(); it != optionsList.end(); ++it )
-                     {pQPopupMenuSection->insertItem ( (*it).stripWhiteSpace(), this, SLOT(Slot_popup_HierarchOptionSelected()),0, menuPrincipal_ID*1000 + menuOption_ID );
-                      ++menuOption_ID;
-                     }
-                 pQPopupMenu->insertItem( section,  pQPopupMenuSection);
-                 connect( pQPopupMenuSection, SIGNAL( activated( int)),  this, SLOT(Slot_popup_HierarchActivated( int)) );
-                 m_PopupHeadMap[menuPrincipal_ID] = pQPopupMenuSection;
-                 ++menuPrincipal_ID;
-                 menuOption_ID     = 0;
-                }
+             CGestIni::Param_GetList(menuStr, section, "",  optionsList);
+             addPopupHierarchique(optionsList, pQPopupMenu, pRetVar, section, &menuPrincipal_ID);
+             ++menuPrincipal_ID;
             }
         }
     }
+}
+//------------------------------------ addPopupHierarchique --------------------------------------------------
+/*! \brief Ajoute le menu de selection du type Hierarchique a un menu quelconque a partir d'un fichier
+ *  \param pQPopupMenu : QPopupMenu* est le menu auquel rajouter ce menu hierarchique
+ *  \param optionsList : QStringListliste des options du menu
+ *  \param pRetVar :     QString* est un pointeur sur la chaine de caractre dans laquelle retourner l'option selectionnee
+ *  \param subName :     QString& chaine de caractre du nom du sous menu
+ *  \note  avant appel de cette fonction il convient de la connecter comme suit a
+ *                                un SLOT a actionner lors selection d'une option:
+ *                     connect ( G_pCApp, SIGNAL(Sign_popup_HierarchOptionSelected()) , this, SLOT(Slot_OnMenuActionSelected()));
+ *         puis dans le slot de la deconnecter :
+ *                  disconnect ( G_pCApp, SIGNAL(Sign_popup_HierarchOptionSelected()) , this, SLOT(Slot_OnMenuActionSelected()));
+ *  LIMITATION : il ne peut y avoir qu'un menu de ce type dans un menu principal
+*/
+
+void CApp::addPopupHierarchique(QStringList optionsList, QPopupMenu* pQPopupMenu, QString* pRetVar, const QString &subName, int *pMenuPrincipalID /* =0 */ )  //, void  (*functionToActivateInRetSlot)()
+{ if (optionsList.count()==0) return;
+  m_pOptionHierarch_Selectionne           = pRetVar;
+  int menuOption_ID                       = 0;
+  int menuPrincipal_ID                    = 0;
+  if (pMenuPrincipalID)  menuPrincipal_ID = *pMenuPrincipalID;  // la gestion de m_PopupHeadMap[menuPrincipal_ID] se fait en dehors de la fonction il peut y avoir plusieurs options principales avec sous menu
+  else                   m_PopupHeadMap.clear();                // la gestion de m_PopupHeadMap[menuPrincipal_ID] se fait dans la fonction et il n'y a qu'une option principale avec sous menu
+  ThemePopup* pQPopupMenuSection          = new ThemePopup( pQPopupMenu, subName);
+  pQPopupMenuSection->insertItem ( subName, this, SLOT(Slot_popup_HierarchOptionSelected()),0, menuPrincipal_ID*1000 + menuOption_ID );
+  pQPopupMenuSection->insertSeparator();
+  ++menuOption_ID;
+  for ( QStringList::Iterator it = optionsList.begin(); it != optionsList.end(); ++it )
+      {pQPopupMenuSection->insertItem ( (*it).stripWhiteSpace(), this, SLOT(Slot_popup_HierarchOptionSelected()),0, menuPrincipal_ID*1000 + menuOption_ID );
+       ++menuOption_ID;
+      }
+  pQPopupMenu->insertItem( subName,  pQPopupMenuSection);
+  connect( pQPopupMenuSection, SIGNAL( activated( int)),  this, SLOT(Slot_popup_HierarchActivated( int)) );
+  m_PopupHeadMap[menuPrincipal_ID] = pQPopupMenuSection;
 }
 
 //------------------------------------ Slot_popup_HierarchOptionSelected --------------------------------------------------
@@ -773,9 +812,14 @@ void CApp::Slot_popup_HierarchOptionSelected()
 //------------------------------------ Slot_popup_HierarchActivated --------------------------------------------------
 void CApp::Slot_popup_HierarchActivated(int id)
 { int menuPrincipal_ID           = id / 1000;
+  QString secName                = "";
+  QString text                   = "";
+
   ThemePopup* pQPopupMenuSection = m_PopupHeadMap[menuPrincipal_ID];
   if (pQPopupMenuSection)
-     {if (pQPopupMenuSection->name()==pQPopupMenuSection->text(id)) *m_pOptionHierarch_Selectionne = pQPopupMenuSection->name();
+     {secName = pQPopupMenuSection->name();
+      text    = pQPopupMenuSection->text(id);
+      if (pQPopupMenuSection->name()==pQPopupMenuSection->text(id)) *m_pOptionHierarch_Selectionne = pQPopupMenuSection->name();
       else                                                          *m_pOptionHierarch_Selectionne = QString(pQPopupMenuSection->name()) + " (" + pQPopupMenuSection->text(id) + ")";
      }
 }
@@ -1484,7 +1528,7 @@ int  CApp::On_pushButtonAppend(CMDI_Generic* pCMDI)
    int           nbItemRep  = 0;
    QString            html  = "";
    RUBREC_LIST::iterator it = pCMDI->Current_RubList_Iterator();
-  
+
    //............. sous popup secondaire des repertoires .................
    ThemePopup *pDirPopupNew =  new ThemePopup(pCMDI, tr("popupPourAddRubrique"));  if (pDirPopupNew==0)       return 0;
    connect( pDirPopupNew, SIGNAL( highlighted ( int)),  this, SLOT(Slot_OnMenuActivated(int)));
@@ -1519,7 +1563,7 @@ int  CApp::On_pushButtonAppend(CMDI_Generic* pCMDI)
    //qDebug(tr("fichier selectionne : %1  derniere option main : %3").arg(m_SelectedFile,  m_LastMainOption));
    int optionNumber = m_LastMainOption.find('-'); if (optionNumber != -1) optionNumber = m_LastMainOption.left(optionNumber).toInt();
    switch(optionNumber)
-     {case 1:{ 
+     {case 1:{
                QString path = m_PathAppli+"Ressources/Documents par defaut/PageVide.html";
                if ( !QFile::exists ( path )) CGestIni::Param_UpdateToDisk(path, "<html><head><meta name=\"qrichtext\" content=\"charset=utf-8\" /></head>"
                                                                                 "<body style=\"font-size:10pt;font-family:Sans Serif\"><p>"
@@ -1642,7 +1686,7 @@ int CApp::detectTypeRubFromDoc(const QString &text_in, const QString &pathDoc, i
  int vrg              = -1;
  const QString *pText = 0;
  if (text_in.length())  pText = &text_in;
- else                  {CGestIni::Param_UpdateFromDisk(pathDoc, text); 
+ else                  {CGestIni::Param_UpdateFromDisk(pathDoc, text);
                         pText = (const QString* )&text;
                        }
  if ( (pos = pText->find("{{DOC_TYPE")) != -1)

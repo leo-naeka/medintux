@@ -29,7 +29,7 @@ C_ListViewATCDManager::C_ListViewATCDManager(QObject * parent, const char * name
 }
 
 //------------------------------------ Add_popMenu_ATCD_Type --------------------------------------------------
-/*! \brief Ajoute le menu de selection du type d'ant\303\251cedent Ã  un menu quelconque
+/*! \brief Ajoute le menu de selection du type d'ant\303\251cedent ï¿½  un menu quelconque
 */
 void C_ListViewATCDManager::Add_popMenu_ATCD_Type(QPopupMenu* pQPopupMenu)
 {connect ( G_pCApp, SIGNAL(Sign_popup_HierarchOptionSelected()) , this, SLOT(ATCD_MenuActionSetFamilleGenre()));
@@ -396,10 +396,9 @@ void C_ListViewATCDManager::ATCD_MenuActionChangeEtat(int etat)
 /*! \brief Modifie la Famille et Genre d'un ATCD par le biais de la classe Atcd_Code.
 */
 void C_ListViewATCDManager::ATCD_MenuActionSetFamilleGenre()
-{if (*m_pIsModifiable==0)          return;
+{disconnect ( G_pCApp, SIGNAL(Sign_popup_HierarchOptionSelected()) , this, SLOT(ATCD_MenuActionSetFamilleGenre()));
+ if (*m_pIsModifiable==0)          return;
  if (!m_pAtcd_Code)                return;
-
- disconnect ( G_pCApp, SIGNAL(Sign_popup_HierarchOptionSelected()) , this, SLOT(ATCD_MenuActionSetFamilleGenre()));
  //................. parcourir tous les items ............
  QListViewItemIterator it( m_pQListView );
  while ( it.current() )

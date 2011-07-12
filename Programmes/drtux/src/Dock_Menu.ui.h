@@ -40,8 +40,8 @@ class CGenTools;
 
 /*! \class Dock_Menu
  *  \brief Classe construisant le menu d'accès rapide.
- * Le menu d'accès rapide permet de gérer tous les aspects des antécédents. Il présente selon le paramétrage utilisateur (stocké dans la base de données) les observations, les prescriptions, les documents multimédias et les différents terrains enregistrés. L'affichage est limité �  5 items par branche.
- * Plusieurs classes sont nécessaires �  Dock_Menu :
+ * Le menu d'accès rapide permet de gérer tous les aspects des antécédents. Il présente selon le paramétrage utilisateur (stocké dans la base de données) les observations, les prescriptions, les documents multimédias et les différents terrains enregistrés. L'affichage est limité �  5 items par branche.
+ * Plusieurs classes sont nécessaires �  Dock_Menu :
  * - Atcd_Code : qui gère les antécédents et doit toujours resté synchro avec FormRubTerrain.
  * - Var_Code : classe en cours de réécriture au moment de la V2.10. Gère les variables du terrain. N'est pas encore synchronisée avec FormRubTerrain.
  * - CPrtQListViewItem : pour la mise en forme de la zone de liste
@@ -49,7 +49,7 @@ class CGenTools;
  * - ThemePopup : pour la thématisation de l'affichage des PopupMenus
  * - CApp : pour les droits, les paramètres, le glossaire et autres.
  *
- * Il convient initialement d'instancier la classe puis de lui définir ses paramètres grâce �  la fonction setParams.
+ * Il convient initialement d'instancier la classe puis de lui définir ses paramètres grâce �  la fonction setParams.
  *
 */
 
@@ -64,30 +64,30 @@ class CGenTools;
 */
 
 /*! \var bool Dock_Menu::m_OpenATCD
- * Selon les paramètres utilisateur, déploie ou rétracte systématiquement après sauvegarde ou �  l'ouverture la branche antécédents.
+ * Selon les paramètres utilisateur, déploie ou rétracte systématiquement après sauvegarde ou �  l'ouverture la branche antécédents.
 */
 /*! \var bool Dock_Menu::m_OpenTerrain
- * Selon les paramètres utilisateur, déploie ou rétracte systématiquement après sauvegarde ou �  l'ouverture la branche terrains.
+ * Selon les paramètres utilisateur, déploie ou rétracte systématiquement après sauvegarde ou �  l'ouverture la branche terrains.
 */
 
 /*! \var bool Dock_Menu::m_OpenObs
- * Selon les paramètres utilisateur, déploie ou rétracte systématiquement après sauvegarde ou �  l'ouverture la branche observations.
+ * Selon les paramètres utilisateur, déploie ou rétracte systématiquement après sauvegarde ou �  l'ouverture la branche observations.
 */
 
 /*! \var bool Dock_Menu::m_OpenPrescr
- * Selon les paramètres utilisateur, déploie ou rétracte systématiquement après sauvegarde ou �  l'ouverture la branche prescriptions.
+ * Selon les paramètres utilisateur, déploie ou rétracte systématiquement après sauvegarde ou �  l'ouverture la branche prescriptions.
 */
 
 /*! \var bool Dock_Menu::m_OpenDoc
- * Selon les paramètres utilisateur, déploie ou rétracte systématiquement après sauvegarde ou �  l'ouverture la branche docuements.
+ * Selon les paramètres utilisateur, déploie ou rétracte systématiquement après sauvegarde ou �  l'ouverture la branche docuements.
 */
 
 /*! \var bool Dock_Menu::m_OpenIdentity
- * Selon les paramètres utilisateur, déploie ou rétracte systématiquement après sauvegarde ou �  l'ouverture la branche coordonnées.
+ * Selon les paramètres utilisateur, déploie ou rétracte systématiquement après sauvegarde ou �  l'ouverture la branche coordonnées.
 */
 
 /*! \var bool Dock_Menu::m_OpenVars
- * Selon les paramètres utilisateur, déploie ou rétracte systématiquement après sauvegarde ou �  l'ouverture la branche variables.
+ * Selon les paramètres utilisateur, déploie ou rétracte systématiquement après sauvegarde ou �  l'ouverture la branche variables.
 */
 /*! \var bool Dock_Menu::m_ShowDoc
  * Selon les paramètres utilisateur, affiche ou non la branche documents.
@@ -199,7 +199,7 @@ class CGenTools;
 */
 
 /*! \var bool Dock_Menu::m_IsFeminin
- * Sexe féminin ou non ? Est défini �  l'initialisation et aucours des changements d'identités.
+ * Sexe féminin ou non ? Est défini �  l'initialisation et aucours des changements d'identités.
 */
 
 /*! \var QString Dock_Menu::m_Identity
@@ -329,8 +329,8 @@ class CGenTools;
 
 
 //---------------------------------- init --------------------------------------------------------------
-/*! \brief constructeur de la classe. Met tout �  zéro.
- *  Pour travailler avec cette classe, il faut lui définir les paramètres indispensables grâce �  setParams()
+/*! \brief constructeur de la classe. Met tout �  zéro.
+ *  Pour travailler avec cette classe, il faut lui définir les paramètres indispensables grâce �  setParams()
 */
 void Dock_Menu::init()
 { m_pVar_Code = 0;
@@ -450,7 +450,7 @@ QStringList Dock_Menu::exeAnnuaire(QString idInterv )
 
  // path editeur de texte non défini
  if (CGestIni::Param_ReadParam(G_pCApp->m_DrTuxParam, "Repertoire Temporaire", "Repertoire", &pathExch)!=0)           return lst;         // path editeur de texte non défini
- // Adaptation �  la plateforme
+ // Adaptation �  la plateforme
  pathExch = CGestIni::Construct_PathBin_Module("Manager",QFileInfo (qApp->argv()[0]).dirPath (true)) + pathExch;
 
  QProcess*  proc = new QProcess( this );
@@ -519,7 +519,7 @@ QStringList Dock_Menu::exeAnnuaire(QString idInterv )
 }
 //---------------------------------- createIniParams -----------------------------------------------------------
 /*! \brief Ajoute dans la paramString la section Dock_Menu avec ses variables par défaut.
- * Ajoute dans le fichier ini passé en paramètre les paramètres du dock_menu �  savoir :
+ * Ajoute dans le fichier ini passé en paramètre les paramètres du dock_menu �  savoir :
  * ShowXXXX true/false  pour montrer l'item XXXX par défaut
  * OpenXXXX true/false  pour ouvrir la branche XXXX par défaut
  * Glossaire true/false pour savoir si Dock_Menu peut utiliser le Glossaire par le biais d'un popupmenu
@@ -659,7 +659,7 @@ void Dock_Menu::setParams(CMoteurBase *pCMoteurBase, RUBREC_LIST  *pRubList,
 
 
 //---------------------------------- createMenu -----------------------------------------------------------------
-/*! \brief �  vocation privée : met �  jour le menu avec le terrain chargé.
+/*! \brief �  vocation privée : met �  jour le menu avec le terrain chargé.
  *  Efface les items du listview en gardant l'item des terrains qui est calculé dans getTerrains.
 */
 void Dock_Menu::createMenu()
@@ -722,7 +722,7 @@ void Dock_Menu::checkItemToSave()
 
   // Si droits pour sauvegarde ATCD / Var ...
   if ((m_Droits_All) || (m_Droits_Modif_ATCD))
-  {// modifications �  sauvegarder
+  {// modifications �  sauvegarder
    if ( m_pAtcd_Code->isModified() )
    { if (G_pCApp->m_pDrTux->m_pCMDI_Terrain == 0)
      { // Il faut faire soit même la sauvegarde du terrain
@@ -744,8 +744,8 @@ void Dock_Menu::checkItemToSave()
 }
 
 //------------------------------ getTerrain --------------------------------------------------
-/*! \brief Prépare les variables de terrain (Atcd_Code et Var_Code) �  partir du Record n° id_RubList de la liste.
- *  Fonction �  appeler lorsque l'utilisateur change de terrain.
+/*! \brief Prépare les variables de terrain (Atcd_Code et Var_Code) �  partir du Record n° id_RubList de la liste.
+ *  Fonction �  appeler lorsque l'utilisateur change de terrain.
 */
 void Dock_Menu::getTerrain(QString pkDoc)
 { //m_TerrainIsModified = FALSE;
@@ -756,7 +756,7 @@ void Dock_Menu::getTerrain(QString pkDoc)
   if (!m_Droits_All)
    { if ((!m_Droits_View_Variables) || (!m_Droits_View_ATCD)) return; }
 
-  // Vérifie que le terrain demandé n'est pas déj�  dans Atcd_Code
+  // Vérifie que le terrain demandé n'est pas déj�  dans Atcd_Code
   if (pkDoc != m_pAtcd_Code->getPkDocTerrain() )
   { // Retrouve le terrain selon le pkdoc passé en paramètre
     for ( it = m_pRubList->begin(); it != m_pRubList->end(); ++it )
@@ -764,12 +764,12 @@ void Dock_Menu::getTerrain(QString pkDoc)
     }
     if (!trouve) return;
 
-    // Construit les ATCD �  l'aide de la classe Atcd_Code
+    // Construit les ATCD �  l'aide de la classe Atcd_Code
     // m_pAtcd_Code->setTerrain( &(*it) , m_pCMoteurBase);
-    // Construit les Variables �  l'aide de la classe Var_Code
+    // Construit les Variables �  l'aide de la classe Var_Code
     // m_pVar_Code->setTerrain( &(*it) , m_pCMoteurBase);
     m_pAtcd_Code->setTerrain(it , m_pCMoteurBase);
-    // Construit les Variables �  l'aide de la classe Var_Code
+    // Construit les Variables �  l'aide de la classe Var_Code
     m_pVar_Code->setTerrain( it , m_pCMoteurBase);
   }
   createMenu();
@@ -877,13 +877,13 @@ void Dock_Menu::getTerrain()
  m_Item_Terrains->setOpen(m_OpenTerrain);
  it = m_pRubList->at ( m_Id_RubList_ToUseForThisTerrain );
  m_PkDocTerrain = (*it).m_PrimKey;
- // Construit les ATCD �  l'aide de la classe Atcd_Code
+ // Construit les ATCD �  l'aide de la classe Atcd_Code
  // m_pAtcd_Code->setTerrain( &(*it) , m_pCMoteurBase);
- // Construit les Variables �  l'aide de la classe Var_Code
+ // Construit les Variables �  l'aide de la classe Var_Code
  // m_pVar_Code->setTerrain( &(*it) , m_pCMoteurBase);
 
  m_pAtcd_Code->setTerrain(it , m_pCMoteurBase);
- // Construit les Variables �  l'aide de la classe Var_Code
+ // Construit les Variables �  l'aide de la classe Var_Code
  m_pVar_Code->setTerrain( it , m_pCMoteurBase);
 
 }
@@ -894,7 +894,7 @@ void Dock_Menu::getTerrain()
 */
 void Dock_Menu::Slot_ChangeIdentity(const char* num_GUID, const char* id_doss,
                                     const char* dossNom, const char* dossPrenom, RUBREC_LIST* pRubList)
-{ // Des éléments �  sauvegarder avant ?
+{ // Des éléments �  sauvegarder avant ?
   checkItemToSave();
 
   // Récupère les données
@@ -911,7 +911,7 @@ void Dock_Menu::Slot_ChangeIdentity(const char* num_GUID, const char* id_doss,
 
 
 //---------------------------------- getRubListAndUpdateView ------------------------------------------------------
-/*! \brief Met �  jour la list view selon la rublist passée en paramètre.
+/*! \brief Met �  jour la list view selon la rublist passée en paramètre.
  *  \sa DrTux::OnDrTuxSaveRubList(), Dock_Menu::Slot_ChangeIdentity
 */
 void Dock_Menu::getRubListAndUpdateView(RUBREC_LIST* pRubList)
@@ -960,7 +960,7 @@ void Dock_Menu::getRubListAndUpdateView(RUBREC_LIST* pRubList)
 }
 
 //---------------------------------- createIdentAndNote -----------------------------------------------------------
-/*! \brief Met �  jour le ListView avec l'identité sélectionnée.
+/*! \brief Met �  jour le ListView avec l'identité sélectionnée.
   * \param Les paramètres sont récupérés dans les variables de la classe.
 */
 void Dock_Menu::createIdentAndNote()
@@ -1123,7 +1123,7 @@ void Dock_Menu::setSexeAndParturienteDisplay()
 }
 
 //---------------------------------- ATCD_HaveChanged -------------------------------------------------------------
-/*! \brief Slot connecté au signal Atcd_Code::ATCD_Changed(). Met �  jour : les ATCD et ouvre la branche ; le pixmap d'identité et le label de l'identité si enceinte ou pas.
+/*! \brief Slot connecté au signal Atcd_Code::ATCD_Changed(). Met �  jour : les ATCD et ouvre la branche ; le pixmap d'identité et le label de l'identité si enceinte ou pas.
 */
 void Dock_Menu::ATCD_HaveChanged()
 {// Gestion des droits
@@ -1495,7 +1495,7 @@ void Dock_Menu::Droits_createPopup(ThemePopup* pPopup)
 //------------------------------------------- directoryToPopup ----------------------------------------
 /*! \brief Créer l'arborescence de la liste et l'introduit dans le fichier cache.
  *  \param ThemePopup : menu qui reçoit l'arborescence
- *  \param path : Chemin �  explorer
+ *  \param path : Chemin �  explorer
  *  \param numSousMenus : nb de sous-menus avant cet item. Utilisé pour limiter le nombre de sous-menus.
  * \return int :
 */
@@ -1545,7 +1545,7 @@ int Dock_Menu::directoryToPopup(ThemePopup* pPopup, QString path, int numSousMen
 //------------------------------------------- Slot_FileSelected ----------------------------------------
 /*! \brief Slot appelé lors de la sélection d'un fichier dans le menu "Glossaire".
  * Emet  le signal Sign_ActiverRubrique() poour mettre au premier plan la CMDI concernée par ce document.
- * Puis émet le signal Sign_GlossaireFileSelected qui sera connecté dans drtux �  OnGlossaireFileClicked pour signifier �  DrTux qu'un nouveau document doit être créé.
+ * Puis émet le signal Sign_GlossaireFileSelected qui sera connecté dans drtux �  OnGlossaireFileClicked pour signifier �  DrTux qu'un nouveau document doit être créé.
 */
 void Dock_Menu::Slot_FileSelected()
 { if (m_SelectedFile != "")
@@ -1568,7 +1568,7 @@ void Dock_Menu::OnMenuActivated(int id)
 
 
 //------------------------------------ ATCDRubriques_createPopup --------------------------------------------------
-/*! \brief Ajoute le menu de selection du type d'antécedent �  un menu quelconque
+/*! \brief Ajoute le menu de selection du type d'antécedent �  un menu quelconque
 */
 void Dock_Menu::ATCDRubriques_createPopup(ThemePopup* pQPopupMenu)
 {pQPopupMenu->insertSeparator ();
@@ -1579,12 +1579,12 @@ void Dock_Menu::ATCDRubriques_createPopup(ThemePopup* pQPopupMenu)
 //------------------------------------ ATCD_MenuActionSetRubrique --------------------------------------------------
 /*! \brief Modifie la rubrique d'un ATCD par le biais de la classe Atcd_Code.
 */void Dock_Menu::ATCD_MenuActionSetRubrique()
-{if (m_TypeATCD_Selectionne == "") return;
- if (m_IsModifiable==0) return;
- if (!m_pAtcd_Code) return;
+{disconnect ( G_pCApp, SIGNAL(Sign_popup_HierarchOptionSelected()) , this, SLOT(ATCD_MenuActionSetRubrique())); 
+ if (m_TypeATCD_Selectionne == "") return;
+ if (m_IsModifiable==0)            return;
+ if (!m_pAtcd_Code)                return;
  m_pAtcd_Code->setRubrique(m_pAtcd_Element_Selected, m_TypeATCD_Selectionne);
- disconnect ( G_pCApp, SIGNAL(Sign_popup_HierarchOptionSelected()) , this, SLOT(ATCD_MenuActionSetRubrique()));
-  // L'affichage se remet �  jour grâce au signal de Atcd_Code.
+ // L'affichage se remet �  jour grâce au signal de Atcd_Code.
 }
 
 
@@ -1738,7 +1738,7 @@ void Dock_Menu::ATCD_modifyDateGrossesse()
   if (!m_pAtcd_Element_Selected)                   return;
   if (!m_pAtcd_Code->m_Grossesse) m_pAtcd_Code->setGrossesse(TRUE);
   m_pAtcd_Code->changeDDR((QWidget*)this);
-  // L'affichage se remet �  jour grâce au signal de Atcd_Code.
+  // L'affichage se remet �  jour grâce au signal de Atcd_Code.
 }
 
 //------------------------------------------- ATCD_modifyCommentaire ----------------------------------------
@@ -1750,7 +1750,7 @@ void Dock_Menu::ATCD_modifyCommentaire()
   if (!m_pAtcd_Code)                               return;
   if (!m_pAtcd_Element_Selected)                   return;
   m_pAtcd_Code->changeCommentaire(m_pAtcd_Element_Selected);
-  // L'affichage se remet �  jour grâce au signal de Atcd_Code.
+  // L'affichage se remet �  jour grâce au signal de Atcd_Code.
 }
 
 //------------------------------------------- ATCD_eraseIt ----------------------------------------
@@ -1762,7 +1762,7 @@ void Dock_Menu::ATCD_eraseIt()
   if (!m_pAtcd_Code)                               return;
   if (!m_pAtcd_Element_Selected)                   return;
   m_pAtcd_Code->eraseAtcd(m_pAtcd_Element_Selected);
-  // L'affichage se remet �  jour grâce au signal de Atcd_Code.
+  // L'affichage se remet �  jour grâce au signal de Atcd_Code.
 }
 
 
@@ -1775,7 +1775,7 @@ void Dock_Menu::ATCD_changeEtat()
   if (!m_pAtcd_Code)                               return;
   if (!m_pAtcd_Element_Selected)                   return;
   m_pAtcd_Code->changeEtat(m_pAtcd_Element_Selected);
-  // L'affichage se remet �  jour grâce au signal de Atcd_Code.
+  // L'affichage se remet �  jour grâce au signal de Atcd_Code.
 }
 
 
@@ -1788,7 +1788,7 @@ void Dock_Menu::ATCD_modifyDate()
   if (!m_pAtcd_Code)                               return;
   if (!m_pAtcd_Element_Selected)                   return;
   m_pAtcd_Code->modifyDate((QWidget*)this,m_pAtcd_Element_Selected);
-  // L'affichage se remet �  jour grâce au signal de Atcd_Code.
+  // L'affichage se remet �  jour grâce au signal de Atcd_Code.
 }
 
 //------------------------------------------- ATCD_ald_on() ----------------------------------------
@@ -1800,7 +1800,7 @@ void Dock_Menu::ATCD_ald_on()
   if (!m_pAtcd_Code)                               return;
   if (!m_pAtcd_Element_Selected)                   return;
   m_pAtcd_Code->setALD(m_pAtcd_Element_Selected, tr("ALD"));
-  // L'affichage se remet �  jour grâce au signal de Atcd_Code.
+  // L'affichage se remet �  jour grâce au signal de Atcd_Code.
 }
 //------------------------------------------- ATCD_ald_off() ----------------------------------------
 /*! \brief Connecte avec Atcd_Code laq modification de la date de l'antécédent sélectionné.
@@ -1811,7 +1811,7 @@ void Dock_Menu::ATCD_ald_off()
   if (!m_pAtcd_Code)                               return;
   if (!m_pAtcd_Element_Selected)                   return;
   m_pAtcd_Code->setALD(m_pAtcd_Element_Selected, "");
-  // L'affichage se remet �  jour grâce au signal de Atcd_Code.
+  // L'affichage se remet �  jour grâce au signal de Atcd_Code.
 }
 //------------------------------------------- ATCD_view ----------------------------------------
 /*! \brief Connecte avec Atcd_Code l'affichage des informations de l'antécédent sélectionné.
@@ -1832,7 +1832,7 @@ void Dock_Menu::ATCD_endGrossesse()
   if (!((m_Droits_All) || (m_Droits_Modif_ATCD)) ) return;
   if (!m_pAtcd_Code)                               return;
   m_pAtcd_Code->setGrossesse(FALSE);
-  // L'affichage se remet �  jour grâce au signal de Atcd_Code.
+  // L'affichage se remet �  jour grâce au signal de Atcd_Code.
 }
 
 //------------------------------------------- ATCD_endAllaitement ----------------------------------------
@@ -1843,7 +1843,7 @@ void Dock_Menu::ATCD_endAllaitement()
   if (!((m_Droits_All) || (m_Droits_Modif_ATCD)) ) return;
   if (!m_pAtcd_Code) return;
   m_pAtcd_Code->setAllaitement(FALSE);
-  // L'affichage se remet �  jour grâce au signal de Atcd_Code.
+  // L'affichage se remet �  jour grâce au signal de Atcd_Code.
 }
 
 //------------------------------------------- ATCD_modifyIt ----------------------------------------
@@ -1856,7 +1856,7 @@ void Dock_Menu::ATCD_modifyIt()
   // Appel le Widget d'ajout de l'ATCD
   if (!m_pAtcd_Element_Selected) return;
   m_pAtcd_Code->modifyAtcd((QWidget*)this, m_pAtcd_Element_Selected);
-  // L'affichage se remet �  jour grâce au signal de Atcd_Code.
+  // L'affichage se remet �  jour grâce au signal de Atcd_Code.
 }
 
 //------------------------------------------- ATCD_addCIM10 ----------------------------------------
@@ -1868,7 +1868,7 @@ void Dock_Menu::ATCD_addCIM10()
   if (!m_pAtcd_Code) return;
   // Appel le Widget d'ajout de l'ATCD
   m_pAtcd_Code->addATCD_CIM10();
-  // L'affichage se remet �  jour grâce au signal de Atcd_Code.
+  // L'affichage se remet �  jour grâce au signal de Atcd_Code.
 }
 
 //------------------------------------------- ATCD_addTextuel ----------------------------------------
@@ -1880,7 +1880,7 @@ void Dock_Menu::ATCD_addTextuel()
   if (!m_pAtcd_Code) return;
   // Appel le Widget d'ajout de l'ATCD
   m_pAtcd_Code->addATCD_Textuel((QWidget*)this);
-  // L'affichage se remet �  jour grâce au signal de Atcd_Code.
+  // L'affichage se remet �  jour grâce au signal de Atcd_Code.
 }
 
 //------------------------------------------- ATCD_addAllergie ----------------------------------------
@@ -1892,7 +1892,7 @@ void Dock_Menu::ATCD_addAllergie()
   if (!m_pAtcd_Code) return;
   // Appel le Widget d'ajout de l'ATCD
   m_pAtcd_Code->addATCD_Allergie();
-  // L'affichage se remet �  jour grâce au signal de Atcd_Code.
+  // L'affichage se remet �  jour grâce au signal de Atcd_Code.
 }
 
 //---------------------------------- m_ListView_AccesRapide_clicked ---------------------------------------------------
@@ -1932,8 +1932,8 @@ void Dock_Menu::m_ListView_AccesRapide_clicked( QListViewItem * item , const QPo
     if (!pCPrtItem) return;
     QString pkDoc = pCPrtItem->getPkDoc();
     QString tmp   = parentItem->text(0);
-    // Avant de dire aux CMDI de se mettre �  jour
-    // Si nécessaire recalcul le terrain après s'être assurer de ne rien avoir �  sauvegarder
+    // Avant de dire aux CMDI de se mettre �  jour
+    // Si nécessaire recalcul le terrain après s'être assurer de ne rien avoir �  sauvegarder
     if (tmp.contains("Terrains") != 0)
     { if ( m_pAtcd_Code->isModified() )
          { checkItemToSave();

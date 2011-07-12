@@ -121,6 +121,11 @@ class CApp : public C_MUI_App
      int            PathDocumentToType( const QString &path , QString *pRubNameToFind = 0 );
      int            ApproximativeRubNameToType( const QString &texte , QString *pRubNameToFind=0);
      QString        loadContentsIfBeginByTokenFile(QString &arg);
+     //--------------------------------------------- get_PossiblesRubNameList --------------------------------------
+     /*! \brief retourne la liste des rubriques possibles (ne sont pas forcement toutes activées selon les profils) 
+     *  \return Renvoie une QStringList avec le nom des rubriques possibles
+     */     
+     QStringList    get_PossiblesRubNameList();
      //--------------------------------------------- SetPathGlossaire --------------------------------------
      /*! \brief positionne le chemin du glossaire sur le path fourni en entree
      *  \param pathGlossaire : const QString chemin du glossaire à positionner
@@ -297,7 +302,34 @@ public:
     QMap<QString, CMDI_Observation*> m_mapNameRubPtr;
 
     //................. menu hierarcque a structure de .ini .....................................
+    //------------------------------------ addPopupHierarchique --------------------------------------------------
+    /*! \brief Ajoute le menu de selection du type Hierarchique a un menu quelconque a partir d'un fichier
+     *  \param path :        QString qui contient le chemin du fichier .ini structurant les options du menu
+     *  \param pQPopupMenu : QPopupMenu* est le menu auquel rajouter ce menu hierarchique
+     *  \param pRetVar :     QString* est un pointeur sur la chaine de caractre dans laquelle retourner l'option selectionnee
+     *  \note  avant appel de cette fonction il convient de la connecter comme suit a
+     *                                un SLOT a actionner lors selection d'une option:
+     *                     connect ( G_pCApp, SIGNAL(Sign_popup_HierarchOptionSelected()) , this, SLOT(Slot_OnMenuActionSelected()));
+     *         puis dans le slot de la deconnecter :
+     *                  disconnect ( G_pCApp, SIGNAL(Sign_popup_HierarchOptionSelected()) , this, SLOT(Slot_OnMenuActionSelected()));
+     *  LIMITATION : il ne peut y avoir qu'un menu de ce type dans un menu principal
+    */
     void addPopupHierarchique(const QString& path, QPopupMenu* pQPopupMenu, QString* pRetVar);
+    //------------------------------------ addPopupHierarchique --------------------------------------------------
+    /*! \brief Ajoute le menu de selection du type Hierarchique a un menu quelconque a partir d'un fichier
+     *  \param path :        QString qui contient le chemin du fichier .ini structurant les options du menu
+     *  \param optionsList : QStringListliste des options du menu
+     *  \param pRetVar :     QString* est un pointeur sur la chaine de caractre dans laquelle retourner l'option selectionnee
+     *  \param subName :     QString& chaine de caractre du nom du sous menu
+     *  \note  avant appel de cette fonction il convient de la connecter comme suit a
+     *                                un SLOT a actionner lors selection d'une option:
+     *                     connect ( G_pCApp, SIGNAL(Sign_popup_HierarchOptionSelected()) , this, SLOT(Slot_OnMenuActionSelected()));
+     *         puis dans le slot de la deconnecter :
+     *                  disconnect ( G_pCApp, SIGNAL(Sign_popup_HierarchOptionSelected()) , this, SLOT(Slot_OnMenuActionSelected()));
+     *  LIMITATION : il ne peut y avoir qu'un menu de ce type dans un menu principal
+    */
+
+    void addPopupHierarchique(QStringList optionsList, QPopupMenu* pQPopupMenu, QString* pRetVar, const QString &subName, int *pMenuPrincipalID=0);
     QMap<int,ThemePopup* > m_PopupHeadMap;                /*!< liste des menus principaux lors des menus type [section] */
     QString               *m_pOptionHierarch_Selectionne; /*!< pointeur sur la variable de retour de l'option selectionnee a renseigner */
    //......................... contexte ......................................................

@@ -66,7 +66,7 @@
 #include <qfiledialog.h>
 #include <stdlib.h>
 #include <qrect.h>
-#include <qtextcodec.h> 
+#include <qtextcodec.h>
 
 #ifdef Q_WS_WIN
    #define F_EXE ".exe"
@@ -286,7 +286,7 @@ QString C_TokenInterpret::COPY_FILE(QStringList &arg_list)
      if (nb>=3)         action   = arg_list[2].stripWhiteSpace();
 
      if ( !QFileInfo(imageDst).isDir ()) imgName = QFileInfo(imageDst).fileName();   // si le fichier de destination n'est pas un répertoire en extraire le nom du fichier de destination
- 
+
      CHtmlTools::Copy_File(imageSrc, QFileInfo(imageDst).dirPath(), &imgName);
      if (action.find("remove_src")!= -1) QDir().remove(imageSrc);
      return ret;
@@ -389,7 +389,7 @@ QString C_TokenInterpret::DATE_CALC(QStringList &arg_list)
      if (nb==1) return TR("::DATE_CALC() 2eme argument valeur manquante");
      int val  = arg_list[1].toInt();                                        // [1]
      if (nb>2 && arg_list[2].stripWhiteSpace()=="-") val = -val;            // [2]
-     if (nb>3) 
+     if (nb>3)
         {char *pt = (char*)(const char*)arg_list[3].upper();                // [3]
          valTyp   = *pt;
         }
@@ -425,7 +425,7 @@ QString C_TokenInterpret::DATE_TONUM(QStringList &arg_list)
     {int      nb    = arg_list.count();
      char valTyp    = 'S';
      if (nb==0) return TR("::DATE_TONUM() 1er argument de la date manquant");
-     if (nb>1) 
+     if (nb>1)
         {char *pt = (char*)(const char*)arg_list[1].upper();
          valTyp   = *pt;
         }
@@ -462,7 +462,7 @@ QString C_TokenInterpret::DATE_FROMNUM(QStringList &arg_list)
      char valTyp      = 'S';
      QString format   = "dd-MM-yyyy";
      unsigned int val = arg_list[0].toUInt();
-     if (nb>1) 
+     if (nb>1)
         {char *pt = (char*)(const char*)arg_list[1].upper();
          valTyp   = *pt;
         }
@@ -569,7 +569,7 @@ QString C_TokenInterpret::EXE_PROCESS(QStringList &arg_list)
                        {stdInArg=argument.mid(8);
                         G_pCApp->loadContentsIfBeginByTokenFile(stdInArg);
                        }
-                    else                                  
+                    else
                        {G_pCApp->loadContentsIfBeginByTokenFile(stdInArg);
                         proc.addArgument( argument.replace("[$File]","$File")  ); // un argument n'est pas toujours un chemin
                        }
@@ -935,7 +935,7 @@ QString C_TokenInterpret::GET_SELECTION(QStringList &arg_list)
      //const char *p = text;
      //char pt = (const char *) p;
 
-     //if (CGestIni::IsUtf8(text )) 
+     //if (CGestIni::IsUtf8(text ))
      //   {//QCString   cs = text.utf8 ();
          //const char *p = cs;
          //char      *pt = (char*)(const char*) p;
@@ -944,7 +944,7 @@ QString C_TokenInterpret::GET_SELECTION(QStringList &arg_list)
          //QMessageBox::information ( 0, "ee", text, "ok" );
          //text = CGestIni::fromMyUTF8(cs);
      //   }
-     
+
 }
 //-------------------------- GRAPH -------------------------------------------
 QString C_TokenInterpret::GRAPH(QStringList &arg_list)
@@ -1038,7 +1038,7 @@ QString C_TokenInterpret::EXPORT(QStringList &arg_list)
  // 3eme   argument        : 2  string a exporter                     string a exporter             liste des rubriques separees par |         String a exporter a laquelle sera ajoutee la selection
  // 4eme   argument        : 3  mode conversion ascii                 mode conversion ascii         date debut                                 mode conversion ascii
  // 5eme   argument        : 4  A/alwaysWrite F/fullOnly              A/alwaysWrite F/fullOnly      date fin                                   A/alwaysWrite F/fullOnly
- // 6eme   argument        : 5 separation des fiches $NomPatient $PrenomPatient $DateDeb $DateFin $DateDebFiche $DateFinFiche $HeureDeb $HeureFin $NomRub $TitreRub $User $SignUser $NumFicheRub $GUIDPat $PkPat $pkFiche $Duree $NumFicheTot 
+ // 6eme   argument        : 5 separation des fiches $NomPatient $PrenomPatient $DateDeb $DateFin $DateDebFiche $DateFinFiche $HeureDeb $HeureFin $NomRub $TitreRub $User $SignUser $NumFicheRub $GUIDPat $PkPat $pkFiche $Duree $NumFicheTot
  // 7eme   argument        : 6 header
  // 8eme   argument        : 7 filtre sql where
 
@@ -1078,16 +1078,16 @@ QString C_TokenInterpret::EXPORT(QStringList &arg_list)
 
  QString     headerDoc  = TR("<br>--- Edition du dossier : $NomPatient $PrenomPatient Numéro : $GUIDPat-----<br>");
  if (nb>6)   headerDoc  = arg_list[6].stripWhiteSpace();
- 
+
  QString     sqlFilter  = "";
  if (nb>7)   sqlFilter  = arg_list[7].stripWhiteSpace();
 
  //....................... on y va ................................................
  QString                         user = "";
  QString                       droits = G_pCApp->m_Droits;
- QString                doc_sign_user = ""; 
- QString                friend_droits = ""; 
- QString                  prefixDroit = ""; 
+ QString                doc_sign_user = "";
+ QString                friend_droits = "";
+ QString                  prefixDroit = "";
  QString                 htmlToExport = "";
  int                          typeRub = 0;
  int                       typeRefRub = 0;
@@ -1103,7 +1103,7 @@ QString C_TokenInterpret::EXPORT(QStringList &arg_list)
  //......... pour chaque rubrique (liste de nom donne en entree) .....................
  //          on examine la liste des rubriques et si correspond au nom
  //          alors on retient et examine les autres conditions
- for ( QStringList::Iterator lt = rubNameLst.begin(); lt != rubNameLst.end(); ++lt ) 
+ for ( QStringList::Iterator lt = rubNameLst.begin(); lt != rubNameLst.end(); ++lt )
      {nameRub       = *lt;
       typeRefRub    = G_pCApp->RubNameToStringType(nameRub).toInt();
       //prefixDroit   = G_pCApp->GetMap_Prefix_Droits(QString::number(typeRefRub));
@@ -1118,7 +1118,7 @@ QString C_TokenInterpret::EXPORT(QStringList &arg_list)
            user          = (*it).m_User;
            doc_sign_user = (*it).m_SignUser;
            droits        = G_pCApp->m_Droits;
-           //................... droits 
+           //................... droits
            if (G_pCApp->m_User != doc_sign_user) droits = G_pCApp->m_pCMoteurBase->PermsUserIsThisUserFriendFromName( doc_sign_user , G_pCApp->m_User); // on prend le droit delegue
            if (typeRub>=20060000 && typeRub<=20069999)
               { droitOkA = G_pCApp->IsThisDroitExist(droits,"atv");        //atv atc ttc  tvv tvc etc
@@ -1219,8 +1219,8 @@ QString C_TokenInterpret::EXPORT(QStringList &arg_list)
                                 else                                     stringDST  = ptr;
                                }
                            } //endif (typ>=20020000 && typ<=20029999)     //>>> .......... documents .................
-                        if (stringDST.length()) 
-                           {QString tmp = sepFiche; 
+                        if (stringDST.length())
+                           {QString tmp = sepFiche;
                             tmp.replace("$NomRub",nameRub);
                             tmp.replace("$NumFicheRub",(*it).m_PrimKey);
                             tmp.replace("$LibelleFicheRub",(*it).m_Libelle);
@@ -1231,7 +1231,7 @@ QString C_TokenInterpret::EXPORT(QStringList &arg_list)
                             htmlToExport += tmp + stringDST;
                            }
                        } //endif (ptr && len>6)
-                   } //endif (ret == RUB_READ_ON_DISK) 
+                   } //endif (ret == RUB_READ_ON_DISK)
               } //if (type==(*it).m_Type && dtRubDeb>=dtRefDeb && dtRubDeb<=dtRefFin)  filtrage des dates
           } //endfor (int id=0; id<rubList.count(); ++id) //it = rubList.begin(); it !=  rubList.end(); ++it )
      } //end for ( QStringList::Iterator lt = rubNameLst.begin(); lt != rubNameLst.end(); ++lt )
@@ -1265,7 +1265,7 @@ QString C_TokenInterpret::EXPORT(QStringList &arg_list)
            pathFile          = folderExp+"/"+fi.baseName()+".html";
            QStringList imgList;
            CHtmlTools::getTextImageList( htmlToExport, imgList);
-           for ( QStringList::Iterator lt = imgList.begin(); lt != imgList.end(); ++lt ) 
+           for ( QStringList::Iterator lt = imgList.begin(); lt != imgList.end(); ++lt )
                {imageName = *lt;
                 QPixmap retPixMap;
                 if (G_pCApp->m_C_ImageList.getPixmap( imageName , retPixMap))
@@ -1837,7 +1837,7 @@ QString C_TokenInterpret::SET_DOC_PROP_4(QStringList &arg_list)
          else                    G_mCDC->m_pCRubCurrentRecord->m_Prop_4 = "";
         }
      return QString("");
-    } 
+    }
 //-------------------------- SET_VAR -------------------------------------------
 /*! \brief non documenté */
 QString C_TokenInterpret::SET_VAR(QStringList &arg_list)
@@ -1924,9 +1924,14 @@ QString C_TokenInterpret::SQL_EXEC(QStringList &arg_list)
      if (nb<1) //  completer la liste si < 5
         {return TR("Erreur de syntaxe ::sql_exec() cette fonction doit comporter  au moins 1 argument ");
         }
-     QSqlQuery query(arg_list[0] , G_mCDC->m_pMB->m_DataBase );
+     QString requete = arg_list[0];
+     requete.replace("&#44;",",");
+     requete.replace("&#40;","(");
+     requete.replace("&#41;",")");
+     QSqlQuery query(requete , G_mCDC->m_pMB->m_DataBase );
      if ( !query.isActive() )
-        {G_mCDC->m_pMB->OutSQL_error(query, " sql_exec() " , arg_list[0]);
+        {
+         G_mCDC->m_pMB->OutSQL_error(query, " sql_exec() " , requete);
         }
      G_mCDC->m_pMB->CloseBase();
      return ret;
@@ -1967,6 +1972,7 @@ QString C_TokenInterpret::SQL_SELECT(QStringList &arg_list)
      QString retMask = "";
      QString ret     = "";
      int nb          = arg_list.count();
+     QString   val   = "";
      QStringList fieldList;
      if (nb<4) //  completer la liste si < 5
         {return TR("Erreur de syntaxe ::sql_select() cette fonction doit comporter  au moins 4 arguments ");
@@ -1985,6 +1991,9 @@ QString C_TokenInterpret::SQL_SELECT(QStringList &arg_list)
         { return TR("Base non ouverte ::sql_select() ");
         }
     //qDebug(requete);
+    requete.replace("&#44;",",");
+    requete.replace("&#40;","(");
+    requete.replace("&#41;",")");
     QSqlQuery sqlQuery (requete , G_mCDC->m_pMB->m_DataBase );
     QString f_sep = arg_list[4];
     QString l_sep = arg_list[5];
@@ -1996,16 +2005,17 @@ QString C_TokenInterpret::SQL_SELECT(QStringList &arg_list)
         while (sqlQuery.next() && nb_l)
               {if (retMask.length()) retMask  = arg_list[6];  // recharger le masque
                for( i=0; i<nb_c; ++i)      // pour toutes les colones (champs de la base)
-                  {if (f_sep=="$SET_VAR")
+                  {val = sqlQuery.value(i).toString();
+                   if (f_sep=="$SET_VAR")
                       {QString varName = arg_list[0]+"."+fieldList[i]+QString::number(row);
-                       G_mCDC->m_pVariables->insert (varName, sqlQuery.value(i).toString());
+                       G_mCDC->m_pVariables->insert (varName, val);
                       }
                    else if (retMask.length())
-                      {retMask.replace(f_sep+QString::number(i), sqlQuery.value(i).toString());
+                      {retMask.replace(f_sep+QString::number(i), val);
                        if (i>=nb_c-1) ret += retMask + l_sep;
                       }
                    else
-                      {ret += sqlQuery.value(i).toString();
+                      {ret += val;
                        if (i<nb_c-1) ret += f_sep;
                        else          ret += l_sep;
                       }
@@ -2975,8 +2985,8 @@ VAR Constantes de Base]
     2010-06-15T15:51:20 = 135, 210, 110, 95, 8, 40.1, 1.10
 [VAR Poids]
    Modèle = Date, Poids, 31536000, 100, 50, Kg(s), Obésité, Amaigrissement
-   Modèle = Date, Taille, 31536000, 0, 0, cm(s), , 
-    2010-06-15T15:51:53 = 80, 
+   Modèle = Date, Taille, 31536000, 0, 0, cm(s), ,
+    2010-06-15T15:51:53 = 80,
 */
 
 //---------------------- constructExportExportTableDefinition ----------------------------------
@@ -3006,7 +3016,7 @@ QString C_TokenInterpret::constructExportExportTableDefinition(const QString &st
                    int i = 0;
                    sectionFind += "[";
                    //.......... batir la chaine de definition des colonnes du tableau ............
-                   for ( QStringList::Iterator it = modelesList.begin(); it != modelesList.end(); ++it ) 
+                   for ( QStringList::Iterator it = modelesList.begin(); it != modelesList.end(); ++it )
                        { modele       = *it;
                          valuesList   = QStringList::split(',' ,  modele);
                          sectionFind +=  valuesList[1] += "=" + QString::number(l) + "%";
@@ -3082,8 +3092,8 @@ QString C_TokenInterpret::Func_Export_Tables_D(const QString &str_data,
  if (exportDefinition.length()==0) exportDefinition = constructExportExportTableDefinition(str_data, list_SECTION);
  else                              list_SECTION     = QStringList::split(']', exportDefinition);
  //.................... exploiter la liste .........................................................
- 
- for ( QStringList::Iterator it = list_SECTION.begin(); it != list_SECTION.end(); ++it ) 
+
+ for ( QStringList::Iterator it = list_SECTION.begin(); it != list_SECTION.end(); ++it )
      { tableDefinition   = *it;
        int posDebColDef  = tableDefinition.find("[");
        if (posDebColDef != -1 )

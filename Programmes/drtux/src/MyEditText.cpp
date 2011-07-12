@@ -50,7 +50,7 @@
 
 #include "CApp.h"
 
-#include "ui/DlgListFieldMngr.h"
+#include "../../drtux/src/C_DlgListFieldMngr.h"
 
 #include "../../MedinTuxTools/CHtmlTools.h"
 #include "../../MedinTuxTools/CGenTools.h"
@@ -1107,7 +1107,7 @@ void MyEditText::PasteFolderItem ( )
  * \todo à pluginiser...
  */
 void MyEditText::ListManager()
-{FormDlgListFieldMngr *dlg = new FormDlgListFieldMngr(0,"ListManager_Dial",TRUE, WStyle_Customize | WStyle_NormalBorder | WStyle_Title |WStyle_MinMax | WStyle_SysMenu);
+{C_DlgListFieldMngr *dlg = new C_DlgListFieldMngr(0,"ListManager_Dial",TRUE, WStyle_Customize | WStyle_NormalBorder | WStyle_Title |WStyle_MinMax | WStyle_SysMenu);
  if (dlg ==0) return;
  dlg->initDialog(G_pCApp->m_DrTuxParam, G_pCApp->m_PathGlossaire, G_pCApp->m_PathAppli);
  QFont font;

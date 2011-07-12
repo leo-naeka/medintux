@@ -837,7 +837,7 @@ QString            qtext = comboBox_RubName->currentText ();
 // [VAR Constantes de Base]
 //      Modele = Date, Pouls, 31536000, 130, 40, pps, Tachycardie, Bradycardie
 //      Modele = Date, SAO2, 31536000, 0, 92, %, , Hypoxie
-//      Modƒele = Date, Temp, 31536000, 40.5, 35, ?, Hyporthermie, Hyperthermie
+//      Modï¿½ele = Date, Temp, 31536000, 40.5, 35, ?, Hyporthermie, Hyperthermie
 // [VAR Poids]
 //      Modele = Date, Poids, 31536000, 100, 50, Kg(s), Obesite, Amaigrissement
 //      Modele = Date, Taille, 31536000, 0, 0, cm(s), ,
@@ -871,7 +871,7 @@ void FormRubTerrain::VAR_SetPoids(QString poids)
 }
 //--------------------------------- VAR_SetTaille --------------------------------------------------
 // [VAR Constantes de Base]
-//      Modƒele = Date, Pouls, 31536000, 130, 40, pps, Tachycardie, Bradycardie
+//      Modï¿½ele = Date, Pouls, 31536000, 130, 40, pps, Tachycardie, Bradycardie
 //      Modele = Date, SAO2, 31536000, 0, 92, %, , Hypoxie
 //      Modele = Date, Temp, 31536000, 40.5, 35, ?, Hyporthermie, Hyperthermie
 // [VAR Poids]
@@ -1985,10 +1985,10 @@ void FormRubTerrain::ATCD_MenuActionChangeEtat(int etat)
 //------------------------------------ ATCD_MenuActionSetFamilleGenre --------------------------------------------------
 /*! \brief Modifie la Famille et Genre d'un ATCD par le biais de la classe Atcd_Code.
 */void FormRubTerrain::ATCD_MenuActionSetFamilleGenre()
-{ if (m_pQListViewItem == 0)      return;
+{ m_pC_ListViewATCDManager->ATCD_MenuActionSetFamilleGenre();
+  if (m_pQListViewItem == 0)      return;
   if (m_IsModifiable==0)          return;
   if (!m_pAtcd_Code)              return;
-  m_pC_ListViewATCDManager->ATCD_MenuActionSetFamilleGenre();
   m_pQListViewItem         = 0;
   m_pAtcd_Element_Selected = 0;
   //................ mettre a jour les datas de la rubrique ...................

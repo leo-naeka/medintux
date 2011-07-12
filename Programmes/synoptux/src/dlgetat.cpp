@@ -6,6 +6,7 @@
 
 #define ETATS "ST_etats"
 
+//-------------------------------DlgEtat----------------------------------------------------
 DlgEtat::DlgEtat(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::DlgEtat)
@@ -14,16 +15,18 @@ DlgEtat::DlgEtat(QWidget *parent) :
 
     connect (ui->pushButton_QuitterEtat,   SIGNAL(clicked()),   this, SLOT(accept()));
     connect (ui->pushButton_ValidEtat,     SIGNAL(clicked()),   this, SLOT(ValideEtat()));
-    connect (ui->pushButton_annuler,      SIGNAL(clicked()),   this, SLOT(AnnuleEtat()));
-    connect (ui->pushButton_CouleurFond,  SIGNAL(clicked()),    this, SLOT(ChoixCouleurFond()));
+    connect (ui->pushButton_annuler,       SIGNAL(clicked()),   this, SLOT(AnnuleEtat()));
+    connect (ui->pushButton_CouleurFond,   SIGNAL(clicked()),    this, SLOT(ChoixCouleurFond()));
     connect (ui->treeWidget_Etat,          SIGNAL(itemClicked(QTreeWidgetItem*,int)),   this, SLOT (selectEtat( QTreeWidgetItem * , int )));
 }
 
+//------------------------------- ~DlgEtat----------------------------------------------------
 DlgEtat::~DlgEtat()
 {
     delete ui;
 }
 
+//-------------------------------changeEvent----------------------------------------------------
 void DlgEtat::changeEvent(QEvent *e)
 {
     QDialog::changeEvent(e);
@@ -72,7 +75,7 @@ QSqlQuery   query ( CApp::pCApp()->getDB()->database());
         requete = "INSERT INTO " ETATS " ("
                   " ET_Code_etat, ET_Libelle_etat,   ET_Couleur_etat, ET_Tache_terminee) "
                   " VALUES ("
-                  " :ET_Code_etat, :ET_Libelle_etat,   :ET_Couleur_etat, ET_Tache_terminee ) ";
+                  " :ET_Code_etat, :ET_Libelle_etat,   :ET_Couleur_etat, :ET_Tache_terminee ) ";
 
         query.prepare(requete);
         query.bindValue(":ET_Code_etat",        ui->lineEdit_CodeEtat->text());
@@ -95,13 +98,13 @@ QSqlQuery   query ( CApp::pCApp()->getDB()->database());
        }// fin else Modif
 
     if (!query.exec() )
-            {QString zbid = query.lastQuery ();
-            QString noerr;
-            noerr.setNum(query.lastError().type());
-            QMessageBox::warning ( this, tr("Gestion des états"),
+       {QString zbid = query.lastQuery ();
+        QString noerr;
+        noerr.setNum(query.lastError().type());
+        QMessageBox::warning ( this, tr("Gestion des états"),
                          "<b>" + tr("Erreur lors de la mise à jour de la table box : ") + ui->lineEdit_CodeEtat->text() +  "</b><br><br>" +
                          "Erreur = (" +  noerr + ") " + query.lastError().text());
-            } // fin if erreur exec insert
+       } // fin if erreur exec insert
 
     ChargeEtat();
     ClearFormulaire();
@@ -145,7 +148,7 @@ void DlgEtat::ChargeEtat()
     QTreeWidgetItem *pItem = 0;
     ui->treeWidget_Etat->clear();
 //
-    requete = "SELECT   ET_Code_etat, ET_Libelle_etat, ET_Couleur_etat "   // 0-1-2
+    requete = " SELECT   ET_Code_etat, ET_Libelle_etat, ET_Couleur_etat "   // 0-1-2
               " FROM    " ETATS
               " ORDER BY ET_Code_etat";
 
@@ -162,6 +165,7 @@ void DlgEtat::ChargeEtat()
     EtatEnCours = "";
 }
 
+//-------------------------------ChoixCouleurFond----------------------------------------------------
 void DlgEtat::ChoixCouleurFond()
 {
     QColor color;
