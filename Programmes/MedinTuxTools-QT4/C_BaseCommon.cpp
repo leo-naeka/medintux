@@ -286,7 +286,8 @@ void  C_BaseCommon::executeSQL( const QString &fname, QProgressBar *pQProgressBa
 //  (26662,62153,'ABLAIN ST NAZAIRE'),
 //  (35076,80320,'ABLAINCOURT PRESSOIR');
 void  C_BaseCommon::parseSQL_InsertInto(QString &text, QTextEdit */* logWidget  = 0 */)
-{   int len_sep, i, textLen;
+{   int i, textLen;
+    int len_sep       = 0;
     int deb           = text.indexOf("INSERT INTO");
     int pos           = text.indexOf("VALUES");
     QSqlQuery query(QString::null, database());
