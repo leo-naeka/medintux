@@ -1,0 +1,31 @@
+<!DOCTYPE CMenu><CMenu version="0.0" stdsetdef="1">
+<actions>
+    <action>
+        <property name="name">
+            <cstring>Calendrier obstétrical</cstring>
+        </property>
+        <property name="iconSet">
+            <iconset>cal.png</iconset>
+        </property>
+        <property name="text">
+            <string>Calendrier obstétrical</string>
+        </property>
+        <property name="menuText">
+            <string>Calendrier obstétrical</string>
+        </property>
+        <property name="accel">
+            <string></string>
+        </property>
+        <property name="script">
+            <string>{{:: Nouveau document ( Prescription  ) }}{{:: Intitule ( Calendrier obstétrical , change  ) }}{{[Execute]
+pathPlugin=../../cal_obst/bin/cal_obst
+maskExch=Bonjour tout le monde
+pathIni=****
+waitEnd=y
+[Parametres]
+m_DateDerRegle = {{DDR=dd-MM-yyyy}}
+}}</string>
+        </property>
+    </action>
+</actions>
+</CMenu>

@@ -1,0 +1,27 @@
+<!DOCTYPE CMenu><CMenu version="0.0" stdsetdef="1">
+<actions>
+    <action>
+        <property name="name">
+            <cstring>Test du timer dans un menu</cstring>
+        </property>
+        <property name="iconSet">
+            <iconset>HorlogeCal.png</iconset>
+        </property>
+        <property name="text">
+            <string>Test du timer dans un menu</string>
+        </property>
+        <property name="menuText">
+            <string>Test du timer dans un menu</string>
+        </property>
+        <property name="accel">
+            <string>Ctrl+Alt+T</string>
+        </property>
+        <property name="script">
+            <string> {{:: MESSAGE_POPUP ("Coucou le timer est activé") }} $setMenuTimer[{{:: LINE_EDIT (3000, Période du timer, Nouvelle période pour le timer : <br>* si négatif le timer sera activé juste une fois pour la période définie.<br>* si positif le timer sera activé à chaque période.<br>* zéro le timer s'arrête et n'est plus actif., paramétrage d'un menu timer)}}]</string>
+        </property>
+        <property name="period">
+             <string>-10000</string>
+        </property>
+    </action>
+</actions>
+</CMenu>

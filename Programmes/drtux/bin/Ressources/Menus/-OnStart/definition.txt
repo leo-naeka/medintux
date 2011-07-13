@@ -1,0 +1,30 @@
+<!DOCTYPE CMenu>
+<CMenu version="0.0" stdsetdef="1">
+<actions>
+ <action>
+  <property name="name">
+   <cstring>Menu de debut</cstring>
+  </property>
+  <property name="iconSet">
+   <iconset>MenuDeDebut.png</iconset>
+  </property>
+  <property name="text">
+   <string>Menu de debut</string>
+  </property>
+  <property name="menuText">
+   <string>Menu de debut</string>
+  </property>
+  <property name="accel">
+   <string></string>
+  </property>
+  <property name="script">
+   <string>{{::#MESSAGE_ALERT (message de test pour vous pour MACRO DE DEBUT \
+                    MESSAGE_ALERT il est même possible d'y placer des images <img src="Homme.png">\
+                    ,exemple MESSAGE ALERT,OK,,,, 450, 250) }}</string>
+  </property>
+  <property name="period">
+   <string>-100</string>
+  </property>
+ </action>
+</actions>
+</CMenu>
