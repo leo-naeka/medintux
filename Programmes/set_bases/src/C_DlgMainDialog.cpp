@@ -76,11 +76,12 @@
 
 C_DlgMainDialog::C_DlgMainDialog(QWidget* parent, const char* name, bool modal, WFlags fl)
     : Dlg_MainDialog(parent,name, modal,fl)
-{   m_Apropos_Proc = 0;
+{
+    m_Apropos_Proc = 0;
     QString   ret  = "";
     QString   path = "";
-	m_SousAppleSeMettreEnModeAdmin = "<u><font color=\"#d6001e\"><b>Sous Apple se mettre en mode Adminitrateur</b></font></u>";
-	m_SousLinuxSeMettreEnModeAdmin = "<u><font color=\"#d6001e\"><b>Sous Linux se mettre en mode Adminitrateur</b></font></u>";
+    m_SousAppleSeMettreEnModeAdmin = "<u><font color=\"#d6001e\"><b>Sous Apple se mettre en mode Adminitrateur</b></font></u>";
+    m_SousLinuxSeMettreEnModeAdmin = "<u><font color=\"#d6001e\"><b>Sous Linux se mettre en mode Adminitrateur</b></font></u>";
     connect( quitPushButton,               SIGNAL( clicked() ),         this, SLOT( Slot_close() ) );
     connect( pushButton_SetBases,          SIGNAL( clicked() ),         this, SLOT( pushButton_SetBases_clicked() ) );
     connect( pushButton_LancerDrTux,       SIGNAL( clicked() ),         this, SLOT( pushButton_LancerDrTux_clicked() ) );
@@ -238,10 +239,10 @@ C_DlgMainDialog::C_DlgMainDialog(QWidget* parent, const char* name, bool modal, 
     // Affichage dans la Box
     G_pCApp->Datasemp_OutMessage(textEdit_Message, tr("\n================= Lecture Base Get ou Datasemp %1 =================").arg(path) );
 
-    if (  ! QFile::exists (path) ) 
+    if (  ! QFile::exists (path) )
     {
         G_pCApp->Datasemp_OutMessage(textEdit_Message, tr("\n le fichier d'initialisation : %1 n'existe pas").arg(path));
-        return ;
+        //return ;
     }
 
     QString param, parametreBase;
@@ -321,10 +322,10 @@ C_DlgMainDialog::C_DlgMainDialog(QWidget* parent, const char* name, bool modal, 
     lineEdit_BinaryPath->setText("/usr/local");
     textLabel_AdminLinux->setText(m_SousAppleSeMettreEnModeAdmin);
     textLabel_AdminLinux->show();
-	lineEdit_Qt4Sdk->setText(tryToFindSdkQt4());
-    lineEdit_Qt3->setText(tryToFindQt3());    
-	textLabel_MacOS->setText(tr("<u><font color=\"#d6001e\"><b>Sous Apple se mettre en mode Adminitrateur</b></font></u> (et lancer set_bases en mode console avec le script : <b>set_basesMac.sh</b>"));
-	textLabel_MacOS->show();
+    lineEdit_Qt4Sdk->setText(tryToFindSdkQt4());
+    lineEdit_Qt3->setText(tryToFindQt3());
+    textLabel_MacOS->setText(tr("<u><font color=\"#d6001e\"><b>Sous Apple se mettre en mode Adminitrateur</b></font></u> (et lancer set_bases en mode console avec le script : <b>set_basesMac.sh</b>"));
+    textLabel_MacOS->show();
 #endif
     //............................. titre du group box de compilation .....................................
     QString version;
@@ -717,7 +718,7 @@ QString  C_DlgMainDialog::tryToFindSdkQt4()
  int                  n = 0;
  for (int i=0; i<listOptDir.count(); ++i)
      {if ( (n = keepOnlyNumber(listOptDir[i]).toInt())>lastN)
-         {lastN     = n; 
+         {lastN     = n;
           lastIndex = i;
          }
      }
@@ -730,7 +731,7 @@ QString  C_DlgMainDialog::tryToFindSdkQt4()
  int                  n = 0;
  for (int i=0; i<listOptDir.count(); ++i)
      {if ( (n = keepOnlyNumber(listOptDir[i]).toInt())>lastN)
-         {lastN     = n; 
+         {lastN     = n;
           lastIndex = i;
          }
      }
@@ -862,8 +863,8 @@ void C_DlgMainDialog::Compilation(const QString &path, const QString & target)
 #ifdef  Q_WS_MAC
     bool isQT4Here     =  QFile::exists(sdkDir+"bin/qmake");
 #else
-    bool isQT4Here     =  QFile::exists(sdkDir+"qt");	
-#endif	
+    bool isQT4Here     =  QFile::exists(sdkDir+"qt");
+#endif
     QString modulePath =  QDir::cleanDirPath(G_pCApp->m_PathAppli + "../../" + target)+"/";
     if (target=="compta-plugins"||target=="check_dus"||QFile::exists(modulePath+target+".kdevelop")) isQT3 = 1;
     //....................... corriger version des UI de MedinTuxTools...............................
@@ -908,7 +909,7 @@ void C_DlgMainDialog::Compilation(const QString &path, const QString & target)
 					  "export INCLUDE\n"
 					  "cd "+G_pCApp->m_PathAppli+"\n"
                       "./MakeAllMac.sh '" + m_CurrentCompil + "' '" + lineEdit_Qt3->text() + "'";
-            qDebug(script);	
+            qDebug(script);
         #else
             script =  "#! /bin/sh\n "
                       "./MakeAllMac.sh '" + m_CurrentCompil + "' '" + lineEdit_Qt3->text() + "'";
@@ -920,9 +921,9 @@ void C_DlgMainDialog::Compilation(const QString &path, const QString & target)
        }
    else if (QFile::exists(modulePath + "src/"+target+".pro"))
        {if (isQT4Here)
-           {QApplication::setOverrideCursor( QCursor( Qt::WaitCursor ) );   
+           {QApplication::setOverrideCursor( QCursor( Qt::WaitCursor ) );
 		    toLog( tr ("<br>============= Compilation <font color=#ff0000><b>QT4</b></font> de<font color=#ffa800><b> %1 </b></font>en cours ... =============").arg(target));
-            QDir::setCurrent ( modulePath + "src" );         
+            QDir::setCurrent ( modulePath + "src" );
 		   #ifdef  Q_WS_MAC
 		    script = "#!/bin/bash\n"
                      "LD_LIBRARY_PATH={{sdkDir}}lib\n"
@@ -1017,21 +1018,21 @@ bool C_DlgMainDialog::IsThisExecutableExist(const QString &exe_name)
         path   = QDir::cleanDirPath(path);
 #ifdef Q_OS_MACX
         path += ".app/Contents/MacOS/guinch";
-#endif	 
+#endif
        }
 	else if ("compta-plugins")
 	   {path   = G_pCApp->m_PathAppli +"../../comptabilite/bin/compta-plugins";
         path   = QDir::cleanDirPath(path);
 #ifdef Q_OS_MACX
         path += ".app/Contents/MacOS/compta-plugins";
-#endif	 	   
+#endif
       }
 	else if ("check_dus.app")
 	   {path   = G_pCApp->m_PathAppli +"../../comptabilite/bin/check_dus.app";
         path   = QDir::cleanDirPath(path);
 #ifdef Q_OS_MACX
         path += ".app/Contents/MacOS/check_dus.app";
-#endif	 	   
+#endif
       }
     else
        {path   =  CGestIni::Construct_Name_Exe(exe_name, folder);
@@ -1039,7 +1040,7 @@ bool C_DlgMainDialog::IsThisExecutableExist(const QString &exe_name)
 		if (pos==-1) return FALSE;
 	    path   =  G_pCApp->m_PathAppli +"../../" + path.mid(pos);
 		path   =  QDir::cleanDirPath(path);
-       }     
+       }
     if (  ! QFile::exists (path) )
        {toLog( tr("Cet exécutable <font color=#ff0000><b>'%1'</b></font> n'existe pas ").arg(exe_name) );
         return FALSE;
@@ -1170,7 +1171,7 @@ void C_DlgMainDialog::setBase(const QString &sqlFile /* = "" */)
     QString err;
     QStringList basesListToSet           = G_pCApp->GetBasesListToSet();
     QStringList basesListAlreadyPresents = GetListBasesInMySql(&err);
-    QStringList basesListNotFound; 
+    QStringList basesListNotFound;
     QStringList basesListFound;
     if (err.length())
        {toLog(tr("============ Erreur  : GetBasesListToSet()==============") + err);
@@ -1181,7 +1182,7 @@ void C_DlgMainDialog::setBase(const QString &sqlFile /* = "" */)
          #ifdef Q_WS_WIN
               baseName = baseName.lower();  //  sous windows la liste des bases est en minuscules (eh oui excellent systeme de fichiers)
          #endif
-         if (basesListAlreadyPresents.findIndex (baseName) == -1) 
+         if (basesListAlreadyPresents.findIndex (baseName) == -1)
             { basesListNotFound.append(basesListToSet[i]);
             }
          else
@@ -1198,10 +1199,10 @@ void C_DlgMainDialog::setBase(const QString &sqlFile /* = "" */)
         for (int i=0; i<basesListNotFound.size(); ++i) G_pCApp->Datasemp_OutMessage(textEdit_Message, QString(".        <font color=#ff0000>")  +   basesListNotFound[i] + "</font>\n");
        }
     //.....................................  on se pose les bonnes questions ..........................................................
-    if  (comboBox_Bases->currentItem()==0 && sqlFile.length()==0) 
+    if  (comboBox_Bases->currentItem()==0 && sqlFile.length()==0)
     // ............... si toutes les base sont concernees ("Toutes les bases" selectionne dans la combobox) ......................
-    //                    si tout est complet cassos, 
-    //                    si juste une partie manque poser la question, 
+    //                    si tout est complet cassos,
+    //                    si juste une partie manque poser la question,
     //                    si tout manque on installe tout sans poser de qestion car pas de risque d'ecraser quoi que ce soit
         { if (basesListNotFound.size()==0)            // toutes les bases sont trouvee on se casse pour NE PAS ECRASER L'EXISTANT
               {QMessageBox::information( this, tr( "INSTALLATION DES BASES" ),
@@ -1223,7 +1224,7 @@ void C_DlgMainDialog::setBase(const QString &sqlFile /* = "" */)
               }
          //......... a ce stade toutes les bases de la liste 'basesListNotFound' seront installees
         }
-    else  
+    else
     //......... si seulement une base est concernée : donc selectionnee dans la combobox .........................
     //          on efface la liste des bases non trouvees a creer, et on ne met que celle de la combobox
     //          la question de validation sera posee dans la fonction : G_pCApp->restaureBase() lors de detection
@@ -1247,9 +1248,9 @@ void C_DlgMainDialog::setBase(const QString &sqlFile /* = "" */)
     }
     else
     {   bool setButtonVidal = FALSE;
-        for (int i=0; i<basesListNotFound.size(); ++i) 
+        for (int i=0; i<basesListNotFound.size(); ++i)
             {baseName               = basesListNotFound[i];
-             QString fileToRestore  = baseName; fileToRestore = fileToRestore.prepend("Dump_") +".sql"; fileToRestore = fileToRestore.prepend(G_pCApp->m_PathAppli+"SqlCreateTable/");//Dump_DrTuxTest.sql 
+             QString fileToRestore  = baseName; fileToRestore = fileToRestore.prepend("Dump_") +".sql"; fileToRestore = fileToRestore.prepend(G_pCApp->m_PathAppli+"SqlCreateTable/");//Dump_DrTuxTest.sql
              textLabel_Progress->setText( tr("Installation de la base de données : <b>") + baseName + tr("</b> en cours ..." ));
              G_pCApp->restaureBase(fileToRestore,       // en sera extrait le nom de la base
                                    driverName,          // nom du driver: "QODBC3" "QMYSQL3" "QPSQL7"
@@ -1556,10 +1557,10 @@ void C_DlgMainDialog::pushButton_SetDatasemp_clicked()
                                         0 ) ;
         }
         m_dtDeb                   = QDateTime::currentDateTime();
-        
+
 
         if (ok==1) //......................................... installation de tout .....................................
-        {   
+        {
 
             m_pCUpdateThread  = new CUpdateThread;
             qDebug(m_DatasempDir);
@@ -2050,22 +2051,22 @@ void C_DlgMainDialog::pushButtonConnexionAppl_clicked()
     pushButtonConnexionAppl->setText(tr("Interrompre le test de connexion à la base de données en cours ... "));
     ret = TestBases(driverName, baseName, userName,  passWord,  hostName, port);
     if (ret == "ABORTED")           {   abortedMessDisplay(baseName);      return; }
-    if (ret !="OK")  
+    if (ret !="OK")
        { //toLog ( tr("\n (==> erreur lors du test de l'accès à la base : "+baseName+")\n" + ret + "\n" ));
          baseName = "mysql";
          ret = TestBases(driverName, baseName, userName,  passWord,  hostName, port);
-         if (ret == "ABORTED")      {   abortedMessDisplay(baseName);      return; }        
-         if (ret !="OK")        
-            {//toLog ( tr("\n (==> erreur lors du test de l'accès à la base : "+baseName+")\n" + ret + "\n" ));         
+         if (ret == "ABORTED")      {   abortedMessDisplay(baseName);      return; }
+         if (ret !="OK")
+            {//toLog ( tr("\n (==> erreur lors du test de l'accès à la base : "+baseName+")\n" + ret + "\n" ));
              CGestIni::Param_ReadParam(G_pCApp->m_ParamData,  "DrTuxTest",     "Master",   &driverName,  &baseName,  &userName,  &passWord,  &hostName, &port);
              ret = TestBases(driverName, baseName, userName,  passWord,  hostName, port);
-             if (ret == "ABORTED")  {   abortedMessDisplay(baseName);      return; }                 
+             if (ret == "ABORTED")  {   abortedMessDisplay(baseName);      return; }
             }
        }
     //................... on a teste toutes les bases .................................
     //                    baseName contient le nom de la base a laquelle il a ete possible de se connecter
     if (ret =="OK")
-    {   toLog (tr("\n (==> Succès lors du test de l'accès à la base : " + baseName + ")\n" ));         
+    {   toLog (tr("\n (==> Succès lors du test de l'accès à la base : " + baseName + ")\n" ));
         tabWidget_Instal->setTabEnabled ( m_pTabQWidgetBases,  TRUE );
         tabWidget_Instal->setTabEnabled ( m_pTabQWidgetTherap, TRUE );
         pushButton_SetBases->show();
@@ -2088,7 +2089,7 @@ void C_DlgMainDialog::pushButtonConnexionAppl_clicked()
         toLog ( tr("\n (==> erreur lors du test de l'accès à la base : "+baseName+")\n" + ret + "\n" ));
         toLog ( tr("\n (====> les bases de données ne sont pas installées, ou incorrectement installées) <=====\n") + m_MessageNoConnect );
         pushButtonConnexionAppl->setText(tr("&Se connecter à la base de données"));
-    }    
+    }
 }
 //----------------------------------------- abortedMessDisplay ---------------------------------------------
 void C_DlgMainDialog::abortedMessDisplay(const QString &base)
@@ -2136,7 +2137,7 @@ QString C_DlgMainDialog::TestBases(  const QString &driver, const QString &base,
            {reinitLog(1);
             QStringList basesListAlreadyPresents = GetListBasesInMySql();
             QStringList basesListToSet           = G_pCApp->GetBasesListToSet();
-            QStringList basesListNotFound; 
+            QStringList basesListNotFound;
             QStringList basesListFound;
             int i;
             for (i=0; i<basesListToSet.size(); ++i)
@@ -2144,7 +2145,7 @@ QString C_DlgMainDialog::TestBases(  const QString &driver, const QString &base,
             #ifdef Q_WS_WIN
                  baseName = baseName.lower();
             #endif
-                 if (basesListAlreadyPresents.findIndex (baseName) == -1) 
+                 if (basesListAlreadyPresents.findIndex (baseName) == -1)
                     { basesListNotFound.append(basesListToSet[i]);
                     }
                 else
@@ -2365,13 +2366,13 @@ QStringList C_DlgMainDialog::GetListBasesInMySql(QString *err)
    hostName = lineEdit_Hostname->text().stripWhiteSpace();
    port     = lineEdit_Sql_Port->text().stripWhiteSpace();
    QSqlDatabase* mysql_base  = G_pCApp->GetMySQL_DataBase(user, passWord, hostName, port);       // base MySQL pour creer les bases
-   if (mysql_base ==0) 
+   if (mysql_base ==0)
       {if (err) *err = tr("GetListBasesInMySql() Échec de la connexion à la base 'mysql'.");
        else     toLog( tr("============== GetListBasesInMySql() Échec de la connexion à la base 'mysql' ============================================="));
        return 0;
       }
-   if (!mysql_base->isOpen()) 
-       { if (mysql_base->open()==FALSE) 
+   if (!mysql_base->isOpen())
+       { if (mysql_base->open()==FALSE)
             {if (err) *err =  tr("GetListBasesInMySql(), La base  'mysql' n'a pu être ouverte.") ;
              else     toLog ( tr("============== GetListBasesInMySql(), La base  'mysql' n'a pu être ouverte =============================================")) ;
              return 0;
@@ -2381,11 +2382,11 @@ QStringList C_DlgMainDialog::GetListBasesInMySql(QString *err)
     query.exec(QString("SHOW DATABASES"));
     if (query.isActive())
        {//QString result = query.value(0).toString();
-        while (query.next())  
+        while (query.next())
               {QString result = query.value(0).toString();
                basesAlreadyPresents.append (result);                    // on a la liste des utilisateurs signataires
               }
-       } 
+       }
     mysql_base->close();
     return basesAlreadyPresents;
     /*
