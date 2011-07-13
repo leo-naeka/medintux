@@ -17,7 +17,7 @@ public:
     ~C_Wdg_Box();
 
     Ui::C_Wdg_Box *ui;
-    QHBoxLayout *m_horizonLayoutResp;
+    //QHBoxLayout *m_horizonLayoutResp;
     QPushButton *m_ButtonNomMedResponsable;
 
 protected:

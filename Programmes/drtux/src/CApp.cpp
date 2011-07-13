@@ -152,9 +152,9 @@ CApp::CApp(QString mui_name, int & argc, char ** argv)
 
     //....................... charger le fichier de configuration des bases ..................................
     //                        il peut etre soit donne dans les arguments soit à aller chercher en local
+    if (argc >= 3)                  m_NumGUID      =     argv[3];
+    if (argc >= 4)                  m_ID_Doss      =     argv[4];
     if (argc >= 8 && argv[8])      {m_PathCfg_Base =     argv[8];
-                                    m_ID_Doss      =     argv[4];
-                                    m_NumGUID      =     argv[3];
                                    }
     else                           {m_PathCfg_Base =     m_PathAppli + "DataBase.cfg";
                                    }

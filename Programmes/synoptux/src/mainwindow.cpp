@@ -40,6 +40,7 @@
 ****************************************************************************/
 
 #include <QtGui>
+#include <QFileInfo>
 #include "mainwindow.h"
 #include "mdibox.h"
 #include "C_Wdg_Box.h"
@@ -1120,24 +1121,32 @@ void MainWindow::PlierDeplier(QWidget *UnWidget)
 //------------------------------------Lancer_DrTux--------------------------------------------------
 void MainWindow::Lancer_DrTux(QWidget *UnWidget)
 {
-    QPushButton *lebouton;
-    QStringList ListArgs;
-    lebouton = qobject_cast<QPushButton *>(UnWidget);
-    QString NumEnCours = lebouton->whatsThis();
-    QString NomProg;
+    QString      nomProg;
+    QStringList  listArgs;
+    QPushButton *lebouton   = qobject_cast<QPushButton *>(UnWidget);
+    QString      numEnCours = lebouton->whatsThis();
+    QString      requete    = " SELECT EC_ProgAnnexe, EC_ArgsAnnexe "   // 0-1
+                              " FROM " ENCOURS
+                              " WHERE EC_PK = '" + numEnCours + "'";
+    if ( QDir(nomProg).isRelative()) {nomProg.prepend(QApplication::applicationDirPath()+"/"); }
 
-    QString requete = "SELECT EC_ProgAnnexe, EC_ArgsAnnexe "   // 0-1
-                      " FROM " ENCOURS
-                      " WHERE EC_PK = '" + NumEnCours + "'";
+#ifdef Q_OS_MACX
+    QFileInfo fi(nomProg);
+    QString   fname = fi.fileName();                // name = "archive.tar.gz"
+    nomProg += ".app/Contents/MacOS/" + fname
+#endif
+#ifdef Q_WS_WIN
+    nomProg +=  ".exe"
+#endif
 
     QSqlQuery query(requete, DATA_BASE_SYNOPTUX);
     if (!query.isActive() ||  !query.next())
        {QMessageBox::warning(this,NAME_APPLI,"Les paramètres de lancement ne peuvent être lus !");
         return;
        }
-    NomProg     = query.value(0).toString();
-    ListArgs    = query.value(1).toString().split("+");
-    QProcess::startDetached (NomProg, ListArgs);
+    nomProg     = query.value(0).toString();
+    listArgs    = query.value(1).toString().split("|");
+    QProcess::startDetached (nomProg, listArgs);
 }
 
 //-----------------------------------masquerNomPatient---------------------------------------------------
