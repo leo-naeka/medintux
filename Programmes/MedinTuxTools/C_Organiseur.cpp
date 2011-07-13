@@ -48,10 +48,10 @@
 #include "CApp.h"
 
 #include "ui/Form_Organiseur.h"
-#include "ui/DlgListFieldMngr.h"
 #include "ui/Dlg_Calendar.h"
 #include "ui/DlgListOff_Listes.h"
 
+#include "../../drtux/src/C_DlgListFieldMngr.h"
 #include "C_Organiseur.h"
 #include "CHtmlTools.h"
 #include "CGenTools.h"
@@ -2162,7 +2162,7 @@ QString C_Organiseur::setMenuList(QString classeurName, QString property)
       if ( CGenTools::GetXMLValue(dataToExamine, QString("<")+property+">", value, 0) !=-1 )  listName = value;
      }
   //..................... dialoguer dialoguez ...............................................
- FormDlgListFieldMngr *dlg = new FormDlgListFieldMngr(0,"ListManager_Dial",TRUE, WStyle_Customize | WStyle_NormalBorder | WStyle_Title |WStyle_MinMax | WStyle_SysMenu);
+ C_DlgListFieldMngr *dlg = new C_DlgListFieldMngr(0,"ListManager_Dial",TRUE, WStyle_Customize | WStyle_NormalBorder | WStyle_Title |WStyle_MinMax | WStyle_SysMenu);
  if (dlg ==0) return QString::null;
  dlg->initDialog(G_pCApp->m_DrTuxParam, G_pCApp->m_PathGlossaire, G_pCApp->m_PathAppli);
  if (listName.length()) dlg->selectAndOpenItem(listName);
