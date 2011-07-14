@@ -1186,6 +1186,12 @@ void MainWindow::Lancer_DrTux(QWidget *UnWidget)
     QString      requete    = " SELECT EC_ProgAnnexe, EC_ArgsAnnexe "   // 0-1
                               " FROM " ENCOURS
                               " WHERE EC_PK = '" + numEnCours + "'";
+    QSqlQuery query(requete, DATA_BASE_SYNOPTUX);
+    if (!query.isActive() ||  !query.next())
+       {QMessageBox::warning(this,NAME_APPLI,"Les paramètres de lancement ne peuvent être lus !");
+        return;
+       }
+
     if ( QDir(nomProg).isRelative()) {nomProg.prepend(QApplication::applicationDirPath()+"/"); }
 
 #ifdef Q_OS_MACX
@@ -1197,11 +1203,6 @@ void MainWindow::Lancer_DrTux(QWidget *UnWidget)
     nomProg +=  ".exe"
 #endif
 
-    QSqlQuery query(requete, DATA_BASE_SYNOPTUX);
-    if (!query.isActive() ||  !query.next())
-       {QMessageBox::warning(this,NAME_APPLI,"Les paramètres de lancement ne peuvent être lus !");
-        return;
-       }
     nomProg     = query.value(0).toString();
     listArgs    = query.value(1).toString().split("|");
     QProcess::startDetached (nomProg, listArgs);
