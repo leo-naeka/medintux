@@ -1191,9 +1191,10 @@ void MainWindow::Lancer_DrTux(QWidget *UnWidget)
        {QMessageBox::warning(this,NAME_APPLI,"Les paramètres de lancement ne peuvent être lus !");
         return;
        }
-
-    if ( QDir(nomProg).isRelative()) {nomProg.prepend(QApplication::applicationDirPath()+"/"); }
-
+    nomProg     = query.value(0).toString();
+    listArgs    = query.value(1).toString().split("|");
+    if ( QDir(nomProg).isRelative()) {nomProg = nomProg.prepend(CApp::pCApp()->pathAppli()); nomProg = QDir::cleanPath (nomProg);}
+    statusBar()->showMessage(tr("Lancement de : %1").arg(nomProg));
 #ifdef Q_OS_MACX
     QFileInfo fi(nomProg);
     QString   fname = fi.fileName();                // name = "archive.tar.gz"
@@ -1203,8 +1204,7 @@ void MainWindow::Lancer_DrTux(QWidget *UnWidget)
     nomProg +=  ".exe"
 #endif
 
-    nomProg     = query.value(0).toString();
-    listArgs    = query.value(1).toString().split("|");
+
     QProcess::startDetached (nomProg, listArgs);
 }
 
