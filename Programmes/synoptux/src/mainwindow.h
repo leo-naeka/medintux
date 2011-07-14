@@ -186,6 +186,7 @@ private:
     C_Wdg_Box       *m_BoxBougerEnCours;
     QPushButton     *m_BoutonEtat;
     QPushButton     *m_BoutonResp;
+    QFrame          *m_popupTache;
     QAction         *m_boxAct;
     QAction         *m_tacheAct;
     QAction         *m_etatAct;

@@ -70,6 +70,7 @@ MainWindow::MainWindow()
     m_timerAlarme     = 0;
     m_Apropos_Proc    = 0;
     m_notAction       = 0;
+    m_popupTache      = 0;
     m_ResponsableSelectionne = "Tous";
     //.................... indicateur d'action des timers ...........................................
     m_TimerStateIndicator = new C_ClickableLed(this);
@@ -868,8 +869,8 @@ void MainWindow::GestionParam(QString typeParam)
 void MainWindow::afficheNomPatient(C_Wdg_Box *dlgBox, Ui_Box *Box_ui, QString NomPatient, QString /*BoxEnCours*/, QString NumEnCours, QString DateEntree, QString DateSortie, QString CommentairePatient, bool Anonyme, bool StatusReplier )
 {   setTimerActionOff();
     QString style;
-    QVBoxLayout *verticalLayoutPatCom   = new QVBoxLayout();verticalLayoutPatCom->setObjectName(dlgBox->objectName()+"-verticalLayoutPatCom");
-    QHBoxLayout *horizonLayoutPat       = new QHBoxLayout();horizonLayoutPat->setObjectName(dlgBox->objectName()+"-horizonLayoutPat");
+    QVBoxLayout *verticalLayoutPatCom   = new QVBoxLayout(dlgBox);verticalLayoutPatCom->setObjectName(dlgBox->objectName()+"-verticalLayoutPatCom");
+    QHBoxLayout *horizonLayoutPat       = new QHBoxLayout(dlgBox);horizonLayoutPat->setObjectName(dlgBox->objectName()+"-horizonLayoutPat");
 
     // Création du Bouton PlierDeplier
     QPushButton *bouttonPlierDeplier    = new QPushButton(dlgBox);
@@ -946,7 +947,7 @@ void MainWindow::afficheNomPatient(C_Wdg_Box *dlgBox, Ui_Box *Box_ui, QString No
     verticalLayoutPatCom->addLayout(horizonLayoutPat);
 
     // Création Layout pour commenataire
-    QHBoxLayout *horizonLayoutComm       = new QHBoxLayout(); horizonLayoutComm->setObjectName(dlgBox->objectName()+"-horizonLayoutComm");
+    QHBoxLayout *horizonLayoutComm       = new QHBoxLayout(dlgBox); horizonLayoutComm->setObjectName(dlgBox->objectName()+"-horizonLayoutComm");
 
     // Création éventuel du bouton d'appel de drtux
     if (m_BoutonDrtux.toUpper() == "OUI")
@@ -1226,57 +1227,54 @@ void MainWindow::masquerNomPatient(QWidget *UnWidget)
 }
 //--------------------------------------Recap_Tache------------------------------------------------
 void MainWindow::Recap_Tache(QWidget *UnWidget)
-{
-    QPushButton *leCommentaire;
-    QString     Message, NumEnCours, zz;
-
-    leCommentaire     = qobject_cast<QPushButton *>(UnWidget);
-    NumEnCours        = leCommentaire->whatsThis();
-    bool       entete = false;
-    QString   requete = QString ("SELECT HI_PK, HI_Code_box, HI_Nom_patient, HI_Code_resp,"   // 0-1-2-3
-                        " HI_Code_tache, HI_Date, HI_Libelle_tache, HI_Action, "              // 4-5-6-7
-                        " %1 , BO_Libelle, HI_Libelle_etat, HI_Commentaire, "                 // 8-9-10-11
-                        " HI_PrenomPatient "      // 12
-                        " FROM " HISTORIQUE
-                        " INNER JOIN %2     ON HI_Code_resp = %3 "
-                        " INNER JOIN "BOX"  ON HI_Code_box  = BO_Code "
-                        " WHERE HI_NumEncours = '%4'").arg(BASE_SYNOPTUX->m_SIGNER_NOM,BASE_SYNOPTUX->m_SIGNER_TBL_NAME, BASE_SYNOPTUX->m_SIGNER_PK, NumEnCours);
-                      //" ORDER BY HI_PK ASC ";
+{   QString     message, zz;
+    QPushButton *leCommentaire  = qobject_cast<QPushButton *>(UnWidget);
+    QString     numEnCours      = leCommentaire->whatsThis();
+    bool        entete          = false;
+    QString    requete          = QString (" SELECT HI_PK, HI_Code_box, HI_Nom_patient, HI_Code_resp,"           // 0-1-2-3
+                                           " HI_Code_tache, HI_Date, HI_Libelle_tache, HI_Action, "              // 4-5-6-7
+                                           " %1 , BO_Libelle, HI_Libelle_etat, HI_Commentaire, "                 // 8-9-10-11
+                                           " HI_PrenomPatient "      // 12
+                                           " FROM " HISTORIQUE
+                                           " INNER JOIN %2     ON HI_Code_resp = %3 "
+                                           " INNER JOIN "BOX"  ON HI_Code_box  = BO_Code "
+                                           " WHERE HI_NumEncours = '%4'").arg(BASE_SYNOPTUX->m_SIGNER_NOM,BASE_SYNOPTUX->m_SIGNER_TBL_NAME, BASE_SYNOPTUX->m_SIGNER_PK, numEnCours);
+                                         //" ORDER BY HI_PK ASC ";
 
     QSqlQuery query(requete, DATA_BASE_SYNOPTUX);
     while (query.isActive() &&  query.next())
-        {
+       {
         if (!entete)
            {entete = true;
            }
         zz = query.value(5).toString();                                 // date
-        Message.append( zz.mid(11,2) + "h" + zz.mid(14,2));             // heure
-        Message.append(" : ");
+        message.append( zz.mid(11,2) + "h" + zz.mid(14,2));             // heure
+        message.append(" : ");
         zz = query.value(7).toString();
         if (zz.indexOf("Entr") >= 0)
-            {Message.append(zz + " - ");
-             Message.append(query.value(12).toString() + " " + query.value(2).toString());    //  Prenom + nom patient
-             Message.append("\n              - suivi par " + query.value(8).toString());
-             Message.append(" (" + query.value(9).toString() + ")");   // libelle box
+            {message.append(zz + " - ");
+             message.append(query.value(12).toString() + " " + query.value(2).toString());    //  Prenom + nom patient
+             message.append("\n              - suivi par "   + query.value(8).toString());
+             message.append(" (" + query.value(9).toString() + ")");   // libelle box
              if (query.value(11).toString().length() > 0)
-                Message.append("\n              - pour : " + query.value(11).toString());
+                message.append("\n              - pour : " + query.value(11).toString());
             }
         if (zz.indexOf("responsable") > 0)
-           {Message.append(zz + " - ");
-            Message.append(query.value(8).toString());}
+           {message.append(zz + " - ");
+            message.append(query.value(8).toString());}
         if (zz.indexOf("Tâche") >= 0)
-           {Message.append(query.value(6).toString());                 // libelle tache
-            Message.append(" - ");
-            Message.append(query.value(10).toString());                 // libelle etat
-            Message.append(" - " + query.value(11).toString());         // commenatire etat
+           {message.append(query.value(6).toString());                 // libelle tache
+            message.append(" - ");
+            message.append(query.value(10).toString());                 // libelle etat
+            message.append(" - " + query.value(11).toString());         // commenatire etat
            }
         if (zz.indexOf("placement") > 0)
-           {Message.append(zz + " - ");
-            Message.append(query.value(9).toString());                  // libelle box
+           {message.append(zz + " - ");
+            message.append(query.value(9).toString());                  // libelle box
            }
-        Message.append("\n");
-        }
-    PopUp_Tache(Message,350, 450, "PopUp_Detail_Patient");
+        message.append("\n");
+       }
+    PopUp_Tache(message,350, 450, "PopUp_Detail_Patient");
 }
 //--------------------------------------Note_Tache------------------------------------------------
 void MainWindow::Note_Tache(QWidget *UnWidget)
@@ -2054,17 +2052,18 @@ void MainWindow::Controle_Entrees()
 }
 //------------------------------------PopUp_Tache-------------------------------------------------
 void MainWindow::PopUp_Tache(QString Message, int largeur, int hauteur, QString NomStyle)
-{
-    QFrame* popupTache = new QFrame(this, Qt::Popup | Qt::Window );
-    popupTache->resize(largeur,hauteur);
-    QTextEdit *DetailTache = new QTextEdit( popupTache );
-    connect( DetailTache, SIGNAL(cursorPositionChanged()), popupTache, SLOT( close() ) );
-    DetailTache->setGeometry(0,0, largeur, hauteur);
-    DetailTache->setText(Message);
-    DetailTache->setStyleSheet(RecupStyle(NomStyle));
-    DetailTache->verticalScrollBar()->setStyleSheet(RecupStyle(NomStyle + "_ScrollBar"));
-    DetailTache->setFocus();
-    popupTache->show();
+{   if (m_popupTache) delete m_popupTache;
+    m_popupTache = new QFrame(this, Qt::Popup | Qt::Window ); //| Qt::WA_DeleteOnClose
+    m_popupTache->resize(largeur,hauteur);
+    QTextEdit *detailTache = new QTextEdit( m_popupTache );
+    connect( detailTache, SIGNAL(cursorPositionChanged()), m_popupTache, SLOT( close() ) );
+    detailTache->setGeometry(0,0, largeur, hauteur);
+    detailTache->setText(Message);
+    //detailTache->setStyleSheet(RecupStyle(NomStyle));
+    detailTache->verticalScrollBar()->setStyleSheet(RecupStyle(NomStyle + "_ScrollBar"));
+    detailTache->setFocus();
+    m_popupTache->move(QCursor::pos());
+    m_popupTache->show();
 }
 
 //--------------------------------LireleCSS----------------------------------------------------
