@@ -26,6 +26,7 @@ protected:
     void changeEvent(QEvent *e);
 
 protected slots:
+    void Slot_MakeMacro();
     void ValideTache();
     void ValideEtats();
     void AnnuleTache();

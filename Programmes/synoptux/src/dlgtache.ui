@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>570</width>
-    <height>360</height>
+    <width>646</width>
+    <height>458</height>
    </rect>
   </property>
   <property name="palette">
@@ -81,7 +81,7 @@
    <iconset resource="synoptux.qrc">
     <normaloff>:/images/Tache.png</normaloff>:/images/Tache.png</iconset>
   </property>
-  <layout class="QGridLayout" name="gridLayout_2">
+  <layout class="QGridLayout" name="gridLayout_3">
    <item row="0" column="0">
     <widget class="QTreeWidget" name="treeWidget_Tache">
      <property name="font">
@@ -119,9 +119,9 @@
      </column>
     </widget>
    </item>
-   <item row="0" column="1" rowspan="2" colspan="3">
-    <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0,0,0,0,0">
-     <item>
+   <item row="0" column="1" rowspan="2">
+    <layout class="QGridLayout" name="gridLayout_2">
+     <item row="0" column="0">
       <layout class="QHBoxLayout" name="horizontalLayout_code">
        <item>
         <widget class="QLabel" name="label_CodeBqe">
@@ -148,7 +148,7 @@
        </item>
       </layout>
      </item>
-     <item>
+     <item row="1" column="0">
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
         <widget class="QLabel" name="label_NomBqe">
@@ -172,7 +172,7 @@
        </item>
       </layout>
      </item>
-     <item>
+     <item row="2" column="0">
       <layout class="QHBoxLayout" name="horizontalLayout_4">
        <item>
         <widget class="QLabel" name="label_coul_b">
@@ -205,7 +205,7 @@
        </item>
       </layout>
      </item>
-     <item>
+     <item row="3" column="0">
       <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="0,0,0">
        <item>
         <widget class="QLabel" name="label_coult">
@@ -238,7 +238,7 @@
        </item>
       </layout>
      </item>
-     <item>
+     <item row="4" column="0">
       <layout class="QHBoxLayout" name="horizontalLayout_7">
        <item>
         <widget class="QLabel" name="label_nbmax">
@@ -258,7 +258,48 @@
        </item>
       </layout>
      </item>
-     <item>
+     <item row="5" column="0">
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>Priorité</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit_Priorite">
+         <property name="maximumSize">
+          <size>
+           <width>200</width>
+           <height>16777215</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="6" column="0">
+      <layout class="QHBoxLayout" name="horizontalLayout_6">
+       <item>
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>Commentaire</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit_Commentaire"/>
+       </item>
+      </layout>
+     </item>
+     <item row="7" column="0">
       <widget class="QGroupBox" name="groupBox">
        <property name="minimumSize">
         <size>
@@ -341,7 +382,7 @@
        </layout>
       </widget>
      </item>
-     <item>
+     <item row="8" column="0">
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
         <widget class="QPushButton" name="pushButton_ValidTache">
@@ -354,6 +395,13 @@
         <widget class="QPushButton" name="pushButton_annuler">
          <property name="text">
           <string>Supprimer</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_MakeMacro">
+         <property name="text">
+          <string>Créer les macros</string>
          </property>
         </widget>
        </item>

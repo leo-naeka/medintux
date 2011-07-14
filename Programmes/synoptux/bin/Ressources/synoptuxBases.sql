@@ -245,15 +245,16 @@ CREATE TABLE `ST_historique` (
 
 DROP TABLE IF EXISTS `ST_taches`;
 CREATE TABLE `ST_taches` (
-  `TA_Code_tache` varchar(45) NOT NULL,
-  `TA_Libelle_tache` varchar(45) NOT NULL,
-  `TA_Couleur_tache` varchar(45) DEFAULT NULL,
-  `TA_Duree_maxi` int(10) unsigned DEFAULT NULL,
-  `TA_Couleur_alarme` varchar(45) DEFAULT NULL,
-  `TA_BoutonMenu` varchar(45) NOT NULL,
-  PRIMARY KEY (`TA_Code_tache`)
+  `TA_Code_tache` varchar(45)  NOT NULL,
+  `TA_Libelle_tache` varchar(45)  NOT NULL,
+  `TA_Couleur_tache` varchar(45)  default NULL,
+  `TA_Duree_maxi` int(10) unsigned default NULL,
+  `TA_Couleur_alarme` varchar(45)  default NULL,
+  `TA_BoutonMenu` varchar(45)  NOT NULL,
+  `TA_Priorite` varchar(10)  default NULL,
+  `TA_Commentaire` varchar(256)  default NULL,
+  PRIMARY KEY  (`TA_Code_tache`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
 --
 -- Dumping data for table `taches`
 --
