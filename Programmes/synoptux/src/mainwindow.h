@@ -66,6 +66,8 @@ class QMdiArea;
 class QMdiSubWindow;
 class QSignalMapper;
 class QProcess;
+class C_ClickableLed;
+
 QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow
@@ -78,6 +80,11 @@ public:
 protected:
     void    closeEvent(QCloseEvent *event);
     QString makeRequeteMedResponsable();
+    //.......... gestion de létat des timers ................
+    void    setTimerActionEnabled(bool state = TRUE);
+    void    setTimerActionOn();
+    void    setTimerActionOff();
+    void    setLedStateOnTimerState();
 signals:
     void triggered(QAction *actEtat);
 
@@ -114,6 +121,7 @@ private slots:
     void GestionDestinationsSortie();
     void GestionDestinationsAbsence();
     void Slot_pushButton_Apropos_clicked();
+    void Slot_timerStateIndicator_clicked();
 private:
 
     bool        RecupInit();
@@ -195,9 +203,12 @@ private:
     QAction         *m_cascadeAct;
     QAction         *m_separatorAct;
     QAction         *m_aboutAct;
+
     QTimer          *m_timerAlarme;
     QTimer          *m_timerClignote;
     QTimer          *m_timerEntrees;
+    C_ClickableLed  *m_TimerStateIndicator;
+    int              m_notAction;
     QSettings       *m_settingsIni;
 
     QList<QPushButton *> m_ListeBoutonsAlarme;

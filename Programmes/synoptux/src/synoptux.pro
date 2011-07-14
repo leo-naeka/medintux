@@ -41,7 +41,7 @@ HEADERS = mainwindow.h \
     ../../MedinTuxTools-QT4/Theme/Theme.h \
     ../../MedinTuxTools-QT4/C_Utils_Log.h \
     C_Dlg_Changements.h \
-    C_Patient.h
+    C_ClickableLed.h
 SOURCES = main.cpp \
     mainwindow.cpp \
     C_Wdg_Box.cpp \
@@ -60,7 +60,7 @@ SOURCES = main.cpp \
     ../../MedinTuxTools-QT4/Theme/Theme.cpp \
     ../../MedinTuxTools-QT4/C_Utils_Log.cpp \
     C_Dlg_Changements.cpp \
-    C_Patient.cpp
+    C_ClickableLed.cpp
 RESOURCES = synoptux.qrc
 FORMS += box.ui \
     dlgbox.ui \

@@ -41,6 +41,8 @@
 
 #include <QtGui>
 #include <QFileInfo>
+#include <QCursor>
+
 #include "mainwindow.h"
 #include "mdibox.h"
 #include "C_Wdg_Box.h"
@@ -48,7 +50,7 @@
 #include "../../MedinTuxTools-QT4/CGestIni.h"
 #include "C_BaseSynoptux.h"
 #include "C_Dlg_Changements.h"
-
+#include "C_ClickableLed.h"
 #define DB_DRTUX              CApp::pCApp()->getDB()->database()
 #define DATA_BASE_SYNOPTUX    CApp::pCApp()->getDB()->database()
 #define BASE_SYNOPTUX         CApp::pCApp()->getDB()
@@ -67,7 +69,14 @@ MainWindow::MainWindow()
     m_timerClignote   = 0;
     m_timerAlarme     = 0;
     m_Apropos_Proc    = 0;
+    m_notAction       = 0;
     m_ResponsableSelectionne = "Tous";
+    //.................... indicateur d'action des timers ...........................................
+    m_TimerStateIndicator = new C_ClickableLed(this);
+    m_TimerStateIndicator->setText(tr("Etat de la connexion"));
+    statusBar()->insertPermanentWidget(0, m_TimerStateIndicator);
+    connect( m_TimerStateIndicator , SIGNAL( clicked() ) , this , SLOT( Slot_timerStateIndicator_clicked() ) );
+    setTimerActionEnabled(TRUE);
 
     // Lecture des paramètres dans le .ini
     if (!RecupInit())           sortieAppli();
@@ -132,18 +141,17 @@ MainWindow::MainWindow()
 
     // Lancement du timer de contrôle des entrées de patients
     if (m_Dossier_Entrees > 0)
-        {
-        m_timerEntrees = new QTimer(this);
+       {m_timerEntrees = new QTimer(this);
         connect(m_timerEntrees, SIGNAL(timeout()), this, SLOT(Controle_Entrees()));
         m_timerEntrees->start(m_PeriodeEntrees * 1000);
-        }
+       }
     // Lancement du timer de contrôle des Taches en retard
     if (m_PeriodeAlarme > 0)
-        {
-        m_timerAlarme = new QTimer(this);
+       {m_timerAlarme = new QTimer(this);
         connect(m_timerAlarme, SIGNAL(timeout()), this, SLOT(Controle_Alarmes()));
         m_timerAlarme->start(m_PeriodeAlarme * 1000);
-        }
+       }
+
 }
 //-----------------------------------------closeEvent---------------------------------------------
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -155,6 +163,33 @@ void MainWindow::closeEvent(QCloseEvent *event)
         event->accept();
     }
 }
+//----------------------------------Slot_timerStateIndicator_clicked()--------------------------------------------
+void MainWindow::Slot_timerStateIndicator_clicked()
+{setTimerActionEnabled(TRUE);
+}
+//----------------------------------setTimerActionEnabled--------------------------------------------
+void MainWindow::setTimerActionEnabled(bool state /*=TRUE*/)
+{if (state) m_notAction = 0;
+ else       m_notAction = 1;
+ setLedStateOnTimerState();
+}
+
+//----------------------------------setTimerActionOn--------------------------------------------
+void MainWindow::setTimerActionOn()
+{if (m_notAction>0) --m_notAction;
+ setLedStateOnTimerState();
+}
+//----------------------------------setTimerActionOff--------------------------------------------
+void MainWindow::setTimerActionOff()
+{++m_notAction;
+ setLedStateOnTimerState();
+}
+//----------------------------------setLedStateOnTimerState--------------------------------------------
+void MainWindow::setLedStateOnTimerState()
+{if (m_notAction>0) {m_TimerStateIndicator->setLedColor(C_ClickableLed::Red);   m_TimerStateIndicator->setText(tr("Écoute inactive : %1").arg(QString::number(m_notAction)));}
+ else               {m_TimerStateIndicator->setLedColor(C_ClickableLed::Green); m_TimerStateIndicator->setText(tr("Écoute active "));}
+}
+
 //----------------------------------sortieAppli--------------------------------------------
 void MainWindow::sortieAppli()
 {
@@ -307,16 +342,15 @@ C_Wdg_Box *MainWindow::newBox(QString codeBox, QString nomBox, QString couleurBo
     return pC_Wdg_Box;
 }
 //-------------------------------------RemplirLeBox--------------------------------------
-//void MainWindow::RemplirLeBox(Box *dlgBox, QString BoxEnCours, QString NumEnCours, QString NomPatient, QString DateEntree, QString DateSortie, QString Medecin, bool StatusReplier, QString CommentairePatient, bool Anonyme)
 void MainWindow::RemplirLeBox(C_Wdg_Box *dlgBox, QString BoxEnCours)
-{
+{   setTimerActionOff();
     Ui_Box *pUi_Box = dlgBox->ui;
 
     // Recherche des patients occupants les box dans la table encours
-    QString requeteEnCours = "SELECT EC_PK, EC_CodeBox, EC_NomPatient, EC_HeureEntree,"     // 0-1-2-3
-                     " EC_Medecin, EC_Replier, EC_HeureSortie, EC_PrenomPatient, "  // 4-5-6-7
-                     " EC_Commentaire, EC_Destination, EC_Anonyme "                 // 8-9-10
-                     " FROM "ENCOURS" WHERE EC_CodeBox = '" + BoxEnCours + "'";
+    QString requeteEnCours = " SELECT EC_PK, EC_CodeBox, EC_NomPatient, EC_HeureEntree,"     // 0-1-2-3
+                             " EC_Medecin, EC_Replier, EC_HeureSortie, EC_PrenomPatient, "  // 4-5-6-7
+                             " EC_Commentaire, EC_Destination, EC_Anonyme "                 // 8-9-10
+                             " FROM "ENCOURS" WHERE EC_CodeBox = '" + BoxEnCours + "'";
     if (m_ResponsableSelectionne != "Tous")
         requeteEnCours.append(" AND EC_Medecin = '" + m_ResponsableSelectionne + "'");
 
@@ -360,6 +394,7 @@ void MainWindow::RemplirLeBox(C_Wdg_Box *dlgBox, QString BoxEnCours)
     // bouton close >>> à virer de là
 
     } // fin while table Encours
+    setTimerActionOn();
 }
 void MainWindow::tilerLesW()
 {
@@ -373,10 +408,11 @@ void MainWindow::tilerLesW()
 // - un bouton état avec un menu pour sélectionner l'état.
 void MainWindow::AfficherLesTaches(C_Wdg_Box *dlgBox, QString /*codeBox*/, QString numEnCours, bool statusReplier )
 {
-QString requete, requeteEtat, style, dernierEtat;
-bool    boolTache;
-bool    premierEtat = false;
-QColor  qCouleurTache;
+ setTimerActionOff();
+ QString requete, requeteEtat, style, dernierEtat;
+ bool    boolTache;
+ bool    premierEtat = false;
+ QColor  qCouleurTache;
 
 //  On affiche en priorité les taches non terminées, par ordre de priorité, par heure de début prévue
     requete  = " SELECT EN_Num_tache, EN_Code_tache, EN_Comment, EN_Etat_en_cours, "         // 0-1-2-3
@@ -398,7 +434,7 @@ QColor  qCouleurTache;
         if (m_DernierPkencours_taches < numTache.toInt())
             m_DernierPkencours_taches = numTache.toInt();
 
-        QHBoxLayout *horizonLayoutTache   = new QHBoxLayout();   // pour le nom de la tache + les etats
+        QHBoxLayout *horizonLayoutTache   = new QHBoxLayout(dlgBox);   // pour le nom de la tache + les etats
         horizonLayoutTache->setObjectName(dlgBox->objectName()+"-"+"horizonLayoutTache");
         // bouton annulation de tach
         QPushButton *bouttonAnnuleTache   = new QPushButton(dlgBox);    // annule-tache
@@ -448,7 +484,7 @@ QColor  qCouleurTache;
         dernierEtat  = "N";
         premierEtat  = false;
         QString couleurDefaut = "#FFFFFF";
-        requeteEtat  = "SELECT ET_Libelle_etat, ET_Couleur_etat , ET_Tache_terminee"    // 0-1-2
+        requeteEtat  = " SELECT ET_Libelle_etat, ET_Couleur_etat , ET_Tache_terminee"    // 0-1-2
                        " FROM " ETATS
                        " INNER JOIN "ETATS_TACHES" ON ST_Code_etat = ET_Code_etat "
                        " WHERE ST_Code_tache = '" + codeTache + "'"
@@ -513,15 +549,17 @@ QColor  qCouleurTache;
         // ajout de la tache et de ses boutons états dans le box
         dlgBox->ui->verticalLayout_patients->addLayout(horizonLayoutTache);
         } // fin while table Encours_taches
+    setTimerActionOn();
 }
 //-------------------------------AppliquerUnStyle-------------------------------------------------------
 void MainWindow::AppliquerUnStyle(QString /*TypeDeTruc */, QWidget *Letruc, QString NomDuStyle, QString LaCouleurDuTruc)
-{
+{   setTimerActionOff();
     QString Style;
     Style = "background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0"
     + LaCouleurDuTruc + ", stop: 1 " + QColor(LaCouleurDuTruc).lighter(180).name() + ");";
     Style.append( RecupStyle(NomDuStyle));
     Letruc->setStyleSheet(Style);
+    setTimerActionOn();
 }
 
 //----------------------------------- Slot_pushButton_Apropos_clicked -----------------------------------------------------------------------
@@ -722,7 +760,7 @@ void MainWindow::ActualiserCad()
 //---------------------------------Actualiser------------------------------------------------
 // Réafficher toute la fenetre
 void MainWindow::Actualiser()
-{
+{   setTimerActionOff();
     // Arrêt des timers
     if (m_timerClignote  != 0 && m_timerClignote->isActive())   m_timerClignote->stop();
     if (m_timerAlarme    != 0 && m_timerAlarme->isActive())     m_timerAlarme->stop();
@@ -741,11 +779,12 @@ void MainWindow::Actualiser()
     Recuperer_Positions();
     Afficher_Les_Box();
     m_timerAlarme->start();
+    setTimerActionOn();
 }
 //---------------------------------ActualiserUnBox------------------------------------------------
 //
 void MainWindow::ActualiserUnBox(C_Wdg_Box *LeBox)
-{
+{   setTimerActionOff();
     // Arrêt des timers
     if (m_timerClignote != 0 && m_timerClignote->isActive())   m_timerClignote->stop();
     if (m_timerAlarme   != 0 && m_timerAlarme->isActive())     m_timerAlarme->stop();
@@ -766,6 +805,7 @@ void MainWindow::ActualiserUnBox(C_Wdg_Box *LeBox)
         }
     RemplirLeBox(LeBox, LeBox->ui->label_BoxEnCours->text());
     m_timerAlarme->start();
+    setTimerActionOn();
 }
 //---------------------------------------GestionBox-----------------------------------------------
 void MainWindow::GestionBox()
@@ -826,7 +866,7 @@ void MainWindow::GestionParam(QString typeParam)
 
 //------------------------------afficheNomPatient--------------------------------------------
 void MainWindow::afficheNomPatient(C_Wdg_Box *dlgBox, Ui_Box *Box_ui, QString NomPatient, QString /*BoxEnCours*/, QString NumEnCours, QString DateEntree, QString DateSortie, QString CommentairePatient, bool Anonyme, bool StatusReplier )
-{
+{   setTimerActionOff();
     QString style;
     QVBoxLayout *verticalLayoutPatCom   = new QVBoxLayout();verticalLayoutPatCom->setObjectName(dlgBox->objectName()+"-verticalLayoutPatCom");
     QHBoxLayout *horizonLayoutPat       = new QHBoxLayout();horizonLayoutPat->setObjectName(dlgBox->objectName()+"-horizonLayoutPat");
@@ -938,11 +978,12 @@ void MainWindow::afficheNomPatient(C_Wdg_Box *dlgBox, Ui_Box *Box_ui, QString No
 
     // Ajout du groupe d'objets d'un Patient dans le Layout du Box
     Box_ui->verticalLayout_patients->addLayout(verticalLayoutPatCom);
+    setTimerActionOn();
 }
 //--------------------------------bougerLePatient------------------------------------------------------
 void MainWindow::bougerLePatient(QWidget *UnWidget)
 {
-
+    setTimerActionOff();
     QPushButton *lebouton                    = qobject_cast<QPushButton *>(UnWidget);
     QObject     *scrollAreaWidgetContentsBox = lebouton->parent();
     QObject     *scroolAreaviewportBox       = scrollAreaWidgetContentsBox->parent();
@@ -951,24 +992,36 @@ void MainWindow::bougerLePatient(QWidget *UnWidget)
     C_Wdg_Box   *lebox                       = qobject_cast<C_Wdg_Box *>(patientParent);
 
     if (lebox->accessibleDescription() == "Sortie")
-       {int ret = QMessageBox::question(0,NAME_APPLI,tr("Voulez-vous sortir ce patient définitivement  ?"),"OUI","NON",0,1,1);
+       {int ret = QMessageBox::question(0,NAME_APPLI,tr("Voulez-vous sortir ce patient définitivement ?"),"OUI","NON",0,1,1);
         if (ret == 0)
-            {SortirLePatient(lebouton->whatsThis());
+           { SortirLePatient(lebouton->whatsThis());
              ActualiserUnBox(lebox);
+             //QApplication::restoreOverrideCursor() ;
+             setTimerActionOn();
              return;
-            }
+           }
        }
     if ( m_BoxEnCours != "" && m_BoxEnCours != lebox->ui->label_BoxEnCours->text())
-       { // On a cliqué 2 fois de suite sur la touche déplacer ... On annule le premier.
+       { // On a cliqué 2 fois de suite sur la touche déplacer et un autre patient... On annule le premier.
          m_BoutonBougerEnCours->setIcon(QIcon(":/images/BougePatient.png"));
+         setTimerActionOn();   // annuler celui d'avant
+         QApplication::restoreOverrideCursor() ;
+         //qDebug("On a cliqué 2 fois de suite sur la touche déplacer et un autre patient");
+
        }
     if (m_BoxEnCours == lebox->ui->label_BoxEnCours->text())
-       { statusBar()->clearMessage();
+       { // On a cliqué 2 fois de suite sur la touche déplacer et le même patient...
+         statusBar()->clearMessage();
          m_BoutonBougerEnCours->setIcon(QIcon(":/images/BougePatient.png"));
          m_BoxBougerEnCours = 0;
          m_BoxEnCours = "";
+         QApplication::restoreOverrideCursor() ;
+         setTimerActionOn();
+         setTimerActionOn();
+         //qDebug("On a cliqué 2 fois de suite sur la touche déplacer et le même patient");
          return;
        }
+    QApplication::setOverrideCursor ( QCursor(Qt::PointingHandCursor) );
     lebouton->setIcon(QIcon(":/images/Roue.png"));
     m_BoxEnCours          = lebox->ui->label_BoxEnCours->text();
     m_PK_encours          = lebouton->whatsThis();                // stockage du NumEncours pour modif table
@@ -976,6 +1029,7 @@ void MainWindow::bougerLePatient(QWidget *UnWidget)
     m_BoxBougerEnCours    = lebox;
     statusBar()->showMessage(tr("Déplacer le patient ") + lebouton->accessibleDescription() +
                              tr(". Veuillez sélectionner un box libre."));
+    //setTimerActionOn();
 }
 //--------------------------------rentrerUnPatient------------------------------------------------------
 void MainWindow::rentrerUnPatient(QWidget *UnWidget)
@@ -991,29 +1045,32 @@ void MainWindow::rentrerUnPatient(QWidget *UnWidget)
         QMessageBox::warning(this, tr("Déplacement d'un patient"),
                              tr("Le box sélectionné est totalement occupé.\n"
                              "Veuillez choisir un autre emplacement."));
-        return;
        }
+    else
+       {
+        // màj de la date de sortie qui est la date d'entrée dans un box.
+        // réécriture du code du nouveau box dans l'encours et réaffichage complet.
+        miseAjourChamps = " EC_CodeBox = '" + lebox->ui->label_BoxEnCours->text() + "'," +
+                          " EC_HeureSortie = '" + QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss") ;
+        // Mise à jour du flag Replier si box de sortie.
+        if (lebox->accessibleDescription() == "Sortie" || lebox->accessibleDescription() == "Absence")
+            miseAjourChamps.append("', EC_Replier       = '1");
 
-    // màj de la date de sortie qui est la date d'entrée dans un box.
-    // réécriture du code du nouveau box dans l'encours et réaffichage complet.
-    miseAjourChamps = " EC_CodeBox = '" + lebox->ui->label_BoxEnCours->text() + "'," +
-                      " EC_HeureSortie = '" + QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss") ;
-    // Mise à jour du flag Replier si box de sortie.
-   if (lebox->accessibleDescription() == "Sortie" || lebox->accessibleDescription() == "Absence")
-       miseAjourChamps.append("', EC_Replier       = '1");
+        majTableEncours(m_PK_encours, miseAjourChamps ,  tr("Déplacement du patient"));
 
-   majTableEncours(m_PK_encours, miseAjourChamps ,  tr("Déplacement du patient"));
+        // saisie de la destination en cas de sortie ou absence du patient du patient.
+        if (lebox->accessibleDescription() == "Sortie" || lebox->accessibleDescription() == "Absence")
+            saisieDestinationDuPatient(lebox->accessibleDescription(),"ListeSeule");
+        // Réaffichage du box de départ
+        ActualiserUnBox(m_BoxBougerEnCours);
+        // Réaffichage du box destination
+        ActualiserUnBox(lebox);
+        m_BoxEnCours = "";
 
-   // saisie de la destination en cas de sortie ou absence du patient du patient.
-    if (lebox->accessibleDescription() == "Sortie" || lebox->accessibleDescription() == "Absence")
-        saisieDestinationDuPatient(lebox->accessibleDescription(),"ListeSeule");
-    // Réaffichage du box de départ
-    ActualiserUnBox(m_BoxBougerEnCours);
-    // Réaffichage du box destination
-    ActualiserUnBox(lebox);
-    m_BoxEnCours = "";
-
-    statusBar()->clearMessage();
+        statusBar()->clearMessage();
+        while (QApplication::overrideCursor ()) QApplication::restoreOverrideCursor() ;
+       }
+    setTimerActionOn();
 }
 //------------------------------------GestionDestinationsSortie--------------------------------------------------
 void MainWindow::GestionDestinationsSortie()
@@ -1090,11 +1147,11 @@ void MainWindow::PlierDeplier(QWidget *UnWidget)
         {
          infoBouton = listeBoutons.at(i)->whatsThis().split("/");
          if (infoBouton.at(0) != numEnCours) continue;
-         if (listeBoutons.at(i)->objectName() == "BouttonNomPatient")    continue;
-         if (listeBoutons.at(i)->objectName() == "BouttonPlierDeplier")  continue;
-         if (listeBoutons.at(i)->objectName() == "BouttonBougerPatient") continue;
+         if (listeBoutons.at(i)->objectName() == "BouttonNomPatient")     continue;
+         if (listeBoutons.at(i)->objectName() == "BouttonPlierDeplier")   continue;
+         if (listeBoutons.at(i)->objectName() == "BouttonBougerPatient")  continue;
          if (listeBoutons.at(i)->objectName() == "BouttonCommentairePat") continue;
-         if (listeBoutons.at(i)->objectName() == "Boutton_Appel_DrTux")  continue;
+         if (listeBoutons.at(i)->objectName() == "Boutton_Appel_DrTux")   continue;
 
          listeBoutons.at(i)->setVisible(!listeBoutons.at(i)->isVisible());
          statusReplier = !listeBoutons.at(i)->isVisible();
@@ -1328,7 +1385,7 @@ void MainWindow::Annule_Tache(QWidget *UnWidget)
 // Si changement état par par menu :
 // ---> crée le menu constextuel avec les états et lance le menu
 void MainWindow::modif_Etat(QWidget *UnWidget)
-{
+{   setTimerActionOff();
     QString         numEnCours, codeTache, numTache,  boutonMenu, dernierEtat, couleurEtat;
     QStringList     accessibleNameEtat;
 
@@ -1345,7 +1402,7 @@ void MainWindow::modif_Etat(QWidget *UnWidget)
 
     if (boutonMenu == "B")
         {   // on a un bouton par état de la tache.
-        QList<QPushButton *> listeBoutons = tacheParent->findChildren<QPushButton *>();
+         QList<QPushButton *> listeBoutons = tacheParent->findChildren<QPushButton *>();
          for (int i=0; i< listeBoutons.size(); i++)
             {   // on met tous les boutons de la tache en normal.
             if ( listeBoutons.at(i)->accessibleDescription()!= "Bouton_Etat_Tache") continue;
@@ -1365,33 +1422,35 @@ void MainWindow::modif_Etat(QWidget *UnWidget)
     else
         {   // on a un bouton état en cours et on crée un menu pour choisir l'etat.
          dernierEtat = "N";
-         m_menuEtat = new QMenu (this);
+         QMenu *pQMenu = new QMenu (this);
          // Recherche des états possibles de la tâche en cours
          QString requeteEtat = "SELECT ET_Libelle_etat, ET_Couleur_etat, ET_Tache_terminee "           // 0-1-2
                               " FROM " ETATS
                               " INNER JOIN "ETATS_TACHES" ON ST_Code_etat = ET_Code_etat "
                               " WHERE ST_Code_tache = '" + codeTache + "'";
-        QSqlQuery queryb(requeteEtat, DATA_BASE_SYNOPTUX);
-        while (queryb.isActive() &&  queryb.next())
+         QSqlQuery queryb(requeteEtat, DATA_BASE_SYNOPTUX);
+         while (queryb.isActive() &&  queryb.next())
            {//if ( ++NbEtats == queryb.size())
             if (queryb.value(2).toBool())        // c'est un etat qui termine la tache
                 dernierEtat = "O";
             QAction *actEtat;
             QString strEtat = queryb.value(0).toString() + "/" + queryb.value(1).toString() + "/" + numEnCours + "/" + numTache + "/" + dernierEtat;
-            actEtat = new QAction(queryb.value(0).toString(), this);
+            actEtat = new QAction(queryb.value(0).toString(), pQMenu);
             connect(actEtat, SIGNAL(triggered()), m_MenuMapper, SLOT(map()));
             m_MenuMapper->setMapping(actEtat, strEtat);
 
-            m_menuEtat->setMinimumHeight(10);
-            m_menuEtat->addAction(actEtat);
+            pQMenu->setMinimumHeight(10);
+            pQMenu->addAction(actEtat);
            } // fin while etat
-         m_menuEtat->setStyleSheet(RecupStyle("Menu_Etats"));
-         m_menuEtat->exec(QCursor::pos());
+         pQMenu->setStyleSheet(RecupStyle("Menu_Etats"));
+         pQMenu->exec(QCursor::pos());
+         delete pQMenu;
         }
+    setTimerActionOn();
 }
 //--------------------------------------modif_Etat_menu------------------------------------------------
 void MainWindow::modif_Etat_menu(QString StrEtat)
-{
+{   setTimerActionOff();
     QStringList accessibleNameEtat = StrEtat.split("/");
     QString libelleEtat            = accessibleNameEtat.at(0);
     QString couleurEtat            = accessibleNameEtat.at(1);
@@ -1405,12 +1464,13 @@ void MainWindow::modif_Etat_menu(QString StrEtat)
     if (dernierEtat == "O")
         majDateFinTache(numEnCours, numTache, "O");
     else
-                majDateFinTache(numEnCours, numTache, "N");
+        majDateFinTache(numEnCours, numTache, "N");
     majHistorique(numEnCours, numTache, tr("Tâche"), libelleEtat);
+    setTimerActionOn();
 }
 //------------------------------afficheNomMedecin--------------------------------------------
 void MainWindow::afficheNomMedecin(C_Wdg_Box *dlgBox, QString /*CodeBox*/, QString NumEnCours, bool StatusReplier , QString Medecin)
-{
+{   setTimerActionOff();
     QString requete, nomResp, couleurResp;
 
     requete  = QString("SELECT %1, %2"            // 0-1   Nom Couleur
@@ -1439,7 +1499,7 @@ void MainWindow::afficheNomMedecin(C_Wdg_Box *dlgBox, QString /*CodeBox*/, QStri
 
     horizonLayoutResp->addWidget(bouttonNomResp);
     dlgBox->ui->verticalLayout_patients->addLayout(horizonLayoutResp);
-
+    setTimerActionOn();
 }
 //--------------------------------------modif_Resp------------------------------------------------
 void MainWindow::modif_Resp(QWidget *UnWidget)
@@ -1461,6 +1521,7 @@ void MainWindow::modif_Resp(QWidget *UnWidget)
 
     m_menuResp->exec(QCursor::pos());
   */
+    setTimerActionOff();
     m_BoutonResp = qobject_cast<QPushButton *>(UnWidget);
     m_PK_encours = m_BoutonResp->whatsThis();
 
@@ -1478,6 +1539,7 @@ void MainWindow::modif_Resp(QWidget *UnWidget)
 
     m_menuResp->exec(QCursor::pos());
     delete m_menuResp;
+    setTimerActionOn();
 }
 //--------------------------------------makeRequeteMedResponsable------------------------------------------------
 QString MainWindow::makeRequeteMedResponsable()
@@ -1492,7 +1554,7 @@ QString MainWindow::makeRequeteMedResponsable()
 
 //--------------------------------------modif_Resp_menu------------------------------------------------
 void MainWindow::modif_Resp_menu(QString StrResp)
-{
+{   setTimerActionOff();
     QStringList  listResp = StrResp.split("/");
     QString codeResp      = listResp.at(0);
     QString nomResp       = listResp.at(1);
@@ -1503,6 +1565,7 @@ void MainWindow::modif_Resp_menu(QString StrResp)
 
     // mise à jour nom du responsable dans la base.
     majTableEncours(m_PK_encours, "EC_Medecin = '" + codeResp , tr("Changement de responsable"));
+    setTimerActionOn();
 }
 //--------------------------------------selectionDunResponsable------------------------------------------------
 void MainWindow::selectionDunResponsable(QString StrResp)
@@ -1696,7 +1759,7 @@ void MainWindow::Recuperer_Positions()
 }
 //------------------------------------Controle_Alarmes--------------------------------------------------
 void MainWindow::Controle_Alarmes()
-{
+{if (m_notAction) return;
  QString requete, heurePrevue, heureReelle, messageAlarme;
  QString heureActuelle = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
 
@@ -1786,9 +1849,9 @@ QString      numEnCoursTache;
 //------------------------------------FaireClignoterLaTache--------------------------------------------------
 //Format de la propriété accessibleDescription du bouton tache = #couleurOrig/#couleurAlarme/ALARME1/
 void MainWindow::FaireClignoterLaTache()
-{
-QPushButton *leboutonTacheEnAlarme;
-QString      couleurAlarme;
+{if (m_notAction) return;
+ QPushButton *leboutonTacheEnAlarme;
+ QString      couleurAlarme;
 
     if (m_ListeBoutonsAlarme.size() <= 0)    // il n'y a plus de boutons en alarme
         {m_timerClignote->stop();
@@ -1836,14 +1899,14 @@ QString      couleurAlarme;
 //  Surveille l'arrivée d'un fichier xxxxxx.txt dans le répertoire DOSSIER_ENTREES
 //  et crée un nouvel encours
 void MainWindow::Controle_Entrees()
-{
-QString    nomFicEntree, requete, DateDeb, DateFin, CodeBox, NomPatient, PrenomPatient, GuidPatient, CodeResp;
-QString    CodeTache, Priorite, Commentaire, HeureDeb, HeureFin, ProgAnnexe, ArgsAnnexe;
-QString    PrimKey_blob, NomFicNote, NomProgNote;
-QSqlQuery  queryEnc( DATA_BASE_SYNOPTUX);
-QSqlQuery  queryTac( DATA_BASE_SYNOPTUX);
-bool       IlFautActualiser = false;
-int        EC_PK ;
+{if (m_notAction) return;
+ QString    nomFicEntree, requete, DateDeb, DateFin, CodeBox, NomPatient, PrenomPatient, GuidPatient, CodeResp;
+ QString    CodeTache, Priorite, Commentaire, HeureDeb, HeureFin, ProgAnnexe, ArgsAnnexe;
+ QString    PrimKey_blob, NomFicNote, NomProgNote;
+ QSqlQuery  queryEnc( DATA_BASE_SYNOPTUX);
+ QSqlQuery  queryTac( DATA_BASE_SYNOPTUX);
+ bool       IlFautActualiser = false;
+ int        EC_PK ;
 
     QFileInfoList listeEntrees = m_DirDossierEntree.entryInfoList();
     for (int i=0; i < listeEntrees.size(); i++ )          // il y a au moins un fichier en attente.
@@ -1906,7 +1969,7 @@ int        EC_PK ;
             requete = "SELECT LAST_INSERT_ID() FROM "ENCOURS" WHERE EC_PK = LAST_INSERT_ID()" ;
             QSqlQuery query1(requete, DATA_BASE_SYNOPTUX);
             if (!query1.isActive() ||  !query1.next())
-               { QMessageBox::warning(0, NAME_APPLI, "Création de l'entrée. Erreur recherche dernière clé!");
+               { QMessageBox::warning(0, NAME_APPLI, tr("Création de l'entrée. Erreur recherche dernière clé!"));
                  return;
                }
             EC_PK = query1.value(0).toInt();
