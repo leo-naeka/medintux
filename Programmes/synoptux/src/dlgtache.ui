@@ -387,28 +387,28 @@
        <item>
         <widget class="QPushButton" name="pushButton_ValidTache">
          <property name="text">
-          <string>Valider</string>
+          <string>&amp;Valider</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="pushButton_annuler">
          <property name="text">
-          <string>Supprimer</string>
+          <string>&amp;Supprimer</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="pushButton_MakeMacro">
          <property name="text">
-          <string>Créer les macros</string>
+          <string>&amp;Créer les macros</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="pushButton_QuitterTache">
          <property name="text">
-          <string>Quitter</string>
+          <string>&amp;Quitter</string>
          </property>
         </widget>
        </item>
