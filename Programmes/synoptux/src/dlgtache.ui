@@ -75,7 +75,7 @@
    </palette>
   </property>
   <property name="windowTitle">
-   <string>Table des tache</string>
+   <string>Table des tâches</string>
   </property>
   <property name="windowIcon">
    <iconset resource="synoptux.qrc">
@@ -132,7 +132,7 @@
           </size>
          </property>
          <property name="text">
-          <string>Code tache</string>
+          <string>Code tâche</string>
          </property>
         </widget>
        </item>

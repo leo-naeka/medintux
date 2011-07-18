@@ -64,7 +64,7 @@ CApp::~CApp()
 //--------------------------------------------- CApp -------------------------------------------------------------------
 CApp::CApp(QString mui_name, int & argc, char ** argv)
 : C_AppCore( mui_name, argc, argv )
-{   QTextCodec::setCodecForTr( QTextCodec::codecForName("ISO 8859-1 ") );
+{   QTextCodec::setCodecForTr( QTextCodec::codecForName("UTF8") );
     //.............................. recuperer config de la base ..........................................
     QString paramCfgData = CGestIni::Param_UpdateFromDisk(m_PathAppli + m_NameAppli+"Bases.cfg");
     //.............................. initialiser la base C_BaseMedica ..........................................

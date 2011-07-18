@@ -1,5 +1,5 @@
 #include "C_AppCore.h"
-#include "CApp.h"
+//#include "CApp.h"
 
 #include <QFileInfo>
 #include <QFile>

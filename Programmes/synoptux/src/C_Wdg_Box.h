@@ -5,7 +5,7 @@
 #include "ui_box.h"
 #include <QHBoxLayout>
 #include <QPushButton>
-
+#define  NB_BOX_MAX 150             // BUGBUG
 namespace Ui {
     class C_Wdg_Box : public Ui_Box {};
 }
@@ -17,8 +17,8 @@ public:
     ~C_Wdg_Box();
 
     Ui::C_Wdg_Box *ui;
-    //QHBoxLayout *m_horizonLayoutResp;
-    QPushButton *m_ButtonNomMedResponsable;
+    // QHBoxLayout *m_horizonLayoutResp;
+    // QPushButton *m_ButtonNomMedResponsable;
 
 protected:
     void changeEvent(QEvent *e);

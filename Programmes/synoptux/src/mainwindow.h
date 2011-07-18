@@ -100,7 +100,7 @@ private slots:
     void GestionCSS();
     void GestionINI();
     void Enregistrer_Positions();
-    void Actualiser();
+    void Actualiser(QString partielOUtotal);
     void ActualiserCad();
     void ActualiserFen();
     void tilerLesW();
@@ -122,6 +122,7 @@ private slots:
     void GestionDestinationsAbsence();
     void Slot_pushButton_Apropos_clicked();
     void Slot_timerStateIndicator_clicked();
+    void Slot_modif_Comment_Tache();
 private:
 
     bool        RecupInit();
@@ -154,6 +155,8 @@ private:
     void        ActualiserUnBox(C_Wdg_Box *LeBox);
     QString     lectureBlobDrtux(int PrimKeyBlob);
     QString     RecupStyle(QString TypeObjet);
+
+    C_Wdg_Box     *m_pC_Wdg_Box[NB_BOX_MAX];
 
     QDir           m_DirDossierEntree;
     QMdiArea      *m_mdiArea;
