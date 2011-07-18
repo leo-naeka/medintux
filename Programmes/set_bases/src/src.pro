@@ -11,7 +11,8 @@ TARGET = ../bin/set_bases
 CONFIG += qt \
           thread \
           x11 \
- warn_off
+ debug \
+ exceptions
 TEMPLATE = app
 FORMS += Dlg_MainDialog.ui
 TRANSLATIONS += set_bases_fr.ts
@@ -65,5 +66,5 @@ SOURCES += main.cpp \
            CIndexMakeThread.cpp \
            C_DlgMainDialog.cpp
 
-CONFIG -= warn_on
+CONFIG -= release
 
