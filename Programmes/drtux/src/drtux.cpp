@@ -122,7 +122,7 @@ class C_PatientRootItem;
 //------------------------------ ~DrTux -----------------------
 /*! \brief Destructeur de la classe. */
 DrTux::~DrTux()
-{   if (m_IsModifiable) G_pCApp->m_pCMoteurBase->DeVerrouilleDossier (m_NumGUID);
+{   if (m_IsModifiable) G_pCApp->m_pCMoteurBase->DeVerrouilleDossier (G_pCApp->m_NumGUID);
     m_RubList.clear();  // effacer toutes les données reservées
     m_EvnList.clear();                                      // effacer la liste
 
@@ -191,26 +191,17 @@ DrTux::DrTux()
     m_pDock_Organiseur     = 0;
     m_pC_Organiseur        = 0;
 
-    //....................... identification patient .............................................................
-    m_ID_Doss              = G_pCApp->m_ID_Doss;
-    m_NumGUID              = G_pCApp->m_NumGUID;
-    G_pCApp->m_pCMoteurBase->GetPatientNomPrenomPk( 1, m_ID_Doss,  &m_DossNom,   &m_DossPrenom);
-
-    //......................  si démarrage du bureau rechercher le dernier dossier ...................................
-    if (m_NumGUID.length() == 0)
-       {READ_LOCAL_PARAM(LOCAL_PARAM, "Derniere Session", "Patient", &m_NumGUID, &m_ID_Doss, &m_DossNom, &m_DossPrenom );  // zero = pas d'erreur
-       }
     SetTitle();
     //....................... verrouiller lire et initialiser la liste des rubriques ..........................
 
     QString usedBy;
     QString value;
-    m_IsModifiable = G_pCApp->m_pCMoteurBase->VerrouilleDossier (m_NumGUID, G_pCApp->m_pCMoteurBase->m_UserName+"@"+ G_pCApp->m_pCMoteurBase->m_HostName , usedBy);
+    m_IsModifiable = G_pCApp->m_pCMoteurBase->VerrouilleDossier (G_pCApp->m_NumGUID, G_pCApp->m_pCMoteurBase->m_UserName+"@"+ G_pCApp->m_pCMoteurBase->m_HostName , usedBy);
     CGestIni::Param_ReadParam(G_pCApp->m_DrTuxParam, "Gestion des dossiers", "Acces Concurrent", &value);   // path editeur de texte non d�fini
     if (m_IsModifiable==0)
        {if (value.lower() == tr("non possible"))
            {QMessageBox::information( this, tr(  "OUVERTURE CONFLICTUELLE"),
-                                 tr(  " <b><b><u>ATTENTION</b></u> ! Ce dossier <font color=\"#e80d0d\"><b>")          + m_DossNom     + " " + m_DossPrenom  +
+                                 tr(  " <b><b><u>ATTENTION</b></u> ! Ce dossier <font color=\"#e80d0d\"><b>")          + G_pCApp->m_DossNom     + " " + G_pCApp->m_DossPrenom  +
                                  tr(  "</b></font> est actuellement ouvert sur le poste suivant : <b>" )   + usedBy  +
                                  tr(  "</b><br> Son accès n'est possible <b><u>qu'en lecture seulement</u></b>,<br>"
                                       "il se mettra automatiquement en mode écriture<br>"
@@ -223,8 +214,8 @@ DrTux::DrTux()
            { AlertVerrou(usedBy);
            }
        }
-    G_pCApp->m_pCMoteurBase->initRubriquesList( &m_RubList,   m_NumGUID);
-    G_pCApp->m_pCMoteurBase->Evnmt_InitList(    &m_EvnList,   m_ID_Doss);
+    G_pCApp->m_pCMoteurBase->initRubriquesList( &m_RubList,   G_pCApp->m_NumGUID);
+    G_pCApp->m_pCMoteurBase->Evnmt_InitList(    &m_EvnList,   G_pCApp->m_ID_Doss);
 
     if  (G_pCApp->m_pCMoteurBase->OpenBase()==0)  return ;
     //___________________________________________________________________________________________________
@@ -530,7 +521,7 @@ void DrTux::Slot_SetDockMenu_AccesRapide()
         UPDATE_USER_PARAM (&USER_PARAM, G_pCApp->m_User);
         m_pForm_Menu->setModifiableState(m_IsModifiable);
         m_pForm_Menu->setParams(G_pCApp->m_pCMoteurBase, &m_RubList,
-                                m_NumGUID, m_ID_Doss, m_DossNom , m_DossPrenom, G_pCApp->m_User,
+                                G_pCApp->m_NumGUID, G_pCApp->m_ID_Doss, G_pCApp->m_DossNom , G_pCApp->m_DossPrenom, G_pCApp->m_User,
                                 G_pCApp->m_Droits, G_pCApp->m_pAtcd_Code);
         m_pForm_Menu->show();
         m_pDock_Menu->setWidget( m_pForm_Menu );
@@ -632,7 +623,7 @@ void DrTux::Slot_SetDockMenu_Organiseur()
       m_pActionVigie->setText ( tr("Cacher la vigie") );
       m_pActionVigie->setEnabled(TRUE);
       //................Y inserer le dialogue ........................................................
-      m_pC_Organiseur = new C_Organiseur(&m_EvnList, &m_RubList, m_ID_Doss ,m_pDock_Organiseur, "TabRubrique");
+      m_pC_Organiseur = new C_Organiseur(&m_EvnList, &m_RubList, G_pCApp->m_ID_Doss ,m_pDock_Organiseur, "TabRubrique");
 
       m_pDock_Organiseur->setWidget( m_pC_Organiseur );
       m_pDock_Organiseur->show();
@@ -985,7 +976,7 @@ void DrTux::SetDefaultDoc()
                         m_pC_Organiseur->m_ListView_MonitorPatient->setUpdatesEnabled( FALSE );
                         OnGlossaireFileClicked(path, G_pCApp->RubNameToType(rubName));
                         m_pC_Organiseur->makeListeMonitor();
-                        m_pC_Organiseur->setListviewOnDossier(m_ID_Doss);
+                        m_pC_Organiseur->setListviewOnDossier(G_pCApp->m_ID_Doss);
                         m_pC_Organiseur->m_ListView_MonitorPatient->setUpdatesEnabled( TRUE );
                         m_pC_Organiseur->m_ListView_MonitorPatient->repaint();
                        }
@@ -1062,7 +1053,7 @@ void DrTux::OnChangePathGlossaire(QString & dir)
 int  DrTux::AlertVerrou(const QString &userHostName)
 {   /*
     switch( QMessageBox::information( this, tr(PROG_NAME" : OUVERTURE CONFLICTUELLE"),
-                                             tr ( " <b><u>ATTENTION</b></u> ! Ce dossier <b>")            + m_DossNom     + " " + m_DossPrenom  +
+                                             tr ( " <b><u>ATTENTION</b></u> ! Ce dossier <b>")            + G_pCApp->m_DossNom     + " " + G_pCApp->m_DossPrenom  +
                                              tr(  "</b> est déjà ouvert sur le poste suivant : <b>" )   + userHostName  +
                                              tr(  "</b><br> Faut-il : <br>"
                                                   "&nbsp;&nbsp;&nbsp;&nbsp; °  <b>L'ouvrir en <u>lecture</u> seule</b> (recommandé) afin de laisser "
@@ -1090,7 +1081,7 @@ int  DrTux::AlertVerrou(const QString &userHostName)
             }
     */
  QMessageBox::information( this, tr(PROG_NAME" : OUVERTURE CONFLICTUELLE"),
-                                             tr ( " <b><u>ATTENTION</b></u> ! Ce dossier <b>")            + m_DossNom     + " " + m_DossPrenom  +
+                                             tr ( " <b><u>ATTENTION</b></u> ! Ce dossier <b>")            + G_pCApp->m_DossNom     + " " + G_pCApp->m_DossPrenom  +
                                              tr(  "</b> est déjà ouvert sur le poste suivant : <b>" )   + userHostName  +
                                              tr(  "</b><br> Faut-il : <br>"
                                                   "&nbsp;&nbsp;&nbsp;&nbsp; °  <b> Il ne sera ouvert qu'en <u>lecture</u> seule</b> (recommandé) afin de laisser "
@@ -1115,7 +1106,7 @@ int  DrTux::AlertVerrou(const QString &userHostName)
 void DrTux::Slot_TestVerrou()
 {  //....................... verrouller lire et initialiser la liste des rubriques ..........................
     QString usedBy;
-    int isModifiable = G_pCApp->m_pCMoteurBase->VerrouilleDossier (m_NumGUID, G_pCApp->m_pCMoteurBase->m_UserName+"@"+ G_pCApp->m_pCMoteurBase->m_HostName , usedBy);
+    int isModifiable = G_pCApp->m_pCMoteurBase->VerrouilleDossier (G_pCApp->m_NumGUID, G_pCApp->m_pCMoteurBase->m_UserName+"@"+ G_pCApp->m_pCMoteurBase->m_HostName , usedBy);
     if (isModifiable==0) return;
     if (m_pTimerVerrou)  delete m_pTimerVerrou;
     m_pTimerVerrou = 0;
@@ -1129,7 +1120,7 @@ void DrTux::Slot_TestVerrou()
     // ne pas utiliser: num_GUID,  id_doss, dossNom, dossPrenom
     // car peut provenir de: FormRubIdent lors de la creation d'un nouveau dossier
     // et: Sign_OnIdentChange (y est aussi connecté) donc reference circulaire... bug...
-    emit Sign_OnIdentChange(m_NumGUID, m_ID_Doss,  m_DossNom,  m_DossPrenom );
+    emit Sign_OnIdentChange(G_pCApp->m_NumGUID, G_pCApp->m_ID_Doss,  G_pCApp->m_DossNom,  G_pCApp->m_DossPrenom );
 }
 
 //------------------------------------------ ForceWritting ----------------------------
@@ -1303,8 +1294,8 @@ void DrTux::AfficheRubriques()
 //------------------------------ SetTitle --------------------------
 void DrTux::SetTitle()
 {//................. titre nouvelle identité .........................................................................................
- if (m_NumGUID != "")
-     setCaption(   m_DossNom + " " + m_DossPrenom + "  " + tr(PROG_NAME" Dossier N°: ") + m_NumGUID + "=" + m_ID_Doss + "  User: " + G_pCApp->m_User + "::" + G_pCApp->m_SignUser);
+ if (G_pCApp->m_NumGUID != "")
+     setCaption(   G_pCApp->m_DossNom + " " + G_pCApp->m_DossPrenom + "  " + tr(PROG_NAME" Dossier N°: ") + G_pCApp->m_NumGUID + "=" + G_pCApp->m_ID_Doss + "  User: " + G_pCApp->m_User + "::" + G_pCApp->m_SignUser);
  else
      setCaption(  tr(PROG_NAME) + "  User: " + G_pCApp->m_User + "::" + G_pCApp->m_SignUser );
 }
@@ -1319,14 +1310,14 @@ void DrTux::OnDrTuxUserChange()
 /*! \brief Slot appelé en cas de modification des données identitaires du patient et se charge de retransmettre à la liste des patient concerné par ça, l'information afin qu'il adapte son contenu.
  * RAPPEL:
  * La rubrique "Identité" envoie ces messages lors création d'un nouveau dossier...........................
- *     emit  Sign_PatientListMustBeUpdated( numGUID,        m_ID_Doss,
+ *     emit  Sign_PatientListMustBeUpdated( numGUID,        G_pCApp->m_ID_Doss,
  *                                          nom,            prenom
  *                                        );
- *     emit  Sign_IdentChange( numGUID,        m_ID_Doss,
+ *     emit  Sign_IdentChange( numGUID,        G_pCApp->m_ID_Doss,
  *                             nom,            prenom
  *                           );
  * La rubrique "Identité" envoie ces messages lors modification de l'identité  d'un dossier ..............
- *     emit  Sign_IdentModified( numGUID,        m_ID_Doss,
+ *     emit  Sign_IdentModified( numGUID,        G_pCApp->m_ID_Doss,
  *                               nom,            prenom
  *                             );
 */
@@ -1345,13 +1336,13 @@ void DrTux::OnDrTuxPatientListMustBeUpdated(const char* num_GUID,  const char* i
 */
 void DrTux::OnDrTuxIdentModified(const char* /*num_GUID*/,  const char* /*id_doss*/,
                                  const char* dossNom ,  const char* dossPrenom )
-{m_DossNom    = dossNom;
- m_DossPrenom = dossPrenom;
+{G_pCApp->m_DossNom    = dossNom;
+ G_pCApp->m_DossPrenom = dossPrenom;
  SetTitle();
  SaveLastSessionInfo();
- OnDrTuxPatientListMustBeUpdated(m_NumGUID, m_ID_Doss,  m_DossNom,  m_DossPrenom );
+ OnDrTuxPatientListMustBeUpdated(G_pCApp->m_NumGUID, G_pCApp->m_ID_Doss,  G_pCApp->m_DossNom,  G_pCApp->m_DossPrenom );
  // Mise à jour du Dock_Menu
- if (m_pForm_Menu) m_pForm_Menu->Slot_ChangeIdentity( m_NumGUID, m_ID_Doss,  m_DossNom,  m_DossPrenom, &m_RubList);
+ if (m_pForm_Menu) m_pForm_Menu->Slot_ChangeIdentity( G_pCApp->m_NumGUID, G_pCApp->m_ID_Doss,  G_pCApp->m_DossNom,  G_pCApp->m_DossPrenom, &m_RubList);
 }
 
 //------------------------------ OnDrTuxIdentChange ---------------------------------------------------------------
@@ -1363,17 +1354,17 @@ void DrTux::OnDrTuxIdentChange(const char* num_GUID,  const char* id_doss,
  if (SauverDossierAvantNouvelleAction() == 0) return;
 
  //................... liberer l'ancien verrou ...............................
- if (m_IsModifiable) G_pCApp->m_pCMoteurBase->DeVerrouilleDossier (m_NumGUID);
+ if (m_IsModifiable) G_pCApp->m_pCMoteurBase->DeVerrouilleDossier (G_pCApp->m_NumGUID);
 
  //............. noter la nouvelle identité ..................................
- m_NumGUID    = num_GUID;
- m_ID_Doss    = id_doss;
- m_DossNom    = dossNom;
- m_DossPrenom = dossPrenom;
+ G_pCApp->m_NumGUID    = num_GUID;
+ G_pCApp->m_ID_Doss    = id_doss;
+ G_pCApp->m_DossNom    = dossNom;
+ G_pCApp->m_DossPrenom = dossPrenom;
  SetTitle();
  //................... verrouiller le dossier .................................
  QString usedBy;
- m_IsModifiable = G_pCApp->m_pCMoteurBase->VerrouilleDossier (m_NumGUID, G_pCApp->m_pCMoteurBase->m_UserName+"@"+ G_pCApp->m_pCMoteurBase->m_HostName , usedBy);
+ m_IsModifiable = G_pCApp->m_pCMoteurBase->VerrouilleDossier (G_pCApp->m_NumGUID, G_pCApp->m_pCMoteurBase->m_UserName+"@"+ G_pCApp->m_pCMoteurBase->m_HostName , usedBy);
  if (m_IsModifiable==0) AlertVerrou(usedBy);
  SetModifiableState(m_IsModifiable);
  //.............. mettre à jour la liste des rubriques dessus ................
@@ -1383,9 +1374,9 @@ void DrTux::OnDrTuxIdentChange(const char* num_GUID,  const char* id_doss,
   // car peut provenir de: FormRubIdent lors de la creation d'un nouveau dossier
   // et: Sign_OnIdentChange (y est aussi connecté) donc reference circulaire... bug...
 
- emit Sign_OnIdentChange(m_NumGUID, m_ID_Doss,  m_DossNom,  m_DossPrenom );
+ emit Sign_OnIdentChange(G_pCApp->m_NumGUID, G_pCApp->m_ID_Doss,  G_pCApp->m_DossNom,  G_pCApp->m_DossPrenom );
  // Mise à jour du Dock_Menu (qui reste prioritaire pour la mise à jour des ATCD)
- if (m_pForm_Menu) m_pForm_Menu->Slot_ChangeIdentity( m_NumGUID, m_ID_Doss,  m_DossNom,  m_DossPrenom, &m_RubList);
+ if (m_pForm_Menu) m_pForm_Menu->Slot_ChangeIdentity( G_pCApp->m_NumGUID, G_pCApp->m_ID_Doss,  G_pCApp->m_DossNom,  G_pCApp->m_DossPrenom, &m_RubList);
 
  SaveLastSessionInfo();
 }
@@ -1395,13 +1386,13 @@ void DrTux::OnDrTuxIdentChange(const char* num_GUID,  const char* id_doss,
 void DrTux::SaveLastSessionInfo()
 {//.............. sauver dernier patient ....................................
  CGestIni::Param_WriteParam( &G_pCApp->m_DrTuxParam, "Derniere Session", "Utilisateur", G_pCApp->m_User, G_pCApp->m_SignUser);
- CGestIni::Param_WriteParam( &G_pCApp->m_DrTuxParam, "Derniere Session", "Patient",     m_NumGUID, m_ID_Doss, m_DossNom, m_DossPrenom);
+ CGestIni::Param_WriteParam( &G_pCApp->m_DrTuxParam, "Derniere Session", "Patient",     G_pCApp->m_NumGUID, G_pCApp->m_ID_Doss, G_pCApp->m_DossNom, G_pCApp->m_DossPrenom);
  CGestIni::Param_UpdateToDisk(G_pCApp->m_PathDrTuxIni, G_pCApp->m_DrTuxParam);
 }
 
 //------------------------------ OnDrTuxIdentCurrentDelete ---------------------------------------------------------------
 void DrTux::OnDrTuxIdentCurrentDelete()
-{OnDrTuxIdentDelete(m_NumGUID,  m_ID_Doss, m_DossNom , m_DossPrenom );
+{OnDrTuxIdentDelete(G_pCApp->m_NumGUID,  G_pCApp->m_ID_Doss, G_pCApp->m_DossNom , G_pCApp->m_DossPrenom );
 }
 
 //------------------------------ OnDrTuxIdentDelete ---------------------------------------------------------------
@@ -1434,24 +1425,24 @@ void DrTux::OnDrTuxIdentDelete(const char* num_GUID,  const char* id_doss,
  m_EvnList.clear();
 
  //................... liberer l'ancien verrou ...............................
- if (m_IsModifiable) G_pCApp->m_pCMoteurBase->DeVerrouilleDossier (m_NumGUID);
+ if (m_IsModifiable) G_pCApp->m_pCMoteurBase->DeVerrouilleDossier (G_pCApp->m_NumGUID);
 
- m_NumGUID    = "";
- m_ID_Doss    = "";
- m_DossNom    = "";
- m_DossPrenom = "";
+ G_pCApp->m_NumGUID    = "";
+ G_pCApp->m_ID_Doss    = "";
+ G_pCApp->m_DossNom    = "";
+ G_pCApp->m_DossPrenom = "";
  //................ titre ...................................................
  SetTitle();
   //............. la retransmettre aux fenetres filles .......................
   // ne pas utiliser: num_GUID,  id_doss, dossNom, dossPrenom
   // car peut provenir de: FormRubIdent lors de la creation d'un nouveau dossier
   // et: Sign_OnIdentChange (y est aussi connecté) donc reference circulaire... bug... etc...
-  // emit Sign_OnIdentChange(m_NumGUID, m_ID_Doss,  m_DossNom,  m_DossPrenom );
-  emit Sign_OnIdentChange(m_NumGUID, m_ID_Doss,  m_DossNom,  m_DossPrenom );
+  // emit Sign_OnIdentChange(G_pCApp->m_NumGUID, G_pCApp->m_ID_Doss,  G_pCApp->m_DossNom,  G_pCApp->m_DossPrenom );
+  emit Sign_OnIdentChange(G_pCApp->m_NumGUID, G_pCApp->m_ID_Doss,  G_pCApp->m_DossNom,  G_pCApp->m_DossPrenom );
 
   //.............. sauver dernier patient ....................................
  SaveLastSessionInfo();
- OnDrTuxPatientListMustBeUpdated(m_NumGUID, m_ID_Doss,  m_DossNom,  m_DossPrenom );
+ OnDrTuxPatientListMustBeUpdated(G_pCApp->m_NumGUID, G_pCApp->m_ID_Doss,  G_pCApp->m_DossNom,  G_pCApp->m_DossPrenom );
 }
 
 //--------------------------------- OnCreateNewIdent ------------------------------
@@ -1482,15 +1473,15 @@ void DrTux::OnDrTuxSaveRubList()
       if ( (id = pCMDI_Generic->GetCurrent_RubList_ID()) !=-1)  pCMDI_Generic->IfModified_SaveInRubList();
      }
  //............................ mettre à jour la base en fonction de la liste .........................
- G_pCApp->m_pCMoteurBase->RubListSave(&m_RubList,&m_EvnList,  m_NumGUID, G_pCApp->m_IsNomadeActif);
+ G_pCApp->m_pCMoteurBase->RubListSave(&m_RubList,&m_EvnList,  G_pCApp->m_NumGUID, G_pCApp->m_IsNomadeActif);
  //............... reinitialiser toute la liste .................................................
  // effacer la liste elle meme
  m_RubList.clear();
  m_EvnList.clear();
 
  // lire et reinitialiser la liste des rubriques
- G_pCApp->m_pCMoteurBase->initRubriquesList( &m_RubList,   m_NumGUID);
- G_pCApp->m_pCMoteurBase->Evnmt_InitList(    &m_EvnList,   m_ID_Doss);
+ G_pCApp->m_pCMoteurBase->initRubriquesList( &m_RubList,   G_pCApp->m_NumGUID);
+ G_pCApp->m_pCMoteurBase->Evnmt_InitList(    &m_EvnList,   G_pCApp->m_ID_Doss);
 
  //.............. réinitialiser les affichages des rubriques  ...................
  for ( i =  0; i < int(windowsList.count()); ++i )
@@ -1521,8 +1512,8 @@ void DrTux::OnDrTuxSaveRubList()
 void DrTux::RubListMakeWhithNewDoss()
 {m_RubList.clear();                                      // effacer la liste
  m_EvnList.clear();
- G_pCApp->m_pCMoteurBase->initRubriquesList( &m_RubList,   m_NumGUID);   // lire et initialiser la liste des rubriques
- G_pCApp->m_pCMoteurBase->Evnmt_InitList(    &m_EvnList,   m_ID_Doss);
+ G_pCApp->m_pCMoteurBase->initRubriquesList( &m_RubList,   G_pCApp->m_NumGUID);   // lire et initialiser la liste des rubriques
+ G_pCApp->m_pCMoteurBase->Evnmt_InitList(    &m_EvnList,   G_pCApp->m_ID_Doss);
  if(m_pC_Organiseur) m_pC_Organiseur->makeListeMonitorFromList();
 
 }
@@ -1553,24 +1544,24 @@ void DrTux::OnActiverOrCreateRubrique(const char* rubName, int mode)
 {CMDI_Generic *pCMDI_Generic;
  if ( (pCMDI_Generic = (CMDI_Generic*) IsExistRubrique(rubName))==0)  // parse toutes les fenetres à la recherche de la rubrique
     {if (strncmp(rubName, CMDI_Prescription::S_GetRubName() , 5)==0)
-        {CMDI_PrescriptionCreate ( m_NumGUID, m_ID_Doss, m_DossNom , m_DossPrenom, G_pCApp->m_User, rubName);
+        {CMDI_PrescriptionCreate ( G_pCApp->m_NumGUID, G_pCApp->m_ID_Doss, G_pCApp->m_DossNom , G_pCApp->m_DossPrenom, G_pCApp->m_User, rubName);
         }
      else if (strncmp(rubName, RUBNAME_OBSERVATION ,5)==0)
-        {m_pCMDI_Observation  = CMDI_RubriqueCreate ( m_NumGUID, m_ID_Doss, m_DossNom , m_DossPrenom, G_pCApp->m_User,  rubName, "ob");
+        {m_pCMDI_Observation  = CMDI_RubriqueCreate ( G_pCApp->m_NumGUID, G_pCApp->m_ID_Doss, G_pCApp->m_DossNom , G_pCApp->m_DossPrenom, G_pCApp->m_User,  rubName, "ob");
         }
      else if (strncmp(rubName,CMDI_ChoixPatient::S_GetRubName(),5)==0)
-        {CMDI_ChoixPatientCreate(m_NumGUID, m_ID_Doss, m_DossNom , m_DossPrenom, G_pCApp->m_User,   rubName);
+        {CMDI_ChoixPatientCreate(G_pCApp->m_NumGUID, G_pCApp->m_ID_Doss, G_pCApp->m_DossNom , G_pCApp->m_DossPrenom, G_pCApp->m_User,   rubName);
         }
      else if (strncmp(rubName,CMDI_Ident::S_GetRubName(),5)==0)
-        {CMDI_IdentCreate(m_NumGUID, m_ID_Doss, m_DossNom , m_DossPrenom, G_pCApp->m_User,          rubName);
+        {CMDI_IdentCreate(G_pCApp->m_NumGUID, G_pCApp->m_ID_Doss, G_pCApp->m_DossNom , G_pCApp->m_DossPrenom, G_pCApp->m_User,          rubName);
         }
      else if (strncmp(rubName,CMDI_Terrain::S_GetRubName(),5)==0)
-        {CMDI_TerrainCreate(m_NumGUID, m_ID_Doss, m_DossNom , m_DossPrenom, G_pCApp->m_User,        rubName);
+        {CMDI_TerrainCreate(G_pCApp->m_NumGUID, G_pCApp->m_ID_Doss, G_pCApp->m_DossNom , G_pCApp->m_DossPrenom, G_pCApp->m_User,        rubName);
         }
      else
         {QString prDroit = G_pCApp->m_mapNameRubInfos[rubName];
          //int        type = G_pCApp->m_mapNameRubType[rubName];
-         G_pCApp->m_mapNameRubPtr[rubName] = CMDI_RubriqueCreate(m_NumGUID, m_ID_Doss, m_DossNom , m_DossPrenom, G_pCApp->m_User, rubName, prDroit);
+         G_pCApp->m_mapNameRubPtr[rubName] = CMDI_RubriqueCreate(G_pCApp->m_NumGUID, G_pCApp->m_ID_Doss, G_pCApp->m_DossNom , G_pCApp->m_DossPrenom, G_pCApp->m_User, rubName, prDroit);
         }
     }
 
@@ -1748,7 +1739,7 @@ void DrTux::FusionneDocument(QString  *pDocument, const QString &user_doc, CRubR
                                                G_pCApp->m_pCMoteurBase       ,          // 1 moteur de base de données (faut bien accéder aux fonctions)
                                                G_pCApp->m_pCMedicaBase       ,          // 2 moteur de base de données medicamenteuses(faut bien accéder aux fonctions)
                                               &m_RubList                     ,          // 3 liste des documents composant le dossier patient
-                                               m_ID_Doss                     ,          // 4 il faut les renseignements sur le patient
+                                               G_pCApp->m_ID_Doss                     ,          // 4 il faut les renseignements sur le patient
                                               &currentRubIdMap               ,          // 5 liste des rubriques courantes (affichées)
                                                userPk                        ,          // 6 utilisateur responsable du document
                                                pCRubCurrentRecord            ,          // 7 pointeur sur la rubrique en cours de modif (si c'est une rubrique) zero sinon
@@ -2012,7 +2003,7 @@ void DrTux::filePrint()
 
  //............. là on devrait tout avoir pour initialiser l'impression ................................
  if (dlg->initDialog(pCMDI_Generic->GetCurrentEditor(),               // editeur et texte du corps à
-                 m_ID_Doss,                                       // il faut les renseignements sur le patient
+                 G_pCApp->m_ID_Doss,                                       // il faut les renseignements sur le patient
                  G_pCApp->m_pCMoteurBase,                         // moteur de base de donneés
                  &m_RubList,                                      // liste des rubriques en cours
                  rubOb_id,                                        // avec id de l'observ en cours pour extraction renseignemnts
@@ -2900,7 +2891,7 @@ void DrTux::CodageCim10All()
  *  \param QString guid qui recevra le GUID en cours
 */
 void DrTux::Slot_GetActiveGUID(QString &guid)
-{guid = m_NumGUID;
+{guid = G_pCApp->m_NumGUID;
 }
 
 //-------------------------------------------- CodageCim10All ---------------------
@@ -3118,7 +3109,7 @@ void DrTux::Slot_ExePlugin(QString &plugin )
                                               G_pCApp->m_PathAppli,        // Chemin de l'executable appelant (DrTux)
                                               G_pCApp->m_PathDrTuxIni,     // Chemin d'un eventuel fichier de configuration pour XXXX.ini pour l'executable plugin ou %
                                               maskExch,                         // texte du fichier d'exchange
-                                              m_NumGUID,
+                                              G_pCApp->m_NumGUID,
                                               obsPk,
                                               ordPk,
                                               terPk,
@@ -3252,7 +3243,7 @@ QString DrTux::Codage_CCAM(int mode)
  QString libelle  = "";
  QString carToCut = "";
  QString nbSpc    = "";
- QString text     = CCAM_Exe(this,  G_pCApp->m_PathAppli, m_ID_Doss, m_NumGUID, G_pCApp->m_DrTuxParam, G_pCApp->m_SignUser);
+ QString text     = CCAM_Exe(this,  G_pCApp->m_PathAppli, G_pCApp->m_ID_Doss, G_pCApp->m_NumGUID, G_pCApp->m_DrTuxParam, G_pCApp->m_SignUser);
  QString str      = "";
  MyEditText *pMyEditText = currentEditor();
  if (pMyEditText==0)                                  { return  QString("");}  // si pas d'editeur trouvé cassos

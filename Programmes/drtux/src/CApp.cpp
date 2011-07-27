@@ -130,6 +130,8 @@ CApp::CApp(QString mui_name, int & argc, char ** argv)
     m_DrTuxParam             = "";
     m_ID_Doss                = "";
     m_NumGUID                = "";
+    m_DossNom                = "";
+    m_DossPrenom             = "";
     QMimeSourceFactory::addFactory ( &m_C_ImageList );            // rend dispo la liste d'images au système
     //.............................. initialiser variables locales ..........................................
     QString qstr           = "";
@@ -152,7 +154,6 @@ CApp::CApp(QString mui_name, int & argc, char ** argv)
 
     //....................... charger le fichier de configuration des bases ..................................
     //                        il peut etre soit donne dans les arguments soit à aller chercher en local
-    if (argc >= 3)                  m_NumGUID      =     argv[3];
     if (argc >= 4)                  m_ID_Doss      =     argv[4];
     if (argc >= 8 && argv[8])      {m_PathCfg_Base =     argv[8];
                                    }
@@ -313,9 +314,9 @@ CApp::CApp(QString mui_name, int & argc, char ** argv)
     //......................... carte PS ....................................................................................................
 #ifdef SESAMVITALE_VERSION
     m_pCps = new C_Cps;
-    qDebug ("Gestion Sesam Vitale active");
+    qDebug (TR("Gestion Sesam Vitale active"));
 #else
-    qDebug ("Gestion Sesam Vitale inactive");
+    qDebug (TR("Gestion Sesam Vitale inactive"));
 #endif
     //.......................... initialiser la liste des menus contextuels .............................
     //                           specifiques � chaque rubrique
@@ -325,6 +326,16 @@ CApp::CApp(QString mui_name, int & argc, char ** argv)
     //                          système d'instance unique
     initialize();
     setGlobalMouseTracking( TRUE );
+    m_pCMoteurBase->GetPatientNomPrenomPk( 1, m_ID_Doss,  &m_DossNom,   &m_DossPrenom, &m_NumGUID);
+    //qDebug (TR("FROM arg  Nom : '%1' Prenom : '%2' pk : '%3' GUID : '%4'").arg(m_DossNom,m_DossPrenom,m_ID_Doss,m_NumGUID));
+    //......................  si démarrage du bureau rechercher le dernier dossier ...................................
+    if (m_NumGUID.length() == 0)
+       {READ_LOCAL_PARAM(m_DrTuxParam, "Derniere Session", "Patient", &m_NumGUID, &m_ID_Doss, &m_DossNom, &m_DossPrenom );  // zero = pas d'erreur
+        //qDebug (TR("FROM drtux.ini Nom : '%1' Prenom : '%2' pk : '%3' GUID : '%4'").arg(m_DossNom,m_DossPrenom,m_ID_Doss,m_NumGUID));
+        m_pCMoteurBase->GetPatientNomPrenomPk( 1, m_ID_Doss,  &m_DossNom,   &m_DossPrenom, &m_NumGUID);
+        //qDebug (TR("FROM pk Nom : '%1' Prenom : '%2' pk : '%3' GUID : '%4'").arg(m_DossNom,m_DossPrenom,m_ID_Doss,m_NumGUID));
+       }
+
     G_pCApp                  =    this;
 
     // ............................... initialiser le pointeur de gestion des antécédents ..................................................

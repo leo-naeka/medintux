@@ -122,18 +122,18 @@ class CApp : public C_MUI_App
      int            ApproximativeRubNameToType( const QString &texte , QString *pRubNameToFind=0);
      QString        loadContentsIfBeginByTokenFile(QString &arg);
      //--------------------------------------------- get_PossiblesRubNameList --------------------------------------
-     /*! \brief retourne la liste des rubriques possibles (ne sont pas forcement toutes activées selon les profils) 
+     /*! \brief retourne la liste des rubriques possibles (ne sont pas forcement toutes activées selon les profils)
      *  \return Renvoie une QStringList avec le nom des rubriques possibles
-     */     
+     */
      QStringList    get_PossiblesRubNameList();
      //--------------------------------------------- SetPathGlossaire --------------------------------------
      /*! \brief positionne le chemin du glossaire sur le path fourni en entree
      *  \param pathGlossaire : const QString chemin du glossaire à positionner
      *  \return Renvoie un chemin actif en absolu du glossaire
-     */     
+     */
      QString        SetPathGlossaire(QString pathGlossaire);
      //--------------------------------------------- ResolvPathGlossaire --------------------------------------
-     /*! \brief resoud un chemin comportant les eventuelles macros $Glossaire $Vigie par le chemin absolu 
+     /*! \brief resoud un chemin comportant les eventuelles macros $Glossaire $Vigie par le chemin absolu
       *  \param pathFile :  QString chemin d'entree
       *  \return Renvoie le chemin modifie
       */
@@ -343,10 +343,15 @@ public:
     QString              m_PathTheme;                /*!< Chemin vers le Thème à utiliser */
     //.................... fichiers de configuration .........................................
     QString              m_PathDrTuxIni;        /*!< Chemin du fichier drtux.ini */
+    //..................... indentification utilisateur .....................................
     QString              m_User;                /*!< Login de l'utilisateur en cours */
-    QString              m_SignUser;                /*!< Login de l'utilisateur signataire */
+    QString              m_SignUser;            /*!< Login de l'utilisateur signataire */
+    //..................... identification dossier en cours .................................
     QString              m_ID_Doss;             /*!< Pk de l'index nom prenom du dossier en cours */
     QString              m_NumGUID;             /*!< GUID du dossier en cours */
+    QString              m_DossPrenom;          /*!< Préom du dossier en cours */
+    QString              m_DossNom;             /*!< Nom du dossier en cours */
+
     QString              m_UserDataParam;       /*!< parametres utilisateurs */
     QString              m_DrTuxParam;          /*!< variable de configuration locale du .ini */
     QString              m_CriptedPassWord;        /*!< Mot de passe crypté */

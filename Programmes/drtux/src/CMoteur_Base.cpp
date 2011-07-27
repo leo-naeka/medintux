@@ -34,7 +34,7 @@
 //=============================================== INCLUDES ============================================================
 #include <stdlib.h>
 
-#include <qapplication.h> 
+#include <qapplication.h>
 #include <qprocess.h>
 #include <qwaitcondition.h>
 #include <qmessagebox.h>
@@ -130,7 +130,7 @@ double CMoteurBase::GetMedinTuxVersion(QString &version)
 void CMoteurBase::SetMedinTuxVersion(const QString &version)
 {   if (OpenBase()==0)  return;
     QString requete =  QString("INSERT INTO ") + m_VERSION_TBL_NAME   + " (NumVers) VALUES ('" + version +"' )";
-    QSqlQuery query(requete, m_DataBase);    
+    QSqlQuery query(requete, m_DataBase);
     CloseBase();
 }
 
@@ -187,16 +187,16 @@ void CMoteurBase::initBase   (const QString & driver,        // nom du driver: "
   if (m_DataBase==0)  ret = 0;
   if (ret && baseLabel[0] != '*')
      {  if (versionWhish   != m_VERSION_NUMBER.toDouble())  // version de definition du fichier de configuration des bases
-           {mess +=  TR("\r\n Configuration du fichier 'DataBase.cfg' incorrecte :"); 
-            mess +=  TR("\r\n       Version exigée  du fichier 'DataBase.cfg' : %1").arg(versionWhish); 
-            mess +=  TR("\r\n       Version actuelle du fichier 'DataBase.cfg' : %1").arg(m_VERSION_NUMBER); 
+           {mess +=  TR("\r\n Configuration du fichier 'DataBase.cfg' incorrecte :");
+            mess +=  TR("\r\n       Version exigée  du fichier 'DataBase.cfg' : %1").arg(versionWhish);
+            mess +=  TR("\r\n       Version actuelle du fichier 'DataBase.cfg' : %1").arg(m_VERSION_NUMBER);
             ret   = 0;
            }
         else
            {
              double versionInUse = GetMedinTuxVersion();
              if (versionInUse < versionWhish)
-                {mess +=  TR("\r\n Version de la base installée: %1 non à jour, version souhaitée : %2").arg(QString::number(versionInUse),QString::number(versionWhish)); 
+                {mess +=  TR("\r\n Version de la base installée: %1 non à jour, version souhaitée : %2").arg(QString::number(versionInUse),QString::number(versionWhish));
                  int ok = verifyBaseIntegrity(confFile, &mess);
                  if (ok==0)
                     {ret   = 0;
@@ -233,19 +233,19 @@ int  CMoteurBase::verifyBaseIntegrity(const QString &confFile, QString *errMess)
  //..................... verifier si les tables deja en place correspondent avec celles ..................
  //                      indiquees par le fichier de configuration
  QStringList tablesList      = pQSqlDriver->tables("1");                    tablesList.sort();
- QStringList tablesListWish  = getTableListFromCfgFile(confFile, errMess);  tablesListWish.sort(); 
+ QStringList tablesListWish  = getTableListFromCfgFile(confFile, errMess);  tablesListWish.sort();
 
  if (tablesList != tablesListWish)
     {//.................. recuperer le fichier SQL de creation initial des bases ............................
-     //                   servira a regenerer les tables absentes 
+     //                   servira a regenerer les tables absentes
      QFileInfo qfi(qApp->argv()[0]);
      QString     fileSql    =  CGestIni::Construct_Name_File_Ini("set_bases", qfi.dirPath (true), "SqlCreateTable/Dump_DrTuxTest.sql" );
      //.................. premier niveau (benin) enumerer les tables presentes ........................................
      //                   dans la base et non indiquees par le fichier de config : confFile
-     mess += TR("\r\n verifyBaseIntegrity() les tables ne correspondent pas  \r\n");      
+     mess += TR("\r\n verifyBaseIntegrity() les tables ne correspondent pas  \r\n");
      if (tablesList.count() > tablesListWish.count())
         {    mess += TR("\r\n ATTENTION : ces table(s) sont non indiquée(s) dans le fichier de configuration : ");
-             for ( QStringList::Iterator it = tablesList.begin(); it != tablesList.end(); ++it ) 
+             for ( QStringList::Iterator it = tablesList.begin(); it != tablesList.end(); ++it )
                  { tbl = *it;
                    if (tablesListWish.findIndex (tbl)==-1)
                       {mess += TR("\r\n    = ") + tbl;
@@ -254,12 +254,12 @@ int  CMoteurBase::verifyBaseIntegrity(const QString &confFile, QString *errMess)
         }
       //.................. deuxieme niveau (fatal) enumerer les tables indiquees par le fichier ........................................
       //                   de config : confFile et non presentes en base et les regenerer
-      for ( QStringList::Iterator it = tablesListWish.begin(); it != tablesListWish.end(); ++it ) 
+      for ( QStringList::Iterator it = tablesListWish.begin(); it != tablesListWish.end(); ++it )
           { tbl = *it;
             if (tablesList.findIndex (tbl.lower())==-1)
                {++nf;
                 mess += TR("\r\n    = ") + tbl;
-                if(tryToSetThisTable(tbl, fileSql, m_DataBase)==0) 
+                if(tryToSetThisTable(tbl, fileSql, m_DataBase)==0)
                   {mess += TR(" ==> Echec de la tentative de création");
                    majOk = 0;
                   }
@@ -270,7 +270,7 @@ int  CMoteurBase::verifyBaseIntegrity(const QString &confFile, QString *errMess)
           }
       if (majOk){mess = mess.prepend(TR("\r\n SUCCES de la mise à jour des tables manquantes."));}
       if (nf)   {mess = mess.prepend(TR("\r\n ERREUR %1 table(s) non trouvé dans la base actuelle : ").arg(nf));}
-      (*errMess) += mess; 
+      (*errMess) += mess;
     }
  if (majOk) SetMedinTuxVersion(m_VERSION_NUMBER);
  return majOk;
@@ -422,7 +422,7 @@ QStringList  CMoteurBase::getTableListFromCfgFile(const QString &confFile, QStri
                --pos;
               }
          if (isComment)
-            {pos_deb  = confFile.find("_TBL_NAME", pos_deb); 
+            {pos_deb  = confFile.find("_TBL_NAME", pos_deb);
             }
          else
             {
@@ -430,9 +430,9 @@ QStringList  CMoteurBase::getTableListFromCfgFile(const QString &confFile, QStri
               int end_name = confFile.find("'", deb_name);
               if (end_name != -1)
                  {tableName = confFile.mid(deb_name,end_name-deb_name).lower();
-                  int f =     list_Tables.findIndex (tableName); 
+                  int f =     list_Tables.findIndex (tableName);
                   if (f==-1)  list_Tables.append(tableName);   // faut verifier car la table peut etre citee plusieurs fois
-             
+
                   eol = confFile.find("\n", end_name); if (eol==-1) {eol = confFile.find("\r", end_name);}
                   if (eol != -1) end_name = eol;
                   pos_deb  = confFile.find("_TBL_NAME", end_name);
@@ -556,7 +556,7 @@ int CMoteurBase::SetConfBase(const char* confFile, QString *errMess)
   pt = SetConfBase_SetProperties(pt,   m_INTERVENANTS_RUE,            "INTERVENANTS_RUE",              &line , err); if (err.length())     goto SetConfBase_Error;
   pt = SetConfBase_SetProperties(pt,   m_INTERVENANTS_CODE_POST,      "INTERVENANTS_CODE_POST",        &line , err); if (err.length())     goto SetConfBase_Error;
   pt = SetConfBase_SetProperties(pt,   m_INTERVENANTS_VILLE,          "INTERVENANTS_VILLE",            &line , err); if (err.length())     goto SetConfBase_Error;
- 
+
   //............................ CIM10_USER_FAV_TBL_NAME ...........................................................
   pt = SetConfBase_SetProperties(pt,   m_CIM10_USER_FAV_TBL_NAME,     "CIM10_USER_FAV_TBL_NAME",       &line , err); if (err.length())     goto SetConfBase_Error;
   pt = SetConfBase_SetProperties(pt,   m_CIM10_USER_FAV_PK,           "CIM10_USER_FAV_PK "  ,          &line , err); if (err.length())     goto SetConfBase_Error;
@@ -797,7 +797,7 @@ void CMoteurBase::RenameTableWhithCorrectName()
      RenameTableWhithCorrectName(m_AGENDA_TBL_NAME,                &query);
      RenameTableWhithCorrectName(m_AGENDA_MASK_TBL_NAME,           &query);
      RenameTableWhithCorrectName(m_AGENDA_COLOR_PROFILS_TBL_NAME,  &query);
-     RenameTableWhithCorrectName(m_VERSION_TBL_NAME,               &query); 
+     RenameTableWhithCorrectName(m_VERSION_TBL_NAME,               &query);
 
 
  CloseBase();
@@ -1058,7 +1058,7 @@ void CMoteurBase::saveThesaurus(const QString &dataToExport, const QString &user
      QString requete = QString(" DELETE FROM  ") + m_CIM10_USER_FAV_TBL_NAME +
                                " WHERE "         + m_CIM10_USER_FAV_USER     + " = '" + user + "' ";
      query.exec(requete);  // on y va bourrin en effacant (tres peu de donnees)
-             requete = QString(" INSERT INTO  ") + m_CIM10_USER_FAV_TBL_NAME + 
+             requete = QString(" INSERT INTO  ") + m_CIM10_USER_FAV_TBL_NAME +
                                " (  "            + m_CIM10_USER_FAV_USER     +","+m_CIM10_USER_FAV_DATA+" )"+
                                "VALUES (?,?) ";
      query.prepare(requete);
@@ -1629,7 +1629,7 @@ void CMoteurBase::PatientIntervenantsGetListData(const QString &primKeyPat , QSt
   if (query.isActive())
      { while (query.next())
              { list.append(      Utf8_Query(query, 0  )+sep+           // specialite
-                                 Utf8_Query(query, 1  )+sep+           // nom 
+                                 Utf8_Query(query, 1  )+sep+           // nom
                                  Utf8_Query(query, 2  )+sep+           // prenom
                                  Utf8_Query(query, 3  )+sep+           // type
                                  Utf8_Query(query, 4  )                // pk
@@ -1922,6 +1922,7 @@ int CMoteurBase::PatientNoteCreate(const char *primKeyPat , const char* guidPat,
   query.bindValue(0, primKeyPat);
   query.bindValue(1, guidPat);
   query.bindValue(2, data);
+  query.exec();
   CloseBase();
   return ok;
 /*
@@ -4537,7 +4538,7 @@ int  CMoteurBase::RubListDelete(RUBREC_LIST::iterator it, int mode /*= CMoteurBa
 
  QSqlQuery sqlQuery(QString::null , m_DataBase );
  ok = sqlQuery.exec(requete);
- if (ok == FALSE) {/*DeVerrouilleTable(m_DataBase);*/ CloseBase(); return FALSE;}        // si erreur cassos cas social va 
+ if (ok == FALSE) {/*DeVerrouilleTable(m_DataBase);*/ CloseBase(); return FALSE;}        // si erreur cassos cas social va
 
  //............................. effacer le blob ...........................................................
  requete  = "DELETE FROM ";

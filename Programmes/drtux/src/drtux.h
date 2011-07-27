@@ -90,11 +90,11 @@ class C_UserQAction : public QAction
    QString getScript(){return m_Script; };
    void    setTimer(const int &period)
            {m_Period  = period;
-            if (m_pQTimer) 
-               {delete m_pQTimer; 
+            if (m_pQTimer)
+               {delete m_pQTimer;
                 m_pQTimer=0;
                }
-            if (m_Period>0) 
+            if (m_Period>0)
                {m_pQTimer = new QTimer( this, QString("TimerUserAction_")+name());
                 if (m_pQTimer) connect( m_pQTimer, SIGNAL(timeout()), this, SLOT(Slot_UserQActionOn_TimerDone()) );
                }
@@ -106,7 +106,7 @@ class C_UserQAction : public QAction
             else if (m_pQTimer && m_Period>0) m_pQTimer->changeInterval ( QMAX(100, m_Period) );
            }
     void    pauseTimer(bool isPause)
-           {if (m_pQTimer) 
+           {if (m_pQTimer)
                {if (isPause)                m_pQTimer->stop();
                 else if (m_Period>0)        m_pQTimer->changeInterval ( QMAX(100, m_Period) );
                }
@@ -119,10 +119,10 @@ class C_UserQAction : public QAction
    int     m_Period;
    QTimer *m_pQTimer;
 private slots:
-    void  Slot_UserQActionOn_TimerDone() 
+    void  Slot_UserQActionOn_TimerDone()
           {emit Sign_UserQAction_TimerDone(m_Script, this);
           }
-    void  Slot_On_UserQAction_Activated() 
+    void  Slot_On_UserQAction_Activated()
           {emit Sign_UserQAction_Activated(m_Script, this);
           }
 signals:
@@ -199,10 +199,8 @@ public:
     C_Organiseur        *m_pC_Organiseur;                     /*!< widget  de l'organiseur */
     Dock_Menu           *m_pForm_Menu;                        /*!< widget  Menu "Accès Rapide" */
 
-    QString              m_DossPrenom;                        /*!< Préom du dossier en cours */
-    QString              m_ID_Doss;                           /*!< PrimKey du dossier en cours */
-    QString              m_NumGUID;                           /*!< GUID du dossier en cours */
-    QString              m_DossNom;                           /*!< Nom du dossier en cours */
+    //QString              m_DossPrenom;                        /*!< Préom du dossier en cours */
+    //QString              m_DossNom;                           /*!< Nom du dossier en cours */
     int                  m_IsModifiable;                      /*!< Possibilité de modification */
 
     //........................ necessaire à la surveillance du verrou ........................

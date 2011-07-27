@@ -124,19 +124,19 @@ C_RubIdentite::C_RubIdentite(CMoteurBase *pCMoteurBase, RUBREC_LIST  *pRubList,
  pushButtonRubDateChange->setIconSet  (Theme::getIconChangeDate());
  pushButtonAdd->setIconSet            (Theme::getIcon("22x22/fileopen.png") );
  pushButtonExporter->setIconSet       (Theme::getIcon("filesaveExport.png") );
- 
+
  #ifdef Q_OS_MACX
-    pushButtonAdd->setFlat (TRUE); 
-	pushButtonPrint->setFlat (TRUE); 
-    pushButtonSave->setFlat (TRUE); 
-    pushButtonPrint->setFlat (TRUE); 
-    pushButtonDelete->setFlat (TRUE); 
-    pushButtonRubDateChange->setFlat (TRUE); 
+    pushButtonAdd->setFlat (TRUE);
+	pushButtonPrint->setFlat (TRUE);
+    pushButtonSave->setFlat (TRUE);
+    pushButtonPrint->setFlat (TRUE);
+    pushButtonDelete->setFlat (TRUE);
+    pushButtonRubDateChange->setFlat (TRUE);
     pushButtonExporter->setFlat (TRUE);
 
-	textLabel_NbRub->setFlat (TRUE); 
+	textLabel_NbRub->setFlat (TRUE);
 	textLabel_NbRub->setMinimumSize (50, 22);
-	textLabel_NbRub->setFont(G_pCApp->font());	
+	textLabel_NbRub->setFont(G_pCApp->font());
 #endif
 
 
@@ -490,7 +490,7 @@ void C_RubIdentite::pushButtonSavModif_clicked()
  QString nom       = lineEdit_NomDossier->text().stripWhiteSpace () ;
  QString prenom    = lineEdit_PremomDossier->text().stripWhiteSpace () ;
  QString numGUID   = textLabel_NumDoss->text();
- QString str       = "";
+ QString note      = textEdit_Note->text();
 
  if (nom == "")
     {nom = tr("ANONYME");
@@ -505,10 +505,8 @@ void C_RubIdentite::pushButtonSavModif_clicked()
  nom    = nom.upper();
  prenom = prenom.upper();
  m_pCMoteurBase->DossIdentIndexUpdate(m_ID_Doss, nom, prenom, &list_field );
- m_pCMoteurBase->PatientNoteWrite(m_ID_Doss ,numGUID,  textEdit_Note->text());
- emit  Sign_IdentModified(numGUID,        m_ID_Doss,
-                          nom,            prenom
-                         );
+ m_pCMoteurBase->PatientNoteWrite(m_ID_Doss ,numGUID,  note);
+ emit Sign_IdentModified(numGUID,  m_ID_Doss,  nom, prenom   );
  emit Sign_SaveButtonClicked();
  emit Sign_Ident_KillMe();
 }
