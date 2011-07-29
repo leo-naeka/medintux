@@ -199,14 +199,22 @@ DrTux::DrTux()
     m_IsModifiable = G_pCApp->m_pCMoteurBase->VerrouilleDossier (G_pCApp->m_NumGUID, G_pCApp->m_pCMoteurBase->m_UserName+"@"+ G_pCApp->m_pCMoteurBase->m_HostName , usedBy);
     CGestIni::Param_ReadParam(G_pCApp->m_DrTuxParam, "Gestion des dossiers", "Acces Concurrent", &value);   // path editeur de texte non d�fini
     if (m_IsModifiable==0)
-       {if (value.lower() == tr("non possible"))
+       {if ( value.lower() == tr("non possible") )
            {QMessageBox::information( this, tr(  "OUVERTURE CONFLICTUELLE"),
                                  tr(  " <b><b><u>ATTENTION</b></u> ! Ce dossier <font color=\"#e80d0d\"><b>")          + G_pCApp->m_DossNom     + " " + G_pCApp->m_DossPrenom  +
-                                 tr(  "</b></font> est actuellement ouvert sur le poste suivant : <b>" )   + usedBy  +
+                                 tr(  "</b></font> est actuellement ouvert sur le poste suivant : <b>" )               + usedBy                 +
+                                 tr(  "</b><br> Son accès ne sera possible sur votre poste, qu'après fermeture sur le poste où il est actuellement ouvert") ,
+                                 tr("Annu&ler"),0 , 0,
+                                 1, 1 );
+            return;
+           }
+        else if ( value.lower() == value.lower() == tr("lecture"))
+           {QMessageBox::information( this, tr(  "OUVERTURE CONFLICTUELLE"),
+                                 tr(  " <b><b><u>ATTENTION</b></u> ! Ce dossier <font color=\"#e80d0d\"><b>")          + G_pCApp->m_DossNom     + " " + G_pCApp->m_DossPrenom  +
+                                 tr(  "</b></font> est actuellement ouvert sur le poste suivant : <b>" )               + usedBy                 +
                                  tr(  "</b><br> Son accès n'est possible <b><u>qu'en lecture seulement</u></b>,<br>"
                                       "il se mettra automatiquement en mode écriture<br>"
                                       "lorsqu'il sera disponible sur votre poste,<br><b><font color=\"#e80d0d\"><u>ce qui impose sa fermeture sur le poste<br>où il est actuellement utilisé.</u></font></b>") ,
-                                 //"&nbsp;&nbsp;&nbsp;&nbsp; � <b>Quitter pour <u>Annuler</u></b> l'op�ration en cours" ) ,
                                  tr("Annu&ler"),0 , 0,
                                  1, 1 );
            }
@@ -216,7 +224,6 @@ DrTux::DrTux()
        }
     G_pCApp->m_pCMoteurBase->initRubriquesList( &m_RubList,   G_pCApp->m_NumGUID);
     G_pCApp->m_pCMoteurBase->Evnmt_InitList(    &m_EvnList,   G_pCApp->m_ID_Doss);
-
     if  (G_pCApp->m_pCMoteurBase->OpenBase()==0)  return ;
     //___________________________________________________________________________________________________
     //....................... Recuperer parametres DE LA BASE DE DONNEE................................................
@@ -383,6 +390,7 @@ DrTux::DrTux()
 
     setIcon( Theme::getIcon( "32x32/DrTux.png" ));
     statusBar()->hide();
+    G_pCApp->m_pDrTux = this;
 }
 //--------------------------------- Slot_SauverLesMeubles --------------------------------------------------------------------------------
 void DrTux::Slot_SauverLesMeubles()

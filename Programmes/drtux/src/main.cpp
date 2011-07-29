@@ -34,7 +34,7 @@
 #include <qobject.h>
 #include <qmessagebox.h>
 #include <qtranslator.h>
-#include <qtextcodec.h> 
+#include <qtextcodec.h>
 
 #include "Global.h"
 #include "CApp.h"
@@ -107,7 +107,7 @@ int main( int argc, char ** argv )
         return 0;
        }
 
-    a.m_pDrTux = new DrTux();
+    new DrTux();
     if (a.m_pDrTux==0) return -1;
 
 
