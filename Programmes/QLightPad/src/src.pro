@@ -18,6 +18,7 @@ FORMS += DLG_InsertLink.ui \
 TRANSLATIONS += QLightPad_fr.ts 
 HEADERS += MyEditText.h \
            QLightPad.h \
+           ../../drtux/src/C_DlgListFieldMngr.h \           
            ../../MedinTuxTools/CGenTools.h \
            ../../MedinTuxTools/CHtmlTools.h \
            ../../MedinTuxTools/CCoolPopup.h \
@@ -30,6 +31,7 @@ HEADERS += MyEditText.h \
            CMyTabWidget.h \
            SaveRequest.h 
 SOURCES += QLightPad.cpp \
+           ../../drtux/src/C_DlgListFieldMngr.cpp \           
            main.cpp \
            MyEditText.cpp \
            ../../MedinTuxTools/CGenTools.cpp \
@@ -41,7 +43,8 @@ SOURCES += QLightPad.cpp \
            ../../MedinTuxTools/Theme.cpp \
            ../../drtux/src/C_KeyPressEater.cpp \
            CMyTabWidget.cpp 
-DEFINES = FOR_MEDINTUX
+DEFINES += FOR_MEDINTUX
+DEFINES += QLIGHTPAD
 TEMPLATE = app
 LANGUAGE = C++
 CONFIG += debug warn_on qt thread

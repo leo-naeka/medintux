@@ -44,6 +44,7 @@
 #include <qptrlist.h>
 #include <qtextcodec.h>
 #include <qiconset.h>
+#include <qeventloop.h>
 
 #include "QLightPad.h"
 #include "MyEditText.h"
@@ -56,15 +57,17 @@
 #include "ui/DLG_BodyAttributs.h"
 #include "ui/DLG_SaveRequest.h"
 #include "ui/DlgListOff_Listes.h"
-#include "ui/DlgListFieldMngr.h"
+
+#include "../../drtux/src/C_DlgListFieldMngr.h"
 
 #include "../../MedinTuxTools/CHtmlTools.h"
 #include "../../MedinTuxTools/CGenTools.h"
 #include "../../MedinTuxTools/CGestIni.h"
+#include "../../MedinTuxTools/Theme.h"
 
 // "Si Dieu existe, j'espère qu'il a une bonne excuse." -+- W. Allen -+-
-extern QString       GlobalPathAppli;
-
+extern QString             GlobalPathAppli;
+static char NUM_VERSION[]     = "==##@@==2.14.001==@@##==";
 //------------------------------------------------------- QLightPad -------------------------------------
 QLightPad::QLightPad( QWidget *parent, const char *name ,  int argc, char ** argv)
     : QMainWindow( parent, name )
@@ -72,13 +75,13 @@ QLightPad::QLightPad( QWidget *parent, const char *name ,  int argc, char ** arg
     m_Dlg_A_Propos            = 0;
     m_AppMustQuit             = FALSE;
     m_AnchorSpaceToUnderscore = 1;
-
+    m_NUM_VERSION             = NUM_VERSION;
+    m_Apropos_Proc            = 0;
     setupFileActions();
     setupEditActions();
     setupToolsActions();
     setupHelpActions();
     setupTextActions();
-
 
     m_tabWidget = new CMyTabWidget( this );
     connect( m_tabWidget, SIGNAL( currentChanged( QWidget * ) ),
@@ -161,7 +164,10 @@ QLightPad::QLightPad( QWidget *parent, const char *name ,  int argc, char ** arg
      if (QFile::exists("/Utilisateurs/ro/Documents/MedinTuxRo.txt")) m_debug = 1;
   #endif
 }
-
+//------------------------------------------------------- QLightPad -------------------------------------
+QLightPad::~QLightPad()
+{Slot_SauverLesMeubles();
+}
 //------------------------------------------------------- tabRightClicked -------------------------------------
 void QLightPad::tabRightClicked(int id)
 {MyEditText *edit = (MyEditText*) m_tabWidget->page( id );
@@ -459,15 +465,60 @@ void QLightPad::setupHelpActions()
     menuBar()->insertItem( tr( "&À propos" ), menu );
     QAction *a;
     a = new QAction( tr( "À propos" ), QPixmap(GlobalPathAppli +"QLightPadSys/help.png" ), tr( "À propos de Q&LightPad" ),0, this, "aPropos" );
-    connect( a, SIGNAL( activated() ), this, SLOT( aPropos() ) );
+    //connect( a, SIGNAL( activated() ), this, SLOT( aPropos() ) );
+    connect( a, SIGNAL( activated() ), this, SLOT(Slot_actionApropos() ) );
     a->addTo( tb );
     a->addTo( menu );
-    a = new QAction( tr( "À propos de &Qt" ), QPixmap(GlobalPathAppli +"QLightPadSys/QTbutton.png" ), tr( "À propos de &QT" ),0, this, "aboutQt" );
-    connect( a, SIGNAL( activated() ), this, SLOT( aboutQt() ) );
-    a->addTo( tb );
-    a->addTo( menu );
+    //a = new QAction( tr( "À propos de &Qt" ), QPixmap(GlobalPathAppli +"QLightPadSys/QTbutton.png" ), tr( "À propos de &QT" ),0, this, "aboutQt" );
+    //connect( a, SIGNAL( activated() ), this, SLOT( aboutQt() ) );
+    //a->addTo( tb );
+    //a->addTo( menu );
+}
+//--------------------------------- Slot_SauverLesMeubles --------------------------------------------------------------------------------
+void QLightPad::Slot_SauverLesMeubles()
+{tryToStopAPropos();
 }
 
+//----------------------------------- Slot_actionApropos -----------------------------------------------------------------------
+void QLightPad::Slot_actionApropos()
+{QTimer::singleShot ( 100, this,SLOT(Slot_actionAproposDisplay()) );
+}
+//----------------------------------- Slot_actionAproposDisplay -----------------------------------------------------------------------
+void QLightPad::Slot_actionAproposDisplay()
+{        //CGestIni::Param_UpdateToDisk(G_pCApp->m_PathAppli+"Ressources/Changements.html",textEdit_Changements->text());
+         QString pathExeAPropos     = CGestIni::Construct_Name_Exe("APropos", QFileInfo (qApp->argv()[0]).dirPath (true));
+         QString pathBinRessources  = CGestIni::Construct_PathBin_Module("APropos", QFileInfo (qApp->argv()[0]).dirPath (true))+"Ressources/";
+         QStringList argList;
+         //......................... completer les autres arguments .........................................
+         if (m_Apropos_Proc==0)
+            {//m_action_A_Propos->setDisabled(TRUE);
+             m_Apropos_Proc = new QProcess(this);
+             m_Apropos_Proc->addArgument( pathExeAPropos);                                               // 1  nom du module
+             m_Apropos_Proc->addArgument("QLightPad");                                                       // 1  nom du module
+             m_Apropos_Proc->addArgument("Editeur de texte pour MedinTux");                        // 2  description courte
+             m_Apropos_Proc->addArgument(m_NUM_VERSION.remove("@").remove("#").remove("=") + " Qt : "+QT_VERSION_STR);    // 3  numero de version
+             m_Apropos_Proc->addArgument(GlobalPathAppli +"QLightPadSys/Changements.html");            // 4  fichiers d�crivant les changements
+             m_Apropos_Proc->addArgument(Theme::getPath(Theme::WithSeparator)+"32x32/QLightPad.png");        // 5  Icone du programme
+             m_Apropos_Proc->addArgument(GlobalPathAppli+"../../Doc/QLightPad.html");            // 6  aide en ligne
+
+             m_Apropos_Proc->start();
+             SLEEP(1);
+             qApp->processEvents ();
+             while ( m_Apropos_Proc->isRunning () /* && QFile::exists(pathBinRessources+"~A_propos.html")*/)
+                   { //qDebug(QString::number(procState).toAscii());
+                     qApp->processEvents ( QEventLoop::WaitForMore );
+                   }
+             if (m_Apropos_Proc) delete m_Apropos_Proc;
+             m_Apropos_Proc = 0;
+             QFile::remove(pathBinRessources+"~A_propos.html");
+             //m_action_A_Propos->setDisabled(FALSE);
+            }
+}
+//--------------------------------------- tryToStopAPropos ----------------------------------------------------------
+void QLightPad::tryToStopAPropos()
+{if (m_Apropos_Proc==0) return;
+ m_Apropos_Proc->kill();   // terminate() ne fonctionne pas
+}
 //------------------------------------------------------- setupHelpActions -------------------------------------
 void QLightPad::setupDrTuxPopupActions()
 {
@@ -679,10 +730,19 @@ void QLightPad::gererListeMenu()
      pMyEditText->ListManager();
     }
  else
-   {FormDlgListFieldMngr *dlg = new FormDlgListFieldMngr(this, "ListManager_Dial", TRUE, WStyle_Customize | WStyle_NormalBorder | WStyle_Title |WStyle_MinMax | WStyle_SysMenu);
+   {
+/*
+    FormDlgListFieldMngr *dlg = new FormDlgListFieldMngr(this, "ListManager_Dial", TRUE, WStyle_Customize | WStyle_NormalBorder | WStyle_Title |WStyle_MinMax | WStyle_SysMenu);
     if (dlg ==0) return;
     dlg->initDialog("",m_PathGlossaire, m_PathDrTux);
     dlg->exec();
+    delete dlg;
+*/
+    C_DlgListFieldMngr *dlg = new C_DlgListFieldMngr(this, "ListManager_Dial", TRUE, WStyle_Customize | WStyle_NormalBorder | WStyle_Title |WStyle_MinMax | WStyle_SysMenu);
+    if (dlg ==0) return;
+    dlg->initDialog("", m_PathGlossaire, m_PathDrTux);
+    dlg->exec();
+    //recordPathModulesMenus(dlg->m_PathMenuLib);
     delete dlg;
    }
 }

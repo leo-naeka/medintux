@@ -25,6 +25,7 @@
 #include <qmap.h>
 #include <qobject.h>
 #include <qwidget.h>
+#include <qprocess.h>
 #include "SaveRequest.h"
 #include "DLG_A_propos.h"
 //===============================================================  QLightPad =========================================================================
@@ -42,6 +43,7 @@ class QLightPad : public QMainWindow
 
 public:
     QLightPad( QWidget *parent = 0, const char *name = 0,  int argc = 0, char ** argv = 0);
+    ~QLightPad();
     void  setModifiedAll(bool mode = FALSE);
 private:
     void        setupFileActions();
@@ -59,7 +61,7 @@ private:
     int         closeEditor(MyEditText *edit, int saveRequest = CSaveRequest::SaveCurrentRequest);
     void        doConnections( QTextEdit *e );
     void        fileSave(MyEditText *edit, QString filter="");
-
+    void        tryToStopAPropos();
 private slots:
     void fileNew();
     void fileOpen();
@@ -114,6 +116,9 @@ private slots:
     void CodePre();
     void RetirerInsecables();
     void InsererInsecables();
+    void Slot_actionApropos();
+    void Slot_actionAproposDisplay();
+    void Slot_SauverLesMeubles();
 public:
     int         m_AnchorSpaceToUnderscore;
 private:
@@ -130,6 +135,8 @@ private:
                *m_comboFont,
                *m_comboSize;
     QTabWidget *m_tabWidget;
+    QString     m_NUM_VERSION;
+    QProcess   *m_Apropos_Proc;
 
     QMAP_EDIT_FNAME     m_FileNames;
     MyEditText         *m_EditTabMenuSelected;
@@ -137,7 +144,7 @@ private:
     bool                m_AppMustQuit;
     QString             m_PathGlossaire;
     QString             m_PathDrTux;
-    QString             m_PathTheme;	
+    QString             m_PathTheme;
     QStringList         m_InsertFieldList;
     QStringList         m_docToLoadList;
     int                 m_debug;

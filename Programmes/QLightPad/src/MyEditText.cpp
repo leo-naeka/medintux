@@ -40,6 +40,7 @@
  #include "ui/DlgMyMessageBox.h"
  #include "ui/DlgListOff_Listes.h"
 
+ #include "../../drtux/src/C_DlgListFieldMngr.h"
  #include "../../MedinTuxTools/CHtmlTools.h"
  #include "../../MedinTuxTools/CGenTools.h"
  #include "../../MedinTuxTools/CGestIni.h"
@@ -666,8 +667,17 @@ QString MyEditText::GetLastList( int ori_index /*=-1*/,  int ori_para /*=-1*/, Q
 // ACTION: affiche la boite de dialogue Gestionnaire de listes déroulantes
 
 void MyEditText::ListManager()
-{FormDlgListFieldMngr *dlg = new FormDlgListFieldMngr(0,"ListManager_Dial",TRUE, WStyle_Customize | WStyle_NormalBorder | WStyle_Title |WStyle_MinMax | WStyle_SysMenu);
- if (dlg ==0) return;
+{
+
+C_DlgListFieldMngr *dlg = new C_DlgListFieldMngr(this, "ListManager_Dial", TRUE, WStyle_Customize | WStyle_NormalBorder | WStyle_Title |WStyle_MinMax | WStyle_SysMenu);
+if (dlg ==0) return;
+//    dlg->initDialog(G_pCApp->m_DrTuxParam, G_pCApp->m_PathGlossaire, G_pCApp->m_PathAppli);
+//    dlg->exec();
+//    recordPathModulesMenus(dlg->m_PathMenuLib);
+//    delete dlg;
+
+ //FormDlgListFieldMngr *dlg = new FormDlgListFieldMngr(0,"ListManager_Dial",TRUE, WStyle_Customize | WStyle_NormalBorder | WStyle_Title |WStyle_MinMax | WStyle_SysMenu);
+ //if (dlg ==0) return;
  dlg->initDialog("",m_PathGlossaire, m_PathDrTux);
  QFont font;
  if (CHtmlTools::QT_style_To_QFont(m_style , font, "Arial","10")) dlg->setFontEdit(font);
