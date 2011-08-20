@@ -1099,7 +1099,7 @@ QString C_TokenInterpret::EXPORT(QStringList &arg_list)
  RUBREC_LIST::iterator             it;
 
  //....................... on recupere les donnees du header ................................................
- G_mCDC->m_pMB->initRubriquesList(&rubList,  G_pCApp->m_pDrTux->m_NumGUID, sqlFilter);
+ G_mCDC->m_pMB->initRubriquesList(&rubList,  G_pCApp->m_NumGUID, sqlFilter);
  //......... pour chaque rubrique (liste de nom donne en entree) .....................
  //          on examine la liste des rubriques et si correspond au nom
  //          alors on retient et examine les autres conditions
@@ -1957,7 +1957,7 @@ QString C_TokenInterpret::SQL_GET_DOSS_PK(QStringList &)
 //-------------------------- SQL_GET_DOSS_GUID -------------------------------------------
 /*! \brief non documenté */
 QString C_TokenInterpret::SQL_GET_DOSS_GUID(QStringList &)
-    {return G_pCApp->m_pDrTux->m_NumGUID;
+    {return G_pCApp->m_NumGUID;
     }
 
 //-------------------------- SQL_SELECT -------------------------------------------

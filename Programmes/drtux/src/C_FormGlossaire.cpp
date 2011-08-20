@@ -37,7 +37,7 @@
 #include <qpoint.h>
 #include <qtimer.h>
 #include <qpushbutton.h>
-#include <qmessagebox.h> 
+#include <qmessagebox.h>
 #include <qsplitter.h>
 #include <qheader.h>
 #include <qlistview.h>
@@ -124,14 +124,14 @@ C_FormGlossaire::C_FormGlossaire( QWidget* parent /* = 0 */, const char* name /*
     m_DefaultMaskDirectory   = m_curPath;
     m_QDir.setPath ( m_curPath );
 #ifdef Q_OS_MACX
-    pushButtonBack->setFlat (TRUE); 
-	pushButtonHome->setFlat (TRUE); 
-	pushButtonMenu->setFlat (TRUE); 
-    pushButtonNewDir->setFlat (TRUE); 
-    pushButtonEdit->setFlat (TRUE); 
-	pushButtonLocalise->setFlat (TRUE); 
+    pushButtonBack->setFlat (TRUE);
+	pushButtonHome->setFlat (TRUE);
+	pushButtonMenu->setFlat (TRUE);
+    pushButtonNewDir->setFlat (TRUE);
+    pushButtonEdit->setFlat (TRUE);
+	pushButtonLocalise->setFlat (TRUE);
 #endif
-	
+
 }
 
 //----------------------------------------- ~C_FormGlossaire --------------------------------
@@ -714,7 +714,7 @@ void C_FormGlossaire::SetTextEditWithData(  QString file , CW_EditText *pQTextEd
                                                G_pCApp->m_pCMoteurBase       ,          // 1 moteur de base de donn�s (faut bien acc�er aux fonctions)
                                                G_pCApp->m_pCMedicaBase       ,          // 2 moteur de base de données medicamenteuses(faut bien accéder aux fonctions)
                                               &G_pCApp->m_pDrTux->m_RubList  ,          // 3 liste des documents composant le dossier patient
-                                               G_pCApp->m_pDrTux->m_ID_Doss  ,          // 4 il faut les renseignements sur le patient
+                                               G_pCApp->m_ID_Doss            ,          // 4 il faut les renseignements sur le patient
                                               &currentDocDisplayMap          ,          // 5 liste des rubriques courantes (affich�s)
                                                userPk                        ,          // 6 utilisateur responsable du document
                                                0                             ,          // 7 pointeur sur la rubrique en cours de modif (si c'est une rubrique) zero sinon
