@@ -1368,6 +1368,7 @@ void MainWindow::Recap_Tache(QWidget *UnWidget)
           detailTache->setText(message);
           //detailTache->setStyleSheet(RecupStyle(NomStyle));
           detailTache->verticalScrollBar()->setStyleSheet(RecupStyle("PopUp_Detail_Patient"  "_ScrollBar"));
+          commentaireTache->selectAll();
           commentaireTache->setFocus();
           m_popupTache->move(QCursor::pos());
           m_PK_encours = numEnCours;
@@ -1393,7 +1394,7 @@ void MainWindow::Note_Tache(QWidget *UnWidget)
     ListInfoTache   = laTache->whatsThis().split("/");
     NumEnCours      = ListInfoTache.at(0);
     NumTache        = ListInfoTache.at(1);
-    requete         = "SELECT EN_Code_tache, EN_Note_tache, EN_Comment, EN_HeureDebPrevue," //0-1-2-3
+    requete         = " SELECT EN_Code_tache, EN_Note_tache, EN_Comment, EN_HeureDebPrevue," //0-1-2-3
                       " EN_HeureFinPrevue, EN_Priorite, EC_NomPatient, EC_PrenomPatient, " // 4-5-6-7
                       " TA_Libelle_tache , EN_PrimKey_blob, EN_NomFicNote, EN_NomProgNote "  // 8-9-10-11
                       " FROM " ENCOURS_TACHES
