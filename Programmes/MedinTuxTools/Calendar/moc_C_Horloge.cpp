@@ -1,7 +1,7 @@
 /****************************************************************************
 ** C_Horloge_Label meta object code from reading C++ file 'C_Horloge.h'
 **
-** Created: Fri Apr 1 20:27:23 2011
+** Created: Wed Aug 24 19:41:30 2011
 **      by: The Qt MOC ($Id: qt/moc_yacc.cpp   3.3.8   edited Feb 2 14:59 $)
 **
 ** WARNING! All changes made in this file will be lost!
