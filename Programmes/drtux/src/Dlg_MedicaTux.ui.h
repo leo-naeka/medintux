@@ -47,7 +47,7 @@ void Dlg_MedicaTux::destroy()
 // ACTION:  initialisation générale du dialogue
 // ENTREE:  CMedicaBase *pCMedBase: pointeur sur l'API de gestion des bases medicamenteuses
 //          QString *ordoStruct:  pointeur sur la forme XML d'une ordonnance
-// RETOUR:  int �  zero si erreur d'initialisation
+// RETOUR:  int à  zero si erreur d'initialisation
 
 int Dlg_MedicaTux::initDialog(CMedicaBase *pCMedBase,
                               QString *ordoStruct)
@@ -66,7 +66,7 @@ int Dlg_MedicaTux::initDialog(CMedicaBase *pCMedBase,
 // ENTREE:  CMedicaBase *pCMedBase: pointeur sur l'API de gestion des bases medicamenteuses
 //           QString *ordoStruct:  reference sur la collection ou liste des objets: CPosologie
 //                                 d'une ordonnance
-// RETOUR:  int �  zero si erreur d'initialisation
+// RETOUR:  int à  zero si erreur d'initialisation
 
 int Dlg_MedicaTux::initDialog(CMedicaBase *pCMedBase, const QPL_CPosologie &posologieOrdoList)
 {int ret;
@@ -127,7 +127,7 @@ int Dlg_MedicaTux::initDialog(CMedicaBase *pCMedBase)
     }
  textLabelLogo->setPixmap(image);
  //................. generer la premiere liste ...........................................................................................
- QString title = tr("MedicaTux est connecté �  : ") + m_pCMedBase->m_DriverName + ":: " + m_pCMedBase->m_BaseName
+ QString title = tr("MedicaTux est connecté à  : ") + m_pCMedBase->m_DriverName + ":: " + m_pCMedBase->m_BaseName
                  + tr("  Version : ") + m_pCMedBase->Medica_GetDatasempVersion();
  setCaption(title);
  int nb = m_pCMedBase->Medica_GetMedicamentList( listView_Produits ,
