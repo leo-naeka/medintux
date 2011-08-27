@@ -54,7 +54,6 @@
 
 static CApp* G_pCApp = 0;  // contiendra l'instance globale de l'application accessible avec CApp::pCApp()
 
-
 //--------------------------------------------- C_App -------------------------------------------------------------------
 CApp::~CApp()
 {if (m_pC_BaseSynoptux)   delete m_pC_BaseSynoptux;
@@ -63,8 +62,9 @@ CApp::~CApp()
 
 //--------------------------------------------- CApp -------------------------------------------------------------------
 CApp::CApp(QString mui_name, int & argc, char ** argv)
-: C_AppCore( mui_name, argc, argv )
+:   C_AppCore( mui_name, argc, argv )
 {   QTextCodec::setCodecForTr( QTextCodec::codecForName("UTF8") );
+    G_pCApp = 0;
     //.............................. recuperer config de la base ..........................................
     QString paramCfgData = CGestIni::Param_UpdateFromDisk(m_PathAppli + m_NameAppli+"Bases.cfg");
     //.............................. initialiser la base C_BaseMedica ..........................................
