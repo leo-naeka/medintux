@@ -43,6 +43,27 @@ C_BaseCommon::~C_BaseCommon()
  QSqlDatabase::removeDatabase (m_BaseLabel);
 }
 
+//---------------------------------------- EncodePassword_InConnectionParam -------------------------------------------------------
+bool C_BaseCommon::EncodePassword_InConnectionParam(QString &param, const QString &section, QString* errMess /* =0*/)
+{
+
+ QString driver;             // nom du driver: "QODBC3" "QMYSQL3" "QPSQL7"
+ QString dataBaseToConnect;  // nom de la base: si QODBC3 -> nom de la source de données (userDSN)
+ QString user;               // = "root"
+ QString password;           // = ""
+ QString hostname;           // = "localhost"
+ QString port;               // = "3306"
+ if (CGestIni::Param_ReadParam(  param.toAscii(), section.toAscii(), "Parametres", &driver, &dataBaseToConnect, &user, &password, &hostname, &port) !=0 )  // zero = pas d'erreur
+    { if (errMess) *errMess  = QObject::tr("C_BaseCommon::EncodePassword_InConnectionParam() : error in parameters : CGestIni::Param_ReadParam() may be : key 'Parametres' omited in section 'Connexion'");
+      return 0;
+    }
+ if (password.startsWith('#'))   password = CGestIni::PassWordDecode(password.mid(1));
+ password = CGestIni::PassWordEncode(password);
+ password.prepend('#');
+ CGestIni::Param_WriteParam(  &param, section.toAscii(), "Parametres", driver.toAscii(), dataBaseToConnect.toAscii(), user.toAscii(), password.toAscii(), hostname.toAscii(), port.toAscii());
+ return 1;
+}
+
 //---------------------------------------- BaseConnect -------------------------------------------------------
 bool C_BaseCommon::BaseConnect(const QString &param, const QString &baseLabel, const QString &dataBase, QString* errMess /* =0*/)
 {
@@ -56,7 +77,7 @@ bool C_BaseCommon::BaseConnect(const QString &param, const QString &baseLabel, c
  m_LastError   = "";
  m_BaseLabel   = "";
  if (CGestIni::Param_ReadParam(  param.toAscii(), "Connexion", "Parametres", &driver, &dataBaseToConnect, &user, &password, &hostname, &port) !=0 )  // zero = pas d'erreur
-    { m_LastError = tr("C_BaseCommon::BaseConnect() : error in parameters : CGestIni::Param_ReadParam()");
+    { m_LastError = tr("C_BaseCommon::BaseConnect() : error in parameters : CGestIni::Param_ReadParam() may be : key 'Parametres' omited in section 'Connexion'");
       if (errMess) *errMess = m_LastError;
       outMessage( m_LastError);
       return 0;
