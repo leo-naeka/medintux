@@ -1,1 +1,0 @@
-'/home/ro/MedinTux/Glossaire/Masques/OBSERV_STANDARD.html' '$InsertList=/home/ro/MedinTux/drtux/bin/Ressources/FusionListe.txt' '$Glossaire=/home/ro/MedinTux/Glossaire/' '$DrTux=/home/ro/MedinTux/DrTux/'
