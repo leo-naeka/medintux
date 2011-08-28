@@ -74,13 +74,13 @@ CApp::CApp(QString mui_name, int & argc, char ** argv)
 
     m_pC_BaseSynoptux =  new C_BaseSynoptux(m_IniParam, paramCfgData, this);
     if (m_pC_BaseSynoptux ==0)
-       {qDebug () << tr("echec de new m_pC_BaseSynoptux");
+       {qDebug () << tr("new m_pC_BaseSynoptux failed");
         return;
        }
     if (m_pC_BaseSynoptux->getLastError().length())
        {qDebug() << m_pC_BaseSynoptux->getLastError();
         QMessageBox::warning(0, mui_name,
-                             tr("Echec de l'ouverture de la base : \n%1.").arg(m_pC_BaseSynoptux->getLastError()),
+                             tr("Opening datbase failed<br />%1").arg(m_pC_BaseSynoptux->getLastError()),
                              QMessageBox::Cancel
                             );
         delete m_pC_BaseSynoptux;

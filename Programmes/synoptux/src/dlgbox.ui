@@ -75,7 +75,7 @@
    </palette>
   </property>
   <property name="windowTitle">
-   <string>Table des box</string>
+   <string>Places table</string>
   </property>
   <property name="windowIcon">
    <iconset resource="synoptux.qrc">
@@ -106,7 +106,7 @@
      </column>
      <column>
       <property name="text">
-       <string>Libelle</string>
+       <string>Label</string>
       </property>
      </column>
      <column>
@@ -132,7 +132,7 @@
           </size>
          </property>
          <property name="text">
-          <string>Code box</string>
+          <string>Place code</string>
          </property>
         </widget>
        </item>
@@ -159,7 +159,7 @@
           </size>
          </property>
          <property name="text">
-          <string>Libellé</string>
+          <string>Label</string>
          </property>
         </widget>
        </item>
@@ -183,7 +183,7 @@
           </size>
          </property>
          <property name="text">
-          <string>Couleur de fond</string>
+          <string>Background color</string>
          </property>
         </widget>
        </item>
@@ -216,7 +216,7 @@
           </size>
          </property>
          <property name="text">
-          <string>Couleur du titre</string>
+          <string>Title color</string>
          </property>
         </widget>
        </item>
@@ -249,7 +249,7 @@
           </size>
          </property>
          <property name="text">
-          <string>Nombre de places</string>
+          <string>Number of places</string>
          </property>
         </widget>
        </item>
@@ -271,12 +271,12 @@
         <widget class="QComboBox" name="comboBox_type">
          <item>
           <property name="text">
-           <string>Attente</string>
+           <string>Waiting</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>Soins</string>
+           <string>Care</string>
           </property>
          </item>
          <item>
@@ -286,7 +286,7 @@
          </item>
          <item>
           <property name="text">
-           <string>Sortie</string>
+           <string>Exit</string>
           </property>
          </item>
         </widget>
@@ -308,21 +308,21 @@
    <item row="1" column="1" rowspan="2">
     <widget class="QPushButton" name="pushButton_ValidBox">
      <property name="text">
-      <string>Valider</string>
+      <string>Validate</string>
      </property>
     </widget>
    </item>
    <item row="1" column="2" rowspan="2">
     <widget class="QPushButton" name="pushButton_annuler">
      <property name="text">
-      <string>Supprimer</string>
+      <string>Delete</string>
      </property>
     </widget>
    </item>
    <item row="1" column="3" rowspan="2">
     <widget class="QPushButton" name="pushButton_QuitterBox">
      <property name="text">
-      <string>Quitter</string>
+      <string>Quit</string>
      </property>
     </widget>
    </item>

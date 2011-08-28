@@ -142,8 +142,8 @@ QSqlQuery   query ( CApp::pCApp()->getDB()->database() );
             {QString zbid = query.lastQuery ();
              QString noerr;
              noerr.setNum(query.lastError().type());
-             QMessageBox::warning ( this, tr("Banks management"),
-                         "<b>" + tr("Error when updating banks table ") + ui->lineEdit_CodeBox->text() +  "</b><br /><br />" +
+             QMessageBox::warning ( this, tr("Places management"),
+                         "<b>" + tr("Error when updating places table ") + ui->lineEdit_CodeBox->text() +  "</b><br /><br />" +
                          tr("Error = (") +  noerr + ") " + query.lastError().text());
             }
     ChargeBox();

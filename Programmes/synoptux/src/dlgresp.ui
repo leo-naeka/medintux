@@ -75,7 +75,7 @@
    </palette>
   </property>
   <property name="windowTitle">
-   <string>Table des responsables</string>
+   <string>Persons in charge table</string>
   </property>
   <property name="windowIcon">
    <iconset resource="synoptux.qrc">
@@ -103,7 +103,7 @@
      </column>
      <column>
       <property name="text">
-       <string>Libelle</string>
+       <string>Label</string>
       </property>
      </column>
      <column>
@@ -156,7 +156,7 @@
           </size>
          </property>
          <property name="text">
-          <string>Libellé</string>
+          <string>Label</string>
          </property>
         </widget>
        </item>
@@ -180,7 +180,7 @@
           </size>
          </property>
          <property name="text">
-          <string>Couleur de fond</string>
+          <string>Background color</string>
          </property>
         </widget>
        </item>
@@ -217,21 +217,21 @@
    <item row="1" column="1" rowspan="2">
     <widget class="QPushButton" name="pushButton_ValidResp">
      <property name="text">
-      <string>Valider</string>
+      <string>Validate</string>
      </property>
     </widget>
    </item>
    <item row="1" column="2" rowspan="2">
     <widget class="QPushButton" name="pushButton_annuler">
      <property name="text">
-      <string>Supprimer</string>
+      <string>Delete</string>
      </property>
     </widget>
    </item>
    <item row="1" column="3" rowspan="2">
     <widget class="QPushButton" name="pushButton_QuitterResp">
      <property name="text">
-      <string>Quitter</string>
+      <string>Quit</string>
      </property>
     </widget>
    </item>

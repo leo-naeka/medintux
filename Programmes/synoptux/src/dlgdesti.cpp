@@ -116,7 +116,7 @@ QSqlQuery   query ( CApp::pCApp()->getDB()->database());
             noerr.setNum(query.lastError().type());
             QMessageBox::warning ( this, tr("Destinations management"),
                          "<b>" + tr("Error when updating etats table: ") + ui->lineEdit_desti->text() +  "</b><br><br>" +
-                         tr("Erreur = (") +  noerr + ") " + query.lastError().text());
+                         tr("Error = (") +  noerr + ") " + query.lastError().text());
             }
     ChargeDesti(dNumEnCours);
 }

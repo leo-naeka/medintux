@@ -120,7 +120,7 @@
              <item>
               <widget class="QPushButton" name="pushButton_NomBox">
                <property name="text">
-                <string>Nom du box</string>
+                <string>Place name</string>
                </property>
                <property name="flat">
                 <bool>true</bool>
@@ -132,21 +132,21 @@
            <item>
             <widget class="QLabel" name="label_BoxEnCours">
              <property name="text">
-              <string>Code du Box Caché</string>
+              <string>Hidden place code</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QLabel" name="label_Nb_Patients_Maxi">
              <property name="text">
-              <string>Nombre de Patients Maxi Caché</string>
+              <string>Hidden patients Max number</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QLabel" name="label_Nb_Patients_dans_Box">
              <property name="text">
-              <string>Nombre de Patients en cours Caché</string>
+              <string>Hidden max current patients</string>
              </property>
             </widget>
            </item>

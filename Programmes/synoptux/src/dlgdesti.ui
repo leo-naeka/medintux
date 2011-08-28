@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Destination du patient</string>
+   <string>Patient destination</string>
   </property>
   <property name="windowIcon">
    <iconset resource="synoptux.qrc">
@@ -60,7 +60,7 @@
        <item>
         <widget class="QLabel" name="label_heuresortie">
          <property name="text">
-          <string>Heure de sortie</string>
+          <string>Exit time</string>
          </property>
         </widget>
        </item>
@@ -133,7 +133,7 @@
           </size>
          </property>
          <property name="text">
-          <string>Valider</string>
+          <string>Validate</string>
          </property>
         </widget>
        </item>
@@ -151,8 +151,8 @@
           </font>
          </property>
          <property name="text">
-          <string>Supprimer
-cette
+          <string>Delete
+this
 destination</string>
          </property>
         </widget>
@@ -166,7 +166,7 @@ destination</string>
           </size>
          </property>
          <property name="text">
-          <string>Quitter</string>
+          <string>Quit</string>
          </property>
         </widget>
        </item>

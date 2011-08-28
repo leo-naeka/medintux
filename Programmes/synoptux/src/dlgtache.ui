@@ -75,7 +75,7 @@
    </palette>
   </property>
   <property name="windowTitle">
-   <string>Table des tâches</string>
+   <string>Tasks table</string>
   </property>
   <property name="windowIcon">
    <iconset resource="synoptux.qrc">
@@ -106,7 +106,7 @@
      </column>
      <column>
       <property name="text">
-       <string>Libelle</string>
+       <string>Label</string>
       </property>
      </column>
      <column>
@@ -132,7 +132,7 @@
           </size>
          </property>
          <property name="text">
-          <string>Code tâche</string>
+          <string>Task Code</string>
          </property>
         </widget>
        </item>
@@ -159,7 +159,7 @@
           </size>
          </property>
          <property name="text">
-          <string>Libellé</string>
+          <string>Label</string>
          </property>
         </widget>
        </item>
@@ -183,7 +183,7 @@
           </size>
          </property>
          <property name="text">
-          <string>Couleur de fond</string>
+          <string>Background color</string>
          </property>
         </widget>
        </item>
@@ -216,7 +216,7 @@
           </size>
          </property>
          <property name="text">
-          <string>Couleur alarme</string>
+          <string>Alarms color</string>
          </property>
         </widget>
        </item>
@@ -249,7 +249,7 @@
           </size>
          </property>
          <property name="text">
-          <string>Durée maximum (en minutes)</string>
+          <string>Maximum time (in minutes)</string>
          </property>
         </widget>
        </item>
@@ -269,7 +269,7 @@
           </sizepolicy>
          </property>
          <property name="text">
-          <string>Priorité</string>
+          <string>Priority</string>
          </property>
         </widget>
        </item>
@@ -290,7 +290,7 @@
        <item>
         <widget class="QLabel" name="label_2">
          <property name="text">
-          <string>Commentaire</string>
+          <string>Comment</string>
          </property>
         </widget>
        </item>
@@ -308,7 +308,7 @@
         </size>
        </property>
        <property name="title">
-        <string>Sélection des états</string>
+        <string>Status selection</string>
        </property>
        <layout class="QGridLayout" name="gridLayout">
         <property name="topMargin">
@@ -329,7 +329,7 @@
            </size>
           </property>
           <property name="text">
-           <string>Bouton</string>
+           <string>Button</string>
           </property>
          </widget>
         </item>
@@ -364,12 +364,12 @@
           </column>
           <column>
            <property name="text">
-            <string>Libelle</string>
+            <string>Label</string>
            </property>
           </column>
           <column>
            <property name="text">
-            <string>Couleur</string>
+            <string>Colour</string>
            </property>
           </column>
           <column>
@@ -387,28 +387,28 @@
        <item>
         <widget class="QPushButton" name="pushButton_ValidTache">
          <property name="text">
-          <string>&amp;Valider</string>
+          <string>&amp;Validate</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="pushButton_annuler">
          <property name="text">
-          <string>&amp;Supprimer</string>
+          <string>&amp;Delete</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="pushButton_MakeMacro">
          <property name="text">
-          <string>&amp;Créer les macros</string>
+          <string>&amp;Create macros</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="pushButton_QuitterTache">
          <property name="text">
-          <string>&amp;Quitter</string>
+          <string>&amp;Quit</string>
          </property>
         </widget>
        </item>

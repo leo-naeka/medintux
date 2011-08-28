@@ -43,7 +43,7 @@
 //-----------------------------------------------------  C_DBVar -------------------------------------------
 C_DBVar::C_DBVar(  QString& confData)
 {m_LastError             = "";
- if (confData.length()==0) {m_LastError +=  TR("\r\n Fichier de configuration des bases absent ou vide "); return;}
+ if (confData.length()==0) {m_LastError +=  TR("\r\n Configuration database file empty or unreachable "); return;}
  initValues(confData);
 }
 
@@ -170,14 +170,14 @@ char  *C_DBVar::SetConfBase_SetProperties(char *pt, QString &propertie, const ch
                   return end +1;
                  }
               else
-                {err  = TR("Syntax Error: SetConfBaseGetValue()\r\n End delimiter \"'\"  not find at line : ");
+                {err  = TR("Syntax Error: SetConfBaseGetValue()\r\n End delimiter \"'\"  not found at line : ");
                  err += QString::number(nLine);
                  if (line) *line = nLine;
                  return 0;
                 }
              }
            else
-             {err  = TR("Syntax Error: SetConfBaseGetValue()\r\n Start delimiter \"'\"  not find at line : ");
+             {err  = TR("Syntax Error: SetConfBaseGetValue()\r\n Start delimiter \"'\"  not found at line : ");
               err += QString::number(nLine);
               if (line) *line = nLine;
               return 0;
@@ -186,10 +186,10 @@ char  *C_DBVar::SetConfBase_SetProperties(char *pt, QString &propertie, const ch
      NEXT_LINE(pt);
      ++nLine;
     }
- err  = TR("\nErreur de syntaxe : C_DBVar::SetConfBase_SetProperties()"
-           "\nle fichier de configuration des bases 'DataBase.cfg'"
-           "\ncomporte les erreurs suivantes : \n"
-           "      ==> la mention %1 est non trouv\303\251e \303\240 la ligne : %2").arg(token, QString::number(nLine));
+ err  = TR("\nSyntax error : C_DBVar::SetConfBase_SetProperties()"
+           "\ndatabase configuration file 'DataBase.cfg'"
+           "\ncontains following errors: \n"
+           "      ==> mention %1 is not found on line : %2").arg(token, QString::number(nLine));
  if (line) *line = nLine;
  return pt;
 }

@@ -2221,7 +2221,7 @@ QString MainWindow::RecupStyle(QString TypeObjet)
                 }
             } // fin else on traite un seul objet
         } // fin pos ok on a bien un parametrage
-    QMessageBox::warning(0,"Recherche des styles", tr("CSS settings are incorrect.<br /> Please verify CSS file").arg(TypeObjet));
+    QMessageBox::warning(0,"Recherche des styles", tr("CSS settings for %1 are incorrect.<br /> Please verify CSS file").arg(TypeObjet));
     return "";
 }
 //------------------------------------------fin-------------------------------------------------------------

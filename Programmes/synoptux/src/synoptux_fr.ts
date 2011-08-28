@@ -5,46 +5,41 @@
     <name>Box</name>
     <message>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Formulaire</translation>
     </message>
     <message>
-        <source>Nom du box</source>
-        <translation type="unfinished"></translation>
+        <source>Place name</source>
+        <translation>Nom du lieu</translation>
     </message>
-    <message utf8="true">
-        <source>Code du Box Caché</source>
-        <translation type="unfinished"></translation>
+    <message>
+        <source>Hidden place code</source>
+        <translation>Code du lieu caché</translation>
     </message>
-    <message utf8="true">
-        <source>Nombre de Patients Maxi Caché</source>
-        <translation type="unfinished"></translation>
+    <message>
+        <source>Hidden patients Max number</source>
+        <translation>Nombre de Patients Maxi Caché</translation>
     </message>
-    <message utf8="true">
-        <source>Nombre de Patients en cours Caché</source>
-        <translation type="unfinished"></translation>
+    <message>
+        <source>Hidden max current patients</source>
+        <translation>Nombre de Patients en cours Caché</translation>
     </message>
 </context>
 <context>
     <name>CApp</name>
     <message>
-        <source>echec de new m_pC_BaseSynoptux</source>
-        <translation type="unfinished"></translation>
+        <source>new m_pC_BaseSynoptux failed</source>
+        <translation>echec de new m_pC_BaseSynoptux</translation>
     </message>
     <message>
-        <source>Echec de l&apos;ouverture de la base : 
-%1.</source>
-        <translation type="unfinished"></translation>
+        <source>Opening datbase failed&lt;br /&gt;%1</source>
+        <translation>Échec de l&apos;ouverture de la base : &lt;br /&gt;%1.</translation>
     </message>
 </context>
 <context>
     <name>C_BaseCommon</name>
     <message>
-        <source>C_BaseCommon::BaseConnect() : error in parameters : CGestIni::Param_ReadParam()</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>C_BaseCommon::BaseConnect() : Failed to open database : </source>
-        <translation type="unfinished"></translation>
+        <translation>C_BaseCommon::BaseConnect() :Impossible d&apos;ouvrir la base de données : </translation>
     </message>
     <message>
         <source>
@@ -119,40 +114,51 @@ ERREUR  : C_BaseCommon::eraseTable()
 REQUETE : %2</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>C_BaseCommon::BaseConnect() : error in parameters : CGestIni::Param_ReadParam() may be : key &apos;Parametres&apos; omited in section &apos;Connexion&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>C_DBVar</name>
     <message>
         <source>
-Erreur de syntaxe : C_DBVar::SetConfBase_SetProperties()
-le fichier de configuration des bases &apos;DataBase.cfg&apos;
-comporte les erreurs suivantes : 
-      ==&gt; la mention %1 est non trouvÃ©e Ã  la ligne : %2</source>
-        <translation type="unfinished"></translation>
+ Configuration database file empty or unreachable </source>
+        <translation type="obsolete">
+Fichier de configuration des bases absent ou vide</translation>
+    </message>
+    <message>
+        <source>Syntax Error: SetConfBaseGetValue()
+ End delimiter &quot;&apos;&quot;  not found at line : </source>
+        <translation type="obsolete">Erreur de syntaxe: SetConfBaseGetValue()
+ Délimiteur de fin &quot;&apos;&quot;  introuvable à la ligne : </translation>
+    </message>
+    <message>
+        <source>Syntax Error: SetConfBaseGetValue()
+ Start delimiter &quot;&apos;&quot;  not found at line : </source>
+        <translation type="obsolete">Erreur de syntaxe: SetConfBaseGetValue()
+ Délimiteur de début &quot;&apos;&quot;  introuvable à la ligne : </translation>
     </message>
     <message>
         <source>
- Fichier de configuration des bases absent ou vide </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Syntax Error: SetConfBaseGetValue()
- End delimiter &quot;&apos;&quot;  not find at line : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Syntax Error: SetConfBaseGetValue()
- Start delimiter &quot;&apos;&quot;  not find at line : </source>
-        <translation type="unfinished"></translation>
+Syntax error : C_DBVar::SetConfBase_SetProperties()
+database configuration file &apos;DataBase.cfg&apos;
+contains following errors: 
+      ==&gt; mention %1 is not found on line : %2</source>
+        <translation>
+Erreur de syntaxe : C_DBVar::SetConfBase_SetProperties()
+le fichier de configuration des bases &apos;DataBase.cfg&apos;
+comporte les erreurs suivantes : \n
+==&gt; la mention %1 est non trouvé à la ligne : %2</translation>
     </message>
 </context>
 <context>
     <name>C_Dlg_Changements</name>
     <message>
         <source>Dialog</source>
-        <translation type="unfinished">Dialogue</translation>
+        <translation>Dialogue</translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -163,9 +169,20 @@ p, li { white-space: pre-wrap; }
 &lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;
 &lt;tr&gt;
 &lt;td&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;========================================================================================================== &lt;br /&gt;Modif RS personnes du 14-06-2011  Version 1.00.000&lt;br /&gt;--------------------------------------------------------------------------------------------------------- &lt;br /&gt;Première version&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;========================================================================================================== &lt;br /&gt;Modified RS personnes on 14-06-2011  Version 1.00.000&lt;br /&gt;--------------------------------------------------------------------------------------------------------- &lt;br /&gt;First version&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
+&lt;tr&gt;
+&lt;td style=&quot;border: none;&quot;&gt;
+&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;
+&lt;tr&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;========================================================================================================== &lt;br /&gt;Modif RS personnes du  14-06-2011  Version 1.00.000&lt;br /&gt;--------------------------------------------------------------------------------------------------------- &lt;br /&gt;Première version&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -173,7 +190,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>------- %1	 at line : %2 	 in file : %3 ---------
 </source>
-        <translation type="unfinished"></translation>
+        <translation>------- %1	 à la ligne : %2 	 dans le fichier : %3 ---------</translation>
     </message>
     <message>
         <source>ERREUR</source>
@@ -183,68 +200,16 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgBox</name>
     <message>
-        <source>Table des box</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Code</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Libelle</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Code box</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message utf8="true">
-        <source>Libellé</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Couleur de fond</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Couleur du titre</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Nombre de places</source>
-        <translation type="unfinished"></translation>
+        <translation>Code</translation>
     </message>
     <message>
         <source>Type </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Attente</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Soins</source>
-        <translation type="unfinished"></translation>
+        <translation>Type </translation>
     </message>
     <message>
         <source>Absence</source>
         <translation>Absence</translation>
-    </message>
-    <message>
-        <source>Sortie</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Valider</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Supprimer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Quitter</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Box management</source>
@@ -260,44 +225,78 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Banks management</source>
-        <translation>Gestion des banques</translation>
+        <translation type="obsolete">Gestion des banques</translation>
     </message>
     <message>
         <source>Error when updating banks table </source>
-        <translation>Erreur lors de la mise à jour de la table banques</translation>
+        <translation type="obsolete">Erreur lors de la mise à jour de la table banques</translation>
+    </message>
+    <message>
+        <source>Places table</source>
+        <translation>Table des lieux</translation>
+    </message>
+    <message>
+        <source>Label</source>
+        <translation>Libellé</translation>
+    </message>
+    <message>
+        <source>Place code</source>
+        <translation>Code du lieu</translation>
+    </message>
+    <message>
+        <source>Background color</source>
+        <translation>Couleur du fond</translation>
+    </message>
+    <message>
+        <source>Title color</source>
+        <translation>Couleur du titre</translation>
+    </message>
+    <message>
+        <source>Number of places</source>
+        <translation>Nombre de places</translation>
+    </message>
+    <message>
+        <source>Waiting</source>
+        <translation>Attente</translation>
+    </message>
+    <message>
+        <source>Care</source>
+        <translation>Soins</translation>
+    </message>
+    <message>
+        <source>Exit</source>
+        <translation>Sortie</translation>
+    </message>
+    <message>
+        <source>Validate</source>
+        <translation>Valider</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Supprimer</translation>
+    </message>
+    <message>
+        <source>Quit</source>
+        <translation>Quitter</translation>
+    </message>
+    <message>
+        <source>Places management</source>
+        <translation>Gestion des lieux</translation>
+    </message>
+    <message>
+        <source>Error when updating places table </source>
+        <translation>Erreur lors de la mise à jour de la table des lieux </translation>
     </message>
 </context>
 <context>
     <name>DlgDesti</name>
     <message>
-        <source>Destination du patient</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Heure de sortie</source>
-        <translation type="unfinished"></translation>
+        <translation>1</translation>
     </message>
     <message>
         <source>dd/MM/yyyy    HH:mm</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Valider</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Supprimer
-cette
-destination</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Quitter</source>
-        <translation type="unfinished"></translation>
+        <translation>dd/MM/yyyy    HH:mm</translation>
     </message>
     <message>
         <source>Status management</source>
@@ -314,10 +313,6 @@ destination</source>
     <message>
         <source>Error when updating destinations table: </source>
         <translation>Erreur lors de la mise à jour de la table destinations : </translation>
-    </message>
-    <message>
-        <source>Erreur = (</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Destinations management</source>
@@ -343,48 +338,36 @@ destination</source>
         <source>Impossible to open file %1:&lt;br /&gt;%2.</source>
         <translation>Impossible d&apos;ouvrir le fichier %1:&lt;br /&gt;%2.</translation>
     </message>
+    <message>
+        <source>Patient destination</source>
+        <translation>Destination du patient</translation>
+    </message>
+    <message>
+        <source>Exit time</source>
+        <translation>Heure de sortie</translation>
+    </message>
+    <message>
+        <source>Validate</source>
+        <translation>Valider</translation>
+    </message>
+    <message>
+        <source>Delete
+this
+destination</source>
+        <translation>Supprimer
+cette
+destination</translation>
+    </message>
+    <message>
+        <source>Quit</source>
+        <translation>Quitter</translation>
+    </message>
 </context>
 <context>
     <name>DlgEtat</name>
     <message>
-        <source>Table des etat</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Code</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Libelle</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Code etat</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message utf8="true">
-        <source>Libellé</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Couleur de fond</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message utf8="true">
-        <source>Cet état indique la fin de la tâche</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Valider</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Supprimer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Quitter</source>
-        <translation type="unfinished"></translation>
+        <translation>Code</translation>
     </message>
     <message>
         <source>Status management</source>
@@ -392,19 +375,47 @@ destination</source>
     </message>
     <message>
         <source>Error when updating status table: </source>
-        <translation type="unfinished">Error when updating status table:</translation>
+        <translation type="obsolete">Error when updating status table:</translation>
     </message>
     <message>
         <source>Error = (</source>
-        <translation type="unfinished">Erreur = (</translation>
+        <translation>Erreur = (</translation>
     </message>
     <message>
-        <source>Gestion des Ã©tats</source>
-        <translation type="unfinished"></translation>
+        <source>Error when updating etats table: </source>
+        <translation>Erreur lors de la mise à jour de la table états : </translation>
     </message>
     <message>
-        <source>Erreur lors de la mise Ã  jour de la table Ã©tats : </source>
-        <translation type="unfinished"></translation>
+        <source>Status table</source>
+        <translation>Table des états</translation>
+    </message>
+    <message>
+        <source>Label</source>
+        <translation>Libellé</translation>
+    </message>
+    <message>
+        <source>Status code</source>
+        <translation>Code de l&apos;état</translation>
+    </message>
+    <message>
+        <source>Background color</source>
+        <translation>Couleur du fond</translation>
+    </message>
+    <message>
+        <source>This status indicates the end of the task</source>
+        <translation>Cet état indique la fin de la tâche</translation>
+    </message>
+    <message>
+        <source>Validate</source>
+        <translation>Valider</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Supprimer</translation>
+    </message>
+    <message>
+        <source>Quit</source>
+        <translation>Quitter</translation>
     </message>
 </context>
 <context>
@@ -412,14 +423,6 @@ destination</source>
     <message>
         <source>Dialog</source>
         <translation>Dialogue</translation>
-    </message>
-    <message>
-        <source>Valider</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Annuler</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Objects layout</source>
@@ -435,173 +438,169 @@ destination</source>
     </message>
     <message>
         <source> cannot be open!</source>
-        <translation> Ne peut être ouvert</translation>
+        <translation> ne peut être ouvert</translation>
     </message>
     <message>
         <source> cannot be updated</source>
         <translation>ne peut être mis à jour</translation>
     </message>
+    <message>
+        <source>Validate</source>
+        <translation>Valider</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Annuler</translation>
+    </message>
 </context>
 <context>
     <name>DlgResp</name>
     <message>
-        <source>Table des responsables</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Code</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Libelle</source>
-        <translation type="unfinished"></translation>
+        <translation>Code</translation>
     </message>
     <message>
         <source>Code </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message utf8="true">
-        <source>Libellé</source>
-        <translation type="unfinished"></translation>
+        <translation>Code </translation>
     </message>
     <message>
-        <source>Couleur de fond</source>
-        <translation type="unfinished"></translation>
+        <source>Persons in charge management</source>
+        <translation>Gestion des responsables</translation>
     </message>
     <message>
-        <source>Valider</source>
-        <translation type="unfinished"></translation>
+        <source>Error when updating responsables table: </source>
+        <translation>Erreur lors de la mise à jour de la table responsables : </translation>
     </message>
     <message>
-        <source>Supprimer</source>
-        <translation type="unfinished"></translation>
+        <source>Error = (</source>
+        <translation>Erreur = (</translation>
     </message>
     <message>
-        <source>Quitter</source>
-        <translation type="unfinished"></translation>
+        <source>Persons in charge table</source>
+        <translation>Table des responsables</translation>
     </message>
     <message>
-        <source>Gestion des responsables</source>
-        <translation type="unfinished"></translation>
+        <source>Label</source>
+        <translation>Libellé</translation>
     </message>
     <message>
-        <source>Erreur lors de la mise Ã  jour de la table Responsables : </source>
-        <translation type="unfinished"></translation>
+        <source>Background color</source>
+        <translation>Couleur du fond</translation>
     </message>
     <message>
-        <source>Gestion des Ã©tats</source>
-        <translation type="unfinished"></translation>
+        <source>Validate</source>
+        <translation>Valider</translation>
     </message>
     <message>
-        <source>Erreur lors de la mise Ã  jour de la table responsables : </source>
-        <translation type="unfinished"></translation>
+        <source>Delete</source>
+        <translation>Supprimer</translation>
+    </message>
+    <message>
+        <source>Quit</source>
+        <translation>Quitter</translation>
     </message>
 </context>
 <context>
     <name>DlgTache</name>
-    <message utf8="true">
-        <source>Table des tâches</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Code</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Libelle</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message utf8="true">
-        <source>Code tâche</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message utf8="true">
-        <source>Libellé</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Couleur de fond</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Couleur alarme</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message utf8="true">
-        <source>Durée maximum (en minutes)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message utf8="true">
-        <source>Priorité</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Commentaire</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message utf8="true">
-        <source>Sélection des états</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Bouton</source>
-        <translation type="unfinished"></translation>
+        <translation>Code</translation>
     </message>
     <message>
         <source>Menu</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Couleur</source>
-        <translation type="unfinished"></translation>
+        <translation>1</translation>
     </message>
     <message>
         <source>Selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Sélection</translation>
     </message>
     <message>
-        <source>&amp;Valider</source>
-        <translation type="unfinished"></translation>
+        <source>Tasks management</source>
+        <translation>Gestion des tâches</translation>
     </message>
     <message>
-        <source>&amp;Supprimer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message utf8="true">
-        <source>&amp;Créer les macros</source>
-        <translation type="unfinished"></translation>
+        <source>Error when updating tasks table: </source>
+        <translation>Erreur lors de la mise à jour de la table des tâches : </translation>
     </message>
     <message>
-        <source>&amp;Quitter</source>
-        <translation type="unfinished"></translation>
+        <source>Error = (</source>
+        <translation>Erreur = (</translation>
     </message>
     <message>
-        <source>Gestion des banques</source>
-        <translation type="unfinished"></translation>
+        <source>Tasks status management</source>
+        <translation>Gestion des états des tâches</translation>
     </message>
     <message>
-        <source>Erreur lors de la mise Ã  jour de la table tÃ¢ches : </source>
-        <translation type="unfinished"></translation>
+        <source>Error when updating tasks status table: </source>
+        <translation>Erreur lors de la mise à jour de la table etats_taches :</translation>
     </message>
     <message>
-        <source>Gestion des Ã©tats</source>
-        <translation type="unfinished"></translation>
+        <source>Tasks  management</source>
+        <translation>Gestion des tâches</translation>
     </message>
     <message>
-        <source>Erreur lors de la mise Ã  jour de la table etats_taches : </source>
-        <translation type="unfinished"></translation>
+        <source>Tasks table</source>
+        <translation>Table des tâches</translation>
     </message>
     <message>
-        <source>Gestion des Ã©tats d&apos;une tÃ¢che</source>
-        <translation type="unfinished"></translation>
+        <source>Label</source>
+        <translation>Libellé</translation>
     </message>
     <message>
-        <source>Erreur lors de la mise Ã  jour de la table banque : </source>
-        <translation type="unfinished"></translation>
+        <source>Task Code</source>
+        <translation>Code de la tâche</translation>
+    </message>
+    <message>
+        <source>Background color</source>
+        <translation>Couleur du fond</translation>
+    </message>
+    <message>
+        <source>Alarms color</source>
+        <translation>Couleur de l&apos;alarme</translation>
+    </message>
+    <message>
+        <source>Maximum time (in minutes)</source>
+        <translation>Durée maximum (en minutes)</translation>
+    </message>
+    <message>
+        <source>Priority</source>
+        <translation>Priorité</translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation>Commentaire</translation>
+    </message>
+    <message>
+        <source>Status selection</source>
+        <translation>Sélection des états</translation>
+    </message>
+    <message>
+        <source>Button</source>
+        <translation>Bouton</translation>
+    </message>
+    <message>
+        <source>Colour</source>
+        <translation>Couleur</translation>
+    </message>
+    <message>
+        <source>&amp;Validate</source>
+        <translation>&amp;Valider</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation>&amp;Supprimer</translation>
+    </message>
+    <message>
+        <source>&amp;Create macros</source>
+        <translation>&amp;Créer les macros</translation>
+    </message>
+    <message>
+        <source>&amp;Quit</source>
+        <translation>&amp;Quitter</translation>
     </message>
 </context>
 <context>
@@ -937,7 +936,7 @@ Please choose another place.</source>
     </message>
     <message>
         <source>CSS settings are incorrect.&lt;br /&gt; Please verify CSS file</source>
-        <translation>Le paramétrage css pour %1 est incorrect.&lt;br /&gt;Veuillez vérifier le fichier CSS</translation>
+        <translation type="obsolete">Le paramétrage css pour %1 est incorrect.&lt;br /&gt;Veuillez vérifier le fichier CSS</translation>
     </message>
     <message>
         <source>Updating layout (.css)</source>
@@ -962,6 +961,10 @@ Please choose another place.</source>
     <message>
         <source>&lt;br /&gt;is unreacheable!</source>
         <translation>&lt;br /&gt;n&apos;est pas accessible !</translation>
+    </message>
+    <message>
+        <source>CSS settings for %1 are incorrect.&lt;br /&gt; Please verify CSS file</source>
+        <translation>Le paramétrage css pour %1 est incorrect.&lt;br /&gt;Veuillez vérifier le fichier CSS</translation>
     </message>
 </context>
 <context>
@@ -1008,6 +1011,10 @@ Please choose another place.</source>
     </message>
     <message>
         <source>echec de CApp app(NAME_APPLI, argc, argv);</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C_BaseCommon::EncodePassword_InConnectionParam() : error in parameters : CGestIni::Param_ReadParam() may be : key &apos;Parametres&apos; omited in section &apos;Connexion&apos;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

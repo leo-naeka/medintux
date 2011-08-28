@@ -75,7 +75,7 @@
    </palette>
   </property>
   <property name="windowTitle">
-   <string>Table des etat</string>
+   <string>Status table</string>
   </property>
   <property name="windowIcon">
    <iconset resource="synoptux.qrc">
@@ -103,7 +103,7 @@
      </column>
      <column>
       <property name="text">
-       <string>Libelle</string>
+       <string>Label</string>
       </property>
      </column>
      <column>
@@ -129,7 +129,7 @@
           </size>
          </property>
          <property name="text">
-          <string>Code etat</string>
+          <string>Status code</string>
          </property>
         </widget>
        </item>
@@ -156,7 +156,7 @@
           </size>
          </property>
          <property name="text">
-          <string>Libellé</string>
+          <string>Label</string>
          </property>
         </widget>
        </item>
@@ -180,7 +180,7 @@
           </size>
          </property>
          <property name="text">
-          <string>Couleur de fond</string>
+          <string>Background color</string>
          </property>
         </widget>
        </item>
@@ -210,7 +210,7 @@
           <enum>Qt::RightToLeft</enum>
          </property>
          <property name="text">
-          <string>Cet état indique la fin de la tâche</string>
+          <string>This status indicates the end of the task</string>
          </property>
         </widget>
        </item>
@@ -244,21 +244,21 @@
    <item row="1" column="1" rowspan="2">
     <widget class="QPushButton" name="pushButton_ValidEtat">
      <property name="text">
-      <string>Valider</string>
+      <string>Validate</string>
      </property>
     </widget>
    </item>
    <item row="1" column="2" rowspan="2">
     <widget class="QPushButton" name="pushButton_annuler">
      <property name="text">
-      <string>Supprimer</string>
+      <string>Delete</string>
      </property>
     </widget>
    </item>
    <item row="1" column="3" rowspan="2">
     <widget class="QPushButton" name="pushButton_QuitterEtat">
      <property name="text">
-      <string>Quitter</string>
+      <string>Quit</string>
      </property>
     </widget>
    </item>

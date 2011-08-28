@@ -217,9 +217,9 @@ QSqlQuery   query ( CApp::pCApp()->getDB()->database());
             {QString zbid = query.lastQuery ();
             QString noerr;
             noerr.setNum(query.lastError().type());
-            QMessageBox::warning ( this, tr("Gestion des banques"),
-                         "<b>" + tr("Erreur lors de la mise à jour de la table tâches : ") + ui->lineEdit_CodeTache->text() +  "</b><br><br>" +
-                         "Erreur = (" +  noerr + ") " + query.lastError().text());
+            QMessageBox::warning ( this, tr("Tasks management"),
+                         "<b>" + tr("Error when updating tasks table: ") + ui->lineEdit_CodeTache->text() +  "</b><br /><br />" +
+                         tr("Error = (") +  noerr + ") " + query.lastError().text());
             } // fin if erreur exec insert
 
     ValideEtats();
@@ -241,9 +241,9 @@ QSqlQuery   querye ( CApp::pCApp()->getDB()->database());
             {QString zbid = query.lastQuery ();
             QString noerr;
             noerr.setNum(query.lastError().type());
-            QMessageBox::warning ( this, tr("Gestion des états"),
-                         "<b>" + tr("Erreur lors de la mise à jour de la table etats_taches : ") + ui->lineEdit_CodeTache->text() +  "</b><br><br>" +
-                         "Erreur = (" +  noerr + ") " + query.lastError().text());
+            QMessageBox::warning ( this, tr("Tasks status management"),
+                         "<b>" + tr("Error when updating tasks status table: ") + ui->lineEdit_CodeTache->text() +  "</b><br /><br />" +
+                         tr("Error = (") +  noerr + ") " + query.lastError().text());
             }
 
 
@@ -264,9 +264,9 @@ QSqlQuery   querye ( CApp::pCApp()->getDB()->database());
         if (!querye.exec() )
             {QString noerr;
             noerr.setNum(querye.lastError().type());
-            QMessageBox::warning ( this, tr("Gestion des états d'une tâche"),
-                         "<b>" + tr("Erreur lors de la mise à jour de la table etats_taches : ") + ui->lineEdit_CodeTache->text() +  "</b><br><br>" +
-                         "Erreur = (" +  noerr + ") " + querye.lastError().text());
+            QMessageBox::warning ( this, tr("Tasks status management"),
+                         "<b>" + tr("Error when updating tasks status table: ") + ui->lineEdit_CodeTache->text() +  "</b><br><br>" +
+                         tr("Error = (") +  noerr + ") " + querye.lastError().text());
             } // fin if erreur exec insert
         } // fin for etats
 }
@@ -283,9 +283,9 @@ QSqlQuery   query ( CApp::pCApp()->getDB()->database());
             {QString zbid = query.lastQuery ();
             QString noerr;
             noerr.setNum(query.lastError().type());
-            QMessageBox::warning ( this, tr("Gestion des banques"),
-                         "<b>" + tr("Erreur lors de la mise à jour de la table banque : ") + ui->lineEdit_CodeTache->text() +  "</b><br><br>" +
-                         "Erreur = (" +  noerr + ") " + query.lastError().text());
+            QMessageBox::warning ( this, tr("Tasks  management"),
+                         "<b>" + tr("Error when updating tasks table: ") + ui->lineEdit_CodeTache->text() +  "</b><br /><br />" +
+                         tr("Error = (") +  noerr + ") " + query.lastError().text());
             }
     ChargeTache();
     ClearFormulaire();
