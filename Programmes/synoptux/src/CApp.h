@@ -31,6 +31,7 @@
 #include <QtGui/QApplication>
 #include "../../MedinTuxTools-QT4/C_AppCore.h"
 
+#define C_APP   CApp::pCApp()
 
 class C_BaseSynoptux;
 
@@ -68,12 +69,11 @@ public:
      *  \return message diplayed
      */
     void                 outMessage( const QString &mess, const QString &file   = ""  , const int line   = -1 );
+
 private:
     //................... les objets suivants sont relatifs au contexte de l'application..............................................
     C_BaseSynoptux      *m_pC_BaseSynoptux;       /*!< pointeur sur le moteur de base de donnees */
     bool                 m_EndPageDisplay;
 
 };
-
 #endif
-
