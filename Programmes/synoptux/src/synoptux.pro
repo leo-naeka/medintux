@@ -73,3 +73,4 @@ FORMS += box.ui \
 OTHER_FILES += Analyse.txt \
     ../bin/synoptuxBases.cfg \
     ../bin/synoptux.ini
+TRANSLATIONS = synoptux_fr.ts
