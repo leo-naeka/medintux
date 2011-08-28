@@ -77,7 +77,7 @@ MainWindow::MainWindow()
 
     //.................... indicateur d'action des timers ...........................................
     m_TimerStateIndicator = new C_ClickableLed(this);
-    m_TimerStateIndicator->setText(tr("Etat de la connexion"));
+    m_TimerStateIndicator->setText(tr("Connection status"));
     statusBar()->insertPermanentWidget(0, m_TimerStateIndicator);
     connect( m_TimerStateIndicator , SIGNAL( clicked() ) , this , SLOT( Slot_timerStateIndicator_clicked() ) );
     setTimerActionEnabled(TRUE);
@@ -134,7 +134,7 @@ MainWindow::MainWindow()
     creerMenusMdi();
 
     creerMenuSelectionResponsable();
-    m_helpMenu = menuBar()->addMenu(tr("&Aide"));
+    m_helpMenu = menuBar()->addMenu(tr("&Help"));
     m_helpMenu->addAction(m_aboutAct);
 
     // Affichage des BOX avec leur occupation
@@ -190,8 +190,8 @@ void MainWindow::setTimerActionOff()
 }
 //----------------------------------setLedStateOnTimerState--------------------------------------------
 void MainWindow::setLedStateOnTimerState()
-{if (m_notAction>0) {m_TimerStateIndicator->setLedColor(C_ClickableLed::Red);   m_TimerStateIndicator->setText(tr("\303\251coute inactive : %1").arg(QString::number(m_notAction)));}
- else               {m_TimerStateIndicator->setLedColor(C_ClickableLed::Green); m_TimerStateIndicator->setText(tr("\303\251coute active "));}
+{if (m_notAction>0) {m_TimerStateIndicator->setLedColor(C_ClickableLed::Red);   m_TimerStateIndicator->setText(tr("Not listening: %1").arg(QString::number(m_notAction)));}
+ else               {m_TimerStateIndicator->setLedColor(C_ClickableLed::Green); m_TimerStateIndicator->setText(tr("Listening"));}
 }
 
 //----------------------------------sortieAppli--------------------------------------------
@@ -214,54 +214,54 @@ bool MainWindow::RecupInit()
     //m_Dossier_Entrees        = m_settingsIni->value(tr("Interface/Dossier_Entrees")).toString();
     if (m_Dossier_Entrees.length() > 0)
         {if (!m_DirDossierEntree.cd(m_Dossier_Entrees) )
-            {QMessageBox::warning(0, NAME_APPLI, tr("Le dossier de r\303\251ception des fichiers Entr\303\251es :<br>")
-                                  + m_Dossier_Entrees + tr("<br>n'est pas accessible !"));
+            {QMessageBox::warning(0, NAME_APPLI, tr("The directory for receiving entries:<br />")
+                                  + m_Dossier_Entrees + tr("<br />is unreacheable!"));
              return false;
             }
         }
-    m_CodeBoxParDefaut          = m_settingsIni->value(tr("Interface/Code_Box_Par_Defaut")).toString();
-    m_BoutonDrtux               = m_settingsIni->value(tr("Interface/Bouton_Acces_DrTux")).toString();
-    m_ConfirmationSortie        = m_settingsIni->value(tr("Interface/Confirmation_Sortie_Definitive")).toString();
+    m_CodeBoxParDefaut          = m_settingsIni->value("Interface/Code_Box_Par_Defaut").toString();
+    m_BoutonDrtux               = m_settingsIni->value("Interface/Bouton_Acces_DrTux").toString();
+    m_ConfirmationSortie        = m_settingsIni->value("Interface/Confirmation_Sortie_Definitive").toString();
 
     // Recup de l'exe calendrier dans Medintux
-    m_ExeCalendrier             = m_settingsIni->value(tr("Interface/Chemin_du_calendrier")).toString();
+    m_ExeCalendrier             = m_settingsIni->value("Interface/Chemin_du_calendrier").toString();
     // Recup des couleurs par defaut
-    m_Couleur_Patients          = m_settingsIni->value(tr("Affichage/Couleur_Patients")).toString();
-    m_Couleur_PatientsClignote  = m_settingsIni->value(tr("Affichage/Couleur_Patients_Clignote")).toString();
-    m_Couleur_Comment_Patients  = m_settingsIni->value(tr("Affichage/Couleur_Commentaire_Patients")).toString();
-    m_Couleur_BougerPatients    = m_settingsIni->value(tr("Affichage/Couleur_BougerPatients")).toString();
-    m_Couleur_Medecins          = m_settingsIni->value(tr("Affichage/Couleur_Medecins")).toString();
-    m_Couleur_HeuresEntree      = m_settingsIni->value(tr("Affichage/Couleur_HeuresEntree")).toString();
-    m_Couleur_HeuresSortie      = m_settingsIni->value(tr("Affichage/Couleur_HeuresSortie")).toString();
-    m_CouleurDesti              = m_settingsIni->value(tr("Affichage/Couleur_ChoixDestination")).toString();
+    m_Couleur_Patients          = m_settingsIni->value("Affichage/Couleur_Patients").toString();
+    m_Couleur_PatientsClignote  = m_settingsIni->value("Affichage/Couleur_Patients_Clignote").toString();
+    m_Couleur_Comment_Patients  = m_settingsIni->value("Affichage/Couleur_Commentaire_Patients").toString();
+    m_Couleur_BougerPatients    = m_settingsIni->value("Affichage/Couleur_BougerPatients").toString();
+    m_Couleur_Medecins          = m_settingsIni->value("Affichage/Couleur_Medecins").toString();
+    m_Couleur_HeuresEntree      = m_settingsIni->value("Affichage/Couleur_HeuresEntree").toString();
+    m_Couleur_HeuresSortie      = m_settingsIni->value("Affichage/Couleur_HeuresSortie").toString();
+    m_CouleurDesti              = m_settingsIni->value("Affichage/Couleur_ChoixDestination").toString();
     // Recup des tailles par defaut
-    m_Hauteur_NomBox            = m_settingsIni->value(tr("Affichage/Hauteur_NomBox")).toInt();
-    m_Largeur_Box               = m_settingsIni->value(tr("Affichage/Largeur_Box")).toInt();
-    m_Hauteur_Box               = m_settingsIni->value(tr("Affichage/Hauteur_Box")).toInt();
-    m_Hauteur_Taches            = m_settingsIni->value(tr("Affichage/Hauteur_Taches")).toInt();
-    m_Hauteur_Medecins          = m_settingsIni->value(tr("Affichage/Hauteur_Medecins")).toInt();
-    m_Hauteur_Heures            = m_settingsIni->value(tr("Affichage/Hauteur_Heures")).toInt();
-    m_Largeur_Heures            = m_settingsIni->value(tr("Affichage/Largeur_Heures")).toInt();
-    m_Largeur_Annule_Tache      = m_settingsIni->value(tr("Affichage/Largeur_Annule_Tache")).toInt();
+    m_Hauteur_NomBox            = m_settingsIni->value("Affichage/Hauteur_NomBox").toInt();
+    m_Largeur_Box               = m_settingsIni->value("Affichage/Largeur_Box").toInt();
+    m_Hauteur_Box               = m_settingsIni->value("Affichage/Hauteur_Box").toInt();
+    m_Hauteur_Taches            = m_settingsIni->value("Affichage/Hauteur_Taches").toInt();
+    m_Hauteur_Medecins          = m_settingsIni->value("Affichage/Hauteur_Medecins").toInt();
+    m_Hauteur_Heures            = m_settingsIni->value("Affichage/Hauteur_Heures").toInt();
+    m_Largeur_Heures            = m_settingsIni->value("Affichage/Largeur_Heures").toInt();
+    m_Largeur_Annule_Tache      = m_settingsIni->value("Affichage/Largeur_Annule_Tache").toInt();
 
-    m_Hauteur_Patients          = m_settingsIni->value(tr("Affichage/Hauteur_Patients")).toInt();
-    m_Hauteur_Comment_Patients  = m_settingsIni->value(tr("Affichage/Hauteur_Commentaire_Patients")).toInt();
-    m_Largeur_Tache             = m_settingsIni->value(tr("Affichage/Largeur_Tache")).toInt();
-    m_Largeur_Boutons           = m_settingsIni->value(tr("Affichage/Largeur_Boutons")).toInt();
-    m_ModeAffichage             = m_settingsIni->value(tr("Affichage/Mode_Affichage")).toString();
+    m_Hauteur_Patients          = m_settingsIni->value("Affichage/Hauteur_Patients").toInt();
+    m_Hauteur_Comment_Patients  = m_settingsIni->value("Affichage/Hauteur_Commentaire_Patients").toInt();
+    m_Largeur_Tache             = m_settingsIni->value("Affichage/Largeur_Tache").toInt();
+    m_Largeur_Boutons           = m_settingsIni->value("Affichage/Largeur_Boutons").toInt();
+    m_ModeAffichage             = m_settingsIni->value("Affichage/Mode_Affichage").toString();
 
     // Recup des positions des fenetres
     // REVOIR AVEC LA CREATION DES BOX
     Recuperer_Positions();
 
     // Titre de la fenetre principale
-    setWindowTitle(m_settingsIni->value(tr("Affichage/Titre_Application")).toString());
+    setWindowTitle(m_settingsIni->value("Affichage/Titre_Application").toString());
 
     // Timers et alarmes
-    m_PeriodeAlarme     = m_settingsIni->value(tr("Timer/Periodicite_controle_alarme_en_secondes")).toInt();
-    m_PeriodeClignote   = m_settingsIni->value(tr("Timer/Periodicite_clignotement_en_secondes")).toInt();
-    m_PeriodeEntrees    = m_settingsIni->value(tr("Timer/Periodicite_controle_des_entrees")).toInt();
-    m_DelaiDeSortie     = m_settingsIni->value(tr("Timer/Delai_avant_suppression_des_sorties_en_mn")).toInt();
+    m_PeriodeAlarme     = m_settingsIni->value("Timer/Periodicite_controle_alarme_en_secondes").toInt();
+    m_PeriodeClignote   = m_settingsIni->value("Timer/Periodicite_clignotement_en_secondes").toInt();
+    m_PeriodeEntrees    = m_settingsIni->value("Timer/Periodicite_controle_des_entrees").toInt();
+    m_DelaiDeSortie     = m_settingsIni->value("Timer/Delai_avant_suppression_des_sorties_en_mn").toInt();
 
     return true;
 }
@@ -601,7 +601,7 @@ void MainWindow::Slot_pushButton_Apropos_clicked()
          QProcess::ProcessState procState;
          //......................... completer les autres arguments .........................................
          argList << NAME_APPLI;                                                                                  // 1  nom du module
-         argList << tr("Synoptique des actions en cours");                                                       // 2  description courte
+         argList << tr("Synoptic of current actions");                                                       // 2  description courte
          argList << CApp::pCApp()->applicationVersion() + "  Qt : " + QT_VERSION_STR;                            // 3  numero de version
          argList << CApp::pCApp()->pathAppli()+"Ressources/Changements.html";                                    // 4  fichiers decrivant les changements
          if (m_Apropos_Proc==0)
@@ -622,76 +622,76 @@ void MainWindow::Slot_pushButton_Apropos_clicked()
 // Creation des actions du menu principal
 void MainWindow::creerActionsGene()
 {
-    m_boxAct = new QAction(QIcon(":/images/Box.png"), tr("&Box"), this);
-    m_boxAct->setStatusTip(tr("Gestion des box"));
+    m_boxAct = new QAction(QIcon(":/images/Box.png"), tr("&Places"), this);
+    m_boxAct->setStatusTip(tr("Places management"));
     connect(m_boxAct, SIGNAL(triggered()), this, SLOT(GestionBox()));
 
-    m_tacheAct = new QAction(QIcon(":/images/Tache.png"), tr("&T\303\242ches"), this);
-    m_tacheAct->setStatusTip(tr("Gestion des t\303\242ches"));
+    m_tacheAct = new QAction(QIcon(":/images/Tache.png"), tr("&Tasks"), this);
+    m_tacheAct->setStatusTip(tr("Tasks management"));
     connect(m_tacheAct, SIGNAL(triggered()), this, SLOT(GestionTaches()));
 
-    m_etatAct = new QAction(QIcon(":/images/Etat.png"), tr("&Etats"), this);
-    m_etatAct->setStatusTip(tr("Gestion des \303\251tats"));
+    m_etatAct = new QAction(QIcon(":/images/Etat.png"), tr("&Status"), this);
+    m_etatAct->setStatusTip(tr("Status management"));
     connect(m_etatAct, SIGNAL(triggered()), this, SLOT(GestionEtats()));
 
-    m_respAct = new QAction(QIcon(":/images/Resp.png"), tr("&Responsables"), this);
-    m_respAct->setStatusTip(tr("Gestion des responsables"));
+    m_respAct = new QAction(QIcon(":/images/Resp.png"), tr("&Persons in charge"), this);
+    m_respAct->setStatusTip(tr("Persons in charge management"));
     connect(m_respAct, SIGNAL(triggered()), this, SLOT(GestionResponsables()));
 
-    m_cssAct = new QAction(QIcon(":/images/css.png"), tr("&Mise en forme (css)"), this);
-    m_cssAct->setStatusTip(tr("Modification de la mise en forme (.css)"));
+    m_cssAct = new QAction(QIcon(":/images/css.png"), tr("&Layout (css)"), this);
+    m_cssAct->setStatusTip(tr("Updating layout (.css)"));
     connect(m_cssAct, SIGNAL(triggered()), this, SLOT(GestionCSS()));
 
-    m_iniAct = new QAction(QIcon(":/images/ini.png"), tr("&Param\303\250trages (ini)"), this);
-    m_iniAct->setStatusTip(tr("Param\303\250tres g\303\251n\303\251raux (.ini)"));
+    m_iniAct = new QAction(QIcon(":/images/ini.png"), tr("&Parameters (ini)"), this);
+    m_iniAct->setStatusTip(tr("General parameters (.ini)"));
     connect(m_iniAct, SIGNAL(triggered()), this, SLOT(GestionINI()));
 
 
-    m_sortieAct = new QAction(QIcon(":/images/Maison.png"), tr("Destinations de sorties"), this);
-    m_sortieAct->setStatusTip(tr("Destinations de sorties"));
+    m_sortieAct = new QAction(QIcon(":/images/Maison.png"), tr("Places after exiting"), this);
+    m_sortieAct->setStatusTip(tr("Places after exiting"));
     connect(m_sortieAct, SIGNAL(triggered()), this, SLOT(GestionDestinationsSortie()));
 
-    m_absenceAct = new QAction(QIcon(":/images/Absence.png"), tr("Destinations des absences"), this);
-    m_absenceAct->setStatusTip(tr("Destinations des absences"));
+    m_absenceAct = new QAction(QIcon(":/images/Absence.png"), tr("Absences destination"), this);
+    m_absenceAct->setStatusTip(tr("Absences destination"));
     connect(m_absenceAct, SIGNAL(triggered()), this, SLOT(GestionDestinationsAbsence()));
 
-    m_exitAct = new QAction(tr("&Quitter"), this);
+    m_exitAct = new QAction(tr("&Quit"), this);
     m_exitAct->setShortcuts(QKeySequence::Quit);
-    m_exitAct->setStatusTip(tr("Quitter l'application"));
+    m_exitAct->setStatusTip(tr("Quit application"));
     connect(m_exitAct, SIGNAL(triggered()), qApp, SLOT(closeAllWindows()));
 
-    m_RestaureBaseAct = new QAction(tr("&Restaurer la base"), this);
+    m_RestaureBaseAct = new QAction(tr("&Restore database"), this);
     QList<QKeySequence> lst; lst.append(QKeySequence(Qt::CTRL + Qt::Key_K));
     m_RestaureBaseAct->setShortcuts( lst);
-    m_RestaureBaseAct->setStatusTip(tr("Restaure la base de donn\303\251es \303\240 partir d'un fichier SQL"));
+    m_RestaureBaseAct->setStatusTip(tr("Restore database from SQL file"));
     connect(m_RestaureBaseAct, SIGNAL(triggered()), this, SLOT(RestaureBase()));
 
-    m_PosAct = new QAction(QIcon(":/images/enregistre.png"), tr("Enregistrer la position"), this);
-    m_PosAct->setStatusTip(tr("Enregistrer la position des fen\303\252tres"));
+    m_PosAct = new QAction(QIcon(":/images/enregistre.png"), tr("Save position"), this);
+    m_PosAct->setStatusTip(tr("Save windows position"));
     connect(m_PosAct, SIGNAL(triggered()), this, SLOT(Enregistrer_Positions()));
 
-    m_ReafficherFenAct = new QAction(QIcon(":/images/fenetre.png"), tr("&Affichage mode fen\303\252tre"), this);
-    m_ReafficherFenAct->setStatusTip(tr("R\303\251afficher en mode fen\303\252tre"));
+    m_ReafficherFenAct = new QAction(QIcon(":/images/fenetre.png"), tr("&Display as windows"), this);
+    m_ReafficherFenAct->setStatusTip(tr("Refresh display as windows"));
     connect(m_ReafficherFenAct, SIGNAL(triggered()), this, SLOT(ActualiserFen()));
 
-    m_ReafficherCadAct = new QAction(QIcon(":/images/carre.png"), tr("&Affichage mode cadre"), this);
-    m_ReafficherCadAct->setStatusTip(tr("R\303\251afficher en mode fen\303\252tre"));
+    m_ReafficherCadAct = new QAction(QIcon(":/images/carre.png"), tr("&Display as frame"), this);
+    m_ReafficherCadAct->setStatusTip(tr("Refresh display as frames"));
     connect(m_ReafficherCadAct, SIGNAL(triggered()), this, SLOT(ActualiserCad()));
 
     m_separatorAct = new QAction(this);
     m_separatorAct->setSeparator(true);
 
-    m_aboutAct = new QAction(tr("&A propos"), this);
-    m_aboutAct->setStatusTip(tr("A propos de l'application"));
+    m_aboutAct = new QAction(tr("&About"), this);
+    m_aboutAct->setStatusTip(tr("About synoptux"));
     connect(m_aboutAct, SIGNAL(triggered()), this, SLOT(Slot_pushButton_Apropos_clicked()));
 }
 
 //---------------------------------RestaureBase----------------------------------------
 // Creation actions pour la m_mdiArea
 void MainWindow::RestaureBase()
-{QString fileName =  QFileDialog::getOpenFileName ( this, tr("Choix d'un fichier Sql \303\240 restaurer"), CApp::pCApp()->pathAppli()+"Ressources", tr("Fichiers Sql (*.SQL *.sql *.Sql)"));
+{QString fileName =  QFileDialog::getOpenFileName ( this, tr("Choose a file to restore"), CApp::pCApp()->pathAppli()+tr("Ressources"), tr("SQL files (*.SQL *.sql *.Sql)"));
  if (fileName.length())
-    {int ret = QMessageBox::question(0,NAME_APPLI,tr("Voulez-vous vraiment restaurer ce fichier en sachant que cela \303\251crasera toutes les donn\303\251es d\303\251j\303\240 saisies?"),"OUI","NON",0,1,1);
+    {int ret = QMessageBox::question(0,NAME_APPLI,tr("Do you really want to restore this file ? This will erase all the existing data."),tr("YES"),tr("NO"),0,1,1);
      if (ret == 0)
      CApp::pCApp()->getDB()->executeSQL(fileName, 0, 0);
     }
@@ -717,9 +717,9 @@ void MainWindow::creerMenuSelectionResponsable()
    QAction *actResp;
    QString strResp;
 
-   m_SelectionResponsable = menuBar()->addMenu(tr("&Responsables"));
+   m_SelectionResponsable = menuBar()->addMenu(tr("&Persons in charge"));
    strResp = "Tous/Tous les m\303\241decins/#ffffff";
-   actResp = new QAction("Tous", this);
+   actResp = new QAction(tr("All"), this);
    connect(actResp, SIGNAL(triggered()), m_MenuSelectionRespMapper, SLOT(map()));
    m_MenuSelectionRespMapper->setMapping(actResp, strResp);
    m_SelectionResponsable->addAction(actResp);
@@ -738,7 +738,7 @@ void MainWindow::creerMenuSelectionResponsable()
 //---------------------------------creerMenusGene--------------------------------------------------------
 void MainWindow::creerMenusGene()
 {
-    m_fileMenu = menuBar()->addMenu(tr("&Fichiers"));
+    m_fileMenu = menuBar()->addMenu(tr("&File"));
     m_fileMenu->addAction(m_boxAct);
     m_fileMenu->addAction(m_tacheAct);
     m_fileMenu->addAction(m_etatAct);
@@ -756,7 +756,7 @@ void MainWindow::creerMenusGene()
 //-------------------------------------creerMenusMdi---------------------------------------
 void MainWindow::creerMenusMdi()
 {
-    m_windowMenu = menuBar()->addMenu(tr("&Fen\303\252tres"));
+    m_windowMenu = menuBar()->addMenu(tr("&Windows"));
     m_windowMenu->addAction(m_PosAct);
     m_windowMenu->addAction(m_ReafficherCadAct);
     m_windowMenu->addAction(m_ReafficherFenAct);
@@ -771,7 +771,7 @@ void MainWindow::createToolBars()
 //-------------------------------------createStatusBar-----------------------------------------------------
 void MainWindow::createStatusBar()
 {
-    statusBar()->showMessage(tr(""));
+    statusBar()->showMessage("");
 }
 //---------------------------------ActualiserFen------------------------------------------------
 // Reafficher toute en mode fenetre
@@ -950,7 +950,7 @@ void MainWindow::afficheNomPatient(C_Wdg_Box *dlgBox, Ui_Box *Box_ui, QString No
 
     // Creation du Bouton nom du Patient
     QPushButton *bouttonNomPatient      = new QPushButton(NomPatient, dlgBox);
-    if (Anonyme) bouttonNomPatient->setText("Anonyme");
+    if (Anonyme) bouttonNomPatient->setText(tr("Anonymous"));
 
     bouttonNomPatient->setAccessibleDescription(NomPatient);
     bouttonNomPatient->setObjectName(dlgBox->objectName()+ "-BouttonNomPatient"); // BUGBUG
@@ -1058,7 +1058,7 @@ void MainWindow::bougerLePatient(QWidget *UnWidget)
     C_Wdg_Box   *lebox                       = qobject_cast<C_Wdg_Box *>(patientParent);
 
     if (lebox->accessibleDescription() == "Sortie")
-       {int ret = QMessageBox::question(0,NAME_APPLI,tr("Voulez-vous sortir ce patient d\303\251finitivement ?"),"OUI","NON",0,1,1);
+       {int ret = QMessageBox::question(0,NAME_APPLI,tr("Do you really want to take this patient out ?"),tr("YES"),tr("NO"),0,1,1);
         if (ret == 0)
            { SortirLePatient(lebouton->whatsThis());
              ActualiserUnBox(lebox);
@@ -1093,8 +1093,8 @@ void MainWindow::bougerLePatient(QWidget *UnWidget)
     m_PK_encours          = lebouton->whatsThis();                // stockage du NumEncours pour modif table
     m_BoutonBougerEnCours = lebouton;
     m_BoxBougerEnCours    = lebox;
-    statusBar()->showMessage(tr("D\303\251placer le patient ") + lebouton->accessibleDescription() +
-                             tr(". Veuillez s\303\251lectionner un box libre."));
+    statusBar()->showMessage(tr("Move patient") + lebouton->accessibleDescription() +
+                             tr(". Select a free place, please."));
     //setTimerActionOn();
 }
 //--------------------------------rentrerUnPatient------------------------------------------------------
@@ -1108,9 +1108,8 @@ void MainWindow::rentrerUnPatient(QWidget *UnWidget)
     if (lebox->ui->label_Nb_Patients_dans_Box->text().toInt() >=
         lebox->ui->label_Nb_Patients_Maxi->text().toInt())
        { // Le box n'est pas vide.
-        QMessageBox::warning(this, tr("D\303\251placement d'un patient"),
-                             tr("Le box s\303\251lectionn\303\251 est totalement occup\303\251.\n"
-                             "Veuillez choisir un autre emplacement."));
+        QMessageBox::warning(this, tr("Moving patient"),
+                             tr("The selected place is full.<br />Please choose another place."));
        }
     else
        {
@@ -1122,7 +1121,7 @@ void MainWindow::rentrerUnPatient(QWidget *UnWidget)
         if (lebox->accessibleDescription() == "Sortie" || lebox->accessibleDescription() == "Absence")
             miseAjourChamps.append("', EC_Replier       = '1");
 
-        majTableEncours(m_PK_encours, miseAjourChamps ,  tr("D\303\251placement du patient"));
+        majTableEncours(m_PK_encours, miseAjourChamps ,  tr("Moving patient"));
 
         // saisie de la destination en cas de sortie ou absence du patient du patient.
         if (lebox->accessibleDescription() == "Sortie" || lebox->accessibleDescription() == "Absence")
@@ -1154,7 +1153,7 @@ void MainWindow::saisieDestinationDuPatient(QString typeDeSortie, QString typeSa
     dlg->dTypeDeSortie  = typeDeSortie;
     dlg->dTypeSaisie    = typeSaisie;
     dlg->dExeCalendrier = m_ExeCalendrier;
-    if (typeDeSortie == tr("Absence") || typeSaisie == tr("GestionDest"))
+    if (typeDeSortie == tr("Absence") || typeSaisie == "GestionDest")
         {
          dlg->ui->dateTimeEdit_HeureSortie->setVisible(false);
          dlg->ui->label_heuresortie->setVisible(false);
@@ -1175,7 +1174,7 @@ void MainWindow::saisieDestinationDuPatient(QString typeDeSortie, QString typeSa
 //------------------------------------SortirLePatient--------------------------------------------------
 void MainWindow::SortirLePatient(QString NumEnCours)
 {
-    majHistorique(NumEnCours, "", tr("Sortie d\303\251finitive."),""  );
+    majHistorique(NumEnCours, "", tr("Final exit"),""  );
 
     QString requete = "DELETE from "ENCOURS"  WHERE  EC_PK = " + NumEnCours ;
     QSqlQuery query (requete, DATA_BASE_SYNOPTUX);
@@ -1183,9 +1182,9 @@ void MainWindow::SortirLePatient(QString NumEnCours)
        { QString zlastquery = query.lastQuery ();
          QString noerr;
          noerr.setNum(query.lastError().type());
-         QMessageBox::warning ( this, tr("Annulation encours_taches"),
-                  "<b>" + tr("Erreur lors de la mise \303\240 jour : ") +  "</b><br><br>"
-                  "Erreur = (" +  noerr + ") " + query.lastError().text() + "<br>" + zlastquery );
+         QMessageBox::warning ( this, tr("Cancelling encours_taches"),
+                  "<b>" + tr("Error when updating: ") +  "</b><br /><br />"+
+                  tr("Error = (") +  noerr + ") " + query.lastError().text() + "<br />" + zlastquery );
        } // fin if erreur delete encours
 
     requete = "DELETE from "ENCOURS_TACHES" WHERE EN_PK_Encours = " + NumEnCours;
@@ -1194,9 +1193,9 @@ void MainWindow::SortirLePatient(QString NumEnCours)
        { QString zlastquery = queryb.lastQuery ();
          QString noerr;
          noerr.setNum(queryb.lastError().type());
-         QMessageBox::warning ( this, tr("Annulation encours_taches"),
-                  "<b>" + tr("Erreur lors de la mise \303\240 jour : ") +  "</b><br><br>"
-                  "Erreur = (" +  noerr + ") " + queryb.lastError().text() + "<br>" + zlastquery );
+         QMessageBox::warning ( this, tr("Cancelling encours_taches"),
+                  "<b>" + tr("Error when updating: ") +  "</b><br /><br />"+
+                  tr("Error = (") +  noerr + ") " + queryb.lastError().text() + "<br />" + zlastquery );
        } // fin if erreur delete
 }
 //------------------------------------PlierDeplier--------------------------------------------------
@@ -1235,9 +1234,9 @@ void MainWindow::PlierDeplier(QWidget *UnWidget)
        {QString zlastquery = query.lastQuery ();
         QString noerr;
         noerr.setNum(query.lastError().type());
-        QMessageBox::warning ( this, tr("Mise \303\240 jour table encours"),
-                  "<b>" + tr("Erreur lors de la mise \303\240 jour : ") +  "</b><br><br>"
-                  "Erreur = (" +  noerr + ") " + query.lastError().text() + "<br>" + zlastquery );
+        QMessageBox::warning ( this, tr("Updating encours table"),
+                  "<b>" + tr("Error when updating: ") +  "</b><br /><br />"+
+                  tr("Error = (") +  noerr + ") " + query.lastError().text() + "<br />" + zlastquery );
        } // fin if erreur exec update
 }
 
@@ -1253,13 +1252,13 @@ void MainWindow::Lancer_DrTux(QWidget *UnWidget)
                               " WHERE EC_PK = '" + numEnCours + "'";
     QSqlQuery query(requete, DATA_BASE_SYNOPTUX);
     if (!query.isActive() ||  !query.next())
-       {QMessageBox::warning(this,NAME_APPLI,"Les param\303\250tres de lancement ne peuvent \303\252tre lus !");
+       {QMessageBox::warning(this,NAME_APPLI,tr("Unable to read launch parameters!"));
         return;
        }
     nomProg     = query.value(0).toString();
     listArgs    = query.value(1).toString().split("|");
     if ( QDir(nomProg).isRelative()) {nomProg = nomProg.prepend(CApp::pCApp()->pathAppli()); nomProg = QDir::cleanPath (nomProg);}
-    statusBar()->showMessage(tr("Lancement de : %1").arg(nomProg));
+    statusBar()->showMessage(tr("Launching: %1").arg(nomProg));
 #ifdef Q_OS_MACX
     QFileInfo fi(nomProg);
     QString   fname = fi.fileName();                // name = "archive.tar.gz"
@@ -1289,7 +1288,7 @@ void MainWindow::masquerNomPatient(QWidget *UnWidget)
         nomPatient->setText("Anonyme");
        }
     // mise à jour nom du flag anonyme dans la base pour réaffichage.
-    majTableEncours(nomPatient->whatsThis(), "EC_Anonyme = '" + Anonyme , tr("Masquer le nom"));
+    majTableEncours(nomPatient->whatsThis(), "EC_Anonyme = '" + Anonyme , tr("Hide name"));
 }
 
 //--------------------------------------Recap_Tache------------------------------------------------
@@ -1407,12 +1406,12 @@ void MainWindow::Note_Tache(QWidget *UnWidget)
     // on a une note sous forme de fichier HTML dans l'encours.
     if (query.value(1).toString().length() > 1)
        {
-        Message.append(tr("Patient : ")+ query.value(7).toString()+ " " + query.value(6).toString()+ "\n");
+        Message.append(tr("Patient: ")+ query.value(7).toString()+ " " + query.value(6).toString()+ "\n");
         Message.append(query.value(8).toString());                                          // libelle tache
         if (query.value(3).toString() > "2000.01.01")
-            Message.append(tr(" - D\303\251but pr\303\251vu \303\240 ") + query.value(3).toString().mid(11,5).replace(":","h"));// heure deb prevue
+            Message.append(tr(" - Begining planned at ") + query.value(3).toString().mid(11,5).replace(":","h"));// heure deb prevue
         if (query.value(4).toString() > "2000.01.01")
-            Message.append(tr(" - Fin pr\303\251vue \303\240 ") + query.value(4).toString().mid(11,5).replace(":","h"));       // heure fin prevue
+            Message.append(tr(" - End planned at ") + query.value(4).toString().mid(11,5).replace(":","h"));       // heure fin prevue
         Message.append("\n\nCommentaire : ");
         Message.append(query.value(2).toString());                  // Commentaire
         Message.append("\n\nNote : ");
@@ -1474,9 +1473,9 @@ void MainWindow::Annule_Tache(QWidget *UnWidget)
        { QString zlastquery = query.lastQuery ();
          QString noerr;
          noerr.setNum(query.lastError().type());
-         QMessageBox::warning ( this, tr("Annulation table encours_tache"),
-                  "<b>" + tr("Erreur lors de l'Annulation' : ") +  "</b><br><br>"
-                  "Erreur = (" +  noerr + ") " + query.lastError().text() + "<br>" + zlastquery );
+         QMessageBox::warning ( this, tr("Cancelling encours_taches table"),
+                  "<b>" + tr("Error when cancelling: ") +  "</b><br /><br />"+
+                  tr("Error = (") +  noerr + ") " + query.lastError().text() + "<br />" + zlastquery );
        } // fin if erreur exec Annulation
     Actualiser("PARTIEL");
 
@@ -1522,7 +1521,7 @@ void MainWindow::modif_Etat(QWidget *UnWidget)
             majDateFinTache(numEnCours, numTache, "O");
         else
             majDateFinTache(numEnCours, numTache, "N");
-         majHistorique(numEnCours, numTache, tr("T\303\242che"),m_BoutonEtat->text()  );
+         majHistorique(numEnCours, numTache, tr("Task"),m_BoutonEtat->text()  );
         }
     else
         {   // on a un bouton etat en cours et on cree un menu pour choisir l'etat.
@@ -1570,7 +1569,7 @@ void MainWindow::modif_Etat_menu(QString StrEtat)
         majDateFinTache(numEnCours, numTache, "O");
     else
         majDateFinTache(numEnCours, numTache, "N");
-    majHistorique(numEnCours, numTache, tr("T\303\242che"), libelleEtat);
+    majHistorique(numEnCours, numTache, tr("Task"), libelleEtat);
     setTimerActionOn();
 }
 //------------------------------afficheNomMedecin--------------------------------------------
@@ -1674,7 +1673,7 @@ void MainWindow::modif_Resp_menu(QString StrResp)
     m_BoutonResp->setText(nomResp);
 
     // mise a jour nom du responsable dans la base.
-    majTableEncours(m_PK_encours, "EC_Medecin = '" + codeResp , tr("Changement de responsable"));
+    majTableEncours(m_PK_encours, "EC_Medecin = '" + codeResp , tr("Modifying person in charge"));
     setTimerActionOn();
 }
 //--------------------------------------selectionDunResponsable------------------------------------------------
@@ -1695,9 +1694,9 @@ void MainWindow::majTableEtatEncours(QString NumEnCours, QString NumTache, QStri
        { QString zlastquery = query.lastQuery ();
          QString noerr;
          noerr.setNum(query.lastError().type());
-         QMessageBox::warning ( this, tr("Mise \303\240 jour table encours_taches"),
-                  "<b>" + tr("Erreur lors de la mise \303\240 jour : ") +  "</b><br><br>"
-                  "Erreur = (" +  noerr + ") " + query.lastError().text() + "<br>" + zlastquery );
+         QMessageBox::warning ( this, tr("Updating encours_taches table"),
+                  "<b>" + tr("Error when updating: ") +  "</b><br /><br />" +
+                  tr("Error = (") +  noerr + ") " + query.lastError().text() + "<br />" + zlastquery );
        } // fin if erreur exec update
 }
 //------------------------------majTableEncours--------------------------------------------
@@ -1710,9 +1709,9 @@ QString requete = "UPDATE "ENCOURS"  SET " + ChampsMisaJour +
        {QString zlastquery = query.lastQuery ();
         QString noerr;
         noerr.setNum(query.lastError().type());
-        QMessageBox::warning ( this, tr("Mise \303\240 jour table encours"),
-                  "<b>" + tr("Erreur lors de la mise \303\240 jour : ") +  "</b><br><br>"
-                  "Erreur = (" +  noerr + ") " + query.lastError().text() + "<br>" + zlastquery );
+        QMessageBox::warning ( this, tr("Updating encours table"),
+                  "<b>" + tr("Error when updating: ") +  "</b><br /><br />"+
+                  tr("Error = (") +  noerr + ") " + query.lastError().text() + "<br />" + zlastquery );
        } // fin if erreur exec update
 
     // mise a jour de l'historique
@@ -1750,7 +1749,7 @@ void MainWindow::majDeLaTache(QString NumEnCours, QString NumTache)
         QDateTime dateFinPrevue = QDateTime::currentDateTime().addSecs(queryb.value(3).toInt() * 60);
         strMAJ.append(", EN_HeureFinPrevue = '" + dateFinPrevue.toString("yyyy-MM-dd hh:mm:ss") + "'");
        }
-    majTableEtatEncours(NumEnCours, NumTache, strMAJ, tr("T\303\242che."));
+    majTableEtatEncours(NumEnCours, NumTache, strMAJ, tr("Task."));
 }
 //------------------------------majDateFinTache--------------------------------------------
 void MainWindow::majDateFinTache(QString numEnCours, QString numTache, QString dernierEtat)
@@ -1771,13 +1770,13 @@ void MainWindow::majDateFinTache(QString numEnCours, QString numTache, QString d
         return;
     else if (dernierEtat == "N" && queryb.value(0).toString() > "2000-00-00")  // la tache n'est pas terminee , il y a une date fin, on l'efface
        { dateMAJ = "1000-01-01 01:01:01";
-         libMAJ = tr("Annulation Date fin");
+         libMAJ = tr("Canceling end date");
        }
     else if (dernierEtat == "O" && queryb.value(0).toString() > "2000-00-00")  // la tache est terminee , il y a une date fin, on la laisse
         return;
     else                                                                       // la tache est deja terminee, il y n'a pas une date fin, on l'inscrit
        {dateMAJ = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
-        libMAJ = tr("Traitement termin\303\251");
+        libMAJ = tr("Processing finished");
        }
     strMAJ = "EN_HeureFin = '" + dateMAJ + "'";
     majTableEtatEncours(numEnCours, numTache, strMAJ, libMAJ);
@@ -1834,9 +1833,9 @@ void MainWindow::majHistorique(QString NumEnCours, QString NumTache, QString Act
        {QString zlastquery = queryh.lastQuery ();
         QString noerr;
         noerr.setNum(queryh.lastError().type());
-        QMessageBox::warning ( this, tr("Mise \303\240 jour table historique"),
-                  "<b>" + tr("Erreur lors de la mise \303\240 jour : ") +  "</b><br><br>"
-                  "Erreur = (" +  noerr + ") " + queryh.lastError().text() + "<br>" + zlastquery );
+        QMessageBox::warning ( this, tr("Updating historique table"),
+                  "<b>" + tr("Error when updating: ") +  "</b><br /><br />"+
+                  tr("Error = (") +  noerr + ") " + queryh.lastError().text() + "<br />" + zlastquery );
        } // fin if erreur exec update
 }
 
@@ -2026,7 +2025,7 @@ void MainWindow::Controle_Entrees()
         nomFicEntree = ficInfo.absoluteFilePath();
         if (ficInfo.suffix().toUpper() != "TXT" || ficInfo.isHidden())
             continue;
-        statusBar()->showMessage(tr("D\303\251tection du fichier "));
+        statusBar()->showMessage(tr("Detecting file"));
 
         // lecture des donnees recues dans le fichier ENTREES.txt
         QSettings   settingsEntree (nomFicEntree, QSettings::IniFormat);
@@ -2070,9 +2069,9 @@ void MainWindow::Controle_Entrees()
                {QString zlastquery = queryEnc.lastQuery ();
                 QString noerr;
                 noerr.setNum(queryEnc.lastError().type());
-                QMessageBox::warning ( this, tr("Cr\303\251ation d'une entr\303\251e"),
-                           "<b>" + tr("Erreur lors de la cr\303\251ation : ") +  "</b><br><br>"
-                           "Erreur = (" +  noerr + ") " + queryEnc.lastError().text() + "<br>" + zlastquery );
+                QMessageBox::warning ( this, tr("Creating entrance"),
+                           "<b>" + tr("Error when creating: ") +  "</b><br /><br />"+
+                           tr("Error = (") +  noerr + ") " + queryEnc.lastError().text() + "<br />" + zlastquery );
                 return;
                } // fin if erreur exec insert
 
@@ -2080,7 +2079,7 @@ void MainWindow::Controle_Entrees()
             requete = "SELECT LAST_INSERT_ID() FROM "ENCOURS" WHERE EC_PK = LAST_INSERT_ID()" ;
             QSqlQuery query1(requete, DATA_BASE_SYNOPTUX);
             if (!query1.isActive() ||  !query1.next())
-               { QMessageBox::warning(0, NAME_APPLI, tr("Cr\303\251ation de l'entr\303\251e. Erreur recherche derni\303\250re clef!"));
+               { QMessageBox::warning(0, NAME_APPLI, tr("Creating entrance. Error when looking for last key!"));
                  return;
                }
             EC_PK = query1.value(0).toInt();
@@ -2124,9 +2123,9 @@ void MainWindow::Controle_Entrees()
                 {QString zlastquery = queryTac.lastQuery ();
                  QString noerr;
                  noerr.setNum(queryTac.lastError().type());
-                 QMessageBox::warning ( this, tr("Cr\303\251ation des taches encours"),
-                            "<b>" + tr("Erreur lors de la cr\303\251ation : ") +  "</b><br><br>"
-                            "Erreur = (" +  noerr + ") " + queryTac.lastError().text() + "<br>" + zlastquery );
+                 QMessageBox::warning ( this, tr("Creating encours tasks"),
+                            "<b>" + tr("Error when creating: ") +  "</b><br /><br />"+
+                            tr("Error = (") +  noerr + ") " + queryTac.lastError().text() + "<br />" + zlastquery );
                 } // fin if erreur exec update
             } // fin for Taches
         // suppression du fichier integre.
@@ -2134,7 +2133,7 @@ void MainWindow::Controle_Entrees()
         IlFautActualiser = true;
 
         // creation d'une trace dans l'historique
-        majHistorique(QString::number(EC_PK), "", tr("Entr\303\251e du patient"),""  );
+        majHistorique(QString::number(EC_PK), "", tr("Patient entrance"),""  );
         } // fin for fichier
 
     // controle si un autre prog a fait une entree directe dans la base
@@ -2143,7 +2142,7 @@ void MainWindow::Controle_Entrees()
         requete = "SELECT MAX(EC_PK) FROM " ENCOURS ;
         QSqlQuery query1(requete, DATA_BASE_SYNOPTUX);
         if (!query1.isActive() ||  !query1.next())
-           { QMessageBox::warning(0, NAME_APPLI, "Controle des entr\303\251es. Erreur recherche derni\303\250re clef");
+           { QMessageBox::warning(0, NAME_APPLI, tr("Entries control. Error when looking for last key"));
              return;
            }
         if (m_DernierPkencours != query1.value(0).toInt())
@@ -2187,7 +2186,7 @@ bool MainWindow::LireleCSS()
       QString     nomficCSS = QApplication::applicationDirPath()+ "/Ressources/synoptux.css";
       QFile      *fileCSS   = new QFile(nomficCSS); if (fileCSS==0) return false;
       if (!fileCSS->open(QIODevice::ReadOnly)) {
-          QMessageBox::warning(0, NAME_APPLI, tr("Le fichier %1 ne peut pas \303\250tre ouvert !").arg(nomficCSS));
+          QMessageBox::warning(0, NAME_APPLI, tr("File %1 cannot be open!").arg(nomficCSS));
           delete fileCSS;
           return false;
           }
@@ -2222,7 +2221,7 @@ QString MainWindow::RecupStyle(QString TypeObjet)
                 }
             } // fin else on traite un seul objet
         } // fin pos ok on a bien un parametrage
-    QMessageBox::warning(0,"Recherche des styles", tr("Le param\303\250trage css pour %1 est incorrect.\nVeuillez v\303\251rifier le fichier CSS").arg(TypeObjet));
+    QMessageBox::warning(0,"Recherche des styles", tr("CSS settings are incorrect.<br /> Please verify CSS file").arg(TypeObjet));
     return "";
 }
 //------------------------------------------fin-------------------------------------------------------------
