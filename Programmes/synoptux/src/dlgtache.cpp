@@ -104,7 +104,7 @@ requete = "SELECT   TA_Code_tache, TA_Libelle_tache, TA_Couleur_tache, TA_Couleu
          ui->lineEdit_Priorite->setText(query.value(6).toString());
          ui->lineEdit_Commentaire->setText(query.value(7).toString());
         }
-    // affichage des taches associÈes
+    // affichage des taches associ√©es
     ui->treeWidget_TacheEtats->clear();
     requete = "SELECT ET_Code_etat, ET_Libelle_etat, ET_Couleur_etat "   // 0-1-2
               " FROM    " ETATS
@@ -159,7 +159,7 @@ void DlgTache::ValideTache()
 QString     requete;
 QSqlQuery   query ( CApp::pCApp()->getDB()->database());
 
-    if (TacheEnCours.length() == 0)            // on est en crÈation ....
+    if (TacheEnCours.length() == 0)            // on est en cr√©ation ....
        {
         if (ui->lineEdit_CodeTache->text().length()== 0) return;
         TacheEnCours = ui->lineEdit_CodeTache->text();
@@ -218,7 +218,7 @@ QSqlQuery   query ( CApp::pCApp()->getDB()->database());
             QString noerr;
             noerr.setNum(query.lastError().type());
             QMessageBox::warning ( this, tr("Gestion des banques"),
-                         "<b>" + tr("Erreur lors de la mise ‡ jour de la table taches : ") + ui->lineEdit_CodeTache->text() +  "</b><br><br>" +
+                         "<b>" + tr("Erreur lors de la mise √† jour de la table t√¢ches : ") + ui->lineEdit_CodeTache->text() +  "</b><br><br>" +
                          "Erreur = (" +  noerr + ") " + query.lastError().text());
             } // fin if erreur exec insert
 
@@ -234,20 +234,20 @@ QTreeWidgetItem *itemEtat;
 QSqlQuery   query ( CApp::pCApp()->getDB()->database());
 QSqlQuery   querye ( CApp::pCApp()->getDB()->database());
 
-    // d'abord on vire tous les Ètats en cours ....
+    // d'abord on vire tous les √©tats en cours ....
     requete = "DELETE FROM " ETATS_TACHES " WHERE ST_Code_tache = '" + TacheEnCours + "'";
     query.prepare(requete);
     if (!query.exec() )
             {QString zbid = query.lastQuery ();
             QString noerr;
             noerr.setNum(query.lastError().type());
-            QMessageBox::warning ( this, tr("Gestion des Etats"),
-                         "<b>" + tr("Erreur lors de la mise ‡ jour de la table etats_taches : ") + ui->lineEdit_CodeTache->text() +  "</b><br><br>" +
+            QMessageBox::warning ( this, tr("Gestion des √©tats"),
+                         "<b>" + tr("Erreur lors de la mise √† jour de la table etats_taches : ") + ui->lineEdit_CodeTache->text() +  "</b><br><br>" +
                          "Erreur = (" +  noerr + ") " + query.lastError().text());
             }
 
 
-    // on recrÈe un enreg pas etat sÈlectionnÈ...
+    // on recr√©e un enreg pas etat s√©lectionn√©...
     for (int i=0; i< ui->treeWidget_TacheEtats->topLevelItemCount(); i++)
         {itemEtat = ui->treeWidget_TacheEtats->topLevelItem(i);
         if (itemEtat->text(3) != "OK") continue;
@@ -264,8 +264,8 @@ QSqlQuery   querye ( CApp::pCApp()->getDB()->database());
         if (!querye.exec() )
             {QString noerr;
             noerr.setNum(querye.lastError().type());
-            QMessageBox::warning ( this, tr("Gestion des etats d'une tache"),
-                         "<b>" + tr("Erreur lors de la mise ‡ jour de la table etats_taches : ") + ui->lineEdit_CodeTache->text() +  "</b><br><br>" +
+            QMessageBox::warning ( this, tr("Gestion des √©tats d'une t√¢che"),
+                         "<b>" + tr("Erreur lors de la mise √† jour de la table etats_taches : ") + ui->lineEdit_CodeTache->text() +  "</b><br><br>" +
                          "Erreur = (" +  noerr + ") " + querye.lastError().text());
             } // fin if erreur exec insert
         } // fin for etats
@@ -284,7 +284,7 @@ QSqlQuery   query ( CApp::pCApp()->getDB()->database());
             QString noerr;
             noerr.setNum(query.lastError().type());
             QMessageBox::warning ( this, tr("Gestion des banques"),
-                         "<b>" + tr("Erreur lors de la mise ‡ jour de la table banque : ") + ui->lineEdit_CodeTache->text() +  "</b><br><br>" +
+                         "<b>" + tr("Erreur lors de la mise √† jour de la table banque : ") + ui->lineEdit_CodeTache->text() +  "</b><br><br>" +
                          "Erreur = (" +  noerr + ") " + query.lastError().text());
             }
     ChargeTache();
@@ -303,7 +303,7 @@ void DlgTache::ClearFormulaire()
     ui->lineEdit_DureeMaxi->clear();
     ui->lineEdit_Priorite->clear();
     ui->lineEdit_Commentaire->clear();
-    // affichage des taches associÈes
+    // affichage des taches associ√©es
     ui->treeWidget_TacheEtats->clear();
     QTreeWidgetItem *pItemEtat;
     QString requete;

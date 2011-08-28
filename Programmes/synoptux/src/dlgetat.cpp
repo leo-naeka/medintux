@@ -68,7 +68,7 @@ void DlgEtat::ValideEtat()
 QString     requete;
 QSqlQuery   query ( CApp::pCApp()->getDB()->database());
 
-    if (EtatEnCours.length() == 0)            // on est en création ....
+    if (EtatEnCours.length() == 0)            // on est en crÃ©ation ....
         {
         if (ui->lineEdit_CodeEtat->text().length()== 0) return;
 
@@ -101,9 +101,9 @@ QSqlQuery   query ( CApp::pCApp()->getDB()->database());
        {QString zbid = query.lastQuery ();
         QString noerr;
         noerr.setNum(query.lastError().type());
-        QMessageBox::warning ( this, tr("Gestion des états"),
-                         "<b>" + tr("Erreur lors de la mise à jour de la table box : ") + ui->lineEdit_CodeEtat->text() +  "</b><br><br>" +
-                         "Erreur = (" +  noerr + ") " + query.lastError().text());
+        QMessageBox::warning ( this, tr("Status management"),
+                         "<b>" + tr("Error when updating etats table: ") + ui->lineEdit_CodeEtat->text() +  "</b><br /><br />" +
+                         tr("Error = (") +  noerr + ") " + query.lastError().text());
        } // fin if erreur exec insert
 
     ChargeEtat();
@@ -121,9 +121,9 @@ QSqlQuery   query ( CApp::pCApp()->getDB()->database());
             {QString zbid = query.lastQuery ();
             QString noerr;
             noerr.setNum(query.lastError().type());
-            QMessageBox::warning ( this, tr("Gestion des états"),
-                         "<b>" + tr("Erreur lors de la mise à jour de la table etats : ") + ui->lineEdit_CodeEtat->text() +  "</b><br><br>" +
-                         "Erreur = (" +  noerr + ") " + query.lastError().text());
+            QMessageBox::warning ( this, tr("Status management"),
+                         "<b>" + tr("Error when updating etats table: ") + ui->lineEdit_CodeEtat->text() +  "</b><br /><br />" +
+                         tr("Error = (") +  noerr + ") " + query.lastError().text());
             }
     ChargeEtat();
     ClearFormulaire();

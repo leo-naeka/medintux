@@ -42,13 +42,31 @@
 #include <QApplication>
 #include "CApp.h"
 #include "mainwindow.h"
+#include <QTranslator>
+#include <QObject>
 
 int main(int argc, char *argv[])
 {
-    Q_INIT_RESOURCE(synoptux);
+     Q_INIT_RESOURCE(synoptux);
 
-    CApp app(NAME_APPLI, argc, argv);
-    MainWindow mainWin;
-    mainWin.show();
-    return app.exec();
+     CApp app(NAME_APPLI, argc, argv);
+
+     if (C_APP) // n'est postionnee qu'a la fin du constructeur 'CApp' lorsque tout est OK
+       {
+        QTranslator qtTranslator;
+        qtTranslator.load("qt_" + QLocale::system().name(),
+        QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+        app.installTranslator(&qtTranslator);
+        QTranslator myappTranslator;
+        myappTranslator.load(QString("synoptux_")+
+                             QLocale::system().name(),C_APP->pathAppli()+"/lang");
+        app.installTranslator(&myappTranslator);
+        MainWindow mainWin;
+        mainWin.show();
+        return app.exec();
+       }
+     else
+       { qDebug () << QObject::tr("echec de CApp app(NAME_APPLI, argc, argv);");
+         return -1;
+       }
 }

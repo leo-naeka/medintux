@@ -67,9 +67,9 @@ QSqlQuery   queryd ( CApp::pCApp()->getDB()->database());
     if (!queryd.exec() )
             {QString noerr;
             noerr.setNum(queryd.lastError().type());
-            QMessageBox::warning ( this, tr("Gestion des états"),
-                         "<b>" + tr("Erreur lors de la mise à jour de la table box : ") + ui->lineEdit_desti->text() +  "</b><br><br>" +
-                         "Erreur = (" +  noerr + ") " + queryd.lastError().text());
+            QMessageBox::warning ( this, tr("Status management"),
+                         "<b>" + tr("Error when updating box table: ") + ui->lineEdit_desti->text() +  "</b><br /><br />" +
+                         tr("Error = (") +  noerr + ") " + queryd.lastError().text());
             } // fin if erreur exec insert
 
     if (dTypeSaisie == "ListeSeule")
@@ -93,9 +93,9 @@ QSqlQuery   queryd ( CApp::pCApp()->getDB()->database());
         if (!query.exec() )
                 {QString noerr;
                 noerr.setNum(query.lastError().type());
-                QMessageBox::warning ( this, tr("Gestion des états"),
-                             "<b>" + tr("Erreur lors de la mise à jour de la table destinations : ") + ui->lineEdit_desti->text() +  "</b><br><br>" +
-                             "Erreur = (" +  noerr + ") " + query.lastError().text());
+                QMessageBox::warning ( this, tr("Status management"),
+                             "<b>" + tr("Error when updating destinations table: ") + ui->lineEdit_desti->text() +  "</b><br /><br />" +
+                             tr("Error = (") +  noerr + ") " + query.lastError().text());
                 } // fin if erreur exec insert
         } // fin if n'existe pas
     ChargeDesti(dNumEnCours);
@@ -114,9 +114,9 @@ QSqlQuery   query ( CApp::pCApp()->getDB()->database());
     if (!query.exec() )
             {QString noerr;
             noerr.setNum(query.lastError().type());
-            QMessageBox::warning ( this, tr("Gestion des destinations"),
-                         "<b>" + tr("Erreur lors de la mise à jour de la table etats : ") + ui->lineEdit_desti->text() +  "</b><br><br>" +
-                         "Erreur = (" +  noerr + ") " + query.lastError().text());
+            QMessageBox::warning ( this, tr("Destinations management"),
+                         "<b>" + tr("Error when updating etats table: ") + ui->lineEdit_desti->text() +  "</b><br><br>" +
+                         tr("Erreur = (") +  noerr + ") " + query.lastError().text());
             }
     ChargeDesti(dNumEnCours);
 }
@@ -132,10 +132,10 @@ void DlgDesti::ChargeDesti(QString NumEncours)
     ui->dateTimeEdit_HeureSortie->setDateTime(QDateTime::currentDateTime());
     ui->pushButton_annuler->setEnabled(false);
 
-    if (dTypeDeSortie == tr("Sortie"))
-        this->setWindowTitle(tr("Destinations à la sortie du service"));
+    if (dTypeDeSortie == tr("Exit"))
+        this->setWindowTitle(tr("Destinations when exiting service"));
     else
-        this->setWindowTitle(tr("Destination pour absence provisoire"));
+        this->setWindowTitle(tr("Destinations when exiting temporarily"));
     /* inutile RS
 
     // lecture de la destination actuelle dans la base
@@ -217,7 +217,7 @@ void DlgDesti::ModifHeure()
 
     QFile *fileDate = new QFile(nomFicRetourDate);
     if (!fileDate->open(QIODevice::ReadOnly))
-        {QMessageBox::information(this, NOM_APPLI, tr("Impossible d'ouvrir le fichier %1:\n%2.")
+        {QMessageBox::information(this, NOM_APPLI, tr("Impossible to open file %1:<br />%2.")
                                  .arg(nomFicRetourDate).arg(fileDate->errorString()));
         return;
         }

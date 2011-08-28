@@ -43,19 +43,19 @@ void   DlgParam::ChargeParam(QString typeParam)
     if (typeParam == "CSS")
         {
         nomficPARAM = QApplication::applicationDirPath()+ "/Ressources/synoptux.css";
-        setWindowTitle("Mise en forme des objets" );
+        setWindowTitle(tr("Objects layout") );
         setWindowIcon(QIcon(":/images/css.png"));
         }
     else
         {
         nomficPARAM = QApplication::applicationDirPath()+ "/synoptux.ini";
-        setWindowTitle("Paramètres généraux" );
+        setWindowTitle(tr("General settings") );
         setWindowIcon(QIcon(":/images/ini.png"));
         }
 
     FilePARAM = new QFile(nomficPARAM);
     if (!FilePARAM->open(QIODevice::ReadOnly)) {
-        QMessageBox::warning(0,NOM_APPLI,"Le fichier " + nomficPARAM + tr(" ne peut pas être ouvert !"));
+        QMessageBox::warning(0,NOM_APPLI,tr("File ") + nomficPARAM + tr(" cannot be open!"));
         delete FilePARAM;
         return ;
         }
@@ -72,10 +72,10 @@ void DlgParam::EcrireParam()
     QFile *FilePARAM;
     FilePARAM = new QFile(nomficPARAM);
     if (!FilePARAM->open(QIODevice::WriteOnly)) {
-        QMessageBox::warning(0,NOM_APPLI,"Le fichier " + nomficPARAM + tr(" ne peut pas être ouvert !"));
+        QMessageBox::warning(0,NOM_APPLI,tr("File ") + nomficPARAM + tr(" cannot be open!"));
         }
     if (FilePARAM->write(zParam) <= 0) {
-        QMessageBox::warning(0,NOM_APPLI,"Le fichier " + nomficPARAM + tr(" ne peut pas être mis à jour !"));
+        QMessageBox::warning(0,NOM_APPLI,tr("File ") + nomficPARAM + tr(" cannot be updated"));
         }
     FilePARAM->close();
     close();

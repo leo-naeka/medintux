@@ -79,7 +79,7 @@ void DlgBox::ValideBox()
 QString     requete;
 QSqlQuery   query ( CApp::pCApp()->getDB()->database() );
 
-    if (BoxEnCours.length() == 0)            // on est en création ....
+    if (BoxEnCours.length() == 0)            // on est en crÃ©ation ....
         {
         if (ui->lineEdit_CodeBox->text().length()== 0) return;
 
@@ -122,9 +122,9 @@ QSqlQuery   query ( CApp::pCApp()->getDB()->database() );
             {QString zbid = query.lastQuery ();
              QString noerr;
              noerr.setNum(query.lastError().type());
-             QMessageBox::warning ( this, tr("Gestion des banques"),
-                         "<b>" + tr("Erreur lors de la mise à jour de la table box : ") + ui->lineEdit_CodeBox->text() +  "</b><br><br>" +
-                         "Erreur = (" +  noerr + ") " + query.lastError().text());
+             QMessageBox::warning ( this, tr("Box management"),
+                         "<b>" + tr("Error when updating box table: ") + ui->lineEdit_CodeBox->text() +  "</b><br /><br />" +
+                         tr("Error = (") +  noerr + ") " + query.lastError().text());
             } // fin if erreur exec insert
 
     ChargeBox();
@@ -142,9 +142,9 @@ QSqlQuery   query ( CApp::pCApp()->getDB()->database() );
             {QString zbid = query.lastQuery ();
              QString noerr;
              noerr.setNum(query.lastError().type());
-             QMessageBox::warning ( this, tr("Gestion des banques"),
-                         "<b>" + tr("Erreur lors de la mise à jour de la table banque : ") + ui->lineEdit_CodeBox->text() +  "</b><br><br>" +
-                         "Erreur = (" +  noerr + ") " + query.lastError().text());
+             QMessageBox::warning ( this, tr("Banks management"),
+                         "<b>" + tr("Error when updating banks table ") + ui->lineEdit_CodeBox->text() +  "</b><br /><br />" +
+                         tr("Error = (") +  noerr + ") " + query.lastError().text());
             }
     ChargeBox();
     ClearFormulaire();
