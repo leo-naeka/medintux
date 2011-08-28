@@ -67,6 +67,8 @@ CApp::CApp(QString mui_name, int & argc, char ** argv)
     G_pCApp = 0;
     //.............................. recuperer config de la base ..........................................
     QString paramCfgData = CGestIni::Param_UpdateFromDisk(m_PathAppli + m_NameAppli+"Bases.cfg");
+    C_BaseCommon::EncodePassword_InConnectionParam(m_IniParam, "Connexion");                       // on encode les password si pas deja fait
+
     //.............................. initialiser la base C_BaseMedica ..........................................
     m_pC_BaseSynoptux = 0;
 

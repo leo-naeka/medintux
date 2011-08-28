@@ -29,7 +29,11 @@ public:
 
     C_BaseCommon(QObject *parent);
     ~C_BaseCommon();
+    //---------------------------------------- BaseConnect -------------------------------------------------------
     bool               BaseConnect(const QString &param, const QString &baseLabel,const QString &dataBase="", QString * errMess = 0);
+    //---------------------------------------- EncodePassword_InConnectionParam -------------------------------------------------------
+    static bool        EncodePassword_InConnectionParam(QString &param, const QString& section, QString *errMess=0);
+
     QSqlDatabase       database();
     //............ utilities .............................
     QString     isThisValueLikeInTable(       const QString &tableName, const QString &fieldName, const QString &value,     const QString fieldToRetrieve = "" );
