@@ -1779,6 +1779,30 @@ QString C_TokenInterpret::REPLACE_IMAGE(QStringList &arg_list)
         }
      return ret;
     }
+//-------------------------- RUBRIQUE_SHOW -------------------------------------------
+/*! \brief non documenté */
+QString C_TokenInterpret::RUBRIQUE_SHOW(QStringList &arg_list)
+    {int      nb = arg_list.count();
+     if (nb<1)                                        return TR("::RUBRIQUE_SHOW() rubrique name omited");           //{{GET LAST IMAGE NAME}}
+     if (G_pCApp->m_pDrTux==0) return TR("::RUBRIQUE_SHOW() G_pCApp->m_pDrTux==0 ");
+
+     QString rubrique            = arg_list[0].stripWhiteSpace();
+     QString val                 = "t";
+     if (nb>=2)              val = arg_list[1].stripWhiteSpace().lower();
+     CMDI_Generic *pCMDI_Generic = (CMDI_Generic*) G_pCApp->m_pDrTux->IsExistRubrique(rubrique);
+
+     if (val[0]=='t')
+        {if (pCMDI_Generic) pCMDI_Generic->show();
+        }
+     else
+        {if (pCMDI_Generic==0) G_pCApp->m_pDrTux->OnActiverOrCreateRubrique(rubrique);
+         pCMDI_Generic = (CMDI_Generic*) G_pCApp->m_pDrTux->IsExistRubrique(rubrique);
+         if (pCMDI_Generic==0) return TR("::RUBRIQUE_SHOW() la rubrique de destination: \"") + rubrique + TR("\" n'a pu être créé");
+         pCMDI_Generic->hide();
+        }
+     return QString("");
+    }
+
 //-------------------------- SET_DOC_DATE_FIN -------------------------------------------
 /*! \brief non documenté */
 QString C_TokenInterpret::SET_DOC_DATE_FIN(QStringList &arg_list)

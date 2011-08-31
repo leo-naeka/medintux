@@ -169,6 +169,7 @@ class C_TokenInterpret
   static QString REPLACE_BY                    (QStringList &arg_list);
   static QString REPLACE_IMAGE                 (QStringList &arg_list);
   static QString REPLACE_IN_FILE               (QStringList &arg_list);
+  static QString RUBRIQUE_SHOW                 (QStringList &arg_list);
   static QString SET_DOC_DATE_FIN              (QStringList &arg_list);
   static QString SET_DOC_PROP_0                (QStringList &arg_list);
   static QString SET_DOC_PROP_1                (QStringList &arg_list);
@@ -329,7 +330,7 @@ class C_TokenInterpret
   static long       findLastDelimiter(QString &str, char delimiter);
   static QString    Func_Extract_TTT(QString title, QString linePatern, QString renouvInterc, QString tableau, QString poids_name, QString taille_name);
   static QString    Func_Extract_TTT_D(const QString &str_data, QString title, QString linePatern, QString renouvInterc, QString tableau, QString poids_name, QString taille_name);
-  static QString    constructExportExportTableDefinition(const QString &data, QStringList &list_SECTION); 
+  static QString    constructExportExportTableDefinition(const QString &data, QStringList &list_SECTION);
   static QString    Func_Export_Tables(      QString date_deb         = "1900-01-01T00:00:00",    // DATE VISITE / TOUTE DATE / DATE ACTUELLE /        ou date de debut forme : 2004-03-15T17:14:48:00
                                              QString date_end         = "3000-01-01T00:00:00",    // DATE VISITE / TOUTE DATE / DATE ACTUELLE / +-24 / ou date de fin   forme : 2004-03-15T17:14:48:00
                                              QString exportDefinition = "",                       // liste des tables a exportet style : VAR Constantes de Base[Pouls =50  ; SAO2 =80  ; Temp =100] VAR Poids[Poids =50  ; Taille =80]
@@ -529,7 +530,8 @@ static QString    Func_Extract_Table_D(    const QString &str_data,
                                            {"REPLACE_IN_FILE",                C_TokenInterpret::REPLACE_IN_FILE},
                                            {"RF",                             C_TokenInterpret::REPLACE_IN_FILE},
                                            {"RIGHT",                          C_TokenInterpret::RIGHT},
-                                           {"RM",                             C_TokenInterpret::SIMPLIFY}
+                                           {"RM",                             C_TokenInterpret::SIMPLIFY},
+                                           {"RUBRIQUE_SHOW",                  C_TokenInterpret::RUBRIQUE_SHOW}
                                            };
   static KEY_MACRO      G_MacroTab_S[ ] = {{"SAVE_CURRENT_DOC",               C_TokenInterpret::SAVE_CURRENT_DOC},
                                            {"SAVE_LAST_IMAGE_NAME",           C_TokenInterpret::SAVE_LAST_IMAGE_NAME},
