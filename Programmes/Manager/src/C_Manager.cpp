@@ -81,6 +81,7 @@
 #include <QInputDialog>
 #include <QFontDialog>
 #include <QSettings>                    //Cz_Pyxvital
+#include <QDebug>
 
 #define MODE_SELECTION_PATIENT 0
 #define MODE_CREATION_PATIENT  1
@@ -408,7 +409,7 @@ if (CGestIni::Param_ReadUniqueParam(G_pCApp->m_LocalParam, "Sesam-Vitale", "Modu
         lst.removeFirst ();
       }
    else
-      {qDebug(tr("Ressources/QualiteBeneficiaire.tbl not found"));
+      {qDebug()<<tr("Ressources/QualiteBeneficiaire.tbl not found");
       }
    m_pGUI->comboBoxQualiteAyantDroit->insertItems(0, lst);    //Qt::CaseSensitivity
    //........................ connecter les slot de verification ...........................................................................................
@@ -1107,10 +1108,10 @@ connect(m_pSlaveSocket,       SIGNAL(hostFound ()),                             
 connect(m_pSlaveSocket,       SIGNAL(error ( QAbstractSocket::SocketError  )),         this, SLOT(Slot_hostSlaveError (QAbstractSocket::SocketError )) );
 connect(m_pSlaveSocket,       SIGNAL(stateChanged ( QAbstractSocket::SocketState  )),  this, SLOT(Slot_hostSlaveStateChanged (QAbstractSocket::SocketState )) );
 m_pMasterSocket->connectToHost ( "192.168.10.10", 3306);
-if (m_pMasterSocket->waitForConnected(2000)) qDebug(QString("stateMaster  : connected").toLatin1());
+if (m_pMasterSocket->waitForConnected(2000)) qDebug()<<QString("stateMaster  : connected").toLatin1();
 //else                                         qDebug(QString("stateMaster  : not connected").toLatin1());
 m_pSlaveSocket->connectToHost ( "localhost", 3306);
-if (m_pSlaveSocket->waitForConnected(2000))  qDebug(QString("stateSlave  : connected").toLatin1());
+if (m_pSlaveSocket->waitForConnected(2000))  qDebug()<<QString("stateSlave  : connected").toLatin1();
 //else                                         qDebug(QString("stateSlave  : not connected").toLatin1());
 }
 
@@ -1129,11 +1130,11 @@ return QString::null;
 }
 //--------------------------------- Slot_hostMasterStateChanged -----------------------------------------------------------------------
 void C_Manager::Slot_hostMasterStateChanged (QAbstractSocket::SocketState socketState)
-{qDebug(socketStateToString(socketState, tr("Etat du Maitre : ")).toLatin1());
+{qDebug()<<socketStateToString(socketState, tr("Etat du Maitre : ")).toLatin1();
 }
 //--------------------------------- Slot_hostSlaveStateChanged -----------------------------------------------------------------------
 void C_Manager::Slot_hostSlaveStateChanged (QAbstractSocket::SocketState socketState)
-{qDebug(socketStateToString(socketState, tr("Etat du Nomade : ")).toLatin1());
+{qDebug()<<socketStateToString(socketState, tr("Etat du Nomade : ")).toLatin1();
 }
 
 //--------------------------------- Slot_action_ToModeConnect_triggered -----------------------------------------------------------------------
@@ -1228,7 +1229,7 @@ int C_Manager::testConnection(QString connexionVar,  QString *errMess )
           {QString qstr = "";
            qstr += tr("Failed to open database : ")    + "TEST_CONNECTION  Driver : " +  QString(driver) + "  " + QString(baseToConnect) + "\r\n" +
                     defaultDB.lastError().driverText() + "\r\n" + defaultDB.lastError().databaseText();
-           qWarning(qstr.toLatin1());
+           qWarning()<<qstr.toLatin1();
            if (errMess) *errMess = qstr;
            QSqlDatabase::removeDatabase ("TEST_CONNECTION");
            return 0;
@@ -1275,7 +1276,7 @@ QString C_Manager::tryToFindConnectionFromList (QString connexionVar,  QString *
                     {QString qstr = "";
                      qstr += tr("Failed to open database : ")    + "TEST_CONNECTION  Driver : " +  QString(driver) + "  " + QString(baseToConnect) + "\r\n" +
                      defaultDB.lastError().driverText() + "\r\n" + defaultDB.lastError().databaseText();
-                     qWarning(qstr.toLatin1());
+                     qWarning()<<qstr.toLatin1();
                      if (errMess) *errMess = qstr;
                      QSqlDatabase::removeDatabase ("TEST_CONNECTION");
                      return QString::null;

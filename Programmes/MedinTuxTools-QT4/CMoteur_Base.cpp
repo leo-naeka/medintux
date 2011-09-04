@@ -56,6 +56,7 @@
 #include <quuid.h>
 #include <qeventloop.h>
 #include "uuid/C_MyUuid.h"
+#include <QDebug>
 
 #include "CHtmlTools.h"
 #include "CMoteur_Base.h"
@@ -454,7 +455,7 @@ int            CMoteurBase::BaseConnect(const QString & driver,              // 
            {QString qstr = "";
             qstr += TR("Failed to open database : ")    + baseLabel + " Driver : " +  QString(driver) + "  " + QString(dataBaseToConnect) + "\r\n" +
                      defaultDB.lastError().driverText() + "\r\n" + defaultDB.lastError().databaseText();
-            qWarning(qstr.toLatin1());
+            qWarning()<<qstr.toLatin1();
             if (errMess) *errMess += qstr;
             return 0;
            }
@@ -566,7 +567,7 @@ int CMoteurBase::ConvertToNew(QLabel* pQlabelMess /* = 0 */, Q3ProgressBar* pQPr
 
  //................. Preparer la requete .....................................
  if (OpenBase()==0)
-    {if (pQlabelMess) pQlabelMess->setText(qstr.sprintf(TR("ConvertToNew(): database can't be open")));
+    {if (pQlabelMess) pQlabelMess->setText(TR("ConvertToNew(): database can't be open"));
      return i;
     }
 
@@ -2166,9 +2167,9 @@ QString CMoteurBase::OutSQL_error(const QSqlError &error, const char *messFunc /
              case    QSqlError::UnknownError:        qserr = TR(" - SQL unknown error: ")              ; break;
              default:                                qserr = TR(" - unknown SQL type error: ")         ; break;
            }
-         if (messFunc) qDebug(messFunc);
-         qDebug( qserr.append(error.databaseText()).toLatin1());
-         if (requete) qDebug(requete);
+         if (messFunc) qDebug()<<messFunc;
+         qDebug()<< qserr.append(error.databaseText()).toLatin1();
+         if (requete) qDebug()<<requete;
         }
      return error.databaseText();
 }
@@ -3265,7 +3266,7 @@ QString  CMoteurBase::DossIdentIndexCreate(QString& nom, QString& prenom,    QSt
                        +  m_DOSS_INDEX_GUID                    + " = '" + numGUID + "'";
     QSqlQuery query (requeteIsGUIDExist, QSqlDatabase::database(m_BaseLabel));
     if (query.isActive() && query.next())    // si existe cassos
-       {qDebug(tr("DossIdentIndexCreate() ce GUID '%1' existe deja \n").arg(requeteIsGUIDExist));
+       {qDebug()<<tr("DossIdentIndexCreate() ce GUID '%1' existe deja \n").arg(requeteIsGUIDExist);
         CloseBase();
         return QString::null;
        }
@@ -3288,7 +3289,7 @@ QString  CMoteurBase::DossIdentIndexCreate(QString& nom, QString& prenom,    QSt
        {pkIndex = query.value(0).toString();
        }
     if (pkIndex.length()==0)
-       {qDebug(tr("DossIdentIndexCreate() pk non trouvee pour ce GUID '%1' , index non cree \n%2").arg(numGUID, requete));
+       {qDebug()<<tr("DossIdentIndexCreate() pk non trouvee pour ce GUID '%1' , index non cree \n%2").arg(numGUID, requete);
         CloseBase();
         return QString::null;
        }
@@ -3339,7 +3340,7 @@ QString  CMoteurBase::DossIdentIndexCreate(QString& nom, QString& prenom,    QSt
         return pkIndex;
        }
     else
-       {qDebug(tr("DossIdentIndexCreate() l'enregistrement dans %1' n'a pu etre cree' \n%2").arg(m_DOSS_IDENT_TBL_NAME,requete));
+       {qDebug()<<tr("DossIdentIndexCreate() l'enregistrement dans %1' n'a pu etre cree' \n%2").arg(m_DOSS_IDENT_TBL_NAME,requete);
         requete  = "DELETE FROM ";
         requete += m_DOSS_INDEX_TBL_NAME + " WHERE " + m_DOSS_INDEX_PRIM_KEY + "='" + pkIndex + "'";
         query.exec(requete);
@@ -3463,7 +3464,7 @@ long  CMoteurBase::DossIdentIndexUpdate(QString& refDossPk, QString& nom, QStrin
      buffer->setValue( m_DOSS_INDEX_PRENOM,  prenom.upper() );              // y placer les donnees
      cur.update();      // ecrire le buffer avec les donnees du header
      QString lastErr= cur. lastError ().text();
-     qDebug(lastErr);
+     qDebug()<<lastErr;
      ok  = TRUE;
     }
   //......................... fermer la base ..............................................
@@ -3490,7 +3491,7 @@ long  CMoteurBase::DossIdentDataUpdate(QString& refDossPk, PtrListIdentFieldData
       DossIdentBufferSetValue(buffer, plist_field );
       cur.update();
       QString lastErr= cur. lastError ().text();
-      qDebug(lastErr);
+      qDebug()<<lastErr;
       //if (mode==CMoteurBase::progMasterUpdate)
       //   {synchroWriteMofidication(m_DOSS_INDEX_TBL_NAME, refDossPk, m_DOSS_INDEX_PRIM_KEY, "U");
       //    synchroWriteMofidication(m_DOSS_IDENT_TBL_NAME, refDossPk, m_DOSS_IDENT_REF_PK,   "U");

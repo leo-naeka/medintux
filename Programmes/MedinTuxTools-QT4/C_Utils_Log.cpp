@@ -5,6 +5,7 @@
 #include <QTextEdit>
 #include <QApplication>
 #include <QDateTime>
+#include <QDebug>
 
 #define   TR QObject::tr
 
@@ -90,8 +91,8 @@ QString C_Utils_Log::outSQL_error( QTextEdit *logWidget, const QSqlQuery &cur, c
     QString lastError     = error.databaseText();
     if (lastError.length())
        { lastError        =  lastError.prepend(QString(messFunc) + "\n") + "\n" + requete;
-         qDebug(removeHtmlTag(lastError).toAscii()); // warning
-         outMessage(logWidget, lastError, file, line);
+                  qDebug() << removeHtmlTag(lastError).toAscii();
+		  outMessage(logWidget, lastError, file, line);
        }
     return lastError;
 }

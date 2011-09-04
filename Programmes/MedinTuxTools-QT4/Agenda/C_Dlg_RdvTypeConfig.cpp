@@ -41,6 +41,7 @@
 #include <QHeaderView>
 #include <QTreeWidgetItem>
 #include <QColorDialog>
+#include <QDebug>
 
 #include "C_Dlg_RdvTypeConfig.h"
 #include "C_Dlg_Agenda.h"
@@ -219,7 +220,7 @@ void C_Dlg_RdvTypeConfig::Slot_pushButton_Heure_clicked()
  QAction *pQAction =  menu.exec (QCursor::pos());
  if (pQAction && m_pLastQActionHovered)
     {QString  text = m_pLastQActionHovered->text() + " " +pQAction->text();
-     qDebug(text.toLatin1());
+     qDebug()<<text.toLatin1();
 
      text = text.remove(tr(" mn"));
      QStringList list = text.split(tr(" heure "));

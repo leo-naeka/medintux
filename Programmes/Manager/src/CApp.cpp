@@ -38,6 +38,7 @@
 #include <QtGlobal>
 #include <QFileInfo>
 #include <QFile>
+#include <QDebug>
 
 #include <QStringList>
 #include <QTextStream>
@@ -84,7 +85,7 @@ CApp::CApp(QString mui_name, int & argc, char ** argv)
      m_pVitale = new C_Vitale;
      qDebug (TR("Version avec gestion de la SesamVitale").toLatin1());
 #else
-     qDebug (TR("Version sans gestion de la SesamVitale").toLatin1());
+     qDebug() << TR("Version sans gestion de la SesamVitale").toLatin1();
 #endif
     m_PluginRun          = "";
     m_pCCoolPopup        = 0;

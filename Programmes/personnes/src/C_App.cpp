@@ -44,6 +44,7 @@
  #include <QIcon>
  #include "../../MedinTuxTools-QT4/CGestIni.h"
  #include "../../MedinTuxTools-QT4/Theme/Theme.h"
+  #include <QDebug>
 
 #define   DUMMY_TEST_SQL_COMMAND   "SELECT 1"
 #define   DB_TIME_TO_RECONNECT     3600000  //reconnexion toutes les heures
@@ -182,7 +183,7 @@ int C_App::BaseConnect(const QString & driver,              // nom du driver: "Q
            {QString qstr = "";
             qstr += TR("Failed to open database : ")    + baseLabel + " Driver : " +  QString(driver) + "  " + QString(dataBaseToConnect) + "\r\n" +
                      defaultDB.lastError().driverText() + "\r\n" + defaultDB.lastError().databaseText();
-            qWarning(qstr.toLatin1());
+            qWarning() << qstr.toLatin1();
             if (errMess) *errMess += qstr;
             return 0;
            }
@@ -345,9 +346,9 @@ QString C_App::OutSQL_error(const QSqlError &error, const char *messFunc /*=0*/,
              case    QSqlError::UnknownError:        qserr = TR(" - SQL unknown error: ")              ; break;
              default:                                qserr = TR(" - unknown SQL type error: ")         ; break;
            }
-         if (messFunc) qDebug(messFunc);
-         qDebug( qserr.append(error.databaseText()).toLatin1());
-         if (requete) qDebug(requete);
+         if (messFunc) qDebug()<<messFunc;
+         qDebug() << qserr.append(error.databaseText()).toLatin1();
+         if (requete) qDebug()<<requete;
         }
      return error.databaseText();
 }

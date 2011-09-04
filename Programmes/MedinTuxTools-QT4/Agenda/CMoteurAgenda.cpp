@@ -33,6 +33,7 @@
 #include <QSqlError>
 #include <QTimer>
 #include <QSqlTableModel>
+#include <QDebug>
 
 #define TR QObject::tr
 
@@ -84,12 +85,12 @@ void CMoteurAgenda::initBase   (const QString &driver,        // nom du driver: 
   QString mess;
 
   //................ configurer la classe .............................................
-  if (confFile==0)                 {ret = 0; qDebug(mess.toLatin1() + "\r\n ConfFile not found: " );}
-  else if (confFile[0]==0)         {ret = 0; qDebug(mess.toLatin1() + "\r\n ConfFile empty: "   );}
+  if (confFile==0)                 {ret = 0; qDebug() << mess.toLatin1() + "\r\n ConfFile not found: " ;}
+  else if (confFile[0]==0)         {ret = 0; qDebug() << mess.toLatin1() + "\r\n ConfFile empty: "   ;}
   else                             {ret = SetConfBase(confFile, &mess);          }
 
   if (ret==0)
-     {qDebug(mess.toLatin1());
+     {qDebug()<<mess.toLatin1();
       if (errMess) *errMess = mess;
       return;
      }
@@ -167,7 +168,7 @@ int    CMoteurAgenda::BaseConnect        (const QString &driver,        // nom d
            {QString qstr = "";
             qstr += TR("Failed to open database: ") + QString(driver) + "  " + QString(DataBaseName) + "\r\n" +
                      defaultDB.lastError().driverText() + "\r\n" + defaultDB.lastError().databaseText();
-            qWarning(qstr.toLatin1());
+            qWarning()<<qstr.toLatin1();
             if (errMess) *errMess = qstr;
             return 0;
            }
@@ -214,7 +215,7 @@ int CMoteurAgenda::SetConfBase(const char* confFile, QString *errMess)
 
 SetConfBase_Error:
   if (errMess) *errMess = err;
-  qDebug(err.toLatin1());
+  qDebug()<<err.toLatin1();
   return 0;
 
 }
@@ -715,7 +716,7 @@ QMap<QDate,int> CMoteurAgenda::RDV_Get_ListNbFor2Months(QDate date, const QStrin
               }
      }
   else
-     {qDebug(requete.toLatin1());
+     {qDebug()<<requete.toLatin1();
      }
   CloseBase();
   return  map;
@@ -833,9 +834,9 @@ QString CMoteurAgenda::OutSQL_error(const QSqlError &error, const char *messFunc
              case    QSqlError::UnknownError:        qserr = TR(" - SQL unknown error: ")              ; break;
              default:                                qserr = TR(" - unknown SQL type error: ")         ; break;
            }
-         if (messFunc) qDebug(messFunc);
-         qDebug( qserr.append(error.databaseText()).toLatin1());
-         if (requete) qDebug(requete);
+         if (messFunc) qDebug()<<messFunc;
+         qDebug()<< qserr.append(error.databaseText()).toLatin1();
+         if (requete) qDebug()<<requete;
         }
      return error.databaseText();
 }
