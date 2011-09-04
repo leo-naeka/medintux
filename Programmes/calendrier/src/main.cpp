@@ -46,19 +46,24 @@ int main( int argc, char ** argv )
    {	date_inf = G_pCApp->argv()[15];
 	// un peu de nettoyage de la string date
 	date_inf.replace("-",""); date_inf.replace("/",""); date_inf.replace(".","");
-	dlg->setDateDeb(&QDate ( date_inf.mid(4,4).toInt(),       // année
-				 date_inf.mid(2,2).toInt(),       // mois
-				 date_inf.mid(0,2).toInt() ) );   // jour
+        QDate dt (date_inf.mid(4,4).toInt(),       // année
+                  date_inf.mid(2,2).toInt(),       // mois
+                  date_inf.mid(0,2).toInt() );
+	dlg->setDateDeb( &dt );   // jour
    }
 
   //....................... Quatrième paramètre = date limite supérieure au calendrier
   if (G_pCApp && G_pCApp->argc() > 16) 
     {	date_sup = G_pCApp->argv()[16];
 	// un peu de nettoyage de la string date
-	date_inf.replace("-",""); date_inf.replace("/",""); date_inf.replace(".","");
+	date_sup.replace("-",""); date_sup.replace("/",""); date_sup.replace(".","");
 	dlg->setDate(QDate ( date_sup.mid(4,4).toInt(),       // année
 			     date_sup.mid(2,2).toInt(),       // mois
 			     date_sup.mid(0,2).toInt() ) );   // jour
+        QDate dt (date_sup.mid(4,4).toInt(),       // année
+                  date_sup.mid(2,2).toInt(),       // mois
+                  date_sup.mid(0,2).toInt() );
+        dlg->setDateDeb( &dt );   // jour
     }
   //....................... Cinquieme parametre = fichier du menu de preselection
   if (G_pCApp && G_pCApp->argc() > 17) 
