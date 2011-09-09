@@ -83,9 +83,9 @@ CApp::CApp(QString mui_name, int & argc, char ** argv)
 #ifdef SESAM_VERSION
      m_pCps    = new C_Cps;
      m_pVitale = new C_Vitale;
-     qDebug (TR("Version avec gestion de la SesamVitale").toLatin1());
+     qDebug (TR("Version with SesamVitale usage").toLatin1());
 #else
-     qDebug() << TR("Version sans gestion de la SesamVitale").toLatin1();
+     qDebug() << TR("Version without SesamVitale usage").toLatin1();
 #endif
     m_PluginRun          = "";
     m_pCCoolPopup        = 0;
@@ -162,13 +162,13 @@ CApp::CApp(QString mui_name, int & argc, char ** argv)
     m_LastError = qstr;
     if (m_pCMoteurBase==0)
        {    QMessageBox::critical (0,   "MedinTux Manager" ,
-                                         QObject::tr("CMoteurBase ne peut s'instancier \r\n ") + qstr ,
+                                         QObject::tr("CMoteurBase cannot start \r\n ") + qstr ,
                                          QMessageBox::Abort, QMessageBox::NoButton, QMessageBox::NoButton );
             return;  // tous les delete se feront lors destruction du parent (QT oblige !!)
        }
     if (m_pCMoteurBase->m_IsValid == FALSE)
        {   QMessageBox::critical (0,   "MedinTux Manager" ,
-                                         QObject::tr("CMoteurBase->m_DataBase ne peut s'instancier \r\n ") + qstr ,
+                                         QObject::tr("CMoteurBase->m_DataBase cannot start \r\n ") + qstr ,
                                          QMessageBox::Abort, QMessageBox::NoButton, QMessageBox::NoButton );
            return;   // tous les delete se feront lors destruction du parent (QT oblige !!)
        }
@@ -395,7 +395,7 @@ void CApp::changeAllModuleConnectionParam(     const QString & /*driver*/,      
 void CApp::changeAllModuleConnectionParamMessage(const QString &place, const QString &path)
 {   QColor color("red");
     QFont ft("sans",8,0,0);
-    CouCou (tr("::changeAllModule\nConnectionParam()\n::%1\n::Ce fichier :\n%2\nn'existe pas").arg(place, path),color,ft,2000,Theme::getPath() + "MessagePopStrange.png");
+    CouCou (tr("::changeAllModule\nConnectionParam()\n::%1\n::This file:\n%2\ndoes not exist").arg(place, path),color,ft,2000,Theme::getPath() + "MessagePopStrange.png");
 }
 
 //--------------------------------------------- GetMySqlPass -------------------------------------------------------------------
@@ -684,13 +684,13 @@ QString CApp::PluginExe(        QObject         */*pQObject*/,
         if (pos != -1) pathExe = pathExe+".app/Contents/MacOS/"+pathExe.mid(pos+1);
  #endif
  if (!QFile::exists (pathExe ))
-    {CouCou(tr("Chemin du plugin non trouv\303\251 : ").arg(pathExe));
+    {CouCou(tr("Path to plugin not found: ").arg(pathExe));
     }
  QString nameExch = QFileInfo(pathExe).fileName()+"-"+ guid +".exc";
 
  QString      dst = "";
  if (CGestIni::Param_ReadParam(m_LocalParam, "Repertoire Temporaire", "Repertoire", &dst)!=QString::null)
-     return QObject::tr("Error:  PluginExe()  \"Repertoire Temporaire\", \"Repertoire\" can't find in ini File");         // path editeur de texte non defini
+     return QObject::tr("Error:  PluginExe()  \"Temporary Directory\", \"Directory\" can't find in ini File");         // path editeur de texte non defini
  if ( QDir::isRelativePath ( dst ) ) dst = QDir::cleanDirPath (dst.prepend(m_PathAppli) );
  dst +=  QDir::separator() + nameExch;
  QFile::remove (dst);
