@@ -203,7 +203,7 @@ int  CMoteurBase::verifyBaseIntegrity(const QString &confFile, QString *errMess)
  int         nf        = 0;
  QStringList fieldName;
  QSqlDriver *pQSqlDriver =  QSqlDatabase::database(m_BaseLabel).driver();
- if ( pQSqlDriver == 0) { (*errMess) += TR("\r\n verifyBaseIntegrity() Driver non instanci\303\251"); return 0;}
+ if ( pQSqlDriver == 0) { (*errMess) += TR("\r\n verifyBaseIntegrity() Driver not started"); return 0;}
 
 
  //..................... verifier si les tables deja en place correspondent avec celles ..................
@@ -218,13 +218,13 @@ int  CMoteurBase::verifyBaseIntegrity(const QString &confFile, QString *errMess)
      QString     fileSql    =  CGestIni::Construct_Name_File_Ini("set_bases", qfi.dirPath (true), "SqlCreateTable/Dump_DrTuxTest.sql" );
      //.................. premier niveau (benin) enumerer les tables presentes ........................................
      //                   dans la base et non indiquees par le fichier de config : confFile
-     mess += TR("\r\n verifyBaseIntegrity() les tables ne correspondent pas  \r\n");
+     mess += TR("\r\n verifyBaseIntegrity() tables do not match  \r\n");
      if (tablesList.count() > tablesListWish.count())
-        {    mess += TR("\r\n ATTENTION : ces table(s) sont non indiqu\303\251e(s) dans le fichier de configuration : ");
+        {    mess += TR("\r\n WARNING: these tables are not indicated in the configuration file: ");
              for ( QStringList::Iterator it = tablesList.begin(); it != tablesList.end(); ++it )
                  { tbl = *it;
                    if (tablesListWish.findIndex (tbl)==-1)
-                      {mess += TR("\r\n    = ") + tbl;
+                      {mess += "\r\n    = " + tbl;
                       }
                  }
         }
@@ -234,18 +234,18 @@ int  CMoteurBase::verifyBaseIntegrity(const QString &confFile, QString *errMess)
           { tbl = *it;
             if (tablesList.findIndex (tbl.lower())==-1)
                {++nf;
-                mess += TR("\r\n    = ") + tbl;
+                mess += TR("\n    = ") + tbl;
                 if(tryToSetThisTable(tbl, fileSql, m_BaseLabel)==0)
-                  {mess += TR(" ==> Echec de la tentative de cr\303\251ation");
+                  {mess += TR(" ==> Failure attempting to create");
                    majOk = 0;
                   }
                 else
-                  {mess += TR(" ==> R\303\251ussite de la tentative de cr\303\251ation");
+                  {mess += TR(" ==> Success when attempting to create");
                   }
                }
           }
-      if (majOk){mess = mess.prepend(TR("\r\n SUCCES de la mise \303\240 jour des tables manquantes."));}
-      if (nf)   {mess = mess.prepend(TR("\r\n ERREUR %1 table(s) non trouv\303\251 dans la base actuelle : ").arg(nf));}
+      if (majOk){mess = mess.prepend(TR("\n SUCCESS when updating missing tables."));}
+      if (nf)   {mess = mess.prepend(TR("\n ERROR %1 table(s) not found in the present base: ").arg(nf));}
       (*errMess) += mess;
     }
  if (majOk) SetMedinTuxVersion(m_VERSION_NUMBER);
@@ -995,7 +995,7 @@ long CMoteurBase::GetPatientList(       QTreeWidget     *pQlistView,
   //....................... sortir le message d'erreur si besoin ..........................................
   if (statutMess)
      {int nb = GetNbRecord(m_DOSS_INDEX_TBL_NAME).toInt();
-      QString txt = TR("Trouv\303\251(s) %1 parmi %2").arg(i).arg(nb);
+      QString txt = TR("Displayed %1 among %2").arg(i).arg(nb);
       if ( i>=NB_LIST_PATIENT_MAX)
          {txt.prepend("<html><head><meta name=\"qrichtext\" content=\"1\" /> "
                       "</head><body><span style=\"font-weight:600; color:#ff0000;\">");
@@ -1211,7 +1211,7 @@ long CMoteurBase::GetPatientListFromNomPrenomSecuDtNssGeme( QTreeWidget     *pQl
   //....................... sortir le message d'erreur si besoin ..........................................
 
   if (statutMess)
-     { statutMess->setText( QString( TR("Trouve(s) %1 parmi %2") ).arg(i).arg(nb) );
+     { statutMess->setText( QString( TR("Displayed %1 among %2") ).arg(i).arg(nb) );
      }
   CloseBase();
   return i;
@@ -1915,7 +1915,7 @@ QString requete = "SELECT "  + m_USER_PERMS_PK                + ", "            
 
   //....................... sortir le message d'erreur si besoin ..........................................
   if (statutMess)
-     { statutMess->setText(TR("Trouves: ") + QString::number(nb));
+     { statutMess->setText(TR("Found: ") + QString::number(nb));
      }
   CloseBase();
   return nb;
@@ -2423,7 +2423,7 @@ long CMoteurBase::GetUserList(    QTreeWidget     *pQlistView,
      } //endif (pSqlQuery && pSqlQuery->isActive())
 
   //....................... sortir le message d'erreur si besoin ..........................................
-  if (statutMess) *statutMess = TR("Trouves: %1").arg(nb);
+  if (statutMess) *statutMess = TR("Found: %1").arg(nb);
   CloseBase();
   return nb;
 }
@@ -2850,7 +2850,7 @@ long CMoteurBase::GetUserDocList( Q3ListView       *pQlistView,
      } //endif (pSqlQuery && pSqlQuery->isActive())
   //....................... sortir le message d'erreur si besoin ..........................................
   if (statutMess)
-     { statutMess->setText(TR("Trouves: ") + QString::number(nb));
+     { statutMess->setText(TR("Found: ") + QString::number(nb));
      }
   CloseBase();
   return nb;
@@ -3009,12 +3009,12 @@ void CMoteurBase::Param_SavParam(QString *pParam , QString user)
     QString us_pk         = "";
     if (user[0]=='%') us_pk  = user.mid(1);
     else              us_pk  = GetUserPrimKey(user);
-    QString docPrimKey       = IsThisUserDocExist(TYP_PARAM, us_pk, TR("Parametres"));
+    QString docPrimKey       = IsThisUserDocExist(TYP_PARAM, us_pk, TR("Parameters"));
      if (docPrimKey!="")
-        {UpdateUserDataFromPrimKey(docPrimKey, TYP_PARAM, us_pk, TR("Parametres"), *pParam);
+        {UpdateUserDataFromPrimKey(docPrimKey, TYP_PARAM, us_pk, TR("Parameters"), *pParam);
         }
      else
-        {CreateUserDataFromPrimKey(TYP_PARAM, us_pk ,TR("Parametres"), *pParam);
+        {CreateUserDataFromPrimKey(TYP_PARAM, us_pk ,TR("Parameters"), *pParam);
         }
 }
 
@@ -3049,7 +3049,7 @@ int CMoteurBase::UpdateUserDataFromPrimKey( const char *primKey, int type, const
 
 //------------------------------------------ ReadDrTuxUserParametres ---------------------------------------------------------------
 QString  CMoteurBase::ReadDrTuxUserParametres(const QString &user)
-{return GetUserDocument(user, TR("Parametres"), TYP_PARAM );
+{return GetUserDocument(user, TR("Parameters"), TYP_PARAM );
 }
 
 //------------------------------------------ Param_GetParam ---------------------------------------------------------------
@@ -3221,12 +3221,12 @@ int CMoteurBase::ChangeRubUserName(QString userName, QString rubPrimKey, QString
  QSqlQuery* pSqlQueryTarget = new QSqlQuery(requete , QSqlDatabase::database(m_BaseLabel)  );
 
  if (pSqlQueryTarget && pSqlQueryTarget ->isActive())
-    {if (errMess) *errMess = TR("Changement d'utilisateur reussi");
+    {if (errMess) *errMess = TR("Success when changing user");
     }
  else
    {qstr   = "";
     qstr  += requete;
-    qstr  += TR("\r\nÃ‰chec du changement d'utilisateur : CMoteur_Base. ");
+    qstr  += TR("\r\nFailure when changing user: CMoteur_Base. ");
     switch(pSqlQueryTarget->lastError().type())
           {case QSqlError::None :        qstr  += TR("no error occurred");          break;
            case QSqlError::Connection :  qstr  += TR("connection error");           break;
@@ -3266,7 +3266,7 @@ QString  CMoteurBase::DossIdentIndexCreate(QString& nom, QString& prenom,    QSt
                        +  m_DOSS_INDEX_GUID                    + " = '" + numGUID + "'";
     QSqlQuery query (requeteIsGUIDExist, QSqlDatabase::database(m_BaseLabel));
     if (query.isActive() && query.next())    // si existe cassos
-       {qDebug()<<tr("DossIdentIndexCreate() ce GUID '%1' existe deja \n").arg(requeteIsGUIDExist);
+       {qDebug()<<tr("DossIdentIndexCreate() this GUID '%1' already exists \n").arg(requeteIsGUIDExist);
         CloseBase();
         return QString::null;
        }
@@ -3289,7 +3289,7 @@ QString  CMoteurBase::DossIdentIndexCreate(QString& nom, QString& prenom,    QSt
        {pkIndex = query.value(0).toString();
        }
     if (pkIndex.length()==0)
-       {qDebug()<<tr("DossIdentIndexCreate() pk non trouvee pour ce GUID '%1' , index non cree \n%2").arg(numGUID, requete);
+       {qDebug()<<tr("DossIdentIndexCreate() pk not found for this GUID '%1' , index not created \n%2").arg(numGUID, requete);
         CloseBase();
         return QString::null;
        }
@@ -3340,7 +3340,7 @@ QString  CMoteurBase::DossIdentIndexCreate(QString& nom, QString& prenom,    QSt
         return pkIndex;
        }
     else
-       {qDebug()<<tr("DossIdentIndexCreate() l'enregistrement dans %1' n'a pu etre cree' \n%2").arg(m_DOSS_IDENT_TBL_NAME,requete);
+       {qDebug()<<tr("DossIdentIndexCreate() recording into %1' could not be created' \n%2").arg(m_DOSS_IDENT_TBL_NAME,requete);
         requete  = "DELETE FROM ";
         requete += m_DOSS_INDEX_TBL_NAME + " WHERE " + m_DOSS_INDEX_PRIM_KEY + "='" + pkIndex + "'";
         query.exec(requete);
@@ -5115,7 +5115,7 @@ int  CMoteurBase::RubListDelete(RUBREC_LIST::iterator it, int mode /*= CMoteurBa
      query.bindValue(0, "--");
      query.bindValue(1, "--");
      if (query.exec())  {ok = TRUE;}
-     else               {QString mess = TR("Erreur : RubListDelete::CMoteurBase::progMasterUpdate \r\n") + prepare + "\r\n";
+     else               {QString mess = TR("Error : RubListDelete::CMoteurBase::progMasterUpdate \r\n") + prepare + "\r\n";
                          OutSQL_error(query, prepare);      // rajouter le message sql
                          ok = FALSE;
                         }
@@ -5582,7 +5582,7 @@ QString CMoteurBase::CalculeDiffAge(QDate *pDebut, QDate *pFin/*=NULL*/, bool bT
     {
      if (bTexte)
      //buffer.sprintf("%d an%s ", an, an>1 ? "s" : "");
-         buffer = QString::number(an) + TR(" an") + ((an>1) ? "s " : " ");
+         buffer = QString::number(an) + TR(" year") + ((an>1) ? "s " : " ");
      else
          buffer.sprintf("%d ", an);
      sRes = buffer;
@@ -5598,7 +5598,7 @@ QString CMoteurBase::CalculeDiffAge(QDate *pDebut, QDate *pFin/*=NULL*/, bool bT
         {
          if (bTexte)
          //buffer.sprintf("%d mois ", mois);  // en fancais " mois " a deja un s en [4] donc ne pas rajouter si plusieurs
-            {QString ms = TR(" mois");  // va bien y avoir un dialecte oÃ¹ ca ne va pas marcher
+            {QString ms = TR(" month");  // va bien y avoir un dialecte oÃ¹ ca ne va pas marcher // C pour ca qu'on a invente les plural forms
              buffer     = QString::number(mois)+ ms + ((mois>1&&ms[4]!='s') ? "s " : " ");
             }
          else
@@ -5610,7 +5610,7 @@ QString CMoteurBase::CalculeDiffAge(QDate *pDebut, QDate *pFin/*=NULL*/, bool bT
         {
          if (bTexte)
          //buffer.sprintf("%d jour%s ", jour, jour>1 ? "s" : "");
-            buffer = QString::number(jour) + TR(" jour") + ((jour>1) ? "s " : " ");
+            buffer = QString::number(jour) + TR(" day") + ((jour>1) ? "s " : " ");
          else
             buffer.sprintf("%d ", jour);
          sRes += buffer;
