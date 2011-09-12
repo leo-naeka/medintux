@@ -712,7 +712,7 @@ m_action_ToModeConnect->setText(QApplication::translate("C_ManagerClass", "I com
 m_action_WebPrint->setText(QApplication::translate("C_ManagerClass", "Print the contents of this page", 0, QApplication::UnicodeUTF8));
 m_action_WebHome->setText(QApplication::translate("C_ManagerClass", "Access Medical data from MedWebTux", 0, QApplication::UnicodeUTF8));
 m_action_WebHelp->setText(QApplication::translate("C_ManagerClass", "Access to the help and the documentation of MedinTux", 0, QApplication::UnicodeUTF8));
-m_action_WebFind->setText(QApplication::translate("C_ManagerClass", "Rechercher le texte saisi ci-contre \303\240 droite", 0, QApplication::UnicodeUTF8));
+m_action_WebFind->setText(QApplication::translate("C_ManagerClass", "Find text entered in the right field", 0, QApplication::UnicodeUTF8));
 m_action_DebloquerBases->setText(QApplication::translate("C_ManagerClass", "Remove all locks", 0, QApplication::UnicodeUTF8));
 m_action_dockMenu->setText(QApplication::translate("C_ManagerClass", "Hide Show Users and Schedules", 0, QApplication::UnicodeUTF8));
 m_action_NouveauDossier->setText(QApplication::translate("C_ManagerClass", "New folder", 0, QApplication::UnicodeUTF8));
@@ -2081,7 +2081,7 @@ int  C_Manager::alertVerrou(const QString &userBy, const QString &dossNom, const
 {   QString value;
    CGestIni::Param_ReadParam(G_pCApp->m_LocalParam, "Gestion des dossiers", "Acces Concurrent", &value);   // path editeur de texte non d\303\251fini
    if (value.lower() == tr("non possible"))
-   {  QMessageBox::information( this, tr("OUVERTURE CONFLICTUELLE"),
+   {  QMessageBox::information( this, tr("CONFLICTING OPENING"),
                                 tr(  " <b><u>WARNING</b></u> ! This folder ")+"<font color=\"#e80d0d\"><b>"          + dossNom     + " " + dossPrenom  +
                                 tr(  "</b></font> is already open on this terminal: <b>" )   + userBy  +
                                 tr(  "</b><br /> Its access is read-only,<br />it will turnt into write mode<br />as soon as it will be available on this terminal") ,
@@ -2090,7 +2090,7 @@ int  C_Manager::alertVerrou(const QString &userBy, const QString &dossNom, const
                                 1, 1 );
        return 1;
    }
-   return QMessageBox::information( this, tr("OUVERTURE CONFLICTUELLE"),
+   return QMessageBox::information( this, tr("CONFLICTING OPENING"),
                                     tr ( " <b><u>WARNING</b></u> ! This folder <b>")          + dossNom     + " " + dossPrenom  +
                                     tr(  "</b>is already open on this terminal: <b>" )   + userBy  +
                                     tr(  "</b><br> Should we try to open it anyway ?<br />") ,
@@ -2573,11 +2573,11 @@ void C_Manager::setCVonPatient (C_Vitale *pcVitale, int occurence)
    QString secu_2   = m_pGUI->lineEdit_NumSecu->text().remove(' ');
    int nb_criteres  = 0;
    QString mess_Cri = "";
-   if (tmp    != p_nom)                                    {mess_Cri += tr( "<br>&nbsp;&nbsp;&nbsp;&nbsp;- le nom pr\303\251nom doit changer pour  : <b><font color=\"#e80d0d\">")   + pcVitale->GetNomPrenomAyanDroit(occurence, " ")  + tr("</font></b>,"); ++nb_criteres;}
-   if (dnss_1 != dnss_2)                                   {mess_Cri += tr( "<br>&nbsp;&nbsp;&nbsp;&nbsp;- la date de naissance doit changer pour  : <b><font color=\"#e80d0d\">")   + dnss_1       + tr("</font></b>,"); ++nb_criteres;}
-   if (cd_p_1.toInt() && cd_p_1.toInt() != cd_p_2.toInt()) {mess_Cri += tr( "<br>&nbsp;&nbsp;&nbsp;&nbsp;- le code postal doit changer pour  : <b><font color=\"#e80d0d\">")         + cd_p_1       + tr("</font></b>,"); ++nb_criteres;}
-   if (secu_1 != secu_2)                                   {mess_Cri += tr( "<br>&nbsp;&nbsp;&nbsp;&nbsp;- le num\303\251ro de SS doit changer pour  : <b><font color=\"#e80d0d\">") + secu_1       + tr("</font></b>."); ++nb_criteres;}
-   QString message  = tr ( "<b><font color=\"#e80d0d\">ATTENTION OP\303\211RATION \303\200 HAUT RISQUE </font></b>")                           +
+   if (tmp    != p_nom)                                    {mess_Cri += tr( "<br>&nbsp;&nbsp;&nbsp;&nbsp;- le nom pr\303\251nom doit changer pour  : ")+"<b><font color=\"#e80d0d\">"  + pcVitale->GetNomPrenomAyanDroit(occurence, " ")  + "</font></b>,"; ++nb_criteres;}
+   if (dnss_1 != dnss_2)                                   {mess_Cri += tr( "<br>&nbsp;&nbsp;&nbsp;&nbsp;- la date de naissance doit changer pour  :")+ "<b><font color=\"#e80d0d\">"   + dnss_1       + "</font></b>,"; ++nb_criteres;}
+   if (cd_p_1.toInt() && cd_p_1.toInt() != cd_p_2.toInt()) {mess_Cri += tr( "<br>&nbsp;&nbsp;&nbsp;&nbsp;- le code postal doit changer pour  :")+ "<b><font color=\"#e80d0d\">"         + cd_p_1       + "</font></b>,"; ++nb_criteres;}
+   if (secu_1 != secu_2)                                   {mess_Cri += tr( "<br>&nbsp;&nbsp;&nbsp;&nbsp;- le num\303\251ro de SS doit changer pour  :")+" <b><font color=\"#e80d0d\">" + secu_1       + "</font></b>."; ++nb_criteres;}
+   QString message  =  "<b><font color=\"#e80d0d\">"+tr("ATTENTION OP\303\211RATION \303\200 HAUT RISQUE </font></b>")                           +
                       tr(  "<hr><br> La personne : <b><font color=\"#1200ff\">") + m_pGUI->lineEdit_NomDossier->text() + " "+m_pGUI->lineEdit_PrenomDossier->text()          + "</font></b>" +
                       tr(  "<br> n\303\251e le : <b><font color=\"#1200ff\">" )  + dnss_2                                                                                    + "</font></b>";
    if (cd_p_2.toInt())
@@ -2585,17 +2585,17 @@ void C_Manager::setCVonPatient (C_Vitale *pcVitale, int occurence)
 
    message += tr(  "<br> ayant pour num\303\251ro de SS : <b>")              + secu_2                       + "</b><br>";
    if (nb_criteres==1)
-      {message += tr(  "<hr><br><img src=%1/32x32/warning.png> diff\303\250re <b><font color=\"#e80d0d\">du</font></b> crit\303\250re suivant \303\240 modifier :").arg(Theme::getPath(Theme::WithNoSeparator));
+      {message += "<hr><br><img src=%1/32x32/warning.png> "+tr("diff\303\250re <b><font color=\"#e80d0d\">du</font></b> crit\303\250re suivant \303\240 modifier :").arg(Theme::getPath(Theme::WithNoSeparator));
        message += mess_Cri;
       }
    else if (nb_criteres)
-      {message += tr(  "<hr><br><img src=%1/32x32/warning.png> diff\303\250re d'au moins des <b><font color=\"#e80d0d\">").arg(Theme::getPath(Theme::WithNoSeparator))+ QString::number(nb_criteres) + tr("</font></b> crit\303\250res suivants \303\240 modifier :");
+      {message += "<hr><br><img src=%1/32x32/warning.png>"+tr(" diff\303\250re d'au moins des <b><font color=\"#e80d0d\">").arg(Theme::getPath(Theme::WithNoSeparator))+ QString::number(nb_criteres) + tr("</font></b> crit\303\250res suivants \303\240 modifier :");
        message += mess_Cri;
       }
    else
       {message += tr(  "<hr><br>semble \303\252tre la m\303\252me que celle de la carte Vitale<br>nom, pr\303\251nom, num\303\251ro de SS, date de naissance identiques.");
       }
-   message += tr("<br><hr>confirmez vous tout de m\303\252me cette op\303\251ration ? ");
+   message += tr("<br><hr>confirmez-vous tout de m\303\252me cette op\303\251ration ? ");
    if (m_pGUI->lineEdit_RangGeme->text().length())
        message += tr("<br>&nbsp;&nbsp;&nbsp;&nbsp;=> en sachant que <b>ce patient a d\303\251j\303\240 probablement \303\251t\303\251 cr\303\251\303\251 par une carte vitale</b>. ");
    if (tmp    != p_nom)
@@ -2607,15 +2607,15 @@ void C_Manager::setCVonPatient (C_Vitale *pcVitale, int occurence)
 
    int sel = QMessageBox::information( this, tr("Vitaliser un patient"), message ,
                                       //"&nbsp;&nbsp;&nbsp;&nbsp; ° <b>Quitter pour <u>Annuler</u></b> l'op\303\251ration en cours" ) ,
-                                      tr("&Annuler"), tr("Confirmer"), 0 /*tr("Annuler")*/,
+                                      tr("&Cancel"), tr("Confirm"), 0 /*tr("Annuler")*/,
                                       0, 0 );
    if (sel != 1) return;
-   message  = tr(  "<b><font color=\"#e80d0d\">ÊTES-VOUS CERTAIN DE CETTE OPÉRATION ? </font></b>") +
+   message  = "<b><font color=\"#e80d0d\">"+tr("ÊTES-VOUS CERTAIN DE CETTE OPÉRATION ? </font></b>") +
               tr(  "<hr><br> il est encore temps d'annuler cette op\303\251ration.") +
               tr(  "<br> qui sera non r\303\251versible apr\303\250s confirmation." ) +
               tr(  "<br><hr>confirmez vous de nouveau cette op\303\251ration ? ");
    sel = QMessageBox::information( this, tr("Attribution d'une carte Vitale \303\240 une identit\303\251 patient"), message,
-                                         tr("&Attribuer la carte Vitale"),tr("&Annuler") , 0 /*tr("Annuler")*/,
+                                         tr("&Attribuer la carte Vitale"),tr("&Cancel") , 0 /*tr("Annuler")*/,
                                          1, 1 );
    if (sel == 1) return;
    setInterfaceOnVitaleData(G_pCApp->m_pVitale,occurence );
@@ -2648,7 +2648,7 @@ if (pathPlugin.length())
      pQlistView->clear();
      if (moduleName=="PYXVITAL")
        {
-       if (m_timerFSE != 0 && m_timerFSE->isActive() && !m_FSEenCours)     // arrÃªt du controle du Patient en cours sur Pyxvital
+       if (m_timerFSE != 0 && m_timerFSE->isActive() && !m_FSEenCours)     // arret du controle du Patient en cours sur Pyxvital
            m_timerFSE->stop();
        // On lance Aixvital qui appelera Pyxvital pour lire la Carte Vitale en aveugle et retourne le fichier Patient.par
        m_ficPatientPar = appelPyxvital ( "m_Command = CVH\r\n");
@@ -2671,15 +2671,15 @@ if (pathPlugin.length())
             zitem = settings->value(tr(numBenef) + tr("/Nom")).toString();
             if (zitem.length() < 1) break;
             G_pCApp->m_pVitale->SetMember(1, 104, zitem, zitem.length(), i);               // Nom
-            zitem = settings->value(tr(numBenef) + tr("/Code_qualit\303\251")).toString();
+            zitem = settings->value(numBenef + tr("/Code_qualit\303\251")).toString();
             //if (zitem.length()==1) zitem = zitem.prepend("0");
             G_pCApp->m_pVitale->SetMember(14, 104, zitem, zitem.length(), i);              // Qualit\303\251 Ayant Droit
-            zitem = settings->value(tr(numBenef) + tr("/Pr\303\251nom")).toString() ;
+            zitem = settings->value(numBenef + tr("/Pr\303\251nom")).toString() ;
             G_pCApp->m_pVitale->SetMember(3, 104, zitem, zitem.length(), i);               // Pr\303\251nom
-            zitem = settings->value(tr(numBenef) + tr("/Date_de_naissance")).toString() ;          // 15/02/1958
+            zitem = settings->value(numBenef + tr("/Date_de_naissance")).toString() ;          // 15/02/1958
             QString dnss     = zitem.mid(6,4) + zitem.mid(3,2) + zitem.mid(0,2) + "0000";  // 195802150000
             G_pCApp->m_pVitale->SetMember(12, 104, dnss, dnss.length(), i);                // Date naissance
-            zitem = settings->value(tr(numBenef) + tr("/Rang_g\303\251mellaire")).toString();
+            zitem = settings->value(numBenef + tr("/Rang_g\303\251mellaire")).toString();
             G_pCApp->m_pVitale->SetMember(13, 104, zitem, zitem.length(), i);              // Rang G\303\251mellaire
             }   // fin du for i
           last_occurence = i;      // A revoir ??
@@ -3960,7 +3960,7 @@ if (pQListViewItemVitale && pQListViewItem)
     dnss = dnss.mid(6,2)+"-"+dnss.mid(4,2)+"-"+dnss.mid(0,4);
     if (dnss==m_pGUI->lineEdit_DtNss->text())
        {list.prepend("-------------");
-        list.prepend(tr("#22x22/VitaleButtLitle.png#Associer la carte vitale s\303\251lectionn\303\251e : %1 \303\240 ce patient : %2").arg(pQListViewItemVitale->text(0)+" "+pQListViewItemVitale->text(1),pQListViewItem->text(LIST_NOM)+" "+pQListViewItem->text(LIST_PRENOM)));
+        list.prepend("#22x22/VitaleButtLitle.png#"+tr("Associer la carte vitale s\303\251lectionn\303\251e : %1 \303\240 ce patient : %2").arg(pQListViewItemVitale->text(0)+" "+pQListViewItemVitale->text(1),pQListViewItem->text(LIST_NOM)+" "+pQListViewItem->text(LIST_PRENOM)));
        }
    }
 #endif
@@ -4409,9 +4409,9 @@ void C_Manager::Slot_pushButtonDetruire_clicked()
    QString  usedBy;
    if (m_pCMoteurBase->VerrouilleDossier (numGUID, G_pCApp->getUser() , usedBy  )==0)
       {QMessageBox::warning ( this, tr("Patient's folder removal:"),
-                           tr ( " WARNING :\r\n      folder removal impossible : \r\n      ")     +
+                           tr ( " WARNING :\n      folder removal impossible : \n      ")     +
                            nom  + " " + prenom  +
-                           tr(  "\r\n      is used by: ") + usedBy ,
+                           tr(  "\n      is used by: ") + usedBy ,
                            tr("OK"), 0, 0,
                            1, 1
                            );
@@ -4420,11 +4420,9 @@ void C_Manager::Slot_pushButtonDetruire_clicked()
 
    //............. noter la nouvelle identit\303\251 ..................................
    switch  (QMessageBox::warning ( this, tr("Patient's folder removal:"),
-                                  tr ( "<u><b> ATTENTION !</u></b><br />      VOUS VOUS APPR\303\212TEZ \303\200 EFFACER LE DOSSIER : ")+"<br />      <font color=\"#e80d0d\"><b>"     +
+                                  tr ( "<u><b> WARNING !</u></b><br />      YOU ARE ABOUT TO DELETE FOLDER: ")+"<br />      <font color=\"#e80d0d\"><b>"     +
                                   nom  + " " +prenom  +
-                                  tr(  "</b></font><br>&nbsp;&nbsp;&nbsp;CETTE ACTION EST IRR\303\211VERSIBLE<br>"
-                                       "&nbsp;&nbsp;&nbsp;ET LES DONN\303\211ES DU DOSSIER SERONT"
-                                       "&nbsp;&nbsp;&nbsp;<u><b>IRR\303\211CUP\303\211RABLES</b></u> PAR LA SUITE") ,
+                                  tr(  "</b></font><br>&nbsp;&nbsp;&nbsp;THIS ACTION CANNOT BE UNDONE<br />&nbsp;&nbsp;&nbsp;AND DATA WILL BE&nbsp;&nbsp;&nbsp;<u><b>UNRECOVERABLE</b></u> LATER") ,
                                   tr("&Delete"), tr("&NO"), 0,
                                   1, 1 )
            )
@@ -4490,7 +4488,7 @@ list.append(tr("Close the duplicates resolution list"));
 list.append(tr("Delete the duplicates resolution list"));
 if (pQListViewItem)
    {list.append(tr("Remove this folder from duplicates list: ")                     + pQListViewItem->text(0)+" "+pQListViewItem->text(1));
-    list.append(tr("Test if the folders are locks and usable"));
+    list.append(tr("Test if the folders are locked and usable"));
     list.append("------");
     list.append(tr("Give all the folders in this list to patient: ") + pQListViewItem->text(0)+" "+pQListViewItem->text(1));
    }
@@ -4519,30 +4517,29 @@ switch((int)(QChar(ret[0]).latin1()))
     case 'A':
       {if (m_pGUI->listView_Doublons->topLevelItemCount() <=1) return;
        if ( (G_pCApp->m_IsNomadeActif?G_pCApp->m_IsGestionNomadisme:0)==CMoteurBase::progMasterUpdate)
-          {G_pCApp->CouCou(tr("Ce mode de nomadisme ne permet pas la r\303\251solution des doublons"));
+          {G_pCApp->CouCou(tr("This itinerant mode does not allow duplicates resolution"));
            return;
           }
-       QString message  = tr ( "<b><font color=\"#e80d0d\">ATTENTION OP\303\211RATION DE FUSION \303\200 HAUT RISQUE </font></b>")                           +
-                          tr(  "<hr><br> La personne : <b><font color=\"#1200ff\">") + pQListViewItem->text(0)+" "+pQListViewItem->text(1) + "</font></b>" +
-                          tr(  "<br> va \303\252tre celle \303\240 laquelle seront attribu\303\251s tous les dossiers suivants : <hr>" ) ;
+       QString message  = "<b><font color=\"#e80d0d\">"+tr ("WARNING ! MERGING FUNCTION AT HIGH RISK ! </font></b><hr><br> Person :")+" <b><font color=\"#1200ff\">" + pQListViewItem->text(0)+" "+pQListViewItem->text(1) + "</font></b>" +
+                          tr(  "<br /> will be the one who will get all the data: <hr>" ) ;
        QTreeWidgetItemIterator ut( m_pGUI->listView_Doublons );
        while ( *ut )
               {QTreeWidgetItem *pQListViewItem_D = (*ut);
                if (pQListViewItem_D->text(2) != pQListViewItem->text(2))
-                   message += tr(  "<br> &nbsp;&nbsp;&nbsp;&nbsp;=> Dossier : <b><font color=\"#1200ff\">") + pQListViewItem_D->text(0)+" "+pQListViewItem_D->text(1) + "</font></b>";
+                   message += tr(  "<br> &nbsp;&nbsp;&nbsp;&nbsp;=> Folder:")+ "<b><font color=\"#1200ff\">" + pQListViewItem_D->text(0)+" "+pQListViewItem_D->text(1) + "</font></b>";
                ++ut;
               }
-               message += tr("<br><hr>confirmez-vous tout de m\303\252me cette op\303\251ration ? ");
-       int sel = QMessageBox::information( this, tr("Fusionner plusieurs dossiers"), message,
-                                                 tr("&Annuler"), tr("&Fusionner les dossiers"), 0 /*tr("Annuler")*/,
+               message += tr("<br><hr>Do you confirm this operation ? ");
+       int sel = QMessageBox::information( this, tr("Merge several folders"), message,
+                                                 tr("&Cancel"), tr("&Merge folders"), 0 /*tr("Annuler")*/,
                                                  0, 1 );
        if (sel != 1)                             return;
-       message  = tr(  "<b><font color=\"#e80d0d\">\303\212TES VOUS CERTAIN DE CETTE FUSION </font></b>") +
-                  tr(  "<hr><br> il est encore temps d'annuler cette op\303\251ration.") +
-                  tr(  "<br> qui sera non r\303\251versible apr\303\250s confirmation." ) +
-                  tr(  "<br><hr>confirmez-vous de nouveau cette op\303\251ration ? ");
-       sel = QMessageBox::information( this, tr("Fusionner plusieurs dossiers"), message,
-                                             tr("&Fusionner les dossiers"),tr("&Annuler") , 0 /*tr("Annuler")*/,
+       message  = "<b><font color=\"#e80d0d\">"+tr("Do you confirm this merging")+ "</font></b>" +
+                  tr(  "<hr><br /> It is still time to cancel this operation.") +
+                  tr(  "<br /> which will not be reversed after confirmation." ) +
+                  tr(  "<br /><hr>Are you sure ? ");
+       sel = QMessageBox::information( this, tr("Merge several folders"), message,
+                                             tr("&Merge folders"),tr("&Cancel") , 0 /*tr("Annuler")*/,
                                              1, 1 );
        if (sel == 1)                         return;
        //.............. verifier si verrous .................................
@@ -4610,7 +4607,7 @@ void C_Manager::Slot_pushButtonSavModif()
 //--------------------------------- savModifications -------------------------------------------------------------
 void C_Manager::savModifications(const QString &oldNom, const QString &oldPrenom,  const QString &oldPk, int confirmModif /*=1*/)
 {  if (G_pCApp->IsThisDroitExist("idc")==0)
-     {G_pCApp->CouCou(tr( "Vos droits sont insuffisants pour enregistrer un dossier"));
+     {G_pCApp->CouCou(tr( "Your rights are insufficient to save a folder."));
       return;
      }
    int     ret       = 0;
@@ -4619,22 +4616,22 @@ void C_Manager::savModifications(const QString &oldNom, const QString &oldPrenom
    QString numGUID   = G_pCApp->identitePatientGUID();
 
    if (oldNom != nom || oldPrenom != prenom)
-   { ret   = QMessageBox::warning ( this, tr("Enregistrement :"),
-                                    tr( "<u><b>ATTENTION :</u></b><br>&nbsp;&nbsp;&nbsp;\303\252tes-vous certain que ce dossier :<br>&nbsp;&nbsp; <font color=\"#e80d0d\"><b>")     +
+   { ret   = QMessageBox::warning ( this, tr("Saving:"),
+                                    tr( "<u><b>WARNING:</u></b><br />&nbsp;&nbsp;&nbsp;Are you sure this folder:") +"<br>&nbsp;&nbsp; <font color=\"#e80d0d\"><b>"     +
                                     oldNom  + " " + oldPrenom  +
-                                    tr(  "</b></font>&nbsp;&nbsp;doit \303\252tre modifi\303\251, et notamment<br>&nbsp;&nbsp;avec ces nouveaux nom et pr\303\251nom : <font color=\"#1111b0\"><b>") +
-                                    nom + " " + prenom + tr("</b></font>&nbsp;&nbsp;(votre intention ne serait elle pas plut\303\264t de cr\303\251er un nouveau dossier)"),
-                                    tr("&Modifier"), tr("Annu&ler"), 0,
+                                    tr(  "</b></font>&nbsp;&nbsp;should be modified with these new name and first name:")+ "<font color=\"#1111b0\"><b>" +
+                                    nom + " " + prenom + tr("</b></font>&nbsp;&nbsp;(don't you want to create a new folder ?)"),
+                                    tr("&Modify"), tr("&Cancel"), 0,
                                     1, 1
                                     );
    }
    else
    {if (confirmModif)
        {
-        ret   = QMessageBox::warning ( this, tr("Enregistrement :"),
-                                       tr ( "<u><b>ATTENTION :</u></b><br>&nbsp;&nbsp;&nbsp;confirmez-vous les modifications&nbsp;&nbsp;apport\303\251es \303\240 ce dossier : <br>&nbsp;&nbsp;<font color=\"#e80d0d\"><b>")     +
+        ret   = QMessageBox::warning ( this, tr("Saving:"),
+                                       tr ( "<u><b>WARNING :</u></b><br>&nbsp;&nbsp;&nbsp;do you confirm the modifications&nbsp;&nbsp;on this folder : ")+"<br>&nbsp;&nbsp;<font color=\"#e80d0d\"><b>"     +
                                        oldNom  + " " + oldPrenom  + "</b></font>",
-                                       tr("&Modifier"), tr("Annu&ler"), 0,
+                                       tr("&Modify"), tr("&Cancel"), 0,
                                        1, 1
                                        );
        }
@@ -4650,17 +4647,17 @@ void C_Manager::savModifications(const QString &oldNom, const QString &oldPrenom
 
    QString  usedBy;
    if (m_pCMoteurBase->VerrouilleDossier (numGUID, G_pCApp->getUser() , usedBy  )==0)
-      {QMessageBox::warning ( this, tr("Enregistrement :"),
-                           tr ( " ATTENTION :\r\n      Impossible d'enregistrer le dossier : \r\n      ")     +
+      {QMessageBox::warning ( this, tr("Saving:"),
+                           tr ( " WARNING :\n      Impossible to save the folder: \n      ")     +
                            nom  + " " +prenom  +
-                           tr(  "\r\n    car il est en cours d'utilisation par : ") + usedBy ,
-                           tr("&Valider"), 0, 0,
+                           tr(  "\n    because it is in use by: ") + usedBy ,
+                           tr("&Validate"), 0, 0,
                            1, 1
                            );
        return;
       }
    if (nom == "")
-      {nom = tr("ANONYME");
+      {nom = tr("ANONYMOUS");
        m_pGUI->lineEdit_NomDossier->setText(nom);
       }
    PtrListIdentFieldData list_field;   //  cr\303\251er la liste: nom champs <-> valeurs
@@ -4706,7 +4703,7 @@ void C_Manager::onCreateAction(int lauchEnabled  /*  = 1 */)
 {    QString nom        = m_pGUI->lineEdit_NomDossier->text().trimmed () ;
     QString prenom     = m_pGUI->lineEdit_PrenomDossier->text().trimmed () ;
     QString numGUID    = m_pGUI->textLabel_NumDoss->text();
-    if (nom == "") nom = tr("ANONYME");
+    if (nom == "") nom = tr("ANONYMOUS");
     //.............. rechercher les doublons ....................
     QString   dnss     = m_pGUI->lineEdit_DtNss->text().remove('-');                      //  05061956
     if (dnss.length()==8) dnss = dnss.mid(4,4)+"-"+dnss.mid(2,2)+"-"+dnss.mid(0,2)+" 00:00:00";
@@ -4739,18 +4736,18 @@ void C_Manager::onCreateAction(int lauchEnabled  /*  = 1 */)
                                                                              m_pGUI->textLabel_StateList
                                                                            );
    if (nb)
-      {      QString  message  = "<hr><b><font color=\"#e80d0d\">"+tr(  "POSSIBLE DUPLICATES ON THESE ELEMENTS")+"</font></b><br><hr> "+tr("nom pr\303\251nom :")+ "<b><font color=\"#1200ff\">" + nom + " " +   prenom         + "</font></b>";
+      {      QString  message  = "<hr><b><font color=\"#e80d0d\">"+tr(  "POSSIBLE DUPLICATES ON THESE ELEMENTS")+"</font></b><br /><hr> "+tr("name first name:")+ "<b><font color=\"#1200ff\">" + nom + " " +   prenom         + "</font></b>";
               if (dnss.length())
-                      message += tr(  "<br> n\303\251e le : <b><font color=\"#1200ff\">" )         + dnss                         + "</font></b>";
+                      message += tr(  "<br /> born:")+ "<b><font color=\"#1200ff\">"          + dnss                         + "</font></b>";
               if (m_pGUI->lineEdit_CdPostal->text().remove(' ').toInt() !=0)
-                      message += tr(  "<br> code postal  : <b><font color=\"#1200ff\">")     + m_pGUI->lineEdit_CdPostal->text()    + "</font></b>";
+                      message += tr(  "<br /> zip code:")+" <b><font color=\"#1200ff\">"     + m_pGUI->lineEdit_CdPostal->text()    + "</font></b>";
               if (numSecu.length())
-                      message += tr(  "<br> num\303\251ro de SS : <b><font color=\"#1200ff\">")     + numSecu                      + "</font></b><br>";
-                      message += tr(  "<br><hr> d'une personne d\303\251j\303\240 pr\303\251sente dans la liste des dossiers ");
-                      message += tr(  "confirmez-vous tout de m\303\252me cette op\303\251ration au risque de cr\303\251er un doublon ?");
-             int sel = QMessageBox::information( this, tr("Doublons possibles"), message,
+                      message += tr(  "<br /> num\303\251ro de SS : ")+"<b><font color=\"#1200ff\">"     + numSecu                      + "</font></b><br />";
+                      message += tr(  "<br /><hr> of a person already in the folders list");
+                      message += tr(  "Do you still confirm this operation risking to create a duplicate ?");
+             int sel = QMessageBox::information( this, tr("Possible duplicates"), message,
                                                  //"&nbsp;&nbsp;&nbsp;&nbsp; ° <b>Quitter pour <u>Annuler</u></b> l'op\303\251ration en cours" ) ,
-                                            tr("&Annuler"), tr("Confirmer"), 0 /*tr("Annuler")*/,
+                                            tr("&Cancel"), tr("Confirm"), 0 /*tr("Annuler")*/,
                                             0, 1 );
               if (sel != 1)
                  {setInterfaceOnProfil(MODE_SELECTION_PATIENT);
@@ -4780,12 +4777,12 @@ void C_Manager::onCreateAction(int lauchEnabled  /*  = 1 */)
                                                                                m_pGUI->textLabel_StateList
                                                                              )))
       {      QString  message  = tr(  "<hr><b><font color=\"#e80d0d\">DOUBLONS POSSIBLES SUR LE NOM PRENOM </font></b>")                         +
-                                 tr(  "<br> La personne : <b><font color=\"#1200ff\">") + nom + " " +   prenom         + "</font></b>";
-                      message += tr(  "<hr><br> pr\303\251sente des similitudes de nom avec les dossiers pr\303\251sents dans la liste des dossiers ");
-                      message += tr(  "<br><hr>confirmez-vous tout de m\303\252me cette op\303\251ration au risque de cr\303\251er un doublon ?");
-             int sel = QMessageBox::information( this, tr("Doublons possibles"), message,
+                                 tr(  "<br> Person: ")+"<b><font color=\"#1200ff\">" + nom + " " +   prenom         + "</font></b>";
+                      message += tr(  "<hr><br> is similar to the name of a folder in folders list");
+                      message += tr(  "<br><hr>Do you confirm this operation, risking to create duplicates ?");
+             int sel = QMessageBox::information( this, tr("Duplicates possible"), message,
                                                  //"&nbsp;&nbsp;&nbsp;&nbsp; ° <b>Quitter pour <u>Annuler</u></b> l'op\303\251ration en cours" ) ,
-                                            tr("&Annuler"), tr("Confirmer"), 0 /*tr("Annuler")*/,
+                                            tr("&Cancel"), tr("Confirm"), 0 /*tr("Annuler")*/,
                                             0, 1 );
               if (sel != 1)
                  {setInterfaceOnProfil(MODE_SELECTION_PATIENT);
@@ -5059,7 +5056,7 @@ void C_Manager::Slot_comboBoxAgendaUser_activated( const QString &signUser )
 {
    if (!G_pCApp->IsThisDroitExist("agc") &&      // si pas d'agenda possible pour l'utilisateur en cours
        !G_pCApp->IsThisDroitExist("agm"))        // et qu'il n'est pas autorise a gerer des agendas multiples (ceux des autres)
-      {G_pCApp->CouCou(tr("Vous n'avez pas les droits suffisants pour utiliser l'agenda"));
+      {G_pCApp->CouCou(tr("You do not have rights to use the schedule"));
        return;
       }
  addUserAgenda(signUser, QDate::currentDate());
@@ -5114,35 +5111,35 @@ void C_Manager::Slot_pQPushButtonMenuAgenda_Clicked(Wdg_ButtonPtr* pWdg_ButtonPt
 {   Theme::setFontSize_Menu(9);
    QStringList optionList;
    optionList<<tr("$Agenda");
-   optionList<<"=1=#Agenda/h-01.png#"+tr("Repr\303\251senter l'agenda avec un pixel par minute.");
-   optionList<<"=2=#Agenda/h-02.png#"+tr("Repr\303\251senter l'agenda avec deux pixels par minute.");
-   optionList<<"=3=#Agenda/h-03.png#"+tr("Repr\303\251senter l'agenda avec trois pixels par minute.");
-   optionList<<"=4=#Agenda/h-04.png#"+tr("Repr\303\251senter l'agenda avec quatre pixels par minute.");
-   optionList<<"=5=#Agenda/h-05.png#"+tr("Repr\303\251senter l'agenda avec cinq pixels par minute.");
+   optionList<<"=1=#Agenda/h-01.png#"+tr("Display schedule with one pixel per minute.");
+   optionList<<"=2=#Agenda/h-02.png#"+tr("Display schedule with 2 pixels per minute.");
+   optionList<<"=3=#Agenda/h-03.png#"+tr("Display schedule with 3 pixels per minute.");
+   optionList<<"=4=#Agenda/h-04.png#"+tr("Display schedule with 4 pixels per minute.");
+   optionList<<"=5=#Agenda/h-05.png#"+tr("Display schedule with 5 pixels per minute.");
    optionList<<"-----------";
-   optionList<<tr("=6=#Agenda/h-01.png#Fixer les rendez-vous sur un multiple de une minute.");
-   optionList<<tr("=10=#Agenda/h-05.png#Fixer les rendez-vous sur un multiple de cinq minutes.");
-   optionList<<tr("=15=#Agenda/h-10.png#Fixer les rendez-vous sur un multiple de dix minutes.");
-   optionList<<tr("=20=#Agenda/p-15.png#Fixer les rendez-vous sur un multiple de quinze minutes.");
+   optionList<<"=6=#Agenda/h-01.png#"+tr("Define appointments on a multiple of one minute.");
+   optionList<<"=10=#Agenda/h-05.png#"+tr("Define appointments on a multiple of five minutes.");
+   optionList<<"=15=#Agenda/h-10.png#"+tr("Define appointments on a multiple of ten minutes.");
+   optionList<<"=20=#Agenda/p-15.png#"+tr("Define appointments on a multiple of fifteen minutes.");
    optionList<<"-----------";
-   optionList<<tr("=21=#Agenda/agendaDebut.png#Fixer la premi\303\250re heure visible.");
-   optionList<<tr("=22=#Agenda/agendaFin.png#Fixer la derni\303\250re heure visible.");
+   optionList<<"=21=#Agenda/agendaDebut.png#"+tr("Define the first visible hour.");
+   optionList<<"=22=#Agenda/agendaFin.png#"+tr("Define the last visible hour.");
    optionList<<"-----------";
-   optionList<<tr("=30=#Agenda/h-00.png#Annuler la mise \303\240.jour automatique.");
-   optionList<<tr("=35=#Agenda/h-05.png#Intervalle de mise \303\240.jour de cinq secondes.");
-   optionList<<tr("=40=#Agenda/h-10.png#Intervalle de mise \303\240.jour de dix secondes.");
-   optionList<<tr("=50=#Agenda/p-20.png#Intervalle de mise \303\240.jour de vingt secondes.");
-   optionList<<tr("=90=#Agenda/p-60.png#Intervalle de mise \303\240.jour de une minute");
+   optionList<<"=30=#Agenda/h-00.png#"+tr("Cancel automatic update.");
+   optionList<<"=35=#Agenda/h-05.png#"+tr("Update every five seconds.");
+   optionList<<"=40=#Agenda/h-10.png#"+tr("Update every ten seconds.");
+   optionList<<"=50=#Agenda/p-20.png#"+tr("Update every twenty seconds.");
+   optionList<<"=90=#Agenda/p-60.png#"+tr("Update every one minute");
    optionList<<"-----------";
-   optionList<<tr("=100=#Agenda/AgendaSingleLine.png#Repr\303\251senter la vue miniature (mode repli\303\251) sur une ligne.");
-   optionList<<tr("=101=#Agenda/AgendaDoubleLine.png#Repr\303\251senter la vue miniature (mode repli\303\251) sur deux lignes.");
+   optionList<<"=100=#Agenda/AgendaSingleLine.png#"+tr("Show the miniature view (folded mode) on one line.");
+   optionList<<"=101=#Agenda/AgendaDoubleLine.png#"+tr("Show the miniature view (folded mode) on two lines.");
    optionList<<"-----------";
-   optionList<<tr("=110=#Agenda/changeWidth.png#Modifier la largeur de l'agenda.");
+   optionList<<"=110=#Agenda/changeWidth.png#"+tr("Modify schedule width.");
    optionList<<"-----------";
-   optionList<<tr("=120=#Agenda/noConfirmModif.png#D\303\251sactiver la confirmation des modifications.");
-   optionList<<tr("=121=#Agenda/ConfirmModif.png#Activer la confirmation des modifications.");
+   optionList<<"=120=#Agenda/noConfirmModif.png#"+tr("Unactivate modifications confirmation.");
+   optionList<<"=121=#Agenda/ConfirmModif.png#"+tr("Activate modifications confirmation.");
    optionList<<"-----------";
-   optionList<<tr("=180=#Agenda/QuitterMenu.png#Quitter ce menu.");
+   optionList<<"=180=#Agenda/QuitterMenu.png#"+tr("Quit this menu.");
 
    pWdg_ButtonPtr->setIcon(Theme::getIcon("Agenda/AgendaMenuDown.png"));
    QString option = ThemePopup(optionList,this, " border: 1px solid #8f8f91; border-radius: 6px; font-size: 11px;").DoPopupList();
@@ -5175,7 +5172,7 @@ void C_Manager::Slot_pQPushButtonMenuAgenda_Clicked(Wdg_ButtonPtr* pWdg_ButtonPt
      }
    else if (opt>=21 && opt<=22)
      {bool ok;
-      QString text = QInputDialog::getText(this, tr("saisir une heure de la forme hh:mm"), tr("Heure (hh:mm) :"), QLineEdit::Normal, opt==21?"08:00":"19:00", &ok).trimmed();
+      QString text = QInputDialog::getText(this, tr("Enter an hour formatted this way: hh:mm"), tr("Hour (hh:mm) :"), QLineEdit::Normal, opt==21?"08:00":"19:00", &ok).trimmed();
       if (ok && text.length())
          {QTime tm = QTime::fromString(text,"hh:mm");
           if (!tm.isValid()) return;
@@ -5197,7 +5194,7 @@ void C_Manager::Slot_pQPushButtonMenuAgenda_Clicked(Wdg_ButtonPtr* pWdg_ButtonPt
       }
    else if (opt==110)
      {bool ok;
-      QString text = QInputDialog::getText(this, tr("Saisir la largeur de l'agenda"), tr("Largeur en pixels :"), QLineEdit::Normal, "300", &ok).trimmed();
+      QString text = QInputDialog::getText(this, tr("Enter width of schedule"), tr("Width in pixels:"), QLineEdit::Normal, "300", &ok).trimmed();
       if (ok && text.length())
          {QScrollArea   *scrollArea_Days            = (QScrollArea*)pWdg_ButtonPtr->getPtr_2();
           //QFrame        *agendaFrameDaysAndTitle    = (QFrame*)pWdg_ButtonPtr->getPtr_3();
@@ -5332,26 +5329,26 @@ C_Frm_Agenda *C_Manager::addUserAgenda(const QString &signUser, QDate date, QFra
    pQPushButtonMenu->resize(   AGENDA_SUB_TITLE_H , AGENDA_SUB_TITLE_H);
    pQPushButtonMenu->move  ( W_DATE_EDIT + AGENDA_SUB_TITLE_H + AGENDA_SUB_TITLE_H, 0);
    pQPushButtonMenu->setIcon(Theme::getIcon("Agenda/AgendaMenu.png"));
-   pQPushButtonMenu->setToolTip ( tr("<font color=\"#000000\">Various options for schedule</font>") );
+   pQPushButtonMenu->setToolTip ( "<font color=\"#000000\">"+tr("Various options for schedule")+"</font>" );
 
    pQPushButtonDate->resize     ( AGENDA_SUB_TITLE_H , AGENDA_SUB_TITLE_H);
    pQPushButtonDate->move       ( AGENDA_SUB_TITLE_H  , 0);
    if (pC_Frm_Agenda->getPaintMode() >= C_Frm_Agenda::NORMAL)
       {pQPushButtonDate->setIcon    ( Theme::getIcon("Agenda/dateChange.png"));
-       pQPushButtonDate->setToolTip ( tr("<font color=\"#000000\">Which date to start schedule</font>") );
-       pQPushButtonClose->setToolTip (tr("<font color=\"#000000\">Close this schedule</font>") );
+       pQPushButtonDate->setToolTip ( "<font color=\"#000000\">"+tr("Which date to start schedule")+"</font>" );
+       pQPushButtonClose->setToolTip ("<font color=\"#000000\">"+tr("Close this schedule")+"</font>" );
       }
    else
       {pQPushButtonDate->setIcon    ( Theme::getIcon("Agenda/goBack.png"));
-       pQPushButtonDate->setToolTip ( tr("<font color=\"#000000\">Previous page</font>") );
-       pQPushButtonClose->setToolTip (tr("<font color=\"#000000\">Close this page.</font>") );
+       pQPushButtonDate->setToolTip ( "<font color=\"#000000\">"+tr("Previous page")+"</font>" );
+       pQPushButtonClose->setToolTip ("<font color=\"#000000\">"+tr("Close this page.")+"</font>" );
       }
    pQLineEditDate->setText      (date.toString("ddMMyyyy"));
    pQLineEditDate->setStyleSheet(QString("border-radius: 6px; background-color: #fff9d8; border: 1px solid #8f8f91; border-radius: 1px; font-size: 9px;"));
    pQLineEditDate->setAlignment ( Qt::AlignHCenter );
    pQLineEditDate->resize       ( W_DATE_EDIT, AGENDA_SUB_TITLE_H );
    pQLineEditDate->move         ( AGENDA_SUB_TITLE_H + AGENDA_SUB_TITLE_H  , 0);
-   pQLineEditDate->setToolTip   (tr("<font color=\"#000000\">Which date to start schedule</font>") );
+   pQLineEditDate->setToolTip   ("<font color=\"#000000\">"+tr("Which date to start schedule")+"</font>" );
    pQLineEditDate->setReadOnly  ( TRUE );
 
    pQLabel->setAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
