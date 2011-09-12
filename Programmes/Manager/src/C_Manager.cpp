@@ -1659,7 +1659,7 @@ int C_Manager::reconnectToMaster(int gestionNomadisme)
                G_pCApp->changeAllModuleConnectionParam(driver, baseToOpen, login_Master, pass_Master, host_Master, port_Master);
                allAgendasReconnect(driver, baseToOpen, login_Master, pass_Master, host_Master, port_Master);
                G_pCApp->m_pCMoteurBase->BaseConnect(driver, baseToOpen, login_Master, pass_Master, host_Master, port_Master,0, G_pCApp->m_pCMoteurBase->GetDataBaseLabel());
-               G_pCApp->CouCou(tr("Mode master activ\303\251\nconnect\303\251 \303\240 : ") + G_pCApp->m_pCMoteurBase->GetDataBaseLabel() + QString("\ndriver : %1\nbase : %2\nuser : %3\nhost : %4").arg(driver, baseToOpen, login_Master, host_Master+":"+port_Master),"", 4000);
+               G_pCApp->CouCou(tr("Master mode active\nconnected to: ") + G_pCApp->m_pCMoteurBase->GetDataBaseLabel() + QString("\ndriver : %1\nbase : %2\nuser : %3\nhost : %4").arg(driver, baseToOpen, login_Master, host_Master+":"+port_Master),"", 4000);
               }
            else
               {G_pCApp->CouCou(tr("Connection failing\nItinerant Mode keeped.") );
@@ -1876,10 +1876,9 @@ if (guid.length()== 0)
                if (pQListViewItem)
                   {pQListViewItem->setSelected(TRUE);      // pour mettre \303\240 jour la fiche identite
                    int ret = QMessageBox::information( this, tr("Launch a folder"),
-                                               tr( "Un dossier existe pour ce nom : <br /><b>«" + pC_RendezVous->m_Nom + "  " + pC_RendezVous->m_Prenom +
+                                               tr( "A folder exists for this name:")+" <br /><b>«" + pC_RendezVous->m_Nom + "  " + pC_RendezVous->m_Prenom +
                                                    "»</b>" +
-                                                   "<br />faut-il lancer ce dossier ?"
-                                                  ) ,
+                                                   "<br />"+tr("Should we launch this folder ?") ,
                                                tr("&Launch"), tr("&Cancel"), 0,
                                                1, 1 );
                    if (ret==0)
@@ -1889,9 +1888,9 @@ if (guid.length()== 0)
               }
            else if (m_pGUI->listView_Patient->topLevelItemCount()==0)
               {int ret = QMessageBox::information( this, tr("Create a folder"),
-                                               tr( "Il n'existe pas de dossier avec ce nom : <br /><b>«" + pC_RendezVous->m_Nom + "  " + pC_RendezVous->m_Prenom +
+                                               tr( "There is no folder for this name:")+ "<br /><b>«" + pC_RendezVous->m_Nom + "  " + pC_RendezVous->m_Prenom +
                                                    "»</b>" +
-                                                   "<br />faut-il en cr\303\251er un ?"
+                                                   "<br />"+ tr("should we create one ?"
                                                   ) ,
                                                tr("&Create a folder"), tr("&Cancel"), 0,
                                                1, 1 );
@@ -2018,10 +2017,9 @@ void C_Manager::accederDossier( QString nom,  QString prenom, const QString &pri
       {CGestIni::Param_ReadParam(G_pCApp->m_LocalParam, "Gestion des dossiers", "Acces Concurrent", &value);   // path editeur de texte non d\303\251fini
        if (value.lower().left(3) == "exc")
           {QMessageBox::information( this, tr(  "FOLDER IS UNREACHABLE"),
-                                     tr(  " <b><b><u>WARNING</b></u> ! This folder <font color=\"#e80d0d\"><b>")          + nom     + " " + prenom  +
+                                     tr(  " <b><b><u>WARNING</b></u> ! This folder ")+"<font color=\"#e80d0d\"><b>"          + nom     + " " + prenom  +
                                      tr(  "</b></font> is open on this terminal: <b>" )   + usedBy  +
-                                     tr(  "</b>.<br /> Son acc\303\250s est non possible sur le poste actuel.<br />"
-                                          "Veuillez le faire fermer sur le poste qui l'utilise actuellement avant d'y acc\303\251der sur ce poste.") ,
+                                     "</b>.<br />"+ tr( "Its acces is impossible on this terminal.<br />Please, get it closed on its terminal before opening it on this terminal.") ,
                                      tr("&Cancel"),0 , 0,
                                      1, 1 );
            return;
@@ -2083,21 +2081,19 @@ int  C_Manager::alertVerrou(const QString &userBy, const QString &dossNom, const
 {   QString value;
    CGestIni::Param_ReadParam(G_pCApp->m_LocalParam, "Gestion des dossiers", "Acces Concurrent", &value);   // path editeur de texte non d\303\251fini
    if (value.lower() == tr("non possible"))
-   {  QMessageBox::information( this, tr(  "OUVERTURE CONFLICTUELLE"),
-                                tr(  " <b><u>ATTENTION</b></u> ! Ce dossier <font color=\"#e80d0d\"><b>")          + dossNom     + " " + dossPrenom  +
-                                tr(  "</b></font> est d\303\251j\303\240 ouvert sur le poste suivant : <b>" )   + userBy  +
-                                tr(  "</b><br> Son acc\303\250s n'est possible qu'en lecture seulement,<br>"
-                                     "il se mettra automatiquement en mode \303\251criture<br>"
-                                     "d\303\251s qu'il sera disponible sur votre poste") ,
+   {  QMessageBox::information( this, tr("OUVERTURE CONFLICTUELLE"),
+                                tr(  " <b><u>WARNING</b></u> ! This folder ")+"<font color=\"#e80d0d\"><b>"          + dossNom     + " " + dossPrenom  +
+                                tr(  "</b></font> is already open on this terminal: <b>" )   + userBy  +
+                                tr(  "</b><br /> Its access is read-only,<br />it will turnt into write mode<br />as soon as it will be available on this terminal") ,
                                 //"&nbsp;&nbsp;&nbsp;&nbsp; ° <b>Quitter pour <u>Annuler</u></b> l'op\303\251ration en cours" ) ,
-                                tr("Annu&ler"),0 , 0,
+                                tr("&Cancel"),0 , 0,
                                 1, 1 );
        return 1;
    }
    return QMessageBox::information( this, tr("OUVERTURE CONFLICTUELLE"),
-                                    tr ( " <b><u>ATTENTION</b></u> ! Ce dossier <b>")          + dossNom     + " " + dossPrenom  +
-                                    tr(  "</b> est d\303\251j\303\240 ouvert sur le poste suivant : <b>" )   + userBy  +
-                                    tr(  "</b><br> Faut-il tenter tout de m\303\252me l'ouverture ?<br>") ,
+                                    tr ( " <b><u>WARNING</b></u> ! This folder <b>")          + dossNom     + " " + dossPrenom  +
+                                    tr(  "</b>is already open on this terminal: <b>" )   + userBy  +
+                                    tr(  "</b><br> Should we try to open it anyway ?<br />") ,
                                     //"&nbsp;&nbsp;&nbsp;&nbsp; ° <b>Quitter pour <u>Annuler</u></b> l'op\303\251ration en cours" ) ,   1111b0
                                     tr("&Open"), tr("&Cancel"), 0,
                                     1, 1 );
@@ -2428,7 +2424,7 @@ if (tmp.length()) list.append(tr("30- Rechercher avec la date de naissance : ") 
 //............... que si identite de la CV ne correspond pas \303\240 un dossier en base ........................
 //                on propose de l'attribuer au dossier selectionne
 if (pQListViewItem->text(6).length()==0)
-   {list.append(tr("-------------") );
+   {list.append("-------------");
     if ( getInterfaceMode()==MODE_CREATION_PATIENT)
        { list.append("-------------");
          list.append(tr("33- Utiliser les donn\303\251es de la carte Vitale : %1 pour remplir celles du patient en cours de cr\303\251ation").arg(p_nom + " " + p_prenom));
@@ -3074,7 +3070,7 @@ QTreeWidgetItem *pQListViewItem = getSelectedListViewItem(m_pGUI->listView_Prati
 if (pQListViewItem==0)            return;
 //............... menu des qualites ..........................
 QStringList lst;
-QString removeProp = tr("Retirer la propri\303\251t\303\251 'En qualit\303\251 de'");
+QString removeProp = tr("Remove property 'As'");
 CGestIni::Param_GetList(G_pCApp->m_LocalParam, "Qualite intervenant", "",  lst );
 if (lst.count()==0)               return;
 lst.append ( "-------------" );
@@ -3355,7 +3351,7 @@ if (G_pCApp->IsThisDroitExist("idv"))
    {
    }
  //................... bouton creer et acceder ou creer ...........................
-if (CGestIni::Param_ReadUniqueParam(G_pCApp->m_LocalParam, "Derniere Session", tr("Mode de creation dossier")).lower()[0] == 'a' &&
+if (CGestIni::Param_ReadUniqueParam(G_pCApp->m_LocalParam, "Derniere Session", tr("Folder creation mode")).lower()[0] == 'a' &&
     G_pCApp->IsThisDroitExist("idg")
    )
    {m_pGUI->pushButtonCreate->setText(tr("&Create and access"));
@@ -3956,7 +3952,7 @@ if (pQListViewItem){ //.............. verifier si pas verrouill\303\251 ........
                      list.append(tr("Research by birth date: ")+m_pGUI->lineEdit_DtNss->text());
                      //list.append(tr("Rechercher par le n. de jeune fille : ")+lineEdit_NomDeNss->text());
                      list.append(tr("Rechercher par le num\303\251ro de s\303\251curit\303\251 sociale : ")+m_pGUI->lineEdit_NumSecu->text());
-                     list.append(tr("Rechercher avec le nom le pr\303\251nom et la date de naissance : ")  +m_pGUI->lineEditAutoLocator->text().replace(";"," ")+" "+m_pGUI->lineEdit_DtNss->text());
+                     list.append(tr("Research by name, first name and birth date: ")  +m_pGUI->lineEditAutoLocator->text().replace(";"," ")+" "+m_pGUI->lineEdit_DtNss->text());
                    }
  #ifdef SESAM_VERSION
 if (pQListViewItemVitale && pQListViewItem)
@@ -4390,7 +4386,7 @@ void C_Manager::Slot_lineEditAutoLocator_textChanged(const QString &)
 //--------------------------------- Slot_pushButtonDetruire_clicked -------------------------------------------------------------
 void C_Manager::Slot_pushButtonDetruire_clicked()
 {   if ( !G_pCApp->isCurrentIdentiteValid() )
-      {G_pCApp->CouCou(tr("Op\303\251ration non possible : \rpas de dossier valide s\303\251lectionn\303\251."));
+      {G_pCApp->CouCou(tr("Operation impossible: \rno valid folder selected."));
        return;
       }
    QString nom       = G_pCApp->identitePatientNom() ;
@@ -4424,12 +4420,12 @@ void C_Manager::Slot_pushButtonDetruire_clicked()
 
    //............. noter la nouvelle identit\303\251 ..................................
    switch  (QMessageBox::warning ( this, tr("Patient's folder removal:"),
-                                  tr ( "<u><b> ATTENTION !</u></b><br />      VOUS VOUS APPR\303\212TEZ \303\200 EFFACER LE DOSSIER : <br />      <font color=\"#e80d0d\"><b>")     +
+                                  tr ( "<u><b> ATTENTION !</u></b><br />      VOUS VOUS APPR\303\212TEZ \303\200 EFFACER LE DOSSIER : ")+"<br />      <font color=\"#e80d0d\"><b>"     +
                                   nom  + " " +prenom  +
                                   tr(  "</b></font><br>&nbsp;&nbsp;&nbsp;CETTE ACTION EST IRR\303\211VERSIBLE<br>"
                                        "&nbsp;&nbsp;&nbsp;ET LES DONN\303\211ES DU DOSSIER SERONT"
                                        "&nbsp;&nbsp;&nbsp;<u><b>IRR\303\211CUP\303\211RABLES</b></u> PAR LA SUITE") ,
-                                  tr("&Effacer"), tr("&NON"), 0,
+                                  tr("&Delete"), tr("&NO"), 0,
                                   1, 1 )
            )
            {case 1: m_pCMoteurBase->DeVerrouilleDossier (numGUID);
