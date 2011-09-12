@@ -3451,10 +3451,9 @@ p, li { white-space: pre-wrap; }
         <translation>Veuillez vérifier vos paramètres et connexions.</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2093"/>
-        <location filename="C_Manager.cpp" line="4631"/>
-        <location filename="C_Manager.cpp" line="4641"/>
-        <location filename="C_Manager.cpp" line="6038"/>
+        <location filename="C_Manager.cpp" line="4627"/>
+        <location filename="C_Manager.cpp" line="4637"/>
+        <location filename="C_Manager.cpp" line="6034"/>
         <source>Annu&amp;ler</source>
         <translation>&amp;Cancel</translation>
     </message>
@@ -3476,11 +3475,12 @@ connecté : </translation>
         <location filename="C_Manager.cpp" line="1316"/>
         <location filename="C_Manager.cpp" line="1467"/>
         <location filename="C_Manager.cpp" line="1482"/>
-        <location filename="C_Manager.cpp" line="1883"/>
-        <location filename="C_Manager.cpp" line="1896"/>
-        <location filename="C_Manager.cpp" line="1909"/>
-        <location filename="C_Manager.cpp" line="2025"/>
-        <location filename="C_Manager.cpp" line="2102"/>
+        <location filename="C_Manager.cpp" line="1882"/>
+        <location filename="C_Manager.cpp" line="1895"/>
+        <location filename="C_Manager.cpp" line="1908"/>
+        <location filename="C_Manager.cpp" line="2023"/>
+        <location filename="C_Manager.cpp" line="2089"/>
+        <location filename="C_Manager.cpp" line="2098"/>
         <source>&amp;Cancel</source>
         <translation>Annu&amp;ler</translation>
     </message>
@@ -3525,10 +3525,12 @@ non trouvés dans Manager.ini : </translation>
     </message>
     <message>
         <location filename="C_Manager.cpp" line="1662"/>
-        <source>Mode master activé
-connecté à : </source>
-        <translation>Master mode activated
-connected to: </translation>
+        <source>Master mode active
+connected to: </source>
+        <oldsource>Mode master activé
+connecté à : </oldsource>
+        <translation>Master mode activé
+connecté à : </translation>
     </message>
     <message>
         <location filename="C_Manager.cpp" line="1665"/>
@@ -3546,435 +3548,373 @@ Mode nomade conservé.</translation>
         <translation>Lancer un dossier</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2614"/>
-        <location filename="C_Manager.cpp" line="2622"/>
-        <location filename="C_Manager.cpp" line="4541"/>
-        <location filename="C_Manager.cpp" line="4549"/>
-        <location filename="C_Manager.cpp" line="4757"/>
-        <location filename="C_Manager.cpp" line="4792"/>
-        <location filename="C_Manager.cpp" line="5657"/>
+        <location filename="C_Manager.cpp" line="2610"/>
+        <location filename="C_Manager.cpp" line="2618"/>
+        <location filename="C_Manager.cpp" line="4537"/>
+        <location filename="C_Manager.cpp" line="4545"/>
+        <location filename="C_Manager.cpp" line="4753"/>
+        <location filename="C_Manager.cpp" line="4788"/>
+        <location filename="C_Manager.cpp" line="5653"/>
         <source>&amp;Annuler</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="1991"/>
+        <location filename="C_Manager.cpp" line="1990"/>
         <source>Your rights are insufficient to launch a folder</source>
         <oldsource>Vos droits sont insuffisants pour lancer un dossier</oldsource>
         <translation>Vos droits sont insuffisants pour lancer un dossier</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2021"/>
-        <source> &lt;b&gt;&lt;b&gt;&lt;u&gt;WARNING&lt;/b&gt;&lt;/u&gt; ! This folder &lt;font color=&quot;#e80d0d&quot;&gt;&lt;b&gt;</source>
-        <oldsource> &lt;b&gt;&lt;b&gt;&lt;u&gt;ATTENTION&lt;/b&gt;&lt;/u&gt; ! Ce dossier &lt;font color=&quot;#e80d0d&quot;&gt;&lt;b&gt;</oldsource>
-        <translation type="unfinished"></translation>
+        <location filename="C_Manager.cpp" line="2020"/>
+        <source> &lt;b&gt;&lt;b&gt;&lt;u&gt;WARNING&lt;/b&gt;&lt;/u&gt; ! This folder </source>
+        <oldsource> &lt;b&gt;&lt;b&gt;&lt;u&gt;WARNING&lt;/b&gt;&lt;/u&gt; ! This folder &lt;font color=&quot;#e80d0d&quot;&gt;&lt;b&gt;</oldsource>
+        <translation> &lt;b&gt;&lt;b&gt;&lt;u&gt;ATTENTION&lt;/b&gt;&lt;/u&gt; ! Ce dossier </translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2023"/>
-        <source>&lt;/b&gt;.&lt;br /&gt; Son accès est non possible sur le poste actuel.&lt;br /&gt;Veuillez le faire fermer sur le poste qui l&apos;utilise actuellement avant d&apos;y accéder sur ce poste.</source>
-        <oldsource>&lt;/b&gt;.&lt;br&gt; Son accès est non possible sur le poste actuel.&lt;br&gt;Veuillez le faire fermer sur le poste qui l&apos;utilise actuellement avant d&apos;y accéder sur ce poste.</oldsource>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="2085"/>
+        <location filename="C_Manager.cpp" line="2083"/>
         <source>non possible</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2086"/>
-        <location filename="C_Manager.cpp" line="2097"/>
+        <location filename="C_Manager.cpp" line="2084"/>
+        <location filename="C_Manager.cpp" line="2093"/>
         <source>OUVERTURE CONFLICTUELLE</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2087"/>
-        <source> &lt;b&gt;&lt;u&gt;ATTENTION&lt;/b&gt;&lt;/u&gt; ! Ce dossier &lt;font color=&quot;#e80d0d&quot;&gt;&lt;b&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="2088"/>
-        <source>&lt;/b&gt;&lt;/font&gt; est déjà ouvert sur le poste suivant : &lt;b&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="2089"/>
-        <source>&lt;/b&gt;&lt;br&gt; Son accès n&apos;est possible qu&apos;en lecture seulement,&lt;br&gt;il se mettra automatiquement en mode écriture&lt;br&gt;dés qu&apos;il sera disponible sur votre poste</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="2098"/>
-        <source> &lt;b&gt;&lt;u&gt;ATTENTION&lt;/b&gt;&lt;/u&gt; ! Ce dossier &lt;b&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="2099"/>
-        <source>&lt;/b&gt; est déjà ouvert sur le poste suivant : &lt;b&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="2100"/>
-        <source>&lt;/b&gt;&lt;br&gt; Faut-il tenter tout de même l&apos;ouverture ?&lt;br&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="2369"/>
+        <location filename="C_Manager.cpp" line="2365"/>
         <source>1- Mettre à jour l&apos;identité avec le nom et prénom de l&apos;ayant droit : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2373"/>
+        <location filename="C_Manager.cpp" line="2369"/>
         <source>2- Mettre à jour l&apos;identité avec le nom de naissance : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2383"/>
+        <location filename="C_Manager.cpp" line="2379"/>
         <source>4- Mettre à jour l&apos;identité avec l&apos;adresse : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2388"/>
+        <location filename="C_Manager.cpp" line="2384"/>
         <source>5- Mettre à jour l&apos;identité avec le code postal : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2393"/>
+        <location filename="C_Manager.cpp" line="2389"/>
         <source>6- Mettre à jour l&apos;identité avec la ville : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2397"/>
+        <location filename="C_Manager.cpp" line="2393"/>
         <source>7- Mettre à jour l&apos;identité avec le nom et prénom de l&apos;assuré : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2408"/>
+        <location filename="C_Manager.cpp" line="2404"/>
         <source>10- Mettre à jour l&apos;identité avec le type d&apos;ayant droit : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2410"/>
+        <location filename="C_Manager.cpp" line="2406"/>
         <source>11- Mettre à jour l&apos;identité avec toutes les données de la carte vitale </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2416"/>
+        <location filename="C_Manager.cpp" line="2412"/>
         <source>23- Rechercher avec le numéro de SS : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2419"/>
+        <location filename="C_Manager.cpp" line="2415"/>
         <source>27- Rechercher avec le nom et prénom de l&apos;ayant droit : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2422"/>
+        <location filename="C_Manager.cpp" line="2418"/>
         <source>28- Rechercher avec le nom de l&apos;ayant droit    : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2423"/>
+        <location filename="C_Manager.cpp" line="2419"/>
         <source>29- Rechercher avec le prénom de l&apos;ayant droit : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2426"/>
+        <location filename="C_Manager.cpp" line="2422"/>
         <source>30- Rechercher avec la date de naissance : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2431"/>
-        <source>-------------</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="2434"/>
+        <location filename="C_Manager.cpp" line="2430"/>
         <source>33- Utiliser les données de la carte Vitale : %1 pour remplir celles du patient en cours de création</source>
         <oldsource>33- Utiliser les données de la carte sesam Vitale : %1 pour remplir celles du patient en cours de création</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2437"/>
+        <location filename="C_Manager.cpp" line="2433"/>
         <source>31- Créer un nouveau dossier avec l&apos;identité sélectionnée de la carte vitale : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2441"/>
+        <location filename="C_Manager.cpp" line="2437"/>
         <source>32- Attribuer les éléments de cette carte vitale au patient sélectionné : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2580"/>
+        <location filename="C_Manager.cpp" line="2576"/>
         <source>&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;- le nom prénom doit changer pour  : &lt;b&gt;&lt;font color=&quot;#e80d0d&quot;&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2580"/>
-        <location filename="C_Manager.cpp" line="2581"/>
-        <location filename="C_Manager.cpp" line="2582"/>
+        <location filename="C_Manager.cpp" line="2576"/>
+        <location filename="C_Manager.cpp" line="2577"/>
+        <location filename="C_Manager.cpp" line="2578"/>
         <source>&lt;/font&gt;&lt;/b&gt;,</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2581"/>
+        <location filename="C_Manager.cpp" line="2577"/>
         <source>&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;- la date de naissance doit changer pour  : &lt;b&gt;&lt;font color=&quot;#e80d0d&quot;&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2582"/>
+        <location filename="C_Manager.cpp" line="2578"/>
         <source>&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;- le code postal doit changer pour  : &lt;b&gt;&lt;font color=&quot;#e80d0d&quot;&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2583"/>
+        <location filename="C_Manager.cpp" line="2579"/>
         <source>&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;- le numéro de SS doit changer pour  : &lt;b&gt;&lt;font color=&quot;#e80d0d&quot;&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2583"/>
+        <location filename="C_Manager.cpp" line="2579"/>
         <source>&lt;/font&gt;&lt;/b&gt;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2584"/>
+        <location filename="C_Manager.cpp" line="2580"/>
         <source>&lt;b&gt;&lt;font color=&quot;#e80d0d&quot;&gt;ATTENTION OPÉRATION À HAUT RISQUE &lt;/font&gt;&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2585"/>
-        <location filename="C_Manager.cpp" line="4530"/>
+        <location filename="C_Manager.cpp" line="2581"/>
+        <location filename="C_Manager.cpp" line="4526"/>
         <source>&lt;hr&gt;&lt;br&gt; La personne : &lt;b&gt;&lt;font color=&quot;#1200ff&quot;&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2586"/>
-        <location filename="C_Manager.cpp" line="4748"/>
+        <location filename="C_Manager.cpp" line="2582"/>
+        <location filename="C_Manager.cpp" line="4744"/>
         <source>&lt;br&gt; née le : &lt;b&gt;&lt;font color=&quot;#1200ff&quot;&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2590"/>
+        <location filename="C_Manager.cpp" line="2586"/>
         <source>&lt;br&gt; ayant pour numéro de SS : &lt;b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2596"/>
+        <location filename="C_Manager.cpp" line="2592"/>
         <source>&lt;/font&gt;&lt;/b&gt; critères suivants à modifier :</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2602"/>
+        <location filename="C_Manager.cpp" line="2598"/>
         <source>&lt;br&gt;&lt;hr&gt;confirmez vous tout de même cette opération ? </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2604"/>
+        <location filename="C_Manager.cpp" line="2600"/>
         <source>&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;=&gt; en sachant que &lt;b&gt;ce patient a déjà probablement été créé par une carte vitale&lt;/b&gt;. </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2606"/>
+        <location filename="C_Manager.cpp" line="2602"/>
         <source>&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;=&gt; en sachant qu&apos;un changement de nom et prénom est suspect,</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2607"/>
+        <location filename="C_Manager.cpp" line="2603"/>
         <source> car tous &lt;b&gt;les documents du dossier en cours vont être attribués au nouveau nom&lt;/b&gt;. </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2610"/>
+        <location filename="C_Manager.cpp" line="2606"/>
         <source>&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;=&gt; en sachant qu&apos;un changement de date de naissance est suspect. </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2612"/>
+        <location filename="C_Manager.cpp" line="2608"/>
         <source>Vitaliser un patient</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2614"/>
-        <location filename="C_Manager.cpp" line="4757"/>
-        <location filename="C_Manager.cpp" line="4792"/>
+        <location filename="C_Manager.cpp" line="2610"/>
+        <location filename="C_Manager.cpp" line="4753"/>
+        <location filename="C_Manager.cpp" line="4788"/>
         <source>Confirmer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2618"/>
-        <location filename="C_Manager.cpp" line="4545"/>
+        <location filename="C_Manager.cpp" line="2614"/>
+        <location filename="C_Manager.cpp" line="4541"/>
         <source>&lt;hr&gt;&lt;br&gt; il est encore temps d&apos;annuler cette opération.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2619"/>
-        <source>&lt;br&gt; qui sera non réverssible après confirmation.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="2620"/>
+        <location filename="C_Manager.cpp" line="2616"/>
         <source>&lt;br&gt;&lt;hr&gt;confirmez vous de nouveau cette opération ? </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2621"/>
+        <location filename="C_Manager.cpp" line="2617"/>
         <source>Attribution d&apos;une carte Vitale à une identité patient</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2622"/>
+        <location filename="C_Manager.cpp" line="2618"/>
         <source>&amp;Attribuer la carte Vitale</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2662"/>
+        <location filename="C_Manager.cpp" line="2658"/>
         <source>Bénéficiaire/Numéro</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2675"/>
+        <location filename="C_Manager.cpp" line="2671"/>
         <source>/Nom</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2678"/>
+        <location filename="C_Manager.cpp" line="2674"/>
         <source>/Code_qualité</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2681"/>
+        <location filename="C_Manager.cpp" line="2677"/>
         <source>/Prénom</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2683"/>
+        <location filename="C_Manager.cpp" line="2679"/>
         <source>/Date_de_naissance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2686"/>
+        <location filename="C_Manager.cpp" line="2682"/>
         <source>/Rang_gémellaire</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="3026"/>
-        <location filename="C_Manager.cpp" line="3626"/>
-        <location filename="C_Manager.cpp" line="4337"/>
+        <location filename="C_Manager.cpp" line="3022"/>
+        <location filename="C_Manager.cpp" line="3622"/>
+        <location filename="C_Manager.cpp" line="4333"/>
         <source>Patient (bénéficiaire) avec une date de naissance non valide</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="3077"/>
-        <source>Retirer la propriété &apos;En qualité de&apos;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="3161"/>
-        <location filename="C_Manager.cpp" line="3189"/>
+        <location filename="C_Manager.cpp" line="3157"/>
+        <location filename="C_Manager.cpp" line="3185"/>
         <source>Your rights are insufficient to modify a folder</source>
         <oldsource>Vos droits sont insuffisants pour modifier un dossier</oldsource>
         <translation>Vos droits sont insuffisants pour modifier un dossier</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="3282"/>
+        <location filename="C_Manager.cpp" line="3278"/>
         <source>  connected to server: </source>
         <oldsource>  connecté au serveur : </oldsource>
         <translation>  connecté au serveur : </translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="3941"/>
+        <location filename="C_Manager.cpp" line="3937"/>
         <source>Close the duplicate resolution list</source>
         <translation>Fermer la liste de résolution des doublons</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="3950"/>
+        <location filename="C_Manager.cpp" line="3946"/>
         <source>unlock this patient&apos;s file: %1 </source>
         <translation>Déverrouiller le dossier de ce patient : %1</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="3956"/>
+        <location filename="C_Manager.cpp" line="3952"/>
         <source>Research by birth date: </source>
         <translation>Rechercher par la date de naissance : </translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4049"/>
+        <location filename="C_Manager.cpp" line="4045"/>
         <source>the name</source>
         <translation>le nom</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4050"/>
+        <location filename="C_Manager.cpp" line="4046"/>
         <source>first name</source>
         <translation>le prénom</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4054"/>
+        <location filename="C_Manager.cpp" line="4050"/>
         <source>maiden</source>
         <translation>nom de jeune fille</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4399"/>
-        <location filename="C_Manager.cpp" line="4415"/>
-        <location filename="C_Manager.cpp" line="4426"/>
+        <location filename="C_Manager.cpp" line="4395"/>
+        <location filename="C_Manager.cpp" line="4411"/>
+        <location filename="C_Manager.cpp" line="4422"/>
         <source>Patient&apos;s folder removal:</source>
         <translation>Effacement d&apos;un dossier patient :</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4400"/>
+        <location filename="C_Manager.cpp" line="4396"/>
         <source> Your rights are insufficient do delete the folder:</source>
         <translation>Vos droits sont insuffisants pour effacer le dossier :</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4418"/>
         <source>
       is used by: </source>
-        <translation>
+        <translation type="obsolete">
 est utilisé par : </translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4493"/>
+        <location filename="C_Manager.cpp" line="4489"/>
         <source>Close the duplicates resolution list</source>
         <oldsource>Fermer la liste de résolution des doublons</oldsource>
         <translation>Fermer la liste de résolution des doublons</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="3942"/>
+        <location filename="C_Manager.cpp" line="3938"/>
         <source>Open the duplicate resolution list</source>
         <oldsource>Ouvrir la liste de résolution des doublons</oldsource>
         <translation>Ouvrir la liste de résolution des doublons</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="3958"/>
+        <location filename="C_Manager.cpp" line="3954"/>
         <source>Rechercher par le numéro de sécurité sociale : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="3959"/>
-        <source>Rechercher avec le nom le prénom et la date de naissance : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4052"/>
+        <location filename="C_Manager.cpp" line="4048"/>
         <source>date</source>
         <translation>date</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4053"/>
+        <location filename="C_Manager.cpp" line="4049"/>
         <source>number</source>
         <oldsource>numéro</oldsource>
         <translation>numéro</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="3358"/>
-        <source>Mode de creation dossier</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="3361"/>
+        <location filename="C_Manager.cpp" line="3357"/>
         <source>&amp;Create and access</source>
         <oldsource>&amp;Créer et accéder</oldsource>
         <translation>&amp;Créer et accéder</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="3023"/>
-        <location filename="C_Manager.cpp" line="3608"/>
-        <location filename="C_Manager.cpp" line="4336"/>
+        <location filename="C_Manager.cpp" line="3019"/>
+        <location filename="C_Manager.cpp" line="3604"/>
+        <location filename="C_Manager.cpp" line="4332"/>
         <source>Patient (bénéficiaire) âgé de : </source>
         <translation type="unfinished"></translation>
     </message>
@@ -3995,7 +3935,7 @@ est utilisé par : </translation>
     </message>
     <message>
         <location filename="C_Manager.cpp" line="1059"/>
-        <location filename="C_Manager.cpp" line="6083"/>
+        <location filename="C_Manager.cpp" line="6079"/>
         <source>Cancel</source>
         <translation>Annuler</translation>
     </message>
@@ -4005,506 +3945,294 @@ est utilisé par : </translation>
         <translation>État nomade : </translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="1891"/>
-        <location filename="C_Manager.cpp" line="1909"/>
+        <location filename="C_Manager.cpp" line="1890"/>
+        <location filename="C_Manager.cpp" line="1908"/>
         <source>Create a folder</source>
         <translation>Créer un dossier</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="1896"/>
+        <location filename="C_Manager.cpp" line="1895"/>
         <source>&amp;Create a folder</source>
         <translation>&amp;Créer un dossier</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="1907"/>
+        <location filename="C_Manager.cpp" line="1906"/>
         <source>Folder Creation</source>
         <translation>Création de dossier</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="1908"/>
+        <location filename="C_Manager.cpp" line="1907"/>
         <source>Create a new folder ?</source>
         <translation>Créer un nouveau dossier ?</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2020"/>
+        <location filename="C_Manager.cpp" line="2019"/>
         <source>FOLDER IS UNREACHABLE</source>
         <translation>LE DOSSIER N&apos;EST PAS ACCESSIBLE</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2022"/>
+        <location filename="C_Manager.cpp" line="2021"/>
         <source>&lt;/b&gt;&lt;/font&gt; is open on this terminal: &lt;b&gt;</source>
         <translation>&lt;/b&gt;&lt;/font&gt; est ouvert sur ce poste : &lt;b&gt;</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2102"/>
+        <location filename="C_Manager.cpp" line="2098"/>
         <source>&amp;Open</source>
         <translation>&amp;Ouvrir</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="3194"/>
+        <location filename="C_Manager.cpp" line="3190"/>
         <source>Binary is not found.</source>
         <translation>L&apos;exécutable est introuvable.</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="3364"/>
+        <location filename="C_Manager.cpp" line="3360"/>
         <source>&amp;Create folder</source>
         <translation>&amp;Créer le dossier</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="3936"/>
+        <location filename="C_Manager.cpp" line="3932"/>
         <source>Use the data of %1 to fill the new form</source>
         <translation>Utiliser les données de : %1 pour remplir celles du patient en cours de création</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="3938"/>
+        <location filename="C_Manager.cpp" line="3934"/>
         <source>Create a new folder using data from: </source>
         <translation>Créer un nouveau dossier en se servant des données de : </translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4402"/>
-        <location filename="C_Manager.cpp" line="4419"/>
+        <location filename="C_Manager.cpp" line="4398"/>
+        <location filename="C_Manager.cpp" line="4415"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4427"/>
-        <source>&lt;u&gt;&lt;b&gt; ATTENTION !&lt;/u&gt;&lt;/b&gt;&lt;br /&gt;      VOUS VOUS APPRÊTEZ À EFFACER LE DOSSIER : &lt;br /&gt;      &lt;font color=&quot;#e80d0d&quot;&gt;&lt;b&gt;</source>
-        <oldsource>&lt;u&gt;&lt;b&gt; ATTENTION !&lt;/u&gt;&lt;/b&gt;&lt;br&gt;      VOUS VOUS APPRÊTEZ À EFFACER LE DOSSIER : &lt;br&gt;      &lt;font color=&quot;#e80d0d&quot;&gt;&lt;b&gt;</oldsource>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4429"/>
+        <location filename="C_Manager.cpp" line="4425"/>
         <source>&lt;/b&gt;&lt;/font&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;CETTE ACTION EST IRRÉVERSIBLE&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;ET LES DONNÉES DU DOSSIER SERONT&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;u&gt;&lt;b&gt;IRRÉCUPÉRABLES&lt;/b&gt;&lt;/u&gt; PAR LA SUITE</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4432"/>
-        <source>&amp;Effacer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4432"/>
-        <source>&amp;NON</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4494"/>
+        <location filename="C_Manager.cpp" line="4490"/>
         <source>Delete the duplicates resolution list</source>
         <oldsource>Effacer la liste de résolution des doublons</oldsource>
         <translation>Effacer la liste de résolution des doublons</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4496"/>
+        <location filename="C_Manager.cpp" line="4492"/>
         <source>Remove this folder from duplicates list: </source>
         <oldsource>Retirer de la liste des doublons ce dossier : </oldsource>
         <translation>Retirer de la liste des doublons ce dossier : </translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4499"/>
+        <location filename="C_Manager.cpp" line="4495"/>
         <source>Give all the folders in this list to patient: </source>
         <oldsource>Assigner tous les dossiers présents dans cette liste au patient : </oldsource>
         <translation>Assigner tous les dossiers présents dans cette liste au patient : </translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4526"/>
+        <location filename="C_Manager.cpp" line="4522"/>
         <source>Ce mode de nomadisme ne permet pas la résolution des doublons</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4529"/>
+        <location filename="C_Manager.cpp" line="4525"/>
         <source>&lt;b&gt;&lt;font color=&quot;#e80d0d&quot;&gt;ATTENTION OPÉRATION DE FUSION À HAUT RISQUE &lt;/font&gt;&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4531"/>
+        <location filename="C_Manager.cpp" line="4527"/>
         <source>&lt;br&gt; va être celle à laquelle seront attribués tous les dossiers suivants : &lt;hr&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4536"/>
+        <location filename="C_Manager.cpp" line="4532"/>
         <source>&lt;br&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;=&gt; Dossier : &lt;b&gt;&lt;font color=&quot;#1200ff&quot;&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4539"/>
+        <location filename="C_Manager.cpp" line="4535"/>
         <source>&lt;br&gt;&lt;hr&gt;confirmez-vous tout de même cette opération ? </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4540"/>
-        <location filename="C_Manager.cpp" line="4548"/>
+        <location filename="C_Manager.cpp" line="4536"/>
+        <location filename="C_Manager.cpp" line="4544"/>
         <source>Fusionner plusieurs dossiers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4541"/>
-        <location filename="C_Manager.cpp" line="4549"/>
+        <location filename="C_Manager.cpp" line="4537"/>
+        <location filename="C_Manager.cpp" line="4545"/>
         <source>&amp;Fusionner les dossiers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4544"/>
+        <location filename="C_Manager.cpp" line="4540"/>
         <source>&lt;b&gt;&lt;font color=&quot;#e80d0d&quot;&gt;ÊTES VOUS CERTAIN DE CETTE FUSION &lt;/font&gt;&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4546"/>
+        <location filename="C_Manager.cpp" line="2615"/>
+        <location filename="C_Manager.cpp" line="4542"/>
         <source>&lt;br&gt; qui sera non réversible après confirmation.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4547"/>
-        <source>&lt;br&gt;&lt;hr&gt;confirmez-vous de nouveau cette opération ? </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4617"/>
-        <source>Vos droits sont insuffisants pour enregistrer un dossier</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4626"/>
-        <location filename="C_Manager.cpp" line="4638"/>
-        <location filename="C_Manager.cpp" line="4657"/>
-        <source>Enregistrement :</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4627"/>
-        <source>&lt;u&gt;&lt;b&gt;ATTENTION :&lt;/u&gt;&lt;/b&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;êtes-vous certain que ce dossier :&lt;br&gt;&amp;nbsp;&amp;nbsp; &lt;font color=&quot;#e80d0d&quot;&gt;&lt;b&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4629"/>
-        <source>&lt;/b&gt;&lt;/font&gt;&amp;nbsp;&amp;nbsp;doit être modifié, et notamment&lt;br&gt;&amp;nbsp;&amp;nbsp;avec ces nouveaux nom et prénom : &lt;font color=&quot;#1111b0&quot;&gt;&lt;b&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4630"/>
-        <source>&lt;/b&gt;&lt;/font&gt;&amp;nbsp;&amp;nbsp;(votre intention ne serait elle pas plutôt de créer un nouveau dossier)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4631"/>
-        <location filename="C_Manager.cpp" line="4641"/>
-        <source>&amp;Modifier</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4639"/>
-        <source>&lt;u&gt;&lt;b&gt;ATTENTION :&lt;/u&gt;&lt;/b&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;confirmez-vous les modifications&amp;nbsp;&amp;nbsp;apportées à ce dossier : &lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#e80d0d&quot;&gt;&lt;b&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4661"/>
-        <source>&amp;Valider</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4667"/>
-        <location filename="C_Manager.cpp" line="4713"/>
-        <source>ANONYME</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4750"/>
-        <source>&lt;br&gt; code postal  : &lt;b&gt;&lt;font color=&quot;#1200ff&quot;&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4752"/>
-        <source>&lt;br&gt; numéro de SS : &lt;b&gt;&lt;font color=&quot;#1200ff&quot;&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4753"/>
-        <source>&lt;br&gt;&lt;hr&gt; d&apos;une personne déjà présente dans la liste des dossiers </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4754"/>
-        <source>confirmez-vous tout de même cette opération au risque de créer un doublon ?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4755"/>
-        <location filename="C_Manager.cpp" line="4790"/>
-        <source>Doublons possibles</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4786"/>
-        <source>&lt;hr&gt;&lt;b&gt;&lt;font color=&quot;#e80d0d&quot;&gt;DOUBLONS POSSIBLES SUR LE NOM PRENOM &lt;/font&gt;&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4787"/>
-        <source>&lt;br&gt; La personne : &lt;b&gt;&lt;font color=&quot;#1200ff&quot;&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4788"/>
-        <source>&lt;hr&gt;&lt;br&gt; présente des similitudes de nom avec les dossiers présents dans la liste des dossiers </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4789"/>
-        <source>&lt;br&gt;&lt;hr&gt;confirmez-vous tout de même cette opération au risque de créer un doublon ?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4854"/>
-        <source>accéder</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="5066"/>
-        <source>Vous n&apos;avez pas les droits suffisants pour utiliser l&apos;agenda</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="5576"/>
-        <source>PS/Type_carte</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="5577"/>
-        <source>PS/ADELI</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="5578"/>
-        <source>PS/Numéro</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="5579"/>
-        <source>PS/Clé</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="5580"/>
-        <source>PS/Nom</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="5581"/>
-        <source>PS/Prénom</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="5582"/>
-        <source>PS/Code_civilité</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="5583"/>
-        <source>PS/Secteur_activité</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="5584"/>
-        <source>PS/Type_identif_structure</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="5585"/>
-        <source>PS/Numéro_identif_structure</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="5586"/>
-        <source>PS/Clé_identif_structure</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="5587"/>
-        <source>PS/Raison_sociale_structure</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="5588"/>
-        <source>PS/Code_convention</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="5589"/>
-        <source>PS/Code_spécialité</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="5590"/>
-        <source>PS/Code_zone_tarifaire</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="5591"/>
-        <source>PS/Code_zone_IK</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="5592"/>
-        <source>PS/Code_agrément_1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="5593"/>
-        <source>PS/Code_agrément_2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="5594"/>
-        <source>PS/Code_agrément_3</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="5595"/>
-        <source>PS/Habilitation_Facture</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="5596"/>
-        <source>PS/Habilitation_Lot</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="5653"/>
-        <source>L&apos;utilisateur : &lt;b&gt; �</source>
-        <oldsource>Utilisateur inconnu</oldsource>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="5657"/>
-        <source>&amp;Créer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="5980"/>
-        <source>Tarification/Taux</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="5994"/>
-        <source>Facturer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="6036"/>
-        <source>FSE en cours</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="6037"/>
-        <source>&lt;u&gt;&lt;b&gt;ATTENTION :&lt;/u&gt;&lt;/b&gt;&lt;br&gt;&lt;br&gt;Une FSE est en cours de saisie !&lt;br&gt;Voulez vous abandonner la FSE en cours ?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="6038"/>
-        <source>&amp;Abandonner la FSE en cours</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="C_Manager.cpp" line="1879"/>
-        <source>Un dossier existe pour ce nom : &lt;br /&gt;&lt;b&gt;�</source>
-        <oldsource>Un dossier existe pour ce nom : &lt;br&gt;&lt;b&gt;�</oldsource>
+        <source>A folder exists for this name:</source>
+        <translation>Un dossier existe déjà pour ce nom :</translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="1881"/>
+        <source>Should we launch this folder ?</source>
+        <translation>Faut-il lancer ce dossier ?</translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="1882"/>
+        <source>&amp;Launch</source>
+        <translation>&amp;Lancer</translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="1891"/>
+        <source>There is no folder for this name:</source>
+        <translation>Il n&apos;y a pas de dossier pour ce nom :</translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="1893"/>
+        <source>should we create one ?</source>
+        <translation>Doit-on en créer un ?</translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="2022"/>
+        <source>Its acces is impossible on this terminal.&lt;br /&gt;Please, get it closed on its terminal before opening it on this terminal.</source>
+        <translation>Son accès est impossible sur le poste actuel.&lt;br /&gt;Veuillez le faire fermer sur le poste qui l&apos;utilise actuellement avant d&apos;y accéder sur ce poste.&lt;br /&gt;</translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="2085"/>
+        <source> &lt;b&gt;&lt;u&gt;WARNING&lt;/b&gt;&lt;/u&gt; ! Ce dossier </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="1892"/>
-        <source>Il n&apos;existe pas de dossier avec ce nom : &lt;br /&gt;&lt;b&gt;�</source>
-        <oldsource>Il n&apos;existe pas de dossier avec ce nom : &lt;br&gt;&lt;b&gt;�</oldsource>
-        <translation type="unfinished"></translation>
+        <location filename="C_Manager.cpp" line="2086"/>
+        <source>&lt;/b&gt;&lt;/font&gt; il already open on this terminal: &lt;b&gt;</source>
+        <translation>&lt;/b&gt;&lt;/font&gt; est déjà ouvert sur ce poste: &lt;b&gt;</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2588"/>
-        <source>&lt;br&gt; habitant : &lt;b&gt;%1 %2&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <location filename="C_Manager.cpp" line="2087"/>
+        <source>&lt;/b&gt;&lt;br /&gt; Its access is read-only,&lt;br /&gt;it will turnt into write mode&lt;br /&gt;as soon as it will be available on this terminal</source>
+        <translation>&lt;/b&gt;&lt;br /&gt;Son accès n&apos;est possible qu&apos;en lecture seulement,&lt;br /&gt;il se mettra automatiquement en mode écriture&lt;br /&gt;dès qu&apos;il sera disponible sur votre poste</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2592"/>
-        <source>&lt;hr&gt;&lt;br&gt;&lt;img src=%1/32x32/warning.png&gt; diffère &lt;b&gt;&lt;font color=&quot;#e80d0d&quot;&gt;du&lt;/font&gt;&lt;/b&gt; critère suivant à modifier :</source>
-        <translation type="unfinished"></translation>
+        <location filename="C_Manager.cpp" line="2094"/>
+        <source> &lt;b&gt;&lt;u&gt;WARNING&lt;/b&gt;&lt;/u&gt; ! This folder &lt;b&gt;</source>
+        <translation> &lt;b&gt;&lt;u&gt;ATTENTION&lt;/b&gt;&lt;/u&gt; ! Ce dossier &lt;b&gt;</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2596"/>
-        <source>&lt;hr&gt;&lt;br&gt;&lt;img src=%1/32x32/warning.png&gt; diffère d&apos;au moins des &lt;b&gt;&lt;font color=&quot;#e80d0d&quot;&gt;</source>
-        <translation type="unfinished"></translation>
+        <location filename="C_Manager.cpp" line="2095"/>
+        <source>&lt;/b&gt;is already open on this terminal: &lt;b&gt;</source>
+        <translation>&lt;/b&gt; est déjà ouvert sur ce poste: &lt;b&gt;</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2600"/>
-        <source>&lt;hr&gt;&lt;br&gt;semble être la même que celle de la carte Vitale&lt;br&gt;nom, prénom, numéro de SS, date de naissance identiques.</source>
-        <translation type="unfinished"></translation>
+        <location filename="C_Manager.cpp" line="2096"/>
+        <source>&lt;/b&gt;&lt;br&gt; Should we try to open it anyway ?&lt;br /&gt;</source>
+        <translation>&lt;/b&gt;&lt;br&gt; Doit-on tenter de l&apos;ouvrir quand même ?&lt;br /&gt;</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2617"/>
-        <source>&lt;b&gt;&lt;font color=&quot;#e80d0d&quot;&gt;�TES-VOUS CERTAIN DE CETTE OP�RATION ? &lt;/font&gt;&lt;/b&gt;</source>
-        <oldsource>&lt;b&gt;&lt;font color=&quot;#e80d0d&quot;&gt;ETES VOUS CERTAIN DE CETTE OPERATION &lt;/font&gt;&lt;/b&gt;</oldsource>
-        <translation type="unfinished"></translation>
+        <location filename="C_Manager.cpp" line="3073"/>
+        <source>Remove property &apos;As&apos;</source>
+        <translation>Retirer la propriété &apos;En qualité de&apos;</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="3002"/>
-        <source>Carte vitale sans les données de l&apos;assuré, vérifiez les manuellement.</source>
-        <translation type="unfinished"></translation>
+        <location filename="C_Manager.cpp" line="3354"/>
+        <source>Folder creation mode</source>
+        <translation>Mode de creation dossiers</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="3281"/>
-        <source>Manager-V %1 used by: </source>
-        <oldsource>Manager-V %1 utilisé par : </oldsource>
-        <translation>Manager-V %1 utilisé par : </translation>
+        <location filename="C_Manager.cpp" line="3955"/>
+        <source>Research by name, first name and birth date: </source>
+        <translation>Rechercher avec le nom le prénom et la date de naissance : </translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="3285"/>
-        <source>Manager-V %1 connected to server: </source>
-        <oldsource>Manager-V %1 connecté au serveur : </oldsource>
-        <translation>Manager-V %1 connecté au serveur : </translation>
+        <location filename="C_Manager.cpp" line="4389"/>
+        <source>Operation impossible: 
+no valid folder selected.</source>
+        <oldsource>Operation impossible: 
+no valid folder selected.</oldsource>
+        <translation>Opération non possible : 
+pas de dossier valide sélectionné.</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="3568"/>
-        <source>To search by name and first name, you must separe the name and the first name by a semicolon. Example : &lt;b&gt;MARTIN;JEAN&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;The symbol % before the name or the first name lets make a research by anything which contains the expression&lt;br&gt;Example :  &lt;b&gt;%MART;%JE&lt;/b&gt; searches every person whose name contains: &lt;b&gt;MART&lt;/b&gt; and the first name : &lt;b&gt;JE&lt;/b&gt;</source>
-        <oldsource>&lt;font color=&quot;#000000&quot;&gt;Pour chercher par le nom et le prénom, il faut séparer le prénom du nom par un point-virgule. Exemple : &lt;b&gt;MARTIN;JEAN&lt;/b&gt;&lt;br&gt;&lt;br&gt;Le Symbole pour cent % placé avant ou après le nom ou prénom permet de faire une recherche sur tout ce qui contient l&apos;expression&lt;br&gt;Exemple :  &lt;b&gt;%MART;%JE&lt;/b&gt; cherchera toutes les personnes dont le nom contient : &lt;b&gt;MART&lt;/b&gt; et dont le prénom contient : &lt;b&gt;JE&lt;/b&gt;&lt;/font&gt;</oldsource>
-        <translation>Pour chercher par le nom et le prénom, il faut séparer le prénom du nom par un point-virgule. Exemple : &lt;b&gt;MARTIN;JEAN&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;Le Symbole pour cent % placé avant ou après le nom ou prénom permet de faire une recherche sur tout ce qui contient l&apos;expression&lt;br /&gt;Exemple :  &lt;b&gt;%MART;%JE&lt;/b&gt; cherchera toutes les personnes dont le nom contient : &lt;b&gt;MART&lt;/b&gt; et dont le prénom contient : &lt;b&gt;JE&lt;/b&gt;</translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="3945"/>
-        <source>Put this patient : %1 into the list of duplicates resolution</source>
-        <oldsource>Placer ce patient : %1 dans la liste de résolution des doublons</oldsource>
-        <translation>Placer ce patient : %1 dans  la liste de résolution des doublons</translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="3967"/>
-        <source>#22x22/VitaleButtLitle.png#Associer la carte vitale sélectionnée : %1 à ce patient : %2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4002"/>
-        <source>The patient %1 is already in the duplicates resolution list</source>
-        <oldsource>Le patient : %1 
-est déjà présent dans la liste 
-de résolution des doublons</oldsource>
-        <translation>Le patient : %1 est déjà présent dans la liste de résolution des doublons</translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4393"/>
-        <source>Opération non possible : 
-pas de dossier valide sélectionné.</source>
-        <oldsource>Opération non possible : 
-pas de dossier valide sélectionné.</oldsource>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4416"/>
+        <location filename="C_Manager.cpp" line="4412"/>
         <source> WARNING :
       folder removal impossible : 
       </source>
-        <oldsource> ATTENTION :
-      Impossible d&apos;effacer le dossier : 
+        <oldsource> WARNING :
+      folder removal impossible : 
       </oldsource>
         <translation> ATTENTION : 
            suppression du dossier impossible : 
            </translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4658"/>
+        <location filename="C_Manager.cpp" line="4423"/>
+        <source>&lt;u&gt;&lt;b&gt; ATTENTION !&lt;/u&gt;&lt;/b&gt;&lt;br /&gt;      VOUS VOUS APPRÊTEZ À EFFACER LE DOSSIER : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="4428"/>
+        <source>&amp;Delete</source>
+        <translation>&amp;Détruire</translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="4428"/>
+        <source>&amp;NO</source>
+        <translation>&amp;NON</translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="4543"/>
+        <source>&lt;br&gt;&lt;hr&gt;confirmez-vous de nouveau cette opération ? </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="4613"/>
+        <source>Vos droits sont insuffisants pour enregistrer un dossier</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="4622"/>
+        <location filename="C_Manager.cpp" line="4634"/>
+        <location filename="C_Manager.cpp" line="4653"/>
+        <source>Enregistrement :</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="4623"/>
+        <source>&lt;u&gt;&lt;b&gt;ATTENTION :&lt;/u&gt;&lt;/b&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;êtes-vous certain que ce dossier :&lt;br&gt;&amp;nbsp;&amp;nbsp; &lt;font color=&quot;#e80d0d&quot;&gt;&lt;b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="4625"/>
+        <source>&lt;/b&gt;&lt;/font&gt;&amp;nbsp;&amp;nbsp;doit être modifié, et notamment&lt;br&gt;&amp;nbsp;&amp;nbsp;avec ces nouveaux nom et prénom : &lt;font color=&quot;#1111b0&quot;&gt;&lt;b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="4626"/>
+        <source>&lt;/b&gt;&lt;/font&gt;&amp;nbsp;&amp;nbsp;(votre intention ne serait elle pas plutôt de créer un nouveau dossier)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="4627"/>
+        <location filename="C_Manager.cpp" line="4637"/>
+        <source>&amp;Modifier</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="4635"/>
+        <source>&lt;u&gt;&lt;b&gt;ATTENTION :&lt;/u&gt;&lt;/b&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;confirmez-vous les modifications&amp;nbsp;&amp;nbsp;apportées à ce dossier : &lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;font color=&quot;#e80d0d&quot;&gt;&lt;b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="4654"/>
         <source> ATTENTION :
       Impossible d&apos;enregistrer le dossier : 
       </source>
@@ -4514,7 +4242,7 @@ pas de dossier valide sélectionné.</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4660"/>
+        <location filename="C_Manager.cpp" line="4656"/>
         <source>
     car il est en cours d&apos;utilisation par : </source>
         <oldsource>
@@ -4522,264 +4250,544 @@ pas de dossier valide sélectionné.</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4746"/>
-        <source>POSSIBLE DUPLICATES ON THESE ELEMENTS</source>
-        <translation>DOUBLONS POSSIBLES SUR CES ÉLEMENTS</translation>
+        <location filename="C_Manager.cpp" line="4657"/>
+        <source>&amp;Valider</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="4663"/>
+        <location filename="C_Manager.cpp" line="4709"/>
+        <source>ANONYME</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="C_Manager.cpp" line="4746"/>
-        <source>nom prénom :</source>
+        <source>&lt;br&gt; code postal  : &lt;b&gt;&lt;font color=&quot;#1200ff&quot;&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="4748"/>
+        <source>&lt;br&gt; numéro de SS : &lt;b&gt;&lt;font color=&quot;#1200ff&quot;&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="4749"/>
+        <source>&lt;br&gt;&lt;hr&gt; d&apos;une personne déjà présente dans la liste des dossiers </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="4750"/>
+        <source>confirmez-vous tout de même cette opération au risque de créer un doublon ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="4751"/>
+        <location filename="C_Manager.cpp" line="4786"/>
+        <source>Doublons possibles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="4782"/>
+        <source>&lt;hr&gt;&lt;b&gt;&lt;font color=&quot;#e80d0d&quot;&gt;DOUBLONS POSSIBLES SUR LE NOM PRENOM &lt;/font&gt;&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="4783"/>
+        <source>&lt;br&gt; La personne : &lt;b&gt;&lt;font color=&quot;#1200ff&quot;&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="4784"/>
+        <source>&lt;hr&gt;&lt;br&gt; présente des similitudes de nom avec les dossiers présents dans la liste des dossiers </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="4785"/>
+        <source>&lt;br&gt;&lt;hr&gt;confirmez-vous tout de même cette opération au risque de créer un doublon ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="4850"/>
+        <source>accéder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="5062"/>
+        <source>Vous n&apos;avez pas les droits suffisants pour utiliser l&apos;agenda</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="5117"/>
+        <source>Représenter l&apos;agenda avec un pixel par minute.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="5118"/>
+        <source>Représenter l&apos;agenda avec deux pixels par minute.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="5119"/>
+        <source>Représenter l&apos;agenda avec trois pixels par minute.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="C_Manager.cpp" line="5120"/>
+        <source>Représenter l&apos;agenda avec quatre pixels par minute.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="5572"/>
+        <source>PS/Type_carte</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="5573"/>
+        <source>PS/ADELI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="5574"/>
+        <source>PS/Numéro</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="5575"/>
+        <source>PS/Clé</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="5576"/>
+        <source>PS/Nom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="5577"/>
+        <source>PS/Prénom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="5578"/>
+        <source>PS/Code_civilité</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="5579"/>
+        <source>PS/Secteur_activité</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="5580"/>
+        <source>PS/Type_identif_structure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="5581"/>
+        <source>PS/Numéro_identif_structure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="5582"/>
+        <source>PS/Clé_identif_structure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="5583"/>
+        <source>PS/Raison_sociale_structure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="5584"/>
+        <source>PS/Code_convention</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="5585"/>
+        <source>PS/Code_spécialité</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="5586"/>
+        <source>PS/Code_zone_tarifaire</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="5587"/>
+        <source>PS/Code_zone_IK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="5588"/>
+        <source>PS/Code_agrément_1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="5589"/>
+        <source>PS/Code_agrément_2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="5590"/>
+        <source>PS/Code_agrément_3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="5591"/>
+        <source>PS/Habilitation_Facture</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="5592"/>
+        <source>PS/Habilitation_Lot</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="5649"/>
+        <source>L&apos;utilisateur : &lt;b&gt; �</source>
+        <oldsource>Utilisateur inconnu</oldsource>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="5653"/>
+        <source>&amp;Créer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="5976"/>
+        <source>Tarification/Taux</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="5990"/>
+        <source>Facturer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="6032"/>
+        <source>FSE en cours</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="6033"/>
+        <source>&lt;u&gt;&lt;b&gt;ATTENTION :&lt;/u&gt;&lt;/b&gt;&lt;br&gt;&lt;br&gt;Une FSE est en cours de saisie !&lt;br&gt;Voulez vous abandonner la FSE en cours ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="6034"/>
+        <source>&amp;Abandonner la FSE en cours</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="6254"/>
+        <source>Déchar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="2584"/>
+        <source>&lt;br&gt; habitant : &lt;b&gt;%1 %2&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="2588"/>
+        <source>&lt;hr&gt;&lt;br&gt;&lt;img src=%1/32x32/warning.png&gt; diffère &lt;b&gt;&lt;font color=&quot;#e80d0d&quot;&gt;du&lt;/font&gt;&lt;/b&gt; critère suivant à modifier :</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="2592"/>
+        <source>&lt;hr&gt;&lt;br&gt;&lt;img src=%1/32x32/warning.png&gt; diffère d&apos;au moins des &lt;b&gt;&lt;font color=&quot;#e80d0d&quot;&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="2596"/>
+        <source>&lt;hr&gt;&lt;br&gt;semble être la même que celle de la carte Vitale&lt;br&gt;nom, prénom, numéro de SS, date de naissance identiques.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="2613"/>
+        <source>&lt;b&gt;&lt;font color=&quot;#e80d0d&quot;&gt;�TES-VOUS CERTAIN DE CETTE OP�RATION ? &lt;/font&gt;&lt;/b&gt;</source>
+        <oldsource>&lt;b&gt;&lt;font color=&quot;#e80d0d&quot;&gt;ETES VOUS CERTAIN DE CETTE OPERATION &lt;/font&gt;&lt;/b&gt;</oldsource>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="2998"/>
+        <source>Carte vitale sans les données de l&apos;assuré, vérifiez les manuellement.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="3277"/>
+        <source>Manager-V %1 used by: </source>
+        <oldsource>Manager-V %1 utilisé par : </oldsource>
+        <translation>Manager-V %1 utilisé par : </translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="3281"/>
+        <source>Manager-V %1 connected to server: </source>
+        <oldsource>Manager-V %1 connecté au serveur : </oldsource>
+        <translation>Manager-V %1 connecté au serveur : </translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="3564"/>
+        <source>To search by name and first name, you must separe the name and the first name by a semicolon. Example : &lt;b&gt;MARTIN;JEAN&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;The symbol % before the name or the first name lets make a research by anything which contains the expression&lt;br&gt;Example :  &lt;b&gt;%MART;%JE&lt;/b&gt; searches every person whose name contains: &lt;b&gt;MART&lt;/b&gt; and the first name : &lt;b&gt;JE&lt;/b&gt;</source>
+        <oldsource>&lt;font color=&quot;#000000&quot;&gt;Pour chercher par le nom et le prénom, il faut séparer le prénom du nom par un point-virgule. Exemple : &lt;b&gt;MARTIN;JEAN&lt;/b&gt;&lt;br&gt;&lt;br&gt;Le Symbole pour cent % placé avant ou après le nom ou prénom permet de faire une recherche sur tout ce qui contient l&apos;expression&lt;br&gt;Exemple :  &lt;b&gt;%MART;%JE&lt;/b&gt; cherchera toutes les personnes dont le nom contient : &lt;b&gt;MART&lt;/b&gt; et dont le prénom contient : &lt;b&gt;JE&lt;/b&gt;&lt;/font&gt;</oldsource>
+        <translation>Pour chercher par le nom et le prénom, il faut séparer le prénom du nom par un point-virgule. Exemple : &lt;b&gt;MARTIN;JEAN&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;Le Symbole pour cent % placé avant ou après le nom ou prénom permet de faire une recherche sur tout ce qui contient l&apos;expression&lt;br /&gt;Exemple :  &lt;b&gt;%MART;%JE&lt;/b&gt; cherchera toutes les personnes dont le nom contient : &lt;b&gt;MART&lt;/b&gt; et dont le prénom contient : &lt;b&gt;JE&lt;/b&gt;</translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="3941"/>
+        <source>Put this patient : %1 into the list of duplicates resolution</source>
+        <oldsource>Placer ce patient : %1 dans la liste de résolution des doublons</oldsource>
+        <translation>Placer ce patient : %1 dans  la liste de résolution des doublons</translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="3963"/>
+        <source>#22x22/VitaleButtLitle.png#Associer la carte vitale sélectionnée : %1 à ce patient : %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="3998"/>
+        <source>The patient %1 is already in the duplicates resolution list</source>
+        <oldsource>Le patient : %1 
+est déjà présent dans la liste 
+de résolution des doublons</oldsource>
+        <translation>Le patient : %1 est déjà présent dans la liste de résolution des doublons</translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="4742"/>
+        <source>POSSIBLE DUPLICATES ON THESE ELEMENTS</source>
+        <translation>DOUBLONS POSSIBLES SUR CES ÉLEMENTS</translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="4742"/>
+        <source>nom prénom :</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="5116"/>
         <source>$Agenda</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="C_Manager.cpp" line="5121"/>
-        <source>=1=#Agenda/h-01.png#Représenter l&apos;agenda avec un pixel par minute.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="5122"/>
-        <source>=2=#Agenda/h-02.png#Représenter l&apos;agenda avec deux pixels par minute.</source>
+        <source>Représenter l&apos;agenda avec cinq pixels par minute.</source>
+        <oldsource>=1=#Agenda/h-01.png#Représenter l&apos;agenda avec un pixel par minute.</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="C_Manager.cpp" line="5123"/>
-        <source>=3=#Agenda/h-03.png#Représenter l&apos;agenda avec trois pixels par minute.</source>
+        <source>=6=#Agenda/h-01.png#Fixer les rendez-vous sur un multiple de une minute.</source>
+        <oldsource>=3=#Agenda/h-03.png#Représenter l&apos;agenda avec trois pixels par minute.</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="C_Manager.cpp" line="5124"/>
-        <source>=4=#Agenda/h-04.png#Représenter l&apos;agenda avec quatre pixels par minute.</source>
+        <source>=10=#Agenda/h-05.png#Fixer les rendez-vous sur un multiple de cinq minutes.</source>
+        <oldsource>=4=#Agenda/h-04.png#Représenter l&apos;agenda avec quatre pixels par minute.</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="C_Manager.cpp" line="5125"/>
-        <source>=5=#Agenda/h-05.png#Représenter l&apos;agenda avec cinq pixels par minute.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="5127"/>
-        <source>=6=#Agenda/h-01.png#Fixer les rendez-vous sur un multiple de une minute.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="5128"/>
-        <source>=10=#Agenda/h-05.png#Fixer les rendez-vous sur un multiple de cinq minutes.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="5129"/>
         <source>=15=#Agenda/h-10.png#Fixer les rendez-vous sur un multiple de dix minutes.</source>
+        <oldsource>=5=#Agenda/h-05.png#Représenter l&apos;agenda avec cinq pixels par minute.</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5130"/>
+        <location filename="C_Manager.cpp" line="5126"/>
         <source>=20=#Agenda/p-15.png#Fixer les rendez-vous sur un multiple de quinze minutes.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5132"/>
+        <location filename="C_Manager.cpp" line="5128"/>
         <source>=21=#Agenda/agendaDebut.png#Fixer la première heure visible.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5133"/>
+        <location filename="C_Manager.cpp" line="5129"/>
         <source>=22=#Agenda/agendaFin.png#Fixer la dernière heure visible.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5135"/>
+        <location filename="C_Manager.cpp" line="5131"/>
         <source>=30=#Agenda/h-00.png#Annuler la mise à.jour automatique.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5136"/>
+        <location filename="C_Manager.cpp" line="5132"/>
         <source>=35=#Agenda/h-05.png#Intervalle de mise à.jour de cinq secondes.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5137"/>
+        <location filename="C_Manager.cpp" line="5133"/>
         <source>=40=#Agenda/h-10.png#Intervalle de mise à.jour de dix secondes.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5138"/>
+        <location filename="C_Manager.cpp" line="5134"/>
         <source>=50=#Agenda/p-20.png#Intervalle de mise à.jour de vingt secondes.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5139"/>
+        <location filename="C_Manager.cpp" line="5135"/>
         <source>=90=#Agenda/p-60.png#Intervalle de mise à.jour de une minute</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5141"/>
+        <location filename="C_Manager.cpp" line="5137"/>
         <source>=100=#Agenda/AgendaSingleLine.png#Représenter la vue miniature (mode replié) sur une ligne.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5142"/>
+        <location filename="C_Manager.cpp" line="5138"/>
         <source>=101=#Agenda/AgendaDoubleLine.png#Représenter la vue miniature (mode replié) sur deux lignes.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5144"/>
+        <location filename="C_Manager.cpp" line="5140"/>
         <source>=110=#Agenda/changeWidth.png#Modifier la largeur de l&apos;agenda.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5146"/>
+        <location filename="C_Manager.cpp" line="5142"/>
         <source>=120=#Agenda/noConfirmModif.png#Désactiver la confirmation des modifications.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5147"/>
+        <location filename="C_Manager.cpp" line="5143"/>
         <source>=121=#Agenda/ConfirmModif.png#Activer la confirmation des modifications.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5149"/>
+        <location filename="C_Manager.cpp" line="5145"/>
         <source>=180=#Agenda/QuitterMenu.png#Quitter ce menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5182"/>
+        <location filename="C_Manager.cpp" line="5178"/>
         <source>saisir une heure de la forme hh:mm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5182"/>
+        <location filename="C_Manager.cpp" line="5178"/>
         <source>Heure (hh:mm) :</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5204"/>
+        <location filename="C_Manager.cpp" line="5200"/>
         <source>Saisir la largeur de l&apos;agenda</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5204"/>
+        <location filename="C_Manager.cpp" line="5200"/>
         <source>Largeur en pixels :</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5339"/>
+        <location filename="C_Manager.cpp" line="5335"/>
         <source>&lt;font color=&quot;#000000&quot;&gt;Various options for schedule&lt;/font&gt;</source>
         <oldsource>&lt;font color=&quot;#000000&quot;&gt;Menu d&apos;options diverses pour l&apos;agenda.&lt;/font&gt;</oldsource>
         <translation>&lt;font color=&quot;#000000&quot;&gt;Options diverses pour l&apos;agenda&lt;/font&gt;</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5345"/>
-        <location filename="C_Manager.cpp" line="5358"/>
+        <location filename="C_Manager.cpp" line="5341"/>
+        <location filename="C_Manager.cpp" line="5354"/>
         <source>&lt;font color=&quot;#000000&quot;&gt;Which date to start schedule&lt;/font&gt;</source>
         <oldsource>&lt;font color=&quot;#000000&quot;&gt;Saisie de la date de début de l&apos;agenda.&lt;/font&gt;</oldsource>
         <translation>&lt;font color=&quot;#000000&quot;&gt;Date de début pour l&apos;agenda&lt;/font&gt;</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5346"/>
+        <location filename="C_Manager.cpp" line="5342"/>
         <source>&lt;font color=&quot;#000000&quot;&gt;Close this schedule&lt;/font&gt;</source>
         <oldsource>&lt;font color=&quot;#000000&quot;&gt;Saisie de la date de début de l&apos;agenda.&lt;/font&gt;</oldsource>
         <translation>&lt;font color=&quot;#000000&quot;&gt;Fermer cet agenda&lt;/font&gt;</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5350"/>
+        <location filename="C_Manager.cpp" line="5346"/>
         <source>&lt;font color=&quot;#000000&quot;&gt;Previous page&lt;/font&gt;</source>
         <oldsource>&lt;font color=&quot;#000000&quot;&gt;Revenir à la page précedente.&lt;/font&gt;</oldsource>
         <translation>&lt;font color=&quot;#000000&quot;&gt;Page précédente&lt;/font&gt;</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5351"/>
+        <location filename="C_Manager.cpp" line="5347"/>
         <source>&lt;font color=&quot;#000000&quot;&gt;Close this page.&lt;/font&gt;</source>
         <oldsource>&lt;font color=&quot;#000000&quot;&gt;Revenir à la page précedente.&lt;/font&gt;</oldsource>
         <translation>&lt;font color=&quot;#000000&quot;&gt;Fermer cette page.&lt;/font&gt;</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5652"/>
+        <location filename="C_Manager.cpp" line="5648"/>
         <source>Unknown user</source>
         <translation>Utilisateur inconnu</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5736"/>
+        <location filename="C_Manager.cpp" line="5732"/>
         <source>What is the police doing ?</source>
         <oldsource>Mais que fait la police ?</oldsource>
         <translation>Que fait la police ?</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6077"/>
+        <location filename="C_Manager.cpp" line="6073"/>
         <source>&lt;b&gt;La carte Vitale n&apos;a pas été lue pour ce patient !&lt;br&gt;&lt;br&gt;&lt;/b&gt;Que voulez-vous faire : &lt;br&gt;&lt;br&gt;- Annuler et lire la carte Vitale,&lt;br&gt;- Continuer et saisir une feuille de soin en mode Dégradé,&lt;br&gt;- Continuer et saisir une feuille de soin papier ,&lt;br&gt;- Continuer et saisir une facture.&lt;br&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6084"/>
+        <location filename="C_Manager.cpp" line="6080"/>
         <source>Mode dégradé</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6085"/>
+        <location filename="C_Manager.cpp" line="6081"/>
         <source>Saisir une FSP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6086"/>
+        <location filename="C_Manager.cpp" line="6082"/>
         <source>Saisir une facture</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6219"/>
-        <source>Formater les fichiers et Tèlètransmettre</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="6220"/>
-        <source>Tèlètransmission seule</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="6221"/>
-        <source>Dècharger le TLA</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="6226"/>
+        <location filename="C_Manager.cpp" line="6222"/>
         <source>Lancer Pyxvital</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6249"/>
-        <source>Tèlètr</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="6255"/>
+        <location filename="C_Manager.cpp" line="6251"/>
         <source>Lancer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6258"/>
-        <source>Dèchar</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="6224"/>
+        <location filename="C_Manager.cpp" line="6220"/>
         <source>Liste des recettes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4497"/>
+        <location filename="C_Manager.cpp" line="4493"/>
         <source>Test if the folders are locks and usable</source>
+        <translation>Tester si les dossiers sont verrouillés et utilisables</translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="6215"/>
+        <source>Formater les fichiers et Télétransmettre</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6246"/>
+        <location filename="C_Manager.cpp" line="6216"/>
+        <source>Télétransmission seule</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="6217"/>
+        <source>Décharger le TLA</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="6242"/>
         <source>Format</source>
+        <translation>Format</translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="6245"/>
+        <source>Télétr</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6252"/>
+        <location filename="C_Manager.cpp" line="6248"/>
         <source>Liste </source>
         <translation type="unfinished"></translation>
     </message>
