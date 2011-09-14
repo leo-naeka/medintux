@@ -26,19 +26,20 @@
 
 #include "C_RendezVous.h"
 
+
 //---------------------------- getQWhatsThisString ------------------------------------------------
 QString C_RendezVous::getQWhatsThisString(const QString &pathTheme, QString color)
-{QString                                     mess  = QString("<img src=\"") + pathTheme + "Agenda/AgendaToolTipHead.png\"><br>";   // un bandeau pour elargir le tool tip
-                                             mess += TR("<font color=\"#000000\"><b>En date du&nbsp;:&nbsp;</font><font color=\"#7f0000\">\t%1 \303\240 <u>%2</u></font></b><font color=\"#000000\"><br>"
-                                                        "<b>Dur\303\251e&nbsp;pr\303\251vue&nbsp;:&nbsp;</b>%3&nbsp; minutes<hr>"
+{QString                                     mess  = QString("<img src=\"") + pathTheme + "Agenda/AgendaToolTipHead.png\" /><br />";   // un bandeau pour elargir le tool tip
+                                             mess += "<font color=\"#000000\"><b>"+TR("Dated")+"&nbsp;:&nbsp;</b></font><font color=\"#7f0000\"><b>\t%1 at <u>%2</u></b></font><font color=\"#000000\"><br />"
+                                                        "<b>"+TR("Scheduled duration :</b>%3&nbsp; minutes<hr>"
                                                        ).arg(m_date.toString("ddd dd MMMM yyyy"),m_date.time().toString("hh:mm"),QString::number(m_Duree));
- if (m_Nom.length() || m_Prenom.length())    mess += TR("<b>Rendez-vous&nbsp;de&nbsp;:&nbsp;</b> ") + m_Nom + "&nbsp;" + m_Prenom;
- else                                        mess += TR("<i><b>Rendez-vous&nbsp;anonyme&nbsp;:</b>&nbsp;nom&nbsp;pr\303\251nom&nbsp;non&nbsp;renseign\303\251s&nbsp;</i>");
- if (m_Tel.length())                         mess += TR("<br><b>T\303\251l\303\251phone&nbsp;:</b> ")    + m_Tel;
+ if (m_Nom.length() || m_Prenom.length())    mess += "<b>"+TR("Appointment  of:&nbsp;</b> ") + m_Nom + "&nbsp;" + m_Prenom;
+ else                                        mess += TR("<i><b>Anonymous appointment:</b>&nbsp;name - first name not filled&nbsp;</i>");
+ if (m_Tel.length())                         mess += TR("<br><b>Phone&nbsp;:</b> ")    + m_Tel;
                                              mess += "<hr>";
-                                             mess += TR("<b>Avec&nbsp;:&nbsp;</b>")    + m_PrisAvec + TR("<b>&nbsp;pris&nbsp;par&nbsp;:&nbsp;</b>")+m_PrisPar+"&nbsp;<br>";
+                                             mess += TR("<b>With:&nbsp;</b><br />")    + m_PrisAvec + TR("<b>Taken by:</b>")+m_PrisPar+"&nbsp;<br />";
  if (m_Type.length())
-                                            {mess += TR("<b>Motif&nbsp;:&nbsp;</b>")   + m_Type   ;
+                                            {mess += TR("<b>Cause: </b>")   + m_Type   ;
                                              mess += "<TABLE cellSpacing=\"2\"  cellpadding=\"0\" width=100 border=\"1\">"
                                                       "<TBODY>"
                                                       "<TR>"
@@ -49,7 +50,7 @@ QString C_RendezVous::getQWhatsThisString(const QString &pathTheme, QString colo
                                             }
                                              //mess += tr("<b>Dur\303\251e&nbsp;pr\303\251vue&nbsp;:&nbsp;</b>")    + QString::number(m_Duree) +tr("&nbsp; minutes<br>");
  if (m_Note.length())                        mess += TR("<hr><b>Note&nbsp;:&nbsp;</b><i>%1</i><br>").arg(m_Note);
- if (m_State.length())                       mess += TR("<b>Statut&nbsp;:&nbsp;</b><i>%1</i><br></font>").arg(m_State);
+ if (m_State.length())                       mess += TR("<b>Status: </b><i>%1</i><br></font>").arg(m_State);
  return mess;
 }
 //---------------------------- serialize ------------------------------------------------
