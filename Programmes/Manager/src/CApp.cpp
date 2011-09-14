@@ -83,9 +83,9 @@ CApp::CApp(QString mui_name, int & argc, char ** argv)
 #ifdef SESAM_VERSION
      m_pCps    = new C_Cps;
      m_pVitale = new C_Vitale;
-     qDebug (TR("Version with SesamVitale usage").toLatin1());
+     qDebug (tr("Version with SesamVitale usage").toLatin1());
 #else
-     qDebug() << TR("Version without SesamVitale usage").toLatin1();
+     qDebug() << tr("Version without SesamVitale usage").toLatin1();
 #endif
     m_PluginRun          = "";
     m_pCCoolPopup        = 0;
@@ -162,13 +162,13 @@ CApp::CApp(QString mui_name, int & argc, char ** argv)
     m_LastError = qstr;
     if (m_pCMoteurBase==0)
        {    QMessageBox::critical (0,   "MedinTux Manager" ,
-                                         QObject::tr("CMoteurBase cannot start \r\n ") + qstr ,
+                                         QObject::tr("CMoteurBase cannot start \n ") + qstr ,
                                          QMessageBox::Abort, QMessageBox::NoButton, QMessageBox::NoButton );
             return;  // tous les delete se feront lors destruction du parent (QT oblige !!)
        }
     if (m_pCMoteurBase->m_IsValid == FALSE)
        {   QMessageBox::critical (0,   "MedinTux Manager" ,
-                                         QObject::tr("CMoteurBase->m_DataBase cannot start \r\n ") + qstr ,
+                                         QObject::tr("CMoteurBase->m_DataBase cannot start \n ") + qstr ,
                                          QMessageBox::Abort, QMessageBox::NoButton, QMessageBox::NoButton );
            return;   // tous les delete se feront lors destruction du parent (QT oblige !!)
        }
@@ -703,7 +703,7 @@ QString CApp::PluginExe(        QObject         */*pQObject*/,
  QFile qfdst(dst);
  if (qfdst.open(QIODevice::ReadWrite)==FALSE)
     {QMessageBox::critical (0, QObject::tr("PluginExe(): write pathExch"),
-                               QObject::tr("The file\r\n'")+ dst + QObject::tr("'\r\ncan't be opened"),
+                               QObject::tr("The file\n'")+ dst + QObject::tr("'\ncan't be opened"),
                                QMessageBox::Abort, Qt::NoButton, Qt::NoButton );
      return QObject::tr("Error:  PluginExe() destination file can't be opened");
     }
