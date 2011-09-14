@@ -73,7 +73,7 @@ C_Dlg_RdvTypeConfig::C_Dlg_RdvTypeConfig(MAP_COLOR* pColorProfils, CMoteurAgenda
         QStringList list  = CGestIni::listDirectory(Theme::getPath()+"Agenda/Statuts", ".png");
         QString statutRdv = m_pC_RendezVous->m_State;
         int        index  = 0;
-        if (statutRdv.length()==0) statutRdv = tr("Statut non d\303\251fini");
+        if (statutRdv.length()==0) statutRdv = tr("Undefined status");
 
         for (int i = 0; i < list.size(); ++i)
             {QString file   = Theme::getPath()+"Agenda/Statuts/"+list[i];
@@ -95,7 +95,7 @@ C_Dlg_RdvTypeConfig::C_Dlg_RdvTypeConfig(MAP_COLOR* pColorProfils, CMoteurAgenda
     if (pQTreeWidgetItem && isNew)
        {Slot_treeWidget_RdvTypeList_Clicked( pQTreeWidgetItem , 0 );
        }
-    setCaption(tr("Modifier les types de rendez-vous"));
+    setCaption(tr("Modify types of appointments"));
     connect( m_ui.pushButton_Quitter,       SIGNAL( clicked()  ),     this ,     SLOT(   Slot_pushButton_Quitter_clicked ()  )  );
     connect( m_ui.pushButton_Ok,            SIGNAL( clicked()  ),     this ,     SLOT(   Slot_pushButton_Ok_clicked ()  )  );
     connect( m_ui.pushButton_Moins,         SIGNAL( clicked()  ),     this ,     SLOT(   Slot_pushButton_Moins_clicked ()  )  );
@@ -151,7 +151,7 @@ int C_Dlg_RdvTypeConfig::initRdvTypeList()
 //---------------------------------------- Slot_pushButton_Heure_clicked --------------------------------------------
 QMenu* C_Dlg_RdvTypeConfig::makeMenuDuree(menuMode mode /*= C_Dlg_RdvTypeConfig::Long*/)
 {QMenu *pmenu = new QMenu(this);
- QString libelle = tr("%1 heure %2 minutes");
+ QString libelle = tr("%1 hour %2 minutes");
  if (mode == C_Dlg_RdvTypeConfig::Short)
     { libelle = tr("%1 mn");
       pmenu->addAction ( libelle.arg("00") );
@@ -198,23 +198,23 @@ QMenu* C_Dlg_RdvTypeConfig::makeMenuDuree(menuMode mode /*= C_Dlg_RdvTypeConfig:
 void C_Dlg_RdvTypeConfig::Slot_pushButton_Heure_clicked()
 {QMenu menu(this);
  QMenu *pmenu = makeMenuDuree(C_Dlg_RdvTypeConfig::Short);
- menu.addAction ( tr("07 heure") )->setMenu ( pmenu);
- menu.addAction ( tr("08 heure") )->setMenu ( pmenu);
- menu.addAction ( tr("09 heure") )->setMenu ( pmenu);
- menu.addAction ( tr("10 heure") )->setMenu ( pmenu);
- menu.addAction ( tr("11 heure") )->setMenu ( pmenu);
- menu.addAction ( tr("12 heure") )->setMenu ( pmenu);
- menu.addAction ( tr("13 heure") )->setMenu ( pmenu);
- menu.addAction ( tr("14 heure") )->setMenu ( pmenu);
- menu.addAction ( tr("15 heure") )->setMenu ( pmenu);
- menu.addAction ( tr("16 heure") )->setMenu ( pmenu);
- menu.addAction ( tr("17 heure") )->setMenu ( pmenu);
- menu.addAction ( tr("18 heure") )->setMenu ( pmenu);
- menu.addAction ( tr("19 heure") )->setMenu ( pmenu);
- menu.addAction ( tr("20 heure") )->setMenu ( pmenu);
- menu.addAction ( tr("21 heure") )->setMenu ( pmenu);
- menu.addAction ( tr("22 heure") )->setMenu ( pmenu);
- menu.addAction ( tr("23 heure") )->setMenu ( pmenu);
+ menu.addAction ( "07"+ tr(" hour") )->setMenu ( pmenu);
+ menu.addAction ( "08"+ tr(" hour") )->setMenu ( pmenu);
+ menu.addAction ( "09"+ tr(" hour") )->setMenu ( pmenu);
+ menu.addAction ( "10"+ tr(" hour") )->setMenu ( pmenu);
+ menu.addAction ( "11"+ tr(" hour") )->setMenu ( pmenu);
+ menu.addAction ( "12"+ tr(" hour") )->setMenu ( pmenu);
+ menu.addAction ( "13"+ tr(" hour") )->setMenu ( pmenu);
+ menu.addAction ( "14"+ tr(" hour") )->setMenu ( pmenu);
+ menu.addAction ( "15"+ tr(" hour") )->setMenu ( pmenu);
+ menu.addAction ( "16"+ tr(" hour") )->setMenu ( pmenu);
+ menu.addAction ( "17"+ tr(" hour") )->setMenu ( pmenu);
+ menu.addAction ( "18"+ tr(" hour") )->setMenu ( pmenu);
+ menu.addAction ( "19"+ tr(" hour") )->setMenu ( pmenu);
+ menu.addAction ( "20"+ tr(" hour") )->setMenu ( pmenu);
+ menu.addAction ( "21"+ tr(" hour") )->setMenu ( pmenu);
+ menu.addAction ( "22"+ tr(" hour") )->setMenu ( pmenu);
+ menu.addAction ( "23"+ tr(" hour") )->setMenu ( pmenu);
  connect( &menu,       SIGNAL( hovered ( QAction *)  ), this , SLOT(   Slot_menuHeure_hovered (QAction *)  )  );
 
  QAction *pQAction =  menu.exec (QCursor::pos());
@@ -223,7 +223,7 @@ void C_Dlg_RdvTypeConfig::Slot_pushButton_Heure_clicked()
      qDebug()<<text.toLatin1();
 
      text = text.remove(tr(" mn"));
-     QStringList list = text.split(tr(" heure "));
+     QStringList list = text.split(tr(" hour "));
      m_ui.timeEdit_Heure->setTime(QTime(list[0].toInt(),list[1].toInt(),0));
     }
  delete pmenu;
@@ -241,7 +241,7 @@ void C_Dlg_RdvTypeConfig::Slot_pushButton_Duree_clicked()
  if (pQAction)
     {QString  text = pQAction->text();
      text = text.remove(tr(" minutes"));
-     QStringList list = text.split(tr(" heure "));
+     QStringList list = text.split(tr(" hour "));
      m_ui.timeEdit_Duree->setTime(QTime(list[0].toInt(), list[1].toInt(),0));
     }
  delete pmenu;
@@ -277,7 +277,7 @@ void C_Dlg_RdvTypeConfig::Slot_treeWidget_RdvTypeList_DoubleClicked( QTreeWidget
             grabLabel->setStyleSheet(QString("border: 2px solid #010101; background-color: #FFFFFF;"));
             QPixmap pix = QPixmap::grabWidget (grabLabel, 0, 0, 16, 16 );
 
-            QColor color = QColorDialog::getColor ( pQTreeWidgetItem->text(2), this ,tr("Couleur du type de rendez-vous") );
+            QColor color = QColorDialog::getColor ( pQTreeWidgetItem->text(2), this ,tr("Colour of the type of appointment") );
             if (color.isValid())
                { QString coulStr = color.name();
                  grabLabel->setStyleSheet(QString("border: 2px solid #010101; background-color: ")+coulStr+";");
@@ -360,14 +360,14 @@ void C_Dlg_RdvTypeConfig::Slot_pushButton_Plus_clicked()
             grabLabel->setStyleSheet(QString("border: 2px solid #010101; background-color: #FFFFFF;"));
             QPixmap pix = QPixmap::grabWidget (grabLabel, 0, 0, 16, 16 );
 
-            QColor color = QColorDialog::getColor ( "#FFFFFF", this,tr("Couleur du type de rendez-vous") );
+            QColor color = QColorDialog::getColor ( "#FFFFFF", this,tr("Colour of the type of appointment") );
             if (color.isValid())
                { QString coulStr = color.name();
                  grabLabel->setStyleSheet(QString("border: 2px solid #010101; background-color: ")+coulStr+";");
                  pix = QPixmap::grabWidget (grabLabel, 0, 0, 16, 16 );
                  QTreeWidgetItem *pQTreeWidgetItem = new QTreeWidgetItem();
                  if (pQTreeWidgetItem)
-                    {pQTreeWidgetItem->setText (TYP_NAME, tr("<nouveau type>") );
+                    {pQTreeWidgetItem->setText (TYP_NAME, tr("<new type>") );
                      pQTreeWidgetItem->setIcon (TYP_ICON, QIcon(pix) );
                      pQTreeWidgetItem->setText (TYP_COUL, coulStr );
                      pQTreeWidgetItem->setText (TYP_TIME, "15" );
