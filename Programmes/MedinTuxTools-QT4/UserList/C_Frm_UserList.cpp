@@ -121,11 +121,11 @@ void C_Frm_UserList::pushButtonSetDefault_clicked()
 {m_ui.pushButtonSetDefault->setIcon ( QIcon (Theme::getIcon( "UserList/Down.png")));
  //.................. creer liste des items du menu .......................
  QStringList popItem;
- popItem.append(tr("Lancement &automatique du programme avec l'utilisateur : ")+ G_pCApp->m_User);
- popItem.append(tr("Annuler le lancement automatique du programme avec un utilisateur"));
+ popItem.append(tr("&Automatic start of the program with hte user: ")+ G_pCApp->m_User);
+ popItem.append(tr("Cancel automatic start of the program with a user"));
  QString popRet       = CApp::DoPopupList(popItem);
 
- if (popRet==tr("Annuler le lancement automatique du programme avec un utilisateur"))
+ if (popRet==tr("Cancel automatic start of the program with a user"))
     {CGestIni::Param_WriteParam( &G_pCApp->m_LocalParam, "Derniere Session", "Utilisateur",  "","");
      CGestIni::Param_WriteParam( &G_pCApp->m_LocalParam, "Derniere Session", "Password",   "");
     }
@@ -280,13 +280,13 @@ void C_Frm_UserList::initComboBoxUserTyp()
 {m_ui.comboBoxUserTyp->clear();
  QStringList userList;
  m_pCMoteurBase->GetUserListType( userList );
- userList.prepend(tr("Tout utilisateur"));
+ userList.prepend(tr("Any user"));
  m_ui.comboBoxUserTyp->insertStringList ( userList );
 }
 
 //------------------------------------ setComboBoxOnUserTyp_WithoutSignals --------------------------------------
 void C_Frm_UserList::setComboBoxOnUserTyp_WithoutSignals(QString userTyp)
-{ if (userTyp.length()==0) userTyp = tr("Tout utilisateur");     // si l
+{ if (userTyp.length()==0) userTyp = tr("Any user");     // si l
   QObject::disconnect( m_ui.comboBoxUserTyp, SIGNAL(activated( const QString & )), this, SLOT(comboBoxUserTyp_activated( const QString& )) );
   setComboOnValue(m_ui.comboBoxUserTyp, userTyp);
   connect(  m_ui.comboBoxUserTyp, SIGNAL(activated( const QString & )),            this, SLOT(comboBoxUserTyp_activated( const QString& )) );
@@ -310,7 +310,7 @@ void C_Frm_UserList::comboBoxUserTyp_activated(const  QString &userQualite_in )
  CGestIni::Param_WriteParam(&data_ini, "Utilisateurs", "type par defaut",userQualite_in);
  CGestIni::Param_UpdateToDisk(G_pCApp->m_PathIni, data_ini);
 
- if    (userQualite_in==tr("Tout utilisateur")) userQualite = "";
+ if    (userQualite_in==tr("Any user")) userQualite = "";
  else                                           userQualite = userQualite_in;
  initUserListOnUserType(userQualite);
  restaureOldUser();
@@ -379,7 +379,7 @@ void C_Frm_UserList::timerDone()
         "min-width: 10em;"
         "padding: 6px;}";
      */
-     m_ui.textLabelMessage->setText(QString("<img src=\"") + Theme::getPath(TRUE) + "UserList/UserList.png\">" + tr("<span style=\" font-weight:600; color:#000000;\">Pour démarrer, veuillez vous identifier en sélectionnant un utilisateur de la liste ci-dessous</span>"));
+     m_ui.textLabelMessage->setText(QString("<img src=\"") + Theme::getPath(TRUE) + "UserList/UserList.png\">" + "<span style=\" font-weight:600; color:#000000;\">"+tr("To start, please get identified by selecting a user from the list below")+"</span>");
  else
     /*
      style = "QPushButton {"
@@ -393,7 +393,7 @@ void C_Frm_UserList::timerDone()
         "padding: 6px;}";
    */
 
-    m_ui.textLabelMessage->setText(QString("<img src=\"") + Theme::getPath(TRUE) + "UserList/UserListRed.png\">" + tr("<span style=\" font-weight:600; color:#ff0000;\">Pour démarrer, veuillez vous identifier en sélectionnant un utilisateur de la liste ci-dessous</span>"));
+    m_ui.textLabelMessage->setText(QString("<img src=\"") + Theme::getPath(TRUE) + "UserList/UserListRed.png\">" + "<span style=\" font-weight:600; color:#ff0000;\">"+tr("To start, please get identified by selecting a user from the list below")+"</span>");
  //m_ui.textLabelMessage->setStyleSheet(style);
 }
 //------------------------ initUserListOnUserType ---------------------------------------
@@ -403,7 +403,7 @@ void C_Frm_UserList::initUserListOnUserType(const QString &specialite_in)
      QObject::disconnect( m_ui.ListView_UserList, SIGNAL(itemClicked( QTreeWidgetItem * , int)), this, SLOT(ListView_UserList_LineChanged( QTreeWidgetItem * , int )) );
 
      QString specialite = specialite_in;
-     if (specialite == tr("Tout utilisateur")) specialite = "";   // si vide alors c'est tous les utilisateurs qui seront explores
+     if (specialite == tr("Any user")) specialite = "";   // si vide alors c'est tous les utilisateurs qui seront explores
      G_pCApp->m_pCMoteurBase->GetUserList(m_ui.ListView_UserList,
                                           "",                     // pas de filtre sur le nom  (on les veut tous)
                                           "",                     // pas de filtre sur le  prenom (on les veut tous)
