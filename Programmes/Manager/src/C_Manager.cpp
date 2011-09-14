@@ -1310,9 +1310,9 @@ void C_Manager::action_fullSynchroReplication_triggered ()
 QString paramConn = tryToFindConnectionFromList ("Master", &errMess);
 if (paramConn.length()==0)
    {QMessageBox::information( this, tr("CONNECTION TO MASTER SERVER FAILED"),
-                                    tr ( " <b><u>WARNING</b></u> ! Connection to master server <br />")+
-                                    tr ( "is impossible.<br /><u>Error ") + ":</u><br><pre>"  + errMess + "</pre><br />" +
-                                    tr(  "Please, check your parameters and slots.") ,
+                                    tr( " <b><u>WARNING</b></u> ! Connection to master server <br />")+
+                                    tr( "is impossible.<br /><u>Error ") + ":</u><br><pre>"  + errMess + "</pre><br />" +
+                                    tr( "Please, check your parameters and slots.") ,
                                     tr("&Cancel"), 0, 0,
                                     0, 0 );
     return;
@@ -4386,7 +4386,7 @@ void C_Manager::Slot_lineEditAutoLocator_textChanged(const QString &)
 //--------------------------------- Slot_pushButtonDetruire_clicked -------------------------------------------------------------
 void C_Manager::Slot_pushButtonDetruire_clicked()
 {   if ( !G_pCApp->isCurrentIdentiteValid() )
-      {G_pCApp->CouCou(tr("Operation impossible: \rno valid folder selected."));
+      {G_pCApp->CouCou(tr("Operation impossible: \nno valid folder selected."));
        return;
       }
    QString nom       = G_pCApp->identitePatientNom() ;
@@ -4776,10 +4776,9 @@ void C_Manager::onCreateAction(int lauchEnabled  /*  = 1 */)
                                                                                " = ",   //  egal_like  " = ",
                                                                                m_pGUI->textLabel_StateList
                                                                              )))
-      {      QString  message  = tr(  "<hr><b><font color=\"#e80d0d\">DOUBLONS POSSIBLES SUR LE NOM PRENOM </font></b>")                         +
-                                 tr(  "<br> Person: ")+"<b><font color=\"#1200ff\">" + nom + " " +   prenom         + "</font></b>";
-                      message += tr(  "<hr><br> is similar to the name of a folder in folders list");
-                      message += tr(  "<br><hr>Do you confirm this operation, risking to create duplicates ?");
+      {      QString  message  = QString(  "<hr><b><font color=\"#e80d0d\">"+tr("POSSIBLE DUPLICATES ON NAME - FIRST NAME")+" </font></b>"             "<br /> "+tr("Person: ")+"<b><font color=\"#1200ff\">" + nom + " " +   prenom         + "</font></b>");
+                      message += tr(  "<hr><br /> is similar to the name of a folder in folders list");
+                      message += tr(  "<br /><hr>Do you confirm this operation, risking to create duplicates ?");
              int sel = QMessageBox::information( this, tr("Duplicates possible"), message,
                                                  //"&nbsp;&nbsp;&nbsp;&nbsp; ° <b>Quitter pour <u>Annuler</u></b> l'op\303\251ration en cours" ) ,
                                             tr("&Cancel"), tr("Confirm"), 0 /*tr("Annuler")*/,
