@@ -3226,7 +3226,7 @@ int CMoteurBase::ChangeRubUserName(QString userName, QString rubPrimKey, QString
  else
    {qstr   = "";
     qstr  += requete;
-    qstr  += TR("\r\nFailure when changing user: CMoteur_Base. ");
+    qstr  += TR("\nFailure when changing user: CMoteur_Base. ");
     switch(pSqlQueryTarget->lastError().type())
           {case QSqlError::None :        qstr  += TR("no error occurred");          break;
            case QSqlError::Connection :  qstr  += TR("connection error");           break;
@@ -5115,7 +5115,7 @@ int  CMoteurBase::RubListDelete(RUBREC_LIST::iterator it, int mode /*= CMoteurBa
      query.bindValue(0, "--");
      query.bindValue(1, "--");
      if (query.exec())  {ok = TRUE;}
-     else               {QString mess = TR("Error : RubListDelete::CMoteurBase::progMasterUpdate \r\n") + prepare + "\r\n";
+     else               {QString mess = TR("Error : RubListDelete::CMoteurBase::progMasterUpdate \n") + prepare + "\r\n";
                          OutSQL_error(query, prepare);      // rajouter le message sql
                          ok = FALSE;
                         }
