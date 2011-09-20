@@ -38,7 +38,7 @@
          </font>
         </property>
         <property name="title">
-         <string> Coordonnées </string>
+         <string> Contact details </string>
         </property>
         <layout class="QGridLayout" name="gridLayout_8">
          <property name="margin">
@@ -57,7 +57,7 @@
                 </font>
                </property>
                <property name="text">
-                <string>Nom </string>
+                <string>Name </string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -73,7 +73,7 @@
                 </font>
                </property>
                <property name="text">
-                <string>Prénom </string>
+                <string>First name </string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -89,7 +89,7 @@
                 </font>
                </property>
                <property name="text">
-                <string>Tél. </string>
+                <string>Tel. </string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -107,7 +107,7 @@
                   </size>
                  </property>
                  <property name="toolTip">
-                  <string>Rendre un rendez-vous anonyme (non rattaché à un dossier)</string>
+                  <string>Anonymise an appointment (not linked to a folder)</string>
                  </property>
                  <property name="text">
                   <string/>
@@ -123,7 +123,7 @@
                   </font>
                  </property>
                  <property name="text">
-                  <string>N° Doss.</string>
+                  <string>Doss. #</string>
                  </property>
                  <property name="alignment">
                   <set>Qt::AlignCenter</set>
@@ -237,7 +237,7 @@
              </font>
             </property>
             <property name="text">
-             <string>Statut</string>
+             <string>Status</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
@@ -253,7 +253,7 @@
              </sizepolicy>
             </property>
             <property name="toolTip">
-             <string>Choix du statut du rendez-vous</string>
+             <string>Choose appointment's status</string>
             </property>
            </widget>
           </item>
@@ -292,7 +292,7 @@
                </font>
               </property>
               <property name="text">
-               <string>Note et motif</string>
+               <string>Note and cause</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
@@ -327,7 +327,7 @@
              </size>
             </property>
             <property name="toolTip">
-             <string>Changer l'heure du rendez-vous à partir d'une liste d'heures possibles</string>
+             <string>Change the hour of an appointment taken in a list</string>
             </property>
             <property name="text">
              <string/>
@@ -352,7 +352,7 @@
              </size>
             </property>
             <property name="toolTip">
-             <string>Changer la durée du rendez-vous à partir d'une liste d'heures possibles</string>
+             <string>Change the duration of an appointment taken from a list</string>
             </property>
             <property name="text">
              <string/>
@@ -379,7 +379,7 @@
              </font>
             </property>
             <property name="text">
-             <string>Pris par</string>
+             <string>Taken by</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -395,7 +395,7 @@
              </font>
             </property>
             <property name="text">
-             <string>pour</string>
+             <string>for</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -543,17 +543,17 @@
        </column>
        <column>
         <property name="text">
-         <string>Type de rendez vous</string>
+         <string>Type of appointment</string>
         </property>
        </column>
        <column>
         <property name="text">
-         <string>couleur</string>
+         <string>colour</string>
         </property>
        </column>
        <column>
         <property name="text">
-         <string>Durée par défaut</string>
+         <string>Default duration</string>
         </property>
        </column>
       </widget>
@@ -588,7 +588,7 @@
           </size>
          </property>
          <property name="toolTip">
-          <string>Ajouter un type de rendez-vous</string>
+          <string>Add a type of appointment</string>
          </property>
          <property name="statusTip">
           <string/>
@@ -622,7 +622,7 @@
           </size>
          </property>
          <property name="toolTip">
-          <string>Détruire un type de rendez-vous</string>
+          <string>Delete a type of appointment</string>
          </property>
          <property name="statusTip">
           <string/>
@@ -720,9 +720,9 @@ p, li { white-space: pre-wrap; }
 &lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
 &lt;tr&gt;
 &lt;td style=&quot;border: none;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;° Sélectionnez le type de rendez-vous à affecter au rendez-vous en cliquant une seule fois sur la ligne correspondant à ce type.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;° Pour modifier le libellé d'un type de rendez-vous double cliquez sur son libellé.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;° Pour modifier la couleur d'un type de rendez-vous double cliquez sur la case de la couleur.&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;° Select the type of appointment to attribute to the appointment by simple-clicking on the line of this type.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;° To modify the label of an appointment, double-click on its label.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;° To modify the colour of a type of appointment, double-click on the box of the colour.&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </item>
@@ -748,7 +748,7 @@ p, li { white-space: pre-wrap; }
        <item>
         <widget class="QPushButton" name="pushButton_Ok">
          <property name="text">
-          <string>Confirmer</string>
+          <string>Confirm</string>
          </property>
          <property name="shortcut">
           <string>Alt+C</string>
@@ -761,7 +761,7 @@ p, li { white-space: pre-wrap; }
        <item>
         <widget class="QPushButton" name="pushButton_Quitter">
          <property name="text">
-          <string>Quitter</string>
+          <string>Quit</string>
          </property>
          <property name="shortcut">
           <string>Alt+Q</string>

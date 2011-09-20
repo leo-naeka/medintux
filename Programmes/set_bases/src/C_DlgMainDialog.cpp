@@ -863,7 +863,8 @@ void C_DlgMainDialog::Compilation(const QString &path, const QString & target)
 #ifdef  Q_WS_MAC
     bool isQT4Here     =  QFile::exists(sdkDir+"bin/qmake");
 #else
-    bool isQT4Here     =  QFile::exists(sdkDir+"qt");
+//    bool isQT4Here     =  QFile::exists(sdkDir+"qt");
+    bool isQT4Here     =  QFile::exists(sdkDir+"bin/qmake");
 #endif
     QString modulePath =  QDir::cleanDirPath(G_pCApp->m_PathAppli + "../../" + target)+"/";
     if (target=="compta-plugins"||target=="check_dus"||QFile::exists(modulePath+target+".kdevelop")) isQT3 = 1;

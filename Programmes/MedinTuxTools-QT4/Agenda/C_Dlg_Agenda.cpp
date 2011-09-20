@@ -246,7 +246,7 @@ C_Frm_Agenda::C_Frm_Agenda(const QDate &date,
      QString themeDefAgenda   = Theme::getPath(TRUE)+"Agenda/agenda_inaccessible.html";
      if (m_PaintMode >= C_Frm_Agenda::FOR_OTHERS) themeDefAgenda   = Theme::getPath(TRUE)+"Agenda/agenda_multiple.html";
      CGestIni::Param_UpdateFromDisk(themeDefAgenda, m_BackgroundMessage);
-     if (m_BackgroundMessage.length()==0) m_BackgroundMessage = tr("Agenda non possible pour cet utilisateur : %1").arg(m_SignUser);
+     if (m_BackgroundMessage.length()==0) m_BackgroundMessage = tr("Schedule not available for this user: %1").arg(m_SignUser);
      //.............. positionner les widgets .....................................
      QDesktopWidget *pDesktop = QApplication::desktop();
      int h = pDesktop->availableGeometry().height();
@@ -452,17 +452,17 @@ C_Frm_Day::C_Frm_Day(CMoteurAgenda *pCMoteurAgenda ,
      m_ButtonExpand->setGeometry(2,y,m_pBMC->m_ButtonExpand_Pixmap.width()+2,m_pBMC->m_ButtonExpand_Pixmap.height()+2);
     }
  m_ButtonExpand->setFlat( TRUE );
- m_ButtonExpand->setToolTip ( tr("<font color=\"#000000\">Ouvre et ferme une page de l'agenda.</font>") );
+ m_ButtonExpand->setToolTip ( "<font color=\"#000000\">"+tr("Opens and closes a page of the schedule.")+"</font>" );
 
  m_ButtonNewRDV = new CMyButton(m_pBMC->m_ButtonNewRDV_Pixmap, this, "", this);
  m_ButtonNewRDV->setGeometry(m_Width - 22,-1,20, m_BaseDayHeight);
  m_ButtonNewRDV->setFlat( TRUE );
- m_ButtonNewRDV->setToolTip ( tr("<font color=\"#000000\">Ajouter un nouveau rendez-vous \303\240 cette date.</font>") );
+ m_ButtonNewRDV->setToolTip ( "<font color=\"#000000\">"+tr("Add a new appointment at this date.")+"</font>" );
 
  m_ButtonSave = new CMyButton(m_pBMC->m_ButtonSave_Pixmap, this, "", this);
  m_ButtonSave->setGeometry(m_Width - 42,-1,20, m_BaseDayHeight);
  m_ButtonSave->setFlat( TRUE );
- m_ButtonSave->setToolTip ( tr("<font color=\"#000000\">Enregistrer ce jour comme mod\303\250le de jour.</font>") );
+ m_ButtonSave->setToolTip ( "<font color=\"#000000\">"+tr("Save this day as template.</font>") );
 
  connect( m_ButtonNewRDV,  SIGNAL( Sign_ButtonClickedPtr (const char*, void *)  ),     this ,     SLOT(   OnButtonNewRDVClickedPtr (const char*, void *)  )  );
  connect( m_ButtonSave,    SIGNAL( Sign_ButtonClickedPtr (const char*, void *)  ),     this ,     SLOT(   OnButtonSaveClickedPtr (const char*, void *)  ) );
@@ -526,37 +526,37 @@ void C_Frm_Day::dragMoveEvent(QDragMoveEvent * event)
                          }
              int h       = mn/60;
              mn          = mn - (h*60);
-             tm_str      = tr("%1:%2").arg(QString::number(h).rightJustified (2, '0'),QString::number(mn).rightJustified (2, '0'));
+             tm_str      = QString("%1:%2").arg(QString::number(h).rightJustified (2, '0'),QString::number(mn).rightJustified (2, '0'));
            }
         m_DropedRdv  = C_RendezVous::unSerialize(QString(event->mimeData()->data ( "text/medintux_rdv_drag" ))); // intialiser le rdv sur les donnees venant du drag and drop
         if (rdv.m_GUID.length()||rdv.m_Nom.length()||rdv.m_Prenom.length())
-           {tm_str = tr("<TABLE cellSpacing=\"0\"  cellpadding=\"4\" width=100% border=\"1\">"    // #FF8000
-                        "<TBODY>"
-                        "<TR>"
-                        "<TD width=100% align=\"left\" bgcolor=\"#FEFFDD\">"
-                        "Le&nbsp;<b><font color=\"#0000FF\">%1</font></b>&nbsp;\303\240&nbsp;<b><font color=\"#e80d0d\">%2</font></b>&nbsp;(dur\303\251e&nbsp;:&nbsp;<b><font color=\"#e80d0d\">%3</b></font>&nbsp;mn) <b>Occup\303\251</b>&nbsp;par&nbsp;<font color=\"#FF8000\"><b>%4</b></font></b>"
+           {tm_str = "<table cellSpacing=\"0\"  cellpadding=\"4\" width=100% border=\"1\">"    // #FF8000
+                        "<tbody>"
+                        "<tr>"
+                        "<td width=100% align=\"left\" bgcolor=\"#FEFFDD\">"+
+                        QString(tr("On the")+"&nbsp;<b><font color=\"#0000FF\">%1</font></b>&nbsp;"+tr("at")+"&nbsp;<b><font color=\"#e80d0d\">%2</font></b>&nbsp;"+tr("(duration")+"&nbsp;:&nbsp;<b><font color=\"#e80d0d\">%3</b></font>&nbsp;mn) <b>"+tr("Occupied")+"</b>&nbsp;par&nbsp;<font color=\"#FF8000\"><b>%4</b></font></b>"
                         "</TD>"
                         "</TBODY>"
                         "</TABLE>").arg(m_Date.toString("dd-MM-yyyy"),rdv.m_date.time().toString("hh:mm"), QString::number(rdv.m_Duree), rdv.m_Nom.replace(" ","&nbsp;")+"&nbsp;"+rdv.m_Prenom.replace(" ","&nbsp;")) ;
            }
         else if (rdv.m_PrimKey.length())
-           {tm_str = tr("<TABLE cellSpacing=\"0\"  cellpadding=\"4\" width=100% border=\"1\">"
+           {tm_str = "<TABLE cellSpacing=\"0\"  cellpadding=\"4\" width=100% border=\"1\">"
                         "<TBODY>"
                         "<TR>"
-                        "<TD width=100% align=\"left\" bgcolor=\"#FEFFDD\">"
-                        "Le&nbsp;<b><font color=\"#0000FF\">%1</font></b>&nbsp;\303\240&nbsp;<b><font color=\"#e80d0d\">%2</font></b>&nbsp;(dur\303\251e&nbsp;:&nbsp;<b><font color=\"#e80d0d\">%3</b></font>&nbsp;mn) <b>disponible</b>&nbsp;pour&nbsp;"
-                        "<font color=\"#FF8000\"><b>%4</b></font>&nbsp;avec&nbsp;<b><font color=\"#0000FF\">%5</font></b>"
+                        "<TD width=100% align=\"left\" bgcolor=\"#FEFFDD\">"+
+                        QString(tr("The")+"&nbsp;<b><font color=\"#0000FF\">%1</font></b>&nbsp;"+tr("at")+"&nbsp;<b><font color=\"#e80d0d\">%2</font></b>&nbsp;"+tr("(duration")+"&nbsp;:&nbsp;<b><font color=\"#e80d0d\">%3</b></font>&nbsp;mn <b>"+tr("available")+"</b>&nbsp;pour&nbsp;"
+                        "<font color=\"#FF8000\"><b>%4</b></font>&nbsp;"+tr("with")+"&nbsp;<b><font color=\"#0000FF\">%5</font></b>"
                         "</TD>"
                         "</TBODY>"
                         "</TABLE>").arg( m_Date.toString("dd-MM-yyyy"), rdv.m_date.time().toString("hh:mm"), QString::number(rdv.m_Duree), m_DropedRdv.m_Nom.replace(" ","&nbsp;") + "&nbsp;" + m_DropedRdv.m_Prenom.replace(" ","&nbsp;") ,m_UserNomPrenom.replace(" ","&nbsp;")) ;
            }
         else
-           {tm_str = tr("<TABLE cellSpacing=\"0\"  cellpadding=\"4\" width=100% border=\"1\">"
+           {tm_str = "<TABLE cellSpacing=\"0\"  cellpadding=\"4\" width=100% border=\"1\">"
                         "<TBODY>"
                         "<TR>"
-                        "<TD width=100% align=\"left\" bgcolor=\"#FEFFDD\">"
-                        "Le&nbsp;<b><font color=\"#0000FF\">%1</font></b>&nbsp;\303\240&nbsp;<b><font color=\"#e80d0d\">%2</font> Cr\303\251ation</b>&nbsp;pour&nbsp;<font color=\"#FF8000\"><b>%3</b></font>"
-                        "&nbsp;avec&nbsp;<b><font color=\"#0000FF\">%4</font></b> "
+                        "<TD width=100% align=\"left\" bgcolor=\"#FEFFDD\">"+
+                        tr("The")+QString("&nbsp;<b><font color=\"#0000FF\">%1</font></b>&nbsp;"+tr("at")+"&nbsp;<b><font color=\"#e80d0d\">%2</font> "+tr("Creation")+"</b>&nbsp;"+tr("for")+"&nbsp;<font color=\"#FF8000\"><b>%3</b></font>"
+                        "&nbsp;"+tr("with")+"&nbsp;<b><font color=\"#0000FF\">%4</font></b> "
                         "</TD>"
                         "</TBODY>"
                         "</TABLE>").arg(m_Date.toString("dd-MM-yyyy"),tm_str, m_DropedRdv.m_Nom.replace(" ","&nbsp;") + "&nbsp;" + m_DropedRdv.m_Prenom.replace(" ","&nbsp;"), m_UserNomPrenom.replace(" ","&nbsp;")) ;
@@ -843,7 +843,7 @@ void C_Frm_Day::paintEvent ( QPaintEvent * /*event*/)
           p.drawText ( QPoint(130, y_deb-6),QString::number(nbRdv));
           f.setPointSize(7); f.setBold(FALSE); p.setFont ( f );
           p.setPen (QColor("#000000"));
-          p.drawText ( QPoint(144, y_deb-6), tr(" Rendez-vous") );
+          p.drawText ( QPoint(144, y_deb-6), tr(" Appointment") );
          }
       //............................ titre du jour ................................................
       f.setPointSize(7); f.setBold(FALSE); p.setFont ( f );
@@ -935,7 +935,7 @@ bool C_Frm_Day::event(QEvent * event )
                 mn      = mn - (h*60);
                 int hD  = mnNext/60;
                 mnNext  = mnNext - (hD*60);
-                setToolTip (tr("<font color=\"#000000\">Emplacement libre \303\240 : %1 h %2 mn \r\ndur\303\251e maximum possible : %3 h %4 mn</font>").arg(QString::number(h),QString::number(mn),QString::number(hD),QString::number(mnNext)));
+                setToolTip ("<font color=\"#000000\">"+QString(tr("Free space at : %1 h %2 mn \nmaximum possible duration:")+ "%3 h %4 mn</font>").arg(QString::number(h),QString::number(mn),QString::number(hD),QString::number(mnNext)));
                }
            }
        }
@@ -1174,13 +1174,13 @@ void C_Frm_Day::replaceRdvByRdv(C_Frm_Rdv *pC_Frm_Rdv_Dst, const C_RendezVous &r
 
   if (pC_Frm_Rdv_Dst == 0)        return;
   if (pC_Frm_Rdv_Dst->m_GUID.length()||pC_Frm_Rdv_Dst->m_Nom.length()||pC_Frm_Rdv_Dst->m_Prenom.length()) // si rendez-vous d\303\251j\303\240 attribu\303\251 demander confirmation du changement
-     {int ret   = QMessageBox::warning ( this, tr("Modifier un rendez-vous :"),
-                                         tr( "<u><b>ATTENTION</u> :<br></b> le rendez-vous actuel pris pour :<br>"
+     {int ret   = QMessageBox::warning ( this, tr("Modify an appointment :"),
+                                         QString( "<u><b>"+tr("WARNING")+"</u> :<br /></b>"+tr("The actual appointment taken for:")+"<br />"
                                              " <b><font color=\"#1200ff\">%1</font></b><hr>").arg( pC_Frm_Rdv_Dst->m_Nom  + " " + pC_Frm_Rdv_Dst->m_Prenom ) +
-                                         tr( "va changer et \303\252tre attribu\303\251 \303\240 :<br>"
-                                             "<b><font color=\"#ff0000\">%1</font></b><br>").arg(rdvSrc.m_Nom+' '+rdvSrc.m_Prenom) +
-                                         tr( "confirmez vous la modification ?"),
-                                         tr("&Modifier"), tr("Annu&ler"), 0, 1, 1
+                                         QString(tr( "will change et will be given to:")+"<br />"
+                                             "<b><font color=\"#ff0000\">%1</font></b><br />").arg(rdvSrc.m_Nom+' '+rdvSrc.m_Prenom) +
+                                         tr("Confirm modification ?"),
+                                         tr("&Modify"), tr("&Cancel"), 0, 1, 1
                                        );
       if (ret==1)                  return;
      }
@@ -1298,13 +1298,13 @@ void C_Frm_Day::On_Day_mousePressEvent ( QMouseEvent * event )
          {if (isDropedData)
              {
               if (pRdv->m_GUID.length()||pRdv->m_Nom.length()||pRdv->m_Prenom.length()) // si rendez-vous d\303\251j\303\240 attribu\303\251 demander confirmation du changement
-                 {int ret   = QMessageBox::warning ( this, tr("Modifier un rendez-vous :"),
-                                                     tr( "<u><b>ATTENTION</u> :<br></b> le rendez-vous actuel pris pour :<br>"
+                 {int ret   = QMessageBox::warning ( this, tr("Modify an appointment :"),
+                                                     tr( "<u><b>WARNING</u> :<br /></b> The actual appointment taken for :")+QString("<br />"
                                                          " <b><font color=\"#1200ff\">%1</font></b><hr>").arg( pRdv->m_Nom  + " " + pRdv->m_Prenom ) +
-                                                     tr( "va changer et \303\252tre attribu\303\251 \303\240 :<br>"
-                                                         "<b><font color=\"#ff0000\">%1</font></b><br>").arg(nom+' '+prenom) +
-                                                     tr( "confirmez vous la modification ?"),
-                                                     tr("&Modifier"), tr("Annu&ler"), 0, 1, 1
+                                                     tr( "will be given to:")+QString("<br />"
+                                                         "<b><font color=\"#ff0000\">%1</font></b><br />").arg(nom+' '+prenom) +
+                                                     tr( "Confirm modification ?"),
+                                                     tr("&Modify"), tr("&Cancel"), 0, 1, 1
                                                    );
                   if (ret==1)  {UNLOOKREFRESH; return; }
                  }
@@ -1321,20 +1321,20 @@ void C_Frm_Day::On_Day_mousePressEvent ( QMouseEvent * event )
           else /*if (pRdv->m_GUID.length()||pRdv->m_Nom.length()||pRdv->m_Prenom.length())*/
              { QString ret = doRdvMenu(pRdv,1);
                if (ret.length())
-                  {if (ret.indexOf(tr("Statut du rendez-vous")) != -1)
-                      { QString statut = ret.remove(tr("Statut du rendez-vous : "));
+                  {if (ret.indexOf(tr("Appointment Status")) != -1)
+                      { QString statut = ret.remove(tr("Appointment Status: "));
                         pRdv->m_State = statut.trimmed();
                       }
-                   else if (ret.indexOf(tr("Rendez vous de type")) != -1)
-                      { QString type = ret.remove(tr("Rendez vous de type : "));
+                   else if (ret.indexOf(tr("Appointment of type")) != -1)
+                      { QString type = ret.remove(tr("Appointment of type")+ ": ");
                         pRdv->m_Type = type.trimmed();
                       }
-                   else if (ret.indexOf(tr("D\303\251truire")) != -1)  // il ne  peut pas se detruire lui meme et sortir ensuite de sa fonction donc QTIMER
+                   else if (ret.indexOf(tr("Delete")) != -1)  // il ne  peut pas se detruire lui meme et sortir ensuite de sa fonction donc QTIMER
                       {if (index != -1)
                           {if (m_pCMoteurAgenda->isModifToConfirm()&2  &&
                                QMessageBox::question ((QWidget*)parent(),
-                                                      tr("Confirmer l'effacement"),
-                                                      tr("Confirmer l'effacement de ce rendez-vous "),
+                                                      tr("Confirm delete"),
+                                                      tr("Confirm deleting this appointment "),
                                                       QMessageBox::Ok|QMessageBox::Cancel)==QMessageBox::Cancel)
                               {UNLOOKREFRESH;
                                return;
@@ -1347,11 +1347,11 @@ void C_Frm_Day::On_Day_mousePressEvent ( QMouseEvent * event )
                              }
                           }
                       }
-                   else if (ret.indexOf(tr("Couper")) != -1)  // il ne  peut pas se detruire lui meme et sortir ensuite de sa fonction donc QTIMER
+                   else if (ret.indexOf(tr("Cut")) != -1)  // il ne  peut pas se detruire lui meme et sortir ensuite de sa fonction donc QTIMER
                       {if (m_pCMoteurAgenda->isModifToConfirm()&2  &&
                            QMessageBox::question ((QWidget*)parent(),
-                                                  tr("Confirmer l'effacement"),
-                                                  tr("Confirmer l'effacement de ce rendez-vous "),
+                                                  tr("Confirm delete"),
+                                                  tr("Confirm deleting this appointment"),
                                                   QMessageBox::Ok|QMessageBox::Cancel)==QMessageBox::Cancel)
                           {UNLOOKREFRESH;
                            return;
@@ -1366,10 +1366,10 @@ void C_Frm_Day::On_Day_mousePressEvent ( QMouseEvent * event )
                               }
                           }
                       }
-                   else if (ret.indexOf(tr("Copier")) != -1)
+                   else if (ret.indexOf(tr("Copy")) != -1)
                       { copyRdv(*pRdv);
                       }
-                   else if (ret.indexOf(tr("Remplacer")) != -1)
+                   else if (ret.indexOf(tr("Replace")) != -1)
                       {C_RendezVous    rdv = getCopy();    // on recupere le rendez-vous
                        pRdv->m_Nom     = rdv.m_Nom;
                        pRdv->m_Prenom  = rdv.m_Prenom;
@@ -1380,17 +1380,17 @@ void C_Frm_Day::On_Day_mousePressEvent ( QMouseEvent * event )
                        pRdv->m_Type    = rdv.m_Type;
                        pRdv->m_State   = rdv.m_State;
                       }
-                   else if (ret.indexOf(tr("Modifier")) != -1)
+                   else if (ret.indexOf(tr("Modify")) != -1)
                       {rdvPropertyDialog(pRdv);
                       }
-                   else if (ret.indexOf(tr("Rendre")) != -1)
+                   else if (ret.indexOf(tr("Give back")) != -1)
                       {pRdv->m_Nom    ="";
                        pRdv->m_Prenom ="";
                        pRdv->m_GUID   ="";
                        pRdv->m_Tel    ="";
                        pRdv->m_Note   ="";
                       }
-                   else if (ret.indexOf(tr("Ouvrir le dossier")) != -1)
+                   else if (ret.indexOf(tr("Open folder")) != -1)
                       {emit Sign_LauchPatient(pRdv->m_GUID, pRdv);
                       }
                   }
@@ -1419,38 +1419,38 @@ void C_Frm_Day::On_Day_mousePressEvent ( QMouseEvent * event )
   //................ menu ....................
   Theme::setFontSize_Menu(9);
   QStringList optionList;
-  optionList<<tr("$Agenda");
+  optionList<<"$Agenda";
   if (guid.length())
-     {optionList<<tr("=8=#Agenda/NewDocWithIdentAfter.png#Cr\303\251er \303\240 la suite du dernier pour le %2 \303\240 %3 un rendez-vous avec le patient '%1' s\303\251lectionn\303\251 dans la liste.").arg(nom+ " " +prenom,dtLast.date().toString("dd-MM-yyyy"),dtLast.time().toString("hh|mm").replace('|','h'));
-      optionList<<tr("=3=#Agenda/NewDocWithIdent.png#Cr\303\251er pour le %2 \303\240 %3 un rendez-vous avec le patient '%1' s\303\251lectionn\303\251 dans la liste.").arg(nom+ " " +prenom, dt.date().toString("dd-MM-yyyy"),dt.time().toString("hh|mm").replace('|','h'));
+     {optionList<<"=8=#Agenda/NewDocWithIdentAfter.png#"+tr("Create after the last one for the %2 at %3 an appointment with the patient '%1' selected in the list.").arg(nom+ " " +prenom,dtLast.date().toString("dd-MM-yyyy"),dtLast.time().toString("hh|mm").replace('|','h'));
+      optionList<<"=3=#Agenda/NewDocWithIdent.png#"+tr("Create for the %2 at %3 an appointment with the patient '%1' selected in the list.").arg(nom+ " " +prenom, dt.date().toString("dd-MM-yyyy"),dt.time().toString("hh|mm").replace('|','h'));
       optionList<<"-----------";
      }
-  optionList<<tr("=7=#Agenda/NewDocAfter.png#Prendre un rendez-vous \303\240 la suite du dernier pour le  %1 \303\240 %2").arg(dtLast.date().toString("dd-MM-yyyy"),dtLast.time().toString("hh|mm").replace('|','h'));
-  optionList<<tr("=6=#Agenda/NewDoc.png#Prendre un rendez-vous pour le  %1 \303\240  %2").arg(dt.date().toString("dd-MM-yyyy"),dt.time().toString("hh|mm").replace('|','h'));
-  optionList<<tr("=1=#Agenda/NewDoc.png#Cr\303\251er pour le  %1 \303\240 %2 un rendez-vous vierge sans identit\303\251").arg(dt.date().toString("dd-MM-yyyy"),dt.time().toString("hh|mm").replace('|','h'));
+  optionList<<"=7=#Agenda/NewDocAfter.png#"+tr("Create an appointment after the last one for the %1 at %2").arg(dtLast.date().toString("dd-MM-yyyy"),dtLast.time().toString("hh|mm").replace('|','h'));
+  optionList<<"=6=#Agenda/NewDoc.png#"+tr("Create an appointment for the %1 at  %2").arg(dt.date().toString("dd-MM-yyyy"),dt.time().toString("hh|mm").replace('|','h'));
+  optionList<<"=1=#Agenda/NewDoc.png#"+tr("Create for the %1 at %2 an empty appointment with no identity").arg(dt.date().toString("dd-MM-yyyy"),dt.time().toString("hh|mm").replace('|','h'));
   optionList<<"-----------";
 
   //.......................... menu coller si rendez-vous en buffer de copie existe ...............
   if (isCopyExist())
      {C_RendezVous rdv = getCopy();
       if (rdv.m_Nom.trimmed().length()||rdv.m_Prenom.trimmed().length())
-         {optionList<<tr("=4=#Agenda/editpaste.png#Coller le rendez-vous avec le patient '%1' \303\240 cette date : %2 et \303\240 cette heure : %3").arg(rdv.m_Nom.trimmed()+" "+rdv.m_Prenom.trimmed(),
+         {optionList<<"=4=#Agenda/editpaste.png#"+tr("Paste the appointment with the patient '%1' at this date : %2 at this hour: %3").arg(rdv.m_Nom.trimmed()+" "+rdv.m_Prenom.trimmed(),
                                                                                                                     dt.date().toString("dd-MM-yyyy"),
                                                                                                                     dt.time().toString("hh|mm").replace('|','h')
                                                                                                                    );
-          optionList<<tr("=9=#Agenda/editpasteLast.png#Coller \303\240 la suite du dernier le rendez-vous avec le patient '%1' ").arg(rdv.m_Nom.trimmed()+" "+rdv.m_Prenom.trimmed());
+          optionList<<"=9=#Agenda/editpasteLast.png#"+tr("Paste after the last one the appointment with the patient '%1' ").arg(rdv.m_Nom.trimmed()+" "+rdv.m_Prenom.trimmed());
          }
       else
-         {optionList<<tr("=4=#Agenda/editpaste.png#Coller \303\240 cette date : %1 et \303\240 cette heure : %2 le rendez-vous copi\303\251").arg(dt.date().toString("dd-MM-yyyy"),
+         {optionList<<"=4=#Agenda/editpaste.png#"+tr("Paste at this date : %1 and at this hour : %2 the appointment from copy memory").arg(dt.date().toString("dd-MM-yyyy"),
                                                                                                        dt.time().toString("hh|mm").replace('|','h')
                                                                                                       );
-          optionList<<tr("=9=#Agenda/editpasteLast.png#Coller \303\240 la suite du dernier le rendez-vous copi\303\251");
+          optionList<<"=9=#Agenda/editpasteLast.png#"+tr("Paste after the last one the appointment from the copy memory.");
          }
      }
 
-  optionList<<tr("=5=#Agenda/configure.png#Configurer les types de rendez-vous");
+  optionList<<"=5=#Agenda/configure.png#"+tr("Configure the types of appointments");
   optionList<<"-----------";
-  optionList<<tr("=2=#Agenda/QuitterMenu.png#Quitter ce menu");
+  optionList<<"=2=#Agenda/QuitterMenu.png#"+tr("Quit this menu");
   int                     opt = ThemePopup(optionList,this, " border: 1px solid #8f8f91; border-radius: 6px; font-size: 11px;").DoPopupList().trimmed().toInt();
   C_RendezVous* pC_RendezVous = 0;        // si new apres --> ne pas deleter car append
   switch (opt)
@@ -1491,19 +1491,19 @@ void C_Frm_Day::On_Day_mousePressEvent ( QMouseEvent * event )
 
 //---------------------------- doRdvMenu ------------------------------------------------
 QString C_Frm_Day::doRdvMenu(C_RendezVous *pRdvDst, int isOptionDetruire  /* = 0 */)
-{   C_QMenuRdv menu(tr("Rendez-vous disponible"),(QWidget*)parent());
+{   C_QMenuRdv menu(tr("Appointment available"),(QWidget*)parent());
     menu.setStyleSheet("font-size: 12px");  // "border: 1px solid #8f8f91; border-radius: 6px; font-size: 11px; color:#000000;border-width: 3px;  border-style: solid;  border-color: blue; background: yellow; icon-size:16px"
     //..............menu clasique copier coller couper ...............................
-    menu.addAction (m_pBMC->m_Copier_Pixmap, tr("Copier le rendez-vous en cours dans la m\303\251moire de copie") );
+    menu.addAction (m_pBMC->m_Copier_Pixmap, tr("Copy the current appointment into the copy memory") );
     //.......................... menu coller si rendez-vous en buffer de copie existe ...............
     C_RendezVous rdvCopy = getCopy();
     if (isCopyExist())
        {if (rdvCopy.m_Nom.trimmed().length()||rdvCopy.m_Prenom.trimmed().length())
-            menu.addAction (m_pBMC->m_Paste_Pixmap, tr("Remplacer le rendez vous actuel par celui en m\303\251moire de copie au nom du patient : '%1' ").arg(rdvCopy.m_Nom.trimmed()+" "+rdvCopy.m_Prenom.trimmed()));
+            menu.addAction (m_pBMC->m_Paste_Pixmap, tr("Replace the actual appointment with the one inside the copy memory with the name of the patient: '%1' ").arg(rdvCopy.m_Nom.trimmed()+" "+rdvCopy.m_Prenom.trimmed()));
          else
-            menu.addAction (m_pBMC->m_Paste_Pixmap, tr("Remplacer le rendez vous actuel par celui en m\303\251moire de copie."));
+            menu.addAction (m_pBMC->m_Paste_Pixmap, tr("Replace the actual appointment with the one inside the copy memory."));
       }
-    menu.addAction (m_pBMC->m_Cut_Pixmap, tr("Couper le rendez-vous en cours et le placer dans la m\303\251moire de copie") );
+    menu.addAction (m_pBMC->m_Cut_Pixmap, tr("Cut the current appointment and put into the copy memory") );
     menu.addSeparator ();
     //............. creer le menu des types avec les types couleurs .....................
     QLabel grabLabel;
@@ -1516,7 +1516,7 @@ QString C_Frm_Day::doRdvMenu(C_RendezVous *pRdvDst, int isOptionDetruire  /* = 0
           {C_ColorType ct = it.value();
            grabLabel.setStyleSheet(QString("border: 2px solid #010101; background-color: ")+ct.getColor()+";");
            pix = QPixmap::grabWidget (&grabLabel, 0, 0, 16, 16 );
-           if (it.key().trimmed().length()) menu.addAction (QIcon(pix), tr("Rendez vous de type : %1").arg(it.key()) );
+           if (it.key().trimmed().length()) menu.addAction (QIcon(pix), tr("Appointment of type: %1").arg(it.key()) );
            ++it;
           }
     //............. creer le menu des statuts.....................
@@ -1524,16 +1524,16 @@ QString C_Frm_Day::doRdvMenu(C_RendezVous *pRdvDst, int isOptionDetruire  /* = 0
     QMapIterator<QString, QPixmap> ut(m_pBMC->m_StatutsPixmap);
     while (ut.hasNext())
           {ut.next();
-           menu.addAction (ut.value(), tr("Statut du rendez-vous : ") +ut.key());
+           menu.addAction (ut.value(), tr("Status of the appointment: ") +ut.key());
           }
     menu.addSeparator ();
-    menu.addAction (m_pBMC->m_Configure_Pixmap,     tr("Modifier les param\303\250tres de ce rendez-vous...") );
-    menu.addAction (m_pBMC->m_ButtonAcceder_Pixmap, tr("Ouvrir le dossier : %1").arg(pRdvDst->m_Nom+" "+pRdvDst->m_Prenom) );
+    menu.addAction (m_pBMC->m_Configure_Pixmap,     tr("Modify the parameters of this appointment...") );
+    menu.addAction (m_pBMC->m_ButtonAcceder_Pixmap, tr("Open folder: %1").arg(pRdvDst->m_Nom+" "+pRdvDst->m_Prenom) );
     menu.addSeparator ();
-    menu.addAction (m_pBMC->m_ButtonDelete_Pixmap,  tr("Rendre ce rendez-vous anonyme et disponible (le d\303\251sallouer)") );
-    if (isOptionDetruire) menu.addAction (m_pBMC->m_MenuRendezvousDel,    tr("D\303\251truire ce rendez-vous") );
+    menu.addAction (m_pBMC->m_ButtonDelete_Pixmap,  tr("Make this appointment anonymous and available") );
+    if (isOptionDetruire) menu.addAction (m_pBMC->m_MenuRendezvousDel,    tr("Delete this appointment") );
     menu.addSeparator ();
-    menu.addAction (m_pBMC->m_QuitterMenu_Pixmap,   tr("Quitter ce menu") );
+    menu.addAction (m_pBMC->m_QuitterMenu_Pixmap,   tr("Quit this menu") );
     grabLabel.hide();
     QPoint pt = QCursor::pos();
     //.......... si on est sur un rendez occupe vous afficher le titre .........................
@@ -1545,7 +1545,7 @@ QString C_Frm_Day::doRdvMenu(C_RendezVous *pRdvDst, int isOptionDetruire  /* = 0
        }
     //.......... si on est sur un rendez libre vous afficher disponible .........................
     else
-       {menu.setLabelRdvText(QString("<b><font color=\"#ff0000\">%1</font>/<font color=\"#ff0000\">%2</font> <font color=\"#000000\">%3</font></b>").arg(pRdvDst->m_date.time().toString("hh:mm"), QString::number(pRdvDst->m_Duree), tr(" Rendez-vous disponible ")),
+       {menu.setLabelRdvText(QString("<b><font color=\"#ff0000\">%1</font>/<font color=\"#ff0000\">%2</font> <font color=\"#000000\">%3</font></b>").arg(pRdvDst->m_date.time().toString("hh:mm"), QString::number(pRdvDst->m_Duree), tr(" Appointment available ")),
                              pRdvDst->m_Type,
                              C_RendezVous::getRdvColor(*pRdvDst, m_pColorProfils)
                             );
@@ -1634,8 +1634,8 @@ void C_Frm_Day::Slot_ButtonRDVDeleteClicked(const char*, void *ptr)
 {LOOKREFRESH;     // bloquer le raffraississement
  if (m_pCMoteurAgenda->isModifToConfirm()&2  &&
      QMessageBox::question ((QWidget*)parent(),
-                            tr("Confirmer l'effacement"),
-                            tr("Confirmer l'effacement de ce rendez-vous "),
+                            tr("Confirm delete"),
+                            tr("Confirm deleting this appointment "),
                             QMessageBox::Ok|QMessageBox::Cancel)==QMessageBox::Cancel)
     {UNLOOKREFRESH;
      return;
@@ -1945,19 +1945,19 @@ C_Frm_Rdv::C_Frm_Rdv (  C_RendezVous *pC_RendezVous,       // data
 m_ButtonDelete = new CMyButton(m_pBMC->m_RdvCancel_Pixmap, this, "", this);
 m_ButtonDelete->setGeometry(90, 0, widget_h, widget_h);   // icone = carre donc widget_hxwidget_h
 m_ButtonDelete->setFlat( TRUE );
-m_ButtonDelete->setToolTip ( tr("<font color=\"#000000\">Effacer ce rendez-vous.</font>") );
+m_ButtonDelete->setToolTip ( "<font color=\"#000000\">"+tr("Delete this appointment")+"</font>" );
 //m_ButtonDelete->setStyleSheet(style);  // background-color: #960101 background-image: url(images/welcome.png
 
 m_ButtonChange = new CMyButton(m_pBMC->m_ButtonChange_Pixmap, this, "", this);
 m_ButtonChange->setGeometry(105, 0, widget_h, widget_h);
 m_ButtonChange->setFlat( TRUE );
-m_ButtonChange->setToolTip ( TR("<font color=\"#000000\">Modifier le rendez-vous.</font>") );
+m_ButtonChange->setToolTip ( "<font color=\"#000000\">"+TR("Modify the appointment.")+"</font>" );
 //m_ButtonChange->setStyleSheet(style);  // background-color: #960101 background-image: url(images/welcome.png
 
 m_ButtonAcceder = new CMyButton(m_pBMC->m_ButtonChange_Pixmap, this, "", this);
 m_ButtonAcceder->setGeometry(120, 0, widget_h, widget_h);
 m_ButtonAcceder->setFlat( TRUE );
-m_ButtonAcceder->setToolTip ( TR("<font color=\"#000000\">Acc\303\251der au dossier du patient.</font>") );  //AgendaCreateDoss.png
+m_ButtonAcceder->setToolTip ( "<font color=\"#000000\">"+TR("Access the patient's folder.")+"</font>" );  //AgendaCreateDoss.png
 //m_ButtonAcceder->setStyleSheet(style);  // background-color: #960101 background-image: url(images/welcome.png
 
 //.......................... installer le filtre evenementiel ....................................
@@ -2066,7 +2066,7 @@ void C_Frm_Rdv::setWidgetOnRdv(const C_RendezVous &rdv) // to do : detecter si l
  //....................... rechercher le statut .............................
  QString statutRdv = rdv.m_State;
 
- if (statutRdv.length()==0) statutRdv = tr("Statut non d\303\251fini");
+ if (statutRdv.length()==0) statutRdv = tr("Undefined status");
  else
     {QMap<QString, QPixmap>::const_iterator it = m_pBMC->m_StatutsPixmap.find(statutRdv);
      if (it != m_pBMC->m_StatutsPixmap.end())    m_ButtonChange->setIcon(it.value());
@@ -2205,7 +2205,7 @@ void C_Frm_Rdv::Slot_ButtonChangeClicked(const char*, void *ptr)
 
 //---------------------------- computeTextButton ------------------------------------------------
 QString C_Frm_Rdv::computeTextButton()
-{QString str  = m_date.time().toString("hh:mm")+tr("/");
+{QString str  = m_date.time().toString("hh:mm")+"/";
  if (m_Duree>60)
      str += QTime(0,0,0).addSecs(m_Duree*60).toString("hh:mm").replace(':','h');
  else
@@ -2303,8 +2303,8 @@ void C_Frm_Rdv::mouseReleaseEvent ( QMouseEvent * /*event*/ )
     {
      if (m_pCMoteurAgenda->isModifToConfirm()&1 &&
          QMessageBox::question ((QWidget*)parent(),
-                                tr("Confirmer la modification"),
-                                tr("Les caract\303\251ristiques de ce rendez-vous ont \303\251t\303\251 modifi\303\251es\nConfirmer les modifications "),
+                                tr("Confirm modification"),
+                                tr("The features of this appointment have been modified \nConfirm modifications "),
                                 QMessageBox::Ok|QMessageBox::Cancel)==QMessageBox::Cancel)
         {m_date                      = m_C_RendezVousSav.m_date; // restituer la config initiale
          m_Duree                     = m_C_RendezVousSav.m_Duree;
@@ -2399,31 +2399,31 @@ void C_Frm_Rdv::mousePressEvent(QMouseEvent *event)
             ((C_Frm_Day*)parent())->Slot_StopTimer(1);   // le timer ser debloque lors du release button
             QString       ret =  ((C_Frm_Day*)parent())->doRdvMenu(this->rdv_instance());
            if (ret.length())
-              {if (ret.indexOf(tr("Statut du rendez-vous")) != -1)
-                  { QString statut = ret.remove(tr("Statut du rendez-vous : "));
+              {if (ret.indexOf(tr("Status of the appointment")) != -1)
+                  { QString statut = ret.remove(tr("Status of the appointment")+": ");
                     m_State = statut.trimmed();
                     setWidgetOnRdv(*this);                // on reajuste le widget sur les nouvelles donn\303\251es
                     setWidgetStyleOnRdv(*this);
                     RDV_Update();
                   }
-               else if (ret.indexOf(tr("Rendez vous de type")) != -1)
-                  { QString type = ret.remove(tr("Rendez vous de type : "));
+               else if (ret.indexOf(tr("Appointment of type")) != -1)
+                  { QString type = ret.remove(tr("Appointment of type")+ ": ");
                     m_Type = type.trimmed();
                     setWidgetOnRdv(*this);                // on reajuste le widget sur les nouvelles donn\303\251es
                     setWidgetStyleOnRdv(*this);
                     RDV_Update();
                   }
-               else if (ret.indexOf(tr("Couper")) != -1)  // il ne  peut pas se detruire lui meme et sortir ensuite de sa fonction donc QTIMER
+               else if (ret.indexOf(tr("Cut")) != -1)  // il ne  peut pas se detruire lui meme et sortir ensuite de sa fonction donc QTIMER
                   {QTimer::singleShot(10, this, SLOT(Slot_cut()) );
                   }
-               else if (ret.indexOf(tr("Copier")) != -1)
+               else if (ret.indexOf(tr("Copy")) != -1)
                     Slot_copy();
-               else if (ret.indexOf(tr("Remplacer")) != -1)
+               else if (ret.indexOf(tr("Replace")) != -1)
                     replaceWithCopy();
-               else if (ret.indexOf(tr("Modifier")) != -1)
+               else if (ret.indexOf(tr("Modify")) != -1)
                   {emit Sign_RendezVousChangeClicked(this);
                   }
-               else if (ret.indexOf(tr("Rendre")) != -1)
+               else if (ret.indexOf(tr("Give back")) != -1)
                   {m_Nom="";
                    m_Prenom="";
                    m_GUID="";
@@ -2433,7 +2433,7 @@ void C_Frm_Rdv::mousePressEvent(QMouseEvent *event)
                    setWidgetStyleOnRdv(*this);
                    RDV_Update();
                   }
-               else if (ret.indexOf(tr("Ouvrir le dossier")) != -1)
+               else if (ret.indexOf(tr("Open folder")) != -1)
                   {((C_Frm_Day*)parent())->Slot_ButtonAccederClicked(0, this);
                   }
               }

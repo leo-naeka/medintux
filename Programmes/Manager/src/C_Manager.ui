@@ -56,7 +56,7 @@
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
-        <string>Recherche patients</string>
+        <string>Patients searching</string>
        </attribute>
        <layout class="QGridLayout">
         <property name="margin">
@@ -129,7 +129,7 @@
                   </property>
                   <column>
                    <property name="text">
-                    <string>Nom</string>
+                    <string>Name</string>
                    </property>
                    <property name="font">
                     <font>
@@ -139,7 +139,7 @@
                   </column>
                   <column>
                    <property name="text">
-                    <string>Prénom</string>
+                    <string>First name</string>
                    </property>
                    <property name="font">
                     <font>
@@ -149,7 +149,7 @@
                   </column>
                   <column>
                    <property name="text">
-                    <string>Date Nss</string>
+                    <string>Birth date</string>
                    </property>
                    <property name="font">
                     <font>
@@ -169,7 +169,7 @@
                   </column>
                   <column>
                    <property name="text">
-                    <string>Rang Gem</string>
+                    <string>Gem rank</string>
                    </property>
                    <property name="font">
                     <font>
@@ -189,7 +189,7 @@
                   </column>
                   <column>
                    <property name="text">
-                    <string>N° Dossier</string>
+                    <string>Folder #</string>
                    </property>
                    <property name="font">
                     <font>
@@ -209,7 +209,7 @@
                   </column>
                   <column>
                    <property name="text">
-                    <string>Occurence</string>
+                    <string>Occurrence</string>
                    </property>
                    <property name="font">
                     <font>
@@ -272,7 +272,7 @@
                    </palette>
                   </property>
                   <property name="toolTip">
-                   <string>Lite de résolution des doublons.</string>
+                   <string>Duplicates resolution list</string>
                   </property>
                   <property name="rootIsDecorated">
                    <bool>false</bool>
@@ -282,7 +282,7 @@
                   </property>
                   <column>
                    <property name="text">
-                    <string>Nom</string>
+                    <string>Name</string>
                    </property>
                    <property name="font">
                     <font>
@@ -292,7 +292,7 @@
                   </column>
                   <column>
                    <property name="text">
-                    <string>Prénom</string>
+                    <string>First name</string>
                    </property>
                    <property name="font">
                     <font>
@@ -302,7 +302,7 @@
                   </column>
                   <column>
                    <property name="text">
-                    <string>N° dossier</string>
+                    <string>Folder #</string>
                    </property>
                    <property name="font">
                     <font>
@@ -337,7 +337,7 @@
                        </font>
                       </property>
                       <property name="text">
-                       <string>Rechercher par le nom et prénom</string>
+                       <string>Research by name and first name</string>
                       </property>
                       <property name="alignment">
                        <set>Qt::AlignCenter</set>
@@ -353,7 +353,7 @@
                        </size>
                       </property>
                       <property name="toolTip">
-                       <string>Réinitialiser la liste des patients.</string>
+                       <string>Reset patients list</string>
                       </property>
                       <property name="text">
                        <string/>
@@ -367,9 +367,9 @@
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Pour sélectionner un patient,&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;entrez le &lt;span style=&quot; font-weight:600;&quot;&gt;nom&lt;/span&gt; séparé du &lt;span style=&quot; font-weight:600;&quot;&gt;prénom&lt;/span&gt; par un point virgule.&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Le symbole % permet de spécifier : rechercher tout ce qui le suit n'importe où.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;To elect a patient,&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;give the &lt;span style=&quot; font-weight:600;&quot;&gt;name&lt;/span&gt; separed from &lt;span style=&quot; font-weight:600;&quot;&gt;first name&lt;/span&gt; by a semicolon.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;% Symbol specifies: search anything that follows, anywhere.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                       </property>
                       <property name="whatsThis">
                        <string>to define for best control</string>
@@ -386,9 +386,9 @@ p, li { white-space: pre-wrap; }
                      </font>
                     </property>
                     <property name="toolTip">
-                     <string>Liste des patients.
-Double cliquez sur un patient pour en lancer le dossier.
-Cliquez avec le bouton droit de la souris au dessus d'un patient, pour faire apparaître un menu vous proposant diverses options  de travail. </string>
+                     <string>Patients list.
+Double click on a patient to launch his folder.
+Right-click upon a patient, to get a menu with various options. </string>
                     </property>
                     <property name="rootIsDecorated">
                      <bool>false</bool>
@@ -404,17 +404,17 @@ Cliquez avec le bouton droit de la souris au dessus d'un patient, pour faire app
                     </property>
                     <column>
                      <property name="text">
-                      <string>Nom</string>
+                      <string>Name</string>
                      </property>
                     </column>
                     <column>
                      <property name="text">
-                      <string>Prénom</string>
+                      <string>First name</string>
                      </property>
                     </column>
                     <column>
                      <property name="text">
-                      <string>N° dossier</string>
+                      <string>Folder #</string>
                      </property>
                     </column>
                     <column>
@@ -438,7 +438,7 @@ Cliquez avec le bouton droit de la souris au dessus d'un patient, pour faire app
                    </font>
                   </property>
                   <property name="text">
-                   <string>N°</string>
+                   <string>#</string>
                   </property>
                  </widget>
                 </item>
@@ -560,11 +560,11 @@ Cliquez avec le bouton droit de la souris au dessus d'un patient, pour faire app
                    </palette>
                   </property>
                   <property name="toolTip">
-                   <string>&lt;font color=&quot;#000000&quot;&gt; Ce bouton permet de créer de nouveaux dossiers&lt;/font&gt;</string>
+                   <string>&lt;font color=&quot;#000000&quot;&gt; This button allows to create new folders&lt;/font&gt;</string>
                   </property>
                   <property name="text">
-                   <string>Nouveau 
-dossier</string>
+                   <string>New 
+folder</string>
                   </property>
                  </widget>
                 </item>
@@ -622,7 +622,7 @@ dossier</string>
                    </size>
                   </property>
                   <property name="toolTip">
-                   <string>Sélectionner un dossier à l'aide de la carte Vitale</string>
+                   <string>Select a folder with the carte Vitale</string>
                   </property>
                   <property name="text">
                    <string/>
@@ -671,7 +671,7 @@ dossier</string>
                 <item>
                  <widget class="QToolButton" name="pushButtonInfo">
                   <property name="toolTip">
-                   <string>Comment sélectionner un patient dans la liste</string>
+                   <string>How to select a patient in the list</string>
                   </property>
                   <property name="text">
                    <string/>
@@ -681,7 +681,7 @@ dossier</string>
                 <item>
                  <widget class="QToolButton" name="pushButtonDetruire">
                   <property name="toolTip">
-                   <string>Effacer un dossier</string>
+                   <string>Delete a folder</string>
                   </property>
                   <property name="text">
                    <string/>
@@ -748,7 +748,7 @@ dossier</string>
                     </font>
                    </property>
                    <property name="text">
-                    <string>Nom  </string>
+                    <string>Name  </string>
                    </property>
                    <property name="buddy">
                     <cstring>lineEdit_NomDossier</cstring>
@@ -766,7 +766,7 @@ dossier</string>
                     </font>
                    </property>
                    <property name="text">
-                    <string>Prénom </string>
+                    <string>First name </string>
                    </property>
                    <property name="buddy">
                     <cstring>lineEdit_PrenomDossier</cstring>
@@ -788,7 +788,7 @@ dossier</string>
                     </font>
                    </property>
                    <property name="text">
-                    <string>Rang Gem. </string>
+                    <string>Gem. rank</string>
                    </property>
                   </widget>
                  </item>
@@ -850,7 +850,7 @@ dossier</string>
                     </font>
                    </property>
                    <property name="text">
-                    <string>Date Nss </string>
+                    <string>Birth Date </string>
                    </property>
                   </widget>
                  </item>
@@ -870,7 +870,7 @@ dossier</string>
                         </font>
                        </property>
                        <property name="text">
-                        <string>Adresse </string>
+                        <string>Address </string>
                        </property>
                        <property name="alignment">
                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -895,7 +895,7 @@ dossier</string>
                         </font>
                        </property>
                        <property name="text">
-                        <string>Code postal </string>
+                        <string>Zip Code </string>
                        </property>
                        <property name="alignment">
                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -923,7 +923,7 @@ dossier</string>
                         </font>
                        </property>
                        <property name="text">
-                        <string>Ville </string>
+                        <string>Town </string>
                        </property>
                        <property name="alignment">
                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -957,7 +957,7 @@ dossier</string>
                           </font>
                          </property>
                          <property name="text">
-                          <string>Tél 1</string>
+                          <string>Tel 1</string>
                          </property>
                         </widget>
                        </item>
@@ -992,7 +992,7 @@ dossier</string>
                           </font>
                          </property>
                          <property name="text">
-                          <string>Tél 2</string>
+                          <string>Tel 2</string>
                          </property>
                         </widget>
                        </item>
@@ -1027,7 +1027,7 @@ dossier</string>
                           </font>
                          </property>
                          <property name="text">
-                          <string>Tél 3</string>
+                          <string>Tel 3</string>
                          </property>
                         </widget>
                        </item>
@@ -1137,7 +1137,7 @@ dossier</string>
                     </font>
                    </property>
                    <property name="text">
-                    <string>Nom de nss.  </string>
+                    <string>Birth name  </string>
                    </property>
                    <property name="buddy">
                     <cstring>lineEdit_NomDeNss</cstring>
@@ -1159,7 +1159,7 @@ dossier</string>
                     </font>
                    </property>
                    <property name="text">
-                    <string>Titre </string>
+                    <string>Title </string>
                    </property>
                    <property name="buddy">
                     <cstring>lineEdit_Titre</cstring>
@@ -1173,17 +1173,17 @@ dossier</string>
                   <widget class="QComboBox" name="comboBoxSexe">
                    <item>
                     <property name="text">
-                     <string>Masculin</string>
+                     <string>Male</string>
                     </property>
                    </item>
                    <item>
                     <property name="text">
-                     <string>Féminin</string>
+                     <string>Female</string>
                     </property>
                    </item>
                    <item>
                     <property name="text">
-                     <string>Indéterminé</string>
+                     <string>Unknown</string>
                     </property>
                    </item>
                   </widget>
@@ -1196,7 +1196,7 @@ dossier</string>
                     </font>
                    </property>
                    <property name="text">
-                    <string>Sexe </string>
+                    <string>Sex </string>
                    </property>
                    <property name="buddy">
                     <cstring>comboBoxSexe</cstring>
@@ -1439,7 +1439,7 @@ dossier</string>
                  </font>
                 </property>
                 <property name="text">
-                 <string>Annu&amp;ler Création</string>
+                 <string>&amp;Cancel Creation</string>
                 </property>
                </widget>
               </item>
@@ -1451,7 +1451,7 @@ dossier</string>
                  </font>
                 </property>
                 <property name="text">
-                 <string>&amp;Enregistrer les modifications</string>
+                 <string>&amp;Save modifications</string>
                 </property>
                </widget>
               </item>
@@ -1502,7 +1502,7 @@ dossier</string>
                  </font>
                 </property>
                 <property name="text">
-                 <string>&amp;Créer le dossier</string>
+                 <string>&amp;Create folder</string>
                 </property>
                </widget>
               </item>
@@ -1514,7 +1514,7 @@ dossier</string>
                  </font>
                 </property>
                 <property name="text">
-                 <string>&amp;Activer recherche multicritère</string>
+                 <string>&amp;Activate multicriteria research</string>
                 </property>
                </widget>
               </item>
@@ -1526,7 +1526,7 @@ dossier</string>
                  </font>
                 </property>
                 <property name="text">
-                 <string>&amp;Accéder au dossier</string>
+                 <string>&amp;Access folder</string>
                 </property>
                 <property name="default">
                  <bool>true</bool>
@@ -1541,7 +1541,7 @@ dossier</string>
                  </font>
                 </property>
                 <property name="text">
-                 <string>Quitter recherche multicritères</string>
+                 <string>Quit multicriteria research</string>
                 </property>
                </widget>
               </item>
@@ -1553,7 +1553,7 @@ dossier</string>
                  </font>
                 </property>
                 <property name="text">
-                 <string>Lancer la recherche</string>
+                 <string>Start research</string>
                 </property>
                </widget>
               </item>
@@ -1565,7 +1565,7 @@ dossier</string>
                  </font>
                 </property>
                 <property name="text">
-                 <string>E&amp;ffacer les saisies.</string>
+                 <string>&amp;Erase inputs</string>
                 </property>
                </widget>
               </item>
@@ -1605,7 +1605,7 @@ dossier</string>
               </property>
               <widget class="QWidget" name="tab_intervenants">
                <attribute name="title">
-                <string>Intervenants</string>
+                <string>Contributors</string>
                </attribute>
                <layout class="QGridLayout" name="gridLayout">
                 <property name="margin">
@@ -1624,7 +1624,7 @@ dossier</string>
                      </font>
                     </property>
                     <property name="text">
-                     <string>Retirer un Corres&amp;pondant</string>
+                     <string>Remove contributor</string>
                     </property>
                    </widget>
                   </item>
@@ -1647,8 +1647,8 @@ dossier</string>
                        </font>
                       </property>
                       <property name="text">
-                       <string>A&amp;jouter un
- Correspondant</string>
+                       <string>&amp;Add
+contributor</string>
                       </property>
                      </widget>
                     </item>
@@ -1667,7 +1667,7 @@ dossier</string>
                        </size>
                       </property>
                       <property name="toolTip">
-                       <string>Permet d'ajouter une spécialité rapidement (F7)</string>
+                       <string>To add quickly a speciality (F7)</string>
                       </property>
                       <property name="text">
                        <string/>
@@ -1700,7 +1700,7 @@ dossier</string>
                   </property>
                   <column>
                    <property name="text">
-                    <string>Spécialité</string>
+                    <string>Speciality</string>
                    </property>
                    <property name="font">
                     <font>
@@ -1710,7 +1710,7 @@ dossier</string>
                   </column>
                   <column>
                    <property name="text">
-                    <string>Nom</string>
+                    <string>Name</string>
                    </property>
                    <property name="font">
                     <font>
@@ -1720,7 +1720,7 @@ dossier</string>
                   </column>
                   <column>
                    <property name="text">
-                    <string>Prénom</string>
+                    <string>First name</string>
                    </property>
                    <property name="font">
                     <font>
@@ -1730,7 +1730,7 @@ dossier</string>
                   </column>
                   <column>
                    <property name="text">
-                    <string>En qualité de</string>
+                    <string>As</string>
                    </property>
                    <property name="font">
                     <font>
@@ -1958,7 +1958,7 @@ p, li { white-space: pre-wrap; }
       </widget>
       <widget class="QWidget" name="tab_Web">
        <attribute name="title">
-        <string>Accès Web</string>
+        <string>Web access</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_2">
         <property name="margin">
@@ -2134,22 +2134,22 @@ p, li { white-space: pre-wrap; }
   <widget class="QStatusBar" name="statusBar"/>
   <widget class="QDockWidget" name="wdg_DockWidget_Agenda">
    <property name="toolTip">
-    <string comment="L'agenda permet de prendre et consulter les rendez-vous"/>
+    <string comment="Schedule allows to manage appointments"/>
    </property>
    <property name="statusTip">
-    <string comment="L'agenda permet de prendre et consulter les rendez-vous"/>
+    <string comment="Schedule allows to manage appointments"/>
    </property>
    <property name="whatsThis">
-    <string>L'agenda permet de prendre et consulter les rendez-vous</string>
+    <string>Schedule allows to manage appointments</string>
    </property>
    <property name="accessibleName">
-    <string comment="Agenda"/>
+    <string comment="Schedule"/>
    </property>
    <property name="features">
     <set>QDockWidget::AllDockWidgetFeatures</set>
    </property>
    <property name="windowTitle">
-    <string comment="Agenda">Agenda</string>
+    <string comment="Schedule">Schedule</string>
    </property>
    <attribute name="dockWidgetArea">
     <number>1</number>
@@ -2192,7 +2192,7 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Sélectionne et affiche l'agenda d'un utilisateur&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Selects and displays an user's schedule&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
            </widget>
           </item>
@@ -2204,7 +2204,7 @@ p, li { white-space: pre-wrap; }
              </font>
             </property>
             <property name="text">
-             <string>Agenda de :  </string>
+             <string>Schedule of:  </string>
             </property>
            </widget>
           </item>
@@ -2283,7 +2283,7 @@ p, li { white-space: pre-wrap; }
     <set>QDockWidget::AllDockWidgetFeatures</set>
    </property>
    <property name="windowTitle">
-    <string>Utilisateurs</string>
+    <string>Users</string>
    </property>
    <attribute name="dockWidgetArea">
     <number>4</number>

@@ -78,10 +78,6 @@ FORMS += C_Manager.ui \
     ../../MedinTuxTools-QT4/GetPassword/CDlg_PasswordGet.ui \
     ../../MedinTuxTools-QT4/UserList/C_Frm_UserList.ui \
     ../../MedinTuxTools-QT4/C_Dlg_DoList/C_Dlg_DoList.ui
-TRANSLATIONS = Manager_fr.ts \
-    Manager_fi.ts \
-    Manager_us.ts \
-    Manager_no.ts \
-    Manager_se.ts
+TRANSLATIONS = Manager_fr.ts 
 CODECFORTR = UTF8
 OTHER_FILES += ../bin/Ressources/Changements.html

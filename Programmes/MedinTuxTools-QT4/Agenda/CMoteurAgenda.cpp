@@ -265,7 +265,7 @@ char  *CMoteurAgenda::SetConfBase_SetProperties(char *pt, QString &propertie, co
     }
  err  = "Syntax Error: SetConfBase()\r\n";
  err += token;
- err += TR(" non trouvé �  la ligne N°: ");
+ err += TR(" not found on line # ");
  err += QString::number(nLine);
  if (line) *line = nLine;
  return pt;
@@ -345,7 +345,7 @@ int CMoteurAgenda::MASK_Append(const C_RendezVous &rendezVous, QString *errMess 
      query.bindValue(4, rendezVous.m_Note);
      query.bindValue(5, rendezVous.m_date.date().dayOfWeek ());
      if (query.exec()) {ok = TRUE;}
-     else              {QString mess = TR("Erreur : CMoteurAgenda::MASK_Append() \r\n") + prepare + "\r\n";
+     else              {QString mess = TR("Error : CMoteurAgenda::MASK_Append() \r\n") + prepare + "\r\n";
                         mess        += OutSQL_error(query, mess.toLatin1());      // rajouter le message sql
                         if (errMess) *errMess += mess;
                         ok = FALSE;
@@ -433,7 +433,7 @@ int CMoteurAgenda::COL_Create(const QString name, const QString color, const QSt
      query.bindValue(1, color);
      query.bindValue(2, duree);
      if (query.exec()) {ok = TRUE;}
-     else              {QString mess = TR("Erreur : CMoteurAgenda::COL_Create() \r\n") + prepare + "\r\n";
+     else              {QString mess = TR("Error : CMoteurAgenda::COL_Create() \r\n") + prepare + "\r\n";
                         mess        += OutSQL_error(query, mess.toLatin1());      // rajouter le message sql
                         if (errMess) *errMess += mess;
                         ok = FALSE;
@@ -519,7 +519,7 @@ int CMoteurAgenda::COL_RecordAllColorMap(MAP_COLOR *pColorMap, QString *errMess 
            query.bindValue(2, qMin(120,qMax (ct.getDuree().toInt(), 5 )));  // borner le truc avant que MySQL se fache
            //m_log  += "       color : "+ QString::number(nb)+" Key :" + ct.getType() + " " + ct.getColor() + " " + ct.getDuree() + "\r\n";
            ++ nb;
-           if ( !query.exec()) { QString mess = TR("Erreur : CMoteurAgenda::COL_RecordAllColorMap() \r\n") + prepare + "\r\n";
+           if ( !query.exec()) { QString mess = TR("Error : CMoteurAgenda::COL_RecordAllColorMap() \r\n") + prepare + "\r\n";
                                  mess        += OutSQL_error(query, mess.toAscii());      // rajouter le message sql
                                  if (errMess) *errMess += mess;
                                  //m_log += "------ CMoteurAgenda::COL_RecordAllColorMap() erreur \r\n" + mess + "\r\n";
@@ -609,7 +609,7 @@ QString CMoteurAgenda::RDV_Create(const C_RendezVous &rendezVous, QString *errMe
   query.bindValue(8, rendezVous.m_Type);
   query.bindValue(9, rendezVous.m_State);
   query.bindValue(10,rendezVous.m_Note);
-  if (!query.exec()){QString mess = TR("Erreur : CMoteurAgenda::RDV_Create() \r\n") + prepare + "\r\n";
+  if (!query.exec()){QString mess = TR("Error : CMoteurAgenda::RDV_Create() \r\n") + prepare + "\r\n";
                      mess        += OutSQL_error(query, mess.toLatin1());      // rajouter le message sql
                      if (errMess) *errMess += mess;
                     }
@@ -657,7 +657,7 @@ int CMoteurAgenda::RDV_Update(const C_RendezVous &rendezVous, QString *errMess /
   query.bindValue(10,rendezVous.m_Note);
   query.exec();
   if (query.exec()) {ok = TRUE;}
-  else              {QString mess = TR("Erreur : CMoteurAgenda::MASK_Append() \r\n") + prepare + "\r\n";
+  else              {QString mess = TR("Error : CMoteurAgenda::MASK_Append() \r\n") + prepare + "\r\n";
                      mess        += OutSQL_error(query, mess.toLatin1());      // rajouter le message sql
                      if (errMess) *errMess += mess;
                      ok = FALSE;
@@ -805,13 +805,13 @@ int CMoteurAgenda::RDV_Get_List(QDate date, const QString &user, RDV_LIST *rdvLi
 QString CMoteurAgenda::dayOfWeek(int dayOfWeek)
 {
  switch(dayOfWeek)
-        { case 1:  return  TR( "Lundi");
-          case 2:  return  TR( "Mardi");
-          case 3:  return  TR( "Mercredi");
-          case 4:  return  TR( "Jeudi");
-          case 5:  return  TR( "Vendredi");
-          case 6:  return  TR( "Samedi");
-          case 7:  return  TR( "Dimanche");
+        { case 1:  return  TR( "Monday");
+          case 2:  return  TR( "Tuesday");
+          case 3:  return  TR( "Wednesday");
+          case 4:  return  TR( "Thursday");
+          case 5:  return  TR( "Friday");
+          case 6:  return  TR( "Saturday");
+          case 7:  return  TR( "Sunday");
         }
  return QString::null;
 }

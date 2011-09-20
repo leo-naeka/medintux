@@ -801,7 +801,7 @@ QString CHtmlTools::HtmlToAscii(QString &str, int mode /* = 0 */)
        if (pos>1) bef = str[pos-1].latin1();
        if (str[pos]=='<')
           {pos =  str.find('>', pos+1);
-           if (pos==-1) return QString (TR ("CHtmlTools::HtmlToAscii() Erreur de syntaxe tag html non fermé") );
+           if (pos==-1) return QString (TR ("CHtmlTools::HtmlToAscii() Syntax error: html tag not closed") );
            ++pos;
           }
        else
@@ -837,7 +837,7 @@ QString CHtmlTools::HtmlToAscii(QString &str, int mode /* = 0 */)
      if (posDeb !=-1)
         {posEnd =  str.find(">", posDeb+1);
          if (posEnd != -1) str.remove(posDeb, posEnd-posDeb+1);
-         else return QString (TR ("CHtmlTools::HtmlToAscii() Erreur de syntaxe tag html non fermé") );
+         else return QString (TR ("CHtmlTools::HtmlToAscii() Syntax error: html tag not closed") );
         }
      else break;
     } while (1);
