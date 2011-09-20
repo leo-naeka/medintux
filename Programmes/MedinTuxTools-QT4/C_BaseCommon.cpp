@@ -65,7 +65,7 @@ bool C_BaseCommon::EncodePassword_InConnectionParam(QString &param, const QStrin
 }
 
 //---------------------------------------- BaseConnect -------------------------------------------------------
-bool C_BaseCommon::BaseConnect(const QString &param, const QString &baseLabel, const QString &dataBase, QString* errMess /* =0*/)
+bool C_BaseCommon::BaseConnect(const QString &param, const QString &baseLabel, const QString &dataBase, QString* errMess /* =0*/, const QString &section  /* = "Connexion" */)
 {
 
  QString driver;             // nom du driver: "QODBC3" "QMYSQL3" "QPSQL7"
@@ -74,9 +74,10 @@ bool C_BaseCommon::BaseConnect(const QString &param, const QString &baseLabel, c
  QString password;           // = ""
  QString hostname;           // = "localhost"
  QString port;               // = "3306"
- m_LastError   = "";
- m_BaseLabel   = "";
- if (CGestIni::Param_ReadParam(  param.toAscii(), "Connexion", "Parametres", &driver, &dataBaseToConnect, &user, &password, &hostname, &port) !=0 )  // zero = pas d'erreur
+
+ m_LastError     = "";
+ m_BaseLabel     = "";
+ if (CGestIni::Param_ReadParam(  param.toAscii(), section.toAscii(), "Parametres", &driver, &dataBaseToConnect, &user, &password, &hostname, &port) !=0 )  // zero = pas d'erreur
     { m_LastError = tr("C_BaseCommon::BaseConnect() : error in parameters : CGestIni::Param_ReadParam() may be : key 'Parametres' omited in section 'Connexion'");
       if (errMess) *errMess = m_LastError;
       outMessage( m_LastError);
@@ -426,7 +427,7 @@ QString C_BaseCommon::isThisValueInTable(const QString &tableName, const QString
  else                return QString::null;
 }
 //--------------------------- isThisValueInTable_ToList -----------------------------------------------------------
-QStringList C_BaseCommon::isThisValueInTable_ToList(const QString &tableName, const QString &fieldName, const QString &value, const QString fieldToRetrieve /* = "" */)
+QStringList C_BaseCommon::isThisValueInTable_ToList(const QString &tableName, const QString &fieldName, const QString &value, const QString fieldToRetrieve /* = "" */, int keepEmpty /* = 1 */)
 {QSqlQuery query(QString::null , database() );
  QString field    = fieldToRetrieve; if (field.length()==0) field = tableName+"_pk";
  QString requete  = QString("SELECT `%1` FROM `%2` WHERE `%3`  = \"%4\"").arg( field, tableName, fieldName, value );
@@ -438,7 +439,15 @@ QStringList C_BaseCommon::isThisValueInTable_ToList(const QString &tableName, co
      return list;
     }
  if (query.isActive())
-    {while (query.next()) list << query.value(0).toString();
+    {if (keepEmpty)
+        {while (query.next()) list << query.value(0).toString();
+        }
+     else
+         {while (query.next())
+                {QString value = query.value(0).toString().trimmed();
+                 if (value.length()) list <<  value;
+                }
+         }
     }
  return list;
 }
@@ -457,10 +466,10 @@ QString C_BaseCommon::ownersSelectMention( const QString &tableName, C_BaseCommo
  return str;
 }
 //--------------------------- countRecords -----------------------------------------------------------
-long C_BaseCommon::countRecords(const QString & tableName)
-{QString requete = QString("SELECT COUNT(*) FROM %1").arg(tableName);
+long C_BaseCommon::countRecords(const QString & tableName, const QString &whereMention /* = "" */)
+{QString requete = QString("SELECT COUNT(*) FROM %1 %2").arg(tableName, whereMention);
  QSqlQuery query(requete , database() );
- outSQL_error(query, tr("<font color=#ff0000><b>ERREUR : countRecords() </b></font>"), requete, __FILE__, __LINE__  );
+ outSQL_error(query, tr("<font color=#ff0000><b>ERREUR : C_BaseCommon::countRecords() </b></font>"), requete, __FILE__, __LINE__  );
    if (query.isActive() && query.next())
       {return (long) query.value(0).toDouble();
       }

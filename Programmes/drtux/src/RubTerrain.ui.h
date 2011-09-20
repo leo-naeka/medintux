@@ -31,7 +31,7 @@ void FormRubTerrain::init()
  pushButtonDellAllTTT->setIconSet( Theme::getIconListDelete() );
  pushButtonDellAllATCD->setIconSet( Theme::getIconListDelete() );
  pushButtonDellAllVAR->setIconSet( Theme::getIconListDelete() );
- 
+
  m_IsModifiable            = 0;
  m_TypeATCD_Selectionne    = "";
  m_pAtcd_Code              = 0;
@@ -66,18 +66,18 @@ void FormRubTerrain::init()
     connect( comboBox_RubName,        SIGNAL( activated(int) ), this, SLOT( comboBox_RubName_activated(int) ) );
     connect( comboBox_RubName,        SIGNAL( highlighted(int) ), this, SLOT( comboBox_RubName_highlighted(int) ) );
     connect( QPushButton_DDR,         SIGNAL( clicked() ), this, SLOT( QPushButton_DDR_clicked() ) );
-	
+
  #ifdef Q_OS_MACX
-    pushButtonSave->setFlat (TRUE); 
-	pushButtonNewVAR->setFlat (TRUE); 
-	pushButtonNew->setFlat (TRUE); 
-    pushButtonDelete->setFlat (TRUE); 
-    pushButtonDellAllVAR->setFlat (TRUE); 
-    pushButtonNewATCD->setFlat (TRUE); 
-    pushButtonDellAllATCD->setFlat (TRUE); 
-    pushButtonNewTTT->setFlat (TRUE);	
+    pushButtonSave->setFlat (TRUE);
+	pushButtonNewVAR->setFlat (TRUE);
+	pushButtonNew->setFlat (TRUE);
+    pushButtonDelete->setFlat (TRUE);
+    pushButtonDellAllVAR->setFlat (TRUE);
+    pushButtonNewATCD->setFlat (TRUE);
+    pushButtonDellAllATCD->setFlat (TRUE);
+    pushButtonNewTTT->setFlat (TRUE);
     pushButtonDellAllTTT->setFlat (TRUE);
-	pushButtonRubDateChange->setFlat (TRUE);				
+	pushButtonRubDateChange->setFlat (TRUE);
 #endif
 
 
@@ -634,7 +634,7 @@ void FormRubTerrain::DataToForm()   // texte de configuration avec zero de fin
        m_pAtcd_Code          = G_pCApp->m_pAtcd_Code;
        connect(m_pAtcd_Code, SIGNAL( ATCD_Changed() ), this, SLOT( ATCD_HaveChanged() ));
      }
-  else
+  else if (data)
      { // V\303\251rifie que les atcd sont ceux du document s\303\251lectionn\303\251
        // sinon informe Atcd_Code du chgt de terrain
        if (m_pAtcd_Code->getPkDocTerrain() != (*it).m_PrimKey)
@@ -644,7 +644,7 @@ void FormRubTerrain::DataToForm()   // texte de configuration avec zero de fin
     }
   //........................... postionner l'interface sur les antecedents..............................
   ATCD_setInForm();
-
+ if (data==0) return;
  //............................. positionner le reste (variables et traitement courant ) ..............
  QString val1, val2, val3, val4, val5, val6, val7, val8, val9, val10;
  QString       strTab[10];

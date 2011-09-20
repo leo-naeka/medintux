@@ -3511,7 +3511,7 @@ DossIndexCreateError:
 // ATTENTION: doit toujours etre appelée avec la base ouverte !!!
 //
 long  CMoteurBase::DossIdentDataCreate(QString& refDossPk,               QString& numGUID,
-                                       PtrListIdentFieldData *plist_field, int mode /*= CMoteurBase::esclave*/)
+                                       PtrListIdentFieldData *plist_field, int /* mode = CMoteurBase::esclave*/)
 {QString ref_pk;
   //................................. methode QSqlCursor .....................................
   //                         ne pose pas de PB avec valeur avec une apostrophe
@@ -3989,19 +3989,15 @@ QString CMoteurBase::GetDossPrimKeyFromGUID(const QString &guid, int isBaseMusBe
 {QString   ret("");
  //............... ouvrir la base  ..................................................
  if  (OpenBase()==0)  return ret;
-
- //............... crer un curseur SQL ..................................................
- QSqlCursor cur(m_DOSS_INDEX_TBL_NAME, TRUE, m_DataBase);                                     // ouvrir un curseur sur la table
- if (!cur.select( m_DOSS_INDEX_GUID+"='"+guid+"'" )) goto  GetDosPrimKeyFromGUIDError;       // se placer sur le bon record
- if (cur.next())
-    {ret = cur.value( m_DOSS_INDEX_PRIM_KEY).toString();
-     if (isBaseMusBeClosed==1) CloseBase();
-     return ret;
+ QString   requete ("SELECT " + m_DOSS_INDEX_PRIM_KEY + " FROM " + m_DOSS_INDEX_TBL_NAME + " WHERE " + m_DOSS_INDEX_GUID + "= '" + guid + "'");
+ QSqlQuery sqlQuery(requete , m_DataBase );
+ if ( sqlQuery.isActive() && sqlQuery.next() )
+    {if (isBaseMusBeClosed==1) CloseBase();
+     return sqlQuery.value(0).toString();;
     }
-GetDosPrimKeyFromGUIDError:
-     OutSQL_error(cur, "GetDossPrimKeyFromGUID()");
-     if (isBaseMusBeClosed==1) CloseBase();
-     return ret;
+ OutSQL_error(sqlQuery, "CMoteurBase::GetDossPrimKeyFromGUID()");
+ if (isBaseMusBeClosed==1) CloseBase();
+ return ret;
 }
 
 //-------------------------------------- initConboBoxWithRubList -------------------------------------------------
@@ -4312,7 +4308,7 @@ long  CMoteurBase::RubListSave( RUBREC_LIST *pRubList, EVNT_LIST *pEvnmtList, QS
  for (it = pRubList->begin(); it !=  pRubList->end(); ++it )
      {if ((*it).m_State & RUB_IS_TO_DELETE)
          {QString provPk = (*it).m_PrimKey;
-          RubListDelete(it, mode);                                         // ==> effacer la rubrique
+          RubListDelete(it, mode);                                   // ==> effacer la rubrique
           pEvnmtList->Evnmt_SetToDelete_Pk(provPk);                  // marquer à effacer tous les enregistrements contenant ce document
           (*it).m_PrimKey = "-1";
          }
@@ -4384,10 +4380,10 @@ long  CMoteurBase::TesteAndCorrigeDossIndexPkFromHeaders()
 //-------------------------------------- RubListCreate ----------------------------------------------------------------------
 QString  CMoteurBase::RubListCreate(RUBREC_LIST::iterator it, QString numGUID, int /*mode = CMoteurBase::esclave*/)
 {
-  //............... recuperer le pk de l'index dossier .......................................................
-  QString dossIndexPk = GetDossPrimKeyFromGUID(numGUID);
   //............... ouvrir la base .......................................................
   if (OpenBase()==0)  return QString::null;
+  //............... recuperer le pk de l'index dossier .......................................................
+  QString dossIndexPk = GetDossPrimKeyFromGUID(numGUID, 0);
   //if (VerrouilleTable(m_DOSS_RUB_DATA_TBL_NAME, m_DataBase)==0)  return 0;
   //if (VerrouilleTable(m_DOSS_RUB_HEAD_TBL_NAME, m_DataBase)==0)  return 0;
 
@@ -4404,7 +4400,10 @@ QString  CMoteurBase::RubListCreate(RUBREC_LIST::iterator it, QString numGUID, i
   if (blobs_Pk.length())
      {//............... crer un curseur SQL ..................................................
       QSqlCursor cur(m_DOSS_RUB_HEAD_TBL_NAME, TRUE, m_DataBase);
-      if ( !cur.canInsert ()) {CloseBase();             return ret;}
+      if ( !cur.canInsert ()) {deleteRubBlobFromPk(blobs_Pk);
+                               CloseBase();
+                               return ret;
+                              }
       (*it).m_Ref_Blobs_PK = blobs_Pk;
       //............... si OK on recupere le buffer et on le charge avec les données .........
       QSqlRecord *buffer = cur.primeInsert();                               // recuperer le buffer d'insertion
@@ -4426,14 +4425,27 @@ QString  CMoteurBase::RubListCreate(RUBREC_LIST::iterator it, QString numGUID, i
       buffer->setValue( m_DOSS_RUB_HEAD_PROP_3,         (*it).m_Prop_3        );      // Propriete N°3
       buffer->setValue( m_DOSS_RUB_HEAD_PROP_4,         (*it).m_Prop_4        );      // Propriete N°4
       buffer->setValue( m_DOSS_RUB_HEAD_DUREE_MOD,      (*it).m_DureeMod      );      // duree d'acces en modification du document
-      if (!cur.insert())  {CloseBase();             return ret;}
-
-      //................. recuperer dernier primKey insere ..............................
+      if (!cur.insert())  {deleteRubBlobFromPk(blobs_Pk);
+                           CloseBase();
+                           return ret;
+                          }
+      //................. recuperer dernier primKey insere (methode SELECT blobs_Pk )...........................................
+      //................. reselectionner l'enregistrement pour retrouver son PK avec le pk du blob ........................
+      QString   requete ("SELECT " + m_DOSS_RUB_HEAD_PRIMKEY + " FROM " + m_DOSS_RUB_HEAD_TBL_NAME + " WHERE " + m_DOSS_RUB_HEAD_REF_BLOBS_PK + "= '" + blobs_Pk + "'");
+      QSqlQuery sqlQuery(requete , m_DataBase );
+      //................. replacer une fois le Pk retrouvee, le bon GUID.......................................................
+      if ( sqlQuery.isActive() && sqlQuery.next() )
+         {ret = sqlQuery.value(0).toString();
+          if (!ret.length()) deleteRubBlobFromPk(blobs_Pk);
+         }
+      //................. recuperer dernier primKey insere (methode LAST_INSERT_ID() ) ........................................
+      /*
       QString requete ("SELECT LAST_INSERT_ID() FROM ");
       requete += m_DOSS_RUB_HEAD_TBL_NAME + " WHERE " + m_DOSS_RUB_HEAD_PRIMKEY + " = LAST_INSERT_ID()";
       QSqlQuery sqlQuery(requete , m_DataBase );
       if ( sqlQuery.next() )  ret =  sqlQuery.value(0).toString();
-    }  //SELECT LAST_INSERT_ID() FROM table where id=LAST_INSERT_ID()
+      */
+     }
   //......................... fermer la base ..............................................
   CloseBase();
   return ret;
@@ -4441,27 +4453,40 @@ QString  CMoteurBase::RubListCreate(RUBREC_LIST::iterator it, QString numGUID, i
 
 //-------------------------------------- RubListBlobCreate ----------------------------------------------------------------------
 QString  CMoteurBase::RubListBlobCreate(RUBREC_LIST::iterator it, QString numGUID)
-{
+{QString tmpGUID = GUID_Create();
  QSqlCursor cur(m_DOSS_RUB_DATA_TBL_NAME, TRUE, m_DataBase);
  if ( !cur.canInsert() )                                           return QString::null;
  //............... se creer un GUID temporaire permettant par la suite de retrouver le Pk de l'enregistrement créé .................
  //............... si OK on recupere le buffer et on le charge avec les données ..........................................
  QSqlRecord *buffer = cur.primeInsert();                        // recuperer le buffer d'insertion
  buffer->setValue( m_DOSS_RUB_DATA_BLOB, (*it) );               // y placer les données
- buffer->setValue( m_DOSS_RUB_DATA_GUID, numGUID );           // y placer le GUID temporaire (permettra de retrouver l'enregistrement créé)
+ buffer->setValue( m_DOSS_RUB_DATA_GUID, tmpGUID );             // y placer le GUID temporaire (permettra de retrouver l'enregistrement créé)
  if (!cur.insert())                                                return QString::null;                   // ecrire les données
 
+ //................. recuperer dernier primKey insere (methode SELECT tmpGUID )....................................................................
  //................. reselectionner l'enregistrement pour retrouver son PK avec le GUID temporaire........................
- //................. recuperer dernier primKey insere ..............................
- QString requete ("SELECT LAST_INSERT_ID() FROM ");
- requete += m_DOSS_RUB_DATA_TBL_NAME + " WHERE " + m_DOSS_RUB_DATA_PRIMKEY + " = LAST_INSERT_ID()";
+ QString   requete ("SELECT " + m_DOSS_RUB_DATA_PRIMKEY + " FROM " + m_DOSS_RUB_DATA_TBL_NAME + " WHERE " + m_DOSS_RUB_DATA_GUID + "= '" + tmpGUID + "'");
+ QSqlQuery sqlQuery(requete , m_DataBase );
+ QString   prim_key = QString::null;
+ //................. replacer une fois le Pk retrouvee, le bon GUID........................
+ if ( sqlQuery.isActive() && sqlQuery.next() )
+    {prim_key = sqlQuery.value(0).toString();
+     requete  = QString (" UPDATE ") + m_DOSS_RUB_DATA_TBL_NAME + " SET " + m_DOSS_RUB_DATA_GUID + " = '" + numGUID  + "' "
+                         " WHERE "   + m_DOSS_RUB_DATA_PRIMKEY  + " =  '" + prim_key  + "'";
+     sqlQuery.exec(requete);
+    }
+ return prim_key;
+ /*
+ //................. recuperer dernier primKey insere (methode LAST_INSERT_ID() )....................................................................
+ //QString requete ("SELECT LAST_INSERT_ID() FROM ");
+ //requete += m_DOSS_RUB_DATA_TBL_NAME + " WHERE " + m_DOSS_RUB_DATA_PRIMKEY + " = LAST_INSERT_ID()";
  QSqlQuery sqlQuery(requete , m_DataBase );
  QString prim_key = QString::null;
  if ( sqlQuery.next() )
     {prim_key =  sqlQuery.value(0).toString();
     }
  return prim_key;
-
+ */
  /*
  //............... crer un curseur SQL ...................................................................................
  QSqlCursor cur(m_DOSS_RUB_DATA_TBL_NAME, TRUE, m_DataBase);
@@ -4497,7 +4522,7 @@ QString  CMoteurBase::RubListBlobCreate(RUBREC_LIST::iterator it, QString numGUI
 }
 
 //-------------------------------------- RubListDelete ----------------------------------------------------------------------
-int  CMoteurBase::RubListDelete(RUBREC_LIST::iterator it, int mode /*= CMoteurBase::esclave*/)
+int  CMoteurBase::RubListDelete(RUBREC_LIST::iterator it, int /* mode = CMoteurBase::esclave*/)
 {int ok  = FALSE;
  //..................... si mode nomade .......................
  //                      on n'efface par l'enregistrement mais on le rend invisible
@@ -4534,22 +4559,29 @@ int  CMoteurBase::RubListDelete(RUBREC_LIST::iterator it, int mode /*= CMoteurBa
  //if (VerrouilleTable(m_DOSS_RUB_HEAD_TBL_NAME, m_DataBase)==0)  return 0;
  //............................. effacer le header .........................................................
   QString requete("DELETE FROM ");
-         requete +=  m_DOSS_RUB_HEAD_TBL_NAME + " WHERE " + m_DOSS_RUB_HEAD_PRIMKEY + "='" +(*it).m_PrimKey + "'";
+          requete +=  m_DOSS_RUB_HEAD_TBL_NAME + " WHERE " + m_DOSS_RUB_HEAD_PRIMKEY + "='" +(*it).m_PrimKey + "'";
 
  QSqlQuery sqlQuery(QString::null , m_DataBase );
  ok = sqlQuery.exec(requete);
  if (ok == FALSE) {/*DeVerrouilleTable(m_DataBase);*/ CloseBase(); return FALSE;}        // si erreur cassos cas social va
 
  //............................. effacer le blob ...........................................................
+ ok = deleteRubBlobFromPk((*it).m_Ref_Blobs_PK);
+ /*
  requete  = "DELETE FROM ";
  requete +=  m_DOSS_RUB_DATA_TBL_NAME + " WHERE " + m_DOSS_RUB_DATA_PRIMKEY + "='" +(*it).m_Ref_Blobs_PK + "'";
  ok = sqlQuery.exec(requete);
+ */
  //............................. fermer la base .............................................................
  //DeVerrouilleTable(m_DataBase);
  CloseBase();
  return ok;
 }
-
+//-------------------------------------- deleteRubBlobFromPk ----------------------------------------------------------------------
+int  CMoteurBase::deleteRubBlobFromPk(const QString &pk)
+{QSqlQuery sqlQuery(QString::null , m_DataBase );
+ return  sqlQuery.exec(QString ("DELETE FROM ") +  m_DOSS_RUB_DATA_TBL_NAME + " WHERE " + m_DOSS_RUB_DATA_PRIMKEY + "='" + pk + "'");
+}
 //-------------------------------------- RubListUpdate ----------------------------------------------------------------------
 /*
                m_PrimKey        = primKey;

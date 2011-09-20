@@ -491,6 +491,85 @@ QString C_BaseMedica::get_CIS_From_CIP(const QString &cip)
  if (list.count()) return list[0];
  return QString::null;
 }
+//--------------------------- get_CIP_From_CIS -----------------------------------------------------------
+QString C_BaseMedica::get_CIP_From_CIS(const QString &cis)
+{QStringList list = isThisValueInTable_ToList("afs_ciscip", "afs_ciscip_cis_code", cis,     "afs_ciscip_cip_code");
+ if (list.count()) return list[0];
+ return QString::null;
+}
+
+//----------------------------------------------------- cis_to_libelle_atc ---------------------------------------------------------------
+QString C_BaseMedica::cis_to_libelle_atc(const QString &cis)
+{QString ret = "";
+ return ret;
+}
+//----------------------------------------------------- cip_to_libelle_atc ---------------------------------------------------------------
+QString C_BaseMedica::cip_to_libelle_atc(const QString &cip)
+{QString requete  =      QString("SELECT  CLASSE_ATC FROM BDM_CIP WHERE CIP7 ='%1'").arg(cip);
+ QSqlQuery query (requete , database() );
+ outSQL_error( query, "ERREUR  : cip_to_libelle_atc()", requete, __FILE__, __LINE__);
+ if (query.isActive() )
+    {while (query.next()) {return query.value(0).toString();}
+    }
+ return QString::null;
+}
+//----------------------------------------------------- cis_to_ucd ---------------------------------------------------------------
+QString C_BaseMedica::cis_to_ucd(const QString &cis)
+{QString ret = "";
+ return ret;
+}
+//----------------------------------------------------- cip_to_ucd ---------------------------------------------------------------
+QString C_BaseMedica::cip_to_ucd(const QString &cip)
+{QString ret = "";
+ return ret;
+}
+//----------------------------------------------------- cip_to_price ---------------------------------------------------------------
+QString C_BaseMedica::cip_to_price(const QString &cip)
+{QString requete  =      QString("SELECT  PRIX_E FROM BDM_PRIX WHERE CIP7 ='%1'").arg(cip);
+ QSqlQuery query (requete , database() );
+ outSQL_error( query, "ERREUR  : cip_to_price()", requete, __FILE__, __LINE__);
+ if (query.isActive() )
+    {while (query.next()) {return query.value(0).toString();}
+    }
+ return QString::null;
+}
+
+//----------------------------------------------------- ucd_to_price ---------------------------------------------------------------
+QString C_BaseMedica::ucd_to_price(const QString &ucd)
+{QString ret = "";
+ return ret;
+}
+//----------------------------------------------------- cis_to_smr ---------------------------------------------------------------
+QString C_BaseMedica::cis_to_smr(const QString &cis)
+{QString ret = "";
+ return ret;
+}
+//----------------------------------------------------- cip_to_smr ---------------------------------------------------------------
+QString C_BaseMedica::cip_to_smr(const QString &cip)
+{QString ret = "";
+ return ret;
+}
+//----------------------------------------------------- cis_to_asmr ---------------------------------------------------------------
+QString C_BaseMedica::cis_to_asmr(const QString &cis)
+{QString ret = "";
+ return ret;
+}
+//----------------------------------------------------- cip_to_asmr ---------------------------------------------------------------
+QString C_BaseMedica::cip_to_asmr(const QString &cip)
+{QString ret = "";
+ return ret;
+}
+//----------------------------------------------------- cis_to_spec ---------------------------------------------------------------
+QString C_BaseMedica::cis_to_spec(const QString &cis)
+{QString ret = "";
+ return ret;
+}
+//----------------------------------------------------- cip_to_spec ---------------------------------------------------------------
+QString C_BaseMedica::cip_to_spec(const QString &cip)
+{QString ret = "";
+ return ret;
+}
+
 //--------------------------- get_RCP_From_CIS -----------------------------------------------------------
 QString C_BaseMedica::get_RCP_From_CIS(const QString &cis)
 {QStringList list = isThisValueInTable_ToList("afs_cis", "afs_cis_code", cis,  "afs_cis_rcp");
@@ -1201,77 +1280,221 @@ int C_BaseMedica::initInteractionDataBase(const QString &fileName,
 }
 
 //----------------------------------------------------- fill_treeWidget_Produits ---------------------------------------------------------------
-/*   SELECT COUNT(*) FROM BaseGetTest.BDM_CIP
-
-    "CREATE TABLE `afs_cis` (                          "
-    "  `afs_cis_pk` bigint(20) NOT NULL auto_increment,"
-    "  `afs_cis_owner` char(40)                       ,"
-    "  `afs_cis_code` char(8)                         ,"
-    "  `afs_cis_libelle` char(255)                    ,"
-    "  `afs_cis_forme` char(100)                      ,"
-    "  `afs_cis_voie` char(140)                       ,"
-    "  `afs_cis_amm` char(40)                         ,"
-    "  `afs_cis_procedure` char(40)                   ,"
-    "  `afs_cis_comm` char(40)                        ,"
-    "  `afs_cis_rcp` char(6)                          ,"
-    "  PRIMARY KEY  (`afs_cis_pk`)                     "
-    ") ENGINE=MyISAM AUTO_INCREMENT=0 ;                ");
-
-
-"CREATE TABLE `afs_ciscip` (                        "
-"`afs_ciscip_pk` bigint(20) NOT NULL auto_increment,"
-"`afs_ciscip_owner` char(40)                       ,"
-"`afs_ciscip_cis_code` char(8)                     ,"
-"`afs_ciscip_cip_code` char(7)                     ,"
-"`afs_ciscip_libelle` char(255)                    ,"
-"`afs_ciscip_adm_stat` char(50)                    ,"
-"`afs_ciscip_comm_stat` char(100)                  ,"
-"`afs_ciscip_date_decl` char(10)                   ,"
-"`afs_ciscip_cip_long` char(13)                    ,"
-"PRIMARY KEY  (`afs_ciscip_pk`)                     "
-") ENGINE=MyISAM AUTO_INCREMENT=0;                  ");
-*/
-int C_BaseMedica::fill_treeWidget_Produits(QTreeWidget *pQTreeWidget, QString text)
+int C_BaseMedica::BDM_fill_treeWidget_Produits(QTreeWidget *pQTreeWidget, const QString &text, C_BaseMedica::flags flags/* = C_BaseMedica::all_filter */)
 {   if (!database().isOpen() && database().open()== FALSE)
-       {outMessage( tr("ERREUR : fill_treeWidget_Produits() la base ne peut pas s'ouvrir"), __FILE__, __LINE__);  return 0;
+       {outMessage( tr("ERREUR : BDM_fill_treeWidget_Produits() database can not be opened"), __FILE__, __LINE__);  return 0;
        }
-     QTreeWidgetItem *item  = 0;
-     QString       libelle  = "";
-     QString  libelleLong1  = "";
-     QString  libelleLong2  = "";
-     QString       requete  = "";
-     if (text.length())
-         requete  =  QString("SELECT  NOM_COURT, NOM_LONG1, NOM_LONG2, CIP7, CODE_ATC "
-                                                "FROM BDM_CIP WHERE  NOM_COURT LIKE \"%1%\" AND CODE_ATC <>'Z' AND CODE_ATC <>''").arg(text.toUpper());
-     else
-         requete  =  QString("SELECT  NOM_COURT, NOM_LONG1, NOM_LONG2, CIP7, CODE_ATC "
-                                                "FROM BDM_CIP WHERE CODE_ATC <>'Z' AND CODE_ATC <>''");
-     /*
-     //................. Preparer la requete .....................................
-     requete       +=      "SELECT  NOM_COURT, NOM_LONG1, NOM_LONG2, CIP7, CODE_ATC "
-                           "FROM BDM_CIP WHERE  NOM_COURT LIKE \"" + text.toUpper() + "%\" AND CODE_ATC <>'Z' AND CODE_ATC <>''";
+    QTreeWidgetItem *item  = 0;
+    QString        requete =         " SELECT "
+                                     "`"+m_BDM_DRUGLIST_OWNER     +"`,"     // 0
+                                     "`"+m_BDM_DRUGLIST_LANG      +"`,"     // 1
+                                     "`"+m_BDM_DRUGLIST_ID        +"`,"     // 2
+                                     "`"+m_BDM_DRUGLIST_TYPE_ID   +"`,"     // 3
+                                     "`"+m_BDM_DRUGLIST_ATC       +"`,"     // 4
+                                     "`"+m_BDM_DRUGLIST_LIBELLE   +"`,"     // 5
+                                     "`"+m_BDM_DRUGLIST_DCI_1     +"`,"     // 6
+                                     "`"+m_BDM_DRUGLIST_DCI_2     +"`,"     // 7
+                                     "`"+m_BDM_DRUGLIST_DCI_3     +"`,"     // 8
+                                     "`"+m_BDM_DRUGLIST_UCD       +"`,"     // 9
+                                     "`"+m_BDM_DRUGLIST_UCD_PRICE +"`,"     // 10
+                                     "`"+m_BDM_DRUGLIST_SMR       +"`,"     // 11
+                                     "`"+m_BDM_DRUGLIST_ASMR      +"`,"     // 12
+                                     "`"+m_BDM_DRUGLIST_PK_SPEC   +"` "     // 13
+                                     " FROM "+m_BDM_DRUGLIST_TBL_NAME;
+    if (text.length())
+       {requete  +=  QString(" WHERE ");
+        if (flags&C_BaseMedica::nom_filter)  requete  += m_BDM_DRUGLIST_LIBELLE + " LIKE \"%1%\" OR ";
+        if (flags&C_BaseMedica::atc_filter)  requete  += m_BDM_DRUGLIST_ATC     + " LIKE \"%1%\" OR ";
+        if (flags&C_BaseMedica::dci_filter)  requete  += m_BDM_DRUGLIST_DCI_1   + " LIKE \"%1%\" OR ";
+        requete.chop(4);                          // virer le dernier " OR "
+        requete   = requete.arg(text.toUpper());  // placer les caracteres de l'utilisateur
+        requete  += ownersSelectMention(m_BDM_DRUGLIST_TBL_NAME, C_BaseCommon::WhereAlreadyIn);  // rajouter le filtre du proprio
+        if (flags&C_BaseMedica::ucd_filter)  requete  +=  " ORDER BY " + m_BDM_DRUGLIST_UCD_PRICE;
+       }
+    else
+       {
+        requete  += ownersSelectMention(m_BDM_DRUGLIST_TBL_NAME, C_BaseCommon::WhereMustBeAdd);
+        if (flags&8)  requete  +=  " ORDER BY " + m_BDM_DRUGLIST_UCD_PRICE;
+       }
 
-     requete       +=      "SELECT afs_cis_libelle, afs_cis_code "
-                           "FROM afs_cis WHERE ( afs_cis_libelle LIKE \"" + text.toUpper()          + "%\" )";
-     */
-      pQTreeWidget->clear();
-      QSqlQuery query (requete , database() );
-      outSQL_error( query, "ERREUR  : fill_treeWidget_Produits()", requete, __FILE__, __LINE__);
-      if (query.isActive() )
-         {while (query.next())
-                {libelle      = CGestIni::Utf8_Query(query, 0);
-                 libelleLong1 = CGestIni::Utf8_Query(query, 1);
-                 libelleLong2 = CGestIni::Utf8_Query(query, 2);
-                 if (libelleLong1.left(8)==libelle.left(8)) libelle = libelleLong1;
-                 libelle += libelleLong2;
-                 item =   new QTreeWidgetItem (pQTreeWidget);
-                 item->setText(0,libelle);
-                 item->setText(1,query.value(3).toString());
-                 item->setText(3,query.value(4).toString());
-                 //item->setText(2,query.value(2).toString());
-                }    // end while (query.next())
-         }  // endif (query.isActive() )
-      return pQTreeWidget->topLevelItemCount();
+
+    pQTreeWidget->clear();
+    QSqlQuery query (requete , database() );
+    outSQL_error( query, "ERREUR  : BDM_fill_treeWidget_Produits()", requete, __FILE__, __LINE__);
+    if (query.isActive() )
+       {while (query.next())
+              {item =   new QTreeWidgetItem (pQTreeWidget);
+               item->setText(0,CGestIni::Utf8_Query(query, 5));   // libelle
+               item->setText(1,query.value(6).toString());        // DCI_1
+               item->setText(2,query.value(7).toString());        // DCI_2
+               item->setText(3,query.value(8).toString());        // DCI_3
+               QString prix = query.value(10).toString();
+               item->setText(4,prix.insert(prix.length()-2,'.')); // Prix
+               item->setText(5,query.value(4).toString());        // ATC
+               item->setText(6,query.value(2).toString());        // ID CIP
+               //item->setText(2,query.value(2).toString());
+              }    // end while (query.next())
+       }  // endif (query.isActive() )
+    return pQTreeWidget->topLevelItemCount();
+}
+
+//----------------------------------------------------- BDM_druglist_tbl_name ---------------------------------------------------------------
+QString C_BaseMedica::BDM_druglist_tbl_name(){return m_BDM_DRUGLIST_TBL_NAME;}
+
+//----------------------------------------------------- BDM_initDrugListFromAfssapsAndBDM ---------------------------------------------------------------
+int C_BaseMedica::BDM_initDrugListFromAfssapsAndBDM(   const QString &owner, const QString &lang /* = "fr" */ )
+{
+    //........................ MEDICA_TUX  Table de la liste des drogues .........................................
+    // QString  m_BDM_DRUGLIST_TBL_NAME;      // nom de la table de la liste des medicaments
+    // QString  m_BDM_DRUGLIST_PK;            // clef primaire
+    // QString  m_BDM_DRUGLIST_OWNER;         // Origine des donnees (AFSSAPS, Vidal, Theriaque Claude Bernard, perso...)
+    // QString  m_BDM_DRUGLIST_LANG;          // langue de la donnee (en fr etc...)
+    // QString  m_BDM_DRUGLIST_ID;            // identificateur unique du medicament
+    // QString  m_BDM_DRUGLIST_TYPE_ID;       // type d'identificateur (CIP CIP7 CIS)
+    // QString  m_BDM_DRUGLIST_ATC;           // Code ATC
+    // QString  m_BDM_DRUGLIST_LIBELLE;       // libelle de la classe ATC
+    // QString  m_BDM_DRUGLIST_DCI_1;         // premiere  substance DCI (libelle ATC)
+    // QString  m_BDM_DRUGLIST_DCI_2;         // deuxieme  substance DCI (si produit compose)
+    // QString  m_BDM_DRUGLIST_DCI_3;         // troisieme substance DCI (si produit compose)
+    // QString  m_BDM_DRUGLIST_UCD;           // code UCD
+    // QString  m_BDM_DRUGLIST_UCD_PRICE;     // Prix UCD
+    // QString  m_BDM_DRUGLIST_SMR;           // Niveau du SMR
+    // QString  m_BDM_DRUGLIST_PK_SPEC;       // pointeur sur les specifications produits
+    if (!database().isOpen() && database().open()== FALSE)
+       {outMessage( tr("ERREUR : BDM_initDrugListFromAfssapsAndBDM() database can not be open"), __FILE__, __LINE__);  return 0;
+       }
+    //....................... on cree la table ......................................
+    if (dropTable(  m_BDM_DRUGLIST_TBL_NAME)==0) return 0;
+    if (createTable("CREATE TABLE `"+m_BDM_DRUGLIST_TBL_NAME+"` ("
+                    "`"+m_BDM_DRUGLIST_PK        +"` BIGINT  NOT NULL AUTO_INCREMENT,"
+                    "`"+m_BDM_DRUGLIST_OWNER     +"` VARCHAR(40) ,"
+                    "`"+m_BDM_DRUGLIST_LANG      +"` VARCHAR(4)  ,"
+                    "`"+m_BDM_DRUGLIST_ID        +"` VARCHAR(40) ,"
+                    "`"+m_BDM_DRUGLIST_TYPE_ID   +"` VARCHAR(8)  ,"
+                    "`"+m_BDM_DRUGLIST_ATC       +"` VARCHAR(7)  ,"
+                    "`"+m_BDM_DRUGLIST_LIBELLE   +"` VARCHAR(128),"
+                    "`"+m_BDM_DRUGLIST_DCI_1     +"` VARCHAR(128),"
+                    "`"+m_BDM_DRUGLIST_DCI_2     +"` VARCHAR(128),"
+                    "`"+m_BDM_DRUGLIST_DCI_3     +"` VARCHAR(128),"
+                    "`"+m_BDM_DRUGLIST_UCD       +"` VARCHAR(7)  ,"
+                    "`"+m_BDM_DRUGLIST_UCD_PRICE +"` BIGINT      ,"
+                    "`"+m_BDM_DRUGLIST_SMR       +"` BIGINT      ,"
+                    "`"+m_BDM_DRUGLIST_ASMR      +"` BIGINT      ,"
+                    "`"+m_BDM_DRUGLIST_PK_SPEC   +"` BIGINT      ,"
+                    "PRIMARY KEY (`"+m_BDM_DRUGLIST_PK+"`)"
+                    ")"
+                    "ENGINE = MyISAM;"
+                    )==0) return 0;
+    //long nbRecordsToParse = countRecords("afs_cis", "WHERE afs_cis_amm = \"AMM active\"");
+    long nbRecordsToParse = countRecords("BDM_CIP", " WHERE CODE_ATC <>'Z' AND CODE_ATC <>''");
+    outMessage(  tr("Nb records <font color=#00c0ff>%1</font> : <font color=#00ffff>%2</font>").arg(m_BDM_DRUGLIST_TBL_NAME,QString::number(nbRecordsToParse)));
+    long position         = 0;
+    if (m_pQProgressBar) m_pQProgressBar->setRange(0, nbRecordsToParse/10);
+
+    //......................... on renseigne la liste ...................................
+    QString prepare  =              (" INSERT INTO "+m_BDM_DRUGLIST_TBL_NAME+"( "
+                                     "`"+m_BDM_DRUGLIST_OWNER     +"`,"     // 0
+                                     "`"+m_BDM_DRUGLIST_LANG      +"`,"     // 1
+                                     "`"+m_BDM_DRUGLIST_ID        +"`,"     // 2
+                                     "`"+m_BDM_DRUGLIST_TYPE_ID   +"`,"     // 3
+                                     "`"+m_BDM_DRUGLIST_ATC       +"`,"     // 4
+                                     "`"+m_BDM_DRUGLIST_LIBELLE   +"`,"     // 5
+                                     "`"+m_BDM_DRUGLIST_DCI_1     +"`,"     // 6
+                                     "`"+m_BDM_DRUGLIST_DCI_2     +"`,"     // 7
+                                     "`"+m_BDM_DRUGLIST_DCI_3     +"`,"     // 8
+                                     "`"+m_BDM_DRUGLIST_UCD       +"`,"     // 9
+                                     "`"+m_BDM_DRUGLIST_UCD_PRICE +"`,"     // 10
+                                     "`"+m_BDM_DRUGLIST_SMR       +"`,"     // 11
+                                     "`"+m_BDM_DRUGLIST_ASMR      +"`,"     // 12
+                                     "`"+m_BDM_DRUGLIST_PK_SPEC   +"` "     // 13
+                                     ") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+    QStringList dciList;
+    QString     libelle  = "";
+    QString     libelle1 = "";
+    QString     libelle2 = "";
+    QString     cis_code = "";
+    QString     cip_code = "";
+    QString     ucd_code = "";
+    QString     atc_code = "";
+    QString     dci_1    = "";
+    QString     dci_2    = "";
+    QString     dci_3    = "";
+    QString     requete  =      "SELECT  NOM_COURT, NOM_LONG1, NOM_LONG2, CIP7, CODE_ATC, CIP_UCD "
+                                "FROM BDM_CIP WHERE CODE_ATC <>'Z' AND CODE_ATC <>''";
+    QSqlQuery query (requete , database() );
+    QSqlQuery queryInsert(QString::null , database() );
+    outSQL_error( query, "ERREUR  : BDM_initDrugListFromAfssapsAndBDM()", requete, __FILE__, __LINE__);
+    if (query.isActive() )
+       {while (query.next() && position < 20000)
+              {libelle      = CGestIni::Utf8_Query(query, 0);
+               libelle1     = CGestIni::Utf8_Query(query, 1);
+               libelle2     = CGestIni::Utf8_Query(query, 2);
+               if (libelle1.left(8)==libelle.left(8)) libelle = libelle1;
+               libelle += libelle2;
+               cip_code     = query.value(3).toString(); // get_CIP_From_CIS(cis_code);
+               cis_code     = get_CIS_From_CIP(cip_code);
+               atc_code     = query.value(4).toString();
+               ucd_code     = query.value(5).toString(); // cis_to_ucd(cis_code);
+               dciList      = isThisValueInTable_ToList("afs_comp", "afs_comp_cis_code", cis_code, "afs_comp_libelle",0);
+               dci_1        = "";
+               dci_2        = "";
+               dci_3        = "";
+               if (dciList.count())
+                  {if (dciList.count()>0) dci_1 = dciList[0];
+                   if (dciList.count()>1) dci_2 = dciList[1];
+                   if (dciList.count()>2) dci_3 = dciList[2];
+                  }
+               else
+                  {dci_1 = cip_to_libelle_atc(cip_code);
+                   if (dci_1.length()==0) outMessage(  tr("WARNING : DCI not found for : %1").arg(libelle));
+                  }
+               queryInsert.prepare(prepare);
+               queryInsert.bindValue(0,  owner);
+               queryInsert.bindValue(1,  lang);
+               queryInsert.bindValue(2,  cip_code);
+               queryInsert.bindValue(3,  "CIP");
+               queryInsert.bindValue(4,  atc_code);
+               queryInsert.bindValue(5,  libelle);
+               queryInsert.bindValue(6,  dci_1);
+               queryInsert.bindValue(7,  dci_2);
+               queryInsert.bindValue(8,  dci_3);
+               queryInsert.bindValue(9,  ucd_code);
+               queryInsert.bindValue(10, cip_to_price(cip_code));
+               queryInsert.bindValue(11, cis_to_smr(cis_code));
+               queryInsert.bindValue(12, cis_to_asmr(cis_code));
+               queryInsert.bindValue(13, cis_to_spec(cis_code));
+               if ( !queryInsert.exec())
+                  {outSQL_error( queryInsert, "ERREUR  : C_BaseMedica::createLinkFacteursInteraction()", prepare, __FILE__, __LINE__);
+                   return 0;
+                  }
+               ++position;
+               if (m_pQProgressBar)  {m_pQProgressBar->setValue(position/10); qApp->processEvents();qApp->processEvents();}
+               //item->setText(2,query.value(2).toString());
+              }    // end while (query.next())
+       }  // endif (query.isActive() )
+    return 1;
+}
+
+//----------------------------------------------------- cis_to_atc ---------------------------------------------------------------
+QString C_BaseMedica::cis_to_atc(const QString &cis)
+{QString cip = get_CIP_From_CIS(cis);
+ return cip_to_atc(cip, cis);
+}
+
+//----------------------------------------------------- cis_to_atc ---------------------------------------------------------------
+QString C_BaseMedica::cip_to_atc(const QString &cip, QString cis /* = "" */)
+{
+ QString atc         = "";
+ QString requete     =  QString("SELECT CODE_ATC FROM BDM_CIP WHERE  CIP7 ='%1'").arg(cip);
+ QSqlQuery query (requete , database() );
+ outSQL_error( query, "ERREUR  : 1 cis_to_atc()", requete, __FILE__, __LINE__);
+ if (query.isActive() )
+    {while (query.next())
+           {atc = query.value(0).toString();
+            if (atc.length()) return atc;
+           }
+    }
+ return atc;
 }
 
 //----------------------------------------------------- fill_treeWidget_ClassesIt ---------------------------------------------------------------
@@ -1304,6 +1527,12 @@ void C_BaseMedica::fill_treeWidget_ClassesIt(QTreeWidget *pQTreeWidget)
 }
 
 //----------------------------------------------------- fillQListView_ATC ---------------------------------------------------------------
+// 1er niveau  : classe anatomique principale
+// 2ème niveau : sous classe thérapeutique
+// 3ème niveau : sous classe pharmacologiq
+// 4ème niveau : sous classe chimique
+// 5ème niveau : substance active
+
 void C_BaseMedica::fillQListView_ATC(QTreeWidget *pQTreeWidget )
 { if (!database().isOpen() && database().open()== FALSE)
      {outMessage( tr("ERREUR : fillQListView_ATC() la base ne peut pas s'ouvrir"), __FILE__, __LINE__);  return ;
@@ -2012,7 +2241,7 @@ int C_BaseMedica::initAfssapsDataBase(const QString &fileName, const QString &ta
  while (!file.atEnd())
        {
         ba        = file.readLine(MAX_READ);
-        position += ba.size(); if (m_pQProgressBar) if (m_pQProgressBar)  {m_pQProgressBar->setValue(position/10); qApp->processEvents();qApp->processEvents();}
+        position += ba.size(); if (m_pQProgressBar)  {m_pQProgressBar->setValue(position/10); qApp->processEvents();qApp->processEvents();}
         line      = CGestIni::fromMyUTF8(ba.data()).trimmed();
         if (toClean.length())
            {if (line.startsWith(toClean)) line = line.mid(toClean.length());

@@ -73,6 +73,14 @@ class C_BaseMedica : public C_BaseCommon, C_DBVar
     Q_OBJECT
 
 public:
+    enum flags  {no_filter   = 0,
+                 atc_filter  = 1,
+                 nom_filter  = 2,
+                 dci_filter  = 4,
+                 ucd_filter  = 8,
+                 all_filter  = 15
+                };
+
     explicit    C_BaseMedica(const QString &param , QString& confData, QObject *parent );
     //...................... settings .........................................
     //void       set_CookieJar(CookieJar *pCookieJar);
@@ -116,14 +124,40 @@ public:
     QString          createGroupRowInBase(  const QString &libelle,const QString &note, const QString id, const QString &owner);
     int              initATCBase(const QString &fileName, const QString &tableName);
     int              initAfssapsDataBase(   const QString &file,    const QString &tableName, const QString &separator = "\t", const QString &toClean = ""  );
+    //............................ BDM interface .............................
+    int             BDM_initDrugListFromAfssapsAndBDM(    const QString &owner, const QString &lang  = "fr"   );
+    int             BDM_fill_treeWidget_Produits(QTreeWidget *pQTreeWidget, const QString &text, C_BaseMedica::flags flags = C_BaseMedica::all_filter);
+    QString         BDM_druglist_tbl_name();
     //................................ GUI ................................
     void  fillQListView_ATC(QTreeWidget *pQTreeWidget );
-    int   fill_treeWidget_Produits(QTreeWidget *pQTreeWidget, QString text);
     void  fill_treeWidget_ClassesIt(QTreeWidget *pQTreeWidget);
-
+    //................................ COVERSIONS ........................
     QString   getDCI_CompositionFromCIP(const QString &cip);
+
     QString   get_CIS_From_CIP(const QString &cip);
+    QString   get_CIP_From_CIS(const QString &cis);
     QString   get_RCP_From_CIS(const QString &cis);
+
+    QString cis_to_atc(const QString &cis);
+    QString cip_to_atc(const QString &cip, QString cis = QString::null );
+
+    QString cis_to_libelle_atc(const QString &cis);
+    QString cip_to_libelle_atc(const QString &cip);
+
+    QString cis_to_ucd(const QString &cis);
+    QString cip_to_ucd(const QString &cip);
+
+    QString cip_to_price(const QString &cip);
+    QString ucd_to_price(const QString &ucd);
+
+    QString cis_to_smr(const QString &cis);
+    QString cip_to_smr(const QString &cip);
+    QString cis_to_asmr(const QString &cis);
+    QString cip_to_asmr(const QString &cip);
+
+    QString cis_to_spec(const QString &cis);
+    QString cip_to_spec(const QString &cip);
+
 
     C_BiblioData biblio_getBiblioDataFromRPk(const QString rpk);
     QString      biblio_getPk_Record(const QString cip, const QString lang,  const QString type  );

@@ -30,7 +30,7 @@ public:
     C_BaseCommon(QObject *parent);
     ~C_BaseCommon();
     //---------------------------------------- BaseConnect -------------------------------------------------------
-    bool               BaseConnect(const QString &param, const QString &baseLabel,const QString &dataBase="", QString * errMess = 0);
+    bool               BaseConnect(const QString &param, const QString &baseLabel,const QString &dataBase="", QString * errMess = 0, const QString &section   = "Connexion" );
     //---------------------------------------- EncodePassword_InConnectionParam -------------------------------------------------------
     static bool        EncodePassword_InConnectionParam(QString &param, const QString& section, QString *errMess=0);
 
@@ -39,7 +39,7 @@ public:
     QString     isThisValueLikeInTable(       const QString &tableName, const QString &fieldName, const QString &value,     const QString fieldToRetrieve = "" );
     QStringList isThisValueLikeInTable_ToList(const QString &tableName, const QString &fieldName, const QString &value,     const QString fieldToRetrieve = "" );
     QString     isThisValueInTable(       const QString &tableName, const QString &fieldName, const QString &value,     const QString fieldToRetrieve = "" );
-    QStringList isThisValueInTable_ToList(const QString &tableName, const QString &fieldName, const QString &value,     const QString fieldToRetrieve = "" );
+    QStringList isThisValueInTable_ToList(const QString &tableName, const QString &fieldName, const QString &value,     const QString fieldToRetrieve = "" , int keepEmpty = 1);
 
 
     //------------------------------------------- signalisateurs graphiques -------------------------------------------
@@ -51,7 +51,7 @@ public:
     void         setProgressWidget(QProgressBar *pQProgressBar);  //progressWidget
     QProgressBar *progressWidget();
 
-    long        countRecords(const QString & tableName);
+    long         countRecords(const QString & tableName, const QString &whereMention = "" );
     //............... insertion SQL .......................................
     unsigned long  readLine(QFile *pQFile, char *buffer, QString &outParam, unsigned long nbMax);
     void           executeSQL( const QString &fname, QProgressBar *pQProgressBar  = 0 , QTextEdit *logWidget  = 0 );

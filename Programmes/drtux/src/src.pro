@@ -16,6 +16,8 @@ CODECFORTR = UTF8
 OBJECTS_DIR = obj
 DEFINES = _DR_TUX
 CONFIG += x11 \
+ exceptions \
+ thread \
  warn_off
 exists( ../../SesamVitale-QT3/qtsingleapplication.pri ){
     DEFINES += SESAMVITALE_VERSION
@@ -191,6 +193,7 @@ SOURCES += drtux.cpp \
            C_ListViewATCDManager.cpp \
            C_Dlg_FamilleGenre.cpp \
            C_RubObservation.cpp
+
 
 CONFIG -= warn_on
 

@@ -100,6 +100,24 @@ int C_DBVar::initValues( QString& confData)
     pt =  SetConfBase_SetProperties(pt , m_MEDICA_FORME_PK,           "m_MEDICA_FORME_PK",                  &line , err); if (err.length())     goto SetConfBase_Error;
     pt =  SetConfBase_SetProperties(pt , m_MEDICA_FORME_LIBELLE,      "m_MEDICA_FORME_LIBELLE",             &line , err); if (err.length())     goto SetConfBase_Error;
 
+    //........................ MEDICA_TUX  Table de la liste des drogues .........................................
+    pt =  SetConfBase_SetProperties(pt , m_BDM_DRUGLIST_TBL_NAME,  "m_BDM_DRUGLIST_TBL_NAME",  &line , err); if (err.length())     goto SetConfBase_Error;  // 'bdm_druglist'  nom de la table de la liste des medicaments
+    pt =  SetConfBase_SetProperties(pt , m_BDM_DRUGLIST_PK,        "m_BDM_DRUGLIST_PK",        &line , err); if (err.length())     goto SetConfBase_Error;  // 'bdm_pk'        clef primaire
+    pt =  SetConfBase_SetProperties(pt , m_BDM_DRUGLIST_OWNER,     "m_BDM_DRUGLIST_OWNER",     &line , err); if (err.length())     goto SetConfBase_Error;  // 'bdm_owner'     Origine des donnees (AFSSAPS, Vidal, Theriaque Claude Bernard, perso...)
+    pt =  SetConfBase_SetProperties(pt , m_BDM_DRUGLIST_LANG,      "m_BDM_DRUGLIST_LANG",      &line , err); if (err.length())     goto SetConfBase_Error;  // 'bdm_lang'      langue de la donnee (en fr etc...)
+    pt =  SetConfBase_SetProperties(pt , m_BDM_DRUGLIST_ID,        "m_BDM_DRUGLIST_ID",        &line , err); if (err.length())     goto SetConfBase_Error;  // 'bdm_id'        identificateur unique du medicament
+    pt =  SetConfBase_SetProperties(pt , m_BDM_DRUGLIST_TYPE_ID,   "m_BDM_DRUGLIST_TYPE_ID",   &line , err); if (err.length())     goto SetConfBase_Error;  // 'bdm_type_id'   type d'identificateur (CIP CIP7 CIS)
+    pt =  SetConfBase_SetProperties(pt , m_BDM_DRUGLIST_ATC,       "m_BDM_DRUGLIST_ATC",       &line , err); if (err.length())     goto SetConfBase_Error;  // 'bdm_atc'       Code ATC
+    pt =  SetConfBase_SetProperties(pt , m_BDM_DRUGLIST_LIBELLE,   "m_BDM_DRUGLIST_LIBELLE",   &line , err); if (err.length())     goto SetConfBase_Error;  // 'bdm_libelle'   libelle de la classe ATC
+    pt =  SetConfBase_SetProperties(pt , m_BDM_DRUGLIST_DCI_1,     "m_BDM_DRUGLIST_DCI_1",     &line , err); if (err.length())     goto SetConfBase_Error;  // 'bdm_dci_1'     premiere  substance DCI (libelle ATC)
+    pt =  SetConfBase_SetProperties(pt , m_BDM_DRUGLIST_DCI_2,     "m_BDM_DRUGLIST_DCI_2",     &line , err); if (err.length())     goto SetConfBase_Error;  // 'bdm_dci_2'     deuxieme  substance DCI (si produit compose)
+    pt =  SetConfBase_SetProperties(pt , m_BDM_DRUGLIST_DCI_3,     "m_BDM_DRUGLIST_DCI_3",     &line , err); if (err.length())     goto SetConfBase_Error;  // 'bdm_dci_3'     troisieme substance DCI (si produit compose)
+    pt =  SetConfBase_SetProperties(pt , m_BDM_DRUGLIST_UCD,       "m_BDM_DRUGLIST_UCD",       &line , err); if (err.length())     goto SetConfBase_Error;  // 'bdm_ucd'       code UCD
+    pt =  SetConfBase_SetProperties(pt , m_BDM_DRUGLIST_UCD_PRICE, "m_BDM_DRUGLIST_UCD_PRICE", &line , err); if (err.length())     goto SetConfBase_Error;  // 'bdm_ucd_price' Prix UCD
+    pt =  SetConfBase_SetProperties(pt , m_BDM_DRUGLIST_ASMR,      "m_BDM_DRUGLIST_ASMR",      &line , err); if (err.length())     goto SetConfBase_Error;  // 'bdm_asmr'      Niveau du ASMR
+    pt =  SetConfBase_SetProperties(pt , m_BDM_DRUGLIST_SMR,       "m_BDM_DRUGLIST_SMR",       &line , err); if (err.length())     goto SetConfBase_Error;  // 'bdm_smr'       Niveau du SMR
+    pt =  SetConfBase_SetProperties(pt , m_BDM_DRUGLIST_PK_SPEC,   "m_BDM_DRUGLIST_PK_SPEC",   &line , err); if (err.length())     goto SetConfBase_Error;  // 'bdm_pk_spec'   pointeur sur les specifications produits
+
     pt =  SetConfBase_SetProperties(pt , m_MEDICA_ATC_TBL_NAME,        "m_MEDICA_ATC_TBL_NAME",          &line , err); if (err.length())     goto SetConfBase_Error;
     pt =  SetConfBase_SetProperties(pt , m_MEDICA_ATC_CODE,            "m_MEDICA_ATC_CODE",              &line , err); if (err.length())     goto SetConfBase_Error;
     pt =  SetConfBase_SetProperties(pt , m_MEDICA_ATC_LIBELLE,         "m_MEDICA_ATC_LIBELLE",           &line , err); if (err.length())     goto SetConfBase_Error;

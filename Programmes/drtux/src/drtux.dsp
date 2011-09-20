@@ -114,6 +114,10 @@ SOURCE=CApp.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\drtux\src\C_DlgListFieldMngr.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\MedinTuxTools\C_ImageList.cpp
 # End Source File
 # Begin Source File
@@ -577,6 +581,43 @@ BuildCmds= \
 	$(QTDIR)\bin\moc CApp.h -o moc\moc_CApp.cpp \
 
 "moc\moc_CApp.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\drtux\src\C_DlgListFieldMngr.h
+
+USERDEP_=""$(QTDIR)\bin\moc.exe""
+
+!IF  "$(CFG)" == " - Win32 Release"
+
+# Begin Custom Build - Moc'ing ..\..\drtux\src\C_DlgListFieldMngr.h...
+InputPath=.\..\..\drtux\src\C_DlgListFieldMngr.h
+
+
+BuildCmds= \
+	$(QTDIR)\bin\moc ..\..\drtux\src\C_DlgListFieldMngr.h -o moc\moc_C_DlgListFieldMngr.cpp \
+
+"moc\moc_C_DlgListFieldMngr.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == " - Win32 Debug"
+
+# Begin Custom Build - Moc'ing ..\..\drtux\src\C_DlgListFieldMngr.h...
+InputPath=.\..\..\drtux\src\C_DlgListFieldMngr.h
+
+
+BuildCmds= \
+	$(QTDIR)\bin\moc ..\..\drtux\src\C_DlgListFieldMngr.h -o moc\moc_C_DlgListFieldMngr.cpp \
+
+"moc\moc_C_DlgListFieldMngr.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 
 # End Custom Build
@@ -3694,6 +3735,10 @@ SOURCE=moc\moc_drtux.cpp
 # Begin Source File
 
 SOURCE=moc\moc_CApp.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=moc\moc_C_DlgListFieldMngr.cpp
 # End Source File
 # Begin Source File
 

@@ -219,9 +219,9 @@ enum syncMode {
                              QString*    errMess ,
                              QString     baseLabel);
   void         killBase();
-  int          verifyBaseIntegrity(const QString &confFile, QString *errMess);   
-  QStringList  getTableListFromCfgFile(const QString &confFile, QString *errMess);  
-  int          tryToSetThisTable(const QString &tbl, const QString fileSQL, QSqlDatabase* dataBase); 
+  int          verifyBaseIntegrity(const QString &confFile, QString *errMess);
+  QStringList  getTableListFromCfgFile(const QString &confFile, QString *errMess);
+  int          tryToSetThisTable(const QString &tbl, const QString fileSQL, QSqlDatabase* dataBase);
   void         ParseSQL_InsertInto(QString &text, QSqlDatabase *dataBase);
   int      SetConfBase(const char* confFile, QString *errMess);
   char    *SetConfBase_SetProperties(char *pt, QString &propertie, const char *token, int *line , QString &err);
@@ -471,6 +471,7 @@ long              GetPatientListFromNomPrenomSecuDtNssGeme( QListView *pQlistVie
   QString         RubListCreate(RUBREC_LIST::iterator it, QString numGUID,                    int mode /*= CMoteurBase::esclave*/);
   int             RubListBlobUpdate(RUBREC_LIST::iterator it);
   QString         RubListBlobCreate(RUBREC_LIST::iterator it, QString numGUID);
+  int             deleteRubBlobFromPk(const QString &pk);
   int             GetDataFromRub(QByteArray &qByteArray, const QString &blobsPrimKey);
   long            GetRecorFromHeadPk(CRubRecord &record, const QString &headPk);
   /*! \brief Fonction qui retourne un enregistrement de la liste des documents a partir du primary key qui lui est associe

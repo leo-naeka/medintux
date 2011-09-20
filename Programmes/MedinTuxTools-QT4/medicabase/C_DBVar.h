@@ -102,6 +102,25 @@ public:
     QString  m_MEDICA_FORME_AD_TBL_NAME;       // nom de la table des forme des posologies
     QString  m_MEDICA_FORME_PK;                // Primary Key de la table des formes
     QString  m_MEDICA_FORME_LIBELLE;           // libelle de la forme
+
+    //........................ MEDICA_TUX  Table de la liste des drogues .........................................
+    QString  m_BDM_DRUGLIST_TBL_NAME;      // nom de la table de la liste des medicaments
+    QString  m_BDM_DRUGLIST_PK;            // clef primaire
+    QString  m_BDM_DRUGLIST_OWNER;         // Origine des donnees (AFSSAPS, Vidal, Theriaque Claude Bernard, perso...)
+    QString  m_BDM_DRUGLIST_LANG;          // langue de la donnee (en fr etc...)
+    QString  m_BDM_DRUGLIST_ID;            // identificateur unique du medicament
+    QString  m_BDM_DRUGLIST_TYPE_ID;       // type d'identificateur (CIP CIP7 CIS)
+    QString  m_BDM_DRUGLIST_ATC;           // Code ATC
+    QString  m_BDM_DRUGLIST_LIBELLE;       // libelle de la classe ATC
+    QString  m_BDM_DRUGLIST_DCI_1;         // premiere  substance DCI (libelle ATC)
+    QString  m_BDM_DRUGLIST_DCI_2;         // deuxieme  substance DCI (si produit compose)
+    QString  m_BDM_DRUGLIST_DCI_3;         // troisieme substance DCI (si produit compose)
+    QString  m_BDM_DRUGLIST_UCD;           // code UCD
+    QString  m_BDM_DRUGLIST_UCD_PRICE;     // Prix UCD
+    QString  m_BDM_DRUGLIST_ASMR;          // Niveau du ASMR
+    QString  m_BDM_DRUGLIST_SMR;           // Niveau du SMR
+    QString  m_BDM_DRUGLIST_PK_SPEC;       // pointeur sur les specifications produits
+
     //........................ MEDICA_TUX  Table des classes ATC .........................................
     QString  m_MEDICA_ATC_TBL_NAME;            // nom de la table des classes ATC
     QString  m_MEDICA_ATC_CODE;                // Code ATC
