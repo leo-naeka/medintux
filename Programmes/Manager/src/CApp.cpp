@@ -55,7 +55,7 @@
 #include "../../MedinTuxTools-QT4/GetPassword/CDlg_PasswordGet.h"
 CApp* G_pCApp = 0;  // contiendra l'instance globale de l'application
 
-static char NUM_VERSION[]     = "==##@@==2.14.015==@@##==";
+static char NUM_VERSION[]     = "==##@@==2.14.016==@@##==";
 
 //--------------------------------------------- C_App -------------------------------------------------------------------
 CApp::~CApp()
@@ -633,7 +633,7 @@ QString CApp::PluginExe(        QObject         * pQObject,
 }
 
 //------------------------------------------------------- PluginExe --------------------------------------------------
-// un plungin est un executable communicant avec DrTux par l'intermediare du protocole suivant:
+// un plugin est un executable communicant avec DrTux par l'intermediaire du protocole suivant:
 // DrTux appelle le plugin avec dans la ligne de commande:
 // en :
 //   0  Chemin de l'executable plugin ?  actionner

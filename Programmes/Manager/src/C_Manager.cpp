@@ -1038,8 +1038,8 @@ void C_Manager::Slot_pushButton_SigemsPA_Clicked()
    if (m_pGUI->comboBoxSexe->currentText().toUpper()[0]=='I')
       {QMessageBox  msgBox;
        QPushButton *femininButton  = msgBox.addButton(tr("&Female"),  QMessageBox::ActionRole);
-       QPushButton *masculinButton = msgBox.addButton(tr("&Male"), QMessageBox::ActionRole);
-       msgBox.setText(tr("Entering sex is important"));
+       /*QPushButton *masculinButton = */ msgBox.addButton(tr("&Male"),    QMessageBox::ActionRole);
+       msgBox.setText(tr("Entering sex is important an good"));
        msgBox.exec();
 
        if (msgBox.clickedButton() == femininButton)
@@ -1056,7 +1056,7 @@ void C_Manager::Slot_pushButton_SigemsPA_Clicked()
             (m_pGUI->comboBoxSexe->currentText().toUpper()[0]=='M'&&m_pGUI->lineEdit_NumSecu->text()[0]!='1')
           )
           {QMessageBox  msgBox;
-           QPushButton *annuler = msgBox.addButton(tr("Cancel"), QMessageBox::ActionRole);
+           /*QPushButton *annuler = */ msgBox.addButton(tr("Cancel"), QMessageBox::ActionRole);
            msgBox.setText(tr("Inconsistency between the patient's sex and the first number of social insurance number"));
            msgBox.exec();
            return;
