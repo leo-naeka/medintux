@@ -17,12 +17,16 @@
 #include "C_TokenInterpret.h"
 #include <qnamespace.h>
 #include <qmap.h>
-#include <qlineedit.h> 
+#include <qlineedit.h>
 //============================= Atcd_Element =========================================================================================
 //------------------------------ isAllergie ------------------------------------------------------------------------------------------
 /*! \brief Test l'ATCD et retourne TRUE si il s'agit d'une allergie. */
 bool Atcd_Element::isAllergie()
 { if (m_Code.left(1) == "(") return TRUE; else return FALSE; }
+//------------------------------ isAllergie ------------------------------------------------------------------------------------------
+/*! \brief Test l'ATCD et retourne TRUE si il s'agit d'un codage CISP. */
+bool Atcd_Element::isCisp()
+{ if (m_Code.left(1) == "-") return TRUE; else return FALSE; }
 
 //------------------------------ isCIM10 --------------------------------------------------
 /*! \brief Test l'ATCD et retourne TRUE si il s'agit d'un codage CIM10. */
@@ -35,6 +39,9 @@ bool Atcd_Element::isCIM10()
 QPixmap Atcd_Element::getPixmap()
 { if ( isCIM10()  )
      {return Theme::getIcon( "16x16/Cim10ItemTab.png");
+     }
+  else if (isCisp())
+     {return Theme::getIcon( "16x16/CispItemTab.png");
      }
   else if (isAllergie())
      {return Theme::getIcon( "16x16/AllergieTab.png");
@@ -101,7 +108,7 @@ bool Atcd_Element::operator< (const Atcd_Element& e) const
 
 //------------------------------ operator== --------------------------------------------------
 /*! \brief défini l'égalité entre deux éléments pour permettre la suppression des antécédents par remove().
- *  Teste d'abord l'égalité des m_Id_ATCD pour aller vite. S'il n'ont pas été définit : teste tous les items un �  un.
+ *  Teste d'abord l'égalité des m_Id_ATCD pour aller vite. S'il n'ont pas été définit : teste tous les items un �  un.
 */
 bool Atcd_Element::operator== (const Atcd_Element& e) const
 { if ((m_Id_ATCD != -1) && (e.m_Id_ATCD != -1))
@@ -122,27 +129,27 @@ bool Atcd_Element::operator== (const Atcd_Element& e) const
 
 /*! \class Atcd_Code
  *  \brief Gestion des antécédents indépendemment de la vue actuelle.
- * <b>Cette classe offre tous les fonctions nécessaire �  la gestion des antécédents médicaux/chirugicaux/obstétricaux et autres. Pour profiter de ses fonctionnalités, vous devez d'abord l'instancier.</b>
+ * <b>Cette classe offre tous les fonctions nécessaire �  la gestion des antécédents médicaux/chirugicaux/obstétricaux et autres. Pour profiter de ses fonctionnalités, vous devez d'abord l'instancier.</b>
 
- * <b>Initialisation :</b> avant de travailler sur le terrain, vous devez signifier �  la classe le CRubRecord �  utiliser. La fonction setTerrain(CRubRecord* pCRubRecord, CMoteurBase* pCMoteurBase) est prévue pour cela. Elle analysera le fichier de terrain, extrairera les antécédents de sorte qu'ils soient exploitables par l'application et sauvegardera la clé primaire du document terrain (pour éviter de le relire si aucune modification n'a été effectuée). La fonction getPkDocTerrain() retourne le PrimKey du document terrain en cours d'utilisation. Vous devez aussi définir les liste de rubbriques pour les antécédents médicaux et chirurgicaux. Les fonctions init_Get_RubChir(QStringList *pListItem  = 0 )  en sont chargées. Si aucune QStringList n'est passée en paramètre, les rubriques par défaut sont utilisées. Sinon ce sont les listes passées en paramètres. Voir aussi CApp::CApp au moment de l'instanciation initiale de la classe qui récupère les listes dans le fichier de paramètres de DrTux.
+ * <b>Initialisation :</b> avant de travailler sur le terrain, vous devez signifier �  la classe le CRubRecord �  utiliser. La fonction setTerrain(CRubRecord* pCRubRecord, CMoteurBase* pCMoteurBase) est prévue pour cela. Elle analysera le fichier de terrain, extrairera les antécédents de sorte qu'ils soient exploitables par l'application et sauvegardera la clé primaire du document terrain (pour éviter de le relire si aucune modification n'a été effectuée). La fonction getPkDocTerrain() retourne le PrimKey du document terrain en cours d'utilisation. Vous devez aussi définir les liste de rubbriques pour les antécédents médicaux et chirurgicaux. Les fonctions init_Get_RubChir(QStringList *pListItem  = 0 )  en sont chargées. Si aucune QStringList n'est passée en paramètre, les rubriques par défaut sont utilisées. Sinon ce sont les listes passées en paramètres. Voir aussi CApp::CApp au moment de l'instanciation initiale de la classe qui récupère les listes dans le fichier de paramètres de DrTux.
 
- * <b>Ajouts d'antécédents :</b> les fonctions addATCD_CIM10(), addATCD_Textuel(), addATCD_Allergie(), setGrossesse(bool etat), setAllaitement(bool etat) vous permettent de d'ajouter de nouveaux antécédents sans vous soucier des widgets d'affichage. Lorsque vous appelez addATCD_CIM10() la fenêtre d'ajout d'antécédents encodés en CIM10 apparaît automatiquement. Ceci simplifiera grandement votre code et sa lecture. La classe émet, si nécessaire, le signal ATCD_Changed() �  chaque fois qu'un antécédent est modifié ou ajouté. Les classes appelantes pourront en tirer partie pour leur synchronisation.
+ * <b>Ajouts d'antécédents :</b> les fonctions addATCD_CIM10(), addATCD_Textuel(), addATCD_Allergie(), setGrossesse(bool etat), setAllaitement(bool etat) vous permettent de d'ajouter de nouveaux antécédents sans vous soucier des widgets d'affichage. Lorsque vous appelez addATCD_CIM10() la fenêtre d'ajout d'antécédents encodés en CIM10 apparaît automatiquement. Ceci simplifiera grandement votre code et sa lecture. La classe émet, si nécessaire, le signal ATCD_Changed() �  chaque fois qu'un antécédent est modifié ou ajouté. Les classes appelantes pourront en tirer partie pour leur synchronisation.
 
- * <b>Les fonctions de modification :</b> changeDDR(), (Atcd_Element* pAtcd), changeEtat(Atcd_Element* pAtcd), changeCommentaire(Atcd_Element* pAtcd), eraseAtcd(Atcd_Element* pAtcd), modifyAtcd(Atcd_Element* pAtcd), setRubrique(Atcd_Element* pAtcd, QString& rubrique), setGrossesse(bool etat),setAllaitement(bool etat), setDDRTo(QDate dt) permettent la modifications des éléments de l'antécédent (Atcd_Element) passé en paramètre. La classe émet, si nécessaire, le signal ATCD_Changed() �  chaque fois qu'un antécédent est modifié ou ajouté. Les classes appelantes pourront en tirer partie pour leur synchronisation.
+ * <b>Les fonctions de modification :</b> changeDDR(), (Atcd_Element* pAtcd), changeEtat(Atcd_Element* pAtcd), changeCommentaire(Atcd_Element* pAtcd), eraseAtcd(Atcd_Element* pAtcd), modifyAtcd(Atcd_Element* pAtcd), setRubrique(Atcd_Element* pAtcd, QString& rubrique), setGrossesse(bool etat),setAllaitement(bool etat), setDDRTo(QDate dt) permettent la modifications des éléments de l'antécédent (Atcd_Element) passé en paramètre. La classe émet, si nécessaire, le signal ATCD_Changed() �  chaque fois qu'un antécédent est modifié ou ajouté. Les classes appelantes pourront en tirer partie pour leur synchronisation.
 
- * <b>Connaissance des antécédents :</b> get_ATCD_Rubname(Atcd_Element& pAtcd) retourne la rubrique de l'antécédent. getDDR() retourne la date des dernières règles enregistrée. getTermeObstetrical(QDate dt = QDate()) calcule automatiquement le terme de la grossesse �  partir de la date passée en paramètre. getAtcd_byID(int idAtcd) retourne l'Atcd_Element dont l'id est celle passée en paramètre.
+ * <b>Connaissance des antécédents :</b> get_ATCD_Rubname(Atcd_Element& pAtcd) retourne la rubrique de l'antécédent. getDDR() retourne la date des dernières règles enregistrée. getTermeObstetrical(QDate dt = QDate()) calcule automatiquement le terme de la grossesse �  partir de la date passée en paramètre. getAtcd_byID(int idAtcd) retourne l'Atcd_Element dont l'id est celle passée en paramètre.
 
- * clear() efface toutes les données de la classe et remet �  zéro les différents indicateurs d'état.
+ * clear() efface toutes les données de la classe et remet �  zéro les différents indicateurs d'état.
 
- * <b>Connaître l'état de modification des antécédents :</b> géré de façon automatique cet état peut être définit manuellement grâce �  la fonction setModifiedState( bool state ). L'utilisation de cette fonction n'est pas souhaitable. Vous pouvez connaître l'état de modification grâce �  la fonction isModified() qui retournera un booléen (TRUE = modifié, FALSE = non modifié). Ces fonctions serviront �  la gestion des sauvegardes.
+ * <b>Connaître l'état de modification des antécédents :</b> géré de façon automatique cet état peut être définit manuellement grâce �  la fonction setModifiedState( bool state ). L'utilisation de cette fonction n'est pas souhaitable. Vous pouvez connaître l'état de modification grâce �  la fonction isModified() qui retournera un booléen (TRUE = modifié, FALSE = non modifié). Ces fonctions serviront �  la gestion des sauvegardes.
 
- * <b>La sauvegarde :</b> toOldIni() renvoie les antécédents encodés �  l'ancienne mode prêts pour la sauvegarde. Il ne restera plus qu'aux classes appelantes de gérer la suite du fichier terrain (qui contient en plus les variables, le traitement en cours). Une fonction toXML() est en cours d'écriture.
+ * <b>La sauvegarde :</b> toOldIni() renvoie les antécédents encodés �  l'ancienne mode prêts pour la sauvegarde. Il ne restera plus qu'aux classes appelantes de gérer la suite du fichier terrain (qui contient en plus les variables, le traitement en cours). Une fonction toXML() est en cours d'écriture.
 
  * <b>Les fonctions de tri :</b> setSort(int mode) et sort(). Le mode de tri est définissable via l'énumération CApp::SortBy. Il est possible de trier par date, rubrique, libellé.
 
  * <b>Les fonctions pour l'affichage :</b> getAtcdToListViewItem(CPrtQListViewItem& retour) (utilisée par Dock_Menu, le menu d'accès rapide de DrTux), atcd_To_ListView(QListView& retour) (utilisée par FormRubTerrain)
 
- * <b>Pour des exemples de codage �  l'aide de cette classe : </b> voir Dock_Menu et FormRubTerrain.
+ * <b>Pour des exemples de codage �  l'aide de cette classe : </b> voir Dock_Menu et FormRubTerrain.
 
  * \sa Atcd_Element
 
@@ -168,7 +175,7 @@ Atcd_Code::~Atcd_Code()
 }
 
 //------------------------------ clear --------------------------------------------------
-/*! \brief Efface les données de la classe et envoie un signal de changement des ATCD pour que les view se mettent �  jour.
+/*! \brief Efface les données de la classe et envoie un signal de changement des ATCD pour que les view se mettent �  jour.
 */
 void Atcd_Code::clear()
 { m_Atcd_Liste.clear();
@@ -179,7 +186,7 @@ void Atcd_Code::clear()
   m_PkDocTerrain      = "";
   m_TerrainIsModified = FALSE;
   m_pLastElementAdded = 0;
-  //emit (ATCD_Changed() );   // emit (ATCD_Changed() �  faire en fin de fonction utilisant clear() mais pas l� 
+  //emit (ATCD_Changed() );   // emit (ATCD_Changed() �  faire en fin de fonction utilisant clear() mais pas l�
 }
 
 //------------------------------ isModified --------------------------------------------------
@@ -198,7 +205,7 @@ void Atcd_Code::setModifiedState( bool state )
 }
 
 //------------------------------ emitATCD_Changed --------------------------------------------------
-/*! \brief Avant d'émettre le signal ATCD_Changed , procède �  quelques vérifications de base, en particuliers définit la prorité m_TerrainIsModified �  TRUE.
+/*! \brief Avant d'émettre le signal ATCD_Changed , procède �  quelques vérifications de base, en particuliers définit la prorité m_TerrainIsModified �  TRUE.
 */
 void Atcd_Code::emitATCD_Changed()
 { m_TerrainIsModified = TRUE;
@@ -258,9 +265,9 @@ QString Atcd_Code::ATCD_To_Text(            const QString &typePrefix,
                                           );
 }
 //------------------------------ setTerrain --------------------------------------------------
-/*! \brief Cette fonction défini pour la classe le fichier de terrain �  analyser et construit la liste des ATCD.
- * Attention, si des données sont déj�  présentes dans la classe elles seront effacées. Veillez donc �  gérer la sauvegarde si nécessaire avant l'appel de cette fonction.
- *  \param CRubRecord = pointeur vers l'enregistrement de terrain �  utiliser
+/*! \brief Cette fonction défini pour la classe le fichier de terrain �  analyser et construit la liste des ATCD.
+ * Attention, si des données sont déj�  présentes dans la classe elles seront effacées. Veillez donc �  gérer la sauvegarde si nécessaire avant l'appel de cette fonction.
+ *  \param CRubRecord = pointeur vers l'enregistrement de terrain �  utiliser
  *  \param CMoteurBase : pointeur vers le moteur de la base de données
 */
 void Atcd_Code::setTerrain(CRubRecord* pCRubRecord, CMoteurBase* pCMoteurBase)
@@ -274,8 +281,8 @@ void Atcd_Code::setTerrain(CRubRecord* pCRubRecord, CMoteurBase* pCMoteurBase)
 }
 
 //------------------------------ setTerrain --------------------------------------------------
-/*! \brief Cette fonction renseigne et initialise la classe avec les donnees SQL de terrain �  analyser et construit la liste des ATCD.
- *  \param CRubRecord = pointeur vers l'enregistrement de terrain �  utiliser
+/*! \brief Cette fonction renseigne et initialise la classe avec les donnees SQL de terrain �  analyser et construit la liste des ATCD.
+ *  \param CRubRecord = pointeur vers l'enregistrement de terrain �  utiliser
  *  \param it : pointeur vers le moteur de la base de données
 */
 int Atcd_Code::setTerrain(RUBREC_LIST::iterator it, CMoteurBase* pCMoteurBase)
@@ -310,9 +317,9 @@ int Atcd_Code::setTerrain(RUBREC_LIST::iterator it, CMoteurBase* pCMoteurBase)
 }
 
 //------------------------------ setTerrain --------------------------------------------------
-/*! \brief Préférez utiliser la fonction setTerrain(CRubRecord* pCRubRecord, CMoteurBase* pCMoteurBase) plutôt que cette fonction, car elle gère pas la synchronisation. Cette fonction défini pour la classe le fichier de terrain �  analyser et construit la liste des ATCD.
- * Attention, si des données sont déj�  présentes dans la classe elles seront effacées. Veillez donc �  gérer la sauvegarde si nécessaire avant l'appel de cette fonction.
- *  \param strTerrain = texte de l'enregistrement de terrain �  utiliser
+/*! \brief Préférez utiliser la fonction setTerrain(CRubRecord* pCRubRecord, CMoteurBase* pCMoteurBase) plutôt que cette fonction, car elle gère pas la synchronisation. Cette fonction défini pour la classe le fichier de terrain �  analyser et construit la liste des ATCD.
+ * Attention, si des données sont déj�  présentes dans la classe elles seront effacées. Veillez donc �  gérer la sauvegarde si nécessaire avant l'appel de cette fonction.
+ *  \param strTerrain = texte de l'enregistrement de terrain �  utiliser
  *  \param CMoteurBase : pointeur vers le moteur de la base de données
 */
 void Atcd_Code::setTerrain(const char* strTerrain, CMoteurBase* /*pCMoteurBase*/)
@@ -387,7 +394,7 @@ void Atcd_Code::setTerrain(const char* strTerrain, CMoteurBase* /*pCMoteurBase*/
 //------------------------------ toOldIni --------------------------------------------------
 /*! \brief Prépare le fichier de sauvegarde des ATCD dans l'ancien format dit "format INI".
  *
- * A savoir le terrain dans les versions 1 �  2.10 de MedinTux est sauvegardé en version INI. C'est grâce �  CGestIni qu'il est parsé. Le fichier de terrain comprend plusieurs paramètres sauvegardés les uns derrière les autres :
+ * A savoir le terrain dans les versions 1 �  2.10 de MedinTux est sauvegardé en version INI. C'est grâce �  CGestIni qu'il est parsé. Le fichier de terrain comprend plusieurs paramètres sauvegardés les uns derrière les autres :
  * - les antécédents
  * - les variables
  * - le traitement en cours.
@@ -432,8 +439,8 @@ QString Atcd_Code::toOldIni()
 QDate Atcd_Code::getDDR()
 { return m_DDR; }
 
-/*! \brief Calcul le terme de la grossesse �  la date souhaitée.
- *  \param QDate dt        Date pour le calcul (si =0 calcule �  partir de la date sytème).
+/*! \brief Calcul le terme de la grossesse �  la date souhaitée.
+ *  \param QDate dt        Date pour le calcul (si =0 calcule �  partir de la date sytème).
  *  \return Le terme au format string du style : " XX SA XX Jours "
  *  Testée fonctionnelle
 */
@@ -463,7 +470,7 @@ QString Atcd_Code::getTermeObstetrical(QDate dt /*=QDate()*/)
   return ret;
 }
 //------------------------------ createAtcdListView --------------------------------------------------
-/*! \brief Construit un ListViewItem hiérarchique �  une colonne avec les ATCD prêt �  être affiché.
+/*! \brief Construit un ListViewItem hiérarchique �  une colonne avec les ATCD prêt �  être affiché.
  *  \param CPrtQListViewItem : L'item qui recevra l'arborescence des antécédents.
  *  \sa CPrtQListViewItem, Dock_Menu
 */
@@ -482,7 +489,7 @@ void Atcd_Code::createAtcdListView()
 }
 
 //------------------------------ createAtcdListView --------------------------------------------------
-/*! \brief Construit un ListViewItem hiérarchique �  une colonne avec les ATCD prêt �  être affiché.
+/*! \brief Construit un ListViewItem hiérarchique �  une colonne avec les ATCD prêt �  être affiché.
  *  \param CPrtQListViewItem : L'item qui recevra l'arborescence des antécédents.
  *  \sa CPrtQListViewItem, Dock_Menu
 */
@@ -544,7 +551,7 @@ QString Atcd_Code::get_ATCD_Rubname( Atcd_Element& pAtcd )
 }
 
 //------------------------------ atcd_To_ListView --------------------------------------------------
-/*! \brief Construit un ListViewItem hiérarchique �  une colonne avec les ATCD prêt �  être affiché.
+/*! \brief Construit un ListViewItem hiérarchique �  une colonne avec les ATCD prêt �  être affiché.
  *  \param QListView : ListView qui doit etre initialisee.
  *  \sa atcd_To_ListView, atcd_Element_To_ListViewItem, updateFromListViewTerrain
 */
@@ -584,7 +591,7 @@ void Atcd_Code::atcd_Element_To_ListViewItem(Atcd_Element& pAtcd_Element, QListV
 }
 
 //------------------------------ addATCD_Textuel --------------------------------------------------
-/*! \brief Ajoute �  la liste actuelle des ATCD un ATCD en mode textuel.
+/*! \brief Ajoute �  la liste actuelle des ATCD un ATCD en mode textuel.
  *  Fait apparaître le Widget d'ajout DlgAtcd_txt.
 */
 void Atcd_Code::addATCD_Textuel(QWidget *parent , int sendModifMessage /*=Atcd_Code::sendModifMessage*/)
@@ -756,7 +763,7 @@ void Atcd_Code::deleteDate(Atcd_Element* pAtcd,  int sendModifMessage /*= Atcd_C
 }
 
 //------------------------------ addATCD --------------------------------------------------
-/*! \brief Ajoute �  la liste actuelle des ATCD un ATCD en mode textuel.
+/*! \brief Ajoute �  la liste actuelle des ATCD un ATCD en mode textuel.
  *  Fait apparaître le Widget d'ajout DlgAtcd_txt.
 */
 void Atcd_Code::addATCD(QWidget *parent, const QString &libelle, const QString &code, const QString familyGenre, int sendModifMessage /*=Atcd_Code::sendModifMessage*/)
@@ -788,7 +795,7 @@ void Atcd_Code::addATCD(QWidget *parent, const QString &libelle, const QString &
 }
 
 //------------------------------ addATCD_CIM10 --------------------------------------------------
-/*! \brief Ajoute �  la liste actuelle des ATCD codés en CIM10.
+/*! \brief Ajoute �  la liste actuelle des ATCD codés en CIM10.
  *  Fait apparaître le Widget d'ajout qui se trouve dans DrTux.
  *  \sa DrTux::CodageCim10All()
 */
@@ -797,7 +804,7 @@ void Atcd_Code::addATCD_CIM10(int tabToSet /*=-1*/)
  QString result = G_pCApp->m_pDrTux->CodageCim10All(DrTux::GestionATCD, strlistCode, tabToSet);
 }
 //------------------------------ addATCD_Allergie --------------------------------------------------
-/*! \brief Ajoute �  la liste actuelle des ATCD un ATCD allergique.
+/*! \brief Ajoute �  la liste actuelle des ATCD un ATCD allergique.
  *  Fait apparaître le Widget d'ajout DlgAllergie.
 */
 void Atcd_Code::addATCD_Allergie()
@@ -817,6 +824,10 @@ void Atcd_Code::modifyAtcd(QWidget *parent, Atcd_Element* pAtcd,  int sendModifM
       if (sendModifMessage==Atcd_Code::sendModifMessage) emitATCD_Changed();
      } // Fin modifyCIM10
   // ATCD ALLERGIQUE
+  else if (pAtcd->isCisp() )
+     {addATCD_CIM10(4);
+      if (sendModifMessage==Atcd_Code::sendModifMessage) emitATCD_Changed();
+     }
   else if (pAtcd->isAllergie() )
      {addATCD_CIM10(2);
       if (sendModifMessage==Atcd_Code::sendModifMessage) emitATCD_Changed();

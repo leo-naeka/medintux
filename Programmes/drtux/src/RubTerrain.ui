@@ -883,6 +883,7 @@
     <slot>listView_ATCD_doubleClicked( QListViewItem * pQListViewItem )</slot>
     <slot>ATCD_MenuActionNewFromFavori()</slot>
     <slot>ATCD_MenuActionNewCIM10()</slot>
+    <slot>ATCD_MenuActionNewCISP()</slot>
     <slot>ATCD_MenuActionSetDate()</slot>
     <slot>ATCD_MenuActionDelDate()</slot>
     <slot>ATCD_MenuActionNewAllergie()</slot>

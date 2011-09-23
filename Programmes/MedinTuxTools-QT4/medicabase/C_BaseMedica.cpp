@@ -449,27 +449,6 @@ QString C_BaseMedica::createRecordIndexProduit(const QString &cip,
 
 
 //--------------------------- getBiblioDataFromShortCIP -----------------------------------------------------------
-/*
-CApp::pCApp()->getDB()->createTable(
-"CREATE TABLE `bdt_biblio_h` (                             "
-"`bdt_biblio_h_pk`     bigint(20) NOT NULL auto_increment ,"
-"`bdt_biblio_h_owner`  char(40)                           ,"
-"`bdt_biblio_h_lang`   char(8)                            ,"
-"`bdt_biblio_h_url`    varchar(1024)                      ,"
-"`bdt_biblio_h_date`   char(10)                           ,"
-"`bdt_biblio_h_note`   char(255)                          ,"
-"`bdt_biblio_h_type`   char(40)                           ,"
-"`bdt_biblio_h_mime`   char(40)                           ,"
-"PRIMARY KEY  (`bdt_biblio_h_pk`)                          "
-") ENGINE=MyISAM AUTO_INCREMENT=0                          ");
-CApp::pCApp()->getDB()->createTable(
-"CREATE TABLE `bdt_biblio_b` (                             "
-"`bdt_biblio_b_pk`     bigint(20) NOT NULL auto_increment ,"
-"`bdt_biblio_b_rpk`    bigint(20)                         ,"
-"`bdt_biblio_b_data`   longblob                           ,"
-"PRIMARY KEY  (`bdt_biblio_b_pk`)                          "
-") ENGINE=MyISAM AUTO_INCREMENT=0                          ");
-*/
 QString C_BaseMedica::biblio_getDataFromShortCIP(const QString &cip)
 { return getDCI_CompositionFromCIP(cip);
 }
@@ -599,7 +578,7 @@ long C_BaseMedica::biblio_setLink_Pages(const QString &biblioType,  QString urlI
      long           nb      = 0;
      QString       requete  =  QString("SELECT  CIP7, NOM_COURT, CODE_ATC FROM BDM_CIP WHERE CODE_ATC <>'Z' AND CODE_ATC <>''");
      QSqlQuery query (requete , database() );
-     outSQL_error( query, "ERREUR  : setLinkRCP()", requete, __FILE__, __LINE__);
+     outSQL_error( query, "ERREUR  : C_BaseMedica::biblio_setLink_Pages()", requete, __FILE__, __LINE__);
      if (query.isActive() )
         {while (query.next())
                {++ nb;
@@ -626,41 +605,6 @@ long C_BaseMedica::biblio_setLink_Pages(const QString &biblioType,  QString urlI
      outMessage(  tr("Nombre de %1 RCP trouv\303\251s sur %2 enregistrements.").arg(QString::number(i),QString::number(nb)));
      return i;
 }
-
-//--------------------------- biblio_setLink_Pages -----------------------------------------------------------
-/*! \brief  recherche toutes les pages possibles pour tous les produits de la liste sur une url distante
-*   \param  const QString &id                   identifiant de la donnee
-*   \param  const QString &biblioType           type de donnee ( "AFSSAPS RCP FOR CIP"  "VIDAL MONO FOR CIP"
-*   \param  const QString &urlIn                url ou doit se faire la recherche avec les variables tags {{ATC}} {{RCP}} {{CIS}} {{CIP7]] {{DCI}} {{NAME}}
-*   \param  const QString &owner                proprietaire des donnees
-*   \param  const QString &data                 donnees
-*   \return
-*/
-
-bool C_BaseMedica::biblio_setLink_Page(const QString &id, const QString &biblioType,  QString urlIn, const QString &owner, const QString &data)
-{    // {{ATC}} {{RCP}} {{CIS}} {{CIP7]] {{DCI}} {{NAME}}
-     QString       cis      = "";
-     QString       rcp      = "";
-     QString       url      = "";
-
-     cis = get_CIS_From_CIP(id);      // id est CIP en attendant mieux
-     rcp = get_RCP_From_CIS(cis);
-     url = urlIn; url.replace("{{RCP}}",rcp); url.replace("{{CIS}}",cis); url.replace("{{CIP7}}",id);
-     //if (rcp.length())
-        {biblio_setRecord( id,
-                           owner,
-                           "fr",
-                           url,
-                           QDate::currentDate ().toString("dd-MM-yyyy"),
-                           tr("RCP for CIS :  %1").arg(cis),
-                           biblioType,     //"AFSSAPS RCP FOR CIP",
-                           "text/html",
-                           data);
-         return TRUE;
-        }
-     return FALSE;
-}
-
 
 //--------------------------- setLinkRCP -----------------------------------------------------------
 long C_BaseMedica::setLinkRCP()
@@ -702,31 +646,72 @@ long C_BaseMedica::setLinkRCP()
      outMessage( tr("Nombre de %1 RCP trouv\303\251s sur %2 enregistrements.").arg(QString::number(i),QString::number(nb)));
      return i;
 }
+/*
+//--------------------------- biblio_ReindexeFK -----------------------------------------------------------
+// n'a servi qu'une fois pour reindexer les clef etrangere de header avec celle du blob
+int C_BaseMedica::biblio_ReindexeFK()
+{ //....................... recuperer le HEADER ............................................
+  int position = 0;
+  if (m_pQProgressBar) m_pQProgressBar->setRange(0,(int)(countRecords(m_BIBLIO_H_TBL_NAME)/10));
+
+  QString requete = QString("SELECT  `") + m_BIBLIO_H_PK + "` FROM `" + m_BIBLIO_H_TBL_NAME + "`";
+  QString head_pk = "";
+  QString blob_pk = "";
+  QSqlQuery query (database());
+  if (!query.exec(requete))
+     {outSQL_error( query, "ERREUR  : C_BaseMedica::biblio_ReindexeFK() H", requete, __FILE__, __LINE__);
+      return 0;
+     }
+
+  if (query.isActive() )
+     {while (query.next())
+             {head_pk = query.value(0).toString();                                                         // on recupere le pk du header
+              blob_pk = isThisValueInTable (m_BIBLIO_B_TBL_NAME, m_BIBLIO_B_RPK, head_pk, m_BIBLIO_B_PK);  // on cherche  le pk du blob avec le pk du header
+              if (blob_pk.length())
+                 {updateValueInTable( m_BIBLIO_H_TBL_NAME, m_BIBLIO_H_BLOB_FK, blob_pk, head_pk );         // on met a jour la clef etrangere du header avec le pk du blob
+                 }
+              ++position;
+              if (m_pQProgressBar)  {m_pQProgressBar->setValue(position/10); qApp->processEvents();qApp->processEvents();}
+             }
+     }
+  return position;
+}
+*/
+//--------------------------- biblio_setLink_Pages -----------------------------------------------------------
+/*! \brief  cree l'enregistrement des donnees bibliographiques liees a un produit identifie par son id
+*   \param  const QString &id                   identifiant unique de la donnee medicament
+*   \param  const QString &biblioType           type de donnee ( "AFSSAPS RCP FOR CIP"  "VIDAL MONO FOR CIP"
+*   \param  const QString &urlIn                url ou doit se faire la recherche avec les variables tags {{RCP}} {{CIS}} {{CIP7}}
+*   \param  const QString &owner                proprietaire des donnees
+*   \param  const QString &data                 donnees
+*   \return bool                                true si ok false si pas ok
+*/
+
+bool C_BaseMedica::biblio_setLink_Page(const QString &id, const QString &biblioType,  QString urlIn, const QString &owner, const QString &data)
+{    // {{ATC}} {{RCP}} {{CIS}} {{CIP7]] {{DCI}} {{NAME}}
+     QString       cis      = "";
+     QString       rcp      = "";
+     QString       url      = "";
+
+     cis = get_CIS_From_CIP(id);      // id est CIP en attendant mieux
+     rcp = get_RCP_From_CIS(cis);
+     url = urlIn; url.replace("{{RCP}}",rcp); url.replace("{{CIS}}",cis); url.replace("{{CIP7}}",id);
+     //if (rcp.length())
+        {biblio_setRecord( id,
+                           owner,
+                           "fr",
+                           url,
+                           QDate::currentDate ().toString("dd-MM-yyyy"),
+                           tr("RCP for CIS :  %1").arg(cis),
+                           biblioType,     //"AFSSAPS RCP FOR CIP",
+                           "text/html",
+                           data);
+         return TRUE;
+        }
+     return FALSE;
+}
 
 //--------------------------- biblio_setRecord -----------------------------------------------------------
-/*
-    CApp::pCApp()->getDB()->createTable(
-    "CREATE TABLE `bdt_biblio_h` (                             "
-    "`bdt_biblio_h_pk`     bigint(20) NOT NULL auto_increment ,"
-    "`bdt_biblio_h_owner`  char(40)                           ,"
-    "`bdt_biblio_h_lang`   char(8)                            ,"
-    "`bdt_biblio_h_url`    varchar(1024)                      ,"
-    "`bdt_biblio_h_id`     varchar(40)                       ,"
-    "`bdt_biblio_h_date`   char(10)                           ,"
-    "`bdt_biblio_h_note`   char(255)                          ,"
-    "`bdt_biblio_h_type`   char(40)                           ,"
-    "`bdt_biblio_h_mime`   char(40)                           ,"
-    "PRIMARY KEY  (`bdt_biblio_h_pk`)                          "
-    ") ENGINE=MyISAM AUTO_INCREMENT=0                          ");
-    CApp::pCApp()->getDB()->createTable(
-    "CREATE TABLE `bdt_biblio_b` (                             "
-    "`bdt_biblio_b_pk`     bigint(20) NOT NULL auto_increment ,"
-    "`bdt_biblio_b_rpk`    bigint(20)                         ,"
-    "`bdt_biblio_b_data`   longblob                           ,"
-    "PRIMARY KEY  (`bdt_biblio_b_pk`)                          "
-    ") ENGINE=MyISAM AUTO_INCREMENT=0                          ");
-    */
-
 QString C_BaseMedica::biblio_setRecord(const QString id,
                                        const QString owner,
                                        const QString lang,
@@ -744,6 +729,7 @@ QString C_BaseMedica::biblio_setRecord(const QString id,
     {  return biblio_AppendRecord (id, owner, lang, url, date, note, type, mime, data);
     }
 }
+
 //--------------------------- biblio_AppendRecord -----------------------------------------------------------
 QString C_BaseMedica::biblio_AppendRecord(const QString id,
                                           const QString owner,
@@ -756,15 +742,15 @@ QString C_BaseMedica::biblio_AppendRecord(const QString id,
                                           const QString data)
 {   QString prepare  = "";
     prepare         += "INSERT INTO "  + m_BIBLIO_H_TBL_NAME  + " ( \n";
-    prepare         +=  m_BIBLIO_H_OWNER        + " ,\n";
-    prepare         +=  m_BIBLIO_H_LANG         + " ,\n";
-    prepare         +=  m_BIBLIO_H_URL          + " ,\n";
-    prepare         +=  m_BIBLIO_H_ID           + " ,\n";
-    prepare         +=  m_BIBLIO_H_DATE         + " ,\n";
-    prepare         +=  m_BIBLIO_H_NOTE         + " ,\n";
-    prepare         +=  m_BIBLIO_H_TYPE         + " ,\n";
-    prepare         +=  m_BIBLIO_H_MIME         + "  \n";
-    prepare         +=                                          " )\n  VALUES (?,?,?,?,?,?,?,?) ";
+    prepare         +=  m_BIBLIO_H_OWNER        + " ,\n"; // 0
+    prepare         +=  m_BIBLIO_H_LANG         + " ,\n"; // 1
+    prepare         +=  m_BIBLIO_H_URL          + " ,\n"; // 2
+    prepare         +=  m_BIBLIO_H_ID           + " ,\n"; // 3
+    prepare         +=  m_BIBLIO_H_DATE         + " ,\n"; // 4
+    prepare         +=  m_BIBLIO_H_NOTE         + " ,\n"; // 5
+    prepare         +=  m_BIBLIO_H_TYPE         + " ,\n"; // 6
+    prepare         +=  m_BIBLIO_H_MIME         + "  \n"; // 7
+    prepare         +=                            " )\n  VALUES (?,?,?,?,?,?,?,?) ";
     QSqlQuery query(database());
     if (!query.prepare(prepare))
        {outSQL_error( query, "ERREUR  : biblio_AppendRecord() prepare", prepare, __FILE__, __LINE__);
@@ -782,9 +768,22 @@ QString C_BaseMedica::biblio_AppendRecord(const QString id,
        {outSQL_error( query, "ERREUR  : biblio_AppendRecord() exec", prepare, __FILE__, __LINE__);
         return QString::null;
        }
-
-    QString pk = getLastPrimaryKey( m_BIBLIO_H_TBL_NAME, m_BIBLIO_H_PK);
-    return biblio_setBlob( pk, owner, data);
+    //.................. verifier si la creation du header a bien fonctionne ....................
+    QString head_pk  =  biblio_getPk_Record ( id,  lang, type );
+    if (head_pk.length()==0)
+       {return QString::null;
+       }
+    //.................. creer le blob ..........................................................
+    QString blob_pk =  biblio_setBlob( head_pk, owner, data);
+    //................. si Ok updater la clef etrangere du header avec la clef du blob ..........
+    if (blob_pk.length() &&
+        updateValueInTable( m_BIBLIO_H_TBL_NAME, m_BIBLIO_H_BLOB_FK, blob_pk, head_pk )
+       )
+       {return blob_pk;
+       }
+    //.................. si pas OK effacer le header .............................................
+    deleteRecordInTable(m_BIBLIO_H_TBL_NAME, head_pk);
+    return QString::null;
 }
 
 //--------------------------- biblio_UpdateRecord -----------------------------------------------------------
@@ -800,14 +799,14 @@ QString C_BaseMedica::biblio_UpdateRecord(const QString pk,
                                           const QString data)
 {
     QString prepare  = QString("UPDATE ")        + m_BIBLIO_H_TBL_NAME   + " SET \n";
-    prepare         +=  m_BIBLIO_H_OWNER         + "=?  ,\n";
-    prepare         +=  m_BIBLIO_H_LANG          + "=?  ,\n";
-    prepare         +=  m_BIBLIO_H_URL           + "=?  ,\n";
-    prepare         +=  m_BIBLIO_H_ID            + "=?  ,\n";
-    prepare         +=  m_BIBLIO_H_DATE          + "=?  ,\n";
-    prepare         +=  m_BIBLIO_H_NOTE          + "=?  ,\n";
-    prepare         +=  m_BIBLIO_H_TYPE          + "=?  ,\n";
-    prepare         +=  m_BIBLIO_H_MIME          + "=?   \n";
+    prepare         +=  m_BIBLIO_H_OWNER         + "=?  ,\n"; // 0
+    prepare         +=  m_BIBLIO_H_LANG          + "=?  ,\n"; // 1
+    prepare         +=  m_BIBLIO_H_URL           + "=?  ,\n"; // 2
+    prepare         +=  m_BIBLIO_H_ID            + "=?  ,\n"; // 3
+    prepare         +=  m_BIBLIO_H_DATE          + "=?  ,\n"; // 4
+    prepare         +=  m_BIBLIO_H_NOTE          + "=?  ,\n"; // 5
+    prepare         +=  m_BIBLIO_H_TYPE          + "=?  ,\n"; // 6
+    prepare         +=  m_BIBLIO_H_MIME          + "=?   \n"; // 7
     prepare         += " WHERE " + m_BIBLIO_H_PK + " ='"  + pk  + "'";
     QSqlQuery query(database());
     if (!query.prepare(prepare))
@@ -822,6 +821,8 @@ QString C_BaseMedica::biblio_UpdateRecord(const QString pk,
     query.bindValue(5, note);
     query.bindValue(6, type);
     query.bindValue(7, mime);
+    //outMessage( tr("<b>-      -C_BaseMedica::biblio_UpdateRecord()</b> :%1=%2 %3=%4------").arg(m_BIBLIO_H_MIME, mime));
+
     if (!query.exec())
        {outSQL_error(query, "ERREUR  : biblio_UpdateRecord() exec", prepare, __FILE__, __LINE__);
         return QString::null;
@@ -829,16 +830,19 @@ QString C_BaseMedica::biblio_UpdateRecord(const QString pk,
     return biblio_setBlob( pk,  owner, data);
 }
 
+
 //--------------------------- biblio_setBlob -----------------------------------------------------------
-QString C_BaseMedica::biblio_setBlob(  const QString refPk, const QString ownerIn, const QString data)
-{QString pk    = isThisValueInTable (m_BIBLIO_B_TBL_NAME, m_BIBLIO_B_RPK, refPk, m_BIBLIO_B_PK);
- QString owner = ownerIn;
- if (owner.length()==0) owner = isThisValueInTable (m_BIBLIO_B_TBL_NAME, m_BIBLIO_B_RPK, refPk, m_BIBLIO_B_OWNER);
- if (pk.length())
+// bdt_biblio_h_bdt_biblio_b_fk
+QString C_BaseMedica::biblio_setBlob(  const QString head_Pk, const QString ownerIn, const QString data)
+{//............ regarder si blob pour le Pk de ce header (alors on update).................
+ QString blob_pk = isThisValueInTable (m_BIBLIO_B_TBL_NAME, m_BIBLIO_B_RPK, head_Pk, m_BIBLIO_B_PK);
+ QString owner   = ownerIn;
+ if (owner.length()==0) owner = isThisValueInTable (m_BIBLIO_B_TBL_NAME, m_BIBLIO_B_RPK, head_Pk, m_BIBLIO_B_OWNER);
+ if (blob_pk.length())
     {  QString prepare  = QString("UPDATE ")          + m_BIBLIO_B_TBL_NAME   + " SET \n";
        prepare         +=  m_BIBLIO_B_BLOB            + "=?, \n";
        prepare         +=  m_BIBLIO_B_OWNER           + "=?  \n";
-       prepare         += " WHERE " + m_BIBLIO_B_PK   + " ='"  + pk  + "'";
+       prepare         += " WHERE " + m_BIBLIO_B_PK   + " ='"  + blob_pk  + "'";
        QSqlQuery query(database());
        if (!query.prepare(prepare))
           {outSQL_error( query, "ERREUR  : biblio_setBlob UPDATE () prepare", prepare, __FILE__, __LINE__);
@@ -850,7 +854,7 @@ QString C_BaseMedica::biblio_setBlob(  const QString refPk, const QString ownerI
           {outSQL_error( query, "ERREUR  : biblio_setBlob UPDATE ()  exec", prepare, __FILE__, __LINE__);
            return QString::null;
           }
-       return pk;
+       return blob_pk;
     }
  else
     {  QString prepare  = "";
@@ -865,56 +869,139 @@ QString C_BaseMedica::biblio_setBlob(  const QString refPk, const QString ownerI
            return QString::null;
           }
        query.bindValue(0, data);
-       query.bindValue(1, refPk);
+       query.bindValue(1, head_Pk);
        query.bindValue(2, owner);
        if (!query.exec())
           {outSQL_error( query, "ERREUR  : biblio_AppendRecord() exec", prepare, __FILE__, __LINE__);
            return QString::null;
           }
-       return  getLastPrimaryKey( m_BIBLIO_B_TBL_NAME, m_BIBLIO_B_PK);
+       //............. retourner la clef primaire du blob (soit nouvellement cree soit mis a jour) ............
+       return  isThisValueInTable (m_BIBLIO_B_TBL_NAME, m_BIBLIO_B_RPK, head_Pk, m_BIBLIO_B_PK); // recuperer le pk de blob pour le refPk du header
     }
  return QString::null;
 }
 
-//--------------------------- biblio_DeleteRecord -----------------------------------------------------------
-void   C_BaseMedica::biblio_DeleteRecord(const QString /*pk*/ )
-{
+//--------------------------- biblio_DeleteRecords -----------------------------------------------------------
+/*! \brief  delete biblio records
+*   \param  const QString &id          id drugs from which records must be deleted if empty all records whith type and lang will be deleted
+*   \param  const QString &lang        langue exp : "fr"
+*   \param  const QString &type        record type exp : "Afssaps" "Afssaps RCP For CIP" etc..
+*   \return int                        number of deleted records
+*/
 
+int  C_BaseMedica::biblio_DeleteRecords(const QString &id, const QString &lang,  const QString &type)
+{int nb_deleted  =  0;
+ QString head_pk = "";
+ QString blob_fk = "";
+ //.................................... les blobs ..........................................................
+ QString          requete  =  QString("SELECT  ")                 +
+                                "`"         + m_BIBLIO_H_PK       + "`,"      // 0 primary key de la table des bibliographies
+                                "`"         + m_BIBLIO_H_BLOB_FK  + "` "      // 1 clef etrangere sur le Blob des donnees
+                                "  FROM  `" + m_BIBLIO_H_TBL_NAME + "`"
+                                "  WHERE `" + m_BIBLIO_H_LANG     + "` = \"" + lang   + "\"";
+ if (id.length()) requete +=    "  AND   `" + m_BIBLIO_H_ID       + "` = \"" + id     + "\"";
+                  requete +=    "  AND   `" + m_BIBLIO_H_TYPE     + "` = \"" + type   + "\""
+                          + ownersSelectMention(m_BIBLIO_H_TBL_NAME);
+ QSqlQuery query (database());
+ if (!query.exec(requete))
+    {outSQL_error( query, "ERREUR  : C_BaseMedica::biblio_DeleteRecords()", requete, __FILE__, __LINE__);
+     return nb_deleted;
+    }
+ if (query.isActive() )
+    {while (query.next())
+           {head_pk    = query.value(0).toString();
+            blob_fk    = query.value(1).toString();
+            biblio_DeleteBlobRecord(blob_fk);
+            ++nb_deleted;
+           }
+    }
+ //..................... les headers ...............................................................
+                  requete  =  QString("DELETE  FROM `%1` ").arg(m_BIBLIO_H_TBL_NAME);
+                  requete +=    "  WHERE `" + m_BIBLIO_H_LANG     + "` = \"" + lang   + "\"";
+ if (id.length()) requete +=    "  AND   `" + m_BIBLIO_H_ID       + "` = \"" + id     + "\"";
+                  requete +=    "  AND   `" + m_BIBLIO_H_TYPE     + "` = \"" + type   + "\""
+                          + ownersSelectMention(m_BIBLIO_H_TBL_NAME);
+ if (!query.exec(requete))
+    {outSQL_error( query, "ERREUR  : C_BaseMedica::biblio_DeleteRecords(headers)", requete, __FILE__, __LINE__);
+     return nb_deleted;
+    }
+ return nb_deleted;
 }
+
+//--------------------------- biblio_DeleteBlobRecord -----------------------------------------------------------
+bool   C_BaseMedica::biblio_DeleteBlobRecord(const QString &blob_pk )
+{
+ QSqlQuery query (database());
+ QString requete  =  QString(" DELETE  FROM `%1` ").arg(m_BIBLIO_B_TBL_NAME)       +
+                             " WHERE `" + m_BIBLIO_B_PK     + "` = \"" + blob_pk   + "\""
+                             + ownersSelectMention(m_BIBLIO_B_TBL_NAME);
+ if (!query.exec(requete))
+    {outSQL_error( query, "ERREUR  : C_BaseMedica::biblio_DeleteBlobRecord()", requete, __FILE__, __LINE__);
+     return FALSE;
+    }
+ return TRUE;
+}
+
 //--------------------------- biblio_getDataFrom_TypeLangId -----------------------------------------------------------
 C_BiblioData C_BaseMedica::biblio_getDataFrom_TypeLangId(const QString id,
                                                          const QString lang,
                                                          const QString type)
 {C_BiblioData cb;
- QString rpk = biblio_getPk_Record( id, lang, type  );
- if (rpk.length()==0) return cb;
- return biblio_getBiblioDataFromRPk(rpk);
+ QString head_pk = biblio_getPk_Record( id, lang, type  );
+ //outMessage( tr("<b>----- C_BaseMedica::biblio_getDataFrom_TypeLangId()</b> :head_pk=%4 for id=%1 lang=%2 type=%3------").arg(id,lang,type,head_pk));
+ if (head_pk.length()==0) return cb;
+ cb = biblio_getBiblioDataFromHeadPk(head_pk);
+ //if (cb.m_data.length()) outMessage( tr("<b>.        <b>cb.m_data=<b><font color=#00ff00> %1 </font>").arg(cb.m_data.left(20)));
+ //else                    outMessage( tr("<b>.        <b>cb.m_data=<b><font color=#00ff00> %1 </font>").arg("not found"));
+ return cb;
 }
 
-//--------------------------- biblio_getDataFromRPk -----------------------------------------------------------
-C_BiblioData C_BaseMedica::biblio_getBiblioDataFromRPk(const QString rpk)
+//--------------------------- biblio_getBiblioDataFromHeadPk -----------------------------------------------------------
+C_BiblioData C_BaseMedica::biblio_getBiblioDataFromHeadPk(const QString head_pk)
 {C_BiblioData cb;
+ QString mime = "";
+ QString blob_fk = "";
+
     //....................... recuperer le HEADER ............................................
  QString       requete  =  QString("SELECT  ")                         +
-                                    + "`"        + m_BIBLIO_H_PK       + "` ," +     // primary key de la table des bibliographies
-                                    + "`"        + m_BIBLIO_H_OWNER    + "` ," +     // proprio de la table des bibliographies
-                                    + "`"        + m_BIBLIO_H_LANG     + "` ," +     // langue
-                                    + "`"        + m_BIBLIO_H_URL      + "` ," +     // url
-                                    + "`"        + m_BIBLIO_H_ID       + "` ," +     // identificateur lie a cet enregistrement
-                                    + "`"        + m_BIBLIO_H_DATE     + "` ," +     // date de l'enregistrement
-                                    + "`"        + m_BIBLIO_H_NOTE     + "` ," +     // note concernant cet enregisrement
-                                    + "`"        + m_BIBLIO_H_TYPE     + "` ," +     // type de cet enregisteement "AFSSAPS RCP CIP"
-                                    + "`"        + m_BIBLIO_H_MIME     + "`  " +     // mime type de cet enregistrement
-                                    + "  FROM `" + m_BIBLIO_H_TBL_NAME + "` WHERE `" + m_BIBLIO_H_PK + "` = " + rpk + ownersSelectMention(m_BIBLIO_H_TBL_NAME);
+                                    + "`"        + m_BIBLIO_H_PK       + "` ," +     // 0 primary key de la table des bibliographies
+                                    + "`"        + m_BIBLIO_H_OWNER    + "` ," +     // 1 proprio de la table des bibliographies
+                                    + "`"        + m_BIBLIO_H_LANG     + "` ," +     // 2 langue
+                                    + "`"        + m_BIBLIO_H_URL      + "` ," +     // 3 url
+                                    + "`"        + m_BIBLIO_H_ID       + "` ," +     // 4 identificateur lie a cet enregistrement
+                                    + "`"        + m_BIBLIO_H_DATE     + "` ," +     // 5 date de l'enregistrement
+                                    + "`"        + m_BIBLIO_H_NOTE     + "` ," +     // 6 note concernant cet enregisrement
+                                    + "`"        + m_BIBLIO_H_TYPE     + "` ," +     // 7 type de cet enregisteement "AFSSAPS RCP CIP"
+                                    + "`"        + m_BIBLIO_H_MIME     + "` ," +     // 8 mime type de cet enregistrement
+                                    + "`"        + m_BIBLIO_H_BLOB_FK  + "`  " +     // 9 clef etrangere sur le Blob des donnees
+                                    + "  FROM `" + m_BIBLIO_H_TBL_NAME + "` WHERE `" + m_BIBLIO_H_PK + "` = " + head_pk + ownersSelectMention(m_BIBLIO_H_TBL_NAME);
 
  QSqlQuery query (database());
  if (!query.exec(requete))
     {outSQL_error( query, "ERREUR  : biblio_getBiblioDataFromRPk() H", requete, __FILE__, __LINE__);
      return cb;
     }
+ /*
+               C_BiblioData( const QString pk,      // 0
+                             const QString owner,   // 1
+                             const QString lang,    // 2
+                             const QString url,     // 3
+                             const QString id,      // 4
+                             const QString date,    // 5
+                             const QString note,    // 6
+                             const QString type,    // 7
+                             const QString mime,    // 8
+                             const QString blob_pk, // 9
+                             const QString data     // 10
+                           )
+                              */
  if (query.isActive() )
     {while (query.next())
-           {cb = C_BiblioData( query.value(0).toString(),     // primary key de la table des bibliographies
+           {mime    = query.value(8).toString();
+            blob_fk = query.value(9).toString();
+            //outMessage( tr("<b>.       mime field    : <b>%1=<b><font color=#00ff00> %2 </font>").arg(m_BIBLIO_H_MIME,mime));
+            //outMessage( tr("<b>.       blob_fk field : <b>%1=<b><font color=#00ff00> %2 </font>").arg(m_BIBLIO_H_BLOB_FK,blob_fk));
+            cb = C_BiblioData( query.value(0).toString(),     // primary key de la table des bibliographies
                                query.value(1).toString(),     // proprio de la table des bibliographies
                                query.value(2).toString(),     // langue
                                query.value(3).toString(),     // url
@@ -923,14 +1010,15 @@ C_BiblioData C_BaseMedica::biblio_getBiblioDataFromRPk(const QString rpk)
                                query.value(6).toString(),     // note concernant cet enregisrement
                                query.value(7).toString(),     // type de cet enregisteement "AFSSAPS RCP CIP"
                                query.value(8).toString(),     // mime type de cet enregistrement
+                               query.value(9).toString(),     // clef etrangere sur le Blob des donnees
                                ""
                              );
            }
     }
-
+ //outMessage( tr(".     <b>cb.m_blob_pk=</b><font color=#ffffff>%1</font>").arg(cb.m_blob_pk));
  //....................... recuperer le BLOB ............................................
  requete  =  QString( QString("SELECT `") +  m_BIBLIO_B_BLOB  + "` FROM `" + m_BIBLIO_B_TBL_NAME + "` WHERE "
-                                       "`"+  m_BIBLIO_B_RPK   +"`  = \"%1\" " ).arg(rpk) + ownersSelectMention(m_BIBLIO_B_TBL_NAME);
+                                       "`"+  m_BIBLIO_B_PK    +"`  = \"%1\" " ).arg(cb.m_blob_pk) + ownersSelectMention(m_BIBLIO_B_TBL_NAME);
  if (!query.exec(requete))
     {outSQL_error( query, "ERREUR  : biblio_getBiblioDataFromRPk() B", requete, __FILE__, __LINE__);
      return cb;
@@ -938,17 +1026,16 @@ C_BiblioData C_BaseMedica::biblio_getBiblioDataFromRPk(const QString rpk)
   if (query.isActive() )
      {while (query.next())
             {cb.m_data = CGestIni::Utf8_Query(query, 0);
-             //cb.m_data = query.value(0).toString();
             }
      }
   return cb;
 }
 
-//--------------------------- biblio_getDataFromRPk -----------------------------------------------------------
-QString C_BaseMedica::biblio_getDataFromRPk(const QString rpk)
+//--------------------------- biblio_getBlobDataFromHeadPk -----------------------------------------------------------
+QString C_BaseMedica::biblio_getBlobDataFromHeadPk(const QString head_pk)
 {QString       requete  =  QString( QString("SELECT `") +  m_BIBLIO_B_BLOB  + "` FROM `" + m_BIBLIO_B_TBL_NAME + "` WHERE "
-                                   "`"+ m_BIBLIO_B_RPK  +"`  = \"%1\" "
-                                   ).arg(rpk) + ownersSelectMention(m_BIBLIO_B_TBL_NAME);
+                                   "`"+ m_BIBLIO_B_PK  +"`  = \"%1\" "
+                                   ).arg(head_pk) + ownersSelectMention(m_BIBLIO_B_TBL_NAME);
  QSqlQuery query (requete , database() );
  outSQL_error( query, "ERREUR  : biblio_getDataFromRPk()", requete, __FILE__, __LINE__);
  if (query.isActive() )
@@ -1132,41 +1219,42 @@ int C_BaseMedica::initInteractionDataBase(const QString &fileName,
                     "`it_compo_descr`       VARCHAR(4048) ,"
                     "`it_compo_id_ctx`      VARCHAR(80)   ,"
                     "`it_compo_id_ctx_type` VARCHAR(40)   ,"
+                    "`it_compo_class`       VARCHAR(4)    ,"
+                    "`it_compo_date`        DATETIME      ,"
                     "PRIMARY KEY (`it_compo_pk`)"
-                    ")"
-                    "ENGINE = MyISAM;")==0) return 0;
+                    ");")==0) return 0;
     if (dropTable(  "it_group")==0) return 0;
     if (createTable("CREATE TABLE `it_group` ("
                     "`it_group_pk`          BIGINT  NOT NULL AUTO_INCREMENT,"
-                    "`it_group_owner`       VARCHAR(40) ,"
-                    "`it_group_libelle`     VARCHAR(255),"
-                    "`it_group_note`        TEXT        ,"
-                    "`it_group_id`          CHAR(10)    ,"
+                    "`it_group_owner`       VARCHAR(40)  ,"
+                    "`it_group_libelle`     VARCHAR(255) ,"
+                    "`it_group_note`        TEXT         ,"
+                    "`it_group_id`          CHAR(10)     ,"
                     "PRIMARY KEY (`it_group_pk`)"
-                    ")"
-                    "ENGINE = MyISAM;"
+                    ");"
                     )==0) return 0;
     if (dropTable(  "it_inter")==0) return 0;
     if (createTable("CREATE TABLE `it_inter` ("
                     "`it_inter_pk`           BIGINT  NOT NULL AUTO_INCREMENT,"
-                    "`it_inter_owner`        VARCHAR(40) ,"
-                    "`it_inter_regle`        VARCHAR(255) ,"
+                    "`it_inter_owner`        VARCHAR(40)   ,"
+                    "`it_inter_regle`        VARCHAR(255)  ,"
                     "`it_inter_mecanisme`    VARCHAR(2000) ,"
                     "`it_inter_cat`          VARCHAR(2000) ,"
+                    "`it_inter_date`         DATETIME      ,"
                     "PRIMARY KEY (`it_inter_pk`)"
-                    ")"
-                    "ENGINE = MyISAM;"
+                    ");"
                     )==0) return 0;
     if (dropTable(  "it_link")==0) return 0;
     if (createTable("CREATE TABLE `it_link` ("
                     "`it_link_pk`            BIGINT  NOT NULL AUTO_INCREMENT,"
-                    "`it_link_owner`         VARCHAR(40) ,"
-                    "`it_link_inter_pk`      BIGINT  NOT NULL,"
-                    "`it_link_compo_pk1`     BIGINT  NOT NULL,"
-                    "`it_link_compo_pk2`     BIGINT  NOT NULL,"
+                    "`it_link_owner`         VARCHAR(40)      ,"
+                    "`it_link_inter_pk`      BIGINT  NOT NULL ,"
+                    "`it_link_compo_pk1`     BIGINT  NOT NULL ,"
+                    "`it_link_compo_pk2`     BIGINT  NOT NULL ,"
+                    "`it_link_class`         VARCHAR(4)       ,"
+                    "`it_link_date`          DATETIME         ,"
                     "PRIMARY KEY (`it_link_pk`)"
-                    ")"
-                    "ENGINE = MyISAM;"
+                    ");"
                     )==0) return 0;
 
     //...................... REMPLIR LA TABLE DES COMPOSANTS ..............................
@@ -1192,25 +1280,25 @@ int C_BaseMedica::initInteractionDataBase(const QString &fileName,
          QString              text_In_Composant = pQTreeWidgetComposant->text(1);
          if (pQTreeWidgetItemGroup)
             {id   = createGroupRowInBase(  libelle, pQTreeWidgetItemGroup->text(1),"-1",  owner);   // id est le pk de l'enregistrement dans la table it_group
-             pk   = createComposantInBase( libelle, text_In_Composant, "it_group_G", id , owner);
+             pk   = it_createComposant( libelle, text_In_Composant, "it_group_G", id, "ITMD" , owner);
              ++i;
              pQTreeWidgetComposant->setText(4, pk);
              int nbChilds =	pQTreeWidgetItemGroup->childCount ();
              int idChild  = 0;
              for (idChild = 0; idChild<nbChilds; ++idChild)
                  {pk   = createGroupRowInBase(  pQTreeWidgetItemGroup->child(idChild)->text(0),"", id, owner);
-                  pk   = createComposantInBase( pQTreeWidgetItemGroup->child(idChild)->text(0), text_In_Composant, "it_group_M", pk , owner);
+                  pk   = it_createComposant( pQTreeWidgetItemGroup->child(idChild)->text(0), text_In_Composant, "it_group_M", pk ,"ITMD", owner);
                   ++i;
                  }
             }
          else
-            {pk   = createComposantInBase( libelle.trimmed(), text_In_Composant, "it_compo", QString::number(i) ,  owner);
+            {pk   = it_createComposant( libelle.trimmed(), text_In_Composant, "it_compo", QString::number(i) , "ITMD",  owner);
              ++i;
             }
         }
        else                    //<<<<<<<<<<<<<<<<< composant fils >>>>>>>>>>>>>>>>>>>>>>>>>>
         {
-            pk   = createComposantInBase( libelle.mid(1).trimmed(), (*it)->text(1), "it_compo", QString::number(i), owner );
+            pk   = it_createComposant( libelle.mid(1).trimmed(), (*it)->text(1), "it_compo", QString::number(i), "ITMD", owner );
             ++i;
         }
        ++it;
@@ -1271,7 +1359,7 @@ int C_BaseMedica::initInteractionDataBase(const QString &fileName,
     while (*it)
      {  if (m_pQProgressBar)  {m_pQProgressBar->setValue(position/10); qApp->processEvents();qApp->processEvents();}
         ++ position;
-        createLinkFacteursInteraction((*it)->text(1), (*it)->text(3), (*it)->text(7), owner);
+        it_createLinkFacteursInteraction((*it)->text(1), (*it)->text(3), (*it)->text(7), "ITMD", owner);
         ++it;
      }
  plabelSynthese->setText(tr("nombre d'items : %1").arg(QString::number(i)));
@@ -1279,64 +1367,6 @@ int C_BaseMedica::initInteractionDataBase(const QString &fileName,
  return 1;
 }
 
-//----------------------------------------------------- fill_treeWidget_Produits ---------------------------------------------------------------
-int C_BaseMedica::BDM_fill_treeWidget_Produits(QTreeWidget *pQTreeWidget, const QString &text, C_BaseMedica::flags flags/* = C_BaseMedica::all_filter */)
-{   if (!database().isOpen() && database().open()== FALSE)
-       {outMessage( tr("ERREUR : BDM_fill_treeWidget_Produits() database can not be opened"), __FILE__, __LINE__);  return 0;
-       }
-    QTreeWidgetItem *item  = 0;
-    QString        requete =         " SELECT "
-                                     "`"+m_BDM_DRUGLIST_OWNER     +"`,"     // 0
-                                     "`"+m_BDM_DRUGLIST_LANG      +"`,"     // 1
-                                     "`"+m_BDM_DRUGLIST_ID        +"`,"     // 2
-                                     "`"+m_BDM_DRUGLIST_TYPE_ID   +"`,"     // 3
-                                     "`"+m_BDM_DRUGLIST_ATC       +"`,"     // 4
-                                     "`"+m_BDM_DRUGLIST_LIBELLE   +"`,"     // 5
-                                     "`"+m_BDM_DRUGLIST_DCI_1     +"`,"     // 6
-                                     "`"+m_BDM_DRUGLIST_DCI_2     +"`,"     // 7
-                                     "`"+m_BDM_DRUGLIST_DCI_3     +"`,"     // 8
-                                     "`"+m_BDM_DRUGLIST_UCD       +"`,"     // 9
-                                     "`"+m_BDM_DRUGLIST_UCD_PRICE +"`,"     // 10
-                                     "`"+m_BDM_DRUGLIST_SMR       +"`,"     // 11
-                                     "`"+m_BDM_DRUGLIST_ASMR      +"`,"     // 12
-                                     "`"+m_BDM_DRUGLIST_PK_SPEC   +"` "     // 13
-                                     " FROM "+m_BDM_DRUGLIST_TBL_NAME;
-    if (text.length())
-       {requete  +=  QString(" WHERE ");
-        if (flags&C_BaseMedica::nom_filter)  requete  += m_BDM_DRUGLIST_LIBELLE + " LIKE \"%1%\" OR ";
-        if (flags&C_BaseMedica::atc_filter)  requete  += m_BDM_DRUGLIST_ATC     + " LIKE \"%1%\" OR ";
-        if (flags&C_BaseMedica::dci_filter)  requete  += m_BDM_DRUGLIST_DCI_1   + " LIKE \"%1%\" OR ";
-        requete.chop(4);                          // virer le dernier " OR "
-        requete   = requete.arg(text.toUpper());  // placer les caracteres de l'utilisateur
-        requete  += ownersSelectMention(m_BDM_DRUGLIST_TBL_NAME, C_BaseCommon::WhereAlreadyIn);  // rajouter le filtre du proprio
-        if (flags&C_BaseMedica::ucd_filter)  requete  +=  " ORDER BY " + m_BDM_DRUGLIST_UCD_PRICE;
-       }
-    else
-       {
-        requete  += ownersSelectMention(m_BDM_DRUGLIST_TBL_NAME, C_BaseCommon::WhereMustBeAdd);
-        if (flags&8)  requete  +=  " ORDER BY " + m_BDM_DRUGLIST_UCD_PRICE;
-       }
-
-
-    pQTreeWidget->clear();
-    QSqlQuery query (requete , database() );
-    outSQL_error( query, "ERREUR  : BDM_fill_treeWidget_Produits()", requete, __FILE__, __LINE__);
-    if (query.isActive() )
-       {while (query.next())
-              {item =   new QTreeWidgetItem (pQTreeWidget);
-               item->setText(0,CGestIni::Utf8_Query(query, 5));   // libelle
-               item->setText(1,query.value(6).toString());        // DCI_1
-               item->setText(2,query.value(7).toString());        // DCI_2
-               item->setText(3,query.value(8).toString());        // DCI_3
-               QString prix = query.value(10).toString();
-               item->setText(4,prix.insert(prix.length()-2,'.')); // Prix
-               item->setText(5,query.value(4).toString());        // ATC
-               item->setText(6,query.value(2).toString());        // ID CIP
-               //item->setText(2,query.value(2).toString());
-              }    // end while (query.next())
-       }  // endif (query.isActive() )
-    return pQTreeWidget->topLevelItemCount();
-}
 
 //----------------------------------------------------- BDM_druglist_tbl_name ---------------------------------------------------------------
 QString C_BaseMedica::BDM_druglist_tbl_name(){return m_BDM_DRUGLIST_TBL_NAME;}
@@ -1464,7 +1494,7 @@ int C_BaseMedica::BDM_initDrugListFromAfssapsAndBDM(   const QString &owner, con
                queryInsert.bindValue(12, cis_to_asmr(cis_code));
                queryInsert.bindValue(13, cis_to_spec(cis_code));
                if ( !queryInsert.exec())
-                  {outSQL_error( queryInsert, "ERREUR  : C_BaseMedica::createLinkFacteursInteraction()", prepare, __FILE__, __LINE__);
+                  {outSQL_error( queryInsert, "ERREUR  : C_BaseMedica::it_createLinkFacteursInteraction()", prepare, __FILE__, __LINE__);
                    return 0;
                   }
                ++position;
@@ -1651,8 +1681,8 @@ void C_BaseMedica::initAfssapsATC(const QString &path)
  dropTable("afs_atcTmp");
 }
 
-//--------------------------- createLinkFacteursInteraction -----------------------------------------------------------
-QString C_BaseMedica::testInteraction(QTreeWidget *pQTreeWidget, const QString &produit_1, const QString &produit_2)
+//--------------------------- testInteraction -----------------------------------------------------------
+QString C_BaseMedica::testInteraction(QTreeWidget *pQTreeWidget, const QString &class_it, const QString &produit_1, const QString &produit_2)
 {pQTreeWidget->clear();
  if (!database().isOpen() && database().open()== FALSE) return QString::null;
  QSqlQuery query(QString::null , database() );
@@ -1660,8 +1690,16 @@ QString C_BaseMedica::testInteraction(QTreeWidget *pQTreeWidget, const QString &
  int          nb  = 0;
  int        il_1  = 0;
  int        il_2  = 0;
- QStringList pk1_List   = produit_1.length() ? isThisValueLikeInTable_ToList("it_compo", "it_compo_name",  produit_1.toUpper()) : QStringList();
- QStringList pk2_List   = produit_2.length() ? isThisValueLikeInTable_ToList("it_compo", "it_compo_name",  produit_2.toUpper()) : QStringList();
+ QStringList pk1_List   = produit_1.length() ? isThisValueLikeInTable_ToList("it_compo",
+                                                                             "it_compo_name",
+                                                                             produit_1.toUpper(),
+                                                                             "",
+                                                                             QString(" AND `it_compo_class`=\"%1\" ").arg(class_it)) : QStringList();
+ QStringList pk2_List   = produit_2.length() ? isThisValueLikeInTable_ToList("it_compo",
+                                                                             "it_compo_name",
+                                                                             produit_2.toUpper(),
+                                                                             "",
+                                                                             QString(" AND `it_compo_class`=\"%1\" ").arg(class_it)) : QStringList();
  int nbpk1              = pk1_List.count();
  int nbpk2              = pk2_List.count();
 
@@ -1731,9 +1769,9 @@ int C_BaseMedica::execQueryGetInteraction(QSqlQuery &query, const QString &reque
       {while(query.next())
             {QTreeWidgetItem *pItem = getInteraction(query.value(0).toString(), pQTreeWidget);
              if (pItem)
-                { pItem->setText(0,getNameFacteurFromPk(query.value(1).toString()) +
-                                   " et " +
-                                   getNameFacteurFromPk(query.value(2).toString()));
+                { pItem->setText(1, getNameFacteurFromPk(query.value(1).toString()) +
+                                    " et " +
+                                    getNameFacteurFromPk(query.value(2).toString()));
                   ++i;
                 }
             }
@@ -1765,7 +1803,7 @@ QString C_BaseMedica::getNameFacteurFromPk(const QString &pk)
 //--------------------------- getInteraction -----------------------------------------------------------
 QTreeWidgetItem * C_BaseMedica::getInteraction(const QString &pk, QTreeWidget *pQTreeWidget)
 {   QSqlQuery query(QString::null , database() );
-    QString requete  =  QString("SELECT `it_inter_regle`, `it_inter_mecanisme`, `it_inter_cat`,`it_inter_owner` FROM `it_inter`"
+    QString requete  =  QString("SELECT `it_inter_date`,`it_inter_regle`, `it_inter_mecanisme`, `it_inter_cat`,`it_inter_owner` FROM `it_inter`"
                                 " WHERE `it_inter_pk`  = \"%1\" ").arg( pk);
     requete += ownersSelectMention("it_inter");
     if (!query.exec(requete))
@@ -1775,10 +1813,12 @@ QTreeWidgetItem * C_BaseMedica::getInteraction(const QString &pk, QTreeWidget *p
     if (query.isActive() )
         {while(query.next())    // il ne devrait il n'y en avoir qu'un
               {QTreeWidgetItem *pItem = new QTreeWidgetItem(pQTreeWidget);
-               pItem->setText(1, query.value(0).toString());
-               pItem->setText(2, query.value(1).toString());
-               pItem->setText(3, query.value(2).toString());
-               pItem->setText(4, query.value(3).toString());
+               pItem->setText(0, query.value(0).toString());      // date
+            // pItem->setText(1, "les composants de l'interaction seront mis apres"
+               pItem->setText(2, query.value(1).toString());      // la regle est le niveau
+               pItem->setText(3, query.value(2).toString());      // texte sur le mecanisme
+               pItem->setText(4, query.value(3).toString());      // texte sur la conduite a tenir
+               pItem->setText(5, query.value(4).toString());      // proprio
                return pItem;
               }
         }
@@ -1953,7 +1993,7 @@ int C_BaseMedica::setInteractionItem(    QTreeWidget     *pQTreeWidgetSynthese,
     QTreeWidgetItem *pQTreeWidgetItemPereGroup   = 0;
     QString          aliasNamePere               = "";
     QString          pk_FacteurPere              = isThisValueInTable("it_compo", "it_compo_name", facteur1.toUpper());
-    QString          pk_interact                 = createInteractionRecord( niveau, mecanisme, cat, owner);
+    QString          pk_interact                 = it_createInteractionRecord( niveau, mecanisme, cat, owner);
     pItemComposant = new QTreeWidgetItem(pQTreeWidgetSynthese);
     pItemComposant->setText(0, facteur1);
     pItemComposant->setText(1, pk_FacteurPere);
@@ -1972,7 +2012,7 @@ int C_BaseMedica::setInteractionItem(    QTreeWidget     *pQTreeWidgetSynthese,
         int idChild     = 0;
         for (idChild    = 0; idChild<nbChilds; ++idChild)
           { aliasNamePere  = pQTreeWidgetItemPereGroup->child(idChild)->text(0);
-            pk_FacteurPere = isThisValueInTable("it_compo", "it_compo_name", aliasNamePere.toUpper());  // normalement la base devrait avoir tous les composants (y compris les alias) renseignes
+            pk_FacteurPere = isThisValueInTable("it_compo", "it_compo_name", aliasNamePere.toUpper(),""," AND `it_compo_class`=\"ITMD\" ");  // normalement la base devrait avoir tous les composants (y compris les alias) renseignes
             pItemComposant = new QTreeWidgetItem(pQTreeWidgetSynthese);
             pItemComposant->setText(0, aliasNamePere);
             pItemComposant->setText(1, pk_FacteurPere);
@@ -2022,36 +2062,37 @@ QTreeWidgetItem *C_BaseMedica::isThisGroupeItem( const QString &libelle, QTreeWi
     return 0;
 }
 
-//--------------------------- createLinkFacteursInteraction -----------------------------------------------------------
-QString C_BaseMedica::createLinkFacteursInteraction(const QString &pk1, const QString &pk2, const QString &pki, const QString &owner)
+//--------------------------- it_createLinkFacteursInteraction -----------------------------------------------------------
+QString C_BaseMedica::it_createLinkFacteursInteraction(const QString &pk1, const QString &pk2, const QString &pki, const QString &class_it, const QString &owner)
 {    QString err = "";
      if (!isInOwnerList(owner))
-        {err = tr("ERREUR  : C_BaseCommon::createLinkFacteursInteraction() \nThis owner : '%1' is not found").arg(owner).toAscii();
+        {err = tr("ERREUR  : C_BaseCommon::it_it_createLinkFacteursInteraction() \nThis owner : '%1' is not found").arg(owner).toAscii();
          outMessage(err);
          return QString::null;
         }
 
      if (!database().isOpen() && database().open()== FALSE) return QString::null;
      QSqlQuery query(QString::null , database() );
-     QString prepare  = QLatin1String(" INSERT INTO it_link ( `it_link_owner`, `it_link_compo_pk1`,`it_link_compo_pk2`, `it_link_inter_pk`)"
-                                      " VALUES (?,?,?,?)");
+     QString prepare  = QLatin1String(" INSERT INTO it_link ( `it_link_owner`, `it_link_compo_pk1`,`it_link_compo_pk2`, `it_link_inter_pk`, `it_link_class`)"
+                                      " VALUES (?,?,?,?,?)");
      query.prepare(prepare);
      query.bindValue(0, owner);
      query.bindValue(1, pk1);
      query.bindValue(2, pk2);
      query.bindValue(3, pki);
+     query.bindValue(4, class_it);
      if ( !query.exec())
-        {outSQL_error( query, "ERREUR  : C_BaseMedica::createLinkFacteursInteraction()", prepare, __FILE__, __LINE__);
+        {outSQL_error( query, "ERREUR  : C_BaseMedica::it_it_createLinkFacteursInteraction()", prepare, __FILE__, __LINE__);
          return QString::null;
         }
      return getLastPrimaryKey( "it_link", "it_link_pk");
 }
 
-//--------------------------- createInteractionRecord -----------------------------------------------------------
-QString C_BaseMedica::createInteractionRecord( const QString   &niveau, const QString   &mecanisme, const QString   &cat, const QString   &owner)
+//--------------------------- it_createInteractionRecord -----------------------------------------------------------
+QString C_BaseMedica::it_createInteractionRecord( const QString   &niveau, const QString   &mecanisme, const QString   &cat, const QString   &owner)
 {   QString err = "";
     if (!isInOwnerList(owner))
-       {err = tr("ERREUR  : C_BaseCommon::createInteractionRecord() : This owner : '%1' is not found").arg(owner).toAscii();
+       {err = tr("ERREUR  : C_BaseCommon::it_createInteractionRecord() : This owner : '%1' is not found").arg(owner).toAscii();
         outMessage( err);
         return QString::null;
        }
@@ -2066,7 +2107,7 @@ QString C_BaseMedica::createInteractionRecord( const QString   &niveau, const QS
                                ).arg(niveau, mec.replace("\"","\\\"").replace(",","\\,"), c.replace("\"","\\\"").replace(",","\\,") );
     requete += ownersSelectMention("it_inter");
     if (!query.exec(requete))
-       { outSQL_error(query, "ERREUR  : C_BaseMedica::createInteractionRecord()", requete, __FILE__, __LINE__);
+       { outSQL_error(query, "ERREUR  : C_BaseMedica::it_createInteractionRecord()", requete, __FILE__, __LINE__);
          return QString::null;
        }
     if ( query.next() ) return query.value(0).toString();    // on a trouve on se casse avec
@@ -2080,18 +2121,18 @@ QString C_BaseMedica::createInteractionRecord( const QString   &niveau, const QS
  query.bindValue(2, mecanisme);
  query.bindValue(3, cat);
  if ( !query.exec())
-    {outSQL_error(query, "ERREUR  : C_BaseMedica::createInteractionRecord()", prepare, __FILE__, __LINE__);
+    {outSQL_error(query, "ERREUR  : C_BaseMedica::it_createInteractionRecord()", prepare, __FILE__, __LINE__);
      return QString::null;
     }
  return getLastPrimaryKey( "it_inter", "it_inter_pk");
 }
 
-//--------------------------- createComposantInBase -----------------------------------------------------------
-QString C_BaseMedica::createComposantInBase(const QString &libelle, const QString &descr, const QString &id_ctx_type, const QString &id_ctx, const QString   &owner)
+//--------------------------- it_createComposant -----------------------------------------------------------
+QString C_BaseMedica::it_createComposant(const QString &libelle, const QString &descr, const QString &id_ctx_type, const QString &id_ctx, const QString &id_class, const QString   &owner)
 {
 
     if (!isInOwnerList(owner))
-       {outMessage( tr("ERREUR  : C_BaseCommon::createComposantInBase() : This owner : '%1' is not found").arg(owner).toAscii());
+       {outMessage( tr("ERREUR  : C_BaseCommon::it_createComposant() : This owner : '%1' is not found").arg(owner).toAscii());
         return QString::null;
        }
 
@@ -2099,13 +2140,13 @@ QString C_BaseMedica::createComposantInBase(const QString &libelle, const QStrin
     int pos   = posLastEnclosedSymbol(s,"(",")");
     if (pos  != -1) s.truncate(pos);
 
-    if (isThisValueInTable("it_compo","it_compo_name", libelle.toUpper()).length())
-       {C_Utils_Log::outMessage( 0, tr("WARNING  : C_BaseMedica::createComposantInBase() : '%1' not added because it is already in '%2'").arg(libelle.toUpper(),"it_compo").toAscii());
+    if (isThisValueInTable("it_compo","it_compo_name", libelle.toUpper(),"", QString(" AND `it_compo_class`=\"%1\" ").arg(id_class)).length())
+       {C_Utils_Log::outMessage( 0, tr("WARNING  : C_BaseMedica::it_createComposant() : '%1' not added because it is already in '%2'").arg(libelle.toUpper(),"it_compo").toAscii());
         //...................... ^ en mettant zero on empeche la sortie dans le widget de log et elle se fait juste dans la console d'erreurs normale
         return QString::null;      // si deja present cassos
        }
-    QString prepare  = QLatin1String("INSERT INTO it_compo (`it_compo_owner`, `it_compo_name`,`it_compo_descr`,`it_compo_id_ctx`, `it_compo_id_ctx_type`) "
-                                     "VALUES (?,?,?,?,?)");
+    QString prepare  = QLatin1String("INSERT INTO it_compo (`it_compo_owner`, `it_compo_name`,`it_compo_descr`,`it_compo_id_ctx`, `it_compo_id_ctx_type`, `it_compo_class`) "
+                                     "VALUES (?,?,?,?,?,?)");
     if (!database().isOpen() && database().open()== FALSE) return QString::null;
     QSqlQuery query(QString::null, database());
     query.prepare(prepare);
@@ -2114,8 +2155,9 @@ QString C_BaseMedica::createComposantInBase(const QString &libelle, const QStrin
     query.bindValue(2, s);
     query.bindValue(3, id_ctx);
     query.bindValue(4, id_ctx_type);
+    query.bindValue(5, id_class);
     if ( !query.exec())
-       {outSQL_error( query, "ERREUR  : C_BaseMedica::createComposantInBase()", prepare, __FILE__, __LINE__);
+       {outSQL_error( query, "ERREUR  : C_BaseMedica::it_createComposant()", prepare, __FILE__, __LINE__);
         return QString::null;
        }
     return getLastPrimaryKey( "it_compo", "it_compo_pk");
@@ -2284,16 +2326,17 @@ int C_BaseMedica::initAfssapsDataBase(const QString &fileName, const QString &ta
 
 //====================================== C_BiblioData =====================================
 C_BiblioData ::C_BiblioData(){}
-C_BiblioData ::C_BiblioData( const QString pk,
-                             const QString owner,
-                             const QString lang,
-                             const QString url,
-                             const QString id,
-                             const QString date,
-                             const QString note,
-                             const QString type,
-                             const QString mime,
-                             const QString data
+C_BiblioData ::C_BiblioData( const QString pk,      // 0
+                             const QString owner,   // 1
+                             const QString lang,    // 2
+                             const QString url,     // 3
+                             const QString id,      // 4
+                             const QString date,    // 5
+                             const QString note,    // 6
+                             const QString type,    // 7
+                             const QString mime,    // 8
+                             const QString blob_pk, // 9
+                             const QString data     // 10
                            )
 {
       m_pk      = pk;
@@ -2305,5 +2348,6 @@ C_BiblioData ::C_BiblioData( const QString pk,
       m_note    = note;
       m_type    = type;
       m_mime    = mime;
+      m_blob_pk = blob_pk;
       m_data    = data;
 }

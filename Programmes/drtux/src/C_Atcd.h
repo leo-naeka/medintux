@@ -91,7 +91,8 @@ public :
 
         bool                 isAllergie();
         bool                 isCIM10();
-        bool                 isVidal();
+        bool                 isCisp();
+        //bool                 isVidal();
         QString              getLightCIM10();
         QPixmap              getPixmap();
         void                 setId            (int n)        { m_Id_ATCD = n ;   }
@@ -209,7 +210,7 @@ public slots:
         ////////////////////////////////////////////
 
 signals:
-        void                ATCD_Changed();                /*!< \brief Signal émit �  chaque modification des Antécédents. Attention ne modifie pas la propriété m_TerrainIsModified avant. Pour cela il faut appeler le Slot emitATCD_Changed(). */
+        void                ATCD_Changed();                /*!< \brief Signal émit �  chaque modification des Antécédents. Attention ne modifie pas la propriété m_TerrainIsModified avant. Pour cela il faut appeler le Slot emitATCD_Changed(). */
 private:
 Atcd_Element*       m_pLastElementAdded;                   /*!< \brief copie du dernier element ajouté. */
 CMoteurBase        *m_pCMoteurBase;
@@ -220,7 +221,7 @@ CMoteurBase        *m_pCMoteurBase;
 
 public :
 
-        QString            m_Terrain;                    /*!< Le fichier terrain �  analyser */
+        QString            m_Terrain;                    /*!< Le fichier terrain �  analyser */
         ATCD_LISTE         m_Atcd_Liste;                 /*!< Liste des ATCD */
         bool               m_Grossesse;                  /*!< Contient TRUE si grossesse en cours. */
         QDate              m_DDR;                        /*!< Date des dernieres règles. */

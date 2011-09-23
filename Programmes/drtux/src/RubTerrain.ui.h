@@ -1707,7 +1707,8 @@ void FormRubTerrain::listView_ATCD_contextMenuRequested( QListViewItem *qlistVie
  {case 0:  // libelle
      {
       ThemePopup *pThemePopup   = new ThemePopup(this, "MyPopupMenu" );
-      pThemePopup->insertItem(Theme::getIcon( "Cim10All_Icon.png"), tr("Ajouter un  Ant\303\251c\303\251dent CIM10"),                      this, SLOT( ATCD_MenuActionNewCIM10()),       CTRL+Key_Dollar );
+      pThemePopup->insertItem(Theme::getIcon( "Cim10All_Icon.png"),     tr("Ajouter un  Ant\303\251c\303\251dent CIM10"),                  this, SLOT( ATCD_MenuActionNewCIM10()),       CTRL+Key_Dollar );
+      pThemePopup->insertItem(Theme::getIcon( "16x16/CispItemTab.png"), tr("Ajouter un  Ant\303\251c\303\251dent CISP"),                   this, SLOT( ATCD_MenuActionNewCISP()),        CTRL+Key_Percent );
       pThemePopup->insertItem(G_pCApp->m_IconTherapeutique, tr("Ajouter une intol\303\251rance m\303\251dicamenteuse"),                    this, SLOT( ATCD_MenuActionNewAllergie()),    CTRL+Key_Exclam );
       pThemePopup->insertItem(Theme::getIconListItem(), tr("Ajouter un ant\303\251c\303\251dent texte libre"),                             this, SLOT( ATCD_MenuActionNewTexteLibre()),  CTRL+Key_E );
       pThemePopup->insertItem(Theme::getIcon("16x16/ThesaurusTab.png"), tr("Ajouter un ant\303\251c\303\251dent \303\240 partir des favoris"),   this, SLOT( ATCD_MenuActionNewFromFavori()),  CTRL+Key_M );
@@ -1860,6 +1861,22 @@ void FormRubTerrain::ATCD_MenuActionNewCIM10()
  if (!m_pAtcd_Code)     return;
   // Appel le Widget d'ajout de l'ATCD
  m_pAtcd_Code->addATCD_CIM10(0);
+ m_pQListViewItem = 0;
+  //................ mettre a jour les datas de la rubrique ...................
+ QString stringDST;
+ FormToData(stringDST);
+ if (m_LastRub != -1)
+    {m_pCMoteurBase->ReplaceDataInRubList(stringDST, m_pRubList, m_LastRub );
+    }
+}
+//------------------------------------ ATCD_MenuActionNewCISP --------------------------------------------------
+/*! \brief Ajoute un ATCD CISP par le biais de Atcd_Code de CApp
+*/
+void FormRubTerrain::ATCD_MenuActionNewCISP()
+{if (m_IsModifiable==0) return;
+ if (!m_pAtcd_Code)     return;
+  // Appel le Widget d'ajout de l'ATCD
+ m_pAtcd_Code->addATCD_CIM10(4);
  m_pQListViewItem = 0;
   //................ mettre a jour les datas de la rubrique ...................
  QString stringDST;

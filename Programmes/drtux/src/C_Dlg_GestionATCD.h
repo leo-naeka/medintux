@@ -33,8 +33,8 @@
 
 #ifndef C_DLG_GESTIONATCD_H
 #define C_DLG_GESTIONATCD_H
-#include <qobject.h> 
-#include <qevent.h> 
+#include <qobject.h>
+#include <qevent.h>
 #include <qsqldatabase.h>
 
 /*
@@ -66,6 +66,8 @@
  #include "ui/Dlg_GestionATCD.h"
 class C_ListViewATCDManager;
 class QPopupMenu;
+class QFile;
+
 /*! \class C_Dlg_GestionATCD
  * classe du formulaire de gestion des ATCD appelee par :  void Atcd_Code::addATCD_CIM10()
 */
@@ -90,6 +92,7 @@ public:
     QString         SID_to_CIM10( QString qsSID, QLabel * errMess=0 );
     QListView*      GetDlgListViewFromTab(int tab_index);
     void            setLineEditFocusFromTab(int tab_index);
+    void            initCisp();
     void            writeWindowPos();
     void            readAndSetWindowPos();
     QListViewItem*  GetDlgListCode( int tab_index, QListViewItem * qlistViewItem );
@@ -114,10 +117,22 @@ public:
     QString         serialiseFavoris();
     void            unSerialiseFavoris(QString & data);
     QString         DoPopupList(QStringList &list, QWidget *parent);
+    int             initTableCisp();
+    void            setCispFiterFromCombosStates(const QString &chapiText, int classIndex);
+    int             listView_Cisp_filter( const QString &filter_chapitre  ="-FDABHKLNPRSTUWXYZ"  ,
+                                          const QString &filter_class     = "SINTCD" ,
+                                          QListView     *pQTreeWidget     = 0 );
+    QListViewItem  *getCispParentItemFromCodeAndClasse( QListView *pQTreeWidget,        // QListView ou doit se faire l'affichage des mentions cisp
+                                                        const QString &cispCode,        // code cisp X70 A99 de la mention
+                                                        int   i_class_code,             // classe de la mention (0-"SYMPTÔMES ET PLAINTES" 1-"INFECTION" ...)
+                                                        const QString &filter_chapitre, // chaine du filtre d'entree : un ou plusieurs caracteres de "-FDABHKLNPRSTUWXYZ"
+                                                        const QString &filter_class);    // chaine du filtre d'entree : un ou plusieurs caracteres de "SINTCD"
+    unsigned long   readLine(QFile *pQFile, char *buffer, QString &outParam, unsigned long nbMax);
     int m_TAB_LIBELLE;
     int m_TAB_RUBRIQUE;
     int m_TAB_ALLERGIE;
     int m_TAB_THESAURUS;
+    int m_TAB_CISP;
 
 public slots:
   /*$PUBLIC_SLOTS$*/
@@ -146,10 +161,22 @@ protected:
      C_ListViewATCDManager *m_pC_ListViewATCDManager;
      int                    m_IsModified;
      int                    m_IsModifiable;
+     bool                   m_isCispInitialised;
+     QString                m_Cisp_ClassCodes;
      // KeyPressEater         *m_keyPressEater;
+     QMap<QChar, QString> m_CispChapitresMap;
+     QStringList          m_CispClassesList;
+
 protected slots:
   /*$PROTECTED_SLOTS$*/
     void close();
+    void Slot_lineEditAutolcator_Cisp1_textChanged(const QString&);
+    void Slot_lineEditAutolcator_Cisp2_textChanged(const QString&);
+    void Slot_listView_Cisp_clicked(QListViewItem*);
+    void Slot_listView_Cisp_doubleClicked(QListViewItem*);
+    void Slot_comboBox_Cisp_filter_Chapi_highlighted(const QString &);
+    void Slot_comboBox_Cisp_filter_Class_highlighted(int);
+
     void Slot_lineEditThesaurusFind1_F2_Pressed();
     void Slot_lineEditThesaurusFind1_F6_Pressed();
     void Slot_ThesaurusImport();

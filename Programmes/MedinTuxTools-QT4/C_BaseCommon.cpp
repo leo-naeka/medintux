@@ -165,16 +165,22 @@ bool        C_BaseCommon::isInOwnerList(const QString &owner) { return m_ownerLi
 void        C_BaseCommon::addOwner     (const QString &owner) { if (m_ownerList.indexOf(owner)==-1) m_ownerList<<owner;}
 
 //--------------------------- getLastPrimaryKey -----------------------------------------------------------
-QString C_BaseCommon::getLastPrimaryKey( const QString &table, const QString &pk_field_name)
-{   QString requete = QString("SELECT LAST_INSERT_ID() FROM %1 WHERE %2  = LAST_INSERT_ID()").arg( table, pk_field_name );
-    QSqlQuery query(requete , database() );
-    if ( !query.exec())
+QString C_BaseCommon::getLastPrimaryKey( const QString &table, const QString &pk_field_name, const QString &uniqueValue /*=""*/ , const QString &fieldWhereIsUniqueValue /*=""*/)
+{   QString   requete ="";
+    QSqlQuery query( database() );
+    if (uniqueValue.length()==0||fieldWhereIsUniqueValue.length()==0)
+       {requete = QString("SELECT LAST_INSERT_ID() FROM %1 WHERE %2  = LAST_INSERT_ID()").arg( table, pk_field_name );
+       }
+    else
+       {requete = QString("SELECT %1 FROM %2 WHERE %3  = `%4`").arg(pk_field_name, table, fieldWhereIsUniqueValue, uniqueValue);
+       }
+    if ( !query.exec(requete) )
        {m_LastError = tr("\nERREUR  : C_BaseCommon::getLastPrimaryKey() \n%1\nREQUETE : %2").arg(query.lastError().text(),requete).toAscii();
         outMessage(m_LastError);
         return QString::null;
        }
- if ( query.next() ) return query.value(0).toString();
- else                return QString::null;
+    if ( query.next() ) return query.value(0).toString();
+    else                return QString::null;
 }
 
 //--------------------------- dropTable -----------------------------------------------------------
@@ -378,11 +384,12 @@ unsigned long  C_BaseCommon::readLine(QFile *pQFile, char *buffer, QString &outP
 
 
 //--------------------------- isThisValueLikeInTable -----------------------------------------------------------
-QString  C_BaseCommon::isThisValueLikeInTable(const QString &tableName, const QString &fieldName, const QString &value, const QString fieldToRetrieve /* = "" */)
+QString  C_BaseCommon::isThisValueLikeInTable(const QString &tableName, const QString &fieldName, const QString &value, const QString fieldToRetrieve /* = "" */, const QString &wand /* = "" */)
 {QSqlQuery query(QString::null , database() );
  QString field    = fieldToRetrieve; if (field.length()==0) field = tableName+"_pk";
  QString requete  = QString("SELECT `%1` FROM `%2` WHERE `%3`  LIKE ").arg( field, tableName, fieldName)+"'%" +value+"%'";
-         requete += ownersSelectMention(tableName);
+ if (wand.length()) requete += wand;
+                    requete += ownersSelectMention(tableName);
 
  if (!query.exec(requete))
     {m_LastError = tr("\nERREUR  : C_BaseCommon::isThisValueLikeInTable_ToPk( \n%1\nREQUETE : %2").arg(query.lastError().text(),requete).toAscii();
@@ -394,11 +401,12 @@ QString  C_BaseCommon::isThisValueLikeInTable(const QString &tableName, const QS
 }
 
 //--------------------------- isThisValueLikeInTable_ToList -----------------------------------------------------------
-QStringList  C_BaseCommon::isThisValueLikeInTable_ToList(const QString &tableName, const QString &fieldName, const QString &value, const QString fieldToRetrieve /* = "" */)
+QStringList  C_BaseCommon::isThisValueLikeInTable_ToList(const QString &tableName, const QString &fieldName, const QString &value, const QString fieldToRetrieve /* = "" */, const QString &wand /* = "" */ )
 {QSqlQuery query(QString::null , database() );
  QString field    = fieldToRetrieve; if (field.length()==0) field = tableName + "_pk";
  QString requete  = QString("SELECT `%1` FROM `%2` WHERE `%3`  LIKE ").arg( field, tableName, fieldName)+"'%" +value+"%'";
-         requete += ownersSelectMention(tableName);
+ if (wand.length()) requete += wand;
+                    requete += ownersSelectMention(tableName);
  QStringList list;
  if (!query.exec(requete))
     {m_LastError = tr("\nERREUR  : C_BaseCommon::isThisValueLikeInTable_ToPkList() \n%1\nREQUETE : %2").arg(query.lastError().text(),requete).toAscii();
@@ -410,13 +418,13 @@ QStringList  C_BaseCommon::isThisValueLikeInTable_ToList(const QString &tableNam
     }
  return list;
 }
-
 //--------------------------- isThisValueInTable -----------------------------------------------------------
-QString C_BaseCommon::isThisValueInTable(const QString &tableName, const QString &fieldName, const QString &value, const QString fieldToRetrieve /* = "" */)
+QString C_BaseCommon::isThisValueInTable(const QString &tableName, const QString &fieldName, const QString &value, const QString fieldToRetrieve /* = "" */, const QString &wand /* = "" */)
 {QSqlQuery query(QString::null , database() );
  QString field    = fieldToRetrieve; if (field.length()==0) field = tableName+"_pk";
  QString requete  = QString("SELECT `%1` FROM `%2` WHERE `%3`  = \"%4\"").arg( field, tableName, fieldName, value );
-         requete += ownersSelectMention(tableName);
+ if (wand.length()) requete += wand;
+                    requete += ownersSelectMention(tableName);
 
  if (!query.exec(requete))
     {m_LastError = tr("\nERREUR  : C_BaseCommon::isThisValueInTable( \n%1\nREQUETE : %2").arg(query.lastError().text(),requete).toAscii();
@@ -427,11 +435,12 @@ QString C_BaseCommon::isThisValueInTable(const QString &tableName, const QString
  else                return QString::null;
 }
 //--------------------------- isThisValueInTable_ToList -----------------------------------------------------------
-QStringList C_BaseCommon::isThisValueInTable_ToList(const QString &tableName, const QString &fieldName, const QString &value, const QString fieldToRetrieve /* = "" */, int keepEmpty /* = 1 */)
+QStringList C_BaseCommon::isThisValueInTable_ToList(const QString &tableName, const QString &fieldName, const QString &value, const QString fieldToRetrieve /* = "" */, int keepEmpty /* = 1 */, const QString &wand /* = "" */)
 {QSqlQuery query(QString::null , database() );
- QString field    = fieldToRetrieve; if (field.length()==0) field = tableName+"_pk";
- QString requete  = QString("SELECT `%1` FROM `%2` WHERE `%3`  = \"%4\"").arg( field, tableName, fieldName, value );
-         requete += ownersSelectMention(tableName);
+ QString            field    = fieldToRetrieve; if (field.length()==0) field = tableName+"_pk";
+ QString            requete  = QString("SELECT `%1` FROM `%2` WHERE `%3`  = \"%4\"").arg( field, tableName, fieldName, value );
+ if (wand.length()) requete += wand;
+                    requete += ownersSelectMention(tableName);
  QStringList list;
  if (!query.exec(requete))
     {m_LastError = tr("\nERREUR  : C_BaseCommon::isThisValueLikeInTable_ToPkList() \n%1\nREQUETE : %2").arg(query.lastError().text(),requete).toAscii();
@@ -450,6 +459,39 @@ QStringList C_BaseCommon::isThisValueInTable_ToList(const QString &tableName, co
          }
     }
  return list;
+}
+//--------------------------- updateValueInTable -----------------------------------------------------------
+bool C_BaseCommon::updateValueInTable(const QString &tableName, const QString &fieldToUpdate, const QString &value, const QString &valueToTest, const QString &fieldToTest /* = ""*/ )
+{QSqlQuery query( database() );
+ QString field_test = fieldToTest; if (field_test.length()==0) field_test = tableName + "_pk";
+ QString prepare  = "UPDATE ";
+ prepare         +=  tableName                + " SET \n";
+ prepare         +=  fieldToUpdate            + " =?  \n";
+ prepare         += " WHERE "   + field_test  + " ='"  + valueToTest  + "'";
+
+ if (!query.prepare(prepare))
+    {outSQL_error( query, "ERREUR  : C_BaseCommon::updateValueInTable() prepare", prepare, __FILE__, __LINE__);
+     return FALSE;
+    }
+ query.bindValue(0, value);
+ if (!query.exec())
+    {outSQL_error( query, "ERREUR  :C_BaseCommon::updateValueInTable() exec", prepare, __FILE__, __LINE__);
+     return FALSE;
+    }
+ return TRUE;
+}
+
+//--------------------------- deleteRecordInTable -----------------------------------------------------------
+bool C_BaseCommon::deleteRecordInTable(const QString &tableName, const QString &valueToTest, const QString &fieldToTest  /*=""*/ )
+{QSqlQuery query( database() );
+ QString field_test = fieldToTest; if (field_test.length()==0) field_test = tableName + "_pk";
+ QString requete    = QString("DELETE FROM %1 WHERE %2='%3' ").arg(tableName, field_test, valueToTest);
+
+ if (!query.exec(requete))
+    {outSQL_error( query, "ERREUR  : C_BaseCommon::deleteRecordInTable() ", requete, __FILE__, __LINE__);
+     return FALSE;
+    }
+ return TRUE;
 }
 
 //--------------------------- ownersSelectMention -----------------------------------------------------------

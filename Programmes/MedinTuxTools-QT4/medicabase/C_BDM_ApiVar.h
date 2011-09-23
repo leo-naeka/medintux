@@ -52,7 +52,7 @@ public:
        QString       getLastError()         {return  m_LastError;}
    public:
 
-       //........................ MEDICA_TUX  Table de la liste des drogues .........................................
+       //........................ m_BDM_DRUGLIST_TBL_NAME  Table de la liste des drogues .........................................
        QString  m_BDM_DRUGLIST_TBL_NAME;      // nom de la table de la liste des medicaments
        QString  m_BDM_DRUGLIST_PK;            // clef primaire
        QString  m_BDM_DRUGLIST_OWNER;         // Origine des donnees (AFSSAPS, Vidal, Theriaque Claude Bernard, perso...)
@@ -67,6 +67,20 @@ public:
        QString  m_BDM_DRUGLIST_UCD;           // code UCD
        QString  m_BDM_DRUGLIST_UCD_PRICE;     // Prix UCD
        QString  m_BDM_DRUGLIST_SPEC_FK;       // pointeur sur les specifications produits
+
+       //........................ m_BDM_ASMR_TBL_NAME  Table de la liste des drogues .........................................
+       QString  m_BDM_SMR_TBL_NAME;           // nom de la table de la liste des SMR et ASMR lies a un medicament et une indication
+       QString  m_BDM_SMR_PK;                 // clef primaire
+       QString  m_BDM_SMR_OWNER;              // Origine des donnees (AFSSAPS, Vidal, Theriaque Claude Bernard, perso...)
+       QString  m_BDM_SMR_LANG;               // langue de la donnee (en fr etc...)
+       QString  m_BDM_SMR_NIVEAU;             // niveau de l'AMR
+       QString  m_BDM_SMR_TYPE;               // S pour SMR A pour ASMR
+       QString  m_BDM_SMR_INDIC;              // libelle de l'indication de cet ASMR
+       QString  m_BDM_SMR_CODE_INDIC;         // codage de l'indication
+       QString  m_BDM_SMR_CODE_INDIC_TYPE;    // type de codage CIM10 etc ....
+       QString  m_BDM_SMR_DRUG_ID;            // identificateur unique du medicament relie à cet ASMR
+       QString  m_BDM_SMR_DRUG_TYPE_ID;       // type d'identificateur de l'id du medicament (CIP CIP7 CIS)
+       QString  m_BDM_SMR_DRUG_FK;            // pointeur sur la clef primaire du medicament
 
    private:
       QString      m_LastError;

@@ -53,6 +53,7 @@ class C_BiblioData
                              const QString note,
                              const QString type,
                              const QString mime,
+                             const QString blob_pk,
                              const QString data
                              );
      QString m_pk;
@@ -64,6 +65,7 @@ class C_BiblioData
      QString m_note;
      QString m_type;
      QString m_mime;
+     QString m_blob_pk;
      QString m_data;
 };
 
@@ -108,25 +110,26 @@ public:
                                 const QString   &cat,
                                 const QString   &owner ="");
     QString          tagNiveauToStr(QString &cat);
-    QString          createInteractionRecord(const QString   &niveau, const QString   &mecanisme, const QString   &cat, const QString &owner);
-    QString          createLinkFacteursInteraction(const QString &pk1, const QString &pk2, const QString &pki, const QString &owner);
+    QString          it_createInteractionRecord(const QString   &niveau, const QString   &mecanisme, const QString   &cat, const QString &owner);
+    QString          it_createLinkFacteursInteraction(const QString &pk1, const QString &pk2, const QString &pki, const QString &class_it, const QString &owner);
+    QString          it_createComposant( const QString &libelle,
+                                         const QString &descr,
+                                         const QString &id_ctx_type,
+                                         const QString &id_ctx ,
+                                         const QString &id_class,
+                                         const QString &owner);
 
-    QString          testInteraction(QTreeWidget *pQTreeWidget, const QString &produit_1, const QString &produit_2);
+    QString          testInteraction(QTreeWidget *pQTreeWidget, const QString &class_it, const QString &produit_1, const QString &produit_2);
     QString          getNameFacteurFromPk(const QString &pk);
     QTreeWidgetItem *getInteraction(   const QString &pk,      QTreeWidget *pQTreeWidget);
 
     QTreeWidgetItem *isThisGroupeItem( const QString &libelle, QTreeWidget *pQTreeWidgetGroup);
-    QString          createComposantInBase( const QString &libelle,
-                                            const QString &descr,
-                                            const QString &id_ctx_type,
-                                            const QString &id_ctx ,
-                                            const QString &owner);
+
     QString          createGroupRowInBase(  const QString &libelle,const QString &note, const QString id, const QString &owner);
     int              initATCBase(const QString &fileName, const QString &tableName);
     int              initAfssapsDataBase(   const QString &file,    const QString &tableName, const QString &separator = "\t", const QString &toClean = ""  );
     //............................ BDM interface .............................
     int             BDM_initDrugListFromAfssapsAndBDM(    const QString &owner, const QString &lang  = "fr"   );
-    int             BDM_fill_treeWidget_Produits(QTreeWidget *pQTreeWidget, const QString &text, C_BaseMedica::flags flags = C_BaseMedica::all_filter);
     QString         BDM_druglist_tbl_name();
     //................................ GUI ................................
     void  fillQListView_ATC(QTreeWidget *pQTreeWidget );
@@ -159,10 +162,10 @@ public:
     QString cip_to_spec(const QString &cip);
 
 
-    C_BiblioData biblio_getBiblioDataFromRPk(const QString rpk);
+    C_BiblioData biblio_getBiblioDataFromHeadPk(const QString head_pk);
     QString      biblio_getPk_Record(const QString cip, const QString lang,  const QString type  );
     C_BiblioData biblio_getDataFrom_TypeLangId(const QString id, const QString lang,  const QString type);
-    QString      biblio_getDataFromRPk(const QString rpk);
+    QString      biblio_getBlobDataFromHeadPk(const QString head_pk);
     QString      biblio_getDataFromShortCIP(const QString &cip);
     bool         biblio_setLink_Page(const QString &id, const QString &biblioType,  QString urlIn, const QString &owner, const QString &data);
     long         biblio_setLink_Pages(const QString &biblioType,  QString urlIn, const QString &owner);
@@ -195,9 +198,11 @@ public:
                                   const QString type,
                                   const QString mime,
                                   const QString data);
-    void      biblio_DeleteRecord(const QString pk);
+    int       biblio_DeleteRecords(const QString &id, const QString &lang,  const QString &type);
+    bool      biblio_DeleteBlobRecord(const QString &pk);
     QString   biblio_setBlob(  const QString refPk, const QString owner, const QString data);
     long      setLinkRCP();
+    //int       biblio_ReindexeFK();
     //..................... conversion ..................................................
     void               initAfssapsATC(const QString &path);
     long               afssaps_ToMedicaTux();

@@ -137,6 +137,7 @@ public:
     QString  m_BIBLIO_H_NOTE;                  // note concernant cet enregisrement
     QString  m_BIBLIO_H_TYPE;                  // type de cet enregisteement "AFSSAPS RCP CIP"
     QString  m_BIBLIO_H_MIME;                  // mime type de cet enregistrement
+    QString  m_BIBLIO_H_BLOB_FK;               // clef etrangere sur le blob (bdt_biblio_h_bdt_biblio_b_fk)
 
     QString  m_BIBLIO_B_TBL_NAME;              // nom de la table Blob des bibliographies
     QString  m_BIBLIO_B_PK;                    // primary key de la table blob des bibliographies

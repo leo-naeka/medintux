@@ -3132,8 +3132,9 @@ void DrTux::Slot_ExePlugin(QString &plugin )
       if (path.find(G_pCApp->m_PathAppli)!=0)   path   = QDir::cleanDirPath (path.prepend(G_pCApp->m_PathAppli) );
        CGestIni::Param_UpdateFromDisk(path, plugin);
     }
- else if (plugin.left(17)=="PlacerPathologies" || plugin.left(17)=="DefinirATCD_Cim10" || plugin.left(20)=="DefinirATCD_Allergie")
+ else if (plugin.left(17)=="PlacerPathologies" || plugin.left(17)=="DefinirATCD_Cim10" || plugin.left(20)=="DefinirATCD_Allergie" || plugin.left(16)=="DefinirATCD_Cisp")
     {if (m_pCMDI_Terrain==0) return;
+     if (plugin.left(16)=="DefinirATCD_Cisp")      m_pCMDI_Terrain->m_pFormRubTerrain->ATCD_MenuActionNewCISP();
      if (plugin.left(17)=="DefinirATCD_Cim10")     m_pCMDI_Terrain->m_pFormRubTerrain->ATCD_MenuActionNewCIM10();
      if (plugin.left(20)=="DefinirATCD_Allergie")  m_pCMDI_Terrain->m_pFormRubTerrain->ATCD_MenuActionNewAllergie();
      plugin = G_pCApp->m_pAtcd_Code->ATCD_To_Text(tr( "<b>°&nbsp;<u>::TYPE:: :</u></b>"),

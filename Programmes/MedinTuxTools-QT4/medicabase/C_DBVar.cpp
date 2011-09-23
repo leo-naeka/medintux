@@ -133,6 +133,7 @@ int C_DBVar::initValues( QString& confData)
     pt =  SetConfBase_SetProperties(pt , m_BIBLIO_H_NOTE,              "m_BIBLIO_H_NOTE",                &line , err); if (err.length())     goto SetConfBase_Error;
     pt =  SetConfBase_SetProperties(pt , m_BIBLIO_H_TYPE,              "m_BIBLIO_H_TYPE",                &line , err); if (err.length())     goto SetConfBase_Error;
     pt =  SetConfBase_SetProperties(pt , m_BIBLIO_H_MIME,              "m_BIBLIO_H_MIME",                &line , err); if (err.length())     goto SetConfBase_Error;
+    pt =  SetConfBase_SetProperties(pt , m_BIBLIO_H_BLOB_FK,           "m_BIBLIO_H_BLOB_FK",             &line , err); if (err.length())     goto SetConfBase_Error;   // clef etrangere sur le blob (bdt_biblio_h_bdt_biblio_b_fk)
 
     pt =  SetConfBase_SetProperties(pt , m_BIBLIO_B_TBL_NAME,          "m_BIBLIO_B_TBL_NAME",             &line , err); if (err.length())     goto SetConfBase_Error;
     pt =  SetConfBase_SetProperties(pt , m_BIBLIO_B_PK,                "m_BIBLIO_B_PK",                   &line , err); if (err.length())     goto SetConfBase_Error;
