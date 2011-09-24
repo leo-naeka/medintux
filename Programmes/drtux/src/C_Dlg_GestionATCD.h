@@ -118,7 +118,7 @@ public:
     void            unSerialiseFavoris(QString & data);
     QString         DoPopupList(QStringList &list, QWidget *parent);
     int             initTableCisp();
-    void            setCispFiterFromCombosStates(const QString &chapiText, int classIndex);
+    void            setCispFilterFromCombosStates(const QString &chapiText, int classIndex);
     int             listView_Cisp_filter( const QString &filter_chapitre  ="-FDABHKLNPRSTUWXYZ"  ,
                                           const QString &filter_class     = "SINTCD" ,
                                           QListView     *pQTreeWidget     = 0 );

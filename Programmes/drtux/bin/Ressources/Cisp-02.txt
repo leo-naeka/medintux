@@ -114,12 +114,12 @@ b29 autre symptôme ou plainte du système lymph. ou immunol.
                                         b87 splénomégalie
                                         b90 infection par le virus hiv, sida
                                         b99 autre maladie sang ou lymph ou rate
-d01 douleur ou crampes abdominales gén.
+d01 douleur ou crampes abdominales généralisées
 d02 douleur abdominale ou épigastrique
 d03 brûlure ou brûlant ou brûlement estomac
 d04 douleur rectale ou anale
 d05 démangeaisons périanales
-d06 autre douleur abdominale loc.
+d06 autre douleur abdominale localisée
 d07 dyspepsie ou indigestion
 d08 flatulence ou gaz ou renvoi
 d09 nausée
@@ -131,7 +131,7 @@ d14 hématémèse ou vomissement de sang
 d15 méléna
 d16 saignement rectal
 d17 incontinence rectale
-d18 modification selles ou mouvem. intestin
+d18 modification selles ou mouvements des intestin
 d19 symptôme ou plainte dents ou gencives
 d20 symptôme ou plainte bouche ou langue ou lèvres
 d21 problème de déglutition
@@ -139,7 +139,7 @@ d23 hépatomégalie
 d24 masse abdominale non classé ailleurs
 d25 distension abdominale
 d26 peur du cancer du système digestif
-d27 peur d’une autre maladie digestive
+d27 peur d'une autre maladie digestive
 d28 limitation de la fonction ou incapacité (d)
 d29 autre symptôme ou plainte du système digestif
         d70 infection gastro-intestinale
@@ -156,7 +156,7 @@ d29 autre symptôme ou plainte du système digestif
                                 d81 anomalie congénitale du système digestif
                                         d82 maladie des dents ou des gencives
                                         d83 maladie bouche ou langue ou lèvres
-                                        d84 maladie de l’œsophage
+                                        d84 maladie de l'oesophage
                                         d85 ulcère duodénal
                                         d86 autre ulcère peptique
                                         d87 trouble de la fonction gastrique
@@ -174,29 +174,29 @@ d29 autre symptôme ou plainte du système digestif
                                         d99 autre maladie du système digestif
 f01 oeil douloureux
 f02 oeil rouge
-f03 ecoulement de l’œil
+f03 ecoulement de l'oeil
 f04 taches visuelles ou flottantes
 f05 autre perturbation de la vision
 f13 sensation oculaire anormale
 f14 mouvements oculaires anormaux
-f15 apparence anormale de l’œil
+f15 apparence anormale de l'oeil
 f16 symptôme ou plainte de la paupière
 f17 symptôme ou plainte lunettes
 f18 symptôme ou plainte lentilles de contact
-f27 peur d’une maladie de l’œil
+f27 peur d'une maladie de l'oeil
 f28 limitation de la fonction ou incapacité (f)
-f29 autre symptôme ou plainte de l’œil
+f29 autre symptôme ou plainte de l'oeil
         f70 conjonctivite infectieuse
         f71 conjonctivite allergique
         f72 blépharite, orgelet, chalazion
-        f73 autre infection ou inflammation de l’œil
-                f74 tumeur de l’œil et des annexes
-                        f75 contusion ou hémorragie de l’œil
-                        f76 corps étranger dans l’œil
-                        f79 autre lésion traumat. de l’œil
+        f73 autre infection ou inflammation de l'oeil
+                f74 tumeur de l'oeil et des annexes
+                        f75 contusion ou hémorragie de l'oeil
+                        f76 corps étranger dans l'oeil
+                        f79 autre lésion traumat. de l'oeil
                                 f80 sténose canal lacrymal de l'enfant
-                                f81 autre anomalie congénitale de l’œil
-                                        f82 décollement de la retire
+                                f81 autre anomalie congénitale de l'oeil
+                                        f82 décollement de la rétine
                                         f83 rétinopathie
                                         f84 dégénérescence maculaire
                                         f85 ulcère de la cornée
@@ -206,7 +206,7 @@ f29 autre symptôme ou plainte de l’œil
                                         f93 glaucome
                                         f94 cécité
                                         f95 strabisme
-                                        f99 autre maladie de l’œil ou annexes
+                                        f99 autre maladie de l'oeil ou annexes
 h01 douleur d'oreille ou otalgie
 h02 problème d'audition
 h03 acouphène ou bourdonnement d'oreille
@@ -214,7 +214,7 @@ h04 ecoulement de l'oreille
 h05 saignement de l'oreille
 h13 sensation d'oreille bouchée
 h15 préoccupé par l'aspect des oreilles
-h27 peur d’une maladie de l'oreille
+h27 peur d'une maladie de l'oreille
 h28 limitation de la fonction ou incapacité (h)
 h29 autre symptôme ou plainte de l' oreille
         h70 otite externe
@@ -243,9 +243,9 @@ k05 autre battement cardiaque irrégulier
 k06 veines proéminentes
 k07 oedème, gonflement des chevilles
 k22 facteur risque mal. cardio-vasculaire
-k24 peur d’une maladie de cœur
-k25 peur d' de l'hypertension
-k27 peur autre maladie cardio-vasculaire
+k24 peur d'une maladie de coeur
+k25 peur de l'hypertension
+k27 peur d'une autre maladie cardio-vasculaire
 k28 limitation de la fonction ou incapacité (k)
 k29 autre symptôme ou plainte cardiovasculaire
         k70 infection du système cardio-vasculaire
@@ -260,7 +260,7 @@ k29 autre symptôme ou plainte cardiovasculaire
                                         k79 tachycardie paroxystique
                                         k80 arythmie cardiaque non classé ailleurs
                                         k81 souffle cardiaque ou artériel non classé ailleurs
-                                        k82 cœur pulmonaire
+                                        k82 coeur pulmonaire
                                         k83 valvulopathie non classé ailleurs
                                         k84 autre maladie cardiaque
                                         k85 pression sanguine élevée
@@ -270,7 +270,7 @@ k29 autre symptôme ou plainte cardiovasculaire
                                         k89 ischémie cérébrale transitoire
                                         k90 accouchementdent vasculaire cérébral
                                         k91 maladie cérébrovasculaire
-                                        k92 athéroscl. ou mal. vasculaire périphér.
+                                        k92 athérosclose ou maladie vasculaire périphérique
                                         k93 embolie pulmonaire
                                         k94 phlébite et thrombophlébite
                                         k95 varices des jambes
@@ -295,8 +295,8 @@ l17 symptôme ou plainte du pied et de l'orteil
 l18 douleur musculaire
 l19 symptôme ou plainte musculaire non classé ailleurs
 l20 symptôme ou plainte d'une articulation non classé ailleurs
-l26 peur cancer système ostéo-articulaire
-l27 peur autre maladie système ostéo-articul.
+l26 peur d'un cancer du système ostéo-articulaire
+l27 peur d'une autre maladie du système ostéo-articulaire
 l28 limitation de la fonction ou incapacité (l)
 l29 autre symptôme ou plainte ostéo-articulaire
         l70 infection du système ostéo-articulaire
@@ -327,7 +327,7 @@ l29 autre symptôme ou plainte ostéo-articulaire
                                         l95 ostéoporose
                         l96 lésion aiguë interne du genou
                 l97 autre tumeur bénigne ou indéterminée ostéo-articulaire
-                                        l98 déformation acquise membres inf.
+                                        l98 déformation acquise des membres inférieurs
                                         l99 autre maladie ostéo-articulaire
 n01 mal de tête céphalée
 n03 douleur de la face
@@ -341,7 +341,7 @@ n17 vertige ou étourdissement
 n18 paralysie ou faiblesse
 n19 trouble de la parole
 n26 peur d'un cancer neurologique
-n27 peur d’une autre maladie neurologique
+n27 peur d'une autre maladie neurologique
 n28 limitation de la fonction ou incapacité (n)
 n29 autre symptôme ou plainte neurologique
         n70 poliomyélite
@@ -423,8 +423,8 @@ r23 symptôme ou plainte de la voix
 r24 hémoptysie
 r25 expectoration ou glaire anormale
 r26 peur d'un cancer du système respiratoire
-r27 peur d’une autre maladie respiratoire
-r28 limitation de la fonction ou incapacité ( r)
+r27 peur d'une autre maladie respiratoire
+r28 limitation de la fonction ou incapacité (r)
 r29 autre symptôme ou plainte respiratoire
         r71 coqueluche
         r72 streptococcie pharyngée
@@ -477,7 +477,7 @@ s22 symptôme ou plainte de l'ongle
 s23 calvitie ou perte de cheveux
 s24 autre symptôme ou plainte cheveux, poils ou cuir chevelu
 s26 peur du cancer de la peau
-s27 peur d’une autre maladie de la peau
+s27 peur d'une autre maladie de la peau
 s28 limitation de la fonction ou incapacité (s)
 s29 autre symptôme ou plainte de la peau
 s70 zona
@@ -533,7 +533,7 @@ t29 autre symptôme ou plainte endoc ou métab. ou nutrit.
                                         t82 obésité
                                         t83 excès pondéral
                                         t85 hyperthyroïdie ou thyréotoxicose
-                                        t86 hypothyroïdie ou myxœdème
+                                        t86 hypothyroïdie ou myxoedème
                                         t87 hypoglycémie
                                         t89 diabète insulino-dépendant
                                         t90 diabète non insulino-dépendant
@@ -551,7 +551,7 @@ u08 rétention d'urine
 u13 autre symptôme ou plainte de la vessie
 u14 symptôme ou plainte du rein
 u26 peur d'un cancer du système urinaire
-u27 peur d’une autre maladie urinaire
+u27 peur d'une autre maladie urinaire
 u28 limitation de la fonction ou incapacité (u)
 u29 autre symptôme ou plainte urinaire
         u70 pyélonéphrite ou pyélite
@@ -605,7 +605,7 @@ w29 autre symptôme ou plainte de la grossesse
                                         w92 accouchement complique, enfant vivant
                                         w93 accouchement complique, enfant mort
                                         w94 mastite puerpérale
-                                        w95 autre mal. sein et grossesse ou lactation
+                                        w95 autre maladie du sein grossesse ou lactation
                                         w96 autre complication puerpérale
                                         w99 autre maladie de la grossesse ou acc.
 x01 douleur génitale chez la femme
@@ -641,7 +641,7 @@ x29 autre symptôme ou plainte génital chez la femme
         x71 gonococcie chez la femme
         x72 candidose génitale chez la femme
         x73 trichomonase génitale chez la femme
-        x74 maladie inflammatoire pelviennede la femme
+        x74 maladie inflammatoire pelvienne de la femme
                 x75 cancer du col de l'utérus
                 x76 cancer du sein chez la femme
                 x77 autre cancer génital chez la femme
@@ -674,7 +674,7 @@ y13 stérilisation de l'homme
 y14 autre symptôme ou plainte lié au planning familial chez l'homme
 y16 symptôme ou plainte du sein chez l'homme
 y24 peur d'une dysfonction sexuelle chez l'homme
-y25 peur d’une maladie sexuellement transmissible chez l'homme
+y25 peur d'une maladie sexuellement transmissible chez l'homme
 y26 peur d'un cancer génital chez l'homme
 y27 peur d'une autre maladie génitale chez l'homme
 y28 limitation de la fonction ou incapacité (y)

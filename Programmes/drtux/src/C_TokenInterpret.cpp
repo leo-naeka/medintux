@@ -1368,6 +1368,21 @@ QString C_TokenInterpret::IMPORT(QStringList &arg_list)
         }
      return ret;
     }
+//-------------------------- INSERT_CISP -------------------------------------------
+/*! \brief non documenté */
+QString C_TokenInterpret::INSERT_CISP(QStringList &arg_list)
+{QString chapiFilter  = "";
+ QString classFilter  = "";
+ QString templateStr  = TR("<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ::CISP_LIBELLE:: code Cisp = ::CISP_CODE::;");
+ QString showCombos   = "Chapitres Rubriques";
+ int                     nb = arg_list.count();
+ if (nb>0)      chapiFilter = arg_list[0].stripWhiteSpace();
+ if (nb>1)      classFilter = arg_list[1].stripWhiteSpace();
+ if (nb>2)      templateStr = arg_list[2];
+ if (nb>3)      showCombos  = arg_list[3];
+ if (G_pCApp && G_pCApp->m_pDrTux) return G_pCApp->m_pDrTux->CodageCisp( chapiFilter, classFilter, templateStr , showCombos);
+ return QString::null;
+}
 
 //-------------------------- INSERT_IMAGE -------------------------------------------
 /*! \brief non documenté */

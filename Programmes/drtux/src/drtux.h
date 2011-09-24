@@ -70,7 +70,7 @@ class CMDI_Documents;
 class CMDI_GroupedView;
 class MyEditText;
 class C_Organiseur;
-
+class C_Dlg_GestionATCD;
 //====================================== C_UserQAction =======================================================
 class C_UserQAction : public QAction
 {
@@ -261,8 +261,10 @@ public:
     void SaveLastSessionInfo();
     void FusionneDocument(QString  &document, const QString &user_doc, RUBREC_LIST::iterator it);
     void FusionneDocument(QString  *pDocument, const QString &user_doc, CRubRecord *pCRubCurrentRecord);
-    int  DateUserConflictResolve(QString &user, QString &sign_user, QString &date, const QString &obs_user, const QString &obs_date);
-    QString CodageCim10All(int mode,const QString &listCode=0, int tabToSet=-1);
+    int  DateUserConflictResolve(QString &user, QString &sign_user, QString &date, const QString &obs_user,   const QString &obs_date);
+    bool    connectDlgAtcdDialogToDataBase(C_Dlg_GestionATCD *dlg);
+    QString CodageCisp( const QString &chapiFilter, const QString &classFilter, const QString &templateStr, const QString &showCombos="Chapitres Rubriques");
+    QString CodageCim10(int mode, const QString &listCode=0, int tabToSet=-1);
     //QString ActesClassants(int mode);
     QString Codage_CCAM(int mode);
     void    Get_RecordDispos();
@@ -353,6 +355,7 @@ public slots:
     void modifier_TTT_Fond();
     void add_ATCD_Libre();
     void add_CIM10();
+    void add_Cisp();
     void On_Vigie_visibilityChanged ( bool visible );
     //..............................................................
     //
@@ -419,7 +422,7 @@ public slots:
     void        doConnections( QTextEdit *e );     // connecte un editeur de texte aux fonctions de mise a jour des boutons
 
     //.............. outils du texte ......................................................
-    void        CodageCim10All();
+    void        CodageCim10();
     void        ListManager();
     void        CreateList();
     void        DisplayContextListPopup();

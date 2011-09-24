@@ -2604,10 +2604,11 @@ void DrTux::setupToolsTerrain()
 {   m_pMenuTerrain = new ThemePopup( this );
     menuBar()->insertItem( tr( "&Terrain" ), m_pMenuTerrain );
     m_pMenuTerrain->insertItem( tr("Ajouter un antécédent à partir des favoris"),      this, SLOT(add_ATCD_Favori()),                     CTRL+Key_M   );
-    m_pMenuTerrain->insertItem( tr("Ajouter un antécédent allergique"),                 this, SLOT(add_ATCD_Allergique()),                 CTRL+Key_Exclam   );
-    m_pMenuTerrain->insertItem( tr("Ajouter un antécédent CIM10"),                      this, SLOT(add_CIM10()),                           CTRL+Key_Dollar   );
-    m_pMenuTerrain->insertItem( tr("Ajouter un antécédent textuel libre"),              this, SLOT(add_ATCD_Libre()),                      CTRL+Key_E    );
-    m_pMenuTerrain->insertItem( tr("Modifier le traitement de fond"),                     this, SLOT(modifier_TTT_Fond()),                   CTRL+Key_Asterisk   );
+    m_pMenuTerrain->insertItem( tr("Ajouter un antécédent allergique"),                this, SLOT(add_ATCD_Allergique()),                 CTRL+Key_Exclam   );
+    m_pMenuTerrain->insertItem( tr("Ajouter un antécédent CIM10"),                     this, SLOT(add_CIM10()),                           CTRL+Key_Dollar   );
+    m_pMenuTerrain->insertItem( tr("Ajouter un antécédent Cisp"),                      this, SLOT(add_Cisp()),                            CTRL+Key_Percent   );
+    m_pMenuTerrain->insertItem( tr("Ajouter un antécédent textuel libre"),             this, SLOT(add_ATCD_Libre()),                      CTRL+Key_E    );
+    m_pMenuTerrain->insertItem( tr("Modifier le traitement de fond"),                  this, SLOT(modifier_TTT_Fond()),                   CTRL+Key_Asterisk   );
 }
 void DrTux::add_ATCD_Favori()
 {if (m_pCMDI_Terrain)
@@ -2617,6 +2618,11 @@ void DrTux::add_ATCD_Favori()
 void DrTux::add_ATCD_Allergique()
 {if (m_pCMDI_Terrain)
     {m_pCMDI_Terrain->m_pFormRubTerrain->ATCD_MenuActionNewAllergie();
+    }
+}
+void DrTux::add_Cisp()
+{if (m_pCMDI_Terrain)
+    {m_pCMDI_Terrain->m_pFormRubTerrain->ATCD_MenuActionNewCISP();
     }
 }
 void DrTux::add_CIM10()
@@ -2661,7 +2667,7 @@ void DrTux::setupToolsActions()
     a->addTo( menu );
 
     m_pActionCIM10 = new QAction( tr( "Cim10" ), Theme::getIcon( "Cim10All_Icon.png"), tr( "&Codage CIM10..." ), Key_F3, this, "CodageCim10" );
-    connect( m_pActionCIM10, SIGNAL( activated() ), this, SLOT( CodageCim10All() ) );
+    connect( m_pActionCIM10, SIGNAL( activated() ), this, SLOT( CodageCim10() ) );
     m_pActionCIM10->addTo( tb );
     m_pActionCIM10->addTo( menu );
 
@@ -2889,10 +2895,6 @@ void DrTux::doConnections( QTextEdit *e )
              this,  SLOT( alignmentChanged( int ) ) );
 }
 
-//-------------------------------------------- CodageCim10All ---------------------
-void DrTux::CodageCim10All()
-{CodageCim10All(DrTux::InsertString);
-}
 
 //-------------------------------------------- Slot_GetActiveGUID ---------------------
 /*! \brief slot appelé pour récupérer le GUID en cours.
@@ -2902,8 +2904,100 @@ void DrTux::Slot_GetActiveGUID(QString &guid)
 {guid = G_pCApp->m_NumGUID;
 }
 
-//-------------------------------------------- CodageCim10All ---------------------
-QString DrTux::CodageCim10All(int mode, const QString &listCode, int tabToSet)
+//-------------------------------------------- CodageCim10 ---------------------
+void DrTux::CodageCim10()
+{CodageCim10(DrTux::InsertString);
+}
+
+//-------------------------------------------- CodageCim10 ---------------------
+QString DrTux::CodageCim10(int mode, const QString &listCode, int tabToSet)
+{int                                 nb  = 0;
+ QString                libelleRubrique  = "";
+ QString                    str_toReturn = "";
+ QString                       configDlg = "CIM10";
+ if (mode==DrTux::GestionATCD) configDlg = "ATCD";
+ MyEditText                 *pMyEditText = currentEditor();
+ C_Dlg_GestionATCD                 *dlg  = new C_Dlg_GestionATCD(tabToSet, configDlg, this, "CIM10_Dial", TRUE );
+ if (dlg ==0)                                                                                                 return str_toReturn;
+ if ( ! connectDlgAtcdDialogToDataBase(dlg) )                                                    {delete dlg; return str_toReturn;}
+ if (mode==DrTux::ATCDString)
+    {dlg->setListCode(listCode);  // initialiser avec la liste des codes
+     dlg->setOnglet(0);
+    }
+ if ( ! ( dlg->exec() == QDialog::Accepted && (nb =dlg->listViewCim10_Choix->childCount()) ) )   {delete dlg; return str_toReturn;}  // si pas de ligne retournee ou 'annuler' cassos
+ if (pMyEditText==0 && mode!=DrTux::ATCDString)                                                  {delete dlg; return str_toReturn;}  // si pas d'editeur trouvé cassos
+
+ //................ iterer la liste de choix ........
+ QListViewItemIterator it( dlg->listViewCim10_Choix);
+ int lgn = 0;
+ while  ( it.current() )
+        {
+         QListViewItem *item = it.current();
+         ++it;
+         QString codeCim10 = item->text(6).remove('~').remove('(').remove(')');
+         QString libelle   = item->text(0);
+         if (mode==DrTux::ATCDString)
+            {str_toReturn += libelle + "::"+codeCim10+"@@";
+            }
+         else
+            { //................... petits trucs archi chichiteux de mise en page ...........................
+              if (nb>1) {if (lgn==0) {str_toReturn += QString("<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;") + libelle + "  ~["+codeCim10+"]~    "; libelleRubrique = libelle;}
+                         else        {str_toReturn += QString("<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;") + libelle + "  ~["+codeCim10+"]~    ";}
+                         ++lgn;
+                        }
+              else      {str_toReturn   += libelle + "  ~["+codeCim10+"]~    ";
+                         libelleRubrique = libelle;
+                        }
+            }
+        }
+ str_toReturn.replace ("~[-","-[");
+ str_toReturn.replace ("-]~","]-");
+ delete dlg;
+ if (str_toReturn.length() && mode==DrTux::ATCDString)   return str_toReturn;
+ if (str_toReturn.length() && mode==DrTux::InsertString) CHtmlTools::insertHtml(pMyEditText, str_toReturn, 0 );
+ //................. nom de la patho CIM 10 en nom de rubrique ......................................
+ int rub_type;
+ CMDI_Observation      *pQwdgRubObserv = (CMDI_Observation*) GetCurrentRubrique(0, &rub_type );
+ if (pQwdgRubObserv && rub_type == G_pCApp->RubNameToType(RUBNAME_OBSERVATION))
+    {pQwdgRubObserv->m_pC_RubObservation->SetRubDateName( libelleRubrique, "" );
+    }
+ return str_toReturn;
+}
+
+//-------------------------------------------- CodageCisp ---------------------
+QString DrTux::CodageCisp(  const QString &chapiFilter, const QString &classFilter, const QString &templateStr, const QString &showCombos )
+{QString               str_toReturn = "";
+ QString                   tmpl_str = "<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ::CISP_LIBELLE:: code Cisp = ::CISP_CODE::;";
+ if (templateStr.length()) tmpl_str = templateStr;
+ C_Dlg_GestionATCD         *dlg     = new C_Dlg_GestionATCD(4, "Cisp", this, "Cisp_Dial", TRUE );
+ if (dlg ==0) return QString("");
+ if (connectDlgAtcdDialogToDataBase(dlg))
+    {//..................... executer le dialogue ...........................
+     dlg->listView_Cisp_filter(chapiFilter     /* ="-FDABHKLNPRSTUWXYZ" */ ,
+                               classFilter     /* = "SINTCD"            */ );
+     if ( !showCombos.upper().contains('C') ) {dlg->comboBox_Cisp_filter_Chapi->hide(); dlg->textLabel_cisp_filtrer_Chapi->hide();}
+     if ( !showCombos.upper().contains('U') ) {dlg->comboBox_Cisp_filter_Class->hide(); dlg->textLabel_cisp_filtrer_Class->hide();}
+     if (dlg->exec() == QDialog::Accepted && dlg->listViewCim10_Choix->childCount () )
+         { //................ iterer la liste de choix ........
+           QListViewItemIterator it( dlg->listViewCim10_Choix);
+           while ( it.current() )
+              {
+               QListViewItem *item = it.current();
+               ++it;
+               QString tmpl_resolv = tmpl_str;
+               tmpl_resolv         = tmpl_resolv.replace( "::CISP_LIBELLE::", item->text(0) )
+                                                .replace( "::CISP_CODE::",    item->text(6).remove('-').remove('(').remove(')') );
+               str_toReturn += tmpl_resolv;
+              }
+        }
+    }
+ delete dlg;
+ return str_toReturn;
+}
+
+
+//-------------------------------------------- connectDlgAtcdDialog ---------------------
+bool DrTux::connectDlgAtcdDialogToDataBase(C_Dlg_GestionATCD *dlg)
 {//..................... lire les parametres de connection à la base CIM10 ...........................
  QString qstr, driver, base, login, password, host, port, error;
  if (CGestIni::Param_ReadParam( G_pCApp->m_DrTuxParam, "Codage CIM10", "Connexion", &driver, &base, &login, &password, &host, &port) !=0 )  // zero = pas d'erreur
@@ -2914,10 +3008,6 @@ QString DrTux::CodageCim10All(int mode, const QString &listCode, int tabToSet)
       host       = "localhost";
       port       = "3306";
     }
- QString                       configDlg = "CIM10";
- if (mode==DrTux::GestionATCD) configDlg = "ATCD";
- C_Dlg_GestionATCD *dlg  = new C_Dlg_GestionATCD(tabToSet, configDlg, this, "CIM10_Dial", TRUE );
- if (dlg ==0) return QString("");
  //........................ ouvrir base CIM 10 si besoin ............................
  if ( m_DataBaseCIM10 == 0 )
     { m_DataBaseCIM10 = dlg->BaseConnect(driver,                  // nom du driver: "QODBC3" "QMYSQL3" "QPSQL7"
@@ -2931,68 +3021,17 @@ QString DrTux::CodageCim10All(int mode, const QString &listCode, int tabToSet)
  else
     {dlg->dataBaseSet(m_DataBaseCIM10);
     }
- //..................... se connecter à la base ...........................
- if (m_DataBaseCIM10 == 0
-    )
-     {delete dlg;
-      QMessageBox::warning ( this, tr(PROG_NAME" Accès à la base CIM10 :"),
-                                   tr(" ERREUR :\n      L'accès à la base CIM10 est impossible : \n")     +
-                                   tr("Parametres :\n") +
-                                   "      driver : " +driver + " base :" + base + " login :" + login + " host :" + host+":"+port + "\n" + "Erreur :\n      " + error + "\n" ,
-                                   tr("Annu&ler"), 0, 0,
+ if (m_DataBaseCIM10) return TRUE;
+
+ QMessageBox::warning ( this, tr(PROG_NAME" Accès à la base CIM10 :"),
+                              tr(" ERREUR :\n      L'accès à la base CIM10 est impossible : \n")     +
+                              tr("Parametres :\n") +
+                                 "      driver : " +driver + " base :" + base + " login :" + login + " host :" + host+":"+port + "\n" + "Erreur :\n      " + error + "\n" ,
+                               tr("Annu&ler"), 0, 0,
                                              1, 1 );
-      return QString("");
-     }
-
- //..................... executer le dialogue ...........................
- if (mode==DrTux::ATCDString)
-    {dlg->setListCode(listCode);  // initialiser avec la liste des codes
-     dlg->setOnglet(0);
-    }
- dlg->exec();
- MyEditText *pMyEditText = currentEditor();
- int                 nb  = dlg->listViewCim10_Choix->childCount ();
- if (pMyEditText==0 && mode!=DrTux::ATCDString)       {delete dlg; return QString("");}  // si pas d'editeur trouvé cassos
- if (dlg->result()== QDialog::Rejected)               {delete dlg; return QString("");}  // si annuler cassos
- if (nb <=0 )                                         {delete dlg; return QString("");}  // si liste de choix vide  cassos
- //................ iterer la liste de choix ........
- QListViewItemIterator it( dlg->listViewCim10_Choix);
-int lgn = 0;
- QString name("");
-
- QString str("");
- while ( it.current() )
-    {
-     QListViewItem *item = it.current();
-     ++it;
-     QString codeCim10 = item->text(6).remove('~');
-     QString libelle   = item->text(0);
-     if (mode==DrTux::ATCDString)
-        {str += libelle + "::"+codeCim10+"@@";
-        }
-     else
-        { //................... petits trucs archi chichiteux de mise en page ...........................
-          if (nb>1) {if (lgn==0) {str += QString("<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;") + libelle + "  ~["+codeCim10+"]~    "; name = libelle;}
-                     else        {str += QString("<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;") + libelle + "  ~["+codeCim10+"]~    ";}
-                     ++lgn;
-                    }
-          else      {str += libelle + "  ~["+codeCim10+"]~    ";
-                     name = libelle;
-                    }
-        }
-    }
- delete dlg;
- if (str.length() && mode==DrTux::ATCDString)   return str;
- if (str.length() && mode==DrTux::InsertString) CHtmlTools::insertHtml(pMyEditText, str,0);
- //................. nom de la patho CIM 10 en nom de rubrique ......................................
- int rub_type;
- CMDI_Observation      *pQwdgRubObserv = (CMDI_Observation*) GetCurrentRubrique(0, &rub_type );
- if (pQwdgRubObserv && rub_type == G_pCApp->RubNameToType(RUBNAME_OBSERVATION))
-    {pQwdgRubObserv->m_pC_RubObservation->SetRubDateName( name, "" );
-    }
-
- return str;
+ return FALSE;
 }
+
 //------------------------------ GetCurrentRubriquesPk -----------------------------------------------------------
 /*! \brief Retourne le PkDoc affiché dans la fenêtre qui est au premier plan.
 */
@@ -3058,7 +3097,7 @@ void DrTux::Slot_ExePlugin(QString &plugin )
     {plugin = Codage_CCAM(DrTux::ReturnString);
     }
  else if (plugin=="CIM10Urg")
-    {plugin = CodageCim10All(DrTux::ReturnString);
+    {plugin = CodageCim10(DrTux::ReturnString);
     }
  else if (plugin.left(9)=="[Execute]")
     {

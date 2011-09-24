@@ -801,7 +801,7 @@ void Atcd_Code::addATCD(QWidget *parent, const QString &libelle, const QString &
 */
 void Atcd_Code::addATCD_CIM10(int tabToSet /*=-1*/)
 {QString       strlistCode = "";
- QString result = G_pCApp->m_pDrTux->CodageCim10All(DrTux::GestionATCD, strlistCode, tabToSet);
+ QString result = G_pCApp->m_pDrTux->CodageCim10(DrTux::GestionATCD, strlistCode, tabToSet);
 }
 //------------------------------ addATCD_Allergie --------------------------------------------------
 /*! \brief Ajoute �  la liste actuelle des ATCD un ATCD allergique.
@@ -809,7 +809,7 @@ void Atcd_Code::addATCD_CIM10(int tabToSet /*=-1*/)
 */
 void Atcd_Code::addATCD_Allergie()
 {QString       strlistCode = "";
- QString result = G_pCApp->m_pDrTux->CodageCim10All(DrTux::GestionATCD, strlistCode, 2);
+ QString result = G_pCApp->m_pDrTux->CodageCim10(DrTux::GestionATCD, strlistCode, 2);
 }
 
 //------------------------------ modifyAtcd --------------------------------------------------
