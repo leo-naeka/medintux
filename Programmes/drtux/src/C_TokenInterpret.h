@@ -159,6 +159,7 @@ class C_TokenInterpret
   static QString IMPORT                        (QStringList &arg_list);
   static QString INTITULE                      (QStringList &arg_list);
   static QString INDEX_OF                      (QStringList &arg_list);
+  static QString INSERT_CISP                   (QStringList &arg_list);
   static QString INSERT_IMAGE                  (QStringList &arg_list);
   static QString LENGTH                        (QStringList &arg_list);
   static QString LOWER                         (QStringList &arg_list);
@@ -470,6 +471,7 @@ static QString    Func_Extract_Table_D(    const QString &str_data,
                                            {"IMPORT",                         C_TokenInterpret::IMPORT},
                                            {"INCLUDE",                        C_TokenInterpret::INCLUDE},
                                            {"INDEX_OF",                       C_TokenInterpret::INDEX_OF},
+                                           {"INSERT_CISP",                    C_TokenInterpret::INSERT_CISP},
                                            {"INSERT_IMAGE",                   C_TokenInterpret::INSERT_IMAGE},
                                            {"INTERVENANT",                    C_TokenInterpret::INTERVENANT},
                                            {"INTITULE",                       C_TokenInterpret::INTITULE},

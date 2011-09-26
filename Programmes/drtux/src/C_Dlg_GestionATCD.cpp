@@ -12,7 +12,7 @@
  *                              http://www.cecill.info/                           *
  *   as published by :                                                            *
  *                                                                                *
- *   Commissariat �  l'Energie Atomique                                            *
+ *   Commissariat a l'Energie Atomique                                            *
  *   - CEA,                                                                       *
  *                            31-33 rue de la Fédération, 75752 PARIS cedex 15.   *
  *                            FRANCE                                              *
@@ -128,12 +128,11 @@ C_Dlg_GestionATCD::C_Dlg_GestionATCD(int tab, QString mode, QWidget* parent , co
     if ( ! (G_pCApp->m_pCMedicaBase->Medica_GetBaseMode() & CMedicaBase::Datasemp) )
        {listViewAllergies->hide();
        }
-
-    if (mode != "CIM10")
+    if (mode != "CIM10" && mode != "Cisp")
        { connect( listViewCim10_Choix, SIGNAL( contextMenuRequested(QListViewItem*,const QPoint&,int) ), m_pC_ListViewATCDManager,  SLOT( Slot_listView_ATCD_contextMenuRequested(QListViewItem*,const QPoint&,int) ) );
          initListChoixATCD();
        }
-    else
+    else if (mode == "CIM10")
        { tabWidgetDicoATCD->removePage (tabWidgetDicoATCD->page ( m_TAB_ALLERGIE ) );
          m_TAB_THESAURUS   =  2;
          m_TAB_ALLERGIE    = -1;
@@ -144,8 +143,28 @@ C_Dlg_GestionATCD::C_Dlg_GestionATCD(int tab, QString mode, QWidget* parent , co
          textLabelChoix->setText(tr("Liste des codes CIM10 sélectionnés"));
          pushButton_AddToChoix->hide();
        }
+    else if (mode == "Cisp")
+       { tabWidgetDicoATCD->removePage (tabWidgetDicoATCD->page ( 0 ) );
+         tabWidgetDicoATCD->removePage (tabWidgetDicoATCD->page ( 0 ) );
+         tabWidgetDicoATCD->removePage (tabWidgetDicoATCD->page ( 0 ) );   // on vire les deux tab du cim 10 et celui des allergies
+         tabWidgetDicoATCD->removePage (tabWidgetDicoATCD->page ( 0 ) );   // on vire les deux tab du cim 10 celui des allergies celui du thesaurus
+         m_TAB_THESAURUS   = -1;
+         m_TAB_LIBELLE     = -1;
+         m_TAB_RUBRIQUE    = -1;
+         m_TAB_ALLERGIE    = -1;
+         m_TAB_ALLERGIE    = -1;
+         m_TAB_CISP        =  0;
+         pushButtonAddFreeToChoix->hide();
+         pushButtonThesaurusFreeAdd->hide();
+         pushButtonThesaurusAdd->hide();
+         pushButtonThesaurusFreeAdd->hide();
+         pushButtonThesaurusExport->hide();
+         pushButtonThesaurusImport->hide();
+         listViewCim10_Choix->clear();
+         textLabelChoix->setText(tr("Liste des codes Cisp sélectionnés"));
+         pushButton_AddToChoix->hide();
+       }
     tabWidgetDicoATCD->setCurrentPage ( m_TAB_THESAURUS );
-
 
     textLabel_Cisp_contient->hide();
     lineEditAutolcator_Cisp1->hide();
@@ -227,8 +246,8 @@ C_Dlg_GestionATCD::C_Dlg_GestionATCD(int tab, QString mode, QWidget* parent , co
     splitter5->setSizes(list);
     if (tab != -1) setOnglet(tab);
     readAndSetWindowPos();
-    //initTableCisp(listView_Cisp);
 }
+
 //-----------------------------------------------------  ~C_Dlg_GestionATCD -------------------------------------------
 C_Dlg_GestionATCD::~C_Dlg_GestionATCD()
 {if (m_DataBase)
@@ -285,25 +304,22 @@ int C_Dlg_GestionATCD::initTableCisp()
 {  QString        requete = ""; // a modifier pour QT4
    bool               ok  = false;
    //................. ouvrir la base .....................................
-   if (OpenBase()==0)
-      {return 0;
-      }
-   //........... ya t-i la table Cisp .................
-    //........... ya t-i la table Cisp .................
-  QSqlDriver *pQSqlDriver =  m_DataBase->driver();
-  if ( pQSqlDriver == 0) return 0;
-  //..................... verifier si les tables deja en place correspondent avec celles ..................
-  //                      indiquees par le fichier de configuration
-  QStringList tablesList      = pQSqlDriver->tables("1");  tablesList.sort();
-  // QStringList tablesList         = m_DataBase->tables();
-  QStringList::Iterator it = tablesList.begin();
-  while ( it != tablesList.end() )
-        {if (*it=="cisp_dico")
-            {ok=true;
-             break;
-            }
-         ++it;
-        }
+   if (OpenBase()==0)          return 0;
+
+   //........... ya t-il la table Cisp .................
+   QSqlDriver *pQSqlDriver =  m_DataBase->driver();
+   if ( pQSqlDriver == 0)      return 0;
+   //..................... verifier si les tables deja en place correspondent avec celles ..................
+   //                      indiquees par le fichier de configuration
+   QStringList tablesList      = pQSqlDriver->tables("1");  tablesList.sort();
+   QStringList::Iterator it = tablesList.begin();
+   while ( it != tablesList.end() )
+         {if (*it=="cisp_dico")
+             {ok=true;
+              break;
+             }
+          ++it;
+         }
    QSqlQuery query(QString::null , m_DataBase );
    if (!ok)
       {
@@ -313,15 +329,15 @@ int C_Dlg_GestionATCD::initTableCisp()
        QString line     = "";
        long      nbMax  = 32000;              //
        char     *buffer = 0;
-       int     position = 0;
-       int     lineNum  = 0;
+       //int     position = 0;
+       //int     lineNum  = 0;
        int         pos  = 0;
        int         len  = 0;
        QChar         c  = ' ';
        if ( !QFile::exists( fname ) )            return 0;
-       //.................on efface si erreur la table .....................
+       //.................on efface la table .....................
        requete = "DROP TABLE IF EXISTS `cisp_dico`";
-       if (!query.exec(requete)) return 0;
+       if (!query.exec(requete))                 return 0;
        //.................on cree la table .....................
        requete =    " CREATE TABLE `cisp_dico` ("
                     "`cisp_dico_pk`            BIGINT  NOT NULL AUTO_INCREMENT,"
@@ -332,35 +348,29 @@ int C_Dlg_GestionATCD::initTableCisp()
                     "`cisp_dico_date`          DATETIME     ,"
                     "PRIMARY KEY (`cisp_dico_pk`)"
                     ");";
-       if (!query.exec(requete)) return 0;
+       if (!query.exec(requete))                 return 0;
        //........... on l'initialise .................
        //            on parse el fichier texte ligne a ligne
        QFile file( fname );
-       if ( !file.open( IO_ReadOnly  ) ) return 0;
+       if ( !file.open( IO_ReadOnly  ) )         return 0;
        buffer = new char[nbMax+5];    // +5 pour permettre analyse utf8 qui explore trois apres
        if (buffer ==0)                           return 0;
        //.......... on lit le fichier ligne a ligne ........................
+       prepare  = " INSERT INTO `cisp_dico` (`cisp_dico_owner`, `cisp_dico_libelle`,`cisp_dico_code`,`cisp_dico_class`,`cisp_dico_date`) "
+                  " VALUES (?,?,?,?,?)";
        while (!file.atEnd())
-        { position += readLine(&file, buffer, line, nbMax); ++lineNum;
+        { /*position += */ readLine(&file, buffer, line, nbMax); // ++lineNum;
           //.................creation de la table .....................
-          pos = 0;
-          len = line.length();
-          while (pos<len)
-                {c = line.at(pos);
-                 if (c != " ") break;
-                 ++pos;
-                }
-          line     = line.mid(pos).remove('\n').remove('\r');
-          prepare  = " INSERT INTO `cisp_dico` (`cisp_dico_owner`, `cisp_dico_libelle`,`cisp_dico_code`,`cisp_dico_class`,`cisp_dico_date`) "
-                     " VALUES (?,?,?,?,?)";
-
+          pos  = 0;
+          len  = line.length();
+          while (pos<len && line[(pos++)] == ' ' );           //  avancer jusqu'au premier caractere qui n'est pas un espace
+          line = line.mid(pos-1).remove('\n').remove('\r');
           query.prepare(prepare);
           query.bindValue(0, "MT");
-          query.bindValue(1, line.mid(4));              // y02 douleur des testicules, du scrotum
-          query.bindValue(2, line.left(4));
-          query.bindValue(3, QString::number(pos/8));   // le nombre de tabulations definit la classe.
-          query.bindValue(5, "2011-09-20T00:00:00");
-
+          query.bindValue(1, line.mid(4));                    // Y02 douleur des testicules, du scrotum
+          query.bindValue(2, line.left(4).upper());
+          query.bindValue(3, QString::number(pos/8));         // le nombre de tabulations definit la classe.
+          query.bindValue(5, QDateTime::currentDateTime());
           if ( !query.exec())  {file.close();delete []buffer; return 0;}
         }
        file.close();         // on a plus besoin du fourbi
@@ -410,29 +420,21 @@ int C_Dlg_GestionATCD::initTableCisp()
 
 //-------------------------------------- Slot_comboBox_Cisp_filter_Chapi_highlighted -------------------------------------------------------
 void C_Dlg_GestionATCD::Slot_comboBox_Cisp_filter_Chapi_highlighted(const QString &chapiText)
-{setCispFiterFromCombosStates( chapiText, comboBox_Cisp_filter_Class->currentItem() );
+{setCispFilterFromCombosStates( chapiText, comboBox_Cisp_filter_Class->currentItem() );
 }
 //-------------------------------------- Slot_comboBox_Cisp_filter_Class_highlighted -------------------------------------------------------
 void C_Dlg_GestionATCD::Slot_comboBox_Cisp_filter_Class_highlighted(int classIndex)
-{setCispFiterFromCombosStates( comboBox_Cisp_filter_Chapi->currentText() , classIndex );
+{setCispFilterFromCombosStates( comboBox_Cisp_filter_Chapi->currentText() , classIndex );
 }
 
-//-------------------------------------- setCispFiterFromCombosStates -------------------------------------------------------
-void C_Dlg_GestionATCD::setCispFiterFromCombosStates( const QString &chapiText, int classIndex )
+//-------------------------------------- setCispFifterFromCombosStates -------------------------------------------------------
+void C_Dlg_GestionATCD::setCispFilterFromCombosStates( const QString &chapiText, int classIndex )
 {bool allChapi = chapiText.left(1)==" ";
  QString                       classFilter =  "SINTCD";                               // on veut a priori tout index 0 est "Tous les items"
  if (classIndex)               classFilter =  m_Cisp_ClassCodes.mid(classIndex-1,1);  // sauf si le contraire est spécifie
  QString                       chapiFilter = "-FDABHKLNPRSTUWXYZ";                    // on veut a priori tout index 0 est "  Tous les items"
  if ( ! allChapi)              chapiFilter = chapiText.left(1);                       // sauf si le contraire est spécifie
  listView_Cisp_filter( chapiFilter , classFilter );
- //................ si seulement un chapitre on ouvre tout ..............
- if ( ! allChapi)
-    { QListViewItemIterator it( listView_Cisp );
-      while ( it.current() )
-            { (it.current()->setOpen (true ));
-            ++it;
-            }
-    }
 }
 
 //-------------------------------------- Slot_lineEditAutolcator_Cisp1_textChanged -------------------------------------------------------
@@ -454,7 +456,7 @@ int C_Dlg_GestionATCD::listView_Cisp_filter(const QString &chapiFilter     /* ="
 
    pQTreeWidget->clear();
    while (query.next())
-         { code                      = query.value(1).toString().upper();
+         { code                      = query.value(1).toString();
            classe                    = query.value(2).toString();
            libelle                   = CGestIni::Utf8_Query(query, 0);
            QListViewItem *parentItem = getCispParentItemFromCodeAndClasse(pQTreeWidget, code, classe.toInt(), chapiFilter, classFilter);
@@ -466,21 +468,29 @@ int C_Dlg_GestionATCD::listView_Cisp_filter(const QString &chapiFilter     /* ="
                    }
               }
          }
+  //................ si seulement un chapitre on ouvre tout ..............
+  //if (chapiFilter.length()==1)
+     {QListViewItemIterator it( listView_Cisp );
+      while ( it.current() )
+            { (it.current()->setOpen (true ));
+            ++it;
+            }
+     }
   return 1;
   //comboBox_Cisp_filter
 }
 
 //-------------------------------------- getCispParentItemFromCodeAndClasse -------------------------------------------------------
-QListViewItem *C_Dlg_GestionATCD::getCispParentItemFromCodeAndClasse(QListView *pQTreeWidget,        // QListView ou doit se faire l'affichage des mentions cisp
+QListViewItem *C_Dlg_GestionATCD::getCispParentItemFromCodeAndClasse(QListView     *pQTreeWidget,    // QListView ou doit se faire l'affichage des mentions cisp
                                                                      const QString &cispCode,        // code cisp X70 A99 de la mention
                                                                      int   i_class_code,             // classe de la mention (0-"SYMPTÔMES ET PLAINTES" 1-"INFECTION" ...)
                                                                      const QString &chapiFilter,     // chaine du filtre d'entree : un ou plusieurs caracteres de "-FDABHKLNPRSTUWXYZ"
                                                                      const QString &classFilter)     // chaine du filtre d'entree : un ou plusieurs caracteres de "SINTCD"
 {
- // m_Cisp_ClassCodes   = "SINTCD";
+
  //................. filtrer ................................................
- QChar   q_class_code   = m_Cisp_ClassCodes.at(i_class_code);              // "SINTCD" convertir le code de classe en lettre (pour tester si present dans le filtre d'entree)
- QChar   q_chapi_code   = cispCode.at(0);                                  // la premiere lettre du cispCode est son chapitre expl X70 A99
+ QChar   q_class_code   = m_Cisp_ClassCodes.at(i_class_code);          // "SINTCD" convertir le code de classe en lettre (pour tester si present dans le filtre d'entree)
+ QChar   q_chapi_code   = cispCode.at(0);                              // la premiere lettre du cispCode est son chapitre expl X70 A99
  if (! classFilter.contains (q_class_code) )  return 0;                // si code de classe pas present et non autorise par le filtre d'entree des classes   cassos
  if (! chapiFilter.contains (q_chapi_code) )  return 0;                // si code de classe pas present et non autorise par le filtre d'entree des chapitres adios
  //.................. recuperer les elements ................................
@@ -535,8 +545,8 @@ void C_Dlg_GestionATCD::Slot_listView_Cisp_clicked(QListViewItem*)
 {
 }
 //-------------------------------------- Slot_listView_Cisp_doubleClicked -------------------------------------------------------
-void C_Dlg_GestionATCD::Slot_listView_Cisp_doubleClicked(QListViewItem*)
-{
+void C_Dlg_GestionATCD::Slot_listView_Cisp_doubleClicked(QListViewItem *pQListViewItem)
+{common_listView_doubleClicked(pQListViewItem);
 }
 
 //-------------------------------------- Slot_lineEditThesaurusFind1_F2_Pressed -------------------------------------------------------
@@ -971,7 +981,7 @@ void C_Dlg_GestionATCD::Slot_pushButtonThesaurus_Edit_clicked()
 }
 
 //--------------------------------- appendToThesaurus -------------------------------------------------------------
-void C_Dlg_GestionATCD::appendToThesaurus(const QString &libelleCim10, const QString &code)
+void C_Dlg_GestionATCD::appendToThesaurus(const QString &libelle, const QString &code)
 {if (m_TAB_ALLERGIE    == -1)
     {
     }
@@ -988,8 +998,8 @@ void C_Dlg_GestionATCD::appendToThesaurus(const QString &libelleCim10, const QSt
  else
     {pDlgAtcd_txt->setFamilyGenre(tr("Médicaux"));
     }
- pDlgAtcd_txt->m_LineEdit_Libelle->setText(libelleCim10);
- pDlgAtcd_txt->m_LineEdit_Libelle_Long->setText(libelleCim10);
+ pDlgAtcd_txt->m_LineEdit_Libelle->setText(libelle);
+ pDlgAtcd_txt->m_LineEdit_Libelle_Long->setText(libelle);
 
  pDlgAtcd_txt->exec();
  if (pDlgAtcd_txt->isFamilleGenreModified()) {initComboFamilleGenre();}
