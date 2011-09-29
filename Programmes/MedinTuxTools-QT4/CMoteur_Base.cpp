@@ -60,10 +60,7 @@
 
 #include "CHtmlTools.h"
 #include "CMoteur_Base.h"
-//#include "CPrtQListBoxItem.h"
 #include "CPrtQListViewItem.h"
-
-#define TR  QObject::tr
 
 //=============================================== IMPLEMENTATION =====================================================
 //-----------------------------------------------------  CMoteurBase -------------------------------------------
@@ -79,7 +76,7 @@
  * @param baseLabel            :  nom d'identification de la base de donn\303\251es exemple "DRTUX_BASE"
  * @param errMess              :  pointeur sur une QString qui si pas \303\251gal �  z\303\251ro recevra les messages d'erreur
  * @param parent               :  pointeur sur un  QObject parent de cette classe (peut être nul alors faudra d\303\251truire CMoteurBase apres usage)
- * @param name                 :  nom de la l'objet (par d\303\251faut 'Objet CMoteurBase')
+ * @param name                 :  nom de la l'objet (par d\303\251faut 'CMoteurBase')
  * @return
  */
 CMoteurBase::CMoteurBase(const QString & driver,             // nom du driver: "QODBC3" "QMYSQL3" "QPSQL7"
@@ -127,16 +124,16 @@ CMoteurBase::CMoteurBase(const QString & driver,             // nom du driver: "
   //................ verifier l'integrite des bases ...................................
   QString         mess = "";
   if (versionWhish    != m_VERSION_NUMBER)  // on compare des chaines car bug de conversion 2.139999 etc... version de definition du fichier de configuration des bases
-     {mess +=  TR("\r\n Configuration du fichier 'DataBase.cfg' incorrecte :");
-      mess +=  TR("\r\n       Version exig\303\251e   du fichier 'DataBase.cfg' : %1").arg(versionWhish);
-      mess +=  TR("\r\n       Version actuelle du fichier 'DataBase.cfg' : %1").arg(m_VERSION_NUMBER);
+     {mess +=  tr("\r\n Configuration du fichier 'DataBase.cfg' incorrecte :");
+      mess +=  tr("\r\n       Version exig\303\251e   du fichier 'DataBase.cfg' : %1").arg(versionWhish);
+      mess +=  tr("\r\n       Version actuelle du fichier 'DataBase.cfg' : %1").arg(m_VERSION_NUMBER);
       m_IsValid = 0;
      }
   else
      {
       versionInUse = GetMedinTuxVersion();
       if (versionInUse < versionWhish.toDouble())
-         {mess     +=  TR("\r\n Version de la base install\303\251e: %1 non \303\240  jour, version souhait\303\251e : %2").arg(QString::number(versionInUse), versionWhish);
+         {mess     +=  tr("\r\n Version de la base install\303\251e: %1 non \303\240  jour, version souhait\303\251e : %2").arg(QString::number(versionInUse), versionWhish);
           m_IsValid = verifyBaseIntegrity(confData, &mess);
          } // endif (versionInUse < versionWhish)
      } // endelseif(versionWhish   != m_VERSION_NUMBER.toDouble())
@@ -203,7 +200,7 @@ int  CMoteurBase::verifyBaseIntegrity(const QString &confFile, QString *errMess)
  int         nf        = 0;
  QStringList fieldName;
  QSqlDriver *pQSqlDriver =  QSqlDatabase::database(m_BaseLabel).driver();
- if ( pQSqlDriver == 0) { (*errMess) += TR("\r\n verifyBaseIntegrity() Driver not started"); return 0;}
+ if ( pQSqlDriver == 0) { (*errMess) += tr("\r\n verifyBaseIntegrity() Driver not started"); return 0;}
 
 
  //..................... verifier si les tables deja en place correspondent avec celles ..................
@@ -218,9 +215,9 @@ int  CMoteurBase::verifyBaseIntegrity(const QString &confFile, QString *errMess)
      QString     fileSql    =  CGestIni::Construct_Name_File_Ini("set_bases", qfi.dirPath (true), "SqlCreateTable/Dump_DrTuxTest.sql" );
      //.................. premier niveau (benin) enumerer les tables presentes ........................................
      //                   dans la base et non indiquees par le fichier de config : confFile
-     mess += TR("\r\n verifyBaseIntegrity() tables do not match  \r\n");
+     mess += tr("\r\n verifyBaseIntegrity() tables do not match  \r\n");
      if (tablesList.count() > tablesListWish.count())
-        {    mess += TR("\r\n WARNING: these tables are not indicated in the configuration file: ");
+        {    mess += tr("\r\n WARNING: these tables are not indicated in the configuration file: ");
              for ( QStringList::Iterator it = tablesList.begin(); it != tablesList.end(); ++it )
                  { tbl = *it;
                    if (tablesListWish.findIndex (tbl)==-1)
@@ -234,18 +231,18 @@ int  CMoteurBase::verifyBaseIntegrity(const QString &confFile, QString *errMess)
           { tbl = *it;
             if (tablesList.findIndex (tbl.lower())==-1)
                {++nf;
-                mess += TR("\n    = ") + tbl;
+                mess += tr("\n    = ") + tbl;
                 if(tryToSetThisTable(tbl, fileSql, m_BaseLabel)==0)
-                  {mess += TR(" ==> Failure attempting to create");
+                  {mess += tr(" ==> Failure attempting to create");
                    majOk = 0;
                   }
                 else
-                  {mess += TR(" ==> Success when attempting to create");
+                  {mess += tr(" ==> Success when attempting to create");
                   }
                }
           }
-      if (majOk){mess = mess.prepend(TR("\n SUCCESS when updating missing tables."));}
-      if (nf)   {mess = mess.prepend(TR("\n ERROR %1 table(s) not found in the present base: ").arg(nf));}
+      if (majOk){mess = mess.prepend(tr("\n SUCCESS when updating missing tables."));}
+      if (nf)   {mess = mess.prepend(tr("\n ERROR %1 table(s) not found in the present base: ").arg(nf));}
       (*errMess) += mess;
     }
  if (majOk) SetMedinTuxVersion(m_VERSION_NUMBER);
@@ -453,7 +450,7 @@ int            CMoteurBase::BaseConnect(const QString & driver,              // 
 
         if ( ! defaultDB.open() )
            {QString qstr = "";
-            qstr += TR("Failed to open database : ")    + baseLabel + " Driver : " +  QString(driver) + "  " + QString(dataBaseToConnect) + "\r\n" +
+            qstr += tr("Failed to open database : ")    + baseLabel + " Driver : " +  QString(driver) + "  " + QString(dataBaseToConnect) + "\r\n" +
                      defaultDB.lastError().driverText() + "\r\n" + defaultDB.lastError().databaseText();
             qWarning()<<qstr.toLatin1();
             if (errMess) *errMess += qstr;
@@ -567,7 +564,7 @@ int CMoteurBase::ConvertToNew(QLabel* pQlabelMess /* = 0 */, Q3ProgressBar* pQPr
 
  //................. Preparer la requete .....................................
  if (OpenBase()==0)
-    {if (pQlabelMess) pQlabelMess->setText(TR("ConvertToNew(): database can't be open"));
+    {if (pQlabelMess) pQlabelMess->setText(tr("ConvertToNew(): database can't be open"));
      return i;
     }
 
@@ -605,7 +602,7 @@ int CMoteurBase::ConvertToNew(QLabel* pQlabelMess /* = 0 */, Q3ProgressBar* pQPr
          else
             {qstr   = "";
                  qstr  += requete;
-             qstr  += TR("\r\nIndexation error: ");
+             qstr  += tr("\r\nIndexation error: ");
              switch(queryTarget.lastError().type())
                {case QSqlError::None :        qstr  += "no error occurred";          break;
                 case QSqlError::Connection :  qstr  += "connection error";           break;
@@ -890,7 +887,7 @@ long CMoteurBase::GetPatientList(       QTreeWidget     *pQlistView,
  QString   tmp      = "";
  //................. Preparer la requete .....................................
   if (OpenBase()==0)
-     {if (errMess) *errMess = TR("CMoteurBase::GetPatientList(): data base can't be open");
+     {if (errMess) *errMess = tr("CMoteurBase::GetPatientList(): data base can't be open");
       return 0;
      }
   QString requete, requete_ident;
@@ -995,7 +992,8 @@ long CMoteurBase::GetPatientList(       QTreeWidget     *pQlistView,
   //....................... sortir le message d'erreur si besoin ..........................................
   if (statutMess)
      {int nb = GetNbRecord(m_DOSS_INDEX_TBL_NAME).toInt();
-      QString txt = TR("Displayed %1 among %2").arg(i).arg(nb);
+      QString txt = tr("Displayed %1 among %2").arg(i).arg(nb);
+      //QString txt = QApplication::translate("CMoteurBase", "Displayed %1 among %2", 0, QApplication::UnicodeUTF8).arg(i).arg(nb);
       if ( i>=NB_LIST_PATIENT_MAX)
          {txt.prepend("<html><head><meta name=\"qrichtext\" content=\"1\" /> "
                       "</head><body><span style=\"font-weight:600; color:#ff0000;\">");
@@ -1211,7 +1209,7 @@ long CMoteurBase::GetPatientListFromNomPrenomSecuDtNssGeme( QTreeWidget     *pQl
   //....................... sortir le message d'erreur si besoin ..........................................
 
   if (statutMess)
-     { statutMess->setText( QString( TR("Displayed %1 among %2") ).arg(i).arg(nb) );
+     { statutMess->setText( QString( tr("Displayed %1 among %2") ).arg(i).arg(nb) );
      }
   CloseBase();
   return i;
@@ -1915,7 +1913,7 @@ QString requete = "SELECT "  + m_USER_PERMS_PK                + ", "            
 
   //....................... sortir le message d'erreur si besoin ..........................................
   if (statutMess)
-     { statutMess->setText(TR("Found: ") + QString::number(nb));
+     { statutMess->setText(tr("Found: ") + QString::number(nb));
      }
   CloseBase();
   return nb;
@@ -2160,12 +2158,12 @@ QString CMoteurBase::OutSQL_error(const QSqlError &error, const char *messFunc /
 
      if (error.type() != QSqlError::NoError)
         {switch (error.type())
-           { case    QSqlError::NoError:             qserr = TR(" - SQL no error occurred: ")          ; break;
-             case    QSqlError::ConnectionError:     qserr = TR(" - SQL connection error: ")           ; break;
-             case    QSqlError::StatementError:      qserr = TR(" - SQL statement syntax error: ")     ; break;
-             case    QSqlError::TransactionError:    qserr = TR(" - SQL transaction failed error: ")   ; break;
-             case    QSqlError::UnknownError:        qserr = TR(" - SQL unknown error: ")              ; break;
-             default:                                qserr = TR(" - unknown SQL type error: ")         ; break;
+           { case    QSqlError::NoError:             qserr = tr(" - SQL no error occurred: ")          ; break;
+             case    QSqlError::ConnectionError:     qserr = tr(" - SQL connection error: ")           ; break;
+             case    QSqlError::StatementError:      qserr = tr(" - SQL statement syntax error: ")     ; break;
+             case    QSqlError::TransactionError:    qserr = tr(" - SQL transaction failed error: ")   ; break;
+             case    QSqlError::UnknownError:        qserr = tr(" - SQL unknown error: ")              ; break;
+             default:                                qserr = tr(" - unknown SQL type error: ")         ; break;
            }
          if (messFunc) qDebug()<<messFunc;
          qDebug()<< qserr.append(error.databaseText()).toLatin1();
@@ -2182,7 +2180,7 @@ QString CMoteurBase::OutSQL_error(const QSqlError &error, const char *messFunc /
 QString CMoteurBase::GetUserSpecialite( QString &user, QString    *errMess /* = 0 */ )
 { if (user.length()==0)  return QString::null;
   //................. Preparer la requete .....................................
-  if (OpenBase()==0)    {if (errMess) *errMess = TR("CMoteurBase::GetUserSpecialite(): database can't be opened");       return QString::null; }
+  if (OpenBase()==0)    {if (errMess) *errMess = tr("CMoteurBase::GetUserSpecialite(): database can't be opened");       return QString::null; }
   //................. SI un nom ou prenom est donne en entree alors filtrer selon ...................
   QString specialite = "";
   QString requete("SELECT ");
@@ -2204,7 +2202,7 @@ QString CMoteurBase::GetUserSpecialite( QString &user, QString    *errMess /* = 
    */
 void  CMoteurBase::GetUserNomPrenom( const QString &user, QString &nom, QString &prenom, QString    *errMess /* = 0 */)
 { //................. Preparer la requete .....................................
-  if (OpenBase()==0)  {if (errMess) *errMess = TR("CMoteurBase::GetUserNomPrenom(): database can't be opened");       return ; }
+  if (OpenBase()==0)  {if (errMess) *errMess = tr("CMoteurBase::GetUserNomPrenom(): database can't be opened");       return ; }
   //................. SI un nom ou prenom est donne en entree alors filtrer selon ...................
   QString requete("SELECT ");
   requete       += m_USER_IDENT_NOM + "," + m_USER_IDENT_PRENOM  +  " FROM " + m_USER_IDENT_TBL_NAME + " WHERE " + m_USER_IDENT_LOGIN + " = '" + user +"'";
@@ -2228,7 +2226,7 @@ QString CMoteurBase::GetUserPermisions( const QString &user, QString    *errMess
  *  \return          QString qui est la chaine des droits utilisateur (exple '-med-agh-agm-adm' )
 */
 { //................. Preparer la requete .....................................
-  if (OpenBase()==0)  {if (errMess) *errMess = TR("CMoteurBase::GetUserPermisions(): database can't be opened");       return QString::null; }
+  if (OpenBase()==0)  {if (errMess) *errMess = tr("CMoteurBase::GetUserPermisions(): database can't be opened");       return QString::null; }
   //................. SI un nom ou prenom est donne en entree alors filtrer selon ...................
   QString droits = "";
   QString requete("SELECT ");
@@ -2256,7 +2254,7 @@ bool CMoteurBase::SetUserPermisions( const QString &primkey, const QString &droi
   requete                   +=  m_USER_IDENT_DROITS       + " = '" + droits          + "' WHERE ";
   requete                   +=  m_USER_IDENT_PRIMKEY      + " ='"  + primkey         + "'";
   //................. Preparer la requete .....................................
-  if (OpenBase()==0)  {if (errMess) *errMess = TR("CMoteurBase::SetUserPermisions(): database can't be opened");       return ok; }
+  if (OpenBase()==0)  {if (errMess) *errMess = tr("CMoteurBase::SetUserPermisions(): database can't be opened");       return ok; }
   QSqlQuery query(QSqlDatabase::database(m_BaseLabel) );
   query.exec(requete);
   CloseBase();
@@ -2267,7 +2265,7 @@ bool CMoteurBase::SetUserPermisions( const QString &primkey, const QString &droi
 int CMoteurBase::UserDroitsCount(const QString &droitToFind , QString    *errMess)
 { int nb = 0;
   //................. Preparer la requete .....................................
-  if (OpenBase()==0)  {if (errMess) *errMess = TR("CMoteurBase::UserDroitsCount(): database can't be opened");       return -1; }
+  if (OpenBase()==0)  {if (errMess) *errMess = tr("CMoteurBase::UserDroitsCount(): database can't be opened");       return -1; }
   //................. SI un nom ou prenom est donne en entree alors filtrer selon ...................
   QString droits = "";
   QString requete("SELECT ");
@@ -2423,7 +2421,7 @@ long CMoteurBase::GetUserList(    QTreeWidget     *pQlistView,
      } //endif (pSqlQuery && pSqlQuery->isActive())
 
   //....................... sortir le message d'erreur si besoin ..........................................
-  if (statutMess) *statutMess = TR("Found: %1").arg(nb);
+  if (statutMess) *statutMess = tr("Found: %1").arg(nb);
   CloseBase();
   return nb;
 }
@@ -2850,7 +2848,7 @@ long CMoteurBase::GetUserDocList( Q3ListView       *pQlistView,
      } //endif (pSqlQuery && pSqlQuery->isActive())
   //....................... sortir le message d'erreur si besoin ..........................................
   if (statutMess)
-     { statutMess->setText(TR("Found: ") + QString::number(nb));
+     { statutMess->setText(tr("Found: ") + QString::number(nb));
      }
   CloseBase();
   return nb;
@@ -3009,12 +3007,12 @@ void CMoteurBase::Param_SavParam(QString *pParam , QString user)
     QString us_pk         = "";
     if (user[0]=='%') us_pk  = user.mid(1);
     else              us_pk  = GetUserPrimKey(user);
-    QString docPrimKey       = IsThisUserDocExist(TYP_PARAM, us_pk, TR("Parameters"));
+    QString docPrimKey       = IsThisUserDocExist(TYP_PARAM, us_pk, tr("Parameters"));
      if (docPrimKey!="")
-        {UpdateUserDataFromPrimKey(docPrimKey, TYP_PARAM, us_pk, TR("Parameters"), *pParam);
+        {UpdateUserDataFromPrimKey(docPrimKey, TYP_PARAM, us_pk, tr("Parameters"), *pParam);
         }
      else
-        {CreateUserDataFromPrimKey(TYP_PARAM, us_pk ,TR("Parameters"), *pParam);
+        {CreateUserDataFromPrimKey(TYP_PARAM, us_pk ,tr("Parameters"), *pParam);
         }
 }
 
@@ -3049,7 +3047,7 @@ int CMoteurBase::UpdateUserDataFromPrimKey( const char *primKey, int type, const
 
 //------------------------------------------ ReadDrTuxUserParametres ---------------------------------------------------------------
 QString  CMoteurBase::ReadDrTuxUserParametres(const QString &user)
-{return GetUserDocument(user, TR("Parameters"), TYP_PARAM );
+{return GetUserDocument(user, tr("Parameters"), TYP_PARAM );
 }
 
 //------------------------------------------ Param_GetParam ---------------------------------------------------------------
@@ -3221,18 +3219,18 @@ int CMoteurBase::ChangeRubUserName(QString userName, QString rubPrimKey, QString
  QSqlQuery* pSqlQueryTarget = new QSqlQuery(requete , QSqlDatabase::database(m_BaseLabel)  );
 
  if (pSqlQueryTarget && pSqlQueryTarget ->isActive())
-    {if (errMess) *errMess = TR("Success when changing user");
+    {if (errMess) *errMess = tr("Success when changing user");
     }
  else
    {qstr   = "";
     qstr  += requete;
-    qstr  += TR("\nFailure when changing user: CMoteur_Base. ");
+    qstr  += tr("\nFailure when changing user: CMoteur_Base. ");
     switch(pSqlQueryTarget->lastError().type())
-          {case QSqlError::None :        qstr  += TR("no error occurred");          break;
-           case QSqlError::Connection :  qstr  += TR("connection error");           break;
-           case QSqlError::Statement :   qstr  += TR("SQL statement syntax error"); break;
-           case QSqlError::Transaction : qstr  += TR("transaction failed error");   break;
-           case QSqlError::Unknown :     qstr  += TR("unknown error");              break;
+          {case QSqlError::None :        qstr  += tr("no error occurred");          break;
+           case QSqlError::Connection :  qstr  += tr("connection error");           break;
+           case QSqlError::Statement :   qstr  += tr("SQL statement syntax error"); break;
+           case QSqlError::Transaction : qstr  += tr("transaction failed error");   break;
+           case QSqlError::Unknown :     qstr  += tr("unknown error");              break;
           }
    if (errMess) *errMess = qstr;
    return FALSE;
@@ -3608,7 +3606,7 @@ int  CMoteurBase::synchroNomadeToMasterUpdate( const QString & driver,
       destMasterDB.setPort(         port.toInt() );
       if ( ! destMasterDB.open() )
          {QString  qstr = "";
-                   qstr += TR("Failed to open database: ") + QString(driver) + "  " + QString(baseToOpen) + "\r\n" +
+                   qstr += tr("Failed to open database: ") + QString(driver) + "  " + QString(baseToOpen) + "\r\n" +
                            destMasterDB.lastError().driverText() + "\r\n" + destMasterDB.lastError().databaseText();
                    qWarning(qstr);
           return 0;
@@ -5115,7 +5113,7 @@ int  CMoteurBase::RubListDelete(RUBREC_LIST::iterator it, int mode /*= CMoteurBa
      query.bindValue(0, "--");
      query.bindValue(1, "--");
      if (query.exec())  {ok = TRUE;}
-     else               {QString mess = TR("Error : RubListDelete::CMoteurBase::progMasterUpdate \n") + prepare + "\r\n";
+     else               {QString mess = tr("Error : RubListDelete::CMoteurBase::progMasterUpdate \n") + prepare + "\r\n";
                          OutSQL_error(query, prepare);      // rajouter le message sql
                          ok = FALSE;
                         }
@@ -5582,7 +5580,7 @@ QString CMoteurBase::CalculeDiffAge(QDate *pDebut, QDate *pFin/*=NULL*/, bool bT
     {
      if (bTexte)
      //buffer.sprintf("%d an%s ", an, an>1 ? "s" : "");
-         buffer = QString::number(an) + TR(" year") + ((an>1) ? "s " : " ");
+         buffer = QString::number(an) + tr(" year") + ((an>1) ? "s " : " ");
      else
          buffer.sprintf("%d ", an);
      sRes = buffer;
@@ -5598,7 +5596,7 @@ QString CMoteurBase::CalculeDiffAge(QDate *pDebut, QDate *pFin/*=NULL*/, bool bT
         {
          if (bTexte)
          //buffer.sprintf("%d mois ", mois);  // en fancais " mois " a deja un s en [4] donc ne pas rajouter si plusieurs
-            {QString ms = TR(" month");  // va bien y avoir un dialecte oÃ¹ ca ne va pas marcher // C pour ca qu'on a invente les plural forms
+            {QString ms = tr(" month");  // va bien y avoir un dialecte oÃ¹ ca ne va pas marcher // C pour ca qu'on a invente les plural forms
              buffer     = QString::number(mois)+ ms + ((mois>1&&ms[4]!='s') ? "s " : " ");
             }
          else
@@ -5610,7 +5608,7 @@ QString CMoteurBase::CalculeDiffAge(QDate *pDebut, QDate *pFin/*=NULL*/, bool bT
         {
          if (bTexte)
          //buffer.sprintf("%d jour%s ", jour, jour>1 ? "s" : "");
-            buffer = QString::number(jour) + TR(" day") + ((jour>1) ? "s " : " ");
+            buffer = QString::number(jour) + tr(" day") + ((jour>1) ? "s " : " ");
          else
             buffer.sprintf("%d ", jour);
          sRes += buffer;

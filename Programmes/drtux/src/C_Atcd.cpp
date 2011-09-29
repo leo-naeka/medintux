@@ -766,12 +766,13 @@ void Atcd_Code::deleteDate(Atcd_Element* pAtcd,  int sendModifMessage /*= Atcd_C
 /*! \brief Ajoute �  la liste actuelle des ATCD un ATCD en mode textuel.
  *  Fait apparaître le Widget d'ajout DlgAtcd_txt.
 */
-void Atcd_Code::addATCD(QWidget *parent, const QString &libelle, const QString &code, const QString familyGenre, int sendModifMessage /*=Atcd_Code::sendModifMessage*/)
+void Atcd_Code::addATCD(QWidget *parent, const QString &libelle, const QString &code, const QString &familyGenre, const QString &comment, int sendModifMessage /*=Atcd_Code::sendModifMessage*/)
 {// Appel le Widget de saisie ATCD en texte libre
  DlgAtcd_txt* pDlgAtcd_txt = new DlgAtcd_txt(parent);  if (!pDlgAtcd_txt) return;
  pDlgAtcd_txt->setToUpdate(TRUE);
  pDlgAtcd_txt->m_LineEdit_Libelle->setText(libelle);
  pDlgAtcd_txt->setFamilyGenre(familyGenre);
+ pDlgAtcd_txt->m_LineEdit_Commentaire->setText(comment);
  pDlgAtcd_txt->m_LineEdit_Commentaire->setFocus();
  pDlgAtcd_txt->exec();
  if (pDlgAtcd_txt->result() == QDialog::Accepted)

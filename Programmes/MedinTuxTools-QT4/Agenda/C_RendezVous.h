@@ -43,6 +43,7 @@
 #include <QDateTime>
 #include <QTimer>
 #include <QMap>
+#include <QApplication>
 
 #define SKIP_BLANK_CAR(a)       while( *(a) && (*(a)==' ' || *(a)=='\t' || *(a)== 96) ) (a)++
 #define NEXT_LINE(a)            while( *(a) && *(a)!='\r' && *(a)!='\n')(a)++; while( *(a) && (*(a)=='\r'|| *(a)=='\n'))(a)++
@@ -82,7 +83,7 @@ typedef QList <C_RendezVous*>  RDV_LIST;
  //===================================== C_RendezVous ========================================================================
  class  C_RendezVous
  {
-
+  Q_DECLARE_TR_FUNCTIONS(C_RendezVous)
   public:
      //RendezVous(){};
      C_RendezVous(){}
