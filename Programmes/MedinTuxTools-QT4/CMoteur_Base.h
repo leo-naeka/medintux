@@ -54,16 +54,12 @@
 #include <q3sqlcursor.h>
 #include <qsqlrecord.h>
 #include <qdatetime.h>
-//#include <qdom.h>
 #include <qcursor.h>
 #include <q3progressbar.h>
 //Added by qt3to4:
 #include <QSqlQuery>
 #include <Q3PtrList>
-//#include "structureparser.h"
-#ifndef _GEST_USER                   // placer  _GEST_USER  dans: QMake configuration, Onglet compilateur, champ definition.
-   //#include "structureparser.h"
-#endif
+
 
 #include "CRubList.h"
 #include "CGestIni.h"
@@ -249,7 +245,7 @@ class CMoteurBase: public QObject,          // classe QObject classique
               const QString & baseLabel,
               QString*    errMess,
               QObject *       parent = 0,
-              const QString   & name = "Objet CMoteurBase",
+              const QString   & name = "CMoteurBase",
               verifyMode verifyMode  = CMoteurBase::verifyBaseStruct);
 
   ~CMoteurBase();

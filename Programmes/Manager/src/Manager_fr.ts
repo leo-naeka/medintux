@@ -245,19 +245,19 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>CMoteurBase</name>
     <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="237"/>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="234"/>
         <source>
     = </source>
         <translation>
     = </translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="456"/>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="453"/>
         <source>Failed to open database : </source>
         <translation>Impossible d&apos;ouvrir la base de données : </translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="570"/>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="567"/>
         <source>ConvertToNew(): database can&apos;t be open</source>
         <translation>ConvertToNew(): impossible d&apos;ouvrir la base de données</translation>
     </message>
@@ -268,12 +268,12 @@ Indexation error: </source>
 Erreur d&apos;indexation : </translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="893"/>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="890"/>
         <source>CMoteurBase::GetPatientList(): data base can&apos;t be open</source>
         <translation>CMoteurBase::GetPatientList(): impossible d&apos;ouvrir la base de données</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="1058"/>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="1056"/>
         <source>CMoteurBase::GetPatientListFromNomPrenomSecuDtNssGeme(): data base can&apos;t be open</source>
         <translation>CMoteurBase::GetPatientListFromNomPrenomSecuDtNssGeme(): impossible d&apos;ouvrir la base de données</translation>
     </message>
@@ -290,12 +290,12 @@ Erreur d&apos;indexation : </translation>
 ATTENTION : ces table(s) sont non indiquée(s) dans le fichier de configuration :</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="239"/>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="236"/>
         <source> ==&gt; Failure attempting to create</source>
         <translation> ==&gt; Echec de la tentative de création</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="243"/>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="240"/>
         <source> ==&gt; Success when attempting to create</source>
         <translation> ==&gt; Succès de la tentative de création</translation>
     </message>
@@ -306,198 +306,221 @@ ATTENTION : ces table(s) sont non indiquée(s) dans le fichier de configuration 
 SUCCES de la mise à jour des tables manquantes.</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="248"/>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="245"/>
         <source>
  ERROR %1 table(s) not found in the present base: </source>
         <translation>
 ERREUR %1 table(s) non trouvée(s) dans la base actuellement : </translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="998"/>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="1214"/>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="995"/>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="1212"/>
         <source>Displayed %1 among %2</source>
         <translation>Affiché %1 parmi %2</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="1918"/>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="2853"/>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="1916"/>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="2851"/>
         <source>Found: </source>
         <translation>Trouvé : </translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="2163"/>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="2161"/>
         <source> - SQL no error occurred: </source>
         <translation> - Aucune erreur SQL n&apos;est survenue : </translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="2164"/>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="2162"/>
         <source> - SQL connection error: </source>
         <translation> - Erreur de connexion SQL : </translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="2165"/>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="2163"/>
         <source> - SQL statement syntax error: </source>
         <translation> - Effeur de déclaration SQL : </translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="2166"/>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="2164"/>
         <source> - SQL transaction failed error: </source>
         <translation> - Erreur de transaction SQL : </translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="2167"/>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="2165"/>
         <source> - SQL unknown error: </source>
         <translation> - Erreur SQL inconnue : </translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="2168"/>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="2166"/>
         <source> - unknown SQL type error: </source>
         <translation> - erreur SQL de type inconnu : </translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="2185"/>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="2183"/>
         <source>CMoteurBase::GetUserSpecialite(): database can&apos;t be opened</source>
         <translation>CMoteurBase::GetUserSpecialite(): la base de données ne peut être ouverte</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="2207"/>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="2205"/>
         <source>CMoteurBase::GetUserNomPrenom(): database can&apos;t be opened</source>
         <translation>CMoteurBase::GetUserNomPrenom(): la base de données ne peut être ouverte</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="2231"/>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="2229"/>
         <source>CMoteurBase::GetUserPermisions(): database can&apos;t be opened</source>
         <translation>CMoteurBase::GetUserPermisions(): la base de données ne peut être ouverte</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="2259"/>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="2257"/>
         <source>CMoteurBase::SetUserPermisions(): database can&apos;t be opened</source>
         <translation>CMoteurBase::SetUserPermisions(): la base de données ne peut être ouverte</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="2270"/>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="2268"/>
         <source>CMoteurBase::UserDroitsCount(): database can&apos;t be opened</source>
         <translation>CMoteurBase::UserDroitsCount(): la base de données ne peut être ouverte</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="2292"/>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="2347"/>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="2439"/>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="2290"/>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="2345"/>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="2437"/>
         <source>CMoteurBase::GetUserList(): database can&apos;t be opened</source>
         <translation>CMoteurBase::GetUserList(): la base de données ne peut être ouverte</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="2426"/>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="2424"/>
         <source>Found: %1</source>
         <translation>Trouvé : %1</translation>
     </message>
     <message>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="3010"/>
         <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="3012"/>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="3014"/>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="3017"/>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="3052"/>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="3015"/>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="3050"/>
         <source>Parameters</source>
         <translation>Paramètres</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="3224"/>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="3222"/>
         <source>Success when changing user</source>
         <translation>Changement d&apos;utilisateur reussi</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="5118"/>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="5116"/>
         <source>Error : RubListDelete::CMoteurBase::progMasterUpdate 
 </source>
         <translation>Erreur : RubListDelete::CMoteurBase::progMasterUpdate 
 </translation>
     </message>
     <message>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="3227"/>
         <source>
 Failure when changing user: CMoteur_Base. </source>
-        <translation type="obsolete">
+        <translation type="unfinished">
 Échec lors du changement d&apos;utilisateur : CMoteur_Base. </translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="5585"/>
+        <source>
+ verifyBaseIntegrity() Driver not started</source>
+        <translation type="obsolete">
+ verifyBaseIntegrity() Driver non instancié</translation>
+    </message>
+    <message>
+        <source>
+ verifyBaseIntegrity() tables do not match  
+</source>
+        <translation type="obsolete">
+ verifyBaseIntegrity() les tables ne correspondent pas  
+</translation>
+    </message>
+    <message>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="5583"/>
         <source> year</source>
         <translation> année</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="5601"/>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="5599"/>
         <source> month</source>
         <translation> mois</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="5613"/>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="5611"/>
         <source> day</source>
         <translation> jour</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="3269"/>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="3267"/>
         <source>DossIdentIndexCreate() this GUID &apos;%1&apos; already exists 
 </source>
         <translation>DossIdentIndexCreate() ce GUID &apos;%1&apos; existe deja 
 </translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="3292"/>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="3290"/>
         <source>DossIdentIndexCreate() pk not found for this GUID &apos;%1&apos; , index not created 
 %2</source>
         <translation>DossIdentIndexCreate() pk non trouvée pour ce GUID &apos;%1&apos; , index non créé 
 %2</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="3343"/>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="3341"/>
         <source>DossIdentIndexCreate() recording into %1&apos; could not be created&apos; 
 %2</source>
         <translation>DossIdentIndexCreate() l&apos;enregistrement dans %1&apos; n&apos;a pu etre créé&apos;
 %2</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="3231"/>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="3229"/>
         <source>no error occurred</source>
         <translation>aucune erreur n&apos;est survenue</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="206"/>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="127"/>
         <source>
- verifyBaseIntegrity() Driver not started</source>
-        <translation>
- verifyBaseIntegrity() Driver non instancié</translation>
+ Configuration du fichier &apos;DataBase.cfg&apos; incorrecte :</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="221"/>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="128"/>
         <source>
- verifyBaseIntegrity() tables do not match  
-</source>
-        <translation>
- verifyBaseIntegrity() les tables ne correspondent pas  
-</translation>
+       Version exigée   du fichier &apos;DataBase.cfg&apos; : %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="247"/>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="129"/>
+        <source>
+       Version actuelle du fichier &apos;DataBase.cfg&apos; : %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="136"/>
+        <source>
+ Version de la base installée: %1 non à  jour, version souhaitée : %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="244"/>
         <source>
  SUCCESS when updating missing tables.</source>
         <translation>
 SUCCÈS de la mise à jour des tables manquantes.</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="3232"/>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="3230"/>
         <source>connection error</source>
         <translation>erreur de connexion</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="3233"/>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="3231"/>
         <source>SQL statement syntax error</source>
         <translation>erreur de déclaration SQL</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="3234"/>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="3232"/>
         <source>transaction failed error</source>
         <translation>erreur de transaction</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="3235"/>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="3233"/>
         <source>unknown error</source>
         <translation>erreur inconnue</translation>
     </message>
@@ -2504,7 +2527,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../MedinTuxTools-QT4/C_Dlg_DoList/C_Dlg_DoList.ui" line="33"/>
         <source>Confirmer</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Confirme</translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/C_Dlg_DoList/C_Dlg_DoList.ui" line="40"/>
@@ -2536,93 +2559,93 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.ui" line="41"/>
-        <source> Coordonnées </source>
-        <translation type="unfinished"></translation>
+        <source> Contact details </source>
+        <translation>Détails du rendez-vous</translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.ui" line="60"/>
-        <source>Nom </source>
-        <translation type="unfinished"></translation>
+        <source>Name </source>
+        <translation>Nom</translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.ui" line="76"/>
-        <source>Prénom </source>
-        <translation type="unfinished"></translation>
+        <source>First name </source>
+        <translation>Prénom</translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.ui" line="92"/>
-        <source>Tél. </source>
-        <translation type="unfinished"></translation>
+        <source>Tel. </source>
+        <translation>Tél.</translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.ui" line="110"/>
-        <source>Rendre un rendez-vous anonyme (non rattaché à un dossier)</source>
-        <translation type="unfinished"></translation>
+        <source>Anonymise an appointment (not linked to a folder)</source>
+        <translation>Rendre ce rendez-vous anonyme</translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.ui" line="126"/>
-        <source>N° Doss.</source>
-        <translation type="unfinished"></translation>
+        <source>Doss. #</source>
+        <translation>Num. Dossier</translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.ui" line="240"/>
-        <source>Statut</source>
-        <translation type="unfinished"></translation>
+        <source>Status</source>
+        <translation>Statut</translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.ui" line="256"/>
-        <source>Choix du statut du rendez-vous</source>
-        <translation type="unfinished"></translation>
+        <source>Choose appointment&apos;s status</source>
+        <translation>Choisissez le statut du rendez-vous</translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.ui" line="295"/>
-        <source>Note et motif</source>
-        <translation type="unfinished"></translation>
+        <source>Note and cause</source>
+        <translation>Motif et note</translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.ui" line="330"/>
-        <source>Changer l&apos;heure du rendez-vous à partir d&apos;une liste d&apos;heures possibles</source>
-        <translation type="unfinished"></translation>
+        <source>Change the hour of an appointment taken in a list</source>
+        <translation>Changer l&apos;heure du rendez-vous avec un menu déroulant</translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.ui" line="355"/>
-        <source>Changer la durée du rendez-vous à partir d&apos;une liste d&apos;heures possibles</source>
-        <translation type="unfinished"></translation>
+        <source>Change the duration of an appointment taken from a list</source>
+        <translation>Changer la durée du rendez-vous avec un menu déroulant</translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.ui" line="382"/>
-        <source>Pris par</source>
-        <translation type="unfinished"></translation>
+        <source>Taken by</source>
+        <translation>Pris par</translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.ui" line="398"/>
-        <source>pour</source>
-        <translation type="unfinished"></translation>
+        <source>for</source>
+        <translation>pour</translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.ui" line="546"/>
-        <source>Type de rendez vous</source>
-        <translation type="unfinished"></translation>
+        <source>Type of appointment</source>
+        <translation>Type de rendez-vous</translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.ui" line="551"/>
-        <source>couleur</source>
-        <translation type="unfinished"></translation>
+        <source>colour</source>
+        <translation>Couleur</translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.ui" line="556"/>
-        <source>Durée par défaut</source>
-        <translation type="unfinished"></translation>
+        <source>Default duration</source>
+        <translation>Durée par défaut</translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.ui" line="591"/>
-        <source>Ajouter un type de rendez-vous</source>
-        <translation type="unfinished"></translation>
+        <source>Add a type of appointment</source>
+        <translation>Ajouter un type de rendez-vous</translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.ui" line="625"/>
-        <source>Détruire un type de rendez-vous</source>
-        <translation type="unfinished"></translation>
+        <source>Delete a type of appointment</source>
+        <translation>Effacer un type de rendez-vous</translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.ui" line="716"/>
@@ -2633,10 +2656,29 @@ p, li { white-space: pre-wrap; }
 &lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
 &lt;tr&gt;
 &lt;td style=&quot;border: none;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;° Select the type of appointment to attribute to the appointment by simple-clicking on the line of this type.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;° To modify the label of an appointment, double-click on its label.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;° To modify the colour of a type of appointment, double-click on the box of the colour.&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:600; font-style:normal;&quot;&gt;
+&lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
+&lt;tr&gt;
+&lt;td style=&quot;border: none;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;° Sélectionnez le type de rendez-vous à affecter au rendez-vous en cliquant une seule fois sur la ligne correspondant à ce type.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;° Pour modifier le libellé d&apos;un type de rendez-vous double cliquez sur son libellé.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;° Pour modifier la couleur d&apos;un type de rendez-vous double cliquez sur la case de la couleur.&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;° Pour modifier la couleur d&apos;un type de rendez-vous double cliquez sur la case de la couleur.&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.ui" line="751"/>
+        <source>Confirm</source>
+        <translation>Confirmer</translation>
+    </message>
+    <message>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.ui" line="764"/>
+        <source>Quit</source>
+        <translation>Quitter</translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.ui" line="767"/>
@@ -2644,34 +2686,24 @@ p, li { white-space: pre-wrap; }
         <translation>Alt+Q</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.ui" line="751"/>
-        <source>Confirmer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.ui" line="754"/>
         <source>Alt+C</source>
         <translation>Alt+C</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.ui" line="764"/>
-        <source>Quitter</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.cpp" line="76"/>
-        <source>Statut non défini</source>
-        <translation type="unfinished"></translation>
+        <source>Undefined status</source>
+        <translation>Satut indéfini</translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.cpp" line="98"/>
-        <source>Modifier les types de rendez-vous</source>
-        <translation type="unfinished"></translation>
+        <source>Modify types of appointments</source>
+        <translation>Modifier les types de rendez-vous</translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.cpp" line="154"/>
-        <source>%1 heure %2 minutes</source>
-        <translation type="unfinished"></translation>
+        <source>%1 hour %2 minutes</source>
+        <translation>%1 heure %2 minutes</translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.cpp" line="156"/>
@@ -2680,88 +2712,41 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.cpp" line="201"/>
-        <source>07 heure</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.cpp" line="202"/>
-        <source>08 heure</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.cpp" line="203"/>
-        <source>09 heure</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.cpp" line="204"/>
-        <source>10 heure</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.cpp" line="205"/>
-        <source>11 heure</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.cpp" line="206"/>
-        <source>12 heure</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.cpp" line="207"/>
-        <source>13 heure</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.cpp" line="208"/>
-        <source>14 heure</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.cpp" line="209"/>
-        <source>15 heure</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.cpp" line="210"/>
-        <source>16 heure</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.cpp" line="211"/>
-        <source>17 heure</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.cpp" line="212"/>
-        <source>18 heure</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.cpp" line="213"/>
-        <source>19 heure</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.cpp" line="214"/>
-        <source>20 heure</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.cpp" line="215"/>
-        <source>21 heure</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.cpp" line="216"/>
-        <source>22 heure</source>
-        <translation type="unfinished"></translation>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.cpp" line="217"/>
+        <source> hour</source>
+        <translation>heure</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.cpp" line="217"/>
-        <source>23 heure</source>
-        <translation type="unfinished"></translation>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.cpp" line="226"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.cpp" line="244"/>
+        <source> hour </source>
+        <translation>heure</translation>
+    </message>
+    <message>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.cpp" line="280"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.cpp" line="363"/>
+        <source>Colour of the type of appointment</source>
+        <translation>Couleur du type de rendez-vous</translation>
+    </message>
+    <message>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.cpp" line="370"/>
+        <source>&lt;new type&gt;</source>
+        <translation>&lt;nouveau type&gt;</translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.cpp" line="225"/>
@@ -2769,77 +2754,24 @@ p, li { white-space: pre-wrap; }
         <translation> mn</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.cpp" line="226"/>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.cpp" line="244"/>
-        <source> heure </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.cpp" line="243"/>
         <source> minutes</source>
         <translation> minutes</translation>
-    </message>
-    <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.cpp" line="280"/>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.cpp" line="363"/>
-        <source>Couleur du type de rendez-vous</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.cpp" line="370"/>
-        <source>&lt;nouveau type&gt;</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>C_Frm_Agenda</name>
     <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="249"/>
-        <source>Agenda non possible pour cet utilisateur : %1</source>
-        <translation type="unfinished"></translation>
+        <source>Schedule not available for this user: %1</source>
+        <translation>Agenda non disponible pour cet utilisateur : %1</translation>
     </message>
 </context>
 <context>
     <name>C_Frm_Day</name>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="455"/>
-        <source>&lt;font color=&quot;#000000&quot;&gt;Ouvre et ferme une page de l&apos;agenda.&lt;/font&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="460"/>
-        <source>&lt;font color=&quot;#000000&quot;&gt;Ajouter un nouveau rendez-vous à cette date.&lt;/font&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="465"/>
-        <source>&lt;font color=&quot;#000000&quot;&gt;Enregistrer ce jour comme modèle de jour.&lt;/font&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="529"/>
         <source>%1:%2</source>
-        <translation>%1:%2</translation>
-    </message>
-    <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="533"/>
-        <source>&lt;TABLE cellSpacing=&quot;0&quot;  cellpadding=&quot;4&quot; width=100% border=&quot;1&quot;&gt;&lt;TBODY&gt;&lt;TR&gt;&lt;TD width=100% align=&quot;left&quot; bgcolor=&quot;#FEFFDD&quot;&gt;Le&amp;nbsp;&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;%1&lt;/font&gt;&lt;/b&gt;&amp;nbsp;à&amp;nbsp;&lt;b&gt;&lt;font color=&quot;#e80d0d&quot;&gt;%2&lt;/font&gt;&lt;/b&gt;&amp;nbsp;(durée&amp;nbsp;:&amp;nbsp;&lt;b&gt;&lt;font color=&quot;#e80d0d&quot;&gt;%3&lt;/b&gt;&lt;/font&gt;&amp;nbsp;mn) &lt;b&gt;Occupé&lt;/b&gt;&amp;nbsp;par&amp;nbsp;&lt;font color=&quot;#FF8000&quot;&gt;&lt;b&gt;%4&lt;/b&gt;&lt;/font&gt;&lt;/b&gt;&lt;/TD&gt;&lt;/TBODY&gt;&lt;/TABLE&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="543"/>
-        <source>&lt;TABLE cellSpacing=&quot;0&quot;  cellpadding=&quot;4&quot; width=100% border=&quot;1&quot;&gt;&lt;TBODY&gt;&lt;TR&gt;&lt;TD width=100% align=&quot;left&quot; bgcolor=&quot;#FEFFDD&quot;&gt;Le&amp;nbsp;&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;%1&lt;/font&gt;&lt;/b&gt;&amp;nbsp;à&amp;nbsp;&lt;b&gt;&lt;font color=&quot;#e80d0d&quot;&gt;%2&lt;/font&gt;&lt;/b&gt;&amp;nbsp;(durée&amp;nbsp;:&amp;nbsp;&lt;b&gt;&lt;font color=&quot;#e80d0d&quot;&gt;%3&lt;/b&gt;&lt;/font&gt;&amp;nbsp;mn) &lt;b&gt;disponible&lt;/b&gt;&amp;nbsp;pour&amp;nbsp;&lt;font color=&quot;#FF8000&quot;&gt;&lt;b&gt;%4&lt;/b&gt;&lt;/font&gt;&amp;nbsp;avec&amp;nbsp;&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;%5&lt;/font&gt;&lt;/b&gt;&lt;/TD&gt;&lt;/TBODY&gt;&lt;/TABLE&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="554"/>
-        <source>&lt;TABLE cellSpacing=&quot;0&quot;  cellpadding=&quot;4&quot; width=100% border=&quot;1&quot;&gt;&lt;TBODY&gt;&lt;TR&gt;&lt;TD width=100% align=&quot;left&quot; bgcolor=&quot;#FEFFDD&quot;&gt;Le&amp;nbsp;&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;%1&lt;/font&gt;&lt;/b&gt;&amp;nbsp;à&amp;nbsp;&lt;b&gt;&lt;font color=&quot;#e80d0d&quot;&gt;%2&lt;/font&gt; Création&lt;/b&gt;&amp;nbsp;pour&amp;nbsp;&lt;font color=&quot;#FF8000&quot;&gt;&lt;b&gt;%3&lt;/b&gt;&lt;/font&gt;&amp;nbsp;avec&amp;nbsp;&lt;b&gt;&lt;font color=&quot;#0000FF&quot;&gt;%4&lt;/font&gt;&lt;/b&gt; &lt;/TD&gt;&lt;/TBODY&gt;&lt;/TABLE&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="846"/>
-        <source> Rendez-vous</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">%1:%2</translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="886"/>
@@ -2848,244 +2780,320 @@ p, li { white-space: pre-wrap; }
         <translation>DontCreate est positionné sur : %1</translation>
     </message>
     <message>
+        <source>Annu&amp;ler</source>
+        <translation type="obsolete">&amp;Cancel</translation>
+    </message>
+    <message>
+        <source>$Agenda</source>
+        <translation type="obsolete">$Agenda</translation>
+    </message>
+    <message>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="455"/>
+        <source>Opens and closes a page of the schedule.</source>
+        <translation>Ouvre et ferme une page de l&apos;agenda .</translation>
+    </message>
+    <message>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="460"/>
+        <source>Add a new appointment at this date.</source>
+        <translation>Ajouter un nouveau rendez-vous à cette date.</translation>
+    </message>
+    <message>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="465"/>
+        <source>Save this day as template.&lt;/font&gt;</source>
+        <translation>Enregistrer ce jour comme modèle.&lt;/font&gt;</translation>
+    </message>
+    <message>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="537"/>
+        <source>On the</source>
+        <translation>Le</translation>
+    </message>
+    <message>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="537"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="547"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="558"/>
+        <source>at</source>
+        <translation>à</translation>
+    </message>
+    <message>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="537"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="547"/>
+        <source>(duration</source>
+        <translation>(durée</translation>
+    </message>
+    <message>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="537"/>
+        <source>Occupied</source>
+        <translation>Occupé</translation>
+    </message>
+    <message>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="547"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="558"/>
+        <source>The</source>
+        <translation>Le</translation>
+    </message>
+    <message>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="547"/>
+        <source>available</source>
+        <translation>disponible</translation>
+    </message>
+    <message>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="548"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="559"/>
+        <source>with</source>
+        <translation>avec</translation>
+    </message>
+    <message>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="558"/>
+        <source>Creation</source>
+        <translation>Création</translation>
+    </message>
+    <message>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="558"/>
+        <source>for</source>
+        <translation>pour</translation>
+    </message>
+    <message>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="846"/>
+        <source> Appointment</source>
+        <translation> Rendez-vous </translation>
+    </message>
+    <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="938"/>
-        <source>&lt;font color=&quot;#000000&quot;&gt;Emplacement libre à : %1 h %2 mn 
-durée maximum possible : %3 h %4 mn&lt;/font&gt;</source>
-        <translation type="unfinished"></translation>
+        <source>Free space at : %1 h %2 mn 
+maximum possible duration:</source>
+        <translation>Emplacement libre à : %1 h %2 mn 
+durée maximum possible :</translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1177"/>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1301"/>
-        <source>Modifier un rendez-vous :</source>
-        <translation type="unfinished"></translation>
+        <source>Modify an appointment :</source>
+        <translation>Modifier un rendez-vous :</translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1178"/>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1302"/>
-        <source>&lt;u&gt;&lt;b&gt;ATTENTION&lt;/u&gt; :&lt;br&gt;&lt;/b&gt; le rendez-vous actuel pris pour :&lt;br&gt; &lt;b&gt;&lt;font color=&quot;#1200ff&quot;&gt;%1&lt;/font&gt;&lt;/b&gt;&lt;hr&gt;</source>
-        <translation type="unfinished"></translation>
+        <source>WARNING</source>
+        <translation>ATTENTION</translation>
+    </message>
+    <message>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1178"/>
+        <source>The actual appointment taken for:</source>
+        <translation>Le rendez-vous actuel pris pour :</translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1180"/>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1304"/>
-        <source>va changer et être attribué à :&lt;br&gt;&lt;b&gt;&lt;font color=&quot;#ff0000&quot;&gt;%1&lt;/font&gt;&lt;/b&gt;&lt;br&gt;</source>
-        <translation type="unfinished"></translation>
+        <source>will change et will be given to:</source>
+        <translation>va changer et être pris pour :</translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1182"/>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1306"/>
-        <source>confirmez vous la modification ?</source>
-        <translation type="unfinished"></translation>
+        <source>Confirm modification ?</source>
+        <translation>Confirmer la modification ?</translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1183"/>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1307"/>
-        <source>&amp;Modifier</source>
-        <translation type="unfinished"></translation>
+        <source>&amp;Modify</source>
+        <translation>&amp;Modifier</translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1183"/>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1307"/>
-        <source>Annu&amp;ler</source>
-        <translation type="unfinished">&amp;Cancel</translation>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Annuler</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1324"/>
-        <source>Statut du rendez-vous</source>
-        <translation type="unfinished"></translation>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1302"/>
+        <source>&lt;u&gt;&lt;b&gt;WARNING&lt;/u&gt; :&lt;br /&gt;&lt;/b&gt; The actual appointment taken for :</source>
+        <translation>&lt;u&gt;&lt;b&gt;ATTENTION&lt;/u&gt; :&lt;br /&gt;&lt;/b&gt; Le rendez-vous actuel pris pour :</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1325"/>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1527"/>
-        <source>Statut du rendez-vous : </source>
-        <translation type="unfinished"></translation>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1304"/>
+        <source>will be given to:</source>
+        <translation>va être attibué à :</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1328"/>
-        <source>Rendez vous de type</source>
-        <translation type="unfinished"></translation>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1540"/>
+        <source>Appointment Status: %1</source>
+        <translation>Statut du rendez-vous : %1</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1329"/>
-        <source>Rendez vous de type : </source>
-        <translation type="unfinished"></translation>
+        <source>Appointment Status</source>
+        <translation type="obsolete">Statut du rendez-vous </translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1332"/>
-        <source>Détruire</source>
-        <translation type="unfinished"></translation>
+        <source>Appointment Status: </source>
+        <translation type="obsolete">Statut du rendez-vous :</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1336"/>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1353"/>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1637"/>
-        <source>Confirmer l&apos;effacement</source>
-        <translation type="unfinished"></translation>
+        <source>Appointment of type</source>
+        <translation type="obsolete">Type du rendez-vous </translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation type="obsolete">Détruire</translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1337"/>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1354"/>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1638"/>
-        <source>Confirmer l&apos;effacement de ce rendez-vous </source>
-        <translation type="unfinished"></translation>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1658"/>
+        <source>Confirm delete</source>
+        <translation>Confirmer la destruction</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1350"/>
-        <source>Couper</source>
-        <translation type="unfinished"></translation>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1338"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1659"/>
+        <source>Confirm deleting this appointment </source>
+        <translation>Confirmer l&apos;effacement de ce rendez-vous</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1369"/>
-        <source>Copier</source>
-        <translation type="unfinished"></translation>
+        <source>Cut</source>
+        <translation type="obsolete">Couper</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1372"/>
-        <source>Remplacer</source>
-        <translation type="unfinished"></translation>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1355"/>
+        <source>Confirm deleting this appointment</source>
+        <translation>Confirmer l&apos;effacement de ce rendez-vous</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1383"/>
-        <source>Modifier</source>
-        <translation type="unfinished"></translation>
+        <source>Copy</source>
+        <translation type="obsolete">Copier</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1386"/>
-        <source>Rendre</source>
-        <translation type="unfinished"></translation>
+        <source>Replace</source>
+        <translation type="obsolete">Remplacer</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1393"/>
-        <source>Ouvrir le dossier</source>
-        <translation type="unfinished"></translation>
+        <source>Modify</source>
+        <translation type="obsolete">Modifier</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1422"/>
-        <source>$Agenda</source>
-        <translation type="unfinished">$Agenda</translation>
-    </message>
-    <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1424"/>
-        <source>=8=#Agenda/NewDocWithIdentAfter.png#Créer à la suite du dernier pour le %2 à %3 un rendez-vous avec le patient &apos;%1&apos; sélectionné dans la liste.</source>
-        <translation type="unfinished"></translation>
+        <source>Open folder</source>
+        <translation type="obsolete">Ouvrir le dossier </translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1425"/>
-        <source>=3=#Agenda/NewDocWithIdent.png#Créer pour le %2 à %3 un rendez-vous avec le patient &apos;%1&apos; sélectionné dans la liste.</source>
-        <translation type="unfinished"></translation>
+        <source>Create after the last one for the %2 at %3 an appointment with the patient &apos;%1&apos; selected in the list.</source>
+        <translation>Créer  un rendez-vous à la suite du dernier pour le  %2 à %3 avec le patient : &apos;%1&apos; sélectionné dans la liste.</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1428"/>
-        <source>=7=#Agenda/NewDocAfter.png#Prendre un rendez-vous à la suite du dernier pour le  %1 à %2</source>
-        <translation type="unfinished"></translation>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1426"/>
+        <source>Create for the %2 at %3 an appointment with the patient &apos;%1&apos; selected in the list.</source>
+        <translation>Créer pour l&apos;emplacement actuel le %2 à %3 un rendez-vous avec le patient : &apos;%1&apos; sélectionné dans la liste.</translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1429"/>
-        <source>=6=#Agenda/NewDoc.png#Prendre un rendez-vous pour le  %1 à  %2</source>
-        <translation type="unfinished"></translation>
+        <source>Create an appointment after the last one for the %1 at %2</source>
+        <translation>Créer.un rendez-vous à la suite du dernier pour le  %1 à %2 </translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1430"/>
-        <source>=1=#Agenda/NewDoc.png#Créer pour le  %1 à %2 un rendez-vous vierge sans identité</source>
-        <translation type="unfinished"></translation>
+        <source>Create an appointment for the %1 at  %2</source>
+        <translation>Créer pour l&apos;emplacement actuel le %1 à %2 un rendez-vous</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1437"/>
-        <source>=4=#Agenda/editpaste.png#Coller le rendez-vous avec le patient &apos;%1&apos; à cette date : %2 et à cette heure : %3</source>
-        <translation type="unfinished"></translation>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1431"/>
+        <source>Create for the %1 at %2 an empty appointment with no identity</source>
+        <translation>Créer pour l&apos;emplacement actuel le %1 à %2 un rendez-vous vide sans identité</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1441"/>
-        <source>=9=#Agenda/editpasteLast.png#Coller à la suite du dernier le rendez-vous avec le patient &apos;%1&apos; </source>
-        <translation type="unfinished"></translation>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1438"/>
+        <source>Paste the appointment with the patient &apos;%1&apos; at this date : %2 at this hour: %3</source>
+        <translation>Coller le rendez-vous avec le patient &apos;%1&apos; à cette date : %2 à cette heure : %3</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1444"/>
-        <source>=4=#Agenda/editpaste.png#Coller à cette date : %1 et à cette heure : %2 le rendez-vous copié</source>
-        <translation type="unfinished"></translation>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1442"/>
+        <source>Paste after the last one the appointment with the patient &apos;%1&apos; </source>
+        <translation>Coller le rendez-vous avec ce patient &apos;%1&apos; à la suite du dernier</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1447"/>
-        <source>=9=#Agenda/editpasteLast.png#Coller à la suite du dernier le rendez-vous copié</source>
-        <translation type="unfinished"></translation>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1445"/>
+        <source>Paste at this date : %1 and at this hour : %2 the appointment from copy memory</source>
+        <translation>Coller à cette date : %1 et cette heure : %2 le rendez-vous déjà copié et présent en mémoire</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1451"/>
-        <source>=5=#Agenda/configure.png#Configurer les types de rendez-vous</source>
-        <translation type="unfinished"></translation>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1448"/>
+        <source>Paste after the last one the appointment from the copy memory.</source>
+        <translation>Coller après le dernier rendez-vous celui déjà copié et présent en mémoire.</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1453"/>
-        <source>=2=#Agenda/QuitterMenu.png#Quitter ce menu</source>
-        <translation type="unfinished"></translation>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1452"/>
+        <source>Configure the types of appointments</source>
+        <translation>Configurer les types de rendez-vous</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1494"/>
-        <source>Rendez-vous disponible</source>
-        <translation type="unfinished"></translation>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1454"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1556"/>
+        <source>Quit this menu</source>
+        <translation>Quitter ce menu</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1497"/>
-        <source>Copier le rendez-vous en cours dans la mémoire de copie</source>
-        <translation type="unfinished"></translation>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1498"/>
+        <source>Appointment available</source>
+        <translation>Rendez-vous disponible</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1502"/>
-        <source>Remplacer le rendez vous actuel par celui en mémoire de copie au nom du patient : &apos;%1&apos; </source>
-        <translation type="unfinished"></translation>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1501"/>
+        <source>Copy the current appointment into the copy memory</source>
+        <translation>Copier ce rendez-vous en mémoire de copie</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1504"/>
-        <source>Remplacer le rendez vous actuel par celui en mémoire de copie.</source>
-        <translation type="unfinished"></translation>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1509"/>
+        <source>Replace the actual appointment with the one inside the copy memory with the name of the patient: &apos;%1&apos; </source>
+        <translation>Remplacer le rendez-vous actuel par celui présent en mémoire de copie, patient : &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1506"/>
-        <source>Couper le rendez-vous en cours et le placer dans la mémoire de copie</source>
-        <translation type="unfinished"></translation>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1512"/>
+        <source>Replace the actual appointment with the one inside the copy memory.</source>
+        <translation>Remplacer le rendez-vous actuel par celui présent en mémoire de copie.</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1519"/>
-        <source>Rendez vous de type : %1</source>
-        <translation type="unfinished"></translation>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1515"/>
+        <source>Cut the current appointment and put into the copy memory</source>
+        <translation>Couper le rendez-vous actuel et le placer en mémoire de copie</translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1530"/>
-        <source>Modifier les paramètres de ce rendez-vous...</source>
-        <translation type="unfinished"></translation>
+        <source>Appointment of type: %1</source>
+        <translation>Rendez-vous de type : %1</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1531"/>
-        <source>Ouvrir le dossier : %1</source>
-        <translation type="unfinished"></translation>
+        <source>Status of the appointment: </source>
+        <translation type="obsolete">Statut du rendez-vous : </translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1533"/>
-        <source>Rendre ce rendez-vous anonyme et disponible (le désallouer)</source>
-        <translation type="unfinished"></translation>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1544"/>
+        <source>Modify the parameters of this appointment...</source>
+        <translation>Modifier les paramètres de ce rendez-vous...</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1534"/>
-        <source>Détruire ce rendez-vous</source>
-        <translation type="unfinished"></translation>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1547"/>
+        <source>Open folder: %1</source>
+        <translation>Ouvrir le dossier de : %1</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1536"/>
-        <source>Quitter ce menu</source>
-        <translation type="unfinished"></translation>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1551"/>
+        <source>Make this appointment anonymous and available</source>
+        <translation>Rendre ce rendez-vous anonyme et disponible</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1548"/>
-        <source> Rendez-vous disponible </source>
-        <translation type="unfinished"></translation>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1553"/>
+        <source>Delete this appointment</source>
+        <translation>Détruire ce rendez-vous</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1797"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1569"/>
+        <source> Appointment available </source>
+        <translation>Rendez-vous disponible</translation>
+    </message>
+    <message>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1818"/>
         <source>recreate blocked : %1 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1798"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1819"/>
         <source>recreate not blocked : %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3093,90 +3101,40 @@ durée maximum possible : %3 h %4 mn&lt;/font&gt;</source>
 <context>
     <name>C_Frm_Rdv</name>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2069"/>
-        <source>Statut non défini</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2208"/>
         <source>/</source>
-        <translation>/</translation>
+        <translation type="obsolete">/</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2403"/>
-        <source>Statut du rendez-vous : </source>
-        <translation type="unfinished"></translation>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1969"/>
+        <source>Delete this appointment</source>
+        <translation>Détruire ce rendez-vous</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1948"/>
-        <source>&lt;font color=&quot;#000000&quot;&gt;Effacer ce rendez-vous.&lt;/font&gt;</source>
-        <translation type="unfinished"></translation>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1975"/>
+        <source>Modify the appointment.</source>
+        <translation>Modifier un rendez-vous.</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1954"/>
-        <source>&lt;font color=&quot;#000000&quot;&gt;Modifier le rendez-vous.&lt;/font&gt;</source>
-        <translation type="unfinished"></translation>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1981"/>
+        <source>Access the patient&apos;s folder.</source>
+        <translation>Accéder au dossier patient.</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1960"/>
-        <source>&lt;font color=&quot;#000000&quot;&gt;Accéder au dossier du patient.&lt;/font&gt;</source>
-        <translation type="unfinished"></translation>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2090"/>
+        <source>Undefined status</source>
+        <translation>Satut indéfini</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2306"/>
-        <source>Confirmer la modification</source>
-        <translation type="unfinished"></translation>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2327"/>
+        <source>Confirm modification</source>
+        <translation>Confirmer les modifications</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2307"/>
-        <source>Les caractéristiques de ce rendez-vous ont été modifiées
-Confirmer les modifications </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2402"/>
-        <source>Statut du rendez-vous</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2409"/>
-        <source>Rendez vous de type</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2410"/>
-        <source>Rendez vous de type : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2416"/>
-        <source>Couper</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2419"/>
-        <source>Copier</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2421"/>
-        <source>Remplacer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2423"/>
-        <source>Modifier</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2426"/>
-        <source>Rendre</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2436"/>
-        <source>Ouvrir le dossier</source>
-        <translation type="unfinished"></translation>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2328"/>
+        <source>The features of this appointment have been modified 
+Confirm modifications </source>
+        <translation>Les caractéristiques de ce rendez-vous on été modifiées, 
+confirmez vous les modification ?</translation>
     </message>
 </context>
 <context>
@@ -3184,43 +3142,45 @@ Confirmer les modifications </source>
     <message>
         <location filename="../../MedinTuxTools-QT4/UserList/C_Frm_UserList.ui" line="14"/>
         <source>Frame</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/UserList/C_Frm_UserList.ui" line="52"/>
-        <source>Sélectionnez la spécialité dont vous souhaitez voir les médecins.</source>
-        <translation type="unfinished"></translation>
+        <source>Select which speciality you should show.</source>
+        <translation>Sélectionnez la spécialité pour laquelle vous souhaitez voir les utilisateurs.</translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/UserList/C_Frm_UserList.ui" line="55"/>
-        <source>&lt;b&gt;&lt;u&gt;Liste des spécialités des médecins utilisateurs&lt;/u&gt;&lt;/b&gt;&lt;br&gt;
-Choisissez le type de spécialité dont vous souhaitez afficher&lt;br&gt;
-la liste des médecins s&apos;y rapportant.</source>
-        <translation type="unfinished"></translation>
+        <source>&lt;b&gt;&lt;u&gt;List of users practitioners&lt;/u&gt;&lt;/b&gt;&lt;br&gt;
+Choose the speciality you wish display&lt;br&gt;
+the list of the practitioners inside.</source>
+        <translation>&lt;b&gt;&lt;u&gt;Liste des utilisateurs&lt;/u&gt;&lt;/b&gt;&lt;br&gt;
+Choisissez la spécialité pour laquelle &lt;br&gt;
+vous désirez afficher.les utilisateurs.</translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/UserList/C_Frm_UserList.ui" line="114"/>
         <location filename="../../MedinTuxTools-QT4/UserList/C_Frm_UserList.ui" line="117"/>
-        <source>Sélectionne un utilisateur à l&apos;aide de la carte CPS</source>
-        <translation type="unfinished"></translation>
+        <source>Selects a user with CPS card</source>
+        <translation>Séléectionnez un utilisateur avec sa carte CPS</translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/UserList/C_Frm_UserList.ui" line="139"/>
         <location filename="../../MedinTuxTools-QT4/UserList/C_Frm_UserList.ui" line="142"/>
-        <source>Editer et modifier les caractéristiques des utilisateurs.</source>
-        <translation type="unfinished"></translation>
+        <source>Edit the features of the users.</source>
+        <translation>Edition du profil des utilisateurs.</translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/UserList/C_Frm_UserList.ui" line="177"/>
         <location filename="../../MedinTuxTools-QT4/UserList/C_Frm_UserList.ui" line="180"/>
-        <source>Positionner l&apos;utilisateur avec lequel démarrer le programme.</source>
-        <translation type="unfinished"></translation>
+        <source>Select which user to start the program with.</source>
+        <translation>Sélectionner un utilisateur avec lequel démarrer le programme.</translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/UserList/C_Frm_UserList.ui" line="202"/>
         <location filename="../../MedinTuxTools-QT4/UserList/C_Frm_UserList.ui" line="205"/>
-        <source>Désactiver l&apos;utilisateur en cours (se déconnecter) mais ne quitte pas le programme.</source>
-        <translation type="unfinished"></translation>
+        <source>Close the session without closing the program (disconnect only).</source>
+        <translation>Terminer la session de cet utilisateur sans quitter le programme.</translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/UserList/C_Frm_UserList.ui" line="232"/>
@@ -3228,23 +3188,27 @@ la liste des médecins s&apos;y rapportant.</source>
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#00007f;&quot;&gt;Pour démarrer, veuillez vous identifier en sélectionnant un utilisateur de la liste ci-dessous&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+&lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#00007f;&quot;&gt;To start, please choose a user from the list below&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#00007f;&quot;&gt;Pour commencer choisissez un utilisateur dans la liste ci-dessous&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/UserList/C_Frm_UserList.ui" line="302"/>
-        <source>Identifiant</source>
-        <translation type="unfinished"></translation>
+        <source>Identifier</source>
+        <translation>Identifiant</translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/UserList/C_Frm_UserList.ui" line="307"/>
-        <source>Nom</source>
-        <translation type="unfinished"></translation>
+        <source>Name</source>
+        <translation>Nom</translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/UserList/C_Frm_UserList.ui" line="312"/>
-        <source>Prénom</source>
-        <translation type="unfinished"></translation>
+        <source>First name</source>
+        <translation>Prénom</translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/UserList/C_Frm_UserList.ui" line="317"/>
@@ -3258,32 +3222,28 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/UserList/C_Frm_UserList.cpp" line="124"/>
-        <source>Lancement &amp;automatique du programme avec l&apos;utilisateur : </source>
-        <translation type="unfinished"></translation>
+        <source>&amp;Automatic start of the program with hte user: </source>
+        <translation>&amp;Activer le lancement automatique du programme avec l&apos;utilisateur : </translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/UserList/C_Frm_UserList.cpp" line="125"/>
         <location filename="../../MedinTuxTools-QT4/UserList/C_Frm_UserList.cpp" line="128"/>
-        <source>Annuler le lancement automatique du programme avec un utilisateur</source>
-        <translation type="unfinished"></translation>
+        <source>Cancel automatic start of the program with a user</source>
+        <translation>Désactiver le lancement automatique du programme avec un utilisateur</translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/UserList/C_Frm_UserList.cpp" line="283"/>
         <location filename="../../MedinTuxTools-QT4/UserList/C_Frm_UserList.cpp" line="289"/>
         <location filename="../../MedinTuxTools-QT4/UserList/C_Frm_UserList.cpp" line="313"/>
         <location filename="../../MedinTuxTools-QT4/UserList/C_Frm_UserList.cpp" line="406"/>
-        <source>Tout utilisateur</source>
-        <translation type="unfinished"></translation>
+        <source>Any user</source>
+        <translation>Tout utilisateur</translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/UserList/C_Frm_UserList.cpp" line="382"/>
-        <source>&lt;span style=&quot; font-weight:600; color:#000000;&quot;&gt;Pour démarrer, veuillez vous identifier en sélectionnant un utilisateur de la liste ci-dessous&lt;/span&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../MedinTuxTools-QT4/UserList/C_Frm_UserList.cpp" line="396"/>
-        <source>&lt;span style=&quot; font-weight:600; color:#ff0000;&quot;&gt;Pour démarrer, veuillez vous identifier en sélectionnant un utilisateur de la liste ci-dessous&lt;/span&gt;</source>
-        <translation type="unfinished"></translation>
+        <source>To start, please get identified by selecting a user from the list below</source>
+        <translation type="unfinished">Pour démarrer, sélectionnez un utilisateur dans la liste ci-dessous</translation>
     </message>
 </context>
 <context>
@@ -3351,8 +3311,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="C_Manager.cpp" line="1042"/>
-        <source>Entering sex is important</source>
-        <oldsource>Il est important de bien rentrer le sexe</oldsource>
+        <source>Entering sex is important an good</source>
+        <oldsource>Entering sex is important</oldsource>
         <translation>Il est important de bien rentrer le sexe</translation>
     </message>
     <message>
@@ -3550,60 +3510,60 @@ p, li { white-space: pre-wrap; }
         <translation>Doublons possibles</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4780"/>
         <source>&lt;br&gt; Person: </source>
-        <translation>&lt;b&gt; La personne : </translation>
+        <translation type="obsolete">&lt;b&gt; La personne : </translation>
     </message>
     <message>
         <location filename="C_Manager.cpp" line="4781"/>
-        <source>&lt;hr&gt;&lt;br&gt; is similar to the name of a folder in folders list</source>
-        <translation>&lt;hr&gt;&lt;br&gt; présente des similitudes de nom avec les dossiers présents dans la liste des dossiers</translation>
+        <source>&lt;br /&gt;&lt;hr&gt;Do you confirm this operation, risking to create duplicates ?</source>
+        <oldsource>&lt;hr&gt;&lt;br&gt; is similar to the name of a folder in folders list</oldsource>
+        <translation type="unfinished">&lt;hr&gt;&lt;br&gt; présente des similitudes de nom avec les dossiers présents dans la liste des dossiers</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5059"/>
+        <location filename="C_Manager.cpp" line="5058"/>
         <source>You do not have rights to use the schedule</source>
         <oldsource>You don not have rights to use the schedule</oldsource>
         <translation>Vous n&apos;avez pas les droits pour utiliser l&apos;agenda</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5129"/>
+        <location filename="C_Manager.cpp" line="5128"/>
         <source>Update every five seconds.</source>
         <translation>Intervalle de mise à.jour de cinq secondes.</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5130"/>
+        <location filename="C_Manager.cpp" line="5129"/>
         <source>Update every ten seconds.</source>
         <oldsource>Update every tem seconds.</oldsource>
         <translation>Intervalle de mise à.jour de dix secondes.</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5131"/>
+        <location filename="C_Manager.cpp" line="5130"/>
         <source>Update every twenty seconds.</source>
         <translation>Intervalle de mise à.jour de vingt secondes.</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5132"/>
+        <location filename="C_Manager.cpp" line="5131"/>
         <source>Update every one minute</source>
         <translation>Intervalle de mise à.jour d&apos;une minute</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5137"/>
+        <location filename="C_Manager.cpp" line="5136"/>
         <source>Modify schedule width.</source>
         <translation>Modifier la largeur de l&apos;agenda.</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5142"/>
+        <location filename="C_Manager.cpp" line="5141"/>
         <source>Quit this menu.</source>
         <oldsource>Quitter ce menu.</oldsource>
         <translation>Quitter ce menu.</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5175"/>
+        <location filename="C_Manager.cpp" line="5174"/>
         <source>Hour (hh:mm) :</source>
         <translation>Heure (hh:mm) :</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5197"/>
+        <location filename="C_Manager.cpp" line="5196"/>
         <source>Enter width of schedule</source>
         <translation>Saisir la largeur de l&apos;agenda</translation>
     </message>
@@ -3612,17 +3572,17 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Largeur en pixels :</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5343"/>
+        <location filename="C_Manager.cpp" line="5342"/>
         <source>Previous page</source>
         <translation>Page précédente</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5344"/>
+        <location filename="C_Manager.cpp" line="5343"/>
         <source>Close this page.</source>
         <translation>Fermer cette page.</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6031"/>
+        <location filename="C_Manager.cpp" line="6030"/>
         <source>Annu&amp;ler</source>
         <translation>&amp;Cancel</translation>
     </message>
@@ -3657,7 +3617,7 @@ connecté : </translation>
         <location filename="C_Manager.cpp" line="4624"/>
         <location filename="C_Manager.cpp" line="4634"/>
         <location filename="C_Manager.cpp" line="4750"/>
-        <location filename="C_Manager.cpp" line="4785"/>
+        <location filename="C_Manager.cpp" line="4784"/>
         <source>&amp;Cancel</source>
         <translation>Annu&amp;ler</translation>
     </message>
@@ -3725,7 +3685,7 @@ Mode nomade conservé.</translation>
         <translation>Lancer un dossier</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5650"/>
+        <location filename="C_Manager.cpp" line="5649"/>
         <source>&amp;Annuler</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4085,7 +4045,7 @@ Mode nomade conservé.</translation>
     </message>
     <message>
         <location filename="C_Manager.cpp" line="1059"/>
-        <location filename="C_Manager.cpp" line="6076"/>
+        <location filename="C_Manager.cpp" line="6075"/>
         <source>Cancel</source>
         <translation>Annuler</translation>
     </message>
@@ -4349,194 +4309,183 @@ pas de dossier valide sélectionné.</translation>
         <translation>Confirmez-vous tout de même cette opération au risque de créer un doublon ?</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4783"/>
+        <location filename="C_Manager.cpp" line="4782"/>
         <source>Duplicates possible</source>
         <oldsource>Doublons possibles</oldsource>
         <translation>Doublons possibles</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4779"/>
-        <source>&lt;hr&gt;&lt;b&gt;&lt;font color=&quot;#e80d0d&quot;&gt;DOUBLONS POSSIBLES SUR LE NOM PRENOM &lt;/font&gt;&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4782"/>
-        <source>&lt;br&gt;&lt;hr&gt;Do you confirm this operation, risking to create duplicates ?</source>
-        <oldsource>&lt;br&gt;&lt;hr&gt;confirmez-vous tout de même cette opération au risque de créer un doublon ?</oldsource>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4847"/>
+        <location filename="C_Manager.cpp" line="4846"/>
         <source>accéder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5114"/>
+        <location filename="C_Manager.cpp" line="5113"/>
         <source>Display schedule with one pixel per minute.</source>
         <oldsource>Représenter l&apos;agenda avec un pixel par minute.</oldsource>
         <translation>Représenter l&apos;agenda avec un pixel par minute.</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5115"/>
+        <location filename="C_Manager.cpp" line="5114"/>
         <source>Display schedule with 2 pixels per minute.</source>
         <oldsource>Représenter l&apos;agenda avec deux pixels par minute.</oldsource>
         <translation>Représenter l&apos;agenda avec deux pixels par minute.</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5116"/>
+        <location filename="C_Manager.cpp" line="5115"/>
         <source>Display schedule with 3 pixels per minute.</source>
         <oldsource>Représenter l&apos;agenda avec trois pixels par minute.</oldsource>
         <translation>Représenter l&apos;agenda avec trois pixels par minute.</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5117"/>
+        <location filename="C_Manager.cpp" line="5116"/>
         <source>Display schedule with 4 pixels per minute.</source>
         <oldsource>Représenter l&apos;agenda avec quatre pixels par minute.</oldsource>
         <translation>Représenter l&apos;agenda avec quatre pixels par minute.</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5569"/>
+        <location filename="C_Manager.cpp" line="5568"/>
         <source>PS/Type_carte</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5570"/>
+        <location filename="C_Manager.cpp" line="5569"/>
         <source>PS/ADELI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5571"/>
+        <location filename="C_Manager.cpp" line="5570"/>
         <source>PS/Numéro</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5572"/>
+        <location filename="C_Manager.cpp" line="5571"/>
         <source>PS/Clé</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5573"/>
+        <location filename="C_Manager.cpp" line="5572"/>
         <source>PS/Nom</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5574"/>
+        <location filename="C_Manager.cpp" line="5573"/>
         <source>PS/Prénom</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5575"/>
+        <location filename="C_Manager.cpp" line="5574"/>
         <source>PS/Code_civilité</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5576"/>
+        <location filename="C_Manager.cpp" line="5575"/>
         <source>PS/Secteur_activité</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5577"/>
+        <location filename="C_Manager.cpp" line="5576"/>
         <source>PS/Type_identif_structure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5578"/>
+        <location filename="C_Manager.cpp" line="5577"/>
         <source>PS/Numéro_identif_structure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5579"/>
+        <location filename="C_Manager.cpp" line="5578"/>
         <source>PS/Clé_identif_structure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5580"/>
+        <location filename="C_Manager.cpp" line="5579"/>
         <source>PS/Raison_sociale_structure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5581"/>
+        <location filename="C_Manager.cpp" line="5580"/>
         <source>PS/Code_convention</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5582"/>
+        <location filename="C_Manager.cpp" line="5581"/>
         <source>PS/Code_spécialité</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5583"/>
+        <location filename="C_Manager.cpp" line="5582"/>
         <source>PS/Code_zone_tarifaire</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5584"/>
+        <location filename="C_Manager.cpp" line="5583"/>
         <source>PS/Code_zone_IK</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5585"/>
+        <location filename="C_Manager.cpp" line="5584"/>
         <source>PS/Code_agrément_1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5586"/>
+        <location filename="C_Manager.cpp" line="5585"/>
         <source>PS/Code_agrément_2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5587"/>
+        <location filename="C_Manager.cpp" line="5586"/>
         <source>PS/Code_agrément_3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5588"/>
+        <location filename="C_Manager.cpp" line="5587"/>
         <source>PS/Habilitation_Facture</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5589"/>
+        <location filename="C_Manager.cpp" line="5588"/>
         <source>PS/Habilitation_Lot</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5646"/>
+        <location filename="C_Manager.cpp" line="5645"/>
         <source>L&apos;utilisateur : &lt;b&gt; �</source>
         <oldsource>Utilisateur inconnu</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5650"/>
+        <location filename="C_Manager.cpp" line="5649"/>
         <source>&amp;Créer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5973"/>
+        <location filename="C_Manager.cpp" line="5972"/>
         <source>Tarification/Taux</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5987"/>
+        <location filename="C_Manager.cpp" line="5986"/>
         <source>Facturer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6029"/>
+        <location filename="C_Manager.cpp" line="6028"/>
         <source>FSE en cours</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6030"/>
+        <location filename="C_Manager.cpp" line="6029"/>
         <source>&lt;u&gt;&lt;b&gt;ATTENTION :&lt;/u&gt;&lt;/b&gt;&lt;br&gt;&lt;br&gt;Une FSE est en cours de saisie !&lt;br&gt;Voulez vous abandonner la FSE en cours ?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6031"/>
+        <location filename="C_Manager.cpp" line="6030"/>
         <source>&amp;Abandonner la FSE en cours</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6251"/>
+        <location filename="C_Manager.cpp" line="6250"/>
         <source>Déchar</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4565,7 +4514,7 @@ pas de dossier valide sélectionné.</translation>
     <message>
         <location filename="C_Manager.cpp" line="2610"/>
         <location filename="C_Manager.cpp" line="4750"/>
-        <location filename="C_Manager.cpp" line="4785"/>
+        <location filename="C_Manager.cpp" line="4784"/>
         <source>Confirm</source>
         <translation>Confirmer</translation>
     </message>
@@ -4573,7 +4522,7 @@ pas de dossier valide sélectionné.</translation>
         <location filename="C_Manager.cpp" line="2613"/>
         <source>�TES-VOUS CERTAIN DE CETTE OP�RATION ? &lt;/font&gt;&lt;/b&gt;</source>
         <oldsource>&lt;b&gt;&lt;font color=&quot;#e80d0d&quot;&gt;�TES-VOUS CERTAIN DE CETTE OP�RATION ? &lt;/font&gt;&lt;/b&gt;</oldsource>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ÊTES-VOUS CERTAIN DE CETTE OPÊRATION ? &lt;/font&gt;&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="C_Manager.cpp" line="2998"/>
@@ -4673,108 +4622,123 @@ de résolution des doublons</oldsource>
         <translation>DOUBLONS POSSIBLES SUR CES ÉLEMENTS</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5113"/>
+        <location filename="C_Manager.cpp" line="4779"/>
+        <source>POSSIBLE DUPLICATES ON NAME - FIRST NAME</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="4779"/>
+        <source>Person: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="4780"/>
+        <source>&lt;hr&gt;&lt;br /&gt; is similar to the name of a folder in folders list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="5112"/>
         <source>$Agenda</source>
         <translation>$Agenda</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5118"/>
+        <location filename="C_Manager.cpp" line="5117"/>
         <source>Display schedule with 5 pixels per minute.</source>
         <oldsource>Représenter l&apos;agenda avec cinq pixels par minute.</oldsource>
         <translation>Représenter l&apos;agenda avec cinq pixels par minute.</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5120"/>
+        <location filename="C_Manager.cpp" line="5119"/>
         <source>Define appointments on a multiple of one minute.</source>
         <oldsource>Fixer les rendez-vous sur un multiple de une minute.</oldsource>
         <translation>Fixer les rendez-vous sur un multiple de une minute.</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5121"/>
+        <location filename="C_Manager.cpp" line="5120"/>
         <source>Define appointments on a multiple of five minutes.</source>
         <oldsource>Fixer les rendez-vous sur un multiple de cinq minutes.</oldsource>
         <translation>Fixer les rendez-vous sur un multiple de cinq minutes.</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5122"/>
+        <location filename="C_Manager.cpp" line="5121"/>
         <source>Define appointments on a multiple of ten minutes.</source>
         <oldsource>Fixer les rendez-vous sur un multiple de dix minutes.</oldsource>
         <translation>Fixer les rendez-vous sur un multiple de dix minutes.</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5123"/>
+        <location filename="C_Manager.cpp" line="5122"/>
         <source>Define appointments on a multiple of fifteen minutes.</source>
         <oldsource>Fixer les rendez-vous sur un multiple de quinze minutes.</oldsource>
         <translation>Fixer les rendez-vous sur un multiple de quinze minutes.</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5125"/>
+        <location filename="C_Manager.cpp" line="5124"/>
         <source>Define the first visible hour.</source>
         <oldsource>Fixer la première heure visible.</oldsource>
         <translation>Fixer la première heure visible.</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5126"/>
+        <location filename="C_Manager.cpp" line="5125"/>
         <source>Define the last visible hour.</source>
         <oldsource>Fixer la dernière heure visible.</oldsource>
         <translation>Fixer la dernière heure visible.</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5128"/>
+        <location filename="C_Manager.cpp" line="5127"/>
         <source>Cancel automatic update.</source>
         <oldsource>Annuler la mise à.jour automatique.</oldsource>
         <translation>Annuler la mise à.jour automatique.</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5134"/>
+        <location filename="C_Manager.cpp" line="5133"/>
         <source>Show the miniature view (folded mode) on one line.</source>
         <oldsource>Représenter la vue miniature (mode replié) sur une ligne.</oldsource>
         <translation>Représenter la vue miniature (mode replié) sur une ligne.</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5135"/>
+        <location filename="C_Manager.cpp" line="5134"/>
         <source>Show the miniature view (folded mode) on two lines.</source>
         <oldsource>Représenter la vue miniature (mode replié) sur deux lignes.</oldsource>
         <translation>Représenter la vue miniature (mode replié) sur deux lignes.</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5139"/>
+        <location filename="C_Manager.cpp" line="5138"/>
         <source>Unactivate modifications confirmation.</source>
         <oldsource>Désactiver la confirmation des modifications.</oldsource>
         <translation>Désactiver la confirmation des modifications.</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5140"/>
+        <location filename="C_Manager.cpp" line="5139"/>
         <source>Activate modifications confirmation.</source>
         <oldsource>Activer la confirmation des modifications.</oldsource>
         <translation>Activer la confirmation des modifications.</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5175"/>
+        <location filename="C_Manager.cpp" line="5174"/>
         <source>Enter an hour formatted this way: hh:mm</source>
         <oldsource>saisir une heure de la forme hh:mm</oldsource>
         <translation>saisir une heure de la forme hh:mm</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5197"/>
+        <location filename="C_Manager.cpp" line="5196"/>
         <source>Width in pixels:</source>
         <translation>Largeur en pixels :</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5332"/>
+        <location filename="C_Manager.cpp" line="5331"/>
         <source>Various options for schedule</source>
         <oldsource>&lt;font color=&quot;#000000&quot;&gt;Various options for schedule&lt;/font&gt;</oldsource>
         <translation>Options diverses pour l&apos;agenda</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5338"/>
-        <location filename="C_Manager.cpp" line="5351"/>
+        <location filename="C_Manager.cpp" line="5337"/>
+        <location filename="C_Manager.cpp" line="5350"/>
         <source>Which date to start schedule</source>
         <oldsource>&lt;font color=&quot;#000000&quot;&gt;Which date to start schedule&lt;/font&gt;</oldsource>
         <translation>Date de début pour l&apos;agenda</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5339"/>
+        <location filename="C_Manager.cpp" line="5338"/>
         <source>Close this schedule</source>
         <oldsource>&lt;font color=&quot;#000000&quot;&gt;Close this schedule&lt;/font&gt;</oldsource>
         <translation>Fermer cet agenda</translation>
@@ -4790,48 +4754,48 @@ de résolution des doublons</oldsource>
         <translation type="obsolete">&lt;font color=&quot;#000000&quot;&gt;Fermer cette page.&lt;/font&gt;</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5645"/>
+        <location filename="C_Manager.cpp" line="5644"/>
         <source>Unknown user</source>
         <translation>Utilisateur inconnu</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5729"/>
+        <location filename="C_Manager.cpp" line="5728"/>
         <source>What is the police doing ?</source>
         <oldsource>Mais que fait la police ?</oldsource>
         <translation>Que fait la police ?</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6070"/>
+        <location filename="C_Manager.cpp" line="6069"/>
         <source>&lt;b&gt;La carte Vitale n&apos;a pas été lue pour ce patient !&lt;br&gt;&lt;br&gt;&lt;/b&gt;Que voulez-vous faire : &lt;br&gt;&lt;br&gt;- Annuler et lire la carte Vitale,&lt;br&gt;- Continuer et saisir une feuille de soin en mode Dégradé,&lt;br&gt;- Continuer et saisir une feuille de soin papier ,&lt;br&gt;- Continuer et saisir une facture.&lt;br&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6077"/>
+        <location filename="C_Manager.cpp" line="6076"/>
         <source>Mode dégradé</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6078"/>
+        <location filename="C_Manager.cpp" line="6077"/>
         <source>Saisir une FSP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6079"/>
+        <location filename="C_Manager.cpp" line="6078"/>
         <source>Saisir une facture</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6219"/>
+        <location filename="C_Manager.cpp" line="6218"/>
         <source>Lancer Pyxvital</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6248"/>
+        <location filename="C_Manager.cpp" line="6247"/>
         <source>Lancer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6217"/>
+        <location filename="C_Manager.cpp" line="6216"/>
         <source>Liste des recettes</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4842,32 +4806,32 @@ de résolution des doublons</oldsource>
         <translation>Tester si les dossiers sont verrouillés et utilisables</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6212"/>
+        <location filename="C_Manager.cpp" line="6211"/>
         <source>Formater les fichiers et Télétransmettre</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6213"/>
+        <location filename="C_Manager.cpp" line="6212"/>
         <source>Télétransmission seule</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6214"/>
+        <location filename="C_Manager.cpp" line="6213"/>
         <source>Décharger le TLA</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6239"/>
+        <location filename="C_Manager.cpp" line="6238"/>
         <source>Format</source>
         <translation>Format</translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6242"/>
+        <location filename="C_Manager.cpp" line="6241"/>
         <source>Télétr</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6245"/>
+        <location filename="C_Manager.cpp" line="6244"/>
         <source>Liste </source>
         <translation type="unfinished"></translation>
     </message>
@@ -5286,6 +5250,10 @@ p, li { white-space: pre-wrap; }
 &lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
 &lt;tr&gt;
 &lt;td style=&quot;border: none;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;========================================================================================================== &lt;br /&gt;Modif RS Manager du 18-06-2011  Version 2.14.016 &lt;br /&gt;---------------------------------------------------------------------------------------------------------- &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;- &lt;/span&gt;&lt;span style=&quot; font-family:&apos;courier&apos;; text-decoration: underline;&quot;&gt;FONCTIONNALITES&lt;/span&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt; : &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;    ° Première version avec support des langues étrangères&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;    ° Corrige les accents et apostrophes lors envoi SIGEMS&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;========================================================================================================== &lt;br /&gt;Modif RS Manager du 18-06-2011  Version 2.14.015 &lt;br /&gt;---------------------------------------------------------------------------------------------------------- &lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;- &lt;/span&gt;&lt;span style=&quot; font-family:&apos;courier&apos;; text-decoration: underline;&quot;&gt;FONCTIONNALITES&lt;/span&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt; : &lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;    ° Teste le sexe lors appel Sigems&lt;/span&gt;&lt;/p&gt;
@@ -5416,18 +5384,18 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.ui" line="2143"/>
+        <location filename="C_Manager.ui" line="2147"/>
         <source>Schedule allows to manage appointments</source>
         <translation>L&apos;agenda permet de gérer les rendez-vous</translation>
     </message>
     <message>
-        <location filename="C_Manager.ui" line="2152"/>
+        <location filename="C_Manager.ui" line="2156"/>
         <source>Schedule</source>
         <comment>Schedule</comment>
         <translation>Agenda</translation>
     </message>
     <message>
-        <location filename="C_Manager.ui" line="2191"/>
+        <location filename="C_Manager.ui" line="2195"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -5440,17 +5408,17 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Sélectionne et affiche l&apos;agenda d&apos;un utilisateur.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="C_Manager.ui" line="2207"/>
+        <location filename="C_Manager.ui" line="2211"/>
         <source>Schedule of:  </source>
         <translation>Agenda de :  </translation>
     </message>
     <message>
-        <location filename="C_Manager.ui" line="2219"/>
+        <location filename="C_Manager.ui" line="2223"/>
         <source>noTranslate àâéèêïîÈÉÊÀÂûÙçÇ«»ô</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.ui" line="2286"/>
+        <location filename="C_Manager.ui" line="2290"/>
         <source>Users</source>
         <translation>Utilisateurs</translation>
     </message>
@@ -5720,49 +5688,49 @@ dossier</translation>
 <context>
     <name>C_RendezVous</name>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_RendezVous.cpp" line="32"/>
-        <source>&lt;font color=&quot;#000000&quot;&gt;&lt;b&gt;En date du&amp;nbsp;:&amp;nbsp;&lt;/font&gt;&lt;font color=&quot;#7f0000&quot;&gt;	%1 à &lt;u&gt;%2&lt;/u&gt;&lt;/font&gt;&lt;/b&gt;&lt;font color=&quot;#000000&quot;&gt;&lt;br&gt;&lt;b&gt;Durée&amp;nbsp;prévue&amp;nbsp;:&amp;nbsp;&lt;/b&gt;%3&amp;nbsp; minutes&lt;hr&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_RendezVous.cpp" line="35"/>
-        <source>&lt;b&gt;Rendez-vous&amp;nbsp;de&amp;nbsp;:&amp;nbsp;&lt;/b&gt; </source>
-        <translation type="unfinished"></translation>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_RendezVous.cpp" line="33"/>
+        <source>&lt;font color=&quot;#000000&quot;&gt;&lt;b&gt;Dated&amp;nbsp;:&amp;nbsp;&lt;/b&gt;&lt;/font&gt;&lt;font color=&quot;#7f0000&quot;&gt;&lt;b&gt;	%1 at &lt;u&gt;%2&lt;/u&gt;&lt;/b&gt;&lt;/font&gt;&lt;font color=&quot;#000000&quot;&gt;&lt;br /&gt;&lt;b&gt;Scheduled duration :&lt;/b&gt;%3&amp;nbsp; minutes&lt;hr&gt;</source>
+        <translation>&lt;font color=&quot;#000000&quot;&gt;&lt;b&gt;En date du&amp;nbsp;:&amp;nbsp;&lt;/b&gt;&lt;/font&gt;&lt;font color=&quot;#7f0000&quot;&gt;&lt;b&gt;	%1&amp;nbsp;à&amp;nbsp;&lt;u&gt;%2&lt;/u&gt;&lt;/b&gt;&lt;/font&gt;&lt;font color=&quot;#000000&quot;&gt;&lt;br /&gt;&lt;b&gt;Durée prévue&amp;nbsp;:&amp;nbsp;&lt;/b&gt;%3&amp;nbsp; minutes&lt;hr&gt;</translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_RendezVous.cpp" line="36"/>
-        <source>&lt;i&gt;&lt;b&gt;Rendez-vous&amp;nbsp;anonyme&amp;nbsp;:&lt;/b&gt;&amp;nbsp;nom&amp;nbsp;prénom&amp;nbsp;non&amp;nbsp;renseignés&amp;nbsp;&lt;/i&gt;</source>
-        <translation type="unfinished"></translation>
+        <source>Appointment  of:&amp;nbsp;&lt;/b&gt; </source>
+        <translation>Rendez-vous&amp;nbsp;de&amp;nbsp;:&amp;nbsp;&lt;/b&gt; </translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_RendezVous.cpp" line="37"/>
-        <source>&lt;br&gt;&lt;b&gt;Téléphone&amp;nbsp;:&lt;/b&gt; </source>
-        <translation type="unfinished"></translation>
+        <source>&lt;i&gt;&lt;b&gt;Anonymous appointment:&lt;/b&gt;&amp;nbsp;name - first name not filled&amp;nbsp;&lt;/i&gt;</source>
+        <translation>&lt;i&gt;&lt;b&gt;Rendez-vous&amp;nbsp;anonyme&amp;nbsp;:&amp;nbsp;&lt;/b&gt;&amp;nbsp;nom - prénom non renseignés&amp;nbsp;&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_RendezVous.cpp" line="39"/>
-        <source>&lt;b&gt;Avec&amp;nbsp;:&amp;nbsp;&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_RendezVous.cpp" line="38"/>
+        <source>&lt;br&gt;&lt;b&gt;Phone&amp;nbsp;:&lt;/b&gt; </source>
+        <translation>&lt;br&gt;&lt;b&gt;Téléphone&amp;nbsp;:&amp;nbsp;&lt;/b&gt; </translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_RendezVous.cpp" line="39"/>
-        <source>&lt;b&gt;&amp;nbsp;pris&amp;nbsp;par&amp;nbsp;:&amp;nbsp;&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_RendezVous.cpp" line="40"/>
+        <source>&lt;b&gt;With:&amp;nbsp;&lt;/b&gt;</source>
+        <translation>&lt;b&gt;Avec:&amp;nbsp;:&amp;nbsp;&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_RendezVous.cpp" line="41"/>
-        <source>&lt;b&gt;Motif&amp;nbsp;:&amp;nbsp;&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_RendezVous.cpp" line="40"/>
+        <source>&lt;b&gt;Taken by:&lt;/b&gt;</source>
+        <translation>&lt;b&gt;&amp;nbsp;Pris&amp;nbsp;par&amp;nbsp;:&amp;nbsp;&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_RendezVous.cpp" line="51"/>
-        <source>&lt;hr&gt;&lt;b&gt;Note&amp;nbsp;:&amp;nbsp;&lt;/b&gt;&lt;i&gt;%1&lt;/i&gt;&lt;br&gt;</source>
-        <translation type="unfinished"></translation>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_RendezVous.cpp" line="42"/>
+        <source>&lt;b&gt;Cause: &lt;/b&gt;</source>
+        <translation>&lt;b&gt;Motif&amp;nbsp;:&amp;nbsp;&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/C_RendezVous.cpp" line="52"/>
-        <source>&lt;b&gt;Statut&amp;nbsp;:&amp;nbsp;&lt;/b&gt;&lt;i&gt;%1&lt;/i&gt;&lt;br&gt;&lt;/font&gt;</source>
-        <translation type="unfinished"></translation>
+        <source>&lt;hr&gt;&lt;b&gt;Note&amp;nbsp;:&amp;nbsp;&lt;/b&gt;&lt;i&gt;%1&lt;/i&gt;&lt;br&gt;</source>
+        <translation>&lt;hr&gt;&lt;b&gt;Note&amp;nbsp;:&amp;nbsp;&lt;/b&gt;&lt;i&gt;%1&lt;/i&gt;&lt;br&gt;</translation>
+    </message>
+    <message>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_RendezVous.cpp" line="53"/>
+        <source>&lt;b&gt;Status: &lt;/b&gt;&lt;i&gt;%1&lt;/i&gt;&lt;br&gt;&lt;/font&gt;</source>
+        <translation>&lt;b&gt;Status&amp;nbsp;:&amp;nbsp;&lt;/b&gt;&lt;i&gt;%1&lt;/i&gt;&lt;br&gt;&lt;/font&gt;</translation>
     </message>
 </context>
 <context>
@@ -6094,33 +6062,6 @@ Ne peut être ouvert</translation>
     <message>
         <location filename="../../MedinTuxTools-QT4/CGestIni.cpp" line="579"/>
         <source>Erreur de syntaxe : Pas de section dans ce fichier</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>QObject::CMoteurBase</name>
-    <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="130"/>
-        <source>
- Configuration du fichier &apos;DataBase.cfg&apos; incorrecte :</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="131"/>
-        <source>
-       Version exigée   du fichier &apos;DataBase.cfg&apos; : %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="132"/>
-        <source>
-       Version actuelle du fichier &apos;DataBase.cfg&apos; : %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="139"/>
-        <source>
- Version de la base installée: %1 non à  jour, version souhaitée : %2</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

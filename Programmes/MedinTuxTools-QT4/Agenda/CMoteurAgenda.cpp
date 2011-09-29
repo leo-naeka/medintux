@@ -35,7 +35,7 @@
 #include <QSqlTableModel>
 #include <QDebug>
 
-#define TR QObject::tr
+//#define TR QObject::tr
 
 //=============================================== INCLUDES ===================================================================
 //=============================================== IMPLEMENTATION =============================================================
@@ -166,7 +166,7 @@ int    CMoteurAgenda::BaseConnect        (const QString &driver,        // nom d
         defaultDB.setPort(         port.toInt());
         if ( ! defaultDB.open() )
            {QString qstr = "";
-            qstr += TR("Failed to open database: ") + QString(driver) + "  " + QString(DataBaseName) + "\r\n" +
+            qstr += tr("Failed to open database: ") + QString(driver) + "  " + QString(DataBaseName) + "\r\n" +
                      defaultDB.lastError().driverText() + "\r\n" + defaultDB.lastError().databaseText();
             qWarning()<<qstr.toLatin1();
             if (errMess) *errMess = qstr;
@@ -245,14 +245,14 @@ char  *CMoteurAgenda::SetConfBase_SetProperties(char *pt, QString &propertie, co
                   return end +1;
                  }
               else
-                {err  = TR("Syntax Error: SetConfBaseGetValue()\r\n End delimiter \"'\"  not find at line N°: ");
+                {err  = tr("Syntax Error: SetConfBaseGetValue()\r\n End delimiter \"'\"  not find at line N°: ");
                  err += QString::number(nLine);
                  if (line) *line = nLine;
                  return 0;
                 }
              }
            else
-             {err  = TR("Syntax Error: SetConfBaseGetValue()\r\n Start delimiter \"'\"  not find at line N°: ");
+             {err  = tr("Syntax Error: SetConfBaseGetValue()\r\n Start delimiter \"'\"  not find at line N°: ");
               err += QString::number(nLine);
               if (line) *line = nLine;
               return 0;
@@ -265,7 +265,7 @@ char  *CMoteurAgenda::SetConfBase_SetProperties(char *pt, QString &propertie, co
     }
  err  = "Syntax Error: SetConfBase()\r\n";
  err += token;
- err += TR(" not found on line # ");
+ err += tr(" not found on line # ");
  err += QString::number(nLine);
  if (line) *line = nLine;
  return pt;
@@ -345,7 +345,7 @@ int CMoteurAgenda::MASK_Append(const C_RendezVous &rendezVous, QString *errMess 
      query.bindValue(4, rendezVous.m_Note);
      query.bindValue(5, rendezVous.m_date.date().dayOfWeek ());
      if (query.exec()) {ok = TRUE;}
-     else              {QString mess = TR("Error : CMoteurAgenda::MASK_Append() \r\n") + prepare + "\r\n";
+     else              {QString mess = tr("Error : CMoteurAgenda::MASK_Append() \r\n") + prepare + "\r\n";
                         mess        += OutSQL_error(query, mess.toLatin1());      // rajouter le message sql
                         if (errMess) *errMess += mess;
                         ok = FALSE;
@@ -433,7 +433,7 @@ int CMoteurAgenda::COL_Create(const QString name, const QString color, const QSt
      query.bindValue(1, color);
      query.bindValue(2, duree);
      if (query.exec()) {ok = TRUE;}
-     else              {QString mess = TR("Error : CMoteurAgenda::COL_Create() \r\n") + prepare + "\r\n";
+     else              {QString mess = tr("Error : CMoteurAgenda::COL_Create() \r\n") + prepare + "\r\n";
                         mess        += OutSQL_error(query, mess.toLatin1());      // rajouter le message sql
                         if (errMess) *errMess += mess;
                         ok = FALSE;
@@ -519,7 +519,7 @@ int CMoteurAgenda::COL_RecordAllColorMap(MAP_COLOR *pColorMap, QString *errMess 
            query.bindValue(2, qMin(120,qMax (ct.getDuree().toInt(), 5 )));  // borner le truc avant que MySQL se fache
            //m_log  += "       color : "+ QString::number(nb)+" Key :" + ct.getType() + " " + ct.getColor() + " " + ct.getDuree() + "\r\n";
            ++ nb;
-           if ( !query.exec()) { QString mess = TR("Error : CMoteurAgenda::COL_RecordAllColorMap() \r\n") + prepare + "\r\n";
+           if ( !query.exec()) { QString mess = tr("Error : CMoteurAgenda::COL_RecordAllColorMap() \r\n") + prepare + "\r\n";
                                  mess        += OutSQL_error(query, mess.toAscii());      // rajouter le message sql
                                  if (errMess) *errMess += mess;
                                  //m_log += "------ CMoteurAgenda::COL_RecordAllColorMap() erreur \r\n" + mess + "\r\n";
@@ -609,7 +609,7 @@ QString CMoteurAgenda::RDV_Create(const C_RendezVous &rendezVous, QString *errMe
   query.bindValue(8, rendezVous.m_Type);
   query.bindValue(9, rendezVous.m_State);
   query.bindValue(10,rendezVous.m_Note);
-  if (!query.exec()){QString mess = TR("Error : CMoteurAgenda::RDV_Create() \r\n") + prepare + "\r\n";
+  if (!query.exec()){QString mess = tr("Error : CMoteurAgenda::RDV_Create() \r\n") + prepare + "\r\n";
                      mess        += OutSQL_error(query, mess.toLatin1());      // rajouter le message sql
                      if (errMess) *errMess += mess;
                     }
@@ -657,7 +657,7 @@ int CMoteurAgenda::RDV_Update(const C_RendezVous &rendezVous, QString *errMess /
   query.bindValue(10,rendezVous.m_Note);
   query.exec();
   if (query.exec()) {ok = TRUE;}
-  else              {QString mess = TR("Error : CMoteurAgenda::MASK_Append() \r\n") + prepare + "\r\n";
+  else              {QString mess = tr("Error : CMoteurAgenda::MASK_Append() \r\n") + prepare + "\r\n";
                      mess        += OutSQL_error(query, mess.toLatin1());      // rajouter le message sql
                      if (errMess) *errMess += mess;
                      ok = FALSE;
@@ -805,13 +805,13 @@ int CMoteurAgenda::RDV_Get_List(QDate date, const QString &user, RDV_LIST *rdvLi
 QString CMoteurAgenda::dayOfWeek(int dayOfWeek)
 {
  switch(dayOfWeek)
-        { case 1:  return  TR( "Monday");
-          case 2:  return  TR( "Tuesday");
-          case 3:  return  TR( "Wednesday");
-          case 4:  return  TR( "Thursday");
-          case 5:  return  TR( "Friday");
-          case 6:  return  TR( "Saturday");
-          case 7:  return  TR( "Sunday");
+        { case 1:  return  tr( "Monday");
+          case 2:  return  tr( "Tuesday");
+          case 3:  return  tr( "Wednesday");
+          case 4:  return  tr( "Thursday");
+          case 5:  return  tr( "Friday");
+          case 6:  return  tr( "Saturday");
+          case 7:  return  tr( "Sunday");
         }
  return QString::null;
 }
@@ -827,12 +827,12 @@ QString CMoteurAgenda::OutSQL_error(const QSqlError &error, const char *messFunc
 
      if (error.type() != QSqlError::NoError)
         {switch (error.type())
-           { case    QSqlError::NoError:             qserr = TR(" - SQL no error occurred: ")          ; break;
-             case    QSqlError::ConnectionError:     qserr = TR(" - SQL connection error: ")           ; break;
-             case    QSqlError::StatementError:      qserr = TR(" - SQL statement syntax error: ")     ; break;
-             case    QSqlError::TransactionError:    qserr = TR(" - SQL transaction failed error: ")   ; break;
-             case    QSqlError::UnknownError:        qserr = TR(" - SQL unknown error: ")              ; break;
-             default:                                qserr = TR(" - unknown SQL type error: ")         ; break;
+           { case    QSqlError::NoError:             qserr = tr(" - SQL no error occurred: ")          ; break;
+             case    QSqlError::ConnectionError:     qserr = tr(" - SQL connection error: ")           ; break;
+             case    QSqlError::StatementError:      qserr = tr(" - SQL statement syntax error: ")     ; break;
+             case    QSqlError::TransactionError:    qserr = tr(" - SQL transaction failed error: ")   ; break;
+             case    QSqlError::UnknownError:        qserr = tr(" - SQL unknown error: ")              ; break;
+             default:                                qserr = tr(" - unknown SQL type error: ")         ; break;
            }
          if (messFunc) qDebug()<<messFunc;
          qDebug()<< qserr.append(error.databaseText()).toLatin1();
