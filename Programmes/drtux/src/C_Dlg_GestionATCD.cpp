@@ -172,6 +172,8 @@ C_Dlg_GestionATCD::C_Dlg_GestionATCD(int tab, QString mode, QWidget* parent , co
     textLabel_Cisp_et_contient->hide();
 
     // signals and slots connections
+    m_CispMiniPixmap  = Theme::getIcon( "16x16/CispItemTab.png");
+    m_CimxMiniPixmap  = Theme::getIcon( "16x16/Cim10ItemTab.png");
     pushButtonThesaurusSave->setPixmap(Theme::getIcon( "16x16/save.png"));
     pushButtonThesaurusDel->setPixmap(Theme::getIcon( "16x16/DelDoc.png"));
     pushButtonThesaurusAdd->setPixmap(Theme::getIcon( "16x16/AddToThesaurus.png"));
@@ -187,9 +189,9 @@ C_Dlg_GestionATCD::C_Dlg_GestionATCD(int tab, QString mode, QWidget* parent , co
     pushButtonThesaurusImport->setPixmap(Theme::getIcon( "22x22/loadFavoris.png"));
     tabWidgetDicoATCD->setTabIconSet ( tabWidgetDicoATCD->page ( m_TAB_THESAURUS ),  QIconSet (Theme::getIcon( "16x16/ThesaurusTab.png")) );
     tabWidgetDicoATCD->setTabIconSet ( tabWidgetDicoATCD->page ( m_TAB_ALLERGIE ),   QIconSet (Theme::getIcon( "16x16/AllergieTab.png")) );
-    tabWidgetDicoATCD->setTabIconSet ( tabWidgetDicoATCD->page ( m_TAB_LIBELLE ),    QIconSet (Theme::getIcon( "16x16/Cim10ItemTab.png")) );
-    tabWidgetDicoATCD->setTabIconSet ( tabWidgetDicoATCD->page ( m_TAB_RUBRIQUE ),   QIconSet (Theme::getIcon( "16x16/Cim10ItemTab.png")) );
-    tabWidgetDicoATCD->setTabIconSet ( tabWidgetDicoATCD->page ( m_TAB_CISP ),       QIconSet (Theme::getIcon( "16x16/CispItemTab.png")) );
+    tabWidgetDicoATCD->setTabIconSet ( tabWidgetDicoATCD->page ( m_TAB_LIBELLE ),    QIconSet (m_CimxMiniPixmap) );
+    tabWidgetDicoATCD->setTabIconSet ( tabWidgetDicoATCD->page ( m_TAB_RUBRIQUE ),   QIconSet (m_CimxMiniPixmap) );
+    tabWidgetDicoATCD->setTabIconSet ( tabWidgetDicoATCD->page ( m_TAB_CISP ),       QIconSet (m_CispMiniPixmap)  );
     connect( pushButtonThesaurusExport,   SIGNAL( clicked() ), this, SLOT( Slot_ThesaurusExport() ) );
     connect( pushButtonThesaurusImport,   SIGNAL( clicked() ), this, SLOT( Slot_ThesaurusImport() ) );
     connect( pushButtonThesaurusSave,     SIGNAL( clicked() ), this, SLOT( Slot_SaveThesaurus() ) );
@@ -219,6 +221,7 @@ C_Dlg_GestionATCD::C_Dlg_GestionATCD(int tab, QString mode, QWidget* parent , co
     connect( listView_Cisp,              SIGNAL( doubleClicked(QListViewItem*) ), this, SLOT( Slot_listView_Cisp_doubleClicked(QListViewItem*) ) );
     connect( comboBox_Cisp_filter_Chapi, SIGNAL( highlighted(const QString &) ),  this, SLOT( Slot_comboBox_Cisp_filter_Chapi_highlighted(const QString &) ) );
     connect( comboBox_Cisp_filter_Class, SIGNAL( highlighted(int) ),              this, SLOT( Slot_comboBox_Cisp_filter_Class_highlighted(int) ) );
+    connect( checkBox_Cisp_filter_cimx,  SIGNAL( stateChanged ( int  ) ),         this, SLOT( Slot_checkBox_Cisp_filter_cimx_stateChanged(int) ) );
 
     connect( lineEditThesaurusFind1,      SIGNAL( textChanged(const QString&) ),   this, SLOT( Slot_lineEditThesaurusFind1_textChanged(const QString&) ) );
 
@@ -311,7 +314,7 @@ int C_Dlg_GestionATCD::initTableCisp()
    if ( pQSqlDriver == 0)      return 0;
    //..................... verifier si les tables deja en place correspondent avec celles ..................
    //                      indiquees par le fichier de configuration
-   QStringList tablesList      = pQSqlDriver->tables("1");  tablesList.sort();
+   QStringList tablesList   = pQSqlDriver->tables("1");  tablesList.sort();
    QStringList::Iterator it = tablesList.begin();
    while ( it != tablesList.end() )
          {if (*it=="cisp_dico")
@@ -323,30 +326,32 @@ int C_Dlg_GestionATCD::initTableCisp()
    QSqlQuery query(QString::null , m_DataBase );
    if (!ok)
       {
-       //........... ya pas la table Cisp on la cree .................
+       //........... ya pas la table CispCim10 on la cree .................
        QString prepare  = "";
-       QString fname    = G_pCApp->m_PathAppli + "Ressources/Cisp-02.txt";
        QString line     = "";
+       QString fname    = "";
+       QString codeCisp = "";
+       QString codeCimx = "";
        long      nbMax  = 32000;              //
        char     *buffer = 0;
-       //int     position = 0;
-       //int     lineNum  = 0;
        int         pos  = 0;
        int         len  = 0;
        QChar         c  = ' ';
+       fname            = G_pCApp->m_PathAppli + "Ressources/Cisp-Cimx.txt";
        if ( !QFile::exists( fname ) )            return 0;
+       if ( !QFile::exists( G_pCApp->m_PathAppli + "Ressources/Cisp-02.txt" )) return 0;
        //.................on efface la table .....................
-       requete = "DROP TABLE IF EXISTS `cisp_dico`";
+       requete = "DROP TABLE IF EXISTS `cisp_cimx`";
        if (!query.exec(requete))                 return 0;
        //.................on cree la table .....................
-       requete =    " CREATE TABLE `cisp_dico` ("
-                    "`cisp_dico_pk`            BIGINT  NOT NULL AUTO_INCREMENT,"
-                    "`cisp_dico_owner`         VARCHAR(40)  ,"
-                    "`cisp_dico_libelle`       VARCHAR(128) ,"
-                    "`cisp_dico_code`          VARCHAR(10)  ,"
-                    "`cisp_dico_class`         VARCHAR(10)  ,"
-                    "`cisp_dico_date`          DATETIME     ,"
-                    "PRIMARY KEY (`cisp_dico_pk`)"
+       requete =    " CREATE TABLE `cisp_cimx` ("
+                    "`cisp_cimx_pk`            BIGINT  NOT NULL AUTO_INCREMENT,"
+                    "`cisp_cimx_owner`         VARCHAR(40)  ,"
+                    "`cisp_cimx_cisp_code`     VARCHAR(8)   ,"
+                    "`cisp_cimx_cimx_code`     VARCHAR(8)   ,"
+                    "`cisp_cimx_libelle`       VARCHAR(1024) ,"
+                    "`cisp_cimx_date`          DATETIME     ,"
+                    "PRIMARY KEY (`cisp_cimx_pk`)"
                     ");";
        if (!query.exec(requete))                 return 0;
        //........... on l'initialise .................
@@ -356,20 +361,62 @@ int C_Dlg_GestionATCD::initTableCisp()
        buffer = new char[nbMax+5];    // +5 pour permettre analyse utf8 qui explore trois apres
        if (buffer ==0)                           return 0;
        //.......... on lit le fichier ligne a ligne ........................
-       prepare  = " INSERT INTO `cisp_dico` (`cisp_dico_owner`, `cisp_dico_libelle`,`cisp_dico_code`,`cisp_dico_class`,`cisp_dico_date`) "
+       prepare  = " INSERT INTO `cisp_cimx` (`cisp_cimx_owner`, `cisp_cimx_cisp_code`,`cisp_cimx_cimx_code`,`cisp_cimx_libelle`,`cisp_cimx_date`) "
                   " VALUES (?,?,?,?,?)";
        while (!file.atEnd())
-        { /*position += */ readLine(&file, buffer, line, nbMax); // ++lineNum;
+        { readLine(&file, buffer, line, nbMax);
           //.................creation de la table .....................
-          pos  = 0;
-          len  = line.length();
-          while (pos<len && line[(pos++)] == ' ' );           //  avancer jusqu'au premier caractere qui n'est pas un espace
-          line = line.mid(pos-1).remove('\n').remove('\r');
+          line     = line.remove('\"').upper().remove('\n').remove('\r');
+          pos      = line.find(",");
+          codeCimx = line.left(pos);
+          query.prepare(prepare);
+          query.bindValue(0, "MT");
+          query.bindValue(1, line.mid(pos+1));         // cisp
+          query.bindValue(2, codeCimx);                // cimx
+          query.bindValue(3, getCimxLibelleFromCimxCode( codeCimx ).left(1023));
+          query.bindValue(4, QDateTime::currentDateTime());
+          if ( !query.exec())  {file.close();delete []buffer; return 0;}
+        }
+       file.close();         // on a plus besoin du fourbi
+       delete []buffer;
+       requete = "DROP TABLE IF EXISTS `cisp_dico`";
+       if (!query.exec(requete))                 return 0;
+       //.................on cree la table .....................
+       requete =    " CREATE TABLE `cisp_dico` ("
+                    "`cisp_dico_pk`            BIGINT  NOT NULL AUTO_INCREMENT,"
+                    "`cisp_dico_owner`         VARCHAR(40)  ,"
+                    "`cisp_dico_libelle`       VARCHAR(400) ,"
+                    "`cisp_dico_code`          VARCHAR(10)  ,"
+                    "`cisp_dico_class`         VARCHAR(10)  ,"
+                    "`cisp_dico_cimx_list`     VARCHAR(500)  ,"
+                    "`cisp_dico_date`          DATETIME     ,"
+                    "PRIMARY KEY (`cisp_dico_pk`)"
+                    ");";
+       if (!query.exec(requete))                 return 0;
+       //........... on l'initialise .................
+       //            on parse el fichier texte ligne a ligne
+       fname            = G_pCApp->m_PathAppli + "Ressources/Cisp-02.txt";
+       file.setName ( fname );
+       if ( !file.open( IO_ReadOnly  ) )         return 0;
+       buffer = new char[nbMax+5];    // +5 pour permettre analyse utf8 qui explore trois apres
+       if (buffer ==0)                           return 0;
+       //.......... on lit le fichier ligne a ligne ........................
+       prepare  = " INSERT INTO `cisp_dico` (`cisp_dico_owner`, `cisp_dico_libelle`,`cisp_dico_code`,`cisp_dico_class`,`cisp_dico_cimx_list`,`cisp_dico_date`) "
+                  " VALUES (?,?,?,?,?,?)";
+       while (!file.atEnd())
+        { readLine(&file, buffer, line, nbMax);
+          //.................creation de la table .....................
+          pos      = -1;
+          len      = line.length();
+          while (pos<len && line[++pos] == ' ' );           //  avancer jusqu'au premier caractere qui n'est pas un espace
+          line     = line.mid(pos).remove('\n').remove('\r');
+          codeCisp = line.left(4).upper();
           query.prepare(prepare);
           query.bindValue(0, "MT");
           query.bindValue(1, line.mid(4));                    // Y02 douleur des testicules, du scrotum
-          query.bindValue(2, line.left(4).upper());
+          query.bindValue(2, codeCisp);
           query.bindValue(3, QString::number(pos/8));         // le nombre de tabulations definit la classe.
+          query.bindValue(4, getCispToCim10Str(codeCisp));      //getCispToCim10Str(codeCisp));
           query.bindValue(5, QDateTime::currentDateTime());
           if ( !query.exec())  {file.close();delete []buffer; return 0;}
         }
@@ -417,6 +464,63 @@ int C_Dlg_GestionATCD::initTableCisp()
    listView_Cisp_filter();
  return 1;
 }
+//-------------------------------------- getCimxLibelleFromCimxCode -------------------------------------------------------
+QString  C_Dlg_GestionATCD::getCispChapitreFromCodeCisp(QString cispCode)
+{cispCode     =     cispCode.remove('(').remove(')').remove('-');
+ int posEgal  =     cispCode.find("=");
+ if (posEgal != -1) cispCode = cispCode.left(posEgal); // traiter le cas du code compose
+ QChar   q_chapi_code   = cispCode.at(0);                              // la premiere lettre du cispCode est son chapitre expl X70 A99
+ return m_CispChapitresMap[q_chapi_code];
+}
+
+//-------------------------------------- getCimxLibelleFromCimxCode -------------------------------------------------------
+QString  C_Dlg_GestionATCD::getCimxLibelleFromCimxCode(const QString &codeCimx, int stopToFirstResponse /* = 0 */)
+{  QString libelle = "";
+   QString   toAdd = "";
+   QString requete = QString(" SELECT libelle FROM `master`"
+                             " JOIN `libelle` on master.SID=libelle.SID"
+                             " WHERE master.code='%1'").arg(codeCimx);
+   QSqlQuery query(QString::null , m_DataBase );
+   if ( !query.exec(requete))     return QString::null;
+   if ( !query.isActive())        return QString::null;
+   while (query.next())
+         {toAdd    = CGestIni::Utf8_Query(query, 0).stripWhiteSpace();
+          if (toAdd.length()) libelle += CGestIni::Utf8_Query(query, 0) + " | ";
+          if (stopToFirstResponse) break;
+         }
+   return libelle.left(libelle.length()-3);      // virer le dernier " | "
+}
+//-------------------------------------- getCispLibelleFromCispCode -------------------------------------------------------
+QString  C_Dlg_GestionATCD::getCispLibelleFromCispCode(const QString &codeCispIn)
+{  QString codeCisp = codeCispIn; codeCisp = codeCisp.remove('(').remove(')').remove('-');
+   int     posEgal  = codeCisp.find("="); if (posEgal != -1) codeCisp = codeCisp.left(posEgal); // traiter le cas du code compose
+   QString requete  = QString(" SELECT cisp_dico_libelle FROM `cisp_dico`"
+                              " WHERE  cisp_dico_code='%1'").arg(codeCisp);
+   QSqlQuery query(QString::null , m_DataBase );
+   if ( !query.exec(requete))     return QString::null;
+   if ( !query.isActive())        return QString::null;
+   if ( !query.next())            return QString::null;
+   return  CGestIni::Utf8_Query(query, 0).stripWhiteSpace().remove('\r').remove('\n');
+}
+
+//-------------------------------------- Slot_comboBox_Cisp_filter_Chapi_highlighted -------------------------------------------------------
+QString  C_Dlg_GestionATCD::getCispToCim10Str(const QString &codeCisp)
+{  QString listCode = "";
+   /*
+   QString requete  = QString(" SELECT master.code,cisp_cimx_cisp_code, FR_OMS FROM `master`"
+                              " join `libelle` on master.SID=libelle.SID"
+                              " join `cisp_cimx` on cisp_cimx_cimx_code=master.code"
+                              " where cisp_cimx_cisp_code ='%1'").arg(codeCisp);
+   */
+   QString requete  = QString(" SELECT cisp_cimx_cimx_code FROM cisp_cimx WHERE `cisp_cimx_cisp_code`='%1'").arg(codeCisp);
+   QSqlQuery query(QString::null , m_DataBase );
+   if ( !query.exec(requete))     return QString::null;
+   if ( !query.isActive())        return QString::null;
+   while (query.next())
+         {listCode += query.value(0).toString() + "|";
+         }
+  return listCode.left(listCode.length()-1);    // virer le dernier '|'
+}
 
 //-------------------------------------- Slot_comboBox_Cisp_filter_Chapi_highlighted -------------------------------------------------------
 void C_Dlg_GestionATCD::Slot_comboBox_Cisp_filter_Chapi_highlighted(const QString &chapiText)
@@ -426,7 +530,10 @@ void C_Dlg_GestionATCD::Slot_comboBox_Cisp_filter_Chapi_highlighted(const QStrin
 void C_Dlg_GestionATCD::Slot_comboBox_Cisp_filter_Class_highlighted(int classIndex)
 {setCispFilterFromCombosStates( comboBox_Cisp_filter_Chapi->currentText() , classIndex );
 }
-
+//-------------------------------------- Slot_comboBox_Cisp_filter_Class_highlighted -------------------------------------------------------
+void C_Dlg_GestionATCD::Slot_checkBox_Cisp_filter_cimx_stateChanged(int )
+{setCispFilterFromCombosStates( comboBox_Cisp_filter_Chapi->currentText(), comboBox_Cisp_filter_Class->currentItem() );
+}
 //-------------------------------------- setCispFifterFromCombosStates -------------------------------------------------------
 void C_Dlg_GestionATCD::setCispFilterFromCombosStates( const QString &chapiText, int classIndex )
 {bool allChapi = chapiText.left(1)==" ";
@@ -437,13 +544,13 @@ void C_Dlg_GestionATCD::setCispFilterFromCombosStates( const QString &chapiText,
  listView_Cisp_filter( chapiFilter , classFilter );
 }
 
-//-------------------------------------- Slot_lineEditAutolcator_Cisp1_textChanged -------------------------------------------------------
+//-------------------------------------- listView_Cisp_filter -------------------------------------------------------
 int C_Dlg_GestionATCD::listView_Cisp_filter(const QString &chapiFilter     /* ="-FDABHKLNPRSTUWXYZ" */ ,
                                             const QString &classFilter     /* = "SINTCD"            */ ,
                                             QListView *pQTreeWidget        /* = 0                   */ )
 {  if ( ! m_isCispInitialised )   return 0;
    if ( pQTreeWidget==0 )  pQTreeWidget =  listView_Cisp;
-   QString        code    = "";
+   QString       codeCisp = "";
    QString        classe  = "";
    QString       libelle  = "";
 
@@ -453,18 +560,22 @@ int C_Dlg_GestionATCD::listView_Cisp_filter(const QString &chapiFilter     /* ="
    QString requete  = "SELECT  `cisp_dico_libelle`,`cisp_dico_code`,`cisp_dico_class`,`cisp_dico_owner` FROM `cisp_dico` ORDER BY `cisp_dico_code`";
    if ( !query.exec(requete))     return 0;
    if ( !query.isActive())        return 0;
-
+   QApplication::setOverrideCursor( QCursor(Qt::WaitCursor) );
    pQTreeWidget->clear();
    while (query.next())
-         { code                      = query.value(1).toString();
+         { codeCisp                  = query.value(1).toString();
            classe                    = query.value(2).toString();
            libelle                   = CGestIni::Utf8_Query(query, 0);
-           QListViewItem *parentItem = getCispParentItemFromCodeAndClasse(pQTreeWidget, code, classe.toInt(), chapiFilter, classFilter);
+           QListViewItem *parentItem = getCispParentItemFromCodeAndClasse(pQTreeWidget, codeCisp, classe.toInt(), chapiFilter, classFilter);
            if (parentItem)
               { QListViewItem *item =   new QListViewItem (parentItem);     // a modifier pour QT4
                 if (item)
                    {item->setText(0, libelle);
-                    item->setText(1, code);
+                    item->setText(1, codeCisp);
+                    item->setPixmap ( 0, m_CispMiniPixmap);
+                    if (checkBox_Cisp_filter_cimx->isChecked())
+                       {fillCispItemWithAssociatedCimx(item, libelle, codeCisp);
+                       }
                    }
               }
          }
@@ -476,6 +587,40 @@ int C_Dlg_GestionATCD::listView_Cisp_filter(const QString &chapiFilter     /* ="
             ++it;
             }
      }
+  QApplication::restoreOverrideCursor();
+  return 1;
+  //comboBox_Cisp_filter
+}
+//-------------------------------------- fillCispItemWithAssociatedCimx -------------------------------------------------------
+int C_Dlg_GestionATCD::fillCispItemWithAssociatedCimx( QListViewItem *pQTreeWidgetItem, const QString &/*libelleCisp*/, const QString &codeCisp)
+{  if ( ! pQTreeWidgetItem )     return 0;
+   QString       codeCimx = "";
+   QString       libelle  = "";
+
+   QSqlQuery query(QString::null , m_DataBase );
+
+   QString requete  = QString(" SELECT FR_OMS, master.code FROM `master`"
+                              " join `libelle` on master.SID=libelle.SID"
+                              " join `cisp_cimx` on cisp_cimx_cimx_code=master.code"
+                              " where cisp_cimx_cisp_code ='%1'").arg(codeCisp);
+   /*
+   QString requete  = QString(" SELECT cisp_cimx_libelle, cisp_cimx_cimx_code FROM `cisp_cimx`"
+                              " WHERE  cisp_cimx_cisp_code ='%1'").arg(codeCisp);
+   */
+   if ( !query.exec(requete))     return 0;
+   if ( !query.isActive())        return 0;
+
+   while (query.next())
+         { libelle                   = CGestIni::Utf8_Query(query, 0);
+           if (libelle.length()==0) continue;
+           codeCimx                  = query.value(1).toString();
+           QListViewItem *item =   new QListViewItem (pQTreeWidgetItem);     // a modifier pour QT4
+           if (item)
+              {item->setText(0, libelle);
+               item->setText(1, codeCisp    + "=" +codeCimx);
+               item->setPixmap ( 0, m_CimxMiniPixmap);
+              }
+         }
   return 1;
   //comboBox_Cisp_filter
 }
@@ -541,8 +686,14 @@ void C_Dlg_GestionATCD::Slot_lineEditAutolcator_Cisp2_textChanged(const QString&
 {
 }
 //-------------------------------------- Slot_listView_Cisp_clicked -------------------------------------------------------
-void C_Dlg_GestionATCD::Slot_listView_Cisp_clicked(QListViewItem*)
-{
+void C_Dlg_GestionATCD::Slot_listView_Cisp_clicked(QListViewItem *pQListViewItem)
+{if (pQListViewItem==0)  return;
+ if (pQListViewItem->depth ()==2 && pQListViewItem->childCount () ==0)
+    { fillCispItemWithAssociatedCimx(pQListViewItem, pQListViewItem->text(0), pQListViewItem->text(1));
+    }
+ else
+    {pQListViewItem->setOpen (pQListViewItem->isOpen()==FALSE);  // ouvre si ferme / ferme si ouvert
+    }
 }
 //-------------------------------------- Slot_listView_Cisp_doubleClicked -------------------------------------------------------
 void C_Dlg_GestionATCD::Slot_listView_Cisp_doubleClicked(QListViewItem *pQListViewItem)
@@ -1340,8 +1491,8 @@ long C_Dlg_GestionATCD::CIM10GetLibellesList(  QListView *pQlistView,
   int      i = 0;
 
   QString requete_libelle;
-  requete_libelle             = QString("SELECT * FROM ")     + "libelle WHERE ";
-  requete_libelle            += QString("valid")              + " ='"              + "1" + "' AND ";
+  requete_libelle           = QString(" SELECT libelle.SID, FR_OMS, code  FROM  libelle"
+                                      " join master on master.SID=libelle.SID WHERE ");
 
   if (mot_cle_saisie1.length() && mot_cle_saisie2.length())
      {requete_libelle       +=  " (   FR_OMS LIKE '%"  + mot_cle_saisie1 + "%'" ;
@@ -1358,8 +1509,9 @@ long C_Dlg_GestionATCD::CIM10GetLibellesList(  QListView *pQlistView,
       requete_libelle       +=  " OR FR_OMS LIKE '%"  + QString::fromUtf8(mot_cle_saisie2)  + "%' )" ;
      }
    else
-     {requete_libelle        += QString("FR_OMS LIKE 'a%' ");
+     {requete_libelle       +=  "FR_OMS LIKE 'a%' ";
      }
+  requete_libelle           += " AND code LIKE '%.%'";
   //CONVERT(_utf8 '%...%' USING utf8) COLLATE utf8_general_ci :
   //QCString cst = QString::utf8 () ;
   QSqlQuery query(requete_libelle.utf8() , m_DataBase );
@@ -1368,14 +1520,18 @@ long C_Dlg_GestionATCD::CIM10GetLibellesList(  QListView *pQlistView,
      {pQlistView->clear();
       while (query.next()&&i<nb)
          {QListViewItem *element = new QListViewItem( pQlistView,
-                                                      Utf8_Query(query, NUM_LIBELLE_FIELD_FR_OMS ),
-                                                      " ",
-                                                      Utf8_Query(query, NUM_LIBELLE_FIELD_SID    )
+                                                      Utf8_Query(query, 1 ),
+                                                      query.value(2).toString(),
+                                                      query.value(0).toString()
                                                     );
           if (element)
              {i++;
              }
          }
+     }
+ else
+     {qDebug(requete_libelle);
+      qDebug(query.lastError().text());
      }
   //....................... sortir le message d'erreur si besoin ..........................................
   if (statutMess)
@@ -1554,6 +1710,10 @@ QListViewItem *C_Dlg_GestionATCD::GetDlgListCode(int tab_index, QListViewItem *p
           if (pQListViewItem->text(1).length()<3) return 0;                 // si on est sur un chapitre ou classe
           m_Code    = pQListViewItem->text(1).prepend("-(").append(")-");
           m_Libelle = pQListViewItem->text(0);
+          if (m_Code.find('=') != -1)  // traiter le cas des codes composes CISP-CIMX
+             { m_Libelle = tr(" CIMX : ") + m_Libelle;
+               m_Comment = tr(" CISP : ") + getCispLibelleFromCispCode(pQListViewItem->text(1));
+             }
         }
      else if (tab_index==m_TAB_ALLERGIE)
         { if ( (pQListViewItem=listViewAllergies->selectedItem()) )
@@ -1639,15 +1799,23 @@ void C_Dlg_GestionATCD::setLineEditFocusFromTab(int tab_index)
         }
 }
 //----------------------------------------------------- AddItemToListChoix --------------------------------------
-void C_Dlg_GestionATCD::AddItemToListChoix(const QString &libelle, const QString &code, const QString familyGenre)
-{ if (m_TAB_ALLERGIE==-1)   // a -1 si mode CIM10 seul sans gestion ATCD
+void C_Dlg_GestionATCD::AddItemToListChoix(const QString &libelle_in, const QString &code, const QString familyGenre)
+{ int posEgal      = code.find("=");
+  QString libelle  = libelle_in;
+  QString comment  = "";
+  if (posEgal != -1)            // Traiter le cas des codes composes CISP=CIMX (le libelle est alors celui du CIMX)
+     {comment  = tr(" CISP : ") + getCispLibelleFromCispCode(code);  // traite aussi le cas des codes composes et encadres par "-("
+      //libelle  = tr(" CIMX : ") + libelle; deja fait en amont
+     }
+  if (m_TAB_ALLERGIE==-1)   // a -1 si mode CIM10 seul sans gestion ATCD ou mode Cisp seul
      {QDate dt= QDate();
-      Atcd_Element atcd_Element ("", libelle, dt , code,0,"","");
+      // m_Rubrique=,m_Libelle,m_Code=,m_Etat=0,m_Commentaire=,m_Id_ATCD,m_ald
+      Atcd_Element atcd_Element ("", libelle, dt , code,0, comment,"");
       G_pCApp->m_pAtcd_Code->atcd_Element_To_ListViewItem(atcd_Element, listViewCim10_Choix);
       return;
      }
    //......... si item atcd rajoute rajouter celui de la listView allant avec ......................
-  G_pCApp->m_pAtcd_Code->addATCD(this, libelle, code, familyGenre, Atcd_Code::sendNotModifMessage);
+  G_pCApp->m_pAtcd_Code->addATCD(this, libelle, code, familyGenre, comment, Atcd_Code::sendNotModifMessage);
   Atcd_Element* pAtcd_Element = G_pCApp->m_pAtcd_Code->get_lastElementAdded();
   if (pAtcd_Element) G_pCApp->m_pAtcd_Code->atcd_Element_To_ListViewItem(*pAtcd_Element, listViewCim10_Choix);
 }
@@ -1691,7 +1859,7 @@ void C_Dlg_GestionATCD::Slot_pushButton_AddToChoixFast_clicked()
       if (pCPrt->isSelected())
          {QDate dt = QDate();
           GetDlgListCode(tab_index, pCPrt);
-          Atcd_Element atcd_Element (m_Family, m_Libelle, dt , m_Code, 0,"","");
+          Atcd_Element atcd_Element (m_Family, m_Libelle, dt , m_Code, 0,m_Comment,"");
           G_pCApp->m_pAtcd_Code->atcd_Element_To_ListViewItem(atcd_Element, listViewCim10_Choix);
          }
       ++it;
@@ -1775,12 +1943,20 @@ void C_Dlg_GestionATCD::Slot_reject()
 //-----------------------------------------------------  writeWindowPos -------------------------------------------
 void C_Dlg_GestionATCD::writeWindowPos()
 { QValueList <int> list = splitter5->sizes();
-  WRITE_USER_PARAM  (&USER_PARAM, "Dlg_ATCD", "WindowPos", QString::number(x()),QString::number(y()),QString::number(width()),QString::number(height()),QString::number(list[0]), QString::number(list[1]));
+  QString cisp_filter_cimx_checkBox_state = checkBox_Cisp_filter_cimx->isChecked()?"Actif":"Inactif";
+
+  WRITE_USER_PARAM  (&USER_PARAM, "Dlg_ATCD", "WindowPos", QString::number(x()),
+                                                           QString::number(y()),
+                                                           QString::number(width()),
+                                                           QString::number(height()),
+                                                           QString::number(list[0]),
+                                                           QString::number(list[1]));
+  WRITE_USER_PARAM  (&USER_PARAM, "Dlg_ATCD", "Lister codes Cim10 avec Cisp", cisp_filter_cimx_checkBox_state);
   UPDATE_USER_PARAM (&USER_PARAM, G_pCApp->m_User);
 }
  //-----------------------------------------------------  readAndSetWindowPos -------------------------------------------
 void C_Dlg_GestionATCD::readAndSetWindowPos()
-{QString x,y,w,h,spliterW0,spliterW1;
+{QString x,y,w,h,spliterW0,spliterW1, checkBoxCimx;    // checkBox_Cisp_filter_cimx
  QValueList <int> list;
  if (READ_USER_PARAM(USER_PARAM, "Dlg_ATCD", "WindowPos", &x,&y,&w,&h,&spliterW0,&spliterW1)==0)  // zero = pas d'erreur
     {move(x.toInt(),     y.toInt());
@@ -1788,6 +1964,9 @@ void C_Dlg_GestionATCD::readAndSetWindowPos()
      list.append( spliterW0.toInt());
      list.append( spliterW1.toInt());
      splitter5->setSizes(list);
+    }
+ if (READ_USER_PARAM(USER_PARAM, "Dlg_ATCD", "Lister codes Cim10 avec Cisp", &checkBoxCimx)==0)  // zero = pas d'erreur
+    {checkBox_Cisp_filter_cimx->setChecked(checkBoxCimx.upper().left(1)=="A");
     }
 }
 

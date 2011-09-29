@@ -2967,7 +2967,7 @@ QString DrTux::CodageCim10(int mode, const QString &listCode, int tabToSet)
 //-------------------------------------------- CodageCisp ---------------------
 QString DrTux::CodageCisp(  const QString &chapiFilter, const QString &classFilter, const QString &templateStr, const QString &showCombos )
 {QString               str_toReturn = "";
- QString                   tmpl_str = "<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ::CISP_LIBELLE:: code Cisp = ::CISP_CODE::;";
+ QString                   tmpl_str = "<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ::CISP_CHAPITRE:: ::CISP_LIBELLE:: ::CISP_COMMENT:: code Cisp = ::CISP_CODE::;";
  if (templateStr.length()) tmpl_str = templateStr;
  C_Dlg_GestionATCD         *dlg     = new C_Dlg_GestionATCD(4, "Cisp", this, "Cisp_Dial", TRUE );
  if (dlg ==0) return QString("");
@@ -2985,8 +2985,10 @@ QString DrTux::CodageCisp(  const QString &chapiFilter, const QString &classFilt
                QListViewItem *item = it.current();
                ++it;
                QString tmpl_resolv = tmpl_str;
-               tmpl_resolv         = tmpl_resolv.replace( "::CISP_LIBELLE::", item->text(0) )
-                                                .replace( "::CISP_CODE::",    item->text(6).remove('-').remove('(').remove(')') );
+               tmpl_resolv         = tmpl_resolv.replace( "::CISP_LIBELLE::",  item->text(0) )
+                                                .replace( "::CISP_COMMENT::",  item->text(3) )
+                                                .replace( "::CISP_CHAPITRE::", dlg->getCispChapitreFromCodeCisp(item->text(6)))
+                                                .replace( "::CISP_CODE::",     item->text(6).remove('-').remove('(').remove(')') );
                str_toReturn += tmpl_resolv;
               }
         }

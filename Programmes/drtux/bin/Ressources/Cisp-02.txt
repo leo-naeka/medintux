@@ -268,7 +268,7 @@ k29 autre symptôme ou plainte cardiovasculaire
                                         k87 hypertension avec complication
                                         k88 hypotension orthostatique
                                         k89 ischémie cérébrale transitoire
-                                        k90 accouchementdent vasculaire cérébral
+                                        k90 accident vasculaire cérébral
                                         k91 maladie cérébrovasculaire
                                         k92 athérosclose ou maladie vasculaire périphérique
                                         k93 embolie pulmonaire

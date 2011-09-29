@@ -170,7 +170,7 @@ public:
         void                viewATCD                  (QWidget *parent, int id_ATCD);
         void                modifyDate                (QWidget *parent, Atcd_Element* pAtcd,  int sendModifMessage = Atcd_Code::sendModifMessage);
         void                addATCD_Textuel           (QWidget *parent, int sendModifMessage = Atcd_Code::sendModifMessage);
-        void                addATCD                   (QWidget *parent, const QString &libelle, const QString &code, const QString familyGenre, int sendModifMessage  = Atcd_Code::sendModifMessage );
+        void                addATCD                   (QWidget *parent, const QString &libelle, const QString &code, const QString &familyGenre, const QString &comment, int sendModifMessage  = Atcd_Code::sendModifMessage );
         void                modifyAtcd                (QWidget *parent, Atcd_Element* pAtcd,  int sendModifMessage = Atcd_Code::sendModifMessage);
         void                setDate                   (Atcd_Element* pAtcd,  const QDate &date,  int sendModifMessage = Atcd_Code::sendModifMessage);
         void                deleteDate                (Atcd_Element* pAtcd,  int sendModifMessage = Atcd_Code::sendModifMessage);

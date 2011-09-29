@@ -36,7 +36,7 @@
 #include <qobject.h>
 #include <qevent.h>
 #include <qsqldatabase.h>
-
+#include <qpixmap.h>
 /*
     class KeyPressEater : public QObject
     {
@@ -67,7 +67,7 @@
 class C_ListViewATCDManager;
 class QPopupMenu;
 class QFile;
-
+class QPixmap;
 /*! \class C_Dlg_GestionATCD
  * classe du formulaire de gestion des ATCD appelee par :  void Atcd_Code::addATCD_CIM10()
 */
@@ -118,6 +118,11 @@ public:
     void            unSerialiseFavoris(QString & data);
     QString         DoPopupList(QStringList &list, QWidget *parent);
     int             initTableCisp();
+    QString         getCimxLibelleFromCimxCode(const QString &codeCimx, int stopToFirstResponse  = 0 );
+    QString         getCispLibelleFromCispCode(const QString &codeCisp);
+    int             fillCispItemWithAssociatedCimx( QListViewItem *pQTreeWidgetItem, const QString &libelleCisp, const QString &codeCisp);
+    QString         getCispToCim10Str(const QString &codeCisp);
+    QString         getCispChapitreFromCodeCisp(QString cispCode);
     void            setCispFilterFromCombosStates(const QString &chapiText, int classIndex);
     int             listView_Cisp_filter( const QString &filter_chapitre  ="-FDABHKLNPRSTUWXYZ"  ,
                                           const QString &filter_class     = "SINTCD" ,
@@ -149,6 +154,7 @@ protected:
      QSqlDatabase*          m_DataBase;
      QString                m_Code;
      QString                m_Libelle;
+     QString                m_Comment;
      QString                m_Family;
      int                    m_CloseAfterQuery;
      QString                m_structStr;
@@ -166,6 +172,8 @@ protected:
      // KeyPressEater         *m_keyPressEater;
      QMap<QChar, QString> m_CispChapitresMap;
      QStringList          m_CispClassesList;
+     QPixmap              m_CispMiniPixmap;
+     QPixmap              m_CimxMiniPixmap;
 
 protected slots:
   /*$PROTECTED_SLOTS$*/
@@ -176,6 +184,7 @@ protected slots:
     void Slot_listView_Cisp_doubleClicked(QListViewItem*);
     void Slot_comboBox_Cisp_filter_Chapi_highlighted(const QString &);
     void Slot_comboBox_Cisp_filter_Class_highlighted(int);
+    void Slot_checkBox_Cisp_filter_cimx_stateChanged(int);
 
     void Slot_lineEditThesaurusFind1_F2_Pressed();
     void Slot_lineEditThesaurusFind1_F6_Pressed();
