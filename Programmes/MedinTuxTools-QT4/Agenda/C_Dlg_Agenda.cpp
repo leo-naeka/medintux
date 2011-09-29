@@ -462,7 +462,7 @@ C_Frm_Day::C_Frm_Day(CMoteurAgenda *pCMoteurAgenda ,
  m_ButtonSave = new CMyButton(m_pBMC->m_ButtonSave_Pixmap, this, "", this);
  m_ButtonSave->setGeometry(m_Width - 42,-1,20, m_BaseDayHeight);
  m_ButtonSave->setFlat( TRUE );
- m_ButtonSave->setToolTip ( "<font color=\"#000000\">"+tr("Save this day as template.</font>") );
+ m_ButtonSave->setToolTip ( "<font color=\"#000000\">"+tr("Save this day as a template.</font>") );
 
  connect( m_ButtonNewRDV,  SIGNAL( Sign_ButtonClickedPtr (const char*, void *)  ),     this ,     SLOT(   OnButtonNewRDVClickedPtr (const char*, void *)  )  );
  connect( m_ButtonSave,    SIGNAL( Sign_ButtonClickedPtr (const char*, void *)  ),     this ,     SLOT(   OnButtonSaveClickedPtr (const char*, void *)  ) );
@@ -1320,17 +1320,16 @@ void C_Frm_Day::On_Day_mousePressEvent ( QMouseEvent * event )
           //.............. actionner le menu des RDV ......................................
           else /*if (pRdv->m_GUID.length()||pRdv->m_Nom.length()||pRdv->m_Prenom.length())*/
              { QString ret = doRdvMenu(pRdv,1);
-               // "Copy" "Replace" "Cut" "Type :" "Status :"  "Modify"  "Open" "Anomymize" "Quit"
                if (ret.length())
-                  {if (ret.indexOf("Status :") != -1)
-                      { QString statut = ret.remove("Status :");
-                        pRdv->m_State  = statut.trimmed();
+                  {if (ret.indexOf(tr("Appointment Status")) != -1)
+                      { QString statut = ret.remove(tr("Appointment Status: "));
+                        pRdv->m_State = statut.trimmed();
                       }
-                   else if (ret.indexOf("Type :") != -1)
-                      { QString type = ret.remove("Type :");
+                   else if (ret.indexOf(tr("Appointment of type")) != -1)
+                      { QString type = ret.remove(tr("Appointment of type")+ ": ");
                         pRdv->m_Type = type.trimmed();
                       }
-                   else if (ret.indexOf("Delete") != -1)  // il ne  peut pas se detruire lui meme et sortir ensuite de sa fonction donc QTIMER
+                   else if (ret.indexOf(tr("Delete")) != -1)  // il ne  peut pas se detruire lui meme et sortir ensuite de sa fonction donc QTIMER
                       {if (index != -1)
                           {if (m_pCMoteurAgenda->isModifToConfirm()&2  &&
                                QMessageBox::question ((QWidget*)parent(),
@@ -1348,7 +1347,7 @@ void C_Frm_Day::On_Day_mousePressEvent ( QMouseEvent * event )
                              }
                           }
                       }
-                   else if (ret.indexOf("Cut") != -1)  // il ne  peut pas se detruire lui meme et sortir ensuite de sa fonction donc QTIMER
+                   else if (ret.indexOf(tr("Cut")) != -1)  // il ne  peut pas se detruire lui meme et sortir ensuite de sa fonction donc QTIMER
                       {if (m_pCMoteurAgenda->isModifToConfirm()&2  &&
                            QMessageBox::question ((QWidget*)parent(),
                                                   tr("Confirm delete"),
@@ -1367,10 +1366,10 @@ void C_Frm_Day::On_Day_mousePressEvent ( QMouseEvent * event )
                               }
                           }
                       }
-                   else if (ret.indexOf("Copy") != -1)
+                   else if (ret.indexOf(tr("Copy")) != -1)
                       { copyRdv(*pRdv);
                       }
-                   else if (ret.indexOf("Replace") != -1)
+                   else if (ret.indexOf(tr("Replace")) != -1)
                       {C_RendezVous    rdv = getCopy();    // on recupere le rendez-vous
                        pRdv->m_Nom     = rdv.m_Nom;
                        pRdv->m_Prenom  = rdv.m_Prenom;
@@ -1381,17 +1380,17 @@ void C_Frm_Day::On_Day_mousePressEvent ( QMouseEvent * event )
                        pRdv->m_Type    = rdv.m_Type;
                        pRdv->m_State   = rdv.m_State;
                       }
-                   else if (ret.indexOf("Modify") != -1)
+                   else if (ret.indexOf(tr("Modify")) != -1)
                       {rdvPropertyDialog(pRdv);
                       }
-                   else if (ret.indexOf("Anomymize") != -1)
+                   else if (ret.indexOf(tr("Give back")) != -1)
                       {pRdv->m_Nom    ="";
                        pRdv->m_Prenom ="";
                        pRdv->m_GUID   ="";
                        pRdv->m_Tel    ="";
                        pRdv->m_Note   ="";
                       }
-                   else if (ret.indexOf("Open") != -1)
+                   else if (ret.indexOf(tr("Open folder")) != -1)
                       {emit Sign_LauchPatient(pRdv->m_GUID, pRdv);
                       }
                   }
@@ -1492,28 +1491,19 @@ void C_Frm_Day::On_Day_mousePressEvent ( QMouseEvent * event )
 
 //---------------------------- doRdvMenu ------------------------------------------------
 QString C_Frm_Day::doRdvMenu(C_RendezVous *pRdvDst, int isOptionDetruire  /* = 0 */)
-{
-
-    // "Copy" "Replace" "Cut" "Type :" "Status :"  "Modify"  "Open" "Anomymize" "Quit"
-    C_QMenuRdv menu(tr("Appointment available"),(QWidget*)parent());
+{   C_QMenuRdv menu(tr("Appointment available"),(QWidget*)parent());
     menu.setStyleSheet("font-size: 12px");  // "border: 1px solid #8f8f91; border-radius: 6px; font-size: 11px; color:#000000;border-width: 3px;  border-style: solid;  border-color: blue; background: yellow; icon-size:16px"
     //..............menu clasique copier coller couper ...............................
-    menu.addAction (m_pBMC->m_Copier_Pixmap, tr("Copy the current appointment into the copy memory")
-                   )->setData ("Copy");
-
+    menu.addAction (m_pBMC->m_Copier_Pixmap, tr("Copy the current appointment into the copy memory") );
     //.......................... menu coller si rendez-vous en buffer de copie existe ...............
     C_RendezVous rdvCopy = getCopy();
     if (isCopyExist())
-    {if (rdvCopy.m_Nom.trimmed().length()||rdvCopy.m_Prenom.trimmed().length())
-            menu.addAction (m_pBMC->m_Paste_Pixmap,
-                            tr("Replace the actual appointment with the one inside the copy memory with the name of the patient: '%1' ").arg(rdvCopy.m_Nom.trimmed()+" "+rdvCopy.m_Prenom.trimmed())
-                           )->setData ("Replace");
-        else
-            menu.addAction (m_pBMC->m_Paste_Pixmap, tr("Replace the actual appointment with the one inside the copy memory.")
-                           )->setData ("Replace");
-    }
-    menu.addAction (m_pBMC->m_Cut_Pixmap, tr("Cut the current appointment and put into the copy memory")
-                   )->setData ("Cut");
+       {if (rdvCopy.m_Nom.trimmed().length()||rdvCopy.m_Prenom.trimmed().length())
+            menu.addAction (m_pBMC->m_Paste_Pixmap, tr("Replace the actual appointment with the one inside the copy memory with the name of the patient: '%1' ").arg(rdvCopy.m_Nom.trimmed()+" "+rdvCopy.m_Prenom.trimmed()));
+         else
+            menu.addAction (m_pBMC->m_Paste_Pixmap, tr("Replace the actual appointment with the one inside the copy memory."));
+      }
+    menu.addAction (m_pBMC->m_Cut_Pixmap, tr("Cut the current appointment and put into the copy memory") );
     menu.addSeparator ();
     //............. creer le menu des types avec les types couleurs .....................
     QLabel grabLabel;
@@ -1523,57 +1513,46 @@ QString C_Frm_Day::doRdvMenu(C_RendezVous *pRdvDst, int isOptionDetruire  /* = 0
     grabLabel.setStyleSheet(QString("border: 2px solid #010101; background-color: #FFFFFF;"));
     QPixmap pix = QPixmap::grabWidget (&grabLabel, 0, 0, 16, 16 );
     while (it != m_pColorProfils->constEnd())
-    {C_ColorType ct = it.value();
-        grabLabel.setStyleSheet(QString("border: 2px solid #010101; background-color: ")+ct.getColor()+";");
-        pix = QPixmap::grabWidget (&grabLabel, 0, 0, 16, 16 );
-        if (it.key().trimmed().length())
-        {menu.addAction (QIcon(pix), tr("Appointment of type: %1").arg(it.key())
-                        )->setData (QString("Type :%1").arg(it.key()));
-        }
-        ++it;
-    }
+          {C_ColorType ct = it.value();
+           grabLabel.setStyleSheet(QString("border: 2px solid #010101; background-color: ")+ct.getColor()+";");
+           pix = QPixmap::grabWidget (&grabLabel, 0, 0, 16, 16 );
+           if (it.key().trimmed().length()) menu.addAction (QIcon(pix), tr("Appointment of type: %1").arg(it.key()) );
+           ++it;
+          }
     //............. creer le menu des statuts.....................
     menu.addSeparator ();
     QMapIterator<QString, QPixmap> ut(m_pBMC->m_StatutsPixmap);
     while (ut.hasNext())
-    {ut.next();
-        menu.addAction (ut.value(), tr("Appointment Status: %1").arg(ut.key())
-                        )->setData (QString("Status :%1").arg(ut.key()));
-    }
+          {ut.next();
+           menu.addAction (ut.value(), tr("Status of the appointment: ") +ut.key());
+          }
     menu.addSeparator ();
-    menu.addAction (m_pBMC->m_Configure_Pixmap,     tr("Modify the parameters of this appointment...")
-                   )->setData ("Modify");
-    if (pRdvDst->m_GUID.length())
-       { menu.addAction (m_pBMC->m_ButtonAcceder_Pixmap, tr("Open folder: %1").arg(pRdvDst->m_Nom+" "+pRdvDst->m_Prenom)
-                       )->setData ("Open");
-       }
+    menu.addAction (m_pBMC->m_Configure_Pixmap,     tr("Modify the parameters of this appointment...") );
+    menu.addAction (m_pBMC->m_ButtonAcceder_Pixmap, tr("Open folder: %1").arg(pRdvDst->m_Nom+" "+pRdvDst->m_Prenom) );
     menu.addSeparator ();
-    menu.addAction (m_pBMC->m_ButtonDelete_Pixmap,  tr("Make this appointment anonymous and available")
-                   )->setData ("Anomymize");
-    if (isOptionDetruire) menu.addAction (m_pBMC->m_MenuRendezvousDel,    tr("Delete this appointment")
-       )->setData ("Delete");
+    menu.addAction (m_pBMC->m_ButtonDelete_Pixmap,  tr("Make this appointment anonymous and available") );
+    if (isOptionDetruire) menu.addAction (m_pBMC->m_MenuRendezvousDel,    tr("Delete this appointment") );
     menu.addSeparator ();
-    menu.addAction (m_pBMC->m_QuitterMenu_Pixmap,   tr("Quit this menu")
-                   )->setData ("Quit");
+    menu.addAction (m_pBMC->m_QuitterMenu_Pixmap,   tr("Quit this menu") );
     grabLabel.hide();
     QPoint pt = QCursor::pos();
     //.......... si on est sur un rendez occupe vous afficher le titre .........................
     if (pRdvDst->m_Nom.length()||pRdvDst->m_Prenom.length())
-    {menu.setLabelRdvText(QString("<b><font color=\"#ff0000\">%1</font>/<font color=\"#ff0000\">%2</font> <font color=\"#000000\">%3</font></b>").arg(pRdvDst->m_date.time().toString("hh:mm"), QString::number(pRdvDst->m_Duree), pRdvDst->m_Nom+" "+pRdvDst->m_Prenom),
-                          pRdvDst->m_Type,
-                          C_RendezVous::getRdvColor(*pRdvDst, m_pColorProfils)
-                         );
-    }
+       {menu.setLabelRdvText(QString("<b><font color=\"#ff0000\">%1</font>/<font color=\"#ff0000\">%2</font> <font color=\"#000000\">%3</font></b>").arg(pRdvDst->m_date.time().toString("hh:mm"), QString::number(pRdvDst->m_Duree), pRdvDst->m_Nom+" "+pRdvDst->m_Prenom),
+                             pRdvDst->m_Type,
+                             C_RendezVous::getRdvColor(*pRdvDst, m_pColorProfils)
+                            );
+       }
     //.......... si on est sur un rendez libre vous afficher disponible .........................
     else
-    {menu.setLabelRdvText(QString("<b><font color=\"#ff0000\">%1</font>/<font color=\"#ff0000\">%2</font> <font color=\"#000000\">%3</font></b>").arg(pRdvDst->m_date.time().toString("hh:mm"), QString::number(pRdvDst->m_Duree), tr(" Appointment available ")),
-                          pRdvDst->m_Type,
-                          C_RendezVous::getRdvColor(*pRdvDst, m_pColorProfils)
-                         );
-    }
+       {menu.setLabelRdvText(QString("<b><font color=\"#ff0000\">%1</font>/<font color=\"#ff0000\">%2</font> <font color=\"#000000\">%3</font></b>").arg(pRdvDst->m_date.time().toString("hh:mm"), QString::number(pRdvDst->m_Duree), tr(" Appointment available ")),
+                             pRdvDst->m_Type,
+                             C_RendezVous::getRdvColor(*pRdvDst, m_pColorProfils)
+                            );
+       }
     QAction  *pQAction =  menu.exec (pt);
     QString        ret = "";
-    if (pQAction)  ret = pQAction->data().toString();
+    if (pQAction)  ret = pQAction->text();
     return ret;
 }
 //---------------------------------------- copyRdv --------------------------------------------
@@ -1972,13 +1951,13 @@ m_ButtonDelete->setToolTip ( "<font color=\"#000000\">"+tr("Delete this appointm
 m_ButtonChange = new CMyButton(m_pBMC->m_ButtonChange_Pixmap, this, "", this);
 m_ButtonChange->setGeometry(105, 0, widget_h, widget_h);
 m_ButtonChange->setFlat( TRUE );
-m_ButtonChange->setToolTip ( "<font color=\"#000000\">"+TR("Modify the appointment.")+"</font>" );
+m_ButtonChange->setToolTip ( "<font color=\"#000000\">"+tr("Modify the appointment.")+"</font>" );
 //m_ButtonChange->setStyleSheet(style);  // background-color: #960101 background-image: url(images/welcome.png
 
 m_ButtonAcceder = new CMyButton(m_pBMC->m_ButtonChange_Pixmap, this, "", this);
 m_ButtonAcceder->setGeometry(120, 0, widget_h, widget_h);
 m_ButtonAcceder->setFlat( TRUE );
-m_ButtonAcceder->setToolTip ( "<font color=\"#000000\">"+TR("Access the patient's folder.")+"</font>" );  //AgendaCreateDoss.png
+m_ButtonAcceder->setToolTip ( "<font color=\"#000000\">"+tr("Access the patient's folder.")+"</font>" );  //AgendaCreateDoss.png
 //m_ButtonAcceder->setStyleSheet(style);  // background-color: #960101 background-image: url(images/welcome.png
 
 //.......................... installer le filtre evenementiel ....................................
@@ -2417,35 +2396,34 @@ void C_Frm_Rdv::mousePressEvent(QMouseEvent *event)
          }
      else if (event->button() == Qt::RightButton && m_GrabIsOn==0)
          { //................ menu ....................
-           ((C_Frm_Day*)parent())->Slot_StopTimer(1);   // le timer ser debloque lors du release button
-           QString       ret =  ((C_Frm_Day*)parent())->doRdvMenu(this->rdv_instance());
-           // "Copy" "Replace" "Cut" "Type :" "Status :"  "Modify"  "Open" "Anomymize" "Quit"
+            ((C_Frm_Day*)parent())->Slot_StopTimer(1);   // le timer ser debloque lors du release button
+            QString       ret =  ((C_Frm_Day*)parent())->doRdvMenu(this->rdv_instance());
            if (ret.length())
-              {if (ret.indexOf("Status :") != -1)
-                  { QString statut = ret.remove("Status :");
+              {if (ret.indexOf(tr("Status of the appointment")) != -1)
+                  { QString statut = ret.remove(tr("Status of the appointment")+": ");
                     m_State = statut.trimmed();
                     setWidgetOnRdv(*this);                // on reajuste le widget sur les nouvelles donn\303\251es
                     setWidgetStyleOnRdv(*this);
                     RDV_Update();
                   }
-               else if (ret.indexOf("Type :") != -1)
-                  { QString type = ret.remove("Type :");
+               else if (ret.indexOf(tr("Appointment of type")) != -1)
+                  { QString type = ret.remove(tr("Appointment of type")+ ": ");
                     m_Type = type.trimmed();
                     setWidgetOnRdv(*this);                // on reajuste le widget sur les nouvelles donn\303\251es
                     setWidgetStyleOnRdv(*this);
                     RDV_Update();
                   }
-               else if (ret.indexOf("Cut") != -1)  // il ne  peut pas se detruire lui meme et sortir ensuite de sa fonction donc QTIMER
+               else if (ret.indexOf(tr("Cut")) != -1)  // il ne  peut pas se detruire lui meme et sortir ensuite de sa fonction donc QTIMER
                   {QTimer::singleShot(10, this, SLOT(Slot_cut()) );
                   }
-               else if (ret.indexOf("Copy") != -1)
+               else if (ret.indexOf(tr("Copy")) != -1)
                     Slot_copy();
-               else if (ret.indexOf("Replace") != -1)
+               else if (ret.indexOf(tr("Replace")) != -1)
                     replaceWithCopy();
-               else if (ret.indexOf("Modify") != -1)
+               else if (ret.indexOf(tr("Modify")) != -1)
                   {emit Sign_RendezVousChangeClicked(this);
                   }
-               else if (ret.indexOf("Anomymize") != -1)
+               else if (ret.indexOf(tr("Give back")) != -1)
                   {m_Nom="";
                    m_Prenom="";
                    m_GUID="";
@@ -2455,7 +2433,7 @@ void C_Frm_Rdv::mousePressEvent(QMouseEvent *event)
                    setWidgetStyleOnRdv(*this);
                    RDV_Update();
                   }
-               else if (ret.indexOf("Open") != -1)
+               else if (ret.indexOf(tr("Open folder")) != -1)
                   {((C_Frm_Day*)parent())->Slot_ButtonAccederClicked(0, this);
                   }
               }
