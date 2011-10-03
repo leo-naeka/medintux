@@ -3843,7 +3843,7 @@ int CMoteurBase::Evnmt_EraseAllFils(EVNT_LIST *pEvnmtList, const QString &evnmt_
 //************************************************************************************************************************
 
 
-//-------------------------------------------- GetRecorFromHeadPk ---------------------------------------------------------
+//-------------------------------------------- GetPkDoc_Provisoire ---------------------------------------------------------
 QString  CMoteurBase::GetPkDoc_Provisoire(RUBREC_LIST *pRubList)
 {QString str_pk = "";
  int     lastPk = 0;
@@ -3858,6 +3858,7 @@ QString  CMoteurBase::GetPkDoc_Provisoire(RUBREC_LIST *pRubList)
      } //end while (pSqlQuery->next())
  str_pk  = "#";
  str_pk += QString::number(lastPk+1);
+qDebug(str_pk);
  return  str_pk;
 }
 
@@ -4021,8 +4022,9 @@ long  CMoteurBase::initConboBoxWithRubList(RUBREC_LIST *pRubList, QComboBox* pCo
      pComboBox->clear();
      int num_type = atoi(type);
      for(it = pRubList->begin(); it !=  pRubList->end(); ++it )   // it != m_RecSpeclist.end();
-        { if ((*it).m_Type >= type && atoi((*it).m_Type) <= num_type+999)
-             {QString qstr = (*it).m_Date.left(10) + " " +(*it).m_Libelle;
+        {
+          if ((*it).m_Type >= type && atoi((*it).m_Type) <= num_type+999)
+             {QString qstr    = (*it).m_Date.left(10) + " " +(*it).m_Libelle;
               new CPrtQListBoxItem(pComboBox->listBox() ,           // list box du combobox
                                    qstr ,                           // libelle
                                    QString::number(pos) ,           //  position du document dans la liste RUBREC_LIST
@@ -4315,8 +4317,9 @@ long  CMoteurBase::RubListSave( RUBREC_LIST *pRubList, EVNT_LIST *pEvnmtList, QS
       else if ((*it).m_PrimKey == "0"||(*it).m_PrimKey[0]=='#')      // ==>  pk provisoire CAD il faut créer
          {if (! (*it).isEmpty() )
              {QString provPk = (*it).m_PrimKey;
-              (*it).m_PrimKey = RubListCreate(it, numGUID, mode);                                  // creer la rubrique
-              pEvnmtList->Evnmt_SetDefinitivePkDoc( provPk, (*it).m_PrimKey);     // remplacer le pk provisoire par le vrai dans la liste des liens
+              QString realPk = RubListCreate(it, numGUID, mode);     // creer la rubrique
+              pEvnmtList->Evnmt_SetDefinitivePkDoc( provPk, realPk);     // remplacer le pk provisoire par le vrai dans la liste des liens
+              (*it).m_PrimKey = realPk;
              }
          }
       else if (! (*it).isEmpty() )
@@ -4484,38 +4487,6 @@ QString  CMoteurBase::RubListBlobCreate(RUBREC_LIST::iterator it, QString numGUI
  QString prim_key = QString::null;
  if ( sqlQuery.next() )
     {prim_key =  sqlQuery.value(0).toString();
-    }
- return prim_key;
- */
- /*
- //............... crer un curseur SQL ...................................................................................
- QSqlCursor cur(m_DOSS_RUB_DATA_TBL_NAME, TRUE, m_DataBase);
- if ( !cur.canInsert() )                                           return QString::null;
- //............... se creer un GUID temporaire permettant par la suite de retrouver le Pk de l'enregistrement créé .................
- QString temp_GUID  = GUID_Create();
- //............... si OK on recupere le buffer et on le charge avec les données ..........................................
- QSqlRecord *buffer = cur.primeInsert();                        // recuperer le buffer d'insertion
- buffer->setValue( m_DOSS_RUB_DATA_BLOB, (*it) );               // y placer les données
- buffer->setValue( m_DOSS_RUB_DATA_GUID, temp_GUID );           // y placer le GUID temporaire (permettra de retrouver l'enregistrement créé)
- if (!cur.insert())                                                return QString::null;                   // ecrire les données
-
- //................. reselectionner l'enregistrement pour retrouver son PK avec le GUID temporaire........................
- QString prim_key = QString::null;
- QString   requete("SELECT ");
- requete += m_DOSS_RUB_DATA_PRIMKEY  + " FROM " + m_DOSS_RUB_DATA_TBL_NAME + " WHERE ";
- requete += m_DOSS_RUB_DATA_GUID     + "='"     + temp_GUID                + "'"; // retrouver le Pk de l'enregistrement créé avec le GUID temporaire
- QSqlQuery sqlQuery(requete , m_DataBase );
- if (sqlQuery.isActive() && sqlQuery.next()) prim_key = sqlQuery.value(0).toString();
-
- //................. replacer le bon GUID dans l'enregistrement  .........................................................
- QSqlCursor cur_u(m_DOSS_RUB_DATA_TBL_NAME, TRUE, m_DataBase);
- if ( !cur_u.canUpdate ())                                         return QString::null;
- cur_u.select(  m_DOSS_RUB_DATA_PRIMKEY + "=" + prim_key);
- //............... si OK on recupere le buffer et on le charge avec les données .........
- if ( cur_u.next() )
-    {QSqlRecord *buffer = cur_u.primeUpdate();                      // recuperer le buffer
-     buffer->setValue( m_DOSS_RUB_DATA_GUID, numGUID );             // y placer le vrai GUID
-     if (cur_u.update()<=0)                                        return QString::null;         // ecrire les données
     }
  return prim_key;
  */

@@ -1297,10 +1297,12 @@ QString C_TokenInterpret::IMPORT(QStringList &arg_list)
      CMDI_Generic  *pCMDI_Generic = 0;
      QString        rubriqueCible = "";
      QString                title = "";
-     QString               subType = "";
+     QString              subType = "";
+     QString                 type = "";
      if (nb>2)      rubriqueCible = arg_list[2].stripWhiteSpace();
      if (nb>4)              title = arg_list[4].stripWhiteSpace();
      if (nb>5)            subType = arg_list[5].stripWhiteSpace();
+     if (nb>5)               type = arg_list[6].stripWhiteSpace();
      if (rubriqueCible.length()==0)
         {pCMDI_Generic = G_pCApp->GetCurrentRubrique();
          if (pCMDI_Generic)    pMyEditText   = pCMDI_Generic->GetCurrentEditor();
@@ -1360,8 +1362,13 @@ QString C_TokenInterpret::IMPORT(QStringList &arg_list)
              if (title.length()) pCMDI_Generic->ChangeCurrentComboBoxItemName(title);
             }
          else  if ( typeAction.find("new") != -1)
-            {if (title.length()==0)  title = QFileInfo(arg_list[0]).baseName();
-             pCMDI_Generic->AddNewDocument(toImport,  pCMDI_Generic->GetType(), imageFile,0, &title, &subType, (typeAction.find("noInquire") != -1));
+            {int typeGeneric = pCMDI_Generic->GetType();
+             if (typeGeneric>=20020000 && typeGeneric<=20020900)
+                {if (QFileInfo(imageFile).extension().lower()=="ord")        typeGeneric = TYP_ORDO_CALC;
+                 else                                                        typeGeneric = TYP_ORDONNANCE;
+                }
+             if (title.length()==0)  title = QFileInfo(arg_list[0]).baseName();
+             pCMDI_Generic->AddNewDocument(toImport,  type.length()?type.toInt():typeGeneric, imageFile,0, &title, &subType, (typeAction.find("noInquire") != -1));
             }
 
          QApplication::restoreOverrideCursor();

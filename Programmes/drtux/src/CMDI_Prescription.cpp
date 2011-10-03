@@ -34,7 +34,7 @@
 #include <qfile.h>
 #include <qfileinfo.h>
 #include <qfiledialog.h>
-#include <qmessagebox.h> 
+#include <qmessagebox.h>
 
 #include "CMDI_Prescription.h"
 #include "CMDI_Observation.h"
@@ -282,6 +282,7 @@ CRubRecord*  CMDI_Prescription::AddNewDocument(const QString &strData, int typ, 
  //  #define TYP_ORDO_CALC_CURENT    CMDI_Prescription::S_GetType()+999     dans CApp.h
  if (typ== TYP_ORDO_CALC_CURENT ) {is_renouvellement = 1;       typ = TYP_ORDO_CALC;}
  if (path && QFileInfo(path).extension().lower()=="ord")        typ = TYP_ORDO_CALC;
+
  if (G_pCApp->IsThisDroitExist(G_pCApp->m_Droits, "orc") )          // si droit pour créer des prescriptions nouvelles
           {int      rubObs_id             = -1;
            //int      rubPrs_id             = m_pRubList->count();     // n'est pas encore dans la liste mais y sera

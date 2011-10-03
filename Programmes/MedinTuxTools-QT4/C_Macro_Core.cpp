@@ -346,11 +346,7 @@ long C_Macro_Core::extractArgList(QStringList &arg_list, const QString &arg_str)
          len_t =  pos-deb;
          if (len_t==0) arg_list.append( "" );
          else
-           {//QString s = QString::fromAscii(deb, len );
-            //        s = s.replace("\\\\","!°!;:");
-            //        s = s.remove("\\");
-            //        s = s.replace("!°!;:","\\");
-            arg_list.append( arg_str.mid(deb, len_t));
+           {arg_list.append( arg_str.mid(deb, len_t));
            }
          ++pos;
          deb = pos;
@@ -362,11 +358,7 @@ long C_Macro_Core::extractArgList(QStringList &arg_list, const QString &arg_str)
  len_t =  pos-deb;
  if (len_t==0) arg_list.append( "" );
  else
-    {//QString s = QString::fromAscii(deb, len );
-     //        s = s.replace("\\\\","!°!;:");
-     //        s = s.remove("\\");
-     //        s = s.replace("!°!;:","\\");
-     arg_list.append( arg_str.mid(deb,len_t));
+    {arg_list.append( arg_str.mid(deb,len_t));
     }
  return 1;
 }

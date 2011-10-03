@@ -27,7 +27,7 @@ void FormRubPrescription::init()
  m_pMyEditText   = 0;
  m_LastRub       = -1;
  pushButtonSave->setIconSet  (Theme::getIconSave());
- pushButtonPrint->setIconSet (Theme::getIconPrint()); 
+ pushButtonPrint->setIconSet (Theme::getIconPrint());
  pushButtonVidal->setIconSet (G_pCApp->m_IconTherapeutique);
  pushButtonPlus->setIconSet  (Theme::getIconRightArrow());
  //........................ initialiser les popups ...............................
@@ -38,14 +38,14 @@ void FormRubPrescription::init()
  else                                                              m_IsBaseMedEnabled = FALSE;
  connect(textLabel_NbRub, SIGNAL( pressed() ), this, SLOT( On_buttonDragClicked() ));
 #ifdef Q_OS_MACX
-    pushButtonSave->setFlat (TRUE); 
-	pushButtonDelete->setFlat (TRUE); 
-	pushButtonVidal->setFlat (TRUE); 
-    pushButtonRubDateChange->setFlat (TRUE); 
-    pushButtonPlus->setFlat (TRUE); 
-    pushButtonPrint->setFlat (TRUE); 
-    
-	textLabel_NbRub->setFlat (TRUE); 
+    pushButtonSave->setFlat (TRUE);
+	pushButtonDelete->setFlat (TRUE);
+	pushButtonVidal->setFlat (TRUE);
+    pushButtonRubDateChange->setFlat (TRUE);
+    pushButtonPlus->setFlat (TRUE);
+    pushButtonPrint->setFlat (TRUE);
+
+	textLabel_NbRub->setFlat (TRUE);
 	textLabel_NbRub->setMinimumSize (50, 22);
 	textLabel_NbRub->setFont(G_pCApp->font());
 #endif
@@ -108,7 +108,7 @@ void FormRubPrescription::pushButtonPlus_clicked()
 //--------------------------------- On_buttonDragClicked ------------------------------------------------------
 // connect(textLabel_NbRub, SIGNAL( clicked() ), this, SLOT( On_buttonDragClicked() ));
 //   virtual void          On_buttonDragClicked();
-void  FormRubPrescription::On_buttonDragClicked() 
+void  FormRubPrescription::On_buttonDragClicked()
 {   RUBREC_LIST::iterator it = Current_RubList_Iterator();
     if ( it != m_pRubList->end() ) (*it).dragRubrique(this);
 }
@@ -223,7 +223,6 @@ int FormRubPrescription::SetData()
 
 long  FormRubPrescription::initComboListOrdo(void)
 {return m_pCMoteurBase->initConboBoxWithRubList(m_pRubList, comboBox_RubName, QString::number(TYP_PRESCRIPTION) );
-
 }
 
 //--------------------------------- comboBox_RubName_highlighted -------------------------------------------------------------
@@ -513,7 +512,7 @@ void FormRubPrescription::pushButtonRubDateChange_clicked()
  if (dlg ==0)                            return ;
  dlg->initDialog( &(*it).m_Date, &(*it).m_Libelle, &(*it).m_SubType);
 
- if ( dlg->exec() == QDialog::Accepted ) 
+ if ( dlg->exec() == QDialog::Accepted )
     { //................... remettre à jour le comboBox ................................
 //       pCPrtQListBoxItem->SetType((*it).m_Date);
       pCPrtQListBoxItem->SetDate((*it).m_Date);
