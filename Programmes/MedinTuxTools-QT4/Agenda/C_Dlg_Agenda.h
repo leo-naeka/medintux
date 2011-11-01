@@ -72,7 +72,8 @@
 #include "CMoteurAgenda.h"
 #include "C_RendezVous.h"
 #include "../../MedinTuxTools-QT4/Theme/Theme.h"
-#include "../../MedinTuxTools-QT4/CGestIni.h"
+#include "../../MedinTuxTools-QT4/Theme/Theme.h"
+#include "../../MedinTuxTools-QT4/C_GoogleAPI/C_GoogleAPI.h"
 
 #define SIZE_BORDER_DAY            5         // largeur de la zone sensible au niveau des bordure pour etirement rendez-vous
 #define DAY_OFS_X                 20         // ofset affichage dans le jour replie
@@ -122,6 +123,7 @@ class C_BitMapCollection
       m_ButtonChange_Pixmap       = QPixmap(pathImage + "AgendaModif.png");
       m_ButtonCreateDoss          = QPixmap(pathImage + "AgendaCreateDoss.png");
       m_MenuRendezvousDel         = QPixmap(pathImage + "RendezvousDel.png");
+      m_ButtonGoogle_Pixmap       = QPixmap(pathImage + "Google.png");
       QStringList list  = CGestIni::listDirectory(pathImage + "Statuts", ".png");
       for (int i = 0; i < list.size(); ++i)
           {QString file   = pathImage + "Statuts/" + list[i];
@@ -163,6 +165,7 @@ class C_BitMapCollection
      QPixmap m_ButtonChange_Pixmap;
      QPixmap m_ButtonCreateDoss;
      QPixmap m_MenuRendezvousDel;
+     QPixmap m_ButtonGoogle_Pixmap;
  };
 
 //====================================== C_QMenuRdv =======================================================
@@ -570,6 +573,7 @@ public:
               int y = 0,
               int resoPix=1);
     ~C_Frm_Day();
+    void            toGoogle(C_GoogleAPI *pC_GoogleAPI);
     int             getHeight(){return m_Height;}
     int             computeDayHeight();
     int             getNbMinutesToseeInResume();
@@ -590,7 +594,7 @@ public:
     void            dragEnterEvent(QDragEnterEvent *event);
     void            dragMoveEvent(QDragMoveEvent * event);
     void            dragLeaveEvent ( QDragLeaveEvent *  );
-    int             getLastDroppedData(QString &nom, QString &prenom, QString &tel, QString &guid);
+    int             getLastDroppedData(QString &nom, QString &prenom, QString &tel, QString &guid, QString &where);
 
     int             isDayExpand(){return m_IsDayExpand; /*return (m_Height!=DAY_HEIGHT);*/}
     void            mousePressEvent ( QMouseEvent * event );
@@ -608,7 +612,7 @@ public:
     int             adjustToMagnetisme(int value);
     int             getResoPixByMinutes(){return m_PixByMinute;}
     void            setResoPixByMinutes(int resoPix){m_PixByMinute = resoPix;}
-    void            newRDVAtThisDate(QDateTime dateTime, int duree=15, const QString &type ="", const QString &nom ="", const QString &prenom ="", const QString &tel ="", const QString &guid ="", const QString &pk ="");
+    void            newRDVAtThisDate(QDateTime dateTime, int duree=15, const QString &type ="", const QString &nom ="", const QString &prenom ="", const QString &tel ="", const QString &guid ="",const QString &where ="", const QString &pk ="");
     int             get_C_Frm_RdvBeforeAndAfter(int y_pos, C_Frm_Rdv **pC_Frm_RdvBefore,  C_Frm_Rdv **pC_Frm_RdvAfter=0);
     C_RendezVous    getRdvAfterThisTimeInMinutes( int minutesRef, int *mnRet  =0 );
     C_RendezVous    getRdvBeforeThisTimeInMinutes(int minutesRef, int *mnRet =0 );
@@ -641,6 +645,7 @@ private:
   CMyButton       *m_ButtonExpand;
   CMyButton       *m_ButtonNewRDV;
   CMyButton       *m_ButtonSave;
+  CMyButton       *m_ButtonGoogle;
   CMoteurAgenda   *m_pCMoteurAgenda;
   MAP_COLOR       *m_pColorProfils;
   C_BitMapCollection  *m_pBMC;
@@ -721,14 +726,16 @@ public:
             progMasterUpdate = 3,
             scriptOnly       = 4
         };
-    C_Frm_Agenda(const QDate &date = QDate::currentDate(),
-                 QWidget *parent = 0,
-                 const QString &pathAppli="",
-                 const QString &localParam="",
-                 const QString &signUser="admin",
-                 const QString &user="",
-                 const QString &userNomPrenom ="",
-                 const QString &droits ="-sgn-agc-agm"
+    C_Frm_Agenda(const QDate &date             = QDate::currentDate(),
+                 QWidget *parent               = 0,
+                 const QString &pathAppli      ="",
+                 const QString &localParam     ="",
+                 const QString &signUser       ="admin",
+                 const QString &user           ="",
+                 const QString &userNomPrenom  ="",
+                 const QString &droits         ="-sgn-agc-agm",
+                 const QString &googleUser     ="",
+                 const QString &googlePass     =""
                 );
     ~C_Frm_Agenda();
     void baseReConnect(         const QString &driver,        // nom du driver: "QODBC3" "QMYSQL3" "QPSQL7"
@@ -749,6 +756,14 @@ public:
     void     setResoPixByMinutes(int resoPix){m_PixByMinute = resoPix;}
     QString  getUser()    {return m_User;}
     QString  getSignUser(){return m_SignUser; }
+    //.............. google .........................
+    void     setGoogleLoginParam (const QString &googleUser, const QString &googlePass );
+    QString  getGoogleUser (){return m_googleUser;}
+    QString  getGooglePass (){return m_googlePass;}
+    void     toGoogleSynchonization(int months);
+    void     toGoogle(const QDateTime &dateDeb, const QDateTime &dateEnd);
+    void     GoogleConnectionErrorDisplay();
+    //...............................................
     void     setUser(const QString &user)        { m_User     = user;}
     void     setSignUser(const QString &signUser){ m_SignUser = signUser; }
     void     changePixelParMinute ( int pixelParMinute );
@@ -759,12 +774,16 @@ public:
     void     changeRepresentation(int representation);
     void     changeModifConfirm(int value);
     void     changeAgendaWidth(int value);
+
 public slots:
+    void   OnButtonGoogleClickedPtr (const char*, void *);
     void   On_AgendaMustBeReArange();
     void   reinitAgendaOnDate(QDate dateDeb);
     void   reinitAgendaOnUser(const QString& user, const QString &droits);
 
 private:
+    QString              m_googleUser;
+    QString              m_googlePass;
     QString              m_StylePopup;
     QDate                m_StartDate;
     int                  m_StartBefore;
@@ -785,6 +804,7 @@ private:
     int                  m_PixByMinute;
     QString              m_BackgroundMessage;
     QWebView            *m_pQWebView;
+    C_GoogleAPI         *m_pC_GoogleAPI;
 signals:
     void Sign_agenda_GetInfoFromUser(QString &, QString &, QString &, QString &);
     void Sign_LauchPatient(const QString &, C_RendezVous *);

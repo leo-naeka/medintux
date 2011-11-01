@@ -98,7 +98,8 @@ typedef QList <C_RendezVous*>  RDV_LIST;
                   const  QString    &prisPar  = 0,
                   const  QString    &type     = 0,
                   const  QString    &primKey  = 0,
-                  const  QString    &state    = ""
+                  const  QString    &state    = "",
+                  const  QString    &where    = ""
                 )
          :m_date (date),
           m_Duree(duree),
@@ -111,13 +112,15 @@ typedef QList <C_RendezVous*>  RDV_LIST;
           m_PrisAvec(prisAvec),
           m_Type(type),
           m_PrimKey(primKey),
-          m_State(state)
+          m_State(state),
+          m_Where(where)
      {
      }
-  const QDateTime &getDateTime()    {return m_date;}
+  const QDateTime &getDateTime()                       {return m_date;}
   void             setDateTime(const QDateTime  &date) {m_date=date;}
-  long             getDuree()       {return m_Duree;}
-  C_RendezVous    *rdv_instance()   {return this;}
+  long             getDuree()                          {return m_Duree;}
+  QString          getWhere()                          {return m_Where;}
+  C_RendezVous    *rdv_instance()                      {return this;}
 
   //---------------------------- unSerialize ------------------------------------------------
   static C_RendezVous unSerialize(const QString & data);
@@ -165,6 +168,7 @@ typedef QList <C_RendezVous*>  RDV_LIST;
   QString    m_Type;
   QString    m_PrimKey;
   QString    m_State;
+  QString    m_Where;
  };
 
 #endif

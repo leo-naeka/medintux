@@ -106,6 +106,9 @@ class CMoteurAgenda : public QObject
   int             RDV_Get_ListNb(QDate date, const QString &user);
   int             RDV_Get_List(QDate date, const QString &user,      RDV_LIST &rdvList, int mode = CMoteurAgenda::AllDates, QString *errMess =0 );
   int             RDV_Get_List(QDate date, const QString &user,      RDV_LIST *rdvList, int mode = CMoteurAgenda::AllDates, QString *errMess =0 );
+  int             RDV_Get_List(QString reqDateDebStr, QString reqDateEndStr, const QString &user, RDV_LIST &rdvList, int mode = CMoteurAgenda::AllDates, QString *errMess =0);
+  int             RDV_Get_List(QString reqDateDebStr, QString reqDateEndStr, const QString &user, RDV_LIST *rdvList, int mode = CMoteurAgenda::AllDates, QString *errMess =0);
+
   QString         RDV_Create(const C_RendezVous &rendezVous, QString *errMess =0 );
   int             RDV_Update(const C_RendezVous &rendezVous, QString *errMess =0 );
   int             RDV_Delete( const QString &primKey, QString *errMess =0);
@@ -168,6 +171,7 @@ class CMoteurAgenda : public QObject
   QString      m_AGENDA_NOTE;             // Note
   QString      m_AGENDA_PRIM_KEY;         // une clef primaire
   QString      m_AGENDA_STATUS;           // etat du rendez vous
+  QString      m_AGENDA_WHERE;            // endroit du rendez vous
 
   QString      m_COLOR_PROFIL_TBL_NAME;
   QString      m_COLOR_PROFIL_NAME;

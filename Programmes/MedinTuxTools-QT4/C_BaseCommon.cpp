@@ -420,7 +420,8 @@ QStringList  C_BaseCommon::isThisValueLikeInTable_ToList(const QString &tableNam
 }
 //--------------------------- isThisValueInTable -----------------------------------------------------------
 QString C_BaseCommon::isThisValueInTable(const QString &tableName, const QString &fieldName, const QString &value, const QString fieldToRetrieve /* = "" */, const QString &wand /* = "" */)
-{QSqlQuery query(QString::null , database() );
+{
+ QSqlQuery query(QString::null , database() );
  QString field    = fieldToRetrieve; if (field.length()==0) field = tableName+"_pk";
  QString requete  = QString("SELECT `%1` FROM `%2` WHERE `%3`  = \"%4\"").arg( field, tableName, fieldName, value );
  if (wand.length()) requete += wand;
@@ -433,6 +434,7 @@ QString C_BaseCommon::isThisValueInTable(const QString &tableName, const QString
     }
  if ( query.next() ) return query.value(0).toString();
  else                return QString::null;
+
 }
 //--------------------------- isThisValueInTable_ToList -----------------------------------------------------------
 QStringList C_BaseCommon::isThisValueInTable_ToList(const QString &tableName, const QString &fieldName, const QString &value, const QString fieldToRetrieve /* = "" */, int keepEmpty /* = 1 */, const QString &wand /* = "" */)

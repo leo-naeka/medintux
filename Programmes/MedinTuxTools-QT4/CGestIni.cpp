@@ -1116,7 +1116,7 @@ QString CGestIni::PassWordEncode(QString &pass)
 // Algo minimal pour l'instant
 //
 QString CGestIni::PassWordDecode(QString str_to_decode)
-{
+{if (str_to_decode.startsWith("#")) str_to_decode = str_to_decode.mid(1);
  char decoded_car;
  char pt_magic_key[] = "les linges qui sechent mouillent les cordes";
  QString decoded_str = "";

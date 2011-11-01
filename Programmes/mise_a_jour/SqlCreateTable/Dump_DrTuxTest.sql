@@ -80,7 +80,7 @@ CREATE TABLE  `DrTuxTest`.`Personnes` (
   `Login` varchar(32) collate utf8_unicode_ci NOT NULL default '',
   `PasswordSigems` varchar(10) collate utf8_unicode_ci NOT NULL default '',
   `PassWord` varchar(32) collate utf8_unicode_ci default '',
-  `Droits` varchar(400) collate utf8_unicode_ci default '',
+  `Droits` varchar(600) collate utf8_unicode_ci default '',
   `Sexe` varchar(2) collate utf8_unicode_ci default '',
   `CodeSpec` char(2) collate utf8_unicode_ci NOT NULL default '',
   `NumOrdre` varchar(15) collate utf8_unicode_ci default '',
@@ -238,6 +238,7 @@ CREATE TABLE  `DrTuxTest`.`agenda` (
   `Note` varchar(256) collate utf8_unicode_ci default '',
   `Type` varchar(100) collate utf8_unicode_ci default '',
   `GUID` varchar(40) collate utf8_unicode_ci default '',
+  `Adresse` varchar(256) collate utf8_unicode_ci default '',
   `status` varchar(40) collate utf8_unicode_ci default '',
   `PrimKey` bigint(20) unsigned NOT NULL auto_increment,
   PRIMARY KEY  (`PrimKey`)

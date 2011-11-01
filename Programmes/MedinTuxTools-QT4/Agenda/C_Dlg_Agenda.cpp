@@ -35,6 +35,7 @@
  **********************************************************************************/
 
 #include "C_Dlg_Agenda.h"
+#include "../../MedinTuxTools-QT4/CHtmlTools.h"
 #include "../../MedinTuxTools-QT4/Theme/Theme.h"
 #include "../../MedinTuxTools-QT4/Theme/ThemePopup.h"
 #include "../../MedinTuxTools-QT4/CGestIni.h"
@@ -58,6 +59,7 @@
 #include <QGradient>
 #include <QClipboard>
 #include <QMimeData>
+#include <QApplication>
 
 #define LOOKREFRESH          if (m_RefreshTimer) Slot_StopTimer(1)    // bloquer le raffraississement
 #define UNLOOKREFRESH        if (m_RefreshTimer) Slot_StopTimer(0)
@@ -131,13 +133,18 @@ C_Frm_Agenda::C_Frm_Agenda(const QDate &date,
                            const QString &signUser       /*="admin"*/,
                            const QString &user           /*="admin"*/,
                            const QString &userNomPrenom  /*=""*/,
-                           const QString &droits         /*="-sgn-agc-agm"*/
+                           const QString &droits         /*="-sgn-agc-agm"*/,
+                           const QString &googleUser     /*=""*/,
+                           const QString &googlePass     /*=""*/
                            )
     : QFrame(parent)
 {   m_PathAppli         = pathAppli;
     m_SignUser          = signUser;
     m_User              = user;
     m_UserNomPrenom     = userNomPrenom;
+    m_pC_GoogleAPI      = 0;
+    m_googleUser        = googleUser;
+    m_googlePass        = googlePass;
     m_StartDate         = date;
     m_Magnetisme        = 5;
     m_Droits            = droits;
@@ -263,6 +270,7 @@ C_Frm_Agenda::C_Frm_Agenda(const QDate &date,
 //---------------------------- C_Frm_Agenda ------------------------------------------------
 C_Frm_Agenda::~C_Frm_Agenda()
 { delete m_pBMC;
+  if (m_pC_GoogleAPI) delete m_pC_GoogleAPI;
 }
 
 //---------------------------- getWebView ------------------------------------------------
@@ -281,7 +289,11 @@ void C_Frm_Agenda::baseReConnect(         const QString &driver,        // nom d
 {if (m_PaintMode < C_Frm_Agenda::NORMAL) return;
  m_pCMoteurAgenda->BaseConnect(driver, baseToConnect, user, pasword, hostname, port, 0, m_pCMoteurAgenda->GetDataBaseLabel());
 }
-
+//------------------------ setGoogleLoginParam ---------------------------------------
+void C_Frm_Agenda::setGoogleLoginParam (const QString &googleUser, const QString &googlePass )
+{m_googleUser = googleUser;
+ m_googlePass = googlePass;
+}
 //------------------------ changePixelParMinute ---------------------------------------
 void C_Frm_Agenda::changePixelParMinute ( int pixelParMinute )
 {setResoPixByMinutes(pixelParMinute);
@@ -389,6 +401,70 @@ void C_Frm_Agenda::reinitAgendaOnDate(QDate dateDeb , QMap<QDate,int> map)
       setFixedWidth(m_pCMoteurAgenda->GetAgendaWidth());
      }
 }
+//---------------------------------------- OnButtonGoogleClickedPtr --------------------------------------------
+void C_Frm_Agenda::OnButtonGoogleClickedPtr (const char*, void *ptrOnDay)
+{
+ if (m_pC_GoogleAPI==0) m_pC_GoogleAPI = new C_GoogleAPI(this);
+ if (! m_pC_GoogleAPI->login(m_googleUser, m_googlePass) )
+    {GoogleConnectionErrorDisplay();
+     return;
+    }
+ C_Frm_Day *pC_Frm_Day = (C_Frm_Day*) ptrOnDay;
+ if (pC_Frm_Day) pC_Frm_Day->toGoogle(m_pC_GoogleAPI);
+}
+
+//---------------------------------------- toGoogleSynchonization --------------------------------------------
+void C_Frm_Agenda::toGoogleSynchonization(int months)
+{QDateTime dateDeb = QDateTime(m_StartDate, QTime::fromString("00:00:00","hhmmss"));
+ QDateTime dateEnd = dateDeb.addMonths( months );
+ toGoogle(dateDeb, dateEnd);
+}
+
+//---------------------------------------- toGoogle --------------------------------------------
+void C_Frm_Agenda::toGoogle(const QDateTime &dateDeb, const QDateTime &dateEnd)
+{
+ QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+ if (m_pC_GoogleAPI==0) m_pC_GoogleAPI = new C_GoogleAPI(this);
+ if (! m_pC_GoogleAPI->login(m_googleUser, m_googlePass) )
+    {GoogleConnectionErrorDisplay();
+     QApplication::restoreOverrideCursor ();
+     return;
+    }
+ QString errMess       = "";
+ QString reqDateDebStr = dateDeb.toString("yyyyMMddhhmmss");
+ QString reqDateEndStr = dateEnd.toString("yyyyMMddhhmmss");
+ RDV_LIST rdvList;
+ int nb = m_pCMoteurAgenda->RDV_Get_List( reqDateDebStr,  reqDateEndStr, m_SignUser, rdvList, CMoteurAgenda::OnlyDateWhithName, &errMess );
+ if (nb==0) {QApplication::restoreOverrideCursor (); return;}
+ //.................. on efface les RDV deja presents entre ces deux dates ...................
+ m_pC_GoogleAPI->deleteAllEventsBetweenTwoDates(dateDeb.date(), dateEnd.date());
+ //.................. on prepare la liste des RDV google ........................
+ C_GoogleEventList eventsList;
+ for (int i  = 0; i < nb; ++i)
+     { C_RendezVous *pRdv = dynamic_cast<C_RendezVous*>(rdvList[i]);
+       eventsList.append( C_GoogleEvent(pRdv->m_Nom+";"+pRdv->m_Prenom                               ,
+                                        pRdv->m_date                                                 ,
+                                        pRdv->m_date.addSecs(pRdv->m_Duree*60)                       ,
+                                        QString("MedinTux : ")+ CHtmlTools::HtmlToAscii(pRdv->m_Note),
+                                        pRdv->m_Where                                                ,
+                                        C_RendezVous::getRdvColor(*pRdv, &m_ColorProfils)  ));
+     }
+ //............ on cree dans google les rdv en mode batch ..................
+ m_pC_GoogleAPI->createSeveralEvents(eventsList);
+ if (m_pC_GoogleAPI->getError().length())QMessageBox::question ((QWidget*)parent(),
+                                                                tr("Error in Google transaction"),
+                                                                tr("<b>Error C_Frm_Agenda::toGoogle() : error in Google transation:</b><br>%1").arg(m_pC_GoogleAPI->getError()),
+                                                                QMessageBox::Cancel);
+ QApplication::restoreOverrideCursor();
+}
+//---------------------------------------- GoogleConnectionErrorDisplay --------------------------------------------
+void C_Frm_Agenda::GoogleConnectionErrorDisplay()
+{QMessageBox::about(this, tr("Google connection failled"),
+                    tr("<b>Google connection failled for Agenda for MedinTux.</b><br> ") +
+                    tr("<p>Developed using <a href=\"http://qt.nokia.com\">Qt ")
+                       + qVersion() + tr(" framework</a>.</p>"
+                       "<p>Email : <a href=\"mailto:roland-sevin@medintux.org\">roland-sevin@medintux.org</a></p>"));
+}
 
 //----------------------------------- On_AgendaMustBeReArange -------------------------------------------
 void C_Frm_Agenda::On_AgendaMustBeReArange()
@@ -464,8 +540,15 @@ C_Frm_Day::C_Frm_Day(CMoteurAgenda *pCMoteurAgenda ,
  m_ButtonSave->setFlat( TRUE );
  m_ButtonSave->setToolTip ( "<font color=\"#000000\">"+tr("Save this day as template.</font>") );
 
+ m_ButtonGoogle = new CMyButton(m_pBMC->m_ButtonGoogle_Pixmap, this, "", this);
+ m_ButtonGoogle->setGeometry(m_Width - 62,-1,20, m_BaseDayHeight);
+ m_ButtonGoogle->setFlat( TRUE );
+ m_ButtonGoogle->setToolTip ( "<font color=\"#000000\">"+tr("Push to Google Agenda.</font>") );
+
+
  connect( m_ButtonNewRDV,  SIGNAL( Sign_ButtonClickedPtr (const char*, void *)  ),     this ,     SLOT(   OnButtonNewRDVClickedPtr (const char*, void *)  )  );
  connect( m_ButtonSave,    SIGNAL( Sign_ButtonClickedPtr (const char*, void *)  ),     this ,     SLOT(   OnButtonSaveClickedPtr (const char*, void *)  ) );
+ connect( m_ButtonGoogle,  SIGNAL( Sign_ButtonClickedPtr (const char*, void *)  ),     parent ,   SLOT(   OnButtonGoogleClickedPtr (const char*, void *)  ) );
  connect( m_ButtonExpand,  SIGNAL( Sign_ButtonClickedPtr (const char*, void *)  ),     this ,     SLOT(   OnButtonExpandClickedPtr (const char*, void *)  ) );
  connect( this,            SIGNAL( Sign_AgendaMustBeReArange ()  ),                    parent ,   SLOT(   On_AgendaMustBeReArange()  ) );
 
@@ -484,14 +567,39 @@ C_Frm_Day::C_Frm_Day(CMoteurAgenda *pCMoteurAgenda ,
  m_pCMoteurAgenda->RDV_Get_List(m_Date, m_SignUser, m_cacheRDV_List);    // si il existe des rdv pour ce jour aller en chercher la liste
  m_ButtonNewRDV->hide();
  m_ButtonSave->hide();
+ m_ButtonGoogle->hide();
  if (m_Date==QDate::currentDate()) ExpandDialog();
  setMouseTracking (TRUE );
 }
+
 //---------------------------- ~C_Frm_Day ------------------------------------------------
 C_Frm_Day::~C_Frm_Day()
 {
 }
-
+//---------------------------- toGoogle ------------------------------------------------
+void C_Frm_Day::toGoogle(C_GoogleAPI *pC_GoogleAPI)
+{   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+    //.................. on efface les RDV deja presents ce jour ...................
+    pC_GoogleAPI->deleteAllEventsBetweenTwoDates(getDate(), getDate().addDays(1));
+    //.................. on prepare la liste des RDV google ........................
+    C_GoogleEventList eventsList;
+    for (int i  = 0; i < m_cacheRDV_List.count(); ++i)
+        { C_RendezVous *pRdv = dynamic_cast<C_RendezVous*>(m_cacheRDV_List[i]);
+          eventsList.append( C_GoogleEvent(pRdv->m_Nom+";"+pRdv->m_Prenom                 ,
+                                           pRdv->m_date                                                 ,
+                                           pRdv->m_date.addSecs(pRdv->m_Duree*60)                       ,
+                                           QString("MedinTux : ")+ CHtmlTools::HtmlToAscii(pRdv->m_Note),
+                                           pRdv->m_Where                                                ,
+                                           getRdvColor(*pRdv)  ));
+         }
+    //............ on cree dans google les rdv en mode batch ..................
+    pC_GoogleAPI->createSeveralEvents(eventsList);
+    if (pC_GoogleAPI->getError().length())QMessageBox::question ((QWidget*)parent(),
+                                                                 tr("Error in Google transaction"),
+                                                                 tr("<b>Error in Google transation:</b><br>%1").arg(pC_GoogleAPI->getError()),
+                                                                 QMessageBox::Cancel);
+    QApplication::restoreOverrideCursor ();
+}
 //---------------------------- dropEvent ------------------------------------------------
 void C_Frm_Day::dropEvent(QDropEvent *event)
  {  if (event->mimeData()->hasFormat("text/medintux_rdv_drag"))
@@ -529,6 +637,7 @@ void C_Frm_Day::dragMoveEvent(QDragMoveEvent * event)
              tm_str      = QString("%1:%2").arg(QString::number(h).rightJustified (2, '0'),QString::number(mn).rightJustified (2, '0'));
            }
         m_DropedRdv  = C_RendezVous::unSerialize(QString(event->mimeData()->data ( "text/medintux_rdv_drag" ))); // intialiser le rdv sur les donnees venant du drag and drop
+
         if (rdv.m_GUID.length()||rdv.m_Nom.length()||rdv.m_Prenom.length())
            {tm_str = "<table cellSpacing=\"0\"  cellpadding=\"4\" width=100% border=\"1\">"    // #FF8000
                         "<tbody>"
@@ -633,6 +742,7 @@ void  C_Frm_Day::ExpandDialog()
      if (nb) RecreateRendezVousListWidget(m_cacheRDV_List);                                 // recreer les widgets avec la liste des rendez vous
      m_ButtonNewRDV->show();
      m_ButtonSave->show();
+     m_ButtonGoogle->show();
      m_ButtonExpand->setIcon(m_pBMC->m_ButtonExpand_Close_Pixmap); // icone pour le jour ouvert
     }
  else
@@ -640,6 +750,7 @@ void  C_Frm_Day::ExpandDialog()
     {m_IsDayExpand = 0;
      m_ButtonNewRDV->hide();
      m_ButtonSave->hide();
+     m_ButtonGoogle->hide();
      clear();  // effacer les widgets
      m_ButtonExpand->setIcon(m_pBMC->m_ButtonExpand_Open_Pixmap); // icone pour le jour ferme
     }
@@ -1164,7 +1275,7 @@ C_RendezVous C_Frm_Day::getCopy()
 void C_Frm_Day::Slot_ReplaceRdvByDroppedRdv(C_Frm_Rdv *pC_Frm_Rdv_Dst)
 { LOOKREFRESH;
   C_RendezVous rdvSrc;
-  getLastDroppedData(rdvSrc.m_Nom, rdvSrc.m_Prenom, rdvSrc.m_Tel, rdvSrc.m_GUID);
+  getLastDroppedData(rdvSrc.m_Nom, rdvSrc.m_Prenom, rdvSrc.m_Tel, rdvSrc.m_GUID, rdvSrc.m_Where);
   if (rdvSrc.m_GUID.length()) replaceRdvByRdv(pC_Frm_Rdv_Dst, rdvSrc);
   UNLOOKREFRESH;
 }
@@ -1189,6 +1300,7 @@ void C_Frm_Day::replaceRdvByRdv(C_Frm_Rdv *pC_Frm_Rdv_Dst, const C_RendezVous &r
   pC_Frm_Rdv_Dst->m_Nom    = rdvSrc.m_Nom;
   pC_Frm_Rdv_Dst->m_Prenom = rdvSrc.m_Prenom;
   pC_Frm_Rdv_Dst->m_Tel    = rdvSrc.m_Tel;
+  pC_Frm_Rdv_Dst->m_Where  = rdvSrc.m_Where;
 
   pC_Frm_Rdv_Dst->m_textLabel_Nom->setText(rdvSrc.m_Nom + " " + rdvSrc.m_Prenom);
   pC_Frm_Rdv_Dst->m_ButtonAcceder->setEnabled(TRUE);
@@ -1222,7 +1334,7 @@ C_RendezVous C_Frm_Day::getRdvUnderMouse(int y_pos)
 }
 
 //---------------------------------------- getLastDroppedData --------------------------------------------
-int C_Frm_Day::getLastDroppedData(QString &nom, QString &prenom, QString &tel, QString &guid)
+int C_Frm_Day::getLastDroppedData(QString &nom, QString &prenom, QString &tel, QString &guid, QString &where)
 {nom      = "";
  prenom   = "";
  tel      = "";
@@ -1232,6 +1344,7 @@ int C_Frm_Day::getLastDroppedData(QString &nom, QString &prenom, QString &tel, Q
  prenom   = m_DropedRdv.m_Prenom;
  tel      = m_DropedRdv.m_Tel;
  guid     = m_DropedRdv.m_GUID;
+ where    = m_DropedRdv.m_Where;
  m_DropedRdv.m_GUID = ""; // on ne sert des donnees qu'une fois
  return 1;
 }
@@ -1256,8 +1369,8 @@ void C_Frm_Day::On_Day_mousePressEvent ( QMouseEvent * event )
   QString   type   = "";
   QDateTime dt;
   QDateTime dtLast;
-  QString   nom ,prenom ,tel, guid;
-  int       isDropedData = getLastDroppedData(nom, prenom, tel, guid);
+  QString   nom ,prenom ,tel, guid, where;
+  int       isDropedData = getLastDroppedData(nom, prenom, tel, guid, where);
   LOOKREFRESH;
   if (isDayExpand())
      {int y_pos      =  ymgn;
@@ -1312,6 +1425,7 @@ void C_Frm_Day::On_Day_mousePressEvent ( QMouseEvent * event )
               pRdv->m_Nom    = nom;
               pRdv->m_Prenom = prenom;
               pRdv->m_Tel    = tel;
+              pRdv->m_Where  = where;
               QString errMess; if ( ! m_pCMoteurAgenda->RDV_Update(*pRdv, &errMess) ) qDebug() << errMess;
               update();
               UNLOOKREFRESH;
@@ -1375,6 +1489,7 @@ void C_Frm_Day::On_Day_mousePressEvent ( QMouseEvent * event )
                        pRdv->m_Nom     = rdv.m_Nom;
                        pRdv->m_Prenom  = rdv.m_Prenom;
                        pRdv->m_Note    = rdv.m_Note;
+                       pRdv->m_Where   = rdv.m_Where;
                        pRdv->m_GUID    = rdv.m_GUID;
                        pRdv->m_PrimKey = rdv.m_PrimKey;
                        pRdv->m_Tel     = rdv.m_Tel;
@@ -1390,6 +1505,7 @@ void C_Frm_Day::On_Day_mousePressEvent ( QMouseEvent * event )
                        pRdv->m_GUID   ="";
                        pRdv->m_Tel    ="";
                        pRdv->m_Note   ="";
+                       pRdv->m_Where  ="";
                       }
                    else if (ret.indexOf("Open") != -1)
                       {emit Sign_LauchPatient(pRdv->m_GUID, pRdv);
@@ -1464,15 +1580,15 @@ void C_Frm_Day::On_Day_mousePressEvent ( QMouseEvent * event )
               }
      case 7:  {newRDVAtThisDate(dtLast, 15, type);                       {UNLOOKREFRESH;    return;}
               }
-     case 8:  {newRDVAtThisDate(dtLast, 15, type,nom,prenom,tel,guid);   {UNLOOKREFRESH;    return;}
+     case 8:  {newRDVAtThisDate(dtLast, 15, type,nom,prenom,tel,guid, where);   {UNLOOKREFRESH;    return;}
               }
-     case 3:  {newRDVAtThisDate(dt, 15, type, nom, prenom, tel, guid);   {UNLOOKREFRESH;    return;}
+     case 3:  {newRDVAtThisDate(dt, 15, type, nom, prenom, tel, guid, where);   {UNLOOKREFRESH;    return;}
               }
      case 4:  {C_RendezVous rdv = getCopy();       // paste
-               pC_RendezVous    = new C_RendezVous(dt , rdv.m_Duree, rdv.m_Nom, rdv.m_Prenom, rdv.m_Tel, rdv.m_Note, rdv.m_GUID, m_SignUser, m_User, rdv.m_Type,"",rdv.m_State);
+               pC_RendezVous    = new C_RendezVous(dt , rdv.m_Duree, rdv.m_Nom, rdv.m_Prenom, rdv.m_Tel, rdv.m_Note, rdv.m_GUID, m_SignUser, m_User, rdv.m_Type,"",rdv.m_State,rdv.m_Where);
               } break;
      case 9:  {C_RendezVous rdv = getCopy();       // paste last
-               pC_RendezVous    = new C_RendezVous(dtLast , rdv.m_Duree, rdv.m_Nom, rdv.m_Prenom, rdv.m_Tel, rdv.m_Note, rdv.m_GUID, m_SignUser, m_User, rdv.m_Type,"",rdv.m_State);
+               pC_RendezVous    = new C_RendezVous(dtLast , rdv.m_Duree, rdv.m_Nom, rdv.m_Prenom, rdv.m_Tel, rdv.m_Note, rdv.m_GUID, m_SignUser, m_User, rdv.m_Type,"",rdv.m_State,rdv.m_Where);
               } break;
      case 1:  {pC_RendezVous    = new C_RendezVous(dt , 15, "", "", "", "", "", m_SignUser, m_User, ""); // anonyme
               } break;
@@ -1586,7 +1702,7 @@ void C_Frm_Day::copyRdv(const C_RendezVous &rdv)
 }
 
 //---------------------------------------- newRDVAtThisDate --------------------------------------------
-void C_Frm_Day::newRDVAtThisDate(QDateTime dateTime, int duree, const QString &type /*=""*/, const QString &nom /*=""*/, const QString &prenom /*=""*/, const QString &tel /*=""*/, const QString &guid /*=""*/, const QString &pk /*=""*/)
+void C_Frm_Day::newRDVAtThisDate(QDateTime dateTime, int duree, const QString &type /*=""*/, const QString &nom /*=""*/, const QString &prenom /*=""*/, const QString &tel /*=""*/, const QString &guid /*=""*/, const QString &where /*=""*/, const QString &pk /*=""*/)
 {// ne pas looker c'est fait avant l'appel
  C_RendezVous *pC_RendezVous = new C_RendezVous(dateTime, duree,"","","","","",m_SignUser, m_User);
  if (type.length())   pC_RendezVous->m_Type    = type;
@@ -1594,6 +1710,7 @@ void C_Frm_Day::newRDVAtThisDate(QDateTime dateTime, int duree, const QString &t
  if (prenom.length()) pC_RendezVous->m_Prenom  = prenom;
  if (tel.length())    pC_RendezVous->m_Tel     = tel;
  if (guid.length())   pC_RendezVous->m_GUID    = guid;
+ if (where.length())  pC_RendezVous->m_Where   = where;
  if (pk.length())     pC_RendezVous->m_PrimKey = pk;
 
  C_Dlg_RdvTypeConfig *pC_Dlg_RdvTypeConfig   = new C_Dlg_RdvTypeConfig(m_pColorProfils, m_pCMoteurAgenda, this, pC_RendezVous, 1);
@@ -2075,7 +2192,7 @@ void C_Frm_Rdv::setWidgetOnRdv(const C_RendezVous &rdv) // to do : detecter si l
  m_Type     = rdv.m_Type;
  m_PrimKey  = rdv.m_PrimKey;
  m_State    = rdv.m_State;
-
+ m_Where    = rdv.m_Where;
  m_InfoEdit->setText(m_Note);
  m_button_HeureDuree->setText(computeTextButton());
  m_textLabel_Nom->setText(m_Nom + " " + m_Prenom);
@@ -2451,6 +2568,7 @@ void C_Frm_Rdv::mousePressEvent(QMouseEvent *event)
                    m_GUID="";
                    m_Tel="";
                    m_Note="";
+                   m_Where="";
                    setWidgetOnRdv(*this);                // on reajuste le widget sur les nouvelles donn\303\251es
                    setWidgetStyleOnRdv(*this);
                    RDV_Update();

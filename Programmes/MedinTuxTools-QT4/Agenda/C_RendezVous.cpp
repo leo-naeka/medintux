@@ -51,6 +51,7 @@ QString C_RendezVous::getQWhatsThisString(   const QString &pathTheme, QString c
                                              //mess += tr("<b>Dur\303\251e&nbsp;pr\303\251vue&nbsp;:&nbsp;</b>")    + QString::number(m_Duree) +tr("&nbsp; minutes<br>");
  if (m_Note.length())                        mess += tr("<hr><b>Note&nbsp;:&nbsp;</b><i>%1</i><br>").arg(m_Note);
  if (m_State.length())                       mess += tr("<b>Status: </b><i>%1</i><br></font>").arg(m_State);
+ if (m_Where.length())                       mess += tr("<hr><b>Where: </b><i>%1</i><br></font>").arg(m_Where);
  return mess;
 }
 //---------------------------- serialize ------------------------------------------------
@@ -80,6 +81,7 @@ QString C_RendezVous::serialize(const C_RendezVous *pC_RendezVous)
       addXmlData("m_PrisAvec", pC_RendezVous->m_PrisAvec,                   modeleXML,0);
       addXmlData("m_PrimKey",  pC_RendezVous->m_PrimKey,                    modeleXML,0);
       addXmlData("m_State",    pC_RendezVous->m_State,                      modeleXML,0);
+      addXmlData("m_Where",    pC_RendezVous->m_Where,                      modeleXML,TRUE);
  modeleXML +=
  "</C_RendezVous>\n";
  return modeleXML;
@@ -101,6 +103,7 @@ C_RendezVous C_RendezVous::unSerialize(const QString & data)
  rdv.m_PrisAvec  = getXmlData("m_PrisAvec", data, &nextPos);
  rdv.m_PrimKey   = getXmlData("m_PrimKey",  data, &nextPos);
  rdv.m_State     = getXmlData("m_State",    data, &nextPos);
+ rdv.m_Where     = getXmlData("m_Where",    data, &nextPos);
  return rdv;
 }
 

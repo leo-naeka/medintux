@@ -195,7 +195,8 @@ int CMoteurAgenda::SetConfBase(const char* confFile, QString *errMess)
   pt = SetConfBase_SetProperties(pt,  m_AGENDA_TYPE,       "m_AGENDA_TYPE",      &line , err); if (err.length())     goto SetConfBase_Error;  // Type de RDV
   pt = SetConfBase_SetProperties(pt,  m_AGENDA_NOTE,       "m_AGENDA_NOTE",      &line , err); if (err.length())     goto SetConfBase_Error;  // Note
   pt = SetConfBase_SetProperties(pt,  m_AGENDA_PRIM_KEY,   "m_AGENDA_PRIM_KEY",  &line , err); if (err.length())     goto SetConfBase_Error;  // une clef primaire
-  pt = SetConfBase_SetProperties(pt,  m_AGENDA_STATUS,     "m_AGENDA_STATUS",     &line , err); if (err.length())     goto SetConfBase_Error;  // etat du rendez vous
+  pt = SetConfBase_SetProperties(pt,  m_AGENDA_STATUS,     "m_AGENDA_STATUS",    &line , err); if (err.length())     goto SetConfBase_Error;  // etat du rendez vous
+  pt = SetConfBase_SetProperties(pt,  m_AGENDA_WHERE,      "m_AGENDA_WHERE",     &line , err); if (err.length())     goto SetConfBase_Error;  // endroit du rendez vous
 
   pt = SetConfBase_SetProperties(deb, m_COLOR_PROFIL_TBL_NAME,    "m_COLOR_PROFIL_TBL_NAME",  &line , err); if (err.length())     goto SetConfBase_Error;
   pt = SetConfBase_SetProperties(pt,  m_COLOR_PROFIL_NAME,        "m_COLOR_PROFIL_NAME",      &line , err); if (err.length())     goto SetConfBase_Error;
@@ -595,8 +596,9 @@ QString CMoteurAgenda::RDV_Create(const C_RendezVous &rendezVous, QString *errMe
                      m_AGENDA_PRIS_PAR       + "," +  // 7
                      m_AGENDA_TYPE           + "," +  // 8
                      m_AGENDA_STATUS         + "," +  // 9
-                     m_AGENDA_NOTE           + ") "   // 10
-                     "VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+                     m_AGENDA_WHERE          + "," +  // 10
+                     m_AGENDA_NOTE           + ") "   // 11
+                     "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
   query.prepare(prepare);
   query.bindValue(0, rendezVous.m_date);
   query.bindValue(1, (int)rendezVous.m_Duree);
@@ -608,7 +610,8 @@ QString CMoteurAgenda::RDV_Create(const C_RendezVous &rendezVous, QString *errMe
   query.bindValue(7, rendezVous.m_PrisPar);
   query.bindValue(8, rendezVous.m_Type);
   query.bindValue(9, rendezVous.m_State);
-  query.bindValue(10,rendezVous.m_Note);
+  query.bindValue(10,rendezVous.m_Where);
+  query.bindValue(11,rendezVous.m_Note);
   if (!query.exec()){QString mess = tr("Error : CMoteurAgenda::RDV_Create() \r\n") + prepare + "\r\n";
                      mess        += OutSQL_error(query, mess.toLatin1());      // rajouter le message sql
                      if (errMess) *errMess += mess;
@@ -641,6 +644,7 @@ int CMoteurAgenda::RDV_Update(const C_RendezVous &rendezVous, QString *errMess /
                                m_AGENDA_PRIS_PAR   + " = ? ," +
                                m_AGENDA_TYPE       + " = ? ," +
                                m_AGENDA_STATUS     + " = ? ," +
+                               m_AGENDA_WHERE      + " = ? ," +
                                m_AGENDA_NOTE       + " = ?  " +
                                " WHERE " + m_AGENDA_PRIM_KEY      + " ='"  + rendezVous.m_PrimKey         + "'";
   query.prepare(prepare);
@@ -654,7 +658,8 @@ int CMoteurAgenda::RDV_Update(const C_RendezVous &rendezVous, QString *errMess /
   query.bindValue(7, rendezVous.m_PrisPar);
   query.bindValue(8, rendezVous.m_Type);
   query.bindValue(9, rendezVous.m_State);
-  query.bindValue(10,rendezVous.m_Note);
+  query.bindValue(10,rendezVous.m_Where);
+  query.bindValue(11,rendezVous.m_Note);
   query.exec();
   if (query.exec()) {ok = TRUE;}
   else              {QString mess = tr("Error : CMoteurAgenda::MASK_Append() \r\n") + prepare + "\r\n";
@@ -742,19 +747,27 @@ int CMoteurAgenda::RDV_Get_ListNb(QDate date, const QString &user)
   return  ret_int;
 }
 
-
 //--------------------------------------------- RDV_Get_List ------------------------------------------------
 int CMoteurAgenda::RDV_Get_List(QDate date, const QString &user, RDV_LIST &rdvList, int mode /*= CMoteurAgenda::AllDates*/, QString *errMess /*=0*/)
 { return RDV_Get_List( date, user, &rdvList,  mode , errMess );
 }
+//--------------------------------------------- RDV_Get_List ------------------------------------------------
 int CMoteurAgenda::RDV_Get_List(QDate date, const QString &user, RDV_LIST *rdvList, int mode /*= CMoteurAgenda::AllDates*/, QString *errMess /*=0*/)
 {
-  rdvList->clear();
-  //................. ouvrir la base  ......................................................
-  if (OpenBase()==0) {if (errMess) *errMess = "CMoteurAgenda::RDV_Get_List(): database can't be opened";              return 0; }
   //................. Preparer la requete ..................................................
   QString reqDateDebStr = date.toString("yyyyMMdd") + "000000";
   QString reqDateEndStr = date.toString("yyyyMMdd") + "235959";
+  return RDV_Get_List(reqDateDebStr, reqDateEndStr, user, rdvList, mode , errMess );
+}
+//--------------------------------------------- RDV_Get_List ------------------------------------------------
+int CMoteurAgenda::RDV_Get_List(QString reqDateDebStr, QString reqDateEndStr, const QString &user, RDV_LIST &rdvList, int mode /*= CMoteurAgenda::AllDates*/, QString *errMess /*=0*/)
+{ return RDV_Get_List( reqDateDebStr, reqDateEndStr, user, &rdvList,  mode , errMess );
+}
+//--------------------------------------------- RDV_Get_List ------------------------------------------------
+int CMoteurAgenda::RDV_Get_List(QString reqDateDebStr, QString reqDateEndStr, const QString &user, RDV_LIST *rdvList, int mode /*= CMoteurAgenda::AllDates*/, QString *errMess /*=0*/)
+{ rdvList->clear();
+  //................. ouvrir la base  ......................................................
+  if (OpenBase()==0) {if (errMess) *errMess = "CMoteurAgenda::RDV_Get_List(): database can't be opened";              return 0; }
   QString requete("");
   requete  += "SELECT " + m_AGENDA_DATETIME   +  ","         // 0
                         + m_AGENDA_DUREE      +  ","         // 1
@@ -767,7 +780,8 @@ int CMoteurAgenda::RDV_Get_List(QDate date, const QString &user, RDV_LIST *rdvLi
                         + m_AGENDA_TYPE       +  ","         // 8
                         + m_AGENDA_STATUS     +  ","         // 9
                         + m_AGENDA_NOTE       +  ","         // 10
-                        + m_AGENDA_PRIM_KEY   +  " FROM  "   // 11
+                        + m_AGENDA_WHERE      +  ","         // 11
+                        + m_AGENDA_PRIM_KEY   +  " FROM  "   // 12
                         + m_AGENDA_TBL_NAME   +  " WHERE "
                         //+ m_AGENDA_DATETIME   +  " >= '" + reqDateDebStr + "' AND " + m_AGENDA_DATETIME + "<= '" + reqDateEndStr + "' AND "
                         + m_AGENDA_DATETIME   +  " BETWEEN '" + reqDateDebStr + "' AND '" + reqDateEndStr + "' AND "
@@ -789,8 +803,9 @@ int CMoteurAgenda::RDV_Get_List(QDate date, const QString &user, RDV_LIST *rdvLi
                                                              CGestIni::Utf8_Query(query, 6 ), // prisAvec,
                                                              CGestIni::Utf8_Query(query,7 ),  // prisPar,
                                                              CGestIni::Utf8_Query(query, 8),  // type,
-                                                             query.value( 11).toString(),     // primKey
-                                                             CGestIni::Utf8_Query(query, 9)   // State
+                                                             query.value( 12).toString(),     // primKey
+                                                             CGestIni::Utf8_Query(query, 9),  // State
+                                                             CGestIni::Utf8_Query(query, 11)  // Where
                                                            );
                       rdvList->append(pRdv);
                       ++ nb;

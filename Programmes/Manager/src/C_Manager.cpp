@@ -2130,7 +2130,7 @@ else if (nb==1)      // un seul patient trouv\303\251 pour cette carte vitale al
 }
 
 //--------------------------------- Slot_listView_Vitale_Clicked -----------------------------------------------------------------------
-void C_Manager::Slot_listView_Vitale_Clicked( QTreeWidgetItem * pQListViewItem, int /* column*/  )
+void C_Manager::Slot_listView_Vitale_Clicked( QTreeWidgetItem * /*pQListViewItem*/, int /* column*/  )
 {
    #ifdef SESAM_VERSION
    Slot_listView_VitaleSelectionChanged ();
@@ -3860,6 +3860,7 @@ void C_Manager::Slot_giveDraglistView_PatientItemData(QString &data, QTreeWidget
    rdv.m_Tel    = "";
    if (G_pCApp->isCurrentIdentiteSame(pQTreeWidgetItem))
       {rdv.m_Tel    = m_pGUI->lineEdit_Tel1->text();
+       rdv.m_Where  = m_pGUI->textEdit_Adresse->text()+" "+m_pGUI->lineEdit_CdPostal->text().remove(' ')+" "+m_pGUI->lineEditVille->text();
       }
    data = rdv.serialize(&rdv);
 }
@@ -5138,6 +5139,10 @@ void C_Manager::Slot_pQPushButtonMenuAgenda_Clicked(Wdg_ButtonPtr* pWdg_ButtonPt
    optionList<<"=120=#Agenda/noConfirmModif.png#"+tr("Unactivate modifications confirmation.");
    optionList<<"=121=#Agenda/ConfirmModif.png#"+tr("Activate modifications confirmation.");
    optionList<<"-----------";
+   optionList<<"=130=#Agenda/Google1.png#"+tr("One month  Google Agenda Synchronization.");
+   optionList<<"=131=#Agenda/Google2.png#"+tr("Two months Google Agenda Synchronization.");
+   optionList<<"=135=#Agenda/Google6.png#"+tr("Six months Google Agenda Synchronization.");
+   optionList<<"-----------";
    optionList<<"=180=#Agenda/QuitterMenu.png#"+tr("Quit this menu.");
 
    pWdg_ButtonPtr->setIcon(Theme::getIcon("Agenda/AgendaMenuDown.png"));
@@ -5168,6 +5173,10 @@ void C_Manager::Slot_pQPushButtonMenuAgenda_Clicked(Wdg_ButtonPtr* pWdg_ButtonPt
       pC_Frm_Agenda->changeModifConfirm(opt);
       CGestIni::Param_WriteParam(&G_pCApp->m_LocalParam, "Agenda" , "Modif confirm" , QString::number(opt));
       CGestIni::Param_UpdateToDisk(G_pCApp->m_PathAppli+"Manager.ini", G_pCApp->m_LocalParam);
+     }
+   else if (opt>=130 && opt<=135)
+     {opt = (opt-129);
+      pC_Frm_Agenda->toGoogleSynchonization(opt);
      }
    else if (opt>=21 && opt<=22)
      {bool ok;
@@ -5238,13 +5247,26 @@ QString C_Manager::execCalendrier(const QDate &dateIn)
 
 //---------------------------------------------- addUserAgenda -----------------------------------------------------------------------
 C_Frm_Agenda *C_Manager::addUserAgenda(const QString &signUser, QDate date, QFrame **ppQFrame)
-{   if (signUser.length()==0) return 0;
+{  if (signUser.length()==0) return 0;
    if (m_AgendaMap.count(signUser))
       {setUserAgendaVisible(signUser);
        return 0;
       }
    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-   QString nom, prenom;
+   QString nom, prenom, googleUser, googlePass;
+   //.................. recuperer google user et pot de masse .............................
+   QString userParam = m_pCMoteurBase->ReadDrTuxUserParametres(signUser);
+   googleUser        = CGestIni::Param_ReadUniqueParam(userParam.toAscii(), "GoogleAgenda","user");
+   googlePass        = CGestIni::Param_ReadUniqueParam(userParam.toAscii(), "GoogleAgenda","pass");
+   if (googlePass.left(1)=="#")
+      {googlePass = CGestIni::PassWordDecode(googlePass);
+      }
+   else //.............. si pas encode on encode pour le cacher ...................................
+      {QString encripted = CGestIni::PassWordEncode(googlePass).prepend("#");
+       CGestIni::Param_WriteParam(&userParam, "GoogleAgenda","pass",encripted.toAscii());
+       m_pCMoteurBase->Param_SavParam(&userParam ,signUser);
+      }
+
    m_pCMoteurBase->GetUserNomPrenom( signUser, nom, prenom);
    m_pGUI->wdg_DockWidget_Agenda->setUpdatesEnabled(false);
    QString        userDroits                 = G_pCApp->m_pCMoteurBase->GetUserPermisions(signUser);
@@ -5256,7 +5278,7 @@ C_Frm_Agenda *C_Manager::addUserAgenda(const QString &signUser, QDate date, QFra
    QFrame        *frameButtonAndTitle        = new QFrame(agendaFrameDaysAndTitle);
    QVBoxLayout   *agendaVBoxDaysAndTitle     = new QVBoxLayout(agendaFrameDaysAndTitle); agendaVBoxDaysAndTitle->setObjectName("agendaVBoxDaysAndTitle_" + signUser);
    QScrollArea   *scrollArea_Days            = new QScrollArea(agendaFrameDaysAndTitle);
-   C_Frm_Agenda  *pC_Frm_Agenda              = new C_Frm_Agenda( date, scrollArea_Days, G_pCApp->m_PathAppli, G_pCApp->m_LocalParam, signUser,G_pCApp->m_User,nom+" "+prenom, userDroits);        // creer la liste des jours
+   C_Frm_Agenda  *pC_Frm_Agenda              = new C_Frm_Agenda( date, scrollArea_Days, G_pCApp->m_PathAppli, G_pCApp->m_LocalParam, signUser,G_pCApp->m_User, nom+" "+prenom, userDroits,googleUser,googlePass);        // creer la liste des jours
    QLabel        *pQLabel                    = new QLabel(frameButtonAndTitle); pQLabel->setStyleSheet(styles);
    QLineEdit     *pQLineEditDate             = new QLineEdit(frameButtonAndTitle); pQLineEditDate->setInputMask ("99-99-9999"); pQLineEditDate->setStyleSheet(styles);
    Wdg_ButtonPtr *pQPushButtonDate           = new Wdg_ButtonPtr( frameButtonAndTitle , "ButtonDate_"  + signUser); pQPushButtonDate->setPtr_1(pC_Frm_Agenda); pQPushButtonDate->setPtr_2(pQLineEditDate);

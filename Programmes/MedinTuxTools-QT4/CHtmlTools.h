@@ -49,8 +49,8 @@ typedef struct Color_Ref
 class CHtmlTools
 {
  public:
-     CHtmlTools(){};
-    ~CHtmlTools(){};
+     CHtmlTools(){}
+    ~CHtmlTools(){}
   enum flags
          {   StrictASCII         = 0x0002,
              KeepBR              = 0X0004,
@@ -64,12 +64,12 @@ class CHtmlTools
   static void     insertHtml(Q3TextEdit* dstEdit, const QString &htmlStr,  int  noInsertIfJustTag  = 1 );
   static QString  removeHtmlTag( const QString &txt);
   static void     setDefaultTextAttributs(Q3TextEdit*     edit,
-					  const QString &backColor ,
-					  const QString &backPixmapPath,
-					  const QString &textColor,
-					  const QFont   &font);
+                                          const QString &backColor ,
+                                          const QString &backPixmapPath,
+                                          const QString &textColor,
+                                          const QFont   &font);
   static int      QT_style_To_QFont( const QString &style, QFont &font,
-				     const char* defaultFamily = 0, const char *defaultSize = 0);
+                                     const char* defaultFamily = 0, const char *defaultSize = 0);
   static long     getTextImageList( const QString &txt, QStringList &imgList, long from = 0 );
   static long     IsThisTagImage(const QString &txt, long &from , QString *fileName  = 0  , int *w  = 0 , int *h  = 0 );
   static void     ReplaceImageTag(QString &text, const QString &imgNameToReplace, QString imgNameReplaceBy = QString::null, int w = -1, int h = -1);
