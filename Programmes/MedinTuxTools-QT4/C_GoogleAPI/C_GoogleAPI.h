@@ -50,15 +50,14 @@ class C_GoogleAPI : public QObject
       explicit C_GoogleAPI(QObject *parent = 0);
       virtual ~C_GoogleAPI();
 
-      bool    isServiceAvailable();
-      bool    isServiceWorking();
-      QString getError();
+      bool              isServiceAvailable();
+      QString           getError();
 
-      bool login(QString mail, QString password);
-      void configureProxy(QNetworkProxy::ProxyType type, const QString &hostName = QString(), quint16 port = 0, const QString &user = QString(), const QString &password = QString());
-      void getEventsBetweenTwoDates(const QDate &newStartDate, const QDate &newEndDate);
-      void deleteAllEventsBetweenTwoDates(const QDate &newStartDate, const QDate &newEndDate);
-      void createSeveralEvents(const C_GoogleEventList &eventsList);
+      bool              login(QString mail, QString password);
+      void              configureProxy(QNetworkProxy::ProxyType type, const QString &hostName = QString(), quint16 port = 0, const QString &user = QString(), const QString &password = QString());
+      C_GoogleEventList getEventsBetweenTwoDates(const QDate &newStartDate, const QDate &newEndDate);
+      void              deleteAllEventsBetweenTwoDates(const QDate &newStartDate, const QDate &newEndDate);
+      void              createSeveralEvents(const C_GoogleEventList &eventsList);
 
     signals:
     public slots:
@@ -75,8 +74,9 @@ class C_GoogleAPI : public QObject
       QNetworkReply            *m_reply;
       QEventLoop               *m_loop;
       C_GoogleAuthentification *m_auth;
-      C_GoogleEventList         m_eventsList;
       bool getSession();
+private:
+      C_GoogleEventList         m_eventsList;
 };
 
 #endif // C_GOOGLEAPI_H

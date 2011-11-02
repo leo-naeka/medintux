@@ -415,7 +415,7 @@ void C_Frm_Agenda::OnButtonGoogleClickedPtr (const char*, void *ptrOnDay)
 
 //---------------------------------------- toGoogleSynchonization --------------------------------------------
 void C_Frm_Agenda::toGoogleSynchonization(int months)
-{QDateTime dateDeb = QDateTime(m_StartDate, QTime::fromString("00:00:00","hhmmss"));
+{QDateTime dateDeb = QDateTime(m_StartDate.addDays (-m_StartBefore ), QTime::fromString("00:00:00","hhmmss"));
  QDateTime dateEnd = dateDeb.addMonths( months );
  toGoogle(dateDeb, dateEnd);
 }
@@ -442,11 +442,11 @@ void C_Frm_Agenda::toGoogle(const QDateTime &dateDeb, const QDateTime &dateEnd)
  C_GoogleEventList eventsList;
  for (int i  = 0; i < nb; ++i)
      { C_RendezVous *pRdv = dynamic_cast<C_RendezVous*>(rdvList[i]);
-       eventsList.append( C_GoogleEvent(pRdv->m_Nom+";"+pRdv->m_Prenom                               ,
-                                        pRdv->m_date                                                 ,
-                                        pRdv->m_date.addSecs(pRdv->m_Duree*60)                       ,
-                                        QString("MedinTux : ")+ CHtmlTools::HtmlToAscii(pRdv->m_Note),
-                                        pRdv->m_Where                                                ,
+       eventsList.append( C_GoogleEvent(pRdv->m_Nom+";"+pRdv->m_Prenom                        ,
+                                        pRdv->m_date                                          ,
+                                        pRdv->m_date.addSecs(pRdv->m_Duree*60)                ,
+                                        CHtmlTools::HtmlToAscii(pRdv->m_Note)                 ,
+                                        pRdv->m_Where                                         ,
                                         C_RendezVous::getRdvColor(*pRdv, &m_ColorProfils)  ));
      }
  //............ on cree dans google les rdv en mode batch ..................
@@ -585,11 +585,11 @@ void C_Frm_Day::toGoogle(C_GoogleAPI *pC_GoogleAPI)
     C_GoogleEventList eventsList;
     for (int i  = 0; i < m_cacheRDV_List.count(); ++i)
         { C_RendezVous *pRdv = dynamic_cast<C_RendezVous*>(m_cacheRDV_List[i]);
-          eventsList.append( C_GoogleEvent(pRdv->m_Nom+";"+pRdv->m_Prenom                 ,
-                                           pRdv->m_date                                                 ,
-                                           pRdv->m_date.addSecs(pRdv->m_Duree*60)                       ,
-                                           QString("MedinTux : ")+ CHtmlTools::HtmlToAscii(pRdv->m_Note),
-                                           pRdv->m_Where                                                ,
+          eventsList.append( C_GoogleEvent(pRdv->m_Nom+";"+pRdv->m_Prenom         ,
+                                           pRdv->m_date                           ,
+                                           pRdv->m_date.addSecs(pRdv->m_Duree*60) ,
+                                           CHtmlTools::HtmlToAscii(pRdv->m_Note)  ,
+                                           pRdv->m_Where                          ,
                                            getRdvColor(*pRdv)  ));
          }
     //............ on cree dans google les rdv en mode batch ..................
