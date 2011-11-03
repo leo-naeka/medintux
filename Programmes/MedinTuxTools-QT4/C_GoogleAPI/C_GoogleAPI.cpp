@@ -38,7 +38,7 @@
 
 #include "C_GoogleAPI.h"
 #include "C_GoogleAPI.h"
-//#include "../../MedinTuxTools-QT4/CGestIni.h"
+#include "../../MedinTuxTools-QT4/CGestIni.h"
 
 //------------------------------------ C_GoogleAPI ---------------------------------------------
 /*!
@@ -190,7 +190,7 @@ void C_GoogleAPI::Slot_getEventsDone()
   if (!m_reply->error())
      {
       QString response = m_reply->readAll();
-      //CGestIni::Param_UpdateToDisk("/home/ro/googleCalGet.xml", response);
+      CGestIni::Param_UpdateToDisk("/home/ro/googleCalGet.xml", response);
       QXmlStreamReader xml(response);
       QString title;
       QString content;
@@ -372,6 +372,8 @@ void C_GoogleAPI::deleteAllEventsBetweenTwoDates(const QDate &debDate, const QDa
               "<category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/g/2005#event' />"
              );
  data    +="</feed>";
+ CGestIni::Param_UpdateToDisk("/home/ro/googleDel.xml", data);
+
  if (m_serviceWorking)
     {
       QUrl address("http://www.google.com/calendar/feeds/default/private/full/batch");

@@ -1047,19 +1047,19 @@ void Dock_Menu::createIdentAndNote()
         }
 
         if (query.value( 5).toString() != "")
-        { tmp = query.value(5).toString();
+        { tmp = query.value(5).toString(); tmp =tmp.remove(' ');
           tmp = tmp.left(2)+" "+tmp.mid(2,2)+" "+tmp.mid(4,2)+" "+tmp.mid(6,2)+" "+tmp.mid(8,2);
           tmp.prepend( TR("Tél3 : ") );
           new CPrtQListViewItem( m_Item_Coordonnees,0, tmp);
         }
         if (query.value( 4).toString() != "")
-        { tmp = query.value(4).toString();
+        { tmp = query.value(4).toString(); tmp =tmp.remove(' ');
           tmp = tmp.left(2)+" "+tmp.mid(2,2)+" "+tmp.mid(4,2)+" "+tmp.mid(6,2)+" "+tmp.mid(8,2);
           tmp.prepend( TR("Tél2 : ") );
           new CPrtQListViewItem( m_Item_Coordonnees, 0, tmp);
         }
         if (query.value( 3).toString() != "")
-        { tmp = query.value(3).toString();
+        { tmp = query.value(3).toString(); tmp =tmp.remove(' ');
           tmp = tmp.left(2)+" "+tmp.mid(2,2)+" "+tmp.mid(4,2)+" "+tmp.mid(6,2)+" "+tmp.mid(8,2);
           tmp.prepend( TR("Tél1 : ") );
           new CPrtQListViewItem( m_Item_Coordonnees,0, tmp);
@@ -1579,7 +1579,7 @@ void Dock_Menu::ATCDRubriques_createPopup(ThemePopup* pQPopupMenu)
 //------------------------------------ ATCD_MenuActionSetRubrique --------------------------------------------------
 /*! \brief Modifie la rubrique d'un ATCD par le biais de la classe Atcd_Code.
 */void Dock_Menu::ATCD_MenuActionSetRubrique()
-{disconnect ( G_pCApp, SIGNAL(Sign_popup_HierarchOptionSelected()) , this, SLOT(ATCD_MenuActionSetRubrique())); 
+{disconnect ( G_pCApp, SIGNAL(Sign_popup_HierarchOptionSelected()) , this, SLOT(ATCD_MenuActionSetRubrique()));
  if (m_TypeATCD_Selectionne == "") return;
  if (m_IsModifiable==0)            return;
  if (!m_pAtcd_Code)                return;

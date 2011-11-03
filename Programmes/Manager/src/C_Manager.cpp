@@ -1451,39 +1451,38 @@ return QString::null;
 //--------------------------------- action_fullSwitchReplication_triggered -----------------------------------------------------------------------
 void C_Manager::action_fullSwitchReplication_triggered ()
 {
-QString err = "";
-int nomadismeStateToSet = G_pCApp->m_IsNomadeActif; nomadismeStateToSet ^= 1;
-if (nomadismeStateToSet)  //.......... Master vers Nomade (JE PARS)........................................................................
-   {if (testConnection("Nomade",&err)==TRUE)
-       {//reconnectToMaster(G_pCApp->m_IsGestionNomadisme);            // CZ 22.10.2010
-        if (reconnectToMaster(G_pCApp->m_IsGestionNomadisme) == -1)    // CZ 22.10.2010
-           return;                                                     // CZ 22.10.2010
-       }
-    else
-   {QMessageBox::information( this, tr("CONNECTION TO MASTER SERVER FAILED"),
-                                    tr ( " <b><u>WARNING</b></u> ! Connection to master server <br />")+
-                                    tr ( "is impossible.<br /><u>Error ") + ":</u><br><pre>"  + err + "</pre><br />" +
-                                    tr(  "Please, check your parameters and slots.") ,
-                                    tr("&Cancel"), 0, 0,
-                                    0, 0 );
-    return;
-    }
-   }
-else                           //..........Nomade vers Master (J'ARRIVE) ........................................................................
-   {QString err;
-    if (testConnection("Master",&err)==TRUE)
-       {reconnectToMaster(G_pCApp->m_IsGestionNomadisme);
-       }
-    else
-   {QMessageBox::information( this, tr("CONNECTION TO MASTER SERVER FAILED"),
-                                    tr ( " <b><u>WARNING</b></u> ! Connection to master server <br />")+
-                                    tr ( "is impossible.<br /><u>Error ") + ":</u><br><pre>"  + err + "</pre><br />" +
-                                    tr(  "Please, check your parameters and slots.") ,
-                                    tr("&Cancel"), 0, 0,
-                                    0, 0 );
-    return;
-    }
-   }
+  QString err = "";
+  int nomadismeStateToSet = G_pCApp->m_IsNomadeActif; nomadismeStateToSet ^= 1;
+  if (nomadismeStateToSet)  //.......... Master vers Nomade (JE PARS)..................................
+     { if (testConnection("Nomade",&err)==TRUE)
+          { reconnectToNomade(G_pCApp->m_IsGestionNomadisme);          // CZ 22.03.2011
+          }
+       else
+          { QMessageBox::information( this, tr("CONNECTION AU SERVEUR NOMADE NON POSSIBLE"),
+                                            tr ( " <b><u>ATTENTION</b></u> ! la connexion au serveur nomade <br>")+
+                                            tr ( "est non possible.<br><u>Erreur :</u><br><pre>" ) + err + "</pre><br>" +
+                                            tr(  "Veuillez v\303\251rifier vos branchements et param\303\250tres.") ,
+                                            tr("Annu&ler"), 0, 0,
+                                            0, 0 );
+               return;
+          }
+     }
+  else                           //..........Nomade vers Master (J'ARRIVE) ..............................
+     { QString err;
+       if (testConnection("Master",&err)==TRUE)
+          { if (reconnectToMaster(G_pCApp->m_IsGestionNomadisme) == -1)    // CZ 22.03.2011
+                return;
+          }
+       else
+          { QMessageBox::information( this, tr("CONNECTION TO MASTER SERVER FAILED"),
+                                            tr ( " <b><u>WARNING</b></u> ! Connection to master server <br />")+
+                                            tr ( "is impossible.<br /><u>Error ") + ":</u><br><pre>"  + err + "</pre><br />" +
+                                            tr(  "Please, check your parameters and slots.") ,
+                                            tr("&Cancel"), 0, 0,
+                                            0, 0 );
+            return;
+          }
+     }
 //............. \303\240 ce stade le changement de mode a reussi ...................
 //              donc en prendre note et l'enteriner
 G_pCApp->m_IsNomadeActif = nomadismeStateToSet;
@@ -1532,7 +1531,6 @@ int C_Manager::reconnectToNomade(int gestionNomadisme)
               {///////////////////// CZ A REVOIR 22.10.2010 //////////// debut
                QString  pathExe;
                QStringList argList;
-
                pathExe = QDir::cleanDirPath (QFileInfo (qApp->argv()[0]).dirPath (true) + "/../../Spybase/bin/Spybase.exe");
                argList << "JePars" ;
                QProcess::startDetached (pathExe, argList);
@@ -2660,28 +2658,58 @@ if (pathPlugin.length())
        G_pCApp->m_pVitale = new C_Vitale;
        G_pCApp->m_pVitale->SetMember(8, 101, nss, nss.length(), 1);                        // Num S\303\251cu Assur\303\251
        int i;
-       QString zitem = "toto";
-       QString numBenef;
+       QString     zitem = "toto";
+       QStringList zamo;
+       QString numBenef, zdat;
+
        for (i=1; i<100; i++)
-            {
-            numBenef = QString("B\303\251n\303\251ficiaire_%1").arg(i) ;
-                                                                           // BUG : 1er champ pas pris en compte
-            G_pCApp->m_pVitale->SetMember(8, 104, "", 0, i);               // CP bidon pour BUG ?????
-                                                                           // REvoir initialisation de m_pVitale
-            zitem = settings->value(tr(numBenef) + tr("/Nom")).toString();
-            if (zitem.length() < 1) break;
-            G_pCApp->m_pVitale->SetMember(1, 104, zitem, zitem.length(), i);               // Nom
-            zitem = settings->value(numBenef + tr("/Code_qualit\303\251")).toString();
-            //if (zitem.length()==1) zitem = zitem.prepend("0");
-            G_pCApp->m_pVitale->SetMember(14, 104, zitem, zitem.length(), i);              // Qualit\303\251 Ayant Droit
-            zitem = settings->value(numBenef + tr("/Pr\303\251nom")).toString() ;
-            G_pCApp->m_pVitale->SetMember(3, 104, zitem, zitem.length(), i);               // Pr\303\251nom
-            zitem = settings->value(numBenef + tr("/Date_de_naissance")).toString() ;          // 15/02/1958
-            QString dnss     = zitem.mid(6,4) + zitem.mid(3,2) + zitem.mid(0,2) + "0000";  // 195802150000
-            G_pCApp->m_pVitale->SetMember(12, 104, dnss, dnss.length(), i);                // Date naissance
-            zitem = settings->value(numBenef + tr("/Rang_g\303\251mellaire")).toString();
-            G_pCApp->m_pVitale->SetMember(13, 104, zitem, zitem.length(), i);              // Rang G\303\251mellaire
-            }   // fin du for i
+           {
+                  numBenef = QString("B\303\251n\303\251ficiaire_%1").arg(i) ;
+                                                                                 // BUG : 1er champ pas pris en compte
+                  G_pCApp->m_pVitale->SetMember(8, 104, "", 0, i);               // CP bidon pour BUG ?????
+                                                                                 // REvoir initialisation de m_pVitale
+                  zitem = settings->value(tr(numBenef) + tr("/Nom")).toString();
+                  if (zitem.length() < 1) break;
+                  G_pCApp->m_pVitale->SetMember(1, 104, zitem, zitem.length(), i);               // Nom
+                  zitem = settings->value(tr(numBenef) + tr("/Code_qualit\303\251")).toString();
+                  //if (zitem.length()==1) zitem = zitem.prepend("0");
+                  G_pCApp->m_pVitale->SetMember(14, 104, zitem, zitem.length(), i);              // Qualit\303\251 Ayant Droit
+                  zitem = settings->value(tr(numBenef) + tr("/Pr\303\251nom")).toString() ;
+                  G_pCApp->m_pVitale->SetMember(3, 104, zitem, zitem.length(), i);               // Pr\303\251nom
+                  zitem = settings->value(tr(numBenef) + tr("/Date_de_naissance")).toString() ;          // 15/02/1958
+                  QString dnss     = zitem.mid(6,4) + zitem.mid(3,2) + zitem.mid(0,2) + "0000";  // 195802150000
+                  G_pCApp->m_pVitale->SetMember(12, 104, dnss, dnss.length(), i);                // Date naissance
+                  zitem = settings->value(tr(numBenef) + tr("/Rang_g\303\251mellaire")).toString();
+                  G_pCApp->m_pVitale->SetMember(13, 104, zitem, zitem.length(), i);              // Rang G\303\251mellaire
+
+                  zitem = settings->value(tr("M\303\251dico_administratif/Code_r\303\251gime")).toString();
+                  G_pCApp->m_pVitale->SetMember(10, 101, zitem, zitem.length(), i);              // Code Regime
+                  zitem = settings->value(tr("M\303\251dico_administratif/Caisse_gestionnaire")).toString();
+                  G_pCApp->m_pVitale->SetMember(11, 101, zitem, zitem.length(), i);              // Caisse_gestionnaire
+                  zitem = settings->value(tr("M\303\251dico_administratif/Centre_gestionnaire")).toString();
+                  G_pCApp->m_pVitale->SetMember(12, 101, zitem, zitem.length(), i);              // Centre_gestionnaire
+                  zitem = settings->value(tr("M\303\251dico_administratif/Code_gestion")).toString();
+                  G_pCApp->m_pVitale->SetMember(13, 101, zitem, zitem.length(), i);              // Code_gestion
+                  zdat  = "";
+                  zitem = settings->value(tr("B\303\251n\303\251ficiaire/P\303\251riodes_AMO_1")).toString();
+                  zamo  = zitem.split('+', QString::SkipEmptyParts);
+                  if (zamo.size() > 0)
+                      zdat  = zamo[zamo.size()-1];
+                  if (zdat.length() != 10)
+                      zitem = "";
+                  else
+                      zitem = zdat.mid(6,4) + zdat.mid(3,2) + zdat.mid(0,2);
+                  G_pCApp->m_pVitale->SetMember(1, 105, zitem, zitem.length(), i);              // Debut droits AMO
+                  zitem = settings->value(tr("B\303\251n\303\251ficiaire/P\303\251riodes_AMO_2")).toString();
+                  zamo  = zitem.split('+', QString::SkipEmptyParts);
+                  if (zamo.size() > 0)
+                      zdat  = zamo[zamo.size()-1];
+                  if (zdat.length() != 10)
+                      zitem = "";
+                  else
+                      zitem = zdat.mid(6,4) + zdat.mid(3,2) + zdat.mid(0,2);
+                  G_pCApp->m_pVitale->SetMember(2, 105, zitem, zitem.length(), i);              // Fin droits AMO
+           }   // fin du for i
           last_occurence = i;      // A revoir ??
        //Cz_Pyxvital ---------------------------FIN-----------------------------------------------------
    }   // fin if PYXVITAL
