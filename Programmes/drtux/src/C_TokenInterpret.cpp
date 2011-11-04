@@ -3928,7 +3928,16 @@ QString C_TokenInterpret::Func_Extract(QString &doc_type, QString &tag_deb, QStr
  tag_end    = tag_end.stripWhiteSpace();
  find_to    = find_to.stripWhiteSpace();
  replace_by = replace_by.stripWhiteSpace();
-
+ if (doc_type.startsWith("$USER_PARAM"))
+    {int              i = doc_type.find("=");
+     if (i==-1)       i = doc_type.find("|");
+     else if (i==-1)  i = doc_type.find(" ");
+     else if (i==-1)   return resolvToken;
+     QString user   = doc_type.mid(i+1).stripWhiteSpace();
+     QString param  = G_mCDC->m_pMB->ReadDrTuxUserParametres(user);
+     resolvToken    = CGestIni::Param_ReadUniqueParam(param,tag_deb,tag_end);
+     return resolvToken;
+    }
  if (doc_type.length()>0)
     {str_data    = G_mCDC->m_pMB->GetDataFromRubList( GetIDCurrentDoc(doc_type) );       // recuperer données soit dans liste cache soit sur disque
      if (str_data.length()==0)              return resolvToken;

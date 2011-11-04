@@ -49,6 +49,7 @@
 #include "Global.h"
 #include "../../MedinTuxTools/CPrtQListBoxItem.h"
 #include "../../MedinTuxTools/CPrtQListViewItem.h"
+#include "../../MedinTuxTools/CGestIni.h"
 
 
 #define TR  QObject::tr
@@ -3858,7 +3859,7 @@ QString  CMoteurBase::GetPkDoc_Provisoire(RUBREC_LIST *pRubList)
      } //end while (pSqlQuery->next())
  str_pk  = "#";
  str_pk += QString::number(lastPk+1);
-qDebug(str_pk);
+//qDebug(str_pk);
  return  str_pk;
 }
 
@@ -4111,15 +4112,27 @@ void  CMoteurBase::ReplaceDataInRubList(const QString & qString, RUBREC_LIST::it
 //
 void  CMoteurBase::ReplaceDataInRubList(const char* text, long len_data, RUBREC_LIST *pRubList, int id)
 {RUBREC_LIST::iterator it = pRubList->at(id);           // recuperer pointeur sur le CRubRecord correspondant à id
+
+ QString debugStr;
+ if (m_Debug)
+    {debugStr += QString("----------------- ReplaceDataInRubList() AVANT ACTION : vidage RUBREC_LIST --- id %1 -------------\n").arg(QString::number(id));
+     debugStr += pRubList->serialize(0)   + "\n";
+     CGestIni::Param_UpdateToDisk("/home/ro/ReplaceDataInRubList-txtbefore.txt",debugStr);
+    }
  (*it).SetData (text, len_data);
+if (m_Debug)
+    {debugStr += "----------------- ReplaceDataInRubList() APRES ACTION : vidage RUBREC_LIST ----------------\n";
+     debugStr += pRubList->serialize(0)   + "\n";
+     CGestIni::Param_UpdateToDisk("/home/ro/ReplaceDataInRubList.log",debugStr);
+     CGestIni::Param_UpdateToDisk("/home/ro/ReplaceDataInRubList-txtAfter.txt",debugStr);
+    }
 }
 
 //-------------------------------------- ReplaceDataInRubList ---------------------------------------------------------
 // ACTION: place des données sur un des elements de la liste des rubriques
 //
 void  CMoteurBase::ReplaceDataInRubList(const char* text, long len_data,  RUBREC_LIST::iterator it)
-{//RUBREC_LIST::iterator it = pRubList->at(id);           // recuperer pointeur sur le CRubRecord correspondant à id
- (*it).SetData (text, len_data);
+{(*it).SetData (text, len_data);
 }
 //-------------------------------------- RubList_SetItemDeleted ---------------------------------------------------------
 void  CMoteurBase::RubList_SetItemDeleted(RUBREC_LIST *pRubList, int id)

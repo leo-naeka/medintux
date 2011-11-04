@@ -68,7 +68,7 @@
 */
 
 CApp* G_pCApp = 0;  // contiendra l'instance globale de l'application
-static char NUM_VERSION[]     = "==##@@==2.14.024==@@##==";
+static char NUM_VERSION[]     = "==##@@==2.14.025==@@##==";
 //--------------------------------------------- CApp -------------------------------------------------------------------
 CApp::~CApp()
 {
@@ -866,7 +866,7 @@ void CApp::CouCou(const QString &message, const QColor &color, const QFont &ft ,
 /*! \brief Affiche un popup amusant pour afficher des messages */
 void CApp::CouCou(const QString &message_in, const QString &imagePath /* ="" */, int tempo/* = 1000 */)
 {if (m_pCCoolPopup) delete m_pCCoolPopup;
- if (tempo==0) m_CCoolPopupTempo    = 2000;   // deux secondes
+ if (tempo==0) m_CCoolPopupTempo    = 3000;   // deux secondes
  else          m_CCoolPopupTempo    = tempo;
  QString path                       = imagePath;
  QString val                        = "";
