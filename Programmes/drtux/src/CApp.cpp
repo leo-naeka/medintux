@@ -68,7 +68,7 @@
 */
 
 CApp* G_pCApp = 0;  // contiendra l'instance globale de l'application
-static char NUM_VERSION[]     = "==##@@==2.14.025==@@##==";
+static char NUM_VERSION[]     = "==##@@==2.14.026==@@##==";
 //--------------------------------------------- CApp -------------------------------------------------------------------
 CApp::~CApp()
 {
@@ -710,7 +710,7 @@ void CApp::saveLastUserOn_Ini(const QString &user, const QString &signUser, cons
  *  \return une QString qui contient le nom du fichier d'image ou vide si annulation ou fichier inexistant.
 */
 
-QString CApp::GetImageFileName(QString *last_path /* = 0 */, QString stringPreselect /*=""*/, int prewiew /*=1*/)
+QString CApp::GetImageFileName(QString *last_path /* = 0 */, QString stringPreselect /*=""*/, int prewiew /*=1*/, QWidget *pQWidget /*=0*/)
 {   //.................................. selectionner le ficher ..................................
     QString filename  = "";
     QString        fn = "";
@@ -724,9 +724,10 @@ QString CApp::GetImageFileName(QString *last_path /* = 0 */, QString stringPrese
                                              "Tous les fichiers (*)");
        }
     //................. choisir le fichier image src à insérer .................................................
+	//const QString & dirName, const QString & filter = QString::null, QWidget * parent = 0, const char * name = 0, bool modal = FALSE
     QFileDialog *fd = new QFileDialog  ( fn,
                                          stringPreselect ,
-                                         0,
+                                         pQWidget,
                                          "OuvrirDlg"
                                         ) ;
     if (fd==0)  return filename;

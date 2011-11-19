@@ -102,11 +102,13 @@ public:
   static  QString       Construct_Name_Exe(QString module, QString start_Argv, const QString &alternateExecName="");
   static  QString       Construct_Name_File_Ini(QString module, QString start_Argv, QString nom_Fichier_Alternatif=QString::null );
   static  QString       Construct_PathBin_Module(const QString &module, const QString &ref_dir);
+  static  int           IsUtf8(QByteArray *ba);
   static  int           IsUtf8(const  QString & txt );
   static  int           IsUtf8(const  char *txt);
   static  QString       utf8Conv(const char* deb, long len);
   static  QString       CharStrToQStringUtf8( const  char *ptr );
-  static  QString       Utf8_Query(QSqlQuery &cur, int field);
+  static  QString       Utf8_Query(QSqlQuery &cur,  int field);
+  static  QString       Utf8_Query(QSqlQuery *pcur, int field);
   static  void          Param_GetList(QString &outParam, const QString &sectionToRetrieve, const QString &varToRetrieve,  QStringList &lst , int isToStrip =0);
   static  void          Param_GetList(const QString &file_ini, const QString &sectionToRetrieve, QStringList &lst, const QString &varToRetrieve="",  int isToStrip =1, int *isUtf8 =0);
   static  QString       Param_RemoveSection(QString &param, QString section);

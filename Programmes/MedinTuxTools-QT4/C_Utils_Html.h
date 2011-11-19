@@ -167,6 +167,19 @@ public:
     //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     //                                 STATIC FUNCTIONS
     //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    //------------------------------------ makeLinkList -------------------------------
+    /*! \brief add link chapiter list to html text with structure
+        as 1        for chapiter one
+        as 1.1      for sub chapiter one
+        as 1.1.1    for sub sub chapiter one  an so
+     *  \param const QString txt input html text
+     *  \param const QString prefix caracters before chapiter number line
+     *  \param const QString endfix caracters after chapiter number line
+     *  \param const QString idAnchor id prefix to distingue anchors
+     *  \return QString result whith anchor, links, and chapiters list link
+     */
+    static QString  makeLinkList(const QString txt, const QString prefix, const QString endfix, const QString idAnchor = "");
+
     //--------------------- removeHtmlTag -----------------
     /*! \brief  remove html tags from a string
      *  \param  const QString &txt   text to compute

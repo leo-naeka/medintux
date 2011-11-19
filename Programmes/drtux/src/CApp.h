@@ -161,7 +161,7 @@ class CApp : public C_MUI_App
      int              RubNameToType( const QString &rubName , FIND_TYPE f_typ = CApp::Always);
 
      QString          TypeToRubName( int typRub );
-     static QString   GetImageFileName(QString *last_path  = 0 , QString stringPreselect ="", int prewiew =1);
+     static QString   GetImageFileName(QString *last_path  = 0 , QString stringPreselect ="", int prewiew =1, QWidget *pQWidget =0);
      QString          DoPopupList(QStringList &list);
 
      QString          getListNameRubriqueMenu(int typeRubrique);

@@ -863,8 +863,8 @@ void C_DlgMainDialog::Compilation(const QString &path, const QString & target)
 #ifdef  Q_WS_MAC
     bool isQT4Here     =  QFile::exists(sdkDir+"bin/qmake");
 #else
-//    bool isQT4Here     =  QFile::exists(sdkDir+"qt");
-    bool isQT4Here     =  QFile::exists(sdkDir+"bin/qmake");
+    bool isQT4Here     =  QFile::exists(sdkDir+"bin/qmake");            // pour GG
+    if (!isQT4Here) isQT4Here     =  QFile::exists(sdkDir+"qt");        // si cela ne marche pas pour les autres
 #endif
     QString modulePath =  QDir::cleanDirPath(G_pCApp->m_PathAppli + "../../" + target)+"/";
     if (target=="compta-plugins"||target=="check_dus"||QFile::exists(modulePath+target+".kdevelop")) isQT3 = 1;
@@ -893,23 +893,23 @@ void C_DlgMainDialog::Compilation(const QString &path, const QString & target)
        {    QApplication::setOverrideCursor( QCursor( Qt::WaitCursor ) );
             toLog( tr ("<br>============= Compilation <font color=#ff0000><b>QT3</b></font> de<font color=#ffa800><b> %1 </b></font>en cours ... =============").arg(target));
          #ifdef  Q_WS_MAC
-			QString qtdir = lineEdit_Qt3->text().stripWhiteSpace();
+            QString qtdir = lineEdit_Qt3->text().stripWhiteSpace();
             script  =  "#! /bin/sh\n"
                        "#----- DEB FOR MAC --------\n"
                        "  QTDIR=\"";
             script += qtdir + "\"\n export QTDIR\n";
             script += "  PATH=$PATH\":"  + qtdir +"/bin\"\n export PATH"        // si on met \r\n   le bash se bache
-			          "\n#----- END FOR MAC --------\n"
-					  "DYLD_LIBRARY_PATH=$QTDIR/lib:$DYLD_LIBRARY_PATH\n"
-					  "DYLD_LIBRARY_PATH=$QTDIR/plugins/sqldrivers:$DYLD_LIBRARY_PATH\n"
-                      "DYLD_LIBRARY_PATH=/usr/local/mysql/lib:$DYLD_LIBRARY_PATH\n"
-					  "INCLUDE=/usr/local/mysql/include:$INCLUDE\n"
-                      "QMAKESPEC=$QTDIR/mkspecs/macx-g++\n"
-                      "export QMAKESPEC\n"
-					  "export DYLD_LIBRARY_PATH\n"
-					  "export INCLUDE\n"
-					  "cd "+G_pCApp->m_PathAppli+"\n"
-                      "./MakeAllMac.sh '" + m_CurrentCompil + "' '" + lineEdit_Qt3->text() + "'";
+            "\n#----- END FOR MAC --------\n"
+            "DYLD_LIBRARY_PATH=$QTDIR/lib:$DYLD_LIBRARY_PATH\n"
+            "DYLD_LIBRARY_PATH=$QTDIR/plugins/sqldrivers:$DYLD_LIBRARY_PATH\n"
+            "DYLD_LIBRARY_PATH=/usr/local/mysql/lib:$DYLD_LIBRARY_PATH\n"
+            "INCLUDE=/usr/local/mysql/include:$INCLUDE\n"
+            "QMAKESPEC=$QTDIR/mkspecs/macx-g++\n"
+            "export QMAKESPEC\n"
+            "export DYLD_LIBRARY_PATH\n"
+            "export INCLUDE\n"
+            "cd "+G_pCApp->m_PathAppli+"\n"
+            "./MakeAllMac.sh '" + m_CurrentCompil + "' '" + lineEdit_Qt3->text() + "'";
             qDebug(script);
         #else
             script =  "#! /bin/sh\n "
@@ -922,18 +922,21 @@ void C_DlgMainDialog::Compilation(const QString &path, const QString & target)
        }
    else if (QFile::exists(modulePath + "src/"+target+".pro"))
        {if (isQT4Here)
-           {QApplication::setOverrideCursor( QCursor( Qt::WaitCursor ) );
-		    toLog( tr ("<br>============= Compilation <font color=#ff0000><b>QT4</b></font> de<font color=#ffa800><b> %1 </b></font>en cours ... =============").arg(target));
+           {toLog( tr ("<br>============= Compilation <font color=#ff0000><b>QT4</b></font> de<font color=#ffa800><b> %1 </b></font>en cours ... =============").arg(target));
+            QFile::remove ( modulePath+"src/makeQT4Module.sh" );
+            QFile::remove ( modulePath+"src/Makefile" );
+            //toLog( tr ("<br> Remove <font color=#ff0000><b>QT4</b></font> de<font color=#ffa800><b> %1 </b></font>en cours ...").arg(modulePath+"src/makeQT4Module.sh"));
+            QApplication::setOverrideCursor( QCursor( Qt::WaitCursor ) );
             QDir::setCurrent ( modulePath + "src" );
-		   #ifdef  Q_WS_MAC
-		    script = "#!/bin/bash\n"
+           #ifdef  Q_WS_MAC
+            script = "#!/bin/bash\n"
                      "LD_LIBRARY_PATH={{sdkDir}}lib\n"
                      "PATH={{sdkDir}}bin:/usr/bin:/bin:/usr/X11R6/bin/:\n"
                      "QTDIR={{sdkDir}}\n"
                      "QT_PLUGIN_PATH={{sdkDir}}plugins\n"
                      "QMAKESPEC=$QTDIR/mkspecs/macx-g++\n"
                      "export QMAKESPEC\n"
-					 "export QT_PLUGIN_PATH\n"
+                     "export QT_PLUGIN_PATH\n"
                      "export QTDIR\n"
                      "export PATH\n"
                      "export LD_LIBRARY_PATH\n"
@@ -948,7 +951,7 @@ void C_DlgMainDialog::Compilation(const QString &path, const QString & target)
              else                    script += "strip ../../{{target}}/bin/{{target}}.app/Contents/MacOS/{{target}}\n";
              script.replace("{{sdkDir}}",sdkDir);
              script.replace("{{target}}",target);
-		   #else
+           #else
             script = "#!/bin/bash\n"
                      "LD_LIBRARY_PATH={{sdkDir}}lib/qtcreator:\n"
                      "PATH={{sdkDir}}qt/bin:/usr/bin:/bin:/usr/X11R6/bin/:\n"
@@ -969,15 +972,16 @@ void C_DlgMainDialog::Compilation(const QString &path, const QString & target)
 
              script.replace("{{sdkDir}}",sdkDir);
              script.replace("{{target}}",target);
-			#endif
+            #endif
+
              CGestIni::Param_UpdateToDisk(modulePath+"src/makeQT4Module.sh", script);
              execute(modulePath+"src/makeQT4Module.sh", modulePath+"src/");
 //             QFile::remove ( modulePath+"src/makeQT4Module.sh" );
-             pushButton_compilation->setText(tr("&Interrompre la compilation des exécutables en cours"));
+             pushButton_compilation->setText(tr("&Interrompre la compilation des ex\303\251cutables en cours"));
              m_MakeExeRun = MAKE_EXE_RUN;
            }
          else
-           {toLog( tr ("<br>============= Compilation <font color=#ff0000><b>QT4</b></font> de<font color=#ffa800><b> %1 </b></font>Avortée (sdk QT4 Absent) ... =============").arg(target));
+           {toLog( tr ("<br>============= Compilation <font color=#ff0000><b>QT4</b></font> de<font color=#ffa800><b> %1 </b></font>Avort\303\251e (sdk QT4 Absent) ... =============").arg(target));
             pushButton_SetBases->show();
             comboBox_Executables->show();
             comboBox_Bases->show();

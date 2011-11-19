@@ -1,33 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
 <TS version="2.0" language="fr_FR">
-<context>
-    <name>@default</name>
-    <message>
-        <source>Pas d&apos;entrÃ©e trouvÃ©e pour ce code rÃ©gime : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> et caisse gestionnaire : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;amp;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;lt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
+<defaultcodec>UTF-8</defaultcodec>
 <context>
     <name>Atcd_Code</name>
     <message>
@@ -35,31 +9,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>AntÃ©cÃ©dents</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Antï¿½cï¿½dents</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PassÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Passï¿½</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Obstetrique</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>ObstÃ©trique</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Obstï¿½trique</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -98,71 +48,47 @@
         <source>Allaitement en cours</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Date de l&apos;antÃ©cÃ©dent</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Date des derniÃ¨res rÃ¨gles</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
+    <message id="Atcd_Code::sendModifMessage">
         <source>Saisir un commentaire (mode texte libre)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Antécédents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ant�c�dents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Passé</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pass�</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Obstétrique</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Obst�trique</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Date de l&apos;antécédent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Date des dernières règles</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>CApp</name>
     <message>
-        <source>Vous ne possÃ©dez pas les droits
-vous permettant de voir ce document</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;u&gt;&lt;br&gt;Les donnÃ©es de connexion :&lt;/u&gt;&lt;br&gt;          Section : &lt;b&gt;Connexion&lt;/b&gt;, &lt;br&gt;          Variable : &lt;b&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;/b&gt; : Driver, BaseName,User, Password, Hostname &lt;br&gt; n&apos;ont pas Ã©tÃ© trouvÃ©es dans le fichier : 
-&lt;b&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;u&gt;ECHEC DE LA CONNEXION A LA BASE DE DONNÃE : &lt;/u&gt;     m_pCMoteurBase ==0 &lt;br&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;u&gt;ECHEC DE LA CONNEXION A LA BASE DE DONNÃE : &lt;/u&gt;     m_pCMoteurBase-&gt;m_DataBase == 0 &lt;br&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>La base de donnÃ©es thÃ©rapeutique n&apos;a pu Ãªtre initialisÃ©e correctement</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Fichiers IMAGE (*.jpg *.jpeg *.png *.PNG *.gif *.GIF *.JPEG *.JPG);;Tous les fichiers (*)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Erreur de syntaxe &apos;}}&apos; fermant non trouvÃ© prÃ¨s de : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Erreur de syntaxe signe &apos;=&apos; non trouvÃ© prÃ¨s de : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>CrÃ©ation d&apos;un nouveau document </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Un document a dÃ©jÃ  Ã©tÃ© crÃ©Ã© et existe dÃ©jÃ  pour aujourd&apos;hui
-Faut-il vraiment en crÃ©er un deuxiÃ¨me ?
-ou ajouter les donnÃ©es Ã  l&apos;emplacement du curseur ?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;CrÃ©er</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -186,14 +112,6 @@ ou ajouter les donnÃ©es Ã  l&apos;emplacement du curseur ?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Il n&apos;existe pas de document valide pour cette action.&lt;br&gt;Faut-il en crÃ©er un avec celui :&lt;br&gt;&lt;b&gt;Â«</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> Â»&lt;/b&gt;&lt;br&gt;sÃ©lectionnÃ© dans le Glossaire </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Cette rubrique n&apos;est pas modifiable (droits insuffisants)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -206,122 +124,95 @@ ou ajouter les donnÃ©es Ã  l&apos;emplacement du curseur ?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>1 - CrÃ©er une nouvelle page avec ...</source>
+        <source>Vous ne possédez pas les droits
+vous permettant de voir ce document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>2 - Ajouter Ã  l&apos;emplacement du curseur...</source>
+        <source>&lt;u&gt;&lt;br&gt;Les données de connexion :&lt;/u&gt;&lt;br&gt;          Section : &lt;b&gt;Connexion&lt;/b&gt;, &lt;br&gt;          Variable : &lt;b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>3 - Tout remplacer par... </source>
+        <source>&lt;/b&gt; : Driver, BaseName,User, Password, Hostname &lt;br&gt; n&apos;ont pas été trouvées dans le fichier : 
+&lt;b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>5 - CrÃ©er un nouveau document avec une image... </source>
+        <source>&lt;u&gt;ECHEC DE LA CONNEXION A LA BASE DE DONNÉE : &lt;/u&gt;     m_pCMoteurBase ==0 &lt;br&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>6 - Ajouter Ã  l&apos;emplacement du curseur une image... </source>
+        <source>&lt;u&gt;ECHEC DE LA CONNEXION A LA BASE DE DONNÉE : &lt;/u&gt;     m_pCMoteurBase-&gt;m_DataBase == 0 &lt;br&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>CrÃ©er</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>CDevilFormPDF</name>
-    <message>
-        <source>Erreur</source>
+        <source>La base de données thérapeutique n&apos;a pu être initialisée correctement</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Dr Tux ne peut pas trouver le formulaire PDF Ã  remplir nommÃ©&lt;br&gt;&lt;br&gt;</source>
+        <source>Gestion Sesam Vitale active</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;/b&gt;. Ce fichier est nÃ©cessaire pour la rÃ©alisation de votre demande {{::Form (MT) }}.</source>
+        <source>Gestion Sesam Vitale inactive</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Dr Tux ne peut pas trouver les paramÃ¨tres nÃ©cessaires pour gÃ©rer les fichiers PDF Ã  remplir.&lt;br&gt;&lt;br&gt;</source>
+        <source>Erreur de syntaxe &apos;}}&apos; fermant non trouvé près de : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>VÃ©rifier que le fichier &lt;b&gt;drtux.ini&lt;/b&gt; existe et que les paramÃ¨tres sont renseignÃ©s.&lt;br&gt;&lt;br&gt;</source>
+        <source>Erreur de syntaxe signe &apos;=&apos; non trouvé près de : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Extrait de drtux.ini par dÃ©faut :&lt;br&gt;</source>
+        <source>Création d&apos;un nouveau document </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;nbsp;&amp;nbsp;&lt;b&gt;Chemin vers PDF = ../../PDF&lt;/b&gt;&lt;br&gt;</source>
+        <source>Un document a déjà été créé et existe déjà pour aujourd&apos;hui
+Faut-il vraiment en créer un deuxième ?
+ou ajouter les données à l&apos;emplacement du curseur ?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;nbsp;&amp;nbsp;Application visualisateur de PDF = /usr/bin/acrobat&lt;br&gt;</source>
+        <source>&amp;Créer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;nbsp;&amp;nbsp;Chemin vers pdftk = /usr/bin/pdftk&lt;br&gt;</source>
+        <source>Il n&apos;existe pas de document valide pour cette action.&lt;br&gt;Faut-il en créer un avec celui :&lt;br&gt;&lt;b&gt;«</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;nbsp;&amp;nbsp;Chemin vers tmp = ../../PDF/tmp</source>
+        <source> »&lt;/b&gt;&lt;br&gt;sélectionné dans le Glossaire </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;nbsp;&amp;nbsp;Chemin vers PDF = ../../PDF&lt;br&gt;</source>
+        <source>1 - Créer une nouvelle page vierge</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;nbsp;&amp;nbsp;&lt;b&gt;Chemin vers pdftk = /usr/bin/pdftk&lt;/b&gt;&lt;br&gt;</source>
+        <source>2 - Créer une nouvelle page avec ...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;nbsp;&amp;nbsp;&lt;b&gt;Application visualisateur de PDF = /usr/bin/acrobat&lt;/b&gt;&lt;br&gt;</source>
+        <source>3 - Ajouter à l&apos;emplacement du curseur...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Dr Tux ne peut pas trouver les fichiers PDF Ã  remplir.&lt;br&gt;&lt;br&gt;</source>
+        <source>4 - Tout remplacer par... </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>VÃ©rifier que le rÃ©pertoire &lt;br&gt;&lt;b&gt;</source>
+        <source>5 - Créer un nouveau document avec une image... </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;/b&gt; &lt;br&gt; existe et que les fichiers PDF de la sÃ©curitÃ© sociale sont bien installÃ©s dans ce rÃ©pertoire.</source>
+        <source>6 - Ajouter à l&apos;emplacement du curseur une image... </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;b&gt;&amp;nbsp;&amp;nbsp;Chemin vers tmp = ../../PDF/tmp &lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Dr Tux ne peut pas trouver le rÃ©pertoire temporaire pour travailler les fichiers PDF.&lt;br&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>VÃ©rifiez le fichier &lt;b&gt;drtux.ini&lt;/b&gt; et ses paramÃ¨tres.&lt;br&gt;&lt;br&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;&amp;nbsp;&amp;nbsp;Chemin vers tmp = ../../PDF/tmp &lt;/b&gt;&lt;br&gt;&lt;br&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>VÃ©rifier que le rÃ©pertoire &lt;b&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;/b&gt; existe sur votre disque dur.&lt;br&gt;&lt;br&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Observation</source>
+        <source>Créer</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -340,10 +231,6 @@ ou ajouter les donnÃ©es Ã  l&apos;emplacement du curseur ?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Graphique rÃ©alisÃ© par DrTux le : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>BMI</source>
         <translation type="unfinished"></translation>
     </message>
@@ -351,19 +238,15 @@ ou ajouter les donnÃ©es Ã  l&apos;emplacement du curseur ?</source>
         <source>Croissance</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Graphique réalisé par DrTux le : </source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CGenTools</name>
     <message>
         <source>Allergies</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>mÃ©d</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>MÃ©dicaux</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -391,10 +274,6 @@ ou ajouter les donnÃ©es Ã  l&apos;emplacement du curseur ?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>GynÃ©co-obstÃ©triques</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>cogn</source>
         <translation type="unfinished"></translation>
     </message>
@@ -411,11 +290,35 @@ ou ajouter les donnÃ©es Ã  l&apos;emplacement du curseur ?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>MÃ©dicaux et Chirurgicaux</source>
+        <source>format invalide</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>format invalide</source>
+        <source>méd</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Médicaux</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Gynéco-obstétriques</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Médicaux et Chirurgicaux</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>strToIsoStrDateTime() format invalide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ERREUR CGenTools::GetXMLValue() Mention de début manquante : &quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ERREUR CGenTools::GetXMLValue() Mention de  fin  manquante : &quot;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -427,50 +330,6 @@ ou ajouter les donnÃ©es Ã  l&apos;emplacement du curseur ?</source>
     </message>
     <message>
         <source>//////////// Dossiers retenus pour RPU :   </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>
-    Date dÃ©but : erreur sur le jour</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>
-    Date dÃ©but : erreur sur le mois</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>
-    Date dÃ©but : erreur sur l&apos;annÃ©e</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>
-    Date dÃ©but : erreur sur l&apos;heure</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>
-    Date dÃ©but : erreur sur les minutes</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>
-    La mention : &quot;Date:&quot; n&apos;a pas Ã©tÃ© trouvÃ©e</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>
-    La mention : &quot;Heure d&apos;ArrivÃ©e SU:&quot; n&apos;a pas Ã©tÃ© trouvÃ©e</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>
-    Date dÃ©but : invalide (probable dÃ©passement de jours dans le mois)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>DÃ©but dossier :</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -494,14 +353,6 @@ ou ajouter les donnÃ©es Ã  l&apos;emplacement du curseur ?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source> &quot;Heure d&apos;ArrivÃ©e SU:&quot;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> non trouvÃ©e(s)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source> Saisie :</source>
         <translation type="unfinished"></translation>
     </message>
@@ -518,63 +369,11 @@ ou ajouter les donnÃ©es Ã  l&apos;emplacement du curseur ?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>
-    Date fin : erreur sur le jour</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>
-    Date fin : erreur sur le mois</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>
-    Date fin : erreur sur l&apos;annÃ©e</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>
-    Date fin : erreur sur l&apos;heure</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>
-    Date fin : erreur sur les minutes</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>
-    La mention : &quot;Date SU:&quot; n&apos;a pas Ã©tÃ© trouvÃ©e</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>
-    La mention : &quot;H.dÃ©part SU:&quot; n&apos;a pas Ã©tÃ© trouvÃ©e</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>
-    Date fin : invalide (probable dÃ©passement de jours dans le mois)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Fin dossier :</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source> &quot;Date SU:&quot;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> &quot;H.dÃ©part SU:&quot;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>non trouvÃ©e(s)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>mÃ©dicalisÃ©</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -586,98 +385,11 @@ ou ajouter les donnÃ©es Ã  l&apos;emplacement du curseur ?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>DÃ©cÃ©dÃ©:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>RÃ©a et SUSI</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>MÃ©dico-chirurgicale</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>MÃ©dico-lÃ©gale</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>HospitalisÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>ambulance mÃ©di</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>DÃ©cÃ¨s</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>DifficultÃ© de communication</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>d&apos;intervention sociale</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>CCMU non indiquÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>GEMSA non indiquÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Retour Ã  domicile</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Issue du Passage non indiquÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>DESTINATION non indiquÃ©e</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>
-    Date de naissance invalide ou absente</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Date de naissance invalide ou absente</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>
-    Pas de code Postal: il sera placÃ©: 99999</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>
-    Code postal invalide: il sera placÃ©: 99999 Ã  la place de : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Erreur dans checksum des donnÃ©es</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Erreur dans les donnÃ©es Actes classants</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Date de dÃ©but supÃ©rieure Ã  Date d&apos;issue</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Heure de dÃ©but supÃ©rieure Ã  Heure d&apos;issue</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Date ou heure de dÃ©but invalide (plus de jours que possible dans un mois)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -697,82 +409,11 @@ ou ajouter les donnÃ©es Ã  l&apos;emplacement du curseur ?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>DÃ©cÃ©dÃ© non saisi</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>HospitalisÃ© et Mode de transport non prÃ©cisÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>ArrivÃ©e MÃ©dicalisÃ©e et Mode de transport non prÃ©cisÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Date de naissance invalide</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>
-    CIM10 non saisi</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>
-    Prise en charge non saisie</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>
-    Issue du passage non saisie</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>
-    DÃ©cÃ©dÃ© non saisi</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>
-    HospitalisÃ© et Mode de transport non prÃ©cisÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>
-    ArrivÃ©e MÃ©dicalisÃ©e et Mode de transport non prÃ©cisÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>
-    DonnÃ©es non complÃ¨tes sur ce dossier</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>
-    Erreurs sur la liste des actes classants</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>
-    Date de dÃ©but supÃ©rieure Ã  Date d&apos;issue</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>
-    Heure de dÃ©but supÃ©rieure Ã  Heure d&apos;issue</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> DurÃ©e du sÃ©jour de: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source> &gt;= 6 heures</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>
-    Date ou heure de dÃ©but invalide (plus de jours que possible dans un mois)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -792,14 +433,280 @@ ou ajouter les donnÃ©es Ã  l&apos;emplacement du curseur ?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>vÃ©e SU:</source>
+        <source>
+    Date début : erreur sur le jour</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+    Date début : erreur sur le mois</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+    Date début : erreur sur l&apos;année</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+    Date début : erreur sur l&apos;heure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+    Date début : erreur sur les minutes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+    La mention : &quot;Date:&quot; n&apos;a pas été trouvée</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+    La mention : &quot;Heure d&apos;Arrivée SU:&quot; n&apos;a pas été trouvée</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+    Date début : invalide (probable dépassement de jours dans le mois)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Début dossier :</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> &quot;Heure d&apos;Arrivée SU:&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> non trouvée(s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+    Date fin : erreur sur le jour</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+    Date fin : erreur sur le mois</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+    Date fin : erreur sur l&apos;année</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+    Date fin : erreur sur l&apos;heure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+    Date fin : erreur sur les minutes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+    La mention : &quot;Date SU:&quot; n&apos;a pas été trouvée</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+    La mention : &quot;H.départ SU:&quot; n&apos;a pas été trouvée</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+    Date fin : invalide (probable dépassement de jours dans le mois)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> &quot;H.départ SU:&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>non trouvée(s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>médicalisé</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Décédé:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Réa et SUSI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Médico-chirurgicale</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Médico-légale</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hospitalisé</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ambulance médi</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Décès</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Difficulté de communication</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CCMU non indiqué</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>GEMSA non indiqué</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Retour à domicile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Issue du Passage non indiqué</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DESTINATION non indiquée</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+    Date de naissance invalide ou absente</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+    Pas de code Postal: il sera placé: 99999</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+    Code postal invalide: il sera placé: 99999 à la place de : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Erreur dans checksum des données</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Erreur dans les données Actes classants</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Date de début supérieure à Date d&apos;issue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Heure de début supérieure à Heure d&apos;issue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Date ou heure de début invalide (plus de jours que possible dans un mois)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Décédé non saisi</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hospitalisé et Mode de transport non précisé</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Arrivée Médicalisée et Mode de transport non précisé</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+    CIM10 non saisi</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+    Prise en charge non saisie</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+    Issue du passage non saisie</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+    Décédé non saisi</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+    Hospitalisé et Mode de transport non précisé</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+    Arrivée Médicalisée et Mode de transport non précisé</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+    Données non complètes sur ce dossier</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+    Erreurs sur la liste des actes classants</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+    Date de début supérieure à Date d&apos;issue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+    Heure de début supérieure à Heure d&apos;issue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> Durée du séjour de: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+    Date ou heure de début invalide (plus de jours que possible dans un mois)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>vée SU:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>CHtmlTools</name>
     <message>
-        <source>CHtmlTools::HtmlToAscii() Erreur de syntaxe tag html non fermÃ©</source>
+        <source>CHtmlTools::HtmlToAscii() Erreur de syntaxe tag html non fermé</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Could not open file for reading: %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -863,23 +770,7 @@ ou ajouter les donnÃ©es Ã  l&apos;emplacement du curseur ?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Il n&apos;existe pas de document valide pour cette action.&lt;br&gt;Faut-il en crÃ©er un avec celui :&lt;br&gt;&lt;b&gt;Â«</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> Â»&lt;/b&gt;&lt;br&gt;sÃ©lectionnÃ© dans le Glossaire </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Annu&amp;ler</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;CrÃ©er</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ãtes vous certain de tout remplacer&lt;br&gt;par ce document :&lt;br&gt;&lt;b&gt;Â«</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -946,6 +837,22 @@ ou ajouter les donnÃ©es Ã  l&apos;emplacement du curseur ?</source>
         <source>/Certificats</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Il n&apos;existe pas de document valide pour cette action.&lt;br&gt;Faut-il en créer un avec celui :&lt;br&gt;&lt;b&gt;«</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> »&lt;/b&gt;&lt;br&gt;sélectionné dans le Glossaire </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Créer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Êtes vous certain de tout remplacer&lt;br&gt;par ce document :&lt;br&gt;&lt;b&gt;«</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CMDI_Terrain</name>
@@ -958,16 +865,6 @@ ou ajouter les donnÃ©es Ã  l&apos;emplacement du curseur ?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Un terrain existe dÃ©jÃ  
-Faut-il vraiment en crÃ©er un deuxiÃ¨me ?
-ou ajouter cette variable aux autres</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;CrÃ©er</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>A&amp;jouter</source>
         <translation type="unfinished"></translation>
     </message>
@@ -975,13 +872,19 @@ ou ajouter cette variable aux autres</source>
         <source>Annu&amp;ler</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Un terrain existe déjà 
+Faut-il vraiment en créer un deuxième ?
+ou ajouter cette variable aux autres</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Créer</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CMaskedLineEdit</name>
-    <message>
-        <source>&amp;Ã©&quot;&apos;(-Ã¨_Ã§Ã </source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>.+-*/^()[]{}</source>
         <translation type="unfinished"></translation>
@@ -1011,15 +914,19 @@ ou ajouter cette variable aux autres</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Cop&amp;ie Ã©tendue   	Shift+Ctrl+C</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>C&amp;oller      	Ctrl+V</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Tout sÃ©lectionner 	Ctrl+A</source>
+        <source>&amp;é&quot;&apos;(-è_çà</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cop&amp;ie étendue   	Shift+Ctrl+C</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Tout sélectionner 	Ctrl+A</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1047,18 +954,6 @@ ou ajouter cette variable aux autres</source>
     </message>
     <message>
         <source> jours</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Prescriptions relatives au traitement de l&apos;affection de longue durÃ©e reconnue (liste ou hors liste)&lt;br&gt;(AFFECTION EXONÃRANTE)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Prescriptions SANS RAPPORT avec l&apos;affection de longue durÃ©e&lt;br&gt;(MALADIES INTERCURRENTES)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> Ã  </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1134,19 +1029,7 @@ ou ajouter cette variable aux autres</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>mg de trimÃ©thoprime</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>mg de rifampicine</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>mg de fer mÃ©tal</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>mg de chlorhydrate de lidocaÃ¯ne</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1178,27 +1061,11 @@ ou ajouter cette variable aux autres</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Âµg</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>g</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>g de triglycÃ©rides</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>g d&apos;azote</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>cuillÃ¨re </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>comprimÃ© </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1226,10 +1093,6 @@ ou ajouter cette variable aux autres</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>gÃ©lule </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>godet </source>
         <translation type="unfinished"></translation>
     </message>
@@ -1254,14 +1117,6 @@ ou ajouter cette variable aux autres</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>mesure graduÃ©e</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>mesures graduÃ©es</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>mesure </source>
         <translation type="unfinished"></translation>
     </message>
@@ -1274,19 +1129,11 @@ ou ajouter cette variable aux autres</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>pulvÃ©risation </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>tablette </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>gobelet </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>bÃ¢ton </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1303,10 +1150,6 @@ ou ajouter cette variable aux autres</source>
     </message>
     <message>
         <source>tube </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>rÃ©cipient </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1327,26 +1170,6 @@ ou ajouter cette variable aux autres</source>
     </message>
     <message>
         <source>badigeonnages locaux</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;/b&gt;&lt;/i&gt;&lt;/u&gt;&lt;/span&gt;&lt;br /&gt;&lt;span style=&quot;font-family:Arial;font-size:12pt;color:#AA0000&quot;&gt;&lt;b&gt;PrÃ©sentation : &lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> composÃ©(e)(s) de : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> &lt;br&gt; &lt;b&gt; MÃ©dicament gÃ©nÃ©rique&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> &lt;br&gt; &lt;b&gt; MÃ©dicament rÃ©fÃ©rent gÃ©nÃ©rique&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> composÃ©(e)(s) de </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1374,43 +1197,11 @@ ou ajouter cette variable aux autres</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&quot;&gt; Pas de donnÃ©es sur la posologie, les prÃ©ciser textuellement&lt;/b&gt;&lt;/a&gt;&lt;/span&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&quot;&gt; Pas de donnÃ©es sur la posologie, en crÃ©er de nouvelles&lt;/b&gt;&lt;/a&gt;&lt;/span&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> IndiquÃ© pour le terrain suivant </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&lt;br&gt;Sexe : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source> FÃ©minin </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source> Masculin </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> IndiffÃ©rent </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;br&gt;Ãge : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> au-delÃ  de </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> jusqu&apos;Ã  </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1426,19 +1217,7 @@ ou ajouter cette variable aux autres</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source> Pas de posologie indiquÃ©e pour ce produit </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source> Impossible </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;br&gt;SpÃ©cification de prise : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>   DurÃ©e conseillÃ©e : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1466,35 +1245,7 @@ ou ajouter cette variable aux autres</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source> l&apos;aprÃ¨s midi</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> Ã  midi</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> Ã  l&apos;induction anesthÃ©sique</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source> au lever</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> Ã  la toilette</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> Ã  la toilette du matin</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> Ã  la toilette du soir</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> aprÃ¨s</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1510,10 +1261,6 @@ ou ajouter cette variable aux autres</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source> de l&apos;aprÃ¨s midi</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source> du soir</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1522,19 +1269,7 @@ ou ajouter cette variable aux autres</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source> Ã </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source> ou</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> aprÃ¨s </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> le petit dÃ©jeuner</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1566,15 +1301,7 @@ ou ajouter cette variable aux autres</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source> l&apos;induction anesthÃ©sique</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source> le coucher</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> petit dÃ©jeuner</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1618,18 +1345,6 @@ ou ajouter cette variable aux autres</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source> induction anesthÃ©sique</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> aprÃ¨s midi</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> au petit dÃ©jeuner</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source> au repas de midi</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1642,19 +1357,11 @@ ou ajouter cette variable aux autres</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source> au dÃ©but du</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source> au cours du</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source> avant le</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> aprÃ¨s le</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1666,23 +1373,11 @@ ou ajouter cette variable aux autres</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source> &lt;br&gt;hÃ©modialysÃ©.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source> &lt;br&gt;Grossesse en cours. </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source> &lt;br&gt;Allaitement en cours. </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> &lt;br&gt;Ãge : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ã¢ge</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1694,39 +1389,11 @@ ou ajouter cette variable aux autres</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source> &lt;br&gt;Insuffisance rÃ©nale : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>crÃ©atinÃ©mie</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source> &lt;br&gt;Grossesse en cours : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Ã¢gÃ©e de</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>clearance de la crÃ©atine</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> &lt;br&gt;Insuffisance hÃ©patique : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>bilibirubinÃ©mie</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source> &lt;br&gt;Insuffisance cardiaque : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Frac. Ãjection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1806,136 +1473,282 @@ ou ajouter cette variable aux autres</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source> DONNÃES SUR LA CLASSE ATC NON DISPONIBLES </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>. sÃ©c</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>quadrisÃ©cable</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>sÃ©cable</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>======================= %1 en cours d&apos;indexation =======================</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>indÃ©terminÃ©e</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>........Erreur SQL %1 : &lt;br&gt; requete en cause : %2&lt;br&gt;</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Prescriptions relatives au traitement de l&apos;affection de longue durée reconnue (liste ou hors liste)&lt;br&gt;(AFFECTION EXONÉRANTE)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Prescriptions SANS RAPPORT avec l&apos;affection de longue durée&lt;br&gt;(MALADIES INTERCURRENTES)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> à </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>mg de triméthoprime</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>mg de fer métal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>mg de chlorhydrate de lidocaïne</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>µg</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>g de triglycérides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>cuillère </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>comprimé </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>gélule </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>mesure graduée</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>mesures graduées</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>pulvérisation </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>bâton </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>récipient </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;/b&gt;&lt;/i&gt;&lt;/u&gt;&lt;/span&gt;&lt;br /&gt;&lt;span style=&quot;font-family:Arial;font-size:12pt;color:#AA0000&quot;&gt;&lt;b&gt;Présentation : &lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> composé(e)(s) de : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> &lt;br&gt; &lt;b&gt; Médicament générique&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> &lt;br&gt; &lt;b&gt; Médicament référent générique&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> composé(e)(s) de </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&quot;&gt; Pas de données sur la posologie, les préciser textuellement&lt;/b&gt;&lt;/a&gt;&lt;/span&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&quot;&gt; Pas de données sur la posologie, en créer de nouvelles&lt;/b&gt;&lt;/a&gt;&lt;/span&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> Indiqué pour le terrain suivant </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> Féminin </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> Indifférent </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;br&gt;Âge : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> au-delà de </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> jusqu&apos;à </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> Pas de posologie indiquée pour ce produit </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;br&gt;Spécification de prise : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>   Durée conseillée : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> l&apos;après midi</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> à midi</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> à l&apos;induction anesthésique</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> à la toilette</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> à la toilette du matin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> à la toilette du soir</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> après</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> de l&apos;après midi</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> à</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> après </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> le petit déjeuner</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> l&apos;induction anesthésique</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> petit déjeuner</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> induction anesthésique</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> après midi</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> au petit déjeuner</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> au début du</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> après le</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> &lt;br&gt;hémodialysé.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> &lt;br&gt;Âge : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>âge</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> &lt;br&gt;Insuffisance rénale : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>créatinémie</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>âgée de</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>clearance de la créatine</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> &lt;br&gt;Insuffisance hépatique : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>bilibirubinémie</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Frac. Éjection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> DONNÉES SUR LA CLASSE ATC NON DISPONIBLES </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>. séc</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>quadrisécable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>sécable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>indéterminée</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CMoteurBase</name>
-    <message>
-        <source>
- Configuration du fichier &apos;DataBase.cfg&apos; incorrecte :</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>
-       Version exigÃ©e  du fichier &apos;DataBase.cfg&apos; : %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>
-       Version actuelle du fichier &apos;DataBase.cfg&apos; : %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>
- Version de la base installÃ©e: %1 non Ã  jour, version souhaitÃ©e : %2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>
- verifyBaseIntegrity() Driver non instanciÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>
- verifyBaseIntegrity() les tables ne correspondent pas  
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>
- ATTENTION : ces table(s) sont non indiquÃ©e(s) dans le fichier de configuration : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>
-    = </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> ==&gt; Echec de la tentative de crÃ©ation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> ==&gt; RÃ©ussite de la tentative de crÃ©ation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>
- SUCCES de la mise Ã  jour des tables manquantes.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>
- ERREUR %1 table(s) non trouvÃ© dans la base actuelle : </source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Failed to open database: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Syntax Error: SetConfBaseGetValue()
- End delimiter &quot;&apos;&quot;  not find at line NÂ°: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Syntax Error: SetConfBaseGetValue()
- Start delimiter &quot;&apos;&quot;  not find at line NÂ°: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> non trouvÃ© Ã  la ligne NÂ°: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>ConvertToNew(): database can&apos;t be open</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>indexation NÂ°: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>
-Indexation error: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>OpÃ©ration terminÃ©e Â°: %1 enregistrements traitÃ©s</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>TrouvÃ©(s) %1 parmi %2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>TrouvÃ©s: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1948,15 +1761,6 @@ Indexation error: </source>
     </message>
     <message>
         <source>Parametres</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Changement d&apos;utilisateur rÃ©ussi</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>
-Ãchec du changement d&apos;utilisateur : CMoteur_Base. </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1980,11 +1784,6 @@ Indexation error: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Erreur : RubListDelete::CMoteurBase::nomade 
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source> an</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1996,11 +1795,140 @@ Indexation error: </source>
         <source> jour</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>
+ Configuration du fichier &apos;DataBase.cfg&apos; incorrecte :</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+       Version exigée  du fichier &apos;DataBase.cfg&apos; : %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+       Version actuelle du fichier &apos;DataBase.cfg&apos; : %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+ Version de la base installée: %1 non à jour, version souhaitée : %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+ verifyBaseIntegrity() Driver non instancié</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+ verifyBaseIntegrity() les tables ne correspondent pas  
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+ ATTENTION : ces table(s) sont non indiquée(s) dans le fichier de configuration : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+    = </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> ==&gt; Echec de la tentative de création</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> ==&gt; Réussite de la tentative de création</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+ SUCCES de la mise à jour des tables manquantes.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+ ERREUR %1 table(s) non trouvé dans la base actuelle : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Syntax Error: SetConfBaseGetValue()
+ End delimiter &quot;&apos;&quot;  not find at line N°: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Syntax Error: SetConfBaseGetValue()
+ Start delimiter &quot;&apos;&quot;  not find at line N°: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> non trouvé à la ligne N°: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>indexation N°: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+Indexation error: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Opération terminée °: %1 enregistrements traités</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Trouvé(s) %1 parmi %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Trouvés: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Changement d&apos;utilisateur réussi</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+Échec du changement d&apos;utilisateur : CMoteur_Base. </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>CPosologie</name>
+    <message>
+        <source>&amp;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;amp;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;lt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CPreview</name>
     <message>
         <source>This is not a pixmap</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>CRubRecord</name>
+    <message>
+        <source> ERREUR unSerialise() : donnée &quot;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2019,23 +1947,7 @@ Indexation error: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>NÂ° d&apos;identification nationale</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>ClÃ© du nÂ° d&apos;identification nationale</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Code civilitÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Nom du PS</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PrÃ©nom du PS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2043,19 +1955,7 @@ Indexation error: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>NÂ° logique de la situation de facturation du PS</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Mode d&apos;exercice (LibÃ©ral, salariÃ©, remplacement, etc..)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Statut d&apos;exercice</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>secteur d&apos;activitÃ©</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2063,39 +1963,11 @@ Indexation error: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>NÂ° d&apos;identification structure</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>ClÃ© du NÂ° d&apos;identification structure</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Raison sociale structure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>NÂ° d&apos;identification de facturation du PS</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>ClÃ© du NÂ° d&apos;identification de facturation du PS</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>NÂ° d&apos;identification du PS remplaÃ§ant</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>ClÃ© du NÂ° d&apos;identification du PS remplaÃ§ant</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Code conventionnel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Code spÃ©cialitÃ©</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2107,51 +1979,7 @@ Indexation error: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Code agrÃ©ment 1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Code agrÃ©ment 2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Code agrÃ©ment 3</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Habilitation Ã  signer une facture</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Habilitation Ã  signer un lot</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>DonnÃ©es Carte Vitale et AssurÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Type de carte Vitale</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>NÂ° de sÃ©rie de la carte Vitale</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Type d&apos;identification du porteur de la carte (assurÃ©, ou ayant droit)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>NÂ° national d&apos;immatriculation : NIR</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>ClÃ© du NIR</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Code rÃ©gime</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2167,35 +1995,11 @@ Indexation error: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>DonnÃ©es BÃ©nÃ©ficiaire et pÃ©riodes de droits</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Nom usuel du bÃ©nÃ©ficiaire</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Nom patronymique du bÃ©nÃ©ficiaire</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PrÃ©nom du bÃ©nÃ©ficiaire</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Adresse</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Date de naissance du bÃ©nÃ©ficiaire</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Rang de naissance</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>QualitÃ© (lien de parentÃ©)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2207,35 +2011,11 @@ Indexation error: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Nombre de pÃ©riodes de droits AMO</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Date de dÃ©but des droits AMO</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Date de fin des droits AMO</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Nombre de pÃ©riodes de droits Mutuelle</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Date de dÃ©but des droits Mutuelle</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Date de fin des droits Mutuelle</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Nombre de pÃ©riodes de code couverture</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Date de dÃ©but code couverture</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2251,43 +2031,7 @@ Indexation error: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>DonnÃ©es AssurÃ© (1 occurence)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Date de fin de validitÃ© de la carte Vitale</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>DonnÃ©es administration carte RUF1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>DonnÃ©es administration carte RUF2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>DonnÃ©es RUF administration</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Type d&apos;identification du porteur de carte (assurÃ© ou ayant droit)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>DonnÃ©es RUF Famille</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Service AMO Famille (0 Ã  1 occurence)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Code service AMO Famille</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Date de dÃ©but du service AMO Famille</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2295,27 +2039,11 @@ Indexation error: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>DonnÃ©es Accident du Travail (0 Ã  1 occurence)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Organisme gestionnaire du risque AT</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Code AT BGDH (ce champ est non renseignÃ© pour la premiÃ¨re occurrence)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Identifiant AT (ce champ est non renseignÃ© pour la premiÃ¨re occurrence)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Organisme gestionnaire AT1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Code AT1 BGDH (Code Budget Global Des HÃ´pitaux)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2327,27 +2055,7 @@ Indexation error: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Code AT2 BGDH (Code Budget Global Des HÃ´pitaux)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Identifiant AT2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>DonnÃ©es BÃ©nÃ©ficiaire (1 Ã  6 occurences)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Adresse ligne 1 (chez..., NÂ° appt, ou de boÃ®te Ã  lettres, escalier, couloir, Ã©tage)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Adresse ligne 2 (rÃ©sidence, bÃ¢timent, immeuble, tour, entrÃ©e)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Adresse ligne 3 (NÂ° et libellÃ© de la voie)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2355,63 +2063,11 @@ Indexation error: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Adresse ligne 5 (code postal et localitÃ©)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>NIR certifiÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>ClÃ© du NIR certifiÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Date de certification du NIR</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Rang de naissance du bÃ©nÃ©ficiaire</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>QualitÃ© (lien de parentÃ© entre l&apos;ayant-droit et l&apos;assurÃ©)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Code service AMO bÃ©nÃ©ficiaire (00 Pas de service sinon CMU GÃ©rÃ©e par 01-AMO 02-AMC-AMO 03-AMC 10-Sortant)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Date de dÃ©but de service AMO bÃ©nÃ©ficiaire</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Date de fin de service AMO bÃ©nÃ©ficiaire</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>DonnÃ©es RUF AMO bÃ©nÃ©ficiaire</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PÃ©riode de droits AMO (0 Ã  3 occurences)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Date de dÃ©but droits AMO</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Date de fin droits AMO</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PÃ©riode de code couverture (0 Ã  7 occurences)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>DonnÃ©es Mutuelle (0 Ã  1 occurence)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2423,23 +2079,7 @@ Indexation error: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Type de services associÃ©s</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Services associÃ©s au contrat</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Code aiguillage STS</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PÃ©riode de droits Mutuelle (0 Ã  3 occurences par bÃ©nÃ©ficiaire)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Date de dÃ©but droits Mutuelle</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2447,67 +2087,11 @@ Indexation error: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>DonnÃ©es de la ComplÃ©mentaire de santÃ© (0 Ã  1 occurence par bÃ©nÃ©ficiaire)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>NumÃ©ro complÃ©mentaire B2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>NumÃ©ro complÃ©mentaire EDI</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>NumÃ©ro d&apos;adhÃ©rent AMC</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Indicateur de traitement AMC (service acceptÃ© par AMC : Tiers payant, CMU, DRE etc..)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Date de dÃ©but de validitÃ© de prÃ©sence des donnÃ©es AMC</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Date de fin de validitÃ© de prÃ©sence des donnÃ©es AMC</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Code de routage AMC</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Identifiant d&apos;hÃ´te</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Nom de domaine AMC</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Zone Commune (0 Ã  1 occurence par bÃ©nÃ©ficiaire)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Zone commune complÃ©mentaire (RUF bÃ©nÃ©ficiaire)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>En-tÃªte de configuration</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>NÂ° de version du SSV</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>NÂ° de version du GALSS</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>NÂ° de version du PSS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2523,10 +2107,6 @@ Indexation error: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>NÂ° de sÃ©rie du lecteur</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>OS du lecteur</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2536,10 +2116,6 @@ Indexation error: </source>
     </message>
     <message>
         <source>Nom du logiciel du lecteur</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>NÂ° de version du logiciel du lecteur</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2555,47 +2131,11 @@ Indexation error: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>NÂ° de version de la bibliothÃ¨que des SSV</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>LibellÃ© du fichier des tables des SSV</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>NÂ° de version du fichier des tables des SSV</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Nombre des fichiers contenant des tables d&apos;organisme destinataire</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Code rÃ©gime des organismes destinataires contenus dans le fichier</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>NÂ° version (RUF)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Composant GALSS</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>NÂ° de version de la bibliothÃ¨que des fonctions du GALSS</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>NÂ° de version du serveur des fonctions du GALSS</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>NÂ° de version du client des fonctions du GALSS</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>NÂ° de version de la bibliothÃ¨que de gestion du fichier de configuration du GALSS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2607,91 +2147,11 @@ Indexation error: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>LibellÃ© descriptif du composant</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>NÂ° de version du composant</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Groupe Identification facture</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>NÂ° de facture</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Nature d&apos;opÃ©ration</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Date d&apos;Ã©laboration de la facture</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>NÂ° de facture rectifiÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Date d&apos;Ã©laboration de la facture rectifiÃ©e</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Groupe Identification du Professionnel de santÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>NÂ° d&apos;identification de facturation du Professionnel de santÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>ClÃ© du NÂ° d&apos;identification de facturation du Professionnel de santÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Nom du Professionnel de santÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PrÃ©nom du Professionnel de santÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Code conventionnel sous lequel exerce le Professionnel de santÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Code Zone IK</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Conditions d&apos;exercice (LibÃ©ral L  SalariÃ© S)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Groupe Identification du bÃ©nÃ©ficiaire</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Type d&apos;identification du bÃ©nÃ©ficiaire</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>NÂ° National d&apos;immatriculation NIR</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>QualitÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Code couverture code ALD Code situation (optionnel en non sÃ©curisÃ©)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Code de prÃ©sentation du carnet MÃ©dical</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2703,63 +2163,11 @@ Indexation error: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>NÂ° Identification de structure dans laquelle le professionnel de santÃ© exerce</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>ClÃ© du NÂ° Identification de structure</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Nom de la structure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Groupe Identification RemplaÃ§ant</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>NÂ° d&apos;identification de facturation du Professionnel de santÃ© RemplaÃ§ant</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>ClÃ© du NÂ° d&apos;identification de facturation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Nom du Professionnel de santÃ© RemplaÃ§ant</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PrÃ©nom du Professionnel de santÃ© RemplaÃ§ant</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Indicateur de signature (facture Ã©laborÃ©e par un remplaÃ§ant ou sous sa responsabilitÃ©) </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Groupe Identification Individu</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>NÂ° national d&apos;immatriculation individu</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>ClÃ© du NÂ° national d&apos;immatriculation individu</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Groupe ArrÃªt de travail prescrit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Nombre de jours d&apos;arrÃªt de travail prescrit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Date de fin d&apos;arrÃªt de travail</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2775,31 +2183,7 @@ Indexation error: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Groupe Organismes AMC (complÃ©mentaire)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Type de contrat</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>NÂ° organisme complÃ©mentaire (carte vitale ou autre support)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>NÂ° d&apos;adhÃ©rent Ã  un organisme complÃ©mentaire</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>DonÃ©es AMC Zone 1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>DonÃ©es AMC Zone 2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>NÂ° organisme complÃ©mentaire EDI (carte vitale ou autre support)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2823,14 +2207,6 @@ Indexation error: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Identifiant de l&apos;assurÃ© AMC (carte vitale ou autre support AMC)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Zone supplÃ©mentaire non certifiÃ©e (CertifiÃ©e ou non certifiÃ©e si type de contrat 99</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>groupe inconnu : </source>
         <translation type="unfinished"></translation>
     </message>
@@ -2842,43 +2218,567 @@ Indexation error: </source>
         <source> pour ce groupe : </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>N° d&apos;identification nationale</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clé du n° d&apos;identification nationale</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Code civilité</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Prénom du PS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>N° logique de la situation de facturation du PS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mode d&apos;exercice (Libéral, salarié, remplacement, etc..)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>secteur d&apos;activité</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>N° d&apos;identification structure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clé du N° d&apos;identification structure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>N° d&apos;identification de facturation du PS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clé du N° d&apos;identification de facturation du PS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>N° d&apos;identification du PS remplaçant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clé du N° d&apos;identification du PS remplaçant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Code spécialité</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Code agrément 1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Code agrément 2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Code agrément 3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Habilitation à signer une facture</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Habilitation à signer un lot</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Données Carte Vitale et Assuré</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>N° de série de la carte Vitale</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type d&apos;identification du porteur de la carte (assuré, ou ayant droit)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>N° national d&apos;immatriculation : NIR</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clé du NIR</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Code régime</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Données Bénéficiaire et périodes de droits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Nom usuel du bénéficiaire</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Nom patronymique du bénéficiaire</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Prénom du bénéficiaire</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Date de naissance du bénéficiaire</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Qualité (lien de parenté)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Nombre de périodes de droits AMO</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Date de début des droits AMO</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Nombre de périodes de droits Mutuelle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Date de début des droits Mutuelle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Nombre de périodes de code couverture</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Date de début code couverture</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Données Assuré (1 occurence)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Date de fin de validité de la carte Vitale</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Données administration carte RUF1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Données administration carte RUF2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Données RUF administration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type d&apos;identification du porteur de carte (assuré ou ayant droit)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Données RUF Famille</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Service AMO Famille (0 à 1 occurence)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Date de début du service AMO Famille</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Données Accident du Travail (0 à 1 occurence)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Code AT BGDH (ce champ est non renseigné pour la première occurrence)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Identifiant AT (ce champ est non renseigné pour la première occurrence)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Code AT1 BGDH (Code Budget Global Des Hôpitaux)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Code AT2 BGDH (Code Budget Global Des Hôpitaux)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Données Bénéficiaire (1 à 6 occurences)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Adresse ligne 1 (chez..., N° appt, ou de boîte à lettres, escalier, couloir, étage)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Adresse ligne 2 (résidence, bâtiment, immeuble, tour, entrée)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Adresse ligne 3 (N° et libellé de la voie)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Adresse ligne 5 (code postal et localité)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>NIR certifié</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clé du NIR certifié</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rang de naissance du bénéficiaire</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Qualité (lien de parenté entre l&apos;ayant-droit et l&apos;assuré)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Code service AMO bénéficiaire (00 Pas de service sinon CMU Gérée par 01-AMO 02-AMC-AMO 03-AMC 10-Sortant)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Date de début de service AMO bénéficiaire</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Date de fin de service AMO bénéficiaire</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Données RUF AMO bénéficiaire</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Période de droits AMO (0 à 3 occurences)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Date de début droits AMO</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Période de code couverture (0 à 7 occurences)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Données Mutuelle (0 à 1 occurence)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type de services associés</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Services associés au contrat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Période de droits Mutuelle (0 à 3 occurences par bénéficiaire)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Date de début droits Mutuelle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Données de la Complémentaire de santé (0 à 1 occurence par bénéficiaire)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Numéro complémentaire B2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Numéro complémentaire EDI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Numéro d&apos;adhérent AMC</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Indicateur de traitement AMC (service accepté par AMC : Tiers payant, CMU, DRE etc..)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Date de début de validité de présence des données AMC</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Date de fin de validité de présence des données AMC</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Identifiant d&apos;hôte</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zone Commune (0 à 1 occurence par bénéficiaire)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zone commune complémentaire (RUF bénéficiaire)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>En-tête de configuration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>N° de version du SSV</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>N° de version du GALSS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>N° de version du PSS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>N° de série du lecteur</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>N° de version du logiciel du lecteur</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>N° de version de la bibliothèque des SSV</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Libellé du fichier des tables des SSV</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>N° de version du fichier des tables des SSV</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Code régime des organismes destinataires contenus dans le fichier</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>N° version (RUF)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>N° de version de la bibliothèque des fonctions du GALSS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>N° de version du serveur des fonctions du GALSS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>N° de version du client des fonctions du GALSS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>N° de version de la bibliothèque de gestion du fichier de configuration du GALSS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Libellé descriptif du composant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>N° de version du composant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>N° de facture</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Nature d&apos;opération</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Date d&apos;élaboration de la facture</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>N° de facture rectifié</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Date d&apos;élaboration de la facture rectifiée</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Groupe Identification du Professionnel de santé</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>N° d&apos;identification de facturation du Professionnel de santé</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clé du N° d&apos;identification de facturation du Professionnel de santé</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Nom du Professionnel de santé</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Prénom du Professionnel de santé</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Code conventionnel sous lequel exerce le Professionnel de santé</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Conditions d&apos;exercice (Libéral L  Salarié S)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Groupe Identification du bénéficiaire</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type d&apos;identification du bénéficiaire</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>N° National d&apos;immatriculation NIR</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Qualité</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Code couverture code ALD Code situation (optionnel en non sécurisé)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Code de présentation du carnet Médical</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>N° Identification de structure dans laquelle le professionnel de santé exerce</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clé du N° Identification de structure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Groupe Identification Remplaçant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>N° d&apos;identification de facturation du Professionnel de santé Remplaçant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clé du N° d&apos;identification de facturation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Nom du Professionnel de santé Remplaçant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Prénom du Professionnel de santé Remplaçant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Indicateur de signature (facture élaborée par un remplaçant ou sous sa responsabilité) </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>N° national d&apos;immatriculation individu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clé du N° national d&apos;immatriculation individu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Groupe Arrêt de travail prescrit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Nombre de jours d&apos;arrêt de travail prescrit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Date de fin d&apos;arrêt de travail</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Groupe Organismes AMC (complémentaire)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>N° organisme complémentaire (carte vitale ou autre support)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>N° d&apos;adhérent à un organisme complémentaire</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Donées AMC Zone 1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Donées AMC Zone 2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>N° organisme complémentaire EDI (carte vitale ou autre support)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Identifiant de l&apos;assuré AMC (carte vitale ou autre support AMC)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zone supplémentaire non certifiée (Certifiée ou non certifiée si type de contrat 99</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>C_Cps</name>
-    <message>
-        <source>MÃ©decine gÃ©nÃ©rale</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>AnesthÃ©sie rÃ©animation</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Cardiologie</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Chirurgie gÃ©nÃ©rale</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Dermato-vÃ©nÃ©rologie</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Radiologie</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>GynÃ©cologie-obstÃ©trique</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Gastro-entÃ©ro-hÃ©patologie</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>MÃ©decine interne</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2887,10 +2787,6 @@ Indexation error: </source>
     </message>
     <message>
         <source>Oto-rhino-laryngologie</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PÃ©diatrie</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2930,27 +2826,11 @@ Indexation error: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Masseur-kinÃ©sithÃ©rapeute</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PÃ©dicure-podologue</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Orthophoniste</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Orthoptiste</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Laboratoire d&apos;analyses mÃ©dicales</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>RÃ©Ã©ducation-rÃ©adaptation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2962,35 +2842,11 @@ Indexation error: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>NÃ©phrologie</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Chirurgie dentaire spÃ©cialitÃ© O.D.F</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Anatomo-cyto-pathologie</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Directeur de laboratoire mÃ©decin</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Laboratoire d&apos;analyses de biologie mÃ©dicale polyvalent</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Laboratoire d&apos;analyses de biologie et de cytologie pathologique</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Chirurgie orthopÃ©dique</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Endocrinologie mÃ©tabolisme</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3006,19 +2862,11 @@ Indexation error: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Chirurgie plastique et esthÃ©tique</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Chirurgie thoracique et cardio vasculaire</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Chirurgie vasculaire</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Chirurgie viscÃ©rale et digestive</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3030,39 +2878,7 @@ Indexation error: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>GynÃ©cologie mÃ©dicale</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>HÃ©matologie</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>MÃ©decine nuclÃ©aire</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Oncologie mÃ©dicale</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Oncologie radiothÃ©rapique</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Psychiatrie infantile</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>RadiothÃ©rapie</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>ObstÃ©trique</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>GÃ©nÃ©tique mÃ©dicale</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3070,39 +2886,7 @@ Indexation error: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Carte de Professionnel de SantÃ© (CPS)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Carte de Professionnel de SantÃ© en Formation (CPF)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Carte de Personnel d&apos;Etablissement de SantÃ© (CDE/CPE)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Carte de Personnel AutorisÃ© (CPA)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Carte de Serveur Applicatif (CSA)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>LibÃ©ral, exploitant ou commerÃ§ant</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>SalariÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>RemplaÃ§ant</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Non rÃ©tribuÃ©</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3110,35 +2894,7 @@ Indexation error: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>ADELI-Rang/NÂ° de registre</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>DRASS</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>FINESS/NÂ° de registre</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>SIREN/NÂ° de registre</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>SIRET/NÂ° de registre</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>SIRET/Nom Application/Nom Serveur/NÂ° Carte</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>FINESS/Nom Application/Nom Serveur/NÂ° Carte</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>ADELI-Rang/Nom Application/Nom Serveur/NÂ° Carte</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3146,71 +2902,7 @@ Indexation error: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Carte de Professionnel ou Personnel de SantÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Carte patient/assurÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Module de SÃ©curitÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Carte test de Professionnel ou Personnel de SantÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Carte test patient/assurÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Module de SÃ©curitÃ© de test</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Non conventionnÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>ConventionnÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>ConventionnÃ© avec dÃ©passement</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>ConventionnÃ© avec honoraires libres</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>codeConvention_ToString() code inconnu : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Etablissements publics de santÃ© (y compris SAMU - SMUR)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>HÃ´pitaux militaires</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Etablis. de santÃ© privÃ©s participant Ã  l&apos;exÃ©cution du service public (PSPH)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Etablissements de santÃ© privÃ©s Ã  but non lucratif (non PSPH)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Dispensaires de soins et autres Ã©tablis sans hospitalisation, centres de santÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Autres structures de soins relevant du Service de SantÃ© des ArmÃ©es</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3218,51 +2910,7 @@ Indexation error: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Cabinets libÃ©raux de groupe ou associations</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Exercice en sociÃ©tÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Transports sanitaires privÃ©s (sociÃ©tÃ©s d&apos;ambulance)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Entreprises d&apos;intÃ©rim</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Etablissements de soins et de prÃ©vention</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PrÃ©vention et soins en entreprise (y compris mÃ©decine du travail)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>SantÃ© scolaire et universitaire</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>PMI, planification familiale</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Etablissements pour personnes handicapÃ©es ou en difficultÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Etablissements pour personnes Ã¢gÃ©es</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Etablissements et services sociaux d&apos;aide Ã  la famille</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Etablissements de formation (Ã©coles) et d&apos;enseignement (universitÃ©s)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3270,59 +2918,11 @@ Indexation error: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Etablissements d&apos;hÃ©bergement et de rÃ©adaptation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Recherche dans un organisme public ou Ã  but non lucratif (INSERM, ORS, CNRS...)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Expertise SociÃ©tÃ©s d&apos;Assurance privÃ©es</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Organismes de SÃ©curitÃ© Sociale (tous rÃ©gimes)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Praticien de l&apos;aide sociale</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>MinistÃ¨re des Affaires Sociales et de la SantÃ© et Services dÃ©concentrÃ©s</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>CollectivitÃ©s territoriales</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Laboratoires d&apos;analyses mÃ©dicales extra-hospitaliÃ¨res</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Autres Ã©tablis. sanitaires (CTS, stockage produits humains, centres antipoison)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Production et commerce en gros de produits Ã  usage mÃ©dical</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Commerce de dÃ©tail, biens Ã  usage mÃ©dical (lunetterie, orthopÃ©die et prothÃ¨ses)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Pharmacies d&apos;officine</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Autres secteurs d&apos;activitÃ© (y compris activitÃ©s non mÃ©dicales)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Secteur non dÃ©fini</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3335,10 +2935,6 @@ Indexation error: </source>
     </message>
     <message>
         <source>Aspirant</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>AumÃ´nier</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3386,19 +2982,7 @@ Indexation error: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>EvÃªque</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>GÃ©nÃ©ral</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Gouverneur</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>IngÃ©nieur</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3418,18 +3002,6 @@ Indexation error: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>MaÃ®tre</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>MarÃ©chal</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>MÃ©decin</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Monseigneur</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3446,14 +3018,6 @@ Indexation error: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PrÃ©fet</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PrÃ©sident</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Professeur</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3463,10 +3027,6 @@ Indexation error: </source>
     </message>
     <message>
         <source>Sergent</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Sous-PrÃ©fet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3482,6 +3042,374 @@ Indexation error: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Médecine générale</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Anesthésie réanimation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Chirurgie générale</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dermato-vénérologie</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Gynécologie-obstétrique</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Gastro-entéro-hépatologie</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Médecine interne</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pédiatrie</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Masseur-kinésithérapeute</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pédicure-podologue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Laboratoire d&apos;analyses médicales</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rééducation-réadaptation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Néphrologie</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Chirurgie dentaire spécialité O.D.F</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Directeur de laboratoire médecin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Laboratoire d&apos;analyses de biologie médicale polyvalent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Chirurgie orthopédique</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Endocrinologie métabolisme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Chirurgie plastique et esthétique</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Chirurgie viscérale et digestive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Gynécologie médicale</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hématologie</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Médecine nucléaire</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Oncologie médicale</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Oncologie radiothérapique</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Radiothérapie</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Obstétrique</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Génétique médicale</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Carte de Professionnel de Santé (CPS)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Carte de Professionnel de Santé en Formation (CPF)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Carte de Personnel d&apos;Etablissement de Santé (CDE/CPE)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Carte de Personnel Autorisé (CPA)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Libéral, exploitant ou commerçant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Salarié</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remplaçant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Non rétribué</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ADELI-Rang/N° de registre</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>FINESS/N° de registre</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SIREN/N° de registre</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SIRET/N° de registre</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SIRET/Nom Application/Nom Serveur/N° Carte</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>FINESS/Nom Application/Nom Serveur/N° Carte</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ADELI-Rang/Nom Application/Nom Serveur/N° Carte</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Carte de Professionnel ou Personnel de Santé</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Carte patient/assuré</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Module de Sécurité</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Carte test de Professionnel ou Personnel de Santé</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Carte test patient/assuré</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Module de Sécurité de test</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Non conventionné</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Conventionné</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Conventionné avec dépassement</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Conventionné avec honoraires libres</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Etablissements publics de santé (y compris SAMU - SMUR)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hôpitaux militaires</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Etablis. de santé privés participant à l&apos;exécution du service public (PSPH)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Etablissements de santé privés à but non lucratif (non PSPH)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dispensaires de soins et autres établis sans hospitalisation, centres de santé</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Autres structures de soins relevant du Service de Santé des Armées</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cabinets libéraux de groupe ou associations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exercice en société</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transports sanitaires privés (sociétés d&apos;ambulance)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Entreprises d&apos;intérim</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Etablissements de soins et de prévention</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Prévention et soins en entreprise (y compris médecine du travail)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Santé scolaire et universitaire</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Etablissements pour personnes handicapées ou en difficulté</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Etablissements pour personnes âgées</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Etablissements et services sociaux d&apos;aide à la famille</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Etablissements de formation (écoles) et d&apos;enseignement (universités)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Etablissements d&apos;hébergement et de réadaptation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Recherche dans un organisme public ou à but non lucratif (INSERM, ORS, CNRS...)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Expertise Sociétés d&apos;Assurance privées</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Organismes de Sécurité Sociale (tous régimes)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ministère des Affaires Sociales et de la Santé et Services déconcentrés</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Collectivités territoriales</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Laboratoires d&apos;analyses médicales extra-hospitalières</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Autres établis. sanitaires (CTS, stockage produits humains, centres antipoison)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Production et commerce en gros de produits à usage médical</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Commerce de détail, biens à usage médical (lunetterie, orthopédie et prothèses)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Autres secteurs d&apos;activité (y compris activités non médicales)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Secteur non défini</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Aumônier</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Evêque</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Général</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ingénieur</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Maître</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Maréchal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Médecin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Préfet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Président</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sous-Préfet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>
 ; Groupe : 0001</source>
         <translation type="unfinished"></translation>
@@ -3489,6 +3417,341 @@ Indexation error: </source>
     <message>
         <source>
 ; Groupe : 0002</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>C_DlgListFieldMngr</name>
+    <message>
+        <source>&amp;Quitter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Annuler</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Changer la liste déroulante</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>La Librairie des modules de menus est non trouvée</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>L&apos;emplacement (ou répertoire) de la librairie des modules de menus est non valide. Veuillez localiser le répertoire de ces librairies...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Localiser la librairie</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> Rechercher le répertoire de votre librairie de menus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Valider le chemin habituel de votre librairie de menus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fichiers images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tous les fichiers (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Créer et &amp;ajouter un nouvel élément à une liste</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Créer et ajouter une &amp;référence à une autre liste</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Choisir une liste déjà existante, comme référence</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Créer une nouvelle &amp;liste déroulante</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Renommer cet élément ou cette liste</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Effacer cet élément ou cette liste</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Modifier le contenu de cet élément</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Vérifier si cette liste est référencée par d&apos;autres</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Importer un menu de la librairie de menus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Se positionner sur cette liste</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Placer ce menu &apos;%1&apos; comme menu fixe d&apos;une rubrique</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Nouvelle liste</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Veuillez donner le nom de cette nouvelle liste</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ATTENTION ! </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Le nom du dossier est vide.&lt;br&gt;Veuillez choisir un autre nom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Annu&amp;ler</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Les noms de listes ne doivent pas contenir les caract�es &apos;:&apos; &apos;/&apos; &apos;\&apos; .&lt;br&gt;Veuillez choisir un autre nom.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ce dossier existe déjà.&lt;br&gt;Veuillez choisir un autre nom.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ce dossier&lt;br&gt;&lt;b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> n&apos;a pu être créé.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ERREUR :</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Nouvelle référence</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Veuillez donner le nom de cette nouvelle référence</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Le nom de la référence est vide.&lt;br&gt;Veuillez choisir un autre nom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Une référence à une cette liste existe déjà&lt;br&gt;dans cette liste, elle ne sera donc pas créée.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>La référence à la liste :&lt;br&gt;&lt;b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;/b&gt;&lt;br&gt; n&apos;a pu être créée.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cette liste&lt;br&gt;&lt;b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;/b&gt;&lt;br&gt; n&apos;a pu être créée</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Les noms de listes ne doivent pas contenir le caractère &apos;:&apos;  .&lt;br&gt;Veuillez choisir un autre nom.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>élément nouveau </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Veuillez donner le nom de ce nouvel élément</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Le nom du fichier est vide.&lt;br&gt;Veuillez choisir un nom.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ce fichier existe déjà.&lt;br&gt;Veuillez choisir un autre nom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Le fichier&lt;br&gt;&lt;b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;/b&gt;&lt;br&gt; n&apos;a pu être créé</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Confirmez-vous l&apos;effacement </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>d&apos;une liste entière :&lt;br /&gt;&lt;b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;/b&gt;&lt;br /&gt;  ATTENTION CETTE ACTION EST IRRÉVERSIBLE &lt;br /&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Effacement d&apos;une liste</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Effacer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;/b&gt;&lt;br&gt; n&apos;a pu être effacé.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>de cette référence à une autre liste :&lt;br /&gt;&lt;b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>de cet élément avec son texte attaché :&lt;br /&gt;&lt;b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>de cet élément :&lt;br /&gt;&lt;b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Effacement</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cet élément&lt;br&gt;&lt;b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Veuillez donner le nouveau nom de cet élément.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ATTENTION !</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Le nouveau nom est vide.&lt;br&gt;Opération annulée.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Un fichier portant ce nom existe déjà.&lt;br&gt;Opération annulée</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cet élément&lt;br&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;br&gt; n&apos;a pu être renommé.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cet élément n&apos;est pas une liste.&lt;br&gt;Opération annulée.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>UTILISATION DE LA LISTE :</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cette liste : &quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&quot; n&apos;est référencée par aucune autre.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cette liste :&amp;nbsp;&amp;nbsp;&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&quot;&amp;nbsp;&amp;nbsp; est réferencée par: &lt;br&gt;&lt;br&gt; </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>FICHIER MODIFIÉ</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Faut-il&amp;nbsp;enregistrer&amp;nbsp;les&amp;nbsp;modifications&amp;nbsp;de&amp;nbsp;:&amp;nbsp;&lt;b&gt;%1&lt;/b&gt;&lt;br&gt;avant de modifier le nouveau document ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Enregistrer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Non</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Le fichier : &lt;br&gt;&lt;b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;/b&gt;&lt;br&gt; n&apos;a pu être ouvert en écriture, &lt;br&gt; veuillez vérifier si il est permis d&apos;y écrire</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;/b&gt;&lt;br&gt; n&apos;a pu être recréé</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;réer une liste déroulante avec le texte sélectionné.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>I&amp;nsérer au curseur un champ d&apos;insertion ou d&apos;extraction.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Insérer au curseur une référence à une liste déroulante.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>$start_title &quot;Placer ici le titre que vous souhaiter afficher&quot; $end_title</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>$no_style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Veuillez donner le nom de cette nouvelle liste déroulante</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Le nom de la référence est vide.&lt;br&gt;Veuillez choisir un nom</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3530,19 +3793,11 @@ Indexation error: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Effacement d&apos;une famille entiÃ¨re</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source> &lt;b&gt;&lt;u&gt;ATTENTION&lt;/b&gt;&lt;/u&gt; ! Cette famille &lt;b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>&lt;/b&gt; contient des genres. </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;br&gt; Faut-il tout de mÃªme l&apos;effacer avec&lt;br&gt;tous les genres en faisant partie ?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3554,24 +3809,24 @@ Indexation error: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Saisir le nom de la nouvelle famille d&apos;antÃ©cÃ©dent</source>
+        <source>Effacement d&apos;une famille entière</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Saisir le genre Ã  ajouter Ã  la famille : </source>
+        <source>&lt;br&gt; Faut-il tout de même l&apos;effacer avec&lt;br&gt;tous les genres en faisant partie ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Saisir le nom de la nouvelle famille d&apos;antécédent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Saisir le genre �  ajouter �  la famille : </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>C_Dlg_GestionATCD</name>
-    <message>
-        <source>Liste des codes CIM10 sÃ©lectionnÃ©s</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Toutes les catÃ©gories</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Favoris (*.fav)</source>
         <translation type="unfinished"></translation>
@@ -3593,23 +3848,7 @@ Indexation error: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Ajout d&apos;un antÃ©cÃ©dent textuel aux favoris</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Ajouter cet item aux favoris.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> substances trouvÃ©es</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Une substance trouvÃ©e</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Aucune substance trouvÃ©e</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3621,20 +3860,8 @@ Indexation error: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Modification d&apos;un antÃ©cedent</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PassÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source></source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>MÃ©dicaux</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>allerg</source>
@@ -3646,10 +3873,6 @@ Indexation error: </source>
     </message>
     <message>
         <source>Fermeture du dossier actif</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Confirmez vous l&apos;effacement de tous les Ã©lÃ©ments sÃ©lectionnÃ©s?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3665,7 +3888,159 @@ Indexation error: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>TrouvÃ©s : %i sur: %i</source>
+        <source>Liste des codes CIM10 sélectionnés</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Liste des codes Cisp sélectionnés</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Toutes les catégories</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SYMPTÔMES ET PLAINTES</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>INFECTIONS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>NÉOPLASIES</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TRAUMATISMES</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ANOMALIES CONGÉNITALES</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>AUTRES DIAGNOSTICS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>  Tous les items</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>oeil</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>système digestif</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>général et non spécifié</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>procédures</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>sang système hématopoïétique ou immunologique</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>oreille</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>cardio-vasculaire</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ostéo-articulaire</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>neurologique</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>psychologique</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>respiratoire</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>peau</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>métabolisme nutrition endocrinien</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>systèmeme urinaire</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>grossesse, accouchement et planning familial</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>système génital féminin et sein</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>système génital masculin et sein</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>social</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ajout d&apos;un antécédent textuel aux favoris</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> substances trouvées</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Une substance trouvée</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Aucune substance trouvée</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Modification d&apos;un antécedent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Passé</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Médicaux</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Confirmez vous l&apos;effacement de tous les éléments sélectionnés?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Trouvés : %i sur: %i</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> CIMX : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> CISP : </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3676,15 +4051,15 @@ Indexation error: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Fichier source non indiquÃ© </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Fichier source : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Fichier source (non trouvÃ©) : </source>
+        <source>Fichier source non indiqué </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fichier source (non trouvé) : </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3736,23 +4111,7 @@ Indexation error: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Le Glossaire est inutile et ne sert Ã  rien pour la rubrique : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Nouveau dossier dans le Glossaire</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Nom du dossier Ã  crÃ©er : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;u&gt;ATTENTION :&lt;/u&gt;  L&apos;effacement du rÃ©pertoire : &lt;br&gt;&lt;b&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;/b&gt;&lt;br&gt;et de son contenu, sera dÃ©finitif et non rÃ©versible.&lt;br&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3764,83 +4123,7 @@ Indexation error: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Renommer un rÃ©pertoire</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Nouveau nom du rÃ©pertoire : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Vous ne pouvez pas remonter d&apos;un niveau car vous Ãªtes dÃ©jÃ  Ã  la racine du rÃ©pertoire de la rubrique : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Entrer dans ce rÃ©perto&amp;ire        </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>CrÃ©&amp;er et Ã©diter un nouveau modÃ¨le</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Nouveau rÃ©pertoire               </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Renommer ce rÃ©pertoire           </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;DÃ©truire ce rÃ©pertoire           </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cette action est sans rÃ©sultat car le Glossaire est inutile et ne sert Ã  rien pour cette rubrique</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>CrÃ©er un n&amp;ouveau document avec ce modÃ¨le    </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> Droits insuffisants pour crÃ©er un document avec ce modÃ¨le </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>CrÃ©er une n&amp;ouvelle page avec ce modÃ¨le    </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Ajouter le contenu de ce modÃ¨le au curseur</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Tout remplacer par ce modÃ¨le</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Modifier et Ã©diter ce modÃ¨le</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Renommer ce modÃ¨le          </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;DÃ©truire ce modÃ¨le          </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Nouveau rÃ©pertoire          </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source> Fichiers HTML (*.htm *.html);;  Tous les fichiers (*)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Saisissez le nom du document Ã  crÃ©er</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3848,22 +4131,7 @@ Indexation error: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>
- Existe dÃ©jÃ .
- Faut il crÃ©er le nouveau document avec ce non,
- et Ã©craser celui existant ?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;CrÃ©er et Ã©craser</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Modifier</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>CrÃ©er</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3879,48 +4147,123 @@ Indexation error: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>DÃ©truire</source>
+        <source>Le Glossaire est inutile et ne sert à rien pour la rubrique : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Vous Ãªtes dÃ©jÃ  Ã  la racine du rÃ©pertoire de cette rubrique</source>
+        <source>Nom du dossier à créer : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;u&gt;ATTENTION :&lt;/u&gt;  L&apos;effacement du répertoire : &lt;br&gt;&lt;b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;/b&gt;&lt;br&gt;et de son contenu, sera définitif et non réversible.&lt;br&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Renommer un répertoire</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Nouveau nom du répertoire : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Vous ne pouvez pas remonter d&apos;un niveau car vous êtes déjà à la racine du répertoire de la rubrique : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Entrer dans ce réperto&amp;ire        </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cré&amp;er et éditer un nouveau modèle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Nouveau répertoire               </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Renommer ce répertoire           </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Détruire ce répertoire           </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cette action est sans résultat car le Glossaire est inutile et ne sert à rien pour cette rubrique</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Créer un n&amp;ouveau document avec ce modèle    </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> Droits insuffisants pour créer un document avec ce modèle </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Créer une n&amp;ouvelle page avec ce modèle    </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Ajouter le contenu de ce modèle au curseur</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Tout remplacer par ce modèle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Modifier et éditer ce modèle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Renommer ce modèle          </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Détruire ce modèle          </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Nouveau répertoire          </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Saisissez le nom du document à créer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+ Existe déjà.
+ Faut il créer le nouveau document avec ce non,
+ et écraser celui existant ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Créer et écraser</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Créer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Détruire</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Vous êtes déjà à la racine du répertoire de cette rubrique</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>C_ListViewATCDManager</name>
-    <message>
-        <source>Ajouter un antÃ©cÃ©dent texte libre</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Effacer les antÃ©cÃ©dents sÃ©lectionnÃ©s</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Modifier la date de cet AntÃ©cÃ©dent</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Effacer la date de cet AntÃ©cÃ©dent</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PassÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>GuÃ©ri (passer en Actif)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Actif (passer en GuÃ©ri)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>DÃ©finir un commentaire</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>En rapport avec une pathologie ALD</source>
         <translation type="unfinished"></translation>
@@ -3935,15 +4278,7 @@ Indexation error: </source>
     </message>
     <message>
         <source></source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Date de l&apos;antÃ©cÃ©dent</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>MÃ©dicaux</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Actif</source>
@@ -3954,25 +4289,65 @@ Indexation error: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Effacer tous les antÃ©cÃ©dents</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Effacer tous les antÃ©cÃ©dents </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Voulez vous vraiment effacer
-toutes les donnÃ©es des antÃ©cÃ©dents
-CETTE ACTION EST IRREVERSIBLE</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Effacer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Annu&amp;ler</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ajouter un antécédent texte libre</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Effacer les antécédents sélectionnés</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Modifier la date de cet Antécédent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Effacer la date de cet Antécédent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Passé</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Guéri (passer en Actif)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Actif (passer en Guéri)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Définir un commentaire</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Date de l&apos;antécédent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Médicaux</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Effacer tous les antécédents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Effacer tous les antécédents </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Voulez vous vraiment effacer
+toutes les données des antécédents
+CETTE ACTION EST IRREVERSIBLE</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3992,10 +4367,6 @@ CETTE ACTION EST IRREVERSIBLE</source>
     </message>
     <message>
         <source>&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Date de dÃ©but</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4039,31 +4410,11 @@ CETTE ACTION EST IRREVERSIBLE</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Liste de filtres vide, veuillez en crÃ©er un en cliquant sur le bouton &apos;Ajouter un filtre&apos;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ce nom existe dÃ©jÃ  veuillez en choisir un autre</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>OpÃ©ration impossible car la liste des filtres est vide</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source> Destruction d&apos;un filtre de classeurs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source> La destruction de ce filtre de classeurs : &lt;br&gt;&lt;b&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;/b&gt;&lt;br&gt; sera &lt;u&gt;DÃFINITIVE&lt;/u&gt;&lt;br&gt; Confirmez-vous la destruction ?&lt;br&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;DÃ©truire</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4087,38 +4438,6 @@ CETTE ACTION EST IRREVERSIBLE</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Erreur C_Organiseur::On_but_SaveProfile_clicked() &apos;Fichier non trouvÃ© : &apos;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> Ã  </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Erreur C_Organiseur::SetFilter() &apos;le nom du filtre n&apos;a pas Ã©tÃ© trouvÃ©&apos;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Erreur C_Organiseur::SetProfile() &apos;le nom du classeur n&apos;a pas Ã©tÃ© trouvÃ©&apos;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>OpÃ©ration impossible :
-Un des Ã©lÃ©ments impliquÃ©s ou un ascendant
-de cet Ã©lÃ©ment est destinÃ© Ã  l&apos;effacement.
-Veuillez remettre l&apos;Ã©lÃ©ment responsable de cet Ã©tat,
-en Ã©tat de non effacement.
-
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>
- OpÃ©ration impossible :
- la date : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source> et l&apos;heure : </source>
         <translation type="unfinished"></translation>
     </message>
@@ -4131,12 +4450,6 @@ en Ã©tat de non effacement.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>
- OpÃ©ration impossible :
- l&apos;heure : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Veuillez recommencer votre saisie.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4145,47 +4458,7 @@ en Ã©tat de non effacement.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Saisie date de dÃ©but erronÃ©e</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Saisie date de fin erronÃ©e</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>OpÃ©ration impossible : Il n&apos;est pas possible de placer un ascendant sur une de ses propres branches.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Ce document : &apos;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&apos; sera juste insÃ©rÃ© comme document, et non classÃ© (il existe dÃ©jÃ  un classeur du mÃªme non Ã  la racine)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>__ERREUR Fusion :__ Cet Ã©lÃ©ment &apos;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&apos; n&apos;a pu Ãªtre insÃ©rÃ© dans la vigie car il en existe  dÃ©jÃ  un ouvert Ã  ce nom. Veuillez l&apos;effacer si il est inutile. </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&apos; sera juste insÃ©rÃ© comme document, et non classÃ© car le classeur de destination est non trouvÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>OpÃ©ration impossible : Le classeur de destination : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> oÃ¹ doit Ãªtre placÃ© ce document &apos;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&apos; n&apos;a pas Ã©tÃ© trouvÃ©, veuillez le classer manuellement.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4193,39 +4466,7 @@ en Ã©tat de non effacement.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&apos; oÃ¹ doit Ãªtre placÃ© ce document n&apos;a pas Ã©tÃ© trouvÃ©\, veuillez le classer manuellement. </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&apos; sera juste insÃ©rÃ© comme document, et non classÃ© car le classeur de destination est non accessible avec ce profil utilisateur</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>OpÃ©ration impossible : Le profil utilisateur en cours ne permet pas de voir ce classeur : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source> .</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&apos; n&apos;a pu Ãªtre insÃ©rÃ© dans la vigie car le profil utilisateur en cours ne permet pas de le voir </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&apos; sera juste insÃ©rÃ© comme document, et non comme classeur il en existe dÃ©jÃ  un unique</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&apos; n&apos;a pu Ãªtre insÃ©rÃ© dans la vigie un classeur unique portant le mÃªme nom existe dÃ©jÃ  </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&apos; sera juste insÃ©rÃ© comme document, et non classÃ© car le classeur de destination est non accessible avec ce profil d&apos;affichage</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>OpÃ©ration impossible : les classeurs correspondants Ã  ce document : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4233,131 +4474,11 @@ en Ã©tat de non effacement.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&apos; n&apos;a pu Ãªtre insÃ©rÃ© dans la vigie car les classeurs parents d&apos;insertion sont non visibles </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Heure de DÃ©but</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ã </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>la date et l&apos;heure de dÃ©but ne peuvent pas Ãªtre supÃ©rieures Ã  la date et heure de fin. </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Heure de fin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>la date et l&apos;heure de fin ne peuvent pas Ãªtre infÃ©rieures Ã  la date et heure de dÃ©but. </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Choisir une liste dÃ©roulante pour cette propriÃ©tÃ© ...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Positionner cet Ã©lÃ©ment sur effacement</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Positionner cet Ã©lÃ©ment et les fiches allant avec, sur effacement</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Retirer cet Ã©lÃ©ment et les fiches allant avec, de ceux Ã  effacer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Retirer cet Ã©lÃ©ment de ceux Ã  effacer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Modifier la date et heure de dÃ©but</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Modifier la date et heure de Fin</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cet Ã©lÃ©ment doit Ãªtre ouvert par dÃ©faut</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cet Ã©lÃ©ment doit Ãªtre fermÃ©  par dÃ©faut</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cet Ã©lÃ©ment doit Ãªtre le seul de la fratrie</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cet Ã©lÃ©ment peut Ãªtre multiple dans la fratrie</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Choisir une icÃ´ne pour cet Ã©lÃ©ment...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Retirer l&apos;icÃ´ne pour cet Ã©lÃ©ment...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Choisir une liste dÃ©roulante pour la propriÃ©tÃ© NÂ°1...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Choisir une liste dÃ©roulante pour la propriÃ©tÃ© NÂ°2...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Choisir une liste dÃ©roulante pour la propriÃ©tÃ© NÂ°3...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Choisir une liste dÃ©roulante pour la propriÃ©tÃ© NÂ°4...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Choisir une liste dÃ©roulante pour la propriÃ©tÃ© NÂ°5...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Retirer la liste dÃ©roulante de la propriÃ©tÃ© NÂ°1...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Retirer la liste dÃ©roulante de la propriÃ©tÃ© NÂ°2...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Retirer la liste dÃ©roulante de la propriÃ©tÃ© NÂ°3...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Retirer la liste dÃ©roulante de la propriÃ©tÃ© NÂ°4...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Retirer la liste dÃ©roulante de la propriÃ©tÃ© NÂ°5...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ajouter ce classeur Ã  la liste du filtre en cours</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>CrÃ©er un nouveau classeur</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Pas de filtre Ã  paramÃ©trer car liste vide </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4369,19 +4490,284 @@ en Ã©tat de non effacement.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>La date de dÃ©but est invalide</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>La date de dÃ©but ne peut Ãªtre supÃ©rieure Ã  la date de fin</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>La date de fin ne peut Ãªtre infÃ©rieure Ã  la date de dÃ©but</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Fichiers images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Date de début</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Liste de filtres vide, veuillez en créer un en cliquant sur le bouton &apos;Ajouter un filtre&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ce nom existe déjà veuillez en choisir un autre</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Opération impossible car la liste des filtres est vide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;/b&gt;&lt;br&gt; sera &lt;u&gt;DÉFINITIVE&lt;/u&gt;&lt;br&gt; Confirmez-vous la destruction ?&lt;br&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Détruire</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Erreur C_Organiseur::On_but_SaveProfile_clicked() &apos;Fichier non trouvé : &apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> à </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Erreur C_Organiseur::SetFilter() &apos;le nom du filtre n&apos;a pas été trouvé&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Erreur C_Organiseur::SetProfile() &apos;le nom du classeur n&apos;a pas été trouvé&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Opération impossible :
+Un des éléments impliqués ou un ascendant
+de cet élément est destiné à l&apos;effacement.
+Veuillez remettre l&apos;élément responsable de cet état,
+en état de non effacement.
+
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+ Opération impossible :
+ la date : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+ Opération impossible :
+ l&apos;heure : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Saisie date de début erronée</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Saisie date de fin erronée</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Opération impossible : Il n&apos;est pas possible de placer un ascendant sur une de ses propres branches.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&apos; sera juste inséré comme document, et non classé (il existe déjà un classeur du même non à la racine)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>__ERREUR Fusion :__ Cet élément &apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&apos; n&apos;a pu être inséré dans la vigie car il en existe  déjà un ouvert à ce nom. Veuillez l&apos;effacer si il est inutile. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&apos; sera juste inséré comme document, et non classé car le classeur de destination est non trouvé</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Opération impossible : Le classeur de destination : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> où doit être placé ce document &apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&apos; n&apos;a pas été trouvé, veuillez le classer manuellement.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&apos; où doit être placé ce document n&apos;a pas été trouvé\, veuillez le classer manuellement. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&apos; sera juste inséré comme document, et non classé car le classeur de destination est non accessible avec ce profil utilisateur</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Opération impossible : Le profil utilisateur en cours ne permet pas de voir ce classeur : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&apos; n&apos;a pu être inséré dans la vigie car le profil utilisateur en cours ne permet pas de le voir </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&apos; sera juste inséré comme document, et non comme classeur il en existe déjà un unique</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&apos; n&apos;a pu être inséré dans la vigie un classeur unique portant le même nom existe déjà </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&apos; sera juste inséré comme document, et non classé car le classeur de destination est non accessible avec ce profil d&apos;affichage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Opération impossible : les classeurs correspondants à ce document : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&apos; n&apos;a pu être inséré dans la vigie car les classeurs parents d&apos;insertion sont non visibles </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Heure de Début</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>à</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>la date et l&apos;heure de début ne peuvent pas être supérieures à la date et heure de fin. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>la date et l&apos;heure de fin ne peuvent pas être inférieures à la date et heure de début. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choisir une liste déroulante pour cette propriété ...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Positionner cet élément sur effacement</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Positionner cet élément et les fiches allant avec, sur effacement</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Retirer cet élément et les fiches allant avec, de ceux à effacer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Retirer cet élément de ceux à effacer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Modifier la date et heure de début</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cet élément doit être ouvert par défaut</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cet élément doit être fermé  par défaut</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cet élément doit être le seul de la fratrie</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cet élément peut être multiple dans la fratrie</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choisir une icône pour cet élément...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Retirer l&apos;icône pour cet élément...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choisir une liste déroulante pour la propriété N°1...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choisir une liste déroulante pour la propriété N°2...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choisir une liste déroulante pour la propriété N°3...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choisir une liste déroulante pour la propriété N°4...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choisir une liste déroulante pour la propriété N°5...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Retirer la liste déroulante de la propriété N°1...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Retirer la liste déroulante de la propriété N°2...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Retirer la liste déroulante de la propriété N°3...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Retirer la liste déroulante de la propriété N°4...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Retirer la liste déroulante de la propriété N°5...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ajouter ce classeur à la liste du filtre en cours</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Créer un nouveau classeur</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pas de filtre à paramétrer car liste vide </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>La date de début est invalide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>La date de début ne peut être supérieure à la date de fin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>La date de fin ne peut être inférieure à la date de début</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>C_Organisme</name>
+    <message>
+        <source>Pas d&apos;entrée trouvée pour ce code régime : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> et caisse gestionnaire : </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4392,7 +4778,7 @@ en Ã©tat de non effacement.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Retirer la propriÃ©tÃ© &apos;En qualitÃ© de&apos;</source>
+        <source>Retirer la propriété &apos;En qualité de&apos;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4402,7 +4788,7 @@ en Ã©tat de non effacement.
         <source>InvisibleStringFormPrescription</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Modifier la date et l&apos;intitulé du document</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4418,20 +4804,20 @@ en Ã©tat de non effacement.
         <source>Enregistrer tout le dossier</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Imprimer cette fenêtre</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Placer le document en cours comme document à effacer (ne sera effacé qu&apos;après enregistrement)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Charger une image...</source>
+        <source>Exporter cette image...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Exporter cette image...</source>
+        <source>Nouveau document...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4447,10 +4833,6 @@ en Ã©tat de non effacement.
     </message>
     <message>
         <source>::copy_file() 1er  argument du nom du fichier source manquant</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>::copy_file() 2Ã¨me argument du nom de fichier ou rÃ©pertoire de destination manquant</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4486,19 +4868,7 @@ en Ã©tat de non effacement.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Le processus : 
-%1
- n&apos;a pas dÃ©marrÃ©. </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Annuler</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Le processus : 
-%1
- n&apos;a pas Ã©tÃ© trouvÃ©. </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4526,19 +4896,7 @@ en Ã©tat de non effacement.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>::INCLUDE() 1er argument du fichier Ã  importer manquant</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>::import() 1er argument du fichier Ã  importer manquant</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>::import() la rubrique de destination: &quot;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&quot; n&apos;a pu Ãªtre crÃ©Ã©</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4546,15 +4904,7 @@ en Ã©tat de non effacement.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&quot; non trouvÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&quot; vide</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>::import() le rÃ©pertoire de destination: &quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4570,27 +4920,7 @@ en Ã©tat de non effacement.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&quot; n&apos;a pu Ãªtre crÃ©Ã©e</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>::insert_image() le rÃ©pertoire de destination: &quot;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Informaton</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>::nouveau document() la rubrique de destination: &quot;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>::PUT_VAR() nom de la vaiable non indiquÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>::replace_image() argument du nom de l&apos;image Ã  remplacer manquant</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4635,10 +4965,6 @@ en Ã©tat de non effacement.
     </message>
     <message>
         <source>Erreur de syntaxe ::TEST() cette fonction doit comporter  au moins 5 arguments </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Erreur de syntaxe ::TO_TEXT() cette fonction doit comporter  au moins 1 arguments (le texte Ã  convertir) </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4714,10 +5040,6 @@ en Ã©tat de non effacement.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>FÃ©minin</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Masculin</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4734,15 +5056,7 @@ en Ã©tat de non effacement.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PropriÃ©tÃ© Ordonnance</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Traitement</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>MÃ©dicament</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4770,23 +5084,11 @@ en Ã©tat de non effacement.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>ModÃ¨le</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>lineaire</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>::TYPE::</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Sans antÃ©cÃ©dents connus.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ses antÃ©cÃ©dents sont marquÃ©s par : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4802,15 +5104,7 @@ en Ã©tat de non effacement.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Pas de valeur trouvÃ©e pour </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>*</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>ObstÃ©trique</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4826,15 +5120,203 @@ en Ã©tat de non effacement.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Le terme n&apos;est pas calculable (terme nÃ©gatif). VÃ©rifiez vos dates.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Le terme n&apos;est pas calculable (&gt; 45 SA). VÃ©rifiez vos dates.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source> Jours </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>::ABS_PATH() argument du path à convertir manquant.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>::copy_file() 2ème argument du nom de fichier ou répertoire de destination manquant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>::DATE_CALC() 1er argument de la date manquant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>::DATE_CALC() 2eme argument valeur manquante</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>::DATE_TONUM() 1er argument de la date manquant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>::DATE_FROMNUM() 1er argument du nombre de secondes manquant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Le processus : 
+%1
+ n&apos;a pas démarré. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Le processus : 
+%1
+ n&apos;a pas été trouvé. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>::INDEX_OF() argument de la chaîne à évaluer manquant.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>::INDEX_OF() argument de la chaîne à trouver manquant.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>::LENGTH() argument de la chaîne à évaluer manquant.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>::FILE_EXISTS() argument du path à convertir et tester manquant.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>::INCLUDE() 1er argument du fichier à importer manquant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>::EXPORT() 1er  argument du fichier de destination manquant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>::EXPORT() 2eme argument du type d&apos;exportation manquant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>::EXPORT() 3eme argument string a exporter ou liste des rubriques separees par | ou mode de conversion manquant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;br&gt;&lt;hr&gt;&lt;b&gt;--- Fiche : $NomRub &apos;$LibelleFicheRub&apos;  Numéro : $NumFicheRub vu par : $User pour $SignUser le $DateDeb à $HeureDeb -----&lt;/b&gt;&lt;hr&gt;&lt;br&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;br&gt;--- Edition du dossier : $NomPatient $PrenomPatient Numéro : $GUIDPat-----&lt;br&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;° &lt;u&gt;Antécédents ::TYPE:: :&lt;/u&gt;&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>::import() 1er argument du fichier à importer manquant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&quot; n&apos;a pu être créé</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&quot; non trouvé</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>::import() le répertoire de destination: &quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; ::CISP_LIBELLE:: code Cisp = ::CISP_CODE::;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&quot; n&apos;a pu être créée</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>::insert_image() le répertoire de destination: &quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>::PUT_VAR() nom de la variable non indiqué</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>::REPLACE_BY() 1er argument du texte à traiter manquant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>::REPLACE_BY() 2ème argument motif à  remplacer manquant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>::REPLACE_BY() 3ème argument motif de remplacement manquant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>::REPLACE_IN_FILE() 1er argument du fichier source à traiter manquant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>::REPLACE_IN_FILE() 2eme argument du fichier de destination manquant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>::replace_image() argument du nom de l&apos;image à remplacer manquant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>::RUBRIQUE_SHOW() rubrique name omited</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>::RUBRIQUE_SHOW() G_pCApp-&gt;m_pDrTux==0 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>::RUBRIQUE_SHOW() la rubrique de destination: &quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Erreur de syntaxe ::TO_TEXT() cette fonction doit comporter  au moins 1 arguments (le texte à convertir) </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Féminin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Propriété Ordonnance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Médicament</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Modèle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sans antécédents connus.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ses antécédents sont marqués par : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pas de valeur trouvée pour </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Obstétrique</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Le terme n&apos;est pas calculable (terme négatif). Vérifiez vos dates.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Le terme n&apos;est pas calculable (&gt; 45 SA). Vérifiez vos dates.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4858,26 +5340,6 @@ en Ã©tat de non effacement.
     </message>
     <message>
         <source>Code_AiguillageSTS_ToName () code inconnu : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>00 - Pas de tiers-payant complÃ©mentaire autorisÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>01 - Tiers-payant complÃ©mentaire autorisÃ© selon accord PS et AMC</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>02 - Tiers-payant complÃ©mentaire autorisÃ© selon rÃ©glementation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>62 - BÃ©nÃ©ficiaire de la CMU Tiers-payant rÃ©glementaire. Pas d&apos;Ã©clatement possible</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>71 - BÃ©nÃ©ficiaire sortant de CMU complÃ©mentaire. Pas d&apos;Ã©clatement possible</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4913,47 +5375,7 @@ en Ã©tat de non effacement.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>60 - BÃ©nÃ©ficiaire CMU complÃ©mentaire, Pas de DRE possible, pas de flux de rectification possible entre AMO et AMC</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>62 - BÃ©nÃ©ficiaire CMU complÃ©mentaire, DRE possible, pas de flux de rectification possible entre AMO et AMC</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>63 - BÃ©nÃ©ficiaire CMU complÃ©mentaire, DRE possible, flux de rectification possible entre AMO et AMC</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>72 - BÃ©nÃ©ficiaire sortant de CMU complÃ©mentaire, DRE possible, pas de flux de rectification possible entre AMO et AMC</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>73 - BÃ©nÃ©ficiaire sortant de CMU complÃ©mentaire, DRE possible, flux de rectification possible entre AMO et AMC</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>CodeIndicTT_AMCToName() Code service AMO inconnu : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>00 - Pas de service AMO spÃ©cifique</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>01 - CMU complÃ©mentaire gÃ©rÃ©e par une AMO</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>02 - CMU complÃ©mentaire gÃ©rÃ©e par une AMC en convention ou dÃ©lÃ©gation avec une AMO</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>03 - CMU complÃ©mentaire gÃ©rÃ©e par une AMC</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>10 - Sortant de CMU complÃ©mentaire</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4961,27 +5383,11 @@ en Ã©tat de non effacement.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>AssurÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ascendant, descendant, collatÃ©raux ascendants</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Conjoint</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Conjoint divorcÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Concubin</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Conjoint sÃ©parÃ©</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5001,10 +5407,6 @@ en Ã©tat de non effacement.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Pas de rÃ©sultat pour MUTNUM = </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source> code orga = </source>
         <translation type="unfinished"></translation>
     </message>
@@ -5012,14 +5414,94 @@ en Ã©tat de non effacement.
         <source>; Groupe : </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>00 - Pas de tiers-payant complémentaire autorisé</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>01 - Tiers-payant complémentaire autorisé selon accord PS et AMC</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>02 - Tiers-payant complémentaire autorisé selon réglementation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>62 - Bénéficiaire de la CMU Tiers-payant réglementaire. Pas d&apos;éclatement possible</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>71 - Bénéficiaire sortant de CMU complémentaire. Pas d&apos;éclatement possible</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>60 - Bénéficiaire CMU complémentaire, Pas de DRE possible, pas de flux de rectification possible entre AMO et AMC</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>62 - Bénéficiaire CMU complémentaire, DRE possible, pas de flux de rectification possible entre AMO et AMC</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>63 - Bénéficiaire CMU complémentaire, DRE possible, flux de rectification possible entre AMO et AMC</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>72 - Bénéficiaire sortant de CMU complémentaire, DRE possible, pas de flux de rectification possible entre AMO et AMC</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>73 - Bénéficiaire sortant de CMU complémentaire, DRE possible, flux de rectification possible entre AMO et AMC</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>00 - Pas de service AMO spécifique</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>01 - CMU complémentaire gérée par une AMO</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>02 - CMU complémentaire gérée par une AMC en convention ou délégation avec une AMO</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>03 - CMU complémentaire gérée par une AMC</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>10 - Sortant de CMU complémentaire</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Assuré</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ascendant, descendant, collatéraux ascendants</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Conjoint divorcé</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Conjoint séparé</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pas de résultat pour MUTNUM = </source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DlgAtcd_txt</name>
-    <message utf8="true">
+    <message>
         <source>Ajouter un antécédent en mode texte</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>&lt;b&gt;Ajouter un antécédent en mode texte&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5035,7 +5517,7 @@ en Ã©tat de non effacement.
         <source>En rapport avec une pathologie ALD</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Actif (pathologie en cours, non guérie)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5047,11 +5529,11 @@ en Ã©tat de non effacement.
         <source>La date est connue</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Libellé de l&apos;antécédent</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Libellé long de l&apos;antécédent</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5063,11 +5545,11 @@ en Ã©tat de non effacement.
         <source>Cliquez ici pour modifier les listes des familles et genres</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Famille de l&apos;antécédent</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Date de l&apos;antécédent</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5081,42 +5563,6 @@ en Ã©tat de non effacement.
     </message>
     <message>
         <source>Saisie de la date et de l&apos;heure de la rubrique.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Date et heure</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;DÃ©finir le libellÃ© usuel, la famille et le genre&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>LibellÃ© usuel </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ajouter un Ã©lÃ©ment au thÃ©saurus</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Actif</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PassÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Visualisation d&apos;un antÃ©cÃ©dent</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>MÃ©dicaux</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Modification d&apos;un antÃ©cÃ©dent</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5134,7 +5580,7 @@ en Ã©tat de non effacement.
         <source>Nom                  </source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Prénom</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5177,7 +5623,7 @@ en Ã©tat de non effacement.
 </context>
 <context>
     <name>DlgDateNom</name>
-    <message utf8="true">
+    <message>
         <source>Saisie de la date et de l&apos;intitulé de la rubrique</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5189,7 +5635,7 @@ en Ã©tat de non effacement.
         <source>Sous &amp;type :</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>&amp;Intitulé :</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5197,7 +5643,7 @@ en Ã©tat de non effacement.
         <source>Heure :</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Ici placer le sous type de la rubrique, pour la lier à un modèle d&apos;impression.</source>
         <comment>Ici placer le sous type de la rubrique, pour la lier à un modèle d&apos;impression.</comment>
         <translation type="unfinished"></translation>
@@ -5218,7 +5664,7 @@ en Ã©tat de non effacement.
         <source>__-__-____</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Ici placer le titre de la rubrique (celui affiché dans la liste déroulante des rubriques).</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5232,16 +5678,6 @@ en Ã©tat de non effacement.
     </message>
     <message>
         <source>Saisie de la date et de l&apos;heure de la rubrique.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Date et heure de la rubrique</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Date et heure :
-%1
-non positionnÃ©es car la saisie est invalide</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5290,7 +5726,7 @@ non positionnÃ©es car la saisie est invalide</source>
         <source>Marge &amp;haute</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Hauteur en-&amp;tête</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5318,7 +5754,7 @@ non positionnÃ©es car la saisie est invalide</source>
         <source>DPI</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Résolution  imprimante</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5330,7 +5766,7 @@ non positionnÃ©es car la saisie est invalide</source>
         <source>&amp;Y</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Permet d&apos;enregistrer les modifications des paramètres d&apos;impression</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5342,7 +5778,7 @@ non positionnÃ©es car la saisie est invalide</source>
         <source>D&amp;e la page :</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>&amp;à :</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5382,7 +5818,7 @@ non positionnÃ©es car la saisie est invalide</source>
         <source>Alt+C</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Configurer quelques paramètres d&apos;impression.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5394,7 +5830,7 @@ non positionnÃ©es car la saisie est invalide</source>
         <source>Alt+I</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Imprimer avec le nombre d&apos;exemplaires par défaut (bouton Configurer)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5414,7 +5850,7 @@ non positionnÃ©es car la saisie est invalide</source>
         <source>Alt+U</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Visualiser la page précédente.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5422,7 +5858,7 @@ non positionnÃ©es car la saisie est invalide</source>
         <source>Visualiser la page suivante.</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Sélectionner un en-tête et pied de page.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5461,11 +5897,11 @@ non positionnÃ©es car la saisie est invalide</source>
 </context>
 <context>
     <name>Dlg_AboutDrTux</name>
-    <message utf8="true">
+    <message>
         <source>À propos de Dr Tux</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>&lt;p align=&quot;left&quot;&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;font color=&quot;#ffffff&quot;&gt;Logiciel de gestion du dossier médical &lt;b&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font size=&quot;+1&quot;&gt;&lt;font color=&quot;#ff0000&quot;&gt;Version 1.14&lt;/font&gt;&lt;/font&gt;&lt;/b&gt;
 &lt;br&gt;Auteur : &lt;font color=&quot;#00f0ff&quot;&gt;&lt;b&gt;Roland Sevin&lt;/b&gt;&lt;/font&gt;  &lt;font color=&quot;#00f0ff&quot;&gt;(roland-sevin@medintux.org)&lt;/font&gt;
 &lt;br&gt;&lt;font color=&quot;#ffffff&quot;&gt;Contributeur : &lt;/font&gt;&lt;font color=&quot;#00f0ff&quot;&gt;&lt;b&gt;Gérard Delafond&lt;/b&gt;&lt;/font&gt;  &lt;font color=&quot;#00f0ff&quot;&gt;(gerard@delafond.org) 
@@ -5476,11 +5912,11 @@ non positionnÃ©es car la saisie est invalide</source>
 </context>
 <context>
     <name>Dlg_AdvancedTerrain</name>
-    <message utf8="true">
+    <message>
         <source>Définition du terrain</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Intervalle de bilibirubinémie pour lequel cette posologie s&apos;applique</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5504,7 +5940,7 @@ non positionnÃ©es car la saisie est invalide</source>
         <source>mg/L</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Intervalle de fraction d&apos;éjection pour lequel cette posologie s&apos;applique</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5520,11 +5956,11 @@ non positionnÃ©es car la saisie est invalide</source>
         <source>Alt+V</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source> Intervalle d&apos;âge pour lequel cette posologie s&apos;applique </source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>&amp;Âge entre : </source>
         <translation type="unfinished"></translation>
     </message>
@@ -5540,11 +5976,11 @@ non positionnÃ©es car la saisie est invalide</source>
         <source>mois Maximum</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>mois Minimum à</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Nouveau né</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5564,7 +6000,7 @@ non positionnÃ©es car la saisie est invalide</source>
         <source>Adulte</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Personne âgée</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5600,19 +6036,19 @@ non positionnÃ©es car la saisie est invalide</source>
         <source>En cours</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Intervalle de clearance de la créatinine pour lequel cette posologie s&apos;applique</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Hémodialysé</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Insuffisant rénal</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Intervalle de créatininémie pour lequel cette posologie s&apos;applique</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5635,7 +6071,7 @@ non positionnÃ©es car la saisie est invalide</source>
         <source>Ajouter un mois</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Enlever une année</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5731,7 +6167,7 @@ non positionnÃ©es car la saisie est invalide</source>
         <source>2010</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Ajouter une année</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5739,7 +6175,7 @@ non positionnÃ©es car la saisie est invalide</source>
         <source>Janvier</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Février</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5763,7 +6199,7 @@ non positionnÃ©es car la saisie est invalide</source>
         <source>Juillet</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Août</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5779,7 +6215,7 @@ non positionnÃ©es car la saisie est invalide</source>
         <source>Novembre</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Décembre</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5787,11 +6223,11 @@ non positionnÃ©es car la saisie est invalide</source>
         <source>Enlever un mois</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Présélection de dates</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Menu déroulant de choix de dates préétablies</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5799,104 +6235,10 @@ non positionnÃ©es car la saisie est invalide</source>
         <source>Heure : </source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Ce jour Ã  8:00 h - 2 jours</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ce jour Ã  8:00 h - 1 jour</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ce jour Ã  8:00 h - 24 h</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ce jour Ã  8:00 h</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ce jour Ã  8:00 h + 24 h</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ce jour Ã  8:00 h + 1 jour</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ce jour Ã  8:00 h + 2 jours</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ce mois Ã  0:00 h</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ce mois Ã  0:00 h - 1 mois</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cette annÃ©e Ã  0:00 h</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cette annÃ©e Ã  0:00 h - 1 an</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Erreur de saisie dans la date</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Erreur de saisie de la date
-donnÃ©es invalides</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Erreur de saisie de l&apos;annÃ©e
-Minimum possible: 1753 Maximum: 8000</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ã </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>h</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>+</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>mois</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>annÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>jour</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>an</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>:</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>Dlg_FamilleGenre</name>
-    <message utf8="true">
+    <message>
         <source>Modifier les Familles et genres des antécédents</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5912,7 +6254,7 @@ Minimum possible: 1753 Maximum: 8000</source>
         <source>Ajouter une famille</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Effacer l&apos;item sélectionné</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5920,15 +6262,15 @@ Minimum possible: 1753 Maximum: 8000</source>
         <source>Enregistrer les modifications</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Libellé</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Liste des familles genres d&apos;antécédents</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>&lt;font size=&quot;-1&quot;&gt;Cette boîte de dialogue permet de modifier les &lt;b&gt;familles&lt;/b&gt; et &lt;b&gt;genres&lt;/b&gt; caractérisant les &lt;b&gt;antécédents&lt;/b&gt;.&lt;br&gt;
 En effet à chaque antécédent vous pouvez associer une famille le caractérisant, comme par exemple &lt;b&gt;Médicaux&lt;/b&gt; 
 pour les antécédents médicaux ou &lt;b&gt;Chirurgicaux&lt;/b&gt; pour les antécédents chirurgicaux. Ces familles 
@@ -5938,7 +6280,7 @@ peuvent elle même contenir des &lt;b&gt;genres&lt;/b&gt; (facultatifs) permetta
 </context>
 <context>
     <name>Dlg_GestionATCD</name>
-    <message utf8="true">
+    <message>
         <source>Gestion des antécédents</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5946,7 +6288,7 @@ peuvent elle même contenir des &lt;b&gt;genres&lt;/b&gt; (facultatifs) permetta
         <source>Cim 10</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Libellé                                                 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -5962,7 +6304,7 @@ peuvent elle même contenir des &lt;b&gt;genres&lt;/b&gt; (facultatifs) permetta
         <source>Contient : </source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Premier critère de recherche</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5970,11 +6312,11 @@ peuvent elle même contenir des &lt;b&gt;genres&lt;/b&gt; (facultatifs) permetta
         <source>et contient :</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Deuxième critère de recherche</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>chapitrée</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6034,7 +6376,7 @@ peuvent elle même contenir des &lt;b&gt;genres&lt;/b&gt; (facultatifs) permetta
         <source>Favoris</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Libellé usuel                                              </source>
         <translation type="unfinished"></translation>
     </message>
@@ -6042,7 +6384,7 @@ peuvent elle même contenir des &lt;b&gt;genres&lt;/b&gt; (facultatifs) permetta
         <source>Famille</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Libellé long</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6050,7 +6392,7 @@ peuvent elle même contenir des &lt;b&gt;genres&lt;/b&gt; (facultatifs) permetta
         <source>id</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Editer le favoris sélectionné</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6058,7 +6400,7 @@ peuvent elle même contenir des &lt;b&gt;genres&lt;/b&gt; (facultatifs) permetta
         <source>Enregistrer les favoris</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Effacer les éléments sélectionnés dans la liste des favoris</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6066,7 +6408,7 @@ peuvent elle même contenir des &lt;b&gt;genres&lt;/b&gt; (facultatifs) permetta
         <source>Cliquez ici pour modifier les listes des familles et genres</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Ajouter l&apos;item sélectionné aux favoris.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6078,7 +6420,7 @@ peuvent elle même contenir des &lt;b&gt;genres&lt;/b&gt; (facultatifs) permetta
         <source>Exporter les favoris dans un fichier texte.</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Importer les favoris à partir d&apos;un fichier texte.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6094,7 +6436,7 @@ peuvent elle même contenir des &lt;b&gt;genres&lt;/b&gt; (facultatifs) permetta
         <source>Alt+L</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Liste des antécédents du patient</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6102,15 +6444,15 @@ peuvent elle même contenir des &lt;b&gt;genres&lt;/b&gt; (facultatifs) permetta
         <source>Retirer un item de la liste de droite</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Ajouter un medicament comme antécédent allergique</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Ajouter un antécédent en texte libre</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Placer l&apos;item sélectionné dans la liste de gauche dans celle de droite</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6118,7 +6460,7 @@ peuvent elle même contenir des &lt;b&gt;genres&lt;/b&gt; (facultatifs) permetta
         <source>Ctrl+=, F7</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Ajout rapide (ne passe pas par le dialogue de propriétés)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6127,7 +6469,7 @@ peuvent elle même contenir des &lt;b&gt;genres&lt;/b&gt; (facultatifs) permetta
 Ajouter&lt;/b&gt;&lt;/font&gt;</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>État</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6143,6 +6485,18 @@ Ajouter&lt;/b&gt;&lt;/font&gt;</source>
         <source>ALD</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Cisp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Filtrer sur :</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cim10</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Dlg_HtmlView</name>
@@ -6153,7 +6507,7 @@ Ajouter&lt;/b&gt;&lt;/font&gt;</source>
 </context>
 <context>
     <name>Dlg_ImageProperty</name>
-    <message utf8="true">
+    <message>
         <source>Propriétés de l&apos;image</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6243,11 +6597,11 @@ Ajouter&lt;/b&gt;&lt;/font&gt;</source>
         <source>___</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Quantité d&apos;unités de prise</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>à</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6255,7 +6609,7 @@ Ajouter&lt;/b&gt;&lt;/font&gt;</source>
         <source>InvisibleString</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>&amp;Non sécable</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6263,7 +6617,7 @@ Ajouter&lt;/b&gt;&lt;/font&gt;</source>
         <source>Alt+N</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>&amp;Sécable en 2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6271,7 +6625,7 @@ Ajouter&lt;/b&gt;&lt;/font&gt;</source>
         <source>Alt+S</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Sécable en &amp;4</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6351,19 +6705,15 @@ Ajouter&lt;/b&gt;&lt;/font&gt;</source>
         <source>suivant</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
-        <source>Répartition de la prise</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
-        <source>SchÃ©ma de prise conseillÃ©</source>
+        <source>Répartition de la prise</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>1 fois par jour, le matin                                                                      </source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>1 fois par jour, à midi                                                                        </source>
         <translation type="unfinished"></translation>
     </message>
@@ -6375,7 +6725,7 @@ Ajouter&lt;/b&gt;&lt;/font&gt;</source>
         <source>1 fois par jour, le soir au coucher                                                             </source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>1 fois par jour, au petit déjeuner                                                             </source>
         <translation type="unfinished"></translation>
     </message>
@@ -6383,7 +6733,7 @@ Ajouter&lt;/b&gt;&lt;/font&gt;</source>
         <source>1 fois par jour, au cours du repas de midi                                                     </source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>1 fois par jour, au cours du dîner                                                            </source>
         <translation type="unfinished"></translation>
     </message>
@@ -6407,7 +6757,7 @@ Ajouter&lt;/b&gt;&lt;/font&gt;</source>
         <source>2 fois par jour, matin et soir au cours des repas                                             </source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>2 fois par jour, au petit déjeuner et au repas de midi                                         </source>
         <translation type="unfinished"></translation>
     </message>
@@ -6423,11 +6773,11 @@ Ajouter&lt;/b&gt;&lt;/font&gt;</source>
         <source>3 fois par jour, matin, midi et soir au cours des repas                                       </source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>4 fois par jour, matin, midi, après-midi et soir                                                </source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>5 fois par jour, matin, midi, après-midi, soir et coucher                                      </source>
         <translation type="unfinished"></translation>
     </message>
@@ -6488,21 +6838,13 @@ Ajouter&lt;/b&gt;&lt;/font&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Nombre d&apos;unitÃ©s de prise </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Dose Maximum possible: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>un</source>
+        <source>Schéma de prise conseillé</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>Dlg_MedicaTux</name>
-    <message utf8="true">
+    <message>
         <source>Thérapeutique</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6534,7 +6876,7 @@ Ajouter&lt;/b&gt;&lt;/font&gt;</source>
         <source>Alt+D</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Produits &amp;génériques seulement</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6570,7 +6912,7 @@ Ajouter&lt;/b&gt;&lt;/font&gt;</source>
         <source>Classes ATC</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Classes Thérapeutiques Vidal</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6578,7 +6920,7 @@ Ajouter&lt;/b&gt;&lt;/font&gt;</source>
         <source>Code ATC</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Classes Thérapeutiques Vidal                       </source>
         <translation type="unfinished"></translation>
     </message>
@@ -6586,7 +6928,7 @@ Ajouter&lt;/b&gt;&lt;/font&gt;</source>
         <source>Code</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Sélectionner un élément de la liste (% pour position variable du terme)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6618,15 +6960,15 @@ Ajouter&lt;/b&gt;&lt;/font&gt;</source>
         <source>Type</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Lister les substances du produit sélectionné dans la liste</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Trier par les génériques</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Trier par les référents</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6707,11 +7049,11 @@ Ajouter&lt;/b&gt;&lt;/font&gt;</source>
 &lt;center&gt;Prescription vide&lt;/center&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;center&gt;Veuillez choisir un produit dans la liste et valider une posologie dans l&apos;onglet Posologies.&lt;/center&gt;</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Poids du patient en Kg, si non renseigné le poids de 70 kg est utilisé</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Taille du patient (si non renseignée elle est déduite de la formule de Lorentz)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6807,142 +7149,6 @@ Ajouter&lt;/b&gt;&lt;/font&gt;</source>
         <source>Alt+V</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>GÃ©nÃ©ralitÃ©s</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Composition</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Extra</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Editeur de Posologie</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Editeur de mÃ©dicaments</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>MedicaTux est connectÃ© Ã  : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>  Version : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> produits trouvÃ©s</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>SpÃ©cialitÃ©s       </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>DiÃ©tÃ©tique        </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Prod .VÃ©tÃ©rinaires</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Parapharmacie     </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Accessoires       </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Divers (herboristerie, etc.)       </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>HomÃ©opathie       </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Poids : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> kg</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Taille : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> cm</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> Produits trouvÃ©s</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> produits trouvÃ©s en </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> secondes</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Lister les substances de ce produit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Lister les indications de ce produit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>---------</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Afficher la monographie de ce produit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Afficher les posologies de ce produit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>substances</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>indications</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>monographie</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>posologies</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> 0 Bon pour achat </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>un</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Posologie non extraite de la base</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>Dlg_PasswordGet</name>
@@ -6950,7 +7156,7 @@ Ajouter&lt;/b&gt;&lt;/font&gt;</source>
         <source>Saisie du mot de passe</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>&amp;Mémoriser le mot de passe</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6974,7 +7180,7 @@ Ajouter&lt;/b&gt;&lt;/font&gt;</source>
         <source>Alt+A</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>( huit caractères maximum )</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7004,7 +7210,7 @@ Ajouter&lt;/b&gt;&lt;/font&gt;</source>
 </context>
 <context>
     <name>Dlg_PermsUserChoice</name>
-    <message utf8="true">
+    <message>
         <source>Sélection des utilisateurs</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7024,7 +7230,7 @@ Ajouter&lt;/b&gt;&lt;/font&gt;</source>
         <source>Alt+A</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>&lt;b&gt;Sélectionnez les utilisateurs délégués&lt;br&gt;
 qui seront autorisés à utiliser MedinTux  &lt;br&gt;en votre nom et avec vos en-têtes&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
@@ -7037,7 +7243,7 @@ qui seront autorisés à utiliser MedinTux  &lt;br&gt;en votre nom et avec vos e
         <source>Nom                  </source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Prénom</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7069,10 +7275,6 @@ qui seront autorisés à utiliser MedinTux  &lt;br&gt;en votre nom et avec vos e
         <source>Qualification</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Toutes spÃ©cialitÃ©s</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>Dlg_PosoManager</name>
@@ -7080,7 +7282,7 @@ qui seront autorisés à utiliser MedinTux  &lt;br&gt;en votre nom et avec vos e
         <source>Gestion des posologies</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Posologies déjà définies pour ce produit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7136,7 +7338,7 @@ qui seront autorisés à utiliser MedinTux  &lt;br&gt;en votre nom et avec vos e
         <source>Alt+O</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Copier une &amp;définition de posologie  &gt;&gt;&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7144,7 +7346,7 @@ qui seront autorisés à utiliser MedinTux  &lt;br&gt;en votre nom et avec vos e
         <source>Alt+D</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Coller la définition de &amp;posologie ci-dessous</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7184,7 +7386,7 @@ qui seront autorisés à utiliser MedinTux  &lt;br&gt;en votre nom et avec vos e
         <source>Fact Corp Unit</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Période</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7200,7 +7402,7 @@ qui seront autorisés à utiliser MedinTux  &lt;br&gt;en votre nom et avec vos e
         <source>Conditions d&apos;application</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>&amp;Terrain (avancé)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7208,7 +7410,7 @@ qui seront autorisés à utiliser MedinTux  &lt;br&gt;en votre nom et avec vos e
         <source>Alt+T</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Définition structurée des spécifications de terrain</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7216,7 +7418,7 @@ qui seront autorisés à utiliser MedinTux  &lt;br&gt;en votre nom et avec vos e
         <source>Se&amp;xe </source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Féminin</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7224,11 +7426,11 @@ qui seront autorisés à utiliser MedinTux  &lt;br&gt;en votre nom et avec vos e
         <source>Masculin</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Indifférent</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Âge de (en mois) </source>
         <translation type="unfinished"></translation>
     </message>
@@ -7240,7 +7442,7 @@ qui seront autorisés à utiliser MedinTux  &lt;br&gt;en votre nom et avec vos e
         <source>__________</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source> à </source>
         <translation type="unfinished"></translation>
     </message>
@@ -7248,11 +7450,11 @@ qui seront autorisés à utiliser MedinTux  &lt;br&gt;en votre nom et avec vos e
         <source> Poids de </source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Intitulé de cette posologie  .</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Quantité d&apos;unités de prise</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7276,27 +7478,27 @@ qui seront autorisés à utiliser MedinTux  &lt;br&gt;en votre nom et avec vos e
         <source>Pas de facteur corporel</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>&lt;u&gt;Exemple:&lt;/u&gt;   &lt;b&gt;500 mg par comprimé&lt;/b&gt;  et facteur corporel = &lt;b&gt;Kg de poids&lt;/b&gt;  &lt;br&gt;  unité de UP1 =  &lt;b&gt;mg&lt;/b&gt;  avec  unité de UP2 = &lt;b&gt;comprimé&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Quantité de l&apos;unité de prise 1 (ci-dessus ligne : UP1 ) contenue dans la forme usuelle ou galénique d&apos;unité de prise ( ligne : UP2 )</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Quantité d&apos;unités UP1 dans l&apos;unité UP2</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Indiquez la taille dont doit tenir compte la posologie affichée à droite ci-contre(en zone bleu clair)</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Indiquez le poids dont doit tenir compte la posologie affichée à droite ci-contre  (en zone bleu clair)</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Vue présentant le résultat des données</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7312,31 +7514,31 @@ qui seront autorisés à utiliser MedinTux  &lt;br&gt;en votre nom et avec vos e
         <source>UP 2</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Quantité Minimum d&apos;unités de prise, sous forme utile (comprimés, gélules etc.)</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>à</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Quantité Maximum d&apos;unités de prise, sous forme utile (comprimés, gélules etc.)</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Unité dans laquelle s&apos;exprime l&apos;unité de prise</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Ajouter et définir une nouvelle unité</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Exprimée pour une durée de :</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Période pour laquelle est définie la posologie (habituellement 1 jour)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7488,7 +7690,7 @@ qui seront autorisés à utiliser MedinTux  &lt;br&gt;en votre nom et avec vos e
         <source>5 mois</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Liste de valeurs possibles pour la période ci-contre à gauche</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7500,19 +7702,19 @@ qui seront autorisés à utiliser MedinTux  &lt;br&gt;en votre nom et avec vos e
         <source>UP 1</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Quantité minimum d&apos;unités de prise pour la période définie ci-dessus</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Quantité maximum d&apos;unités de prise pour la période définie ci-dessus</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Schéma de prise</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Répartition de la prise</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7528,7 +7730,7 @@ qui seront autorisés à utiliser MedinTux  &lt;br&gt;en votre nom et avec vos e
         <source>1 fois par jour, le matin                                                                      </source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>1 fois par jour, à midi                                                                        </source>
         <translation type="unfinished"></translation>
     </message>
@@ -7540,7 +7742,7 @@ qui seront autorisés à utiliser MedinTux  &lt;br&gt;en votre nom et avec vos e
         <source>1 fois par jour, le soir au coucher                                                             </source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>1 fois par jour, au petit déjeuner                                                             </source>
         <translation type="unfinished"></translation>
     </message>
@@ -7548,7 +7750,7 @@ qui seront autorisés à utiliser MedinTux  &lt;br&gt;en votre nom et avec vos e
         <source>1 fois par jour, au cours du repas de midi                                                     </source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>1 fois par jour, au cours du dîner                                                            </source>
         <translation type="unfinished"></translation>
     </message>
@@ -7572,7 +7774,7 @@ qui seront autorisés à utiliser MedinTux  &lt;br&gt;en votre nom et avec vos e
         <source>2 fois par jour, matin et soir au cours des repas                                             </source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>2 fois par jour, au petit déjeuner et au repas de midi                                         </source>
         <translation type="unfinished"></translation>
     </message>
@@ -7588,15 +7790,15 @@ qui seront autorisés à utiliser MedinTux  &lt;br&gt;en votre nom et avec vos e
         <source>3 fois par jour, matin, midi et soir au cours des repas                                       </source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>4 fois par jour, matin, midi, après-midi et soir                                                </source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>5 fois par jour, matin, midi, après-midi, soir et coucher                                      </source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Liste de quelques schémas de prise communs</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7612,31 +7814,31 @@ qui seront autorisés à utiliser MedinTux  &lt;br&gt;en votre nom et avec vos e
         <source>62 jours</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Durée de prescription</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Schéma de prise (avancé) ...</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Permet de définir des schémas de prise complexes</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Non sécable</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Sécable en 4</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Définition structurée des schémas de prise</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Sécable en 2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7672,32 +7874,6 @@ qui seront autorisés à utiliser MedinTux  &lt;br&gt;en votre nom et avec vos e
         <source>&amp;Quitter</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Modifier la posologie pour: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> Coller une liste de posologie </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> DÃ©sirez vous placer la liste de posologies du produit : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>
- sur celui en cours : 
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Oui</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Non</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>Dlg_VigieFiltreConf</name>
@@ -7713,7 +7889,7 @@ qui seront autorisés à utiliser MedinTux  &lt;br&gt;en votre nom et avec vos e
         <source>Confirmer</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Liste des répertoires à afficher dans ce filtre (un par ligne)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7721,7 +7897,7 @@ qui seront autorisés à utiliser MedinTux  &lt;br&gt;en votre nom et avec vos e
         <source>Nom du filtre</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Un filtre est une liste de classeurs (un par ligne). Lorsque le filtre est activé, seuls ces classeurs seront visibles.
 Si vous modifiez le nom d&apos;un filtre déjà existant, cela crééra un nouveau filtre, copie de celui déjà existant, avec le nouveau nom. Cela est utile pour créer des nouveaux filtres à partir d&apos;un modèle.</source>
         <translation type="unfinished"></translation>
@@ -7733,19 +7909,19 @@ Si vous modifiez le nom d&apos;un filtre déjà existant, cela crééra un nouve
         <source>Dock_Menu</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Créer un nouveau dossier patient</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Saisie du nom;prénom d&apos;un nouveau patient. (appuyer sur touche Entrée pour confirmer)</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>&lt;b&gt;Accès Rapide&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Accès rapide aux éléments du dossier médical</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7761,7 +7937,7 @@ Si vous modifiez le nom d&apos;un filtre déjà existant, cela crééra un nouve
         <source>Diminue le zoom</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Zoom par défaut</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7774,31 +7950,11 @@ Si vous modifiez le nom d&apos;un filtre déjà existant, cela crééra un nouve
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>IdentitÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> NÃ©e </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Num SS : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Profession : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>TÃ©l3 : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>TÃ©l2 : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>TÃ©l1 : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7811,10 +7967,6 @@ Si vous modifiez le nom d&apos;un filtre déjà existant, cela crééra un nouve
     </message>
     <message>
         <source>Variables</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>AntÃ©cÃ©dents</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7858,15 +8010,7 @@ Si vous modifiez le nom d&apos;un filtre déjà existant, cela crééra un nouve
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Vous ne possÃ©dez pas les droits suffisants pour accÃ©der au glossaire</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Ajouter une observation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tous les droits sont accordÃ©s (super-administrateur)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7882,23 +8026,11 @@ Si vous modifiez le nom d&apos;un filtre déjà existant, cela crééra un nouve
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Ne peut pas crÃ©er de documents</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Observations</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Ne peut pas crÃ©er d&apos;observations</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Prescriptions</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>CrÃ©ation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7918,31 +8050,11 @@ Si vous modifiez le nom d&apos;un filtre déjà existant, cela crééra un nouve
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Vous n&apos;avez pas le droit de modifier les antÃ©cÃ©dents</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ajouter un antÃ©cÃ©dent CIM 10</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Ajouter une allergie</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Ajouter un antÃ©cÃ©dent texte libre</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>DÃ©finir comme enceinte</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Ajouter</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Le dossier est verrouillÃ©</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7970,27 +8082,7 @@ Si vous modifiez le nom d&apos;un filtre déjà existant, cela crééra un nouve
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Modifier cet antÃ©cÃ©dent</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>En date du %1 (Modifier)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>DÃ©finir une date</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>DÃ©finir un commentaire</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>GuÃ©ri - DÃ©finir comme Actif</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Actif - DÃ©finir comme GuÃ©ri</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7999,10 +8091,6 @@ Si vous modifiez le nom d&apos;un filtre déjà existant, cela crééra un nouve
     </message>
     <message>
         <source>Sans rapport avec une pathologie ALD</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Effacer un antÃ©cÃ©dent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8015,6 +8103,94 @@ Si vous modifiez le nom d&apos;un filtre déjà existant, cela crééra un nouve
     </message>
     <message>
         <source>Choix Patients</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Identité</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> Née </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tél3 : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tél2 : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tél1 : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Antécédents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Vous ne possédez pas les droits suffisants pour accéder au glossaire</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tous les droits sont accordés (super-administrateur)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ne peut pas créer de documents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ne peut pas créer d&apos;observations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Création</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Vous n&apos;avez pas le droit de modifier les antécédents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ajouter un antécédent CIM 10</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ajouter un antécédent texte libre</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Définir comme enceinte</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Le dossier est verrouillé</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Modifier cet antécédent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Définir une date</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Définir un commentaire</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Guéri - Définir comme Actif</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Actif - Définir comme Guéri</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Effacer un antécédent</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8044,15 +8220,7 @@ Si vous modifiez le nom d&apos;un filtre déjà existant, cela crééra un nouve
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;/b&gt;&lt;br&gt; Son accÃ¨s n&apos;est possible &lt;b&gt;&lt;u&gt;qu&apos;en lecture seulement&lt;/u&gt;&lt;/b&gt;,&lt;br&gt;il se mettra automatiquement en mode Ã©criture&lt;br&gt;lorsqu&apos;il sera disponible sur votre poste,&lt;br&gt;&lt;b&gt;&lt;font color=&quot;#e80d0d&quot;&gt;&lt;u&gt;ce qui impose sa fermeture sur le poste&lt;br&gt;oÃ¹ il est actuellement utilisÃ©.&lt;/u&gt;&lt;/font&gt;&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Annu&amp;ler</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;FenÃªtres</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8072,48 +8240,12 @@ Si vous modifiez le nom d&apos;un filtre déjà existant, cela crééra un nouve
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Le RÃ©sumÃ© patient (AccÃ¨s rapide)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Enregistrer la position des fenÃªtres</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enregistrer la position des fenÃªtres &amp;filles seulement</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;RÃ©tablir la position des fenÃªtres</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>FenÃªtres en &amp;cascade</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>FenÃªtres en &amp;mosaÃ¯que</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Aligner toutes les fenÃªtres sur la fenÃªtre active</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Ai&amp;de</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>&amp;Ã propos</source>
-        <translation type="unfinished">&amp;A propos de DrTux</translation>
-    </message>
-    <message>
-        <source>A&amp;ide</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ã propos de &amp;Qt</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">&amp;A propos de DrTux</translation>
     </message>
     <message>
         <source>&amp;Qu&apos;est-ce que c&apos;est ?</source>
@@ -8160,15 +8292,7 @@ Si vous modifiez le nom d&apos;un filtre déjà existant, cela crééra un nouve
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>DÃ©sactiver %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Activer %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Etat intÃ©terminÃ© pour %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8200,26 +8324,6 @@ Si vous modifiez le nom d&apos;un filtre déjà existant, cela crééra un nouve
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Fichier par dÃ©faut  non trouvÃ©, lors ouverture de la liasse par dÃ©faut de la Vigie</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Erreur lors de la lecture du fichier de paramÃ¨tres, mention &quot;Vigie&quot; non trouvÃ©e ou non indiquÃ©, lors ouverture du document par dÃ©faut</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Fichier par dÃ©faut non trouvÃ© ou non indiquÃ©, lors ouverture de l&apos;%1 par dÃ©faut</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Erreur : mention &quot;%1&quot; non trouvÃ©e dans le fichier de paramÃ¨tres, lors de l&apos;ouverture du fichier initial</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> Rechercher le rÃ©pertoire du Glossaire</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Valider le chemin du Glossaire</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8228,28 +8332,7 @@ Si vous modifiez le nom d&apos;un filtre déjà existant, cela crééra un nouve
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;/b&gt; est dÃ©jÃ  ouvert sur le poste suivant : &lt;b&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;/b&gt;&lt;br&gt; Faut-il : &lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; Â°  &lt;b&gt; Il ne sera ouvert qu&apos;en &lt;u&gt;lecture&lt;/u&gt; seule&lt;/b&gt; (recommandÃ©) afin de laisser l&apos;utilisateur actuel finir les modifications sur ce dossier.&lt;br&gt; DÃ¨s fermeture de ce dossier par cet utilisateur il sera disponible en Ã©criture sur&lt;br&gt;votre poste de travail &lt;br&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Ok</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> ATTENTION !
-      VOUS VOUS APPRÃTEZ Ã EFFACER LE DOSSIER : 
-      </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>
-      CETTE ACTION EST IRRÃVERSIBLE
-      ET LES DONNÃES DU DOSSIER NE SERONT
-      PAS RÃCUPÃRABLES PAR LA SUITE</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8277,31 +8360,7 @@ Si vous modifiez le nom d&apos;un filtre déjà existant, cela crééra un nouve
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Le nouveau nom est vide.&lt;br&gt;OpÃ©ration annulÃ©e</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Un fichier portant ce nom existe dÃ©jÃ .&lt;br&gt;OpÃ©ration annulÃ©e</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cet Ã©lÃ©ment&lt;br&gt;&lt;b&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;/b&gt;&lt;br&gt; n&apos;a pu Ãªtre renommÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Erreur</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>CrÃ©er</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>DÃ©truire</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8310,14 +8369,6 @@ Si vous modifiez le nom d&apos;un filtre déjà existant, cela crééra un nouve
     </message>
     <message>
         <source> La destruction de ce fichier : &lt;br&gt;&lt;b&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;/b&gt;&lt;br&gt; sera &lt;u&gt;DÃFINITIVE&lt;/u&gt;&lt;br&gt; Confirmez-vous la destruction ?&lt;br&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;DÃ©truire</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8333,19 +8384,7 @@ Si vous modifiez le nom d&apos;un filtre déjà existant, cela crééra un nouve
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;/b&gt; n&apos;est pas la mÃªme que celle&lt;br&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>de l&apos;observation en cours : &lt;b&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;/b&gt; le document Ã  crÃ©er doit-il &lt;br&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>l&apos;Ãªtre Ã  la date du jour ou Ã  celle de l&apos;observation ? &lt;br&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8357,35 +8396,11 @@ Si vous modifiez le nom d&apos;un filtre déjà existant, cela crééra un nouve
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source> CrÃ©ation d&apos;un nouveau document </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>L&apos;utilisateur actuel : &lt;b&gt;&lt;font color=&quot;#e80d0d&quot;&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>&lt;/font&gt;&lt;/b&gt; a la confiance de l&apos;utilisateur : &lt;b&gt;&lt;font color=&quot;#e80d0d&quot;&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>signataire de l&apos;observation affichÃ©e Ã  la date du : &lt;b&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Â°&amp;nbsp;&amp;nbsp;&amp;nbsp;Faut-il crÃ©er ce document avec cet utilisateur signataire &lt;b&gt;&lt;font color=&quot;#e80d0d&quot;&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;/font&gt;&lt;/b&gt; et Ã  la date de l&apos;observation &lt;b&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Â°&amp;nbsp;&amp;nbsp;&amp;nbsp;ou avec l&apos;utilisateur en cours et l&apos;utilisateur signataire en cours: &lt;b&gt;&lt;font color=&quot;#e80d0d&quot;&gt;&lt;br&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;/font&gt;&lt;/b&gt; Ã  la date de ce jour  &lt;b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8410,14 +8425,6 @@ Si vous modifiez le nom d&apos;un filtre déjà existant, cela crééra un nouve
     </message>
     <message>
         <source>&amp;Nouveau dossier...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>DÃ©truire le dossier</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;DÃ©truire le dossier</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8461,18 +8468,6 @@ Si vous modifiez le nom d&apos;un filtre déjà existant, cela crééra un nouve
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PrÃ©fÃ©rences</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;PrÃ©fÃ©rences</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Veuillez sÃ©lectionner les utilisateurs pour lesquels vous dÃ©sirez enregistrer le profil actuel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Outils Vigie</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8497,30 +8492,6 @@ Si vous modifiez le nom d&apos;un filtre déjà existant, cela crééra un nouve
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Liste Ã  puces (Disque)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Liste Ã  puces (Cercle)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Liste Ã  puces (CarrÃ©)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Liste ordonnÃ©e (DÃ©cimal)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Liste ordonnÃ©e (Alpha minuscule)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Liste ordonnÃ©e (Alpha majuscule)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Gras</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8537,14 +8508,6 @@ Si vous modifiez le nom d&apos;un filtre déjà existant, cela crééra un nouve
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>SoulignÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>So&amp;ulignÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Gauche</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8553,27 +8516,11 @@ Si vous modifiez le nom d&apos;un filtre déjà existant, cela crééra un nouve
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>CentrÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>C&amp;entrÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Droite</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>D&amp;roite</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>JustifiÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;JustifiÃ©</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8601,59 +8548,7 @@ Si vous modifiez le nom d&apos;un filtre déjà existant, cela crééra un nouve
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>DrTux::Create_CustomAction : missed first  &lt;cstring&gt;  after property name= &quot;name&quot;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>DrTux::Create_CustomAction : missed end    &lt;/cstring&gt; after property name= &quot;name&quot;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>DrTux::Create_CustomAction : missed first  &lt;iconset&gt;  after property name= &quot;iconset&quot;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>DrTux::Create_CustomAction : missed end    &lt;/iconset&gt; after property name= &quot;iconset&quot;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>DrTux::Create_CustomAction : missed first  &lt;string&gt;  after property name= &quot;text&quot;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>DrTux::Create_CustomAction : missed end    &lt;/string&gt; after property name= &quot;text&quot;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>DrTux::Create_CustomAction : missed first  &lt;string&gt;  after property name= &quot;menuText&quot;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>DrTux::Create_CustomAction : missed end    &lt;/string&gt; after property name= &quot;menuText&quot;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>DrTux::Create_CustomAction : missed first  &lt;string&gt;  after property name= &quot;accel&quot;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>DrTux::Create_CustomAction : missed end    &lt;/string&gt; after property name= &quot;accel&quot;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>DrTux::Create_CustomAction : missed end    &lt;/string&gt; after property name in facultatives options</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>!=!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;br&gt; &lt;b&gt;Erreur : &lt;/b&gt; il semblerai que l&apos;objet receveur du menu actuel n&apos;existe pas&lt;br&gt;surement un dÃ©faut de connexion au message : Sign_Exe_Plugin()</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Ãdition</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8701,31 +8596,7 @@ Si vous modifiez le nom d&apos;un filtre déjà existant, cela crééra un nouve
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Tout sÃ©lectionner</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tout &amp;SÃ©lectionner</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Terrain</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ajouter un antÃ©cÃ©dent Ã  partir des favoris</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ajouter un antÃ©cÃ©dent allergique</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ajouter un antÃ©cÃ©dent CIM10</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ajouter un antÃ©cÃ©dent textuel libre</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8738,22 +8609,6 @@ Si vous modifiez le nom d&apos;un filtre déjà existant, cela crééra un nouve
     </message>
     <message>
         <source>Outils Divers</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Outil de gestion des listes  dÃ©roulantes...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Outil de &amp;gestion des listes  dÃ©roulantes...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>CrÃ©er une liste avec la sÃ©lection</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>CrÃ©er une liste avec la &amp;sÃ©lection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8773,14 +8628,6 @@ Si vous modifiez le nom d&apos;un filtre déjà existant, cela crééra un nouve
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Base thÃ©rapeutique</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Base thÃ©rapeutique...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>CCAM</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8793,23 +8640,7 @@ Si vous modifiez le nom d&apos;un filtre déjà existant, cela crééra un nouve
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Placer les derniers rÃ©sultats Labo</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>La crÃ©ation d&apos;un nouveau document se fait :
-      en double-cliquant sur un modÃ¨le du glossaire (ordonnance type, certificat type ou observation type) 
-      ou, pour une prescription, en cliquant sur l&apos;icÃ´ne ThÃ©rapeutique dans la barre de menu Ã  droite (touche F5)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Ok</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> ERREUR :
-      L&apos;accÃ¨s Ã  la base CIM10 est impossible : 
-</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8818,27 +8649,11 @@ Si vous modifiez le nom d&apos;un filtre déjà existant, cela crééra un nouve
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;b&gt;Â°&amp;nbsp;&lt;u&gt;::TYPE:: :&lt;/u&gt;&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;::LIBELLE:: ::NOTE:: ::ALD:: ::DATE::</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>en date du : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>est liÃ© Ã  une pathologie ALD</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>InsÃ©rerOrdo</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>ActivitÃ©: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8866,30 +8681,426 @@ Si vous modifiez le nom d&apos;un filtre déjà existant, cela crééra un nouve
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Ce dossier en cours a Ã©tÃ© modifiÃ©, faut-il :
- enregistrer les modifications ?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Ne pas fermer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Enregister et fermer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>&amp;Fermer sans enregistrer</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>&lt;/b&gt;&lt;br&gt; Son accès ne sera possible sur votre poste, qu&apos;après fermeture sur le poste où il est actuellement ouvert</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>lecture</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;/b&gt;&lt;br&gt; Son accès n&apos;est possible &lt;b&gt;&lt;u&gt;qu&apos;en lecture seulement&lt;/u&gt;&lt;/b&gt;,&lt;br&gt;il se mettra automatiquement en mode écriture&lt;br&gt;lorsqu&apos;il sera disponible sur votre poste,&lt;br&gt;&lt;b&gt;&lt;font color=&quot;#e80d0d&quot;&gt;&lt;u&gt;ce qui impose sa fermeture sur le poste&lt;br&gt;où il est actuellement utilisé.&lt;/u&gt;&lt;/font&gt;&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Fenêtres</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Le Résumé patient (Accès rapide)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Enregistrer la position des fenêtres</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enregistrer la position des fenêtres &amp;filles seulement</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Rétablir la position des fenêtres</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fenêtres en &amp;cascade</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fenêtres en &amp;mosaïque</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Aligner toutes les fenêtres sur la fenêtre active</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;À propos et aide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>À propos de &amp;Qt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Désactiver %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Etat intéterminé pour %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fichier par défaut  non trouvé, lors ouverture de la liasse par défaut de la Vigie</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Erreur lors de la lecture du fichier de paramètres, mention &quot;Vigie&quot; non trouvée ou non indiqué, lors ouverture du document par défaut</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fichier par défaut non trouvé ou non indiqué, lors ouverture de l&apos;%1 par défaut</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Erreur : mention &quot;%1&quot; non trouvée dans le fichier de paramètres, lors de l&apos;ouverture du fichier initial</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> Rechercher le répertoire du Glossaire</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;/b&gt; est déjà ouvert sur le poste suivant : &lt;b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;/b&gt;&lt;br&gt; Faut-il : &lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; °  &lt;b&gt; Il ne sera ouvert qu&apos;en &lt;u&gt;lecture&lt;/u&gt; seule&lt;/b&gt; (recommandé) afin de laisser l&apos;utilisateur actuel finir les modifications sur ce dossier.&lt;br&gt; Dès fermeture de ce dossier par cet utilisateur il sera disponible en écriture sur&lt;br&gt;votre poste de travail &lt;br&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> ATTENTION !
+      VOUS VOUS APPRÊTEZ À EFFACER LE DOSSIER : 
+      </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+      CETTE ACTION EST IRRÉVERSIBLE
+      ET LES DONNÉES DU DOSSIER NE SERONT
+      PAS RÉCUPÉRABLES PAR LA SUITE</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Le nouveau nom est vide.&lt;br&gt;Opération annulée</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Un fichier portant ce nom existe déjà.&lt;br&gt;Opération annulée</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cet élément&lt;br&gt;&lt;b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;/b&gt;&lt;br&gt; n&apos;a pu être renommé</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Créer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Détruire</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;/b&gt;&lt;br&gt; sera &lt;u&gt;DÉFINITIVE&lt;/u&gt;&lt;br&gt; Confirmez-vous la destruction ?&lt;br&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Détruire</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;/b&gt; n&apos;est pas la même que celle&lt;br&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;/b&gt; le document à créer doit-il &lt;br&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>l&apos;être à la date du jour ou à celle de l&apos;observation ? &lt;br&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> Création d&apos;un nouveau document </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>signataire de l&apos;observation affichée à la date du : &lt;b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>°&amp;nbsp;&amp;nbsp;&amp;nbsp;Faut-il créer ce document avec cet utilisateur signataire &lt;b&gt;&lt;font color=&quot;#e80d0d&quot;&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;/font&gt;&lt;/b&gt; et à la date de l&apos;observation &lt;b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>°&amp;nbsp;&amp;nbsp;&amp;nbsp;ou avec l&apos;utilisateur en cours et l&apos;utilisateur signataire en cours: &lt;b&gt;&lt;font color=&quot;#e80d0d&quot;&gt;&lt;br&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;/font&gt;&lt;/b&gt; à la date de ce jour  &lt;b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Détruire le dossier</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Détruire le dossier</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Préférences</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Préférences</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Quitter </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Quitter </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Veuillez sélectionner les utilisateurs pour lesquels vous désirez enregistrer le profil actuel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Liste à puces (Disque)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Liste à puces (Cercle)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Liste à puces (Carré)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Liste ordonnée (Décimal)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Liste ordonnée (Alpha minuscule)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Liste ordonnée (Alpha majuscule)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Souligné</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>So&amp;uligné</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Centré</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;entré</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Justifié</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Justifié</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DrTux::Create_CustomAction : missed or empty file: &apos;%1definition.txt&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DrTux::Create_CustomAction : missed first  &lt;cstring&gt;  after property name= &quot;name&quot; 
+in &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DrTux::Create_CustomAction : missed end    &lt;/cstring&gt; after property name= &quot;name&quot; 
+in &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DrTux::Create_CustomAction : missed first  &lt;iconset&gt;  after property name= &quot;iconset&quot; 
+in &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DrTux::Create_CustomAction : missed end    &lt;/iconset&gt; after property name= &quot;iconset&quot; 
+in &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DrTux::Create_CustomAction : missed first  &lt;string&gt;  after property name= &quot;text&quot; 
+in &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DrTux::Create_CustomAction : missed end    &lt;/string&gt; after property name= &quot;text&quot; 
+in &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DrTux::Create_CustomAction : missed first  &lt;string&gt;  after property name= &quot;menuText&quot; 
+in &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DrTux::Create_CustomAction : missed end    &lt;/string&gt; after property name= &quot;menuText&quot; 
+in &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DrTux::Create_CustomAction : missed first  &lt;string&gt;  after property name= &quot;accel&quot; 
+in &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DrTux::Create_CustomAction : missed end    &lt;/string&gt; after property name= &quot;accel&quot; 
+in &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DrTux::Create_CustomAction : missed end    &lt;/string&gt; after property name in facultatives options 
+in &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;br&gt; &lt;b&gt;Erreur : &lt;/b&gt; il semblerai que l&apos;objet receveur du menu actuel n&apos;existe pas&lt;br&gt;surement un défaut de connexion au message : Sign_Exe_Plugin()</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Édition</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tout sélectionner</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tout &amp;Sélectionner</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ajouter un antécédent à partir des favoris</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ajouter un antécédent allergique</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ajouter un antécédent CIM10</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ajouter un antécédent Cisp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ajouter un antécédent textuel libre</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outil de gestion des listes  déroulantes...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outil de &amp;gestion des listes  déroulantes...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Créer une liste avec la sélection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Créer une liste avec la &amp;sélection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Base thérapeutique</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Base thérapeutique...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Placer les derniers résultats Labo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>La création d&apos;un nouveau document se fait :
+      en double-cliquant sur un modèle du glossaire (ordonnance type, certificat type ou observation type) 
+      ou, pour une prescription, en cliquant sur l&apos;icône Thérapeutique dans la barre de menu à droite (touche F5)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> ERREUR :
+      L&apos;accès à la base CIM10 est impossible : 
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;°&amp;nbsp;&lt;u&gt;::TYPE:: :&lt;/u&gt;&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>est lié à une pathologie ALD</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>InsérerOrdo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Activité: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ce dossier en cours a été modifié, faut-il :
+enregistrer les modifications ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Enregistrer et fermer</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>FormConfig</name>
-    <message utf8="true">
+    <message>
         <source>Configuration Générale</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Vé&amp;rifier les données</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8945,12 +9156,8 @@ Si vous modifiez le nom d&apos;un filtre déjà existant, cela crééra un nouve
         <source>Choisir</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
-        <source>Répertoire pour le Glossaire</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
-        <source>RÃ©pertoire temporaire gÃ©nÃ©ral</source>
+        <source>Répertoire pour le Glossaire</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8961,7 +9168,7 @@ Si vous modifiez le nom d&apos;un filtre déjà existant, cela crééra un nouve
         <source>Chemin : gestion des utilisateurs</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>&lt;b&gt;Masques par défaut (Vigie)&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8969,7 +9176,7 @@ Si vous modifiez le nom d&apos;un filtre déjà existant, cela crééra un nouve
         <source>&lt;b&gt;Chemin vers l&apos;application de gestion des contacts&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>&lt;b&gt;Répertoires de l&apos;application&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8981,11 +9188,11 @@ Si vous modifiez le nom d&apos;un filtre déjà existant, cela crééra un nouve
         <source>Vigie</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>&lt;b&gt;Thèmes&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>DrTux peut créer de nouveaux dossiers ou les détruire</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8997,23 +9204,23 @@ Si vous modifiez le nom d&apos;un filtre déjà existant, cela crééra un nouve
         <source>Autoriser la gestion concurrente depuis Manager</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>&lt;b&gt;Démarrage&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Vérifier les dossiers</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Sélectionnez le thème</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Afficher le Splash Screen au démarrage</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Taille de la police de caractère des menus</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9021,31 +9228,31 @@ Si vous modifiez le nom d&apos;un filtre déjà existant, cela crééra un nouve
         <source>Visuel</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Les cinq dernières observations</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>&lt;b&gt;Items à afficher dans le menu&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Les terrains avec les antécédents et les variables</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Les cinq dernières prescriptions</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Taille de la police de caractère</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Identité</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>&lt;b&gt;Menu d&apos;accès rapide&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9053,7 +9260,7 @@ Si vous modifiez le nom d&apos;un filtre déjà existant, cela crééra un nouve
         <source>Les cinq derniers documents</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>&lt;b&gt;Items systématiquement ouverts&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9069,15 +9276,15 @@ Si vous modifiez le nom d&apos;un filtre déjà existant, cela crééra un nouve
         <source>Les cinq derniers terrains</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Les antécédents</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Fenêtre du commentaire identité</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Fonctionnalités</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9089,7 +9296,7 @@ Si vous modifiez le nom d&apos;un filtre déjà existant, cela crééra un nouve
         <source>&lt;b&gt;Fonction Glossaire&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Lorsque l&apos;on clique sur un item de début de liste (Coordonnées, Antécédents, Variables, Observations...) :</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9097,11 +9304,11 @@ Si vous modifiez le nom d&apos;un filtre déjà existant, cela crééra un nouve
         <source>Autoriser l&apos;utilisation du Glossaire</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Réaction</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Ouvre la fenêtre correspondante dans l&apos;espace de travail</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9129,7 +9336,7 @@ Si vous modifiez le nom d&apos;un filtre déjà existant, cela crééra un nouve
         <source>Valeur</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Mettre à l&apos;écran</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9149,19 +9356,19 @@ Si vous modifiez le nom d&apos;un filtre déjà existant, cela crééra un nouve
         <source>Chemin vers l&apos;executable</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Préfixe pour le code des actes CCAM</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Préfixe pour le libellé des actes CCAM</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>&lt;b&gt;Présentation de la CCAM&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Postfixe pour le libellé des actes CCAM</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9189,11 +9396,11 @@ Si vous modifiez le nom d&apos;un filtre déjà existant, cela crééra un nouve
         <source>&lt;b&gt;Exemple&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Panneau à activer</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Répertoire temporaire pour les PDF</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9205,7 +9412,7 @@ Si vous modifiez le nom d&apos;un filtre déjà existant, cela crééra un nouve
         <source>Chemin vers l&apos;application : visualisation des PDF</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Dr Tux vous permet de remplir les formulaires PDF fournis par la sécurité sociale française :
 - Déclaration du médecin traitant,
 - Protocole de soins ALD.
@@ -9220,16 +9427,8 @@ Pour utiliser cette fonction, renseignez les éléments de cette page.</source>
         <source>&lt;b&gt;Informations&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Répertoire contenant les fichiers PDF à remplir</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>1- Chemin par dÃ©faut oÃ¹ chercher des images </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>2- Document par dÃ©faut lors premiÃ¨re crÃ©ation </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -9238,14 +9437,6 @@ Pour utiliser cette fonction, renseignez les éléments de cette page.</source>
     </message>
     <message>
         <source>4- Identificateur de type de rubrique </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>5- PrÃ©fixe du droit </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>6- IcÃ´ne de la rubrique (thÃ¨me) </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -9265,47 +9456,11 @@ Pour utiliser cette fonction, renseignez les éléments de cette page.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>L&apos;identificateur doit Ãªtre long de 8 chiffres</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cet Identificateur &apos;%1&apos; est dÃ©jÃ  utilisÃ© par &apos;%2&apos;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>L&apos;identificateur de cette rubrique est non modifiable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Modifier le prÃ©fixe de droits d&apos;une rubrique</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Le prÃ©fixe du droit doit Ãªtre long de 2 caractÃ¨res</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ce prÃ©fixe de droits &apos;%1&apos; est dÃ©jÃ  utilisÃ© par &apos;%2&apos;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Le prÃ©fixe de droits de cette rubrique est non modifiable</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Modifier le Nom d&apos;une rubrique</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Le Nom d&apos;une rubrique ne doit pas comporter de caractÃ¨re Ã©toile</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Le Nom d&apos;une rubrique doit comporter au moins cinq caractÃ¨res</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ce nom de rubrique &apos;%1&apos; est dÃ©jÃ  utilisÃ© par &apos;%2&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -9314,10 +9469,6 @@ Pour utiliser cette fonction, renseignez les éléments de cette page.</source>
     </message>
     <message>
         <source>Definir le Nom d&apos;une rubrique</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>-Peut crÃ©er ou modifier la rubrique </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -9330,18 +9481,6 @@ Pour utiliser cette fonction, renseignez les éléments de cette page.</source>
     </message>
     <message>
         <source>Analyse</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>RÃ©pertoires</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>GÃ©nÃ©ral</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>AccÃ¨s Rapide</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -9362,18 +9501,6 @@ Pour utiliser cette fonction, renseignez les éléments de cette page.</source>
     </message>
     <message>
         <source>&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot;font-size:10pt;font-weight:600&quot;&gt;Outil de configuration de Dr Tux&lt;/span&gt;&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Dr Tux a Ã©tÃ© exÃ©cutÃ© depuis</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;p align=&quot;left&quot;&gt;&lt;span style=&quot;font-size:10pt&quot;&gt;VÃ©rification du fichier de sauvegarde des paramÃ¨tres&lt;/span&gt;&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;p align=&quot;left&quot;&gt;&lt;span style=&quot;font-size:10pt&quot;&gt;RÃ©cupÃ©ration des donnÃ©es&lt;/span&gt;&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -9413,35 +9540,7 @@ Pour utiliser cette fonction, renseignez les éléments de cette page.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>ParamÃ¨tre [%1] initialisÃ© Ã  sa valeur par dÃ©faut.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&lt;p style=&quot;margin-left:30px;&quot;&gt;&lt;span style=&quot;font-size:10pt;font-weight:600;color:#ff0000&quot;&gt;Erreur(s) d&amp;eacute;tect&amp;eacute;e(s) : &lt;br /&gt;&lt;/span&gt;&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;p align=&quot;right&quot;&gt;&lt;span style=&quot;font-size:10pt;color:#5160bd&quot;&gt;RÃ©cupÃ©ration des donnÃ©es terminÃ©e sans erreur&lt;/span&gt;&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>-a- Parametre [%1] initialisÃ© Ã  sa valeur par dÃ©faut : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>-e- Parametre [%1] initialisÃ© Ã  sa valeur par dÃ©faut : %2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>-b- ParamÃ¨tre [%1] initialisÃ© Ã  sa valeur par dÃ©faut : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>-c- ParamÃ¨tre [%1] initialisÃ© Ã  sa valeur par dÃ©faut : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>-d- ParamÃ¨tre [%1] initialisÃ© Ã  sa valeur par dÃ©faut : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -9453,79 +9552,11 @@ Pour utiliser cette fonction, renseignez les éléments de cette page.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>VÃ©rifiez vos droits d&apos;accÃ¨s Ã  ce fichier.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> &lt;b&gt;ParamÃ¨tre : %1 :&lt;/b&gt; &lt;u&gt; %2 &lt;/u&gt; n&apos;existe pas.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> &lt;b&gt;ParamÃ¨tre :&lt;/b&gt; %1 : &lt;u&gt; %2 &lt;/u&gt; n&apos;est pas accessible en lecture.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> &lt;b&gt;ParamÃ¨tre :&lt;/b&gt; %1 : &lt;u&gt; %2 &lt;/u&gt; n&apos;est pas exÃ©cutable.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> &lt;b&gt;ParamÃ¨tre :&lt;/b&gt; %1 : &lt;u&gt; %2 &lt;/u&gt; n&apos;est pas accessible en Ã©criture.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> &lt;b&gt;Le paramÃ¨tre : %1 :&lt;/b&gt; &lt;u&gt; %2 &lt;/u&gt; n&apos;existe pas.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> &lt;b&gt;Le paramÃ¨tre : %1 :&lt;/b&gt; &lt;u&gt; %2 &lt;/u&gt; n&apos;est pas accessible en lecture.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>VÃ©rifiez les droits d&apos;accÃ¨s au rÃ©pertoire.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;&lt;span style=&quot;font-size:10pt&quot;&gt;VÃ©rification des donnÃ©es du formulaire&lt;/span&gt;&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;&lt;span style=&quot;font-size:10pt&quot;&gt;Correction du chemin d&apos;accÃ¨s au programme &lt;b&gt;pdftk&lt;/b&gt; par celui qui semble correct.&lt;/span&gt;&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;&lt;span style=&quot;font-size:10pt&quot;&gt;Correction du chemin d&apos;accÃ¨s au &lt;b&gt; visualisateur de PDF&lt;/b&gt; par celui qui semble correct.&lt;/span&gt;&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Erreur(s) dÃ©tectÃ©e(s) lors de la vÃ©rification&amp;nbsp;:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;p align=&quot;right&quot;&gt;&lt;span style=&quot;font-size:10pt;color:#5160bd&quot;&gt;Tous les paramÃ¨tres sont valides.&lt;/span&gt;&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot;font-size:12pt;font-weight:600;color:#ff0000&quot;&gt;Une erreur dans votre configuration a Ã©tÃ© dÃ©tectÃ©e&lt;br /&gt;lors de l&apos;utilisation de la fonction {{::FORM_PDF () }}.&lt;br /&gt;&lt;br /&gt;Merci de la corriger en vous aidant des messages ci-dessous.&lt;br /&gt;&lt;br /&gt;&lt;/span&gt;&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Defaut</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Verifier dossier</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>RÃ©pertoire du glossaire</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>RÃ©pertoire de l&apos;aide</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Masque par dÃ©faut des observations</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -9537,19 +9568,7 @@ Pour utiliser cette fonction, renseignez les éléments de cette page.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Fichier exÃ©cutable de la CCAM</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Fichier ini de CCAM</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>RÃ©pertoire oÂ se trouvent les PDF vierges</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>RÃ©pertoire temporaire pour la gestion des PDF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -9558,6 +9577,198 @@ Pour utiliser cette fonction, renseignez les éléments de cette page.</source>
     </message>
     <message>
         <source>Application pour visualiser les PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Répertoire temporaire général</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>1- Chemin par défaut où chercher des images </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>2- Document par défaut lors première création </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>5- Préfixe du droit </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>6- Icône de la rubrique (thème) </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>L&apos;identificateur doit être long de 8 chiffres</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cet Identificateur &apos;%1&apos; est déjà utilisé par &apos;%2&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Modifier le préfixe de droits d&apos;une rubrique</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Le préfixe du droit doit être long de 2 caractères</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ce préfixe de droits &apos;%1&apos; est déjà utilisé par &apos;%2&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Le préfixe de droits de cette rubrique est non modifiable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Le Nom d&apos;une rubrique ne doit pas comporter de caractère étoile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Le Nom d&apos;une rubrique doit comporter au moins cinq caractères</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ce nom de rubrique &apos;%1&apos; est déjà utilisé par &apos;%2&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-Peut créer ou modifier la rubrique </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Répertoires</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Général</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Accès Rapide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dr Tux a été exécuté depuis</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;p align=&quot;left&quot;&gt;&lt;span style=&quot;font-size:10pt&quot;&gt;Vérification du fichier de sauvegarde des paramètres&lt;/span&gt;&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;p align=&quot;left&quot;&gt;&lt;span style=&quot;font-size:10pt&quot;&gt;Récupération des données&lt;/span&gt;&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Paramètre [%1] initialisé à sa valeur par défaut.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;p align=&quot;right&quot;&gt;&lt;span style=&quot;font-size:10pt;color:#5160bd&quot;&gt;Récupération des données terminée sans erreur&lt;/span&gt;&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-a- Parametre [%1] initialisé à sa valeur par défaut : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-e- Parametre [%1] initialisé à sa valeur par défaut : %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-b- Paramètre [%1] initialisé à sa valeur par défaut : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-c- Paramètre [%1] initialisé à sa valeur par défaut : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-d- Paramètre [%1] initialisé à sa valeur par défaut : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Vérifiez vos droits d&apos;accès à ce fichier.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> &lt;b&gt;Paramètre : %1 :&lt;/b&gt; &lt;u&gt; %2 &lt;/u&gt; n&apos;existe pas.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> &lt;b&gt;Paramètre :&lt;/b&gt; %1 : &lt;u&gt; %2 &lt;/u&gt; n&apos;est pas accessible en lecture.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> &lt;b&gt;Paramètre :&lt;/b&gt; %1 : &lt;u&gt; %2 &lt;/u&gt; n&apos;est pas exécutable.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> &lt;b&gt;Paramètre :&lt;/b&gt; %1 : &lt;u&gt; %2 &lt;/u&gt; n&apos;est pas accessible en écriture.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> &lt;b&gt;Le paramètre : %1 :&lt;/b&gt; &lt;u&gt; %2 &lt;/u&gt; n&apos;existe pas.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> &lt;b&gt;Le paramètre : %1 :&lt;/b&gt; &lt;u&gt; %2 &lt;/u&gt; n&apos;est pas accessible en lecture.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Vérifiez les droits d&apos;accès au répertoire.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;&lt;span style=&quot;font-size:10pt&quot;&gt;Vérification des données du formulaire&lt;/span&gt;&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;&lt;span style=&quot;font-size:10pt&quot;&gt;Correction du chemin d&apos;accès au programme &lt;b&gt;pdftk&lt;/b&gt; par celui qui semble correct.&lt;/span&gt;&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;&lt;span style=&quot;font-size:10pt&quot;&gt;Correction du chemin d&apos;accès au &lt;b&gt; visualisateur de PDF&lt;/b&gt; par celui qui semble correct.&lt;/span&gt;&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Erreur(s) détectée(s) lors de la vérification&amp;nbsp;:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;p align=&quot;right&quot;&gt;&lt;span style=&quot;font-size:10pt;color:#5160bd&quot;&gt;Tous les paramètres sont valides.&lt;/span&gt;&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot;font-size:12pt;font-weight:600;color:#ff0000&quot;&gt;Une erreur dans votre configuration a été détectée&lt;br /&gt;lors de l&apos;utilisation de la fonction {{::FORM_PDF () }}.&lt;br /&gt;&lt;br /&gt;Merci de la corriger en vous aidant des messages ci-dessous.&lt;br /&gt;&lt;br /&gt;&lt;/span&gt;&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Répertoire du glossaire</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Répertoire de l&apos;aide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Masque par défaut des observations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fichier exécutable de la CCAM</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Répertoire o se trouvent les PDF vierges</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Répertoire temporaire pour la gestion des PDF</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9586,11 +9797,11 @@ Pour utiliser cette fonction, renseignez les éléments de cette page.</source>
 </context>
 <context>
     <name>FormDlgListFieldMngr</name>
-    <message utf8="true">
+    <message>
         <source>Gestionnaire de listes déroulantes</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Entrez le nom d&apos;une liste déroulante à modifier</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9614,7 +9825,7 @@ Pour utiliser cette fonction, renseignez les éléments de cette page.</source>
         <source>Gestion des librairies de menus, Importer un module de menu.</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Localiser la bibliothèque de modules de menus</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9635,333 +9846,25 @@ Pour utiliser cette fonction, renseignez les éléments de cette page.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Annuler</source>
+        <source>&lt;p align=&quot;center&quot;&gt;&lt;i&gt;&lt;u&gt;Liste des menus fixes des rubriques (cliquez dessus)&lt;/u&gt;&lt;/i&gt;&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Changer la liste dÃ©roulante</source>
+        <source>Rubriques                                              </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>La Librairie des modules de menus est non trouvÃ©e</source>
+        <source>Menu</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>L&apos;emplacement (ou rÃ©pertoire) de la librairie des modules de menus est non valide. Veuillez localiser le rÃ©pertoire de ces librairies...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Localiser la librairie</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> Rechercher le rÃ©pertoire de votre librairie de menus</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Valider le chemin habituel de votre librairie de menus</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Fichiers images</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tous les fichiers (*)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>CrÃ©er et &amp;ajouter un nouvel Ã©lÃ©ment Ã  une liste</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>CrÃ©er et ajouter une &amp;rÃ©fÃ©rence Ã  une autre liste</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Choisir une liste dÃ©jÃ  existante, comme rÃ©fÃ©rence</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>CrÃ©er une nouvelle &amp;liste dÃ©roulante</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Renommer cet Ã©lÃ©ment ou cette liste</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Effacer cet Ã©lÃ©ment ou cette liste</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Modifier le contenu de cet Ã©lÃ©ment</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;VÃ©rifier si cette liste est rÃ©fÃ©rencÃ©e par d&apos;autres</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Importer un menu de la librairie de menus</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Se positionner sur cette liste</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Nouvelle liste</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Veuillez donner le nom de cette nouvelle liste</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>ATTENTION ! </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Le nom du dossier est vide.&lt;br&gt;Veuillez choisir un autre nom</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Annu&amp;ler</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Les noms de listes ne doivent pas contenir les caractï¿½es &apos;:&apos; &apos;/&apos; &apos;\&apos; .&lt;br&gt;Veuillez choisir un autre nom.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ce dossier existe dÃ©jÃ .&lt;br&gt;Veuillez choisir un autre nom.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ce dossier&lt;br&gt;&lt;b&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> n&apos;a pu Ãªtre crÃ©Ã©.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>ERREUR :</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Nouvelle rÃ©fÃ©rence</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Veuillez donner le nom de cette nouvelle rÃ©fÃ©rence</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Le nom de la rÃ©fÃ©rence est vide.&lt;br&gt;Veuillez choisir un autre nom</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Une rÃ©fÃ©rence Ã  une cette liste existe dÃ©jÃ &lt;br&gt;dans cette liste, elle ne sera donc pas crÃ©Ã©e.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>La rÃ©fÃ©rence Ã  la liste :&lt;br&gt;&lt;b&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;/b&gt;&lt;br&gt; n&apos;a pu Ãªtre crÃ©Ã©e.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cette liste&lt;br&gt;&lt;b&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;/b&gt;&lt;br&gt; n&apos;a pu Ãªtre crÃ©Ã©e</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Les noms de listes ne doivent pas contenir le caractÃ¨re &apos;:&apos;  .&lt;br&gt;Veuillez choisir un autre nom.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ã©lÃ©ment nouveau </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Veuillez donner le nom de ce nouvel Ã©lÃ©ment</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Le nom du fichier est vide.&lt;br&gt;Veuillez choisir un nom.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ce fichier existe dÃ©jÃ .&lt;br&gt;Veuillez choisir un autre nom</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Le fichier&lt;br&gt;&lt;b&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;/b&gt;&lt;br&gt; n&apos;a pu Ãªtre crÃ©Ã©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Confirmez-vous l&apos;effacement </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>d&apos;une liste entiÃ¨re :&lt;br /&gt;&lt;b&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;/b&gt;&lt;br /&gt;  ATTENTION CETTE ACTION EST IRRÃVERSIBLE &lt;br /&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Effacement d&apos;une liste</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Effacer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;/b&gt;&lt;br&gt; n&apos;a pu Ãªtre effacÃ©.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>de cette rÃ©fÃ©rence Ã  une autre liste :&lt;br /&gt;&lt;b&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>de cet Ã©lÃ©ment avec son texte attachÃ© :&lt;br /&gt;&lt;b&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>de cet Ã©lÃ©ment :&lt;br /&gt;&lt;b&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Effacement</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cet Ã©lÃ©ment&lt;br&gt;&lt;b&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Veuillez donner le nouveau nom de cet Ã©lÃ©ment.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>ATTENTION !</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Le nouveau nom est vide.&lt;br&gt;OpÃ©ration annulÃ©e.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Un fichier portant ce nom existe dÃ©jÃ .&lt;br&gt;OpÃ©ration annulÃ©e</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cet Ã©lÃ©ment&lt;br&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;br&gt; n&apos;a pu Ãªtre renommÃ©.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cet Ã©lÃ©ment n&apos;est pas une liste.&lt;br&gt;OpÃ©ration annulÃ©e.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>UTILISATION DE LA LISTE :</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cette liste : &quot;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&quot; n&apos;est rÃ©fÃ©rencÃ©e par aucune autre.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cette liste :&amp;nbsp;&amp;nbsp;&quot;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&quot;&amp;nbsp;&amp;nbsp; est rÃ©ferencÃ©e par: &lt;br&gt;&lt;br&gt; </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>FICHIER MODIFIÃ</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Faut-il&amp;nbsp;enregistrer&amp;nbsp;les&amp;nbsp;modifications&amp;nbsp;de&amp;nbsp;:&amp;nbsp;&lt;b&gt;%1&lt;/b&gt;&lt;br&gt;avant de modifier le nouveau document ?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Enregistrer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Non</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Le fichier : &lt;br&gt;&lt;b&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;/b&gt;&lt;br&gt; n&apos;a pu Ãªtre ouvert en Ã©criture, &lt;br&gt; veuillez vÃ©rifier si il est permis d&apos;y Ã©crire</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;/b&gt;&lt;br&gt; n&apos;a pu Ãªtre recrÃ©Ã©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>C&amp;rÃ©er une liste dÃ©roulante avec le texte sÃ©lectionnÃ©.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>I&amp;nsÃ©rer au curseur un champ d&apos;insertion ou d&apos;extraction.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;InsÃ©rer au curseur une rÃ©fÃ©rence Ã  une liste dÃ©roulante.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>$start_title &quot;Placer ici le titre que vous souhaiter afficher&quot; $end_title</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>$no_style</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Veuillez donner le nom de cette nouvelle liste dÃ©roulante</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Le nom de la rÃ©fÃ©rence est vide.&lt;br&gt;Veuillez choisir un nom</source>
+        <source>&lt;p align=&quot;center&quot;&gt;&lt;i&gt;&lt;u&gt;Liste de tous les menus et listes déroulantes&lt;/u&gt;&lt;/i&gt;&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>FormDlgListOff_Listes</name>
-    <message utf8="true">
+    <message>
         <source>Listes déroulantes</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9995,11 +9898,11 @@ Pour utiliser cette fonction, renseignez les éléments de cette page.</source>
         <source>InvisibleStringFormGlossaire</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Créer un répertoire du glossaire</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Remonter d&apos;un répertoire en arrière</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10011,11 +9914,11 @@ Pour utiliser cette fonction, renseignez les éléments de cette page.</source>
         <source>Activer et afficher une rubrique...</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Aller au répertoire racine des documents</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Choisir un répertoire glossaire</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10026,7 +9929,7 @@ Pour utiliser cette fonction, renseignez les éléments de cette page.</source>
         <source>FormChoixPatient</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Saisir le nom du patient à rechercher séparé du prénom par un point virgule</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10038,7 +9941,7 @@ Pour utiliser cette fonction, renseignez les éléments de cette page.</source>
         <source>Nom JF                     </source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Prénom</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10054,11 +9957,11 @@ Pour utiliser cette fonction, renseignez les éléments de cette page.</source>
         <source>Ville</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Tél 1</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Tél 2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10070,7 +9973,7 @@ Pour utiliser cette fonction, renseignez les éléments de cette page.</source>
         <source>Nouveau</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Créer un nouveau dossier</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10082,13 +9985,9 @@ Pour utiliser cette fonction, renseignez les éléments de cette page.</source>
         <source>Voir le dossier dans un nouveau programme</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Lorsque ce bouton est coché, un clic sur un des patients de la liste,
 l&apos;affichera et le lancera dans une autre instance du programme, au lieu de remplacer celui affiché actuellement dans l&apos;instance en cours.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>InitAllList(): m_pCMoteurBase non initialisÃ©e</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -10096,19 +9995,23 @@ l&apos;affichera et le lancera dans une autre instance du programme, au lieu de 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>ExÃ©cution</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Autre instance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>MÃªme instance</source>
+        <source>InitAllList(): m_pCMoteurBase non initialisée</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Pour chercher par le nom et le prÃ©nom, il faut sÃ©parer le prÃ©nom du nom par un point-virgule. Exemple : &lt;b&gt;MARTIN;JEAN&lt;/b&gt;&lt;br&gt;&lt;br&gt;Le Symbole pour cent % placÃ© avant ou aprÃ¨s le nom ou prÃ©nom permet de faire une recherche sur tout ce qui contient l&apos;expression&lt;br&gt;Exemple : &lt;b&gt;%MART;%JE&lt;/b&gt;cherchera toutes les personnes dont le nom contient &lt;b&gt;MART&lt;/b&gt; et dont le prÃ©nom contient &lt;b&gt;JE&lt;/b&gt;</source>
+        <source>Exécution</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Même instance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pour chercher par le nom et le prénom, il faut séparer le prénom du nom par un point-virgule. Exemple : &lt;b&gt;MARTIN;JEAN&lt;/b&gt;&lt;br&gt;&lt;br&gt;Le Symbole pour cent % placé avant ou après le nom ou prénom permet de faire une recherche sur tout ce qui contient l&apos;expression&lt;br&gt;Exemple : &lt;b&gt;%MART;%JE&lt;/b&gt;cherchera toutes les personnes dont le nom contient &lt;b&gt;MART&lt;/b&gt; et dont le prénom contient &lt;b&gt;JE&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10122,7 +10025,7 @@ l&apos;affichera et le lancera dans une autre instance du programme, au lieu de 
         <source>Administratif</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Patient (bénéficiaire)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10150,7 +10053,7 @@ l&apos;affichera et le lancera dans une autre instance du programme, au lieu de 
         <source>________________________________________________________________________________</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Prénom</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10174,15 +10077,15 @@ l&apos;affichera et le lancera dans une autre instance du programme, au lieu de 
         <source>__  __  __ __ __</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Tél 2</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Tél 3</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Tél 1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10202,11 +10105,11 @@ l&apos;affichera et le lancera dans une autre instance du programme, au lieu de 
         <source>__</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Rang gémellaire</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Rang Gém.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10222,11 +10125,11 @@ l&apos;affichera et le lancera dans une autre instance du programme, au lieu de 
         <source>Masculin</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Féminin</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Indéterminé</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10254,7 +10157,7 @@ l&apos;affichera et le lancera dans une autre instance du programme, au lieu de 
         <source>lineEdit_Email</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Doss. N°</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10262,27 +10165,27 @@ l&apos;affichera et le lancera dans une autre instance du programme, au lieu de 
         <source>E mail</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Assuré</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Prénom Assuré</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Nom Assuré</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Le bénéficiaire est lié à l&apos;assuré en tant que...</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Le bénéficiaire est lié à l&apos;assuré en tant que ...</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>N° SS</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10294,7 +10197,7 @@ l&apos;affichera et le lancera dans une autre instance du programme, au lieu de 
         <source>_  __  __  __  ___  ___</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Numéro de SS de l&apos;assuré</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10318,7 +10221,7 @@ l&apos;affichera et le lancera dans une autre instance du programme, au lieu de 
         <source>Alt+R</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Spécialité        </source>
         <translation type="unfinished"></translation>
     </message>
@@ -10326,11 +10229,11 @@ l&apos;affichera et le lancera dans une autre instance du programme, au lieu de 
         <source>Nom         </source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Prénom     </source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>en qualité de</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10350,7 +10253,7 @@ l&apos;affichera et le lancera dans une autre instance du programme, au lieu de 
         <source>Alt+L</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>&amp;Créer le dossier et y accéder</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10366,7 +10269,7 @@ l&apos;affichera et le lancera dans une autre instance du programme, au lieu de 
         <source>Alt+E</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Informations complémentaires, photos et plus encore ...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10374,7 +10277,7 @@ l&apos;affichera et le lancera dans une autre instance du programme, au lieu de 
         <source>Exporter cette image...</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Imprimer cette fenêtre</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10386,7 +10289,7 @@ l&apos;affichera et le lancera dans une autre instance du programme, au lieu de 
         <source>vu par :</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Modifier la date et l&apos;intitulé du document</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10398,7 +10301,7 @@ l&apos;affichera et le lancera dans une autre instance du programme, au lieu de 
         <source>Enregistrer tout le dossier</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Placer le document en cours comme document à effacer (ne sera effacé qu&apos;après enregistrement)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10409,7 +10312,7 @@ l&apos;affichera et le lancera dans une autre instance du programme, au lieu de 
         <source>InvisibleStringFormPrescription</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Modifier la date et l&apos;intitulé du document</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10425,11 +10328,11 @@ l&apos;affichera et le lancera dans une autre instance du programme, au lieu de 
         <source>Enregistrer tout le dossier</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Imprimer cette fenêtre</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Placer le document en cours comme document à effacer (ne sera effacé qu&apos;après enregistrement)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10437,20 +10340,8 @@ l&apos;affichera et le lancera dans une autre instance du programme, au lieu de 
         <source>Actions diverses avec cette prescription</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Modifier cette ordonnance avec l&apos;assistant d&apos;aide à la prescription</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Pas d&apos;action prÃ©vue pour ce contexte (droits insuffisants)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Renouveler ce document Ã  la date du jour</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Renouveler ce document Ã  une date choisie</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -10477,6 +10368,18 @@ l&apos;affichera et le lancera dans une autre instance du programme, au lieu de 
         <source>date choisie</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Pas d&apos;action prévue pour ce contexte (droits insuffisants)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Renouveler ce document à la date du jour</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Renouveler ce document à une date choisie</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>FormRubTerrain</name>
@@ -10488,7 +10391,7 @@ l&apos;affichera et le lancera dans une autre instance du programme, au lieu de 
         <source>Ajouter une variable de surveillance</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Effacer tous les éléments de la liste</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10496,23 +10399,23 @@ l&apos;affichera et le lancera dans une autre instance du programme, au lieu de 
         <source>Variables et surveillance</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Ajouter une donnée dans la liste des antécédents et allergies</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Antécédents, intolérances et allergies</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Libellé                                                 </source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Méd/Chir</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>État</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10540,7 +10443,7 @@ l&apos;affichera et le lancera dans une autre instance du programme, au lieu de 
         <source>Alt+G</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Date Der. Règles :</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10560,11 +10463,11 @@ l&apos;affichera et le lancera dans une autre instance du programme, au lieu de 
         <source>Traitements en cours</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Libellé                                </source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>à renouveler</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10572,7 +10475,7 @@ l&apos;affichera et le lancera dans une autre instance du programme, au lieu de 
         <source>ID</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Modifier la date et l&apos;intitulé du document</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10580,11 +10483,11 @@ l&apos;affichera et le lancera dans une autre instance du programme, au lieu de 
         <source>Enregistrer tout le dossier</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Placer le document en cours comme document à effacer</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Créer un nouveau terrain</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10617,24 +10520,6 @@ l&apos;affichera et le lancera dans une autre instance du programme, au lieu de 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>[PropriÃ©tÃ© Ordonnance]
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>[Traitement]
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>ModÃ¨le</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>  UnitÃ©: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Date &amp; Heure</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10647,18 +10532,7 @@ l&apos;affichera et le lancera dans une autre instance du programme, au lieu de 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PropriÃ©tÃ© Ordonnance</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Traitement</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>[VAR Poids]
-  ModÃ¨le = Date, Poids, 31536000, 100, 50, Kg(s), ObÃ©sitÃ©, Amaigrissement
-  ModÃ¨le = Date, Taille, 31536000, 0, 0, cm(s), , 
-</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -10667,12 +10541,6 @@ l&apos;affichera et le lancera dans une autre instance du programme, au lieu de 
     </message>
     <message>
         <source>Effacer toutes les variables </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Voulez vous vraiment effacer
-tous les tableaux de variables ?
-CETTE ACTION EST IRREVERSIBLE</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -10700,10 +10568,6 @@ CETTE ACTION EST IRREVERSIBLE</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>DÃ©truire cette variable</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Renouveler le traitement de fond</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10712,17 +10576,7 @@ CETTE ACTION EST IRREVERSIBLE</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Traitement Ã  renouveler</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Traitement intercurrent</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>La modification de ce document n&apos;est pas
-permise sur un dossier en mode lecture seule.
-</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -10742,52 +10596,6 @@ permise sur un dossier en mode lecture seule.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Voulez vous vraiment effacer
-toutes les donnÃ©es du traitement de fond
-CETTE ACTION EST IRREVERSIBLE</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ajouter un  AntÃ©cÃ©dent CIM10</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ajouter une intolÃ©rance mÃ©dicamenteuse</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ajouter un antÃ©cÃ©dent texte libre</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ajouter un antÃ©cÃ©dent Ã  partir des favoris</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Effacer les antÃ©cÃ©dents sÃ©lectionnÃ©s</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Modifier la date de cet AntÃ©cÃ©dent</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Effacer la date de cet AntÃ©cÃ©dent</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>GuÃ©ri (passer en Actif)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Actif (passer en GuÃ©ri)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>DÃ©finir un commentaire</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>En rapport avec une pathologie ALD</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10797,19 +10605,118 @@ CETTE ACTION EST IRREVERSIBLE</source>
     </message>
     <message>
         <source></source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>[Propriété Ordonnance]
+</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Effacer tous les antÃ©cÃ©dents</source>
+        <source>[Traitement]
+</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Effacer tous les antÃ©cÃ©dents </source>
+        <source>Modèle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>  Unité: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Propriété Ordonnance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>[VAR Poids]
+  Modèle = Date, Poids, 31536000, 100, 50, Kg(s), Obésité, Amaigrissement
+  Modèle = Date, Taille, 31536000, 0, 0, cm(s), , 
+</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Voulez vous vraiment effacer
-toutes les donnÃ©es des antÃ©cÃ©dents
+tous les tableaux de variables ?
+CETTE ACTION EST IRREVERSIBLE</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Détruire cette variable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Traitement à renouveler</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>La modification de ce document n&apos;est pas
+permise sur un dossier en mode lecture seule.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Voulez vous vraiment effacer
+toutes les données du traitement de fond
+CETTE ACTION EST IRREVERSIBLE</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ajouter un  Antécédent CIM10</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ajouter un  Antécédent CISP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ajouter une intolérance médicamenteuse</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ajouter un antécédent texte libre</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ajouter un antécédent à partir des favoris</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Effacer les antécédents sélectionnés</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Modifier la date de cet Antécédent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Effacer la date de cet Antécédent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Guéri (passer en Actif)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Actif (passer en Guéri)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Définir un commentaire</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Effacer tous les antécédents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Effacer tous les antécédents </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Voulez vous vraiment effacer
+toutes les données des antécédents
 CETTE ACTION EST IRREVERSIBLE</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10848,7 +10755,7 @@ CETTE ACTION EST IRREVERSIBLE</source>
         <source>__/__/____</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Définir la date et heure des classeurs à visualiser</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10864,11 +10771,11 @@ CETTE ACTION EST IRREVERSIBLE</source>
         <source>Au</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source> à </source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>définir la date de fin et de cloture des classeurs à visualiser</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10892,11 +10799,11 @@ CETTE ACTION EST IRREVERSIBLE</source>
         <source>Fitres d&apos;affichage de la vigie</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>zoom par défaut</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Supprime le filtre affiché actuellement dans la liste des fltres (située à gauche)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10908,11 +10815,11 @@ CETTE ACTION EST IRREVERSIBLE</source>
         <source>Diminue le zoom</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Ajoute un filtre dans la liste des filtres (située à gauche)</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Charger un profil (filtre et configuration icônes, ouverture etc... des classeurs)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10920,7 +10827,7 @@ CETTE ACTION EST IRREVERSIBLE</source>
         <source>Augmente le zoom</source>
         <translation type="unfinished"></translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Configure le filtre affiché actuellement dans la liste des filtres (située à gauche)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10937,10 +10844,6 @@ CETTE ACTION EST IRREVERSIBLE</source>
     <name>MyEditText</name>
     <message>
         <source>Bonjour de la part du DrTux</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> Droits insuffisants pour modifier le document courant (verrouillÃ©) </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -10964,35 +10867,11 @@ CETTE ACTION EST IRREVERSIBLE</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Tout sÃ©lectionner</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Edition</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>C&amp;rÃ©er une liste dÃ©roulante avec le texte sÃ©lectionnÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>A&amp;jouter un item avec le texte sÃ©lectionnÃ©</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Gestionnaire de listes ...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Mise Ã  jour du menu</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>CrÃ©er le cache entier</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PropriÃ©tÃ©s de l&apos;image ... </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -11012,51 +10891,11 @@ CETTE ACTION EST IRREVERSIBLE</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Pas de liste dÃ©roulante trouvÃ©e&lt;br&gt;dans les 5 lignes prÃ©cÃ©dentes.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Annuler</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;center&gt;&lt;img source=&quot;./AlertLogoViergeAttention.png&quot;&gt;&lt;/center&gt;&lt;p&gt;La liste dÃ©roulante :&lt;br&gt;&lt;b&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>n&apos;existe pas. Veuillez la crÃ©er avant d&apos;y rajouter un item</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Erreur : liste dÃ©roulante</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Annu&amp;ler</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>CrÃ©er la liste</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;center&gt;&lt;img source=&quot;./AlertLogoViergeAttention.png&quot;&gt;&lt;/center&gt;&lt;p&gt;La liste dÃ©roulante : &lt;br&gt;&lt;b&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>n&apos;a pu Ãªtre crÃ©Ã©e.&lt;br&gt; VÃ©rifiez si vous avez les droits en Ã©criture,&lt;br&gt; Dans le rÃ©pertoire : &lt;br&gt;&lt;b&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>ERREUR : CrÃ©ation d&apos;une liste</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>ÃlÃ©ment nouveau</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ajouter un item Ã  la liste : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -11068,35 +10907,11 @@ CETTE ACTION EST IRREVERSIBLE</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Ce fichier existe dÃ©jÃ .&lt;br&gt;Veuillez choisir un autre nom</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&lt;center&gt;&lt;img source=&quot;./AlertLogoViergeAttention.png&quot;&gt;&lt;/center&gt;&lt;p&gt;Le fichier correspondant au nouvel item :&lt;br&gt;&lt;b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>n&apos;a pu Ãªtre crÃ©Ã©.&lt;br&gt; VÃ©rifiez si vous avez les droits&lt;br&gt;en Ã©criture dans le rÃ©pertoire : &lt;br&gt;&lt;b&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>ERREUR : Ajout d&apos;un Item </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Veuillez donner le nom de cette nouvelle liste dÃ©roulante</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Le nom de cette nouvelle liste dÃ©roulante est vide.&lt;br&gt;Veuillez choisir un nom</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> Existe dÃ©jÃ  !!.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>n&apos;a pu Ãªtre crÃ©Ã©e.&lt;br&gt; VÃ©rifiez si vous avez les droits&lt;br&gt;en Ã©criture dans le rÃ©pertoire : &lt;br&gt;&lt;b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -11108,7 +10923,99 @@ CETTE ACTION EST IRREVERSIBLE</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;br&gt; &lt;b&gt;Erreur : &lt;/b&gt; il semblerait que l&apos;objet receveur du menu actuel n&apos;existe pas&lt;br&gt;surement un dÃ©faut de connexion au message : Sign_Exe_Plugin()</source>
+        <source> Droits insuffisants pour modifier le document courant (verrouillé) </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Tout sélectionner</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;réer une liste déroulante avec le texte sélectionné</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A&amp;jouter un item avec le texte sélectionné</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mise à jour du menu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Créer le cache entier</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Propriétés de l&apos;image ... </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pas de liste déroulante trouvée&lt;br&gt;dans les 5 lignes précédentes.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;center&gt;&lt;img source=&quot;./AlertLogoViergeAttention.png&quot;&gt;&lt;/center&gt;&lt;p&gt;La liste déroulante :&lt;br&gt;&lt;b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>n&apos;existe pas. Veuillez la créer avant d&apos;y rajouter un item</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Erreur : liste déroulante</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Créer la liste</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;center&gt;&lt;img source=&quot;./AlertLogoViergeAttention.png&quot;&gt;&lt;/center&gt;&lt;p&gt;La liste déroulante : &lt;br&gt;&lt;b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>n&apos;a pu être créée.&lt;br&gt; Vérifiez si vous avez les droits en écriture,&lt;br&gt; Dans le répertoire : &lt;br&gt;&lt;b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ERREUR : Création d&apos;une liste</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Élément nouveau</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ajouter un item à la liste : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ce fichier existe déjà.&lt;br&gt;Veuillez choisir un autre nom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>n&apos;a pu être créé.&lt;br&gt; Vérifiez si vous avez les droits&lt;br&gt;en écriture dans le répertoire : &lt;br&gt;&lt;b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Veuillez donner le nom de cette nouvelle liste déroulante</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Le nom de cette nouvelle liste déroulante est vide.&lt;br&gt;Veuillez choisir un nom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> Existe déjà !!.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>n&apos;a pu être créée.&lt;br&gt; Vérifiez si vous avez les droits&lt;br&gt;en écriture dans le répertoire : &lt;br&gt;&lt;b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;br&gt; &lt;b&gt;Erreur : &lt;/b&gt; il semblerait que l&apos;objet receveur du menu actuel n&apos;existe pas&lt;br&gt;surement un défaut de connexion au message : Sign_Exe_Plugin()</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -11131,37 +11038,11 @@ CETTE ACTION EST IRREVERSIBLE</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The file
-Â«</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Â»
-can&apos;t be opened</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Error:  PluginExe() destination file can&apos;t be opened</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PluginExe(): Erreur exÃ©cution</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>L&apos;exÃ©cutable : %1 n&apos;existe pas.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source> Adresse invalide</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> Erreur :</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Annuler</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -11221,19 +11102,7 @@ can&apos;t be opened</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Erreur de syntaxe: Fichier de paramÃ¨tres vide</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Erreur : pas de section dans l&apos;appel de la fonction CGestIni::Param_ReadParam()</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Signe = non trouvÃ© dans la section : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>, variable recherchÃ©e : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -11248,6 +11117,36 @@ can&apos;t be opened</source>
         <source>Erreur de syntaxe : Pas de section dans ce fichier</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Erreur de syntaxe: Fichier de paramètres vide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Signe = non trouvé dans la section : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>, variable recherchée : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The file
+«</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>»
+can&apos;t be opened</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PluginExe(): Erreur exécution</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>L&apos;exécutable : %1 n&apos;existe pas.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QObject::CDevilCrucible</name>
@@ -11259,7 +11158,7 @@ can&apos;t be opened</source>
 <context>
     <name>Var_Code</name>
     <message>
-        <source>ModÃ¨le</source>
+        <source>Modèle</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

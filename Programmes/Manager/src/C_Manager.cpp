@@ -477,7 +477,7 @@ if (CGestIni::Param_ReadUniqueParam(G_pCApp->m_LocalParam, "Sesam-Vitale", "Modu
    connect( m_pGUI->listView_Patient,         SIGNAL(itemDoubleClicked ( QTreeWidgetItem * , int  )),                   this, SLOT(Slot_listView_Patient_DoubleClicked( QTreeWidgetItem * , int)) );
    connect( m_pGUI->listView_Patient ,        SIGNAL(itemSelectionChanged ()),                                          this, SLOT(Slot_ListView_itemSelectionChanged ()) );
    connect( m_pGUI->listView_Patient ,        SIGNAL(customContextMenuRequested( const QPoint &)),                      this, SLOT(Slot_ListView_ContextMenuRequested (const QPoint &)) );
-   connect( m_pGUI->listView_Patient,         SIGNAL( Sign_giveMeDatas(QString &, QTreeWidgetItem* )),                  this, SLOT(Slot_giveDraglistView_PatientItemData(QString &, QTreeWidgetItem*)));
+   connect( m_pGUI->listView_Patient,         SIGNAL(Sign_giveMeDatas(QString &, QTreeWidgetItem* )),                   this, SLOT(Slot_giveDraglistView_PatientItemData(QString &, QTreeWidgetItem*)));
 
    connect( m_pGUI->listView_Doublons ,       SIGNAL(itemSelectionChanged ()),                                          this, SLOT(Slot_listView_DoublonsSelectionChanged ()) );
    connect( m_pGUI->listView_Doublons ,       SIGNAL(customContextMenuRequested( const QPoint &)),                      this, SLOT(Slot_listView_Doublons_contextMenuRequested (const QPoint &)) );
@@ -655,6 +655,8 @@ void C_Manager::initWidgetsList()
  G_pCApp->m_widgetList.append(m_pGUI->lineEdit_Tel2);
  G_pCApp->m_widgetList.append(m_pGUI->label_tel3);
  G_pCApp->m_widgetList.append(m_pGUI->lineEdit_Tel3);
+ G_pCApp->m_widgetList.append(m_pGUI->label_Ville);
+ G_pCApp->m_widgetList.append(m_pGUI->lineEditVille);
  G_pCApp->m_widgetList.append(m_pGUI->label_codepostal);
  G_pCApp->m_widgetList.append(m_pGUI->lineEdit_CdPostal);
  G_pCApp->m_widgetList.append(m_pGUI->pushButton_SigemsPA);

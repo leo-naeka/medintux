@@ -92,6 +92,73 @@ C_Utils_Html::C_Utils_Html(QObject *parent /* =0 */, QNetworkAccessManager *pQNe
  m_QByteArray.clear();
 }
 
+//---------------------------------------  makeLinkList ---------------------------------------------------------
+/*! \brief add link chapiter list to html text with structure
+    as 1        for chapiter one
+    as 1.1      for sub chapiter one
+    as 1.1.1    for sub sub chapiter one  an so
+ *  \param const QString txt input html text
+ *  \param const QString prefix caracters before chapiter number line
+ *  \param const QString endfix caracters after chapiter number line
+ *  \return QString result whith anchor, links, and chapiters list link
+ */
+
+QString  C_Utils_Html::makeLinkList(const QString txt, const QString prefix, const QString endfix, const QString idAnchor /* = "" */)
+{   QStringList chapSegmt;
+    int   i          =  0;
+    int oldPos       =  0;
+    int pos          =  0;
+    int end          = -1;
+    QString anchor   = "";
+    QString line     = "";
+    QString numChap  = "";
+    QString linkList = "";
+    QString result   = "";
+    while ( (pos     = txt.indexOf(prefix , pos, Qt::CaseInsensitive)) != -1 )
+    {i     = 0;
+     pos  += prefix.length();
+     if (endfix=="EOL")
+        {end   = txt.indexOf('\n' , pos, Qt::CaseInsensitive);
+         if (end==-1) end = txt.indexOf('\r' , pos, Qt::CaseInsensitive);
+         if (end==-1) end = txt.indexOf("<br>" , pos, Qt::CaseInsensitive);
+        }
+     else
+         {end   = txt.indexOf(endfix , pos, Qt::CaseInsensitive);
+         }
+     if (end==-1)                           continue;
+     line = txt.mid(pos, end-pos).remove('\r').remove('\n').trimmed();
+     if ( !((line[i]>='0' && line[i]<='9')|| line[i]=='*')) continue;            // si premier car n'est pas un chiffre reboucler
+     if ( (i = line.indexOf(' '))==-1)      continue;            // avancer jusqu'au prochain espace et si pas trouve reboucler
+
+     numChap = line.left(i);
+     if (! (numChap.contains('.')|| numChap.contains('*')))            continue;            // si pas au moins 1 point on reboucle
+     for (i=0;i<numChap.length();++i)                            // verifier si ne contient que . et 0 <--> 9
+         {if ( ! (line[i]=='.' || (line[i]>='0' && line[i]<='9') || line[i]=='*') ) break;
+         }
+     if (i<numChap.length())                continue;            // si autre caractere que . et 0 <--> 9 reboucler
+
+     //<a name="ancrage"></A>Point d'ancrage<br><br>
+     //<a href="#ancrage">Vers le point d'ancre ci-dessus</A>
+     chapSegmt  = numChap.split ('.', QString::SkipEmptyParts);
+     result    += txt.mid(oldPos, pos-oldPos);
+     anchor     = QString("<h%3><a name=\"%4_%1\">%2</a></h%3>\n").arg(line,line,QString::number(chapSegmt.count()),idAnchor);
+     if (chapSegmt.count()==1) anchor = anchor.prepend("<b><u>").append("</b></u>");
+     if (chapSegmt.count()==2) anchor = anchor.prepend("<b>").append("</b>");
+     result    += anchor;
+     linkList.append(QString("<a href=\"#%3_%1\">%2</a><br>").arg(line,line,idAnchor));      // <a name="smr0"></a>
+     oldPos = end; while( oldPos<txt.length() && (txt[oldPos]=='\n'||txt[oldPos]=='\r') )++oldPos;       // on se place apres le titre
+    }
+
+    if(linkList.length())
+      {result += txt.mid(oldPos);
+       result  = result.prepend(linkList+"<hr>");
+       return result;
+      }
+    else
+      {return txt;
+      }
+}
+
 //---------------------------------------  removeHtmlTag ---------------------------------------------------------
 QString  C_Utils_Html::removeHtmlTag(const QString text){return C_Utils_Log::removeHtmlTag(text);}
 
@@ -213,6 +280,7 @@ void   C_Utils_Html::Slot_DataLoadFinished(QNetworkReply *pQNetworkReply)
   if (pQNetworkReply->open(QIODevice::ReadOnly))
      {m_QByteArray  = pQNetworkReply->readAll();
       pQNetworkReply->close();
+      //CGestIni::Param_UpdateToDisk("/home/ro/array.html", m_QByteArray);   // ok encodage utf8 correct
      }
   disconnect(m_pQNetworkAccessManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(Slot_DataPostFinished(QNetworkReply*)));
   disconnect(m_pQNetworkAccessManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(Slot_DataLoadFinished(QNetworkReply*)));

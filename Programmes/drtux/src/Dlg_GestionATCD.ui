@@ -1031,6 +1031,9 @@
                                     <property name="name">
                                         <cstring>comboBox_Cisp_filter_Chapi</cstring>
                                     </property>
+                                    <property name="sizeLimit">
+                                        <number>21</number>
+                                    </property>
                                 </widget>
                                 <widget class="QCheckBox" row="3" column="2">
                                     <property name="name">

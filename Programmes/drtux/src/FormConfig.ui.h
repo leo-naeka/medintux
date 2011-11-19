@@ -496,7 +496,8 @@ void FormConfig::listViewRubParameters_doubleClicked( QListViewItem *pQListViewI
 
  switch(choix)
   {case 1:       //"1- Chemin par défaut où chercher des images"
-        val = G_pCApp->GetImageFileName(&val);
+        // QString *last_path  = 0 , QString stringPreselect ="", int prewiew =1, const QWidget *pQWidget =0
+        val = G_pCApp->GetImageFileName(&val,"",1,this);
         if (val.length()) pQListViewItem->setText(1,QFileInfo(val).dirPath());
         break;
    case 2:      // "2- Document par défaut lors première création "
@@ -576,7 +577,8 @@ void FormConfig::listViewRubParameters_doubleClicked( QListViewItem *pQListViewI
   case 6:   // "6- Icône (du thème) "
        {
         QString path = QFileInfo(val).dirPath();
-        path         = G_pCApp->GetImageFileName(&path);
+        path         = G_pCApp->GetImageFileName(&path,"",1,this);
+		
         if (path.length())   // chemin standard : Theme::getPath()+ "16x16/type_"+rubName+".png"
            { //CHtmlTools::Copy_File(path, Theme::getPath()+ "16x16", rubName+".png");
              pQListViewItem->setText(1, path);    // pour la detection du changement on se servira du fait que ce chemin et different de celui standard

@@ -143,16 +143,15 @@ QByteArray& CGestIni::Param_UpdateFromDisk(const QString &file_ini, QByteArray &
 {        if (ba.size()>0) ba.data()[0]=0;
          QFile qFile(file_ini );
          if (qFile.open( QIODevice::ReadOnly )==FALSE)   return  ba;
-         long file_len = qFile.size();
-         ba = qFile.readAll(); ba.resize(file_len+1); ba.data()[file_len]=0;
+         ba = qFile.readAll();
          qFile.close ();
-         int isUtf8 = IsUtf8(ba.constData());
+         int isUtf8 = IsUtf8(&ba);
          if ( isUtf8_ret ) *isUtf8_ret = isUtf8;
          if (isUtf8)
             {QString tmp =  QString::fromUtf8 ( ba );
              ba          =  tmp.toUtf8 ();
              QString ext =  QFileInfo(qFile).suffix ();
-             if (ext.toLower() == "htm")
+             if (ext.toLower().left(3) == "htm")
                 {ba.replace("meta name=\"qrichtext\" content=\"charset=utf-8\"",   // obligé d'etre en content=\"1\" pour que les tabulations fonctionnent !!
                             "meta name=\"qrichtext\" content=\"1\"");
                 }
@@ -160,6 +159,7 @@ QByteArray& CGestIni::Param_UpdateFromDisk(const QString &file_ini, QByteArray &
             }
          return ba;
 }
+
 //-----------------------------------------------------  Param_UpdateFromDisk ------------------------------
 /*! \brief Lit le fichier file_ini et renvoie son contenu dans outParam. L'encodage est géré.
 */
@@ -168,23 +168,22 @@ long  CGestIni::Param_UpdateFromDisk(const QString &file_ini, QString &outParam,
          QFile qFile(file_ini );
          if (qFile.open( QIODevice::ReadOnly )==FALSE)   return  0;
          long file_len = qFile.size();
-         QByteArray ba = qFile.readAll(); ba.resize(file_len+1); ba.data()[file_len]=0;
+         QByteArray ba = qFile.readAll();
          qFile.close ();
-         int isUtf8 = IsUtf8(ba.constData());
+         int isUtf8 = IsUtf8(&ba);
          if ( isUtf8_ret ) *isUtf8_ret = isUtf8;
          if (isUtf8)
-            {outParam    =  QString::fromUtf8 ( ba ) ;
+            {outParam    =  QString::fromUtf8(ba.data(), ba.size());
              QString ext =  QFileInfo(qFile).suffix ();
-             if (ext.toLower() == "htm")
+             if (ext.toLower().left(3) == "htm")
                 {outParam.replace("meta name=\"qrichtext\" content=\"charset=utf-8\"",   // obligé d'etre en content=\"1\" pour que les tabulations fonctionnent !!
                                   "meta name=\"qrichtext\" content=\"1\"");
                 }
              outParam.replace("&nbsp;", " ");
             }
          else
-            {outParam = QString::fromLocal8Bit (ba);
+            {outParam = ba;    //QString::fromLocal8Bit (ba)
             }
-         //delete[]text;
          return file_len;
 }
 
@@ -208,7 +207,35 @@ int CGestIni::IsUtf8( const  QString & txt )
  //const char *pt = cs;
  return IsUtf8( txt );
 }
+//-----------------------------------------------------  IsUtf8 -------------------------------------------------
+/*! \brief gestion de l'Utf8.
+*/
+int CGestIni::IsUtf8(QByteArray *ba)
+{char unsigned *pt   = (char unsigned*) ba->constData();
+ char unsigned *end  = pt + ba->size();
+ if (pt==0 || *pt==0) return 0;
+ int nb_utf8_paterns = 0;
 
+ while (pt<end && *pt)
+      { if      (*pt >= 128)
+                {if ( (*pt&224)==192 && (pt[1]&192)==128)
+                    { ++nb_utf8_paterns;
+                      ++pt;
+                    }
+                 else if ( (*pt&240)==224 && (pt[1]&192)==128 && (pt[2]&192)==128)
+                    { ++nb_utf8_paterns;
+                      pt += 2;
+                    }
+                 else if ( (*pt&248)==240 && (pt[1]&192)==128 && (pt[2]&192)==128 && (pt[3]&192)==128)
+                    { ++nb_utf8_paterns;
+                      pt += 3;
+                    }
+                else return 0;    // si car >= 128 sans un des paterns sus jacents --> on est pas en UTF8
+               }
+        ++pt;
+      }
+ return nb_utf8_paterns;
+}
 //-----------------------------------------------------  IsUtf8 -------------------------------------------------
 /*! \brief gestion de l'Utf8.
 */
@@ -237,7 +264,23 @@ int CGestIni::IsUtf8( const  char *txt)
       }
  return nb_utf8_paterns;
 }
-
+//--------------------------------- Utf8_Query -----------------------------------
+/*! \brief gestion de l'Utf8.
+*/
+QString CGestIni::Utf8_Query(QSqlQuery *pCur, int field)
+{QByteArray   ba  =  pCur->value(field).toByteArray();
+ char       *ptr  =  ba.data();
+ return fromMyUTF8(ptr);
+ /*
+ if (IsUtf8( ptr ))
+    {//return QString::fromUtf8 ( ptr );
+     return fromMyUTF8(ptr);
+    }
+ else
+    {return QString(ptr) ;
+    }
+ */
+}
 //--------------------------------- Utf8_Query -----------------------------------
 /*! \brief gestion de l'Utf8.
 */
