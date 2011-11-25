@@ -52,7 +52,8 @@ SOURCES += main.cpp \
     ../../MedinTuxTools-QT4/C_DragQTreeWidget/C_DragQTreeWidget.cpp \
     ../../MedinTuxTools-QT4/C_GoogleAPI/C_GoogleAPI.cpp \
     ../../MedinTuxTools-QT4/C_GoogleAPI/C_GoogleEvent.cpp \
-    ../../MedinTuxTools-QT4/C_GoogleAPI/C_GoogleAuthentification.cpp
+    ../../MedinTuxTools-QT4/C_GoogleAPI/C_GoogleAuthentification.cpp \
+    ../../MedinTuxTools-QT4/Agenda/c_dlg_plagesdispo.cpp
 HEADERS += CApp.h \
     C_Manager.h \
     C_Dlg_Assure.h \
@@ -77,13 +78,15 @@ HEADERS += CApp.h \
     ../../MedinTuxTools-QT4/C_DragQTreeWidget/C_DragQTreeWidget.h \
     ../../MedinTuxTools-QT4/C_GoogleAPI/C_GoogleAPI.h \
     ../../MedinTuxTools-QT4/C_GoogleAPI/C_GoogleEvent.h \
-    ../../MedinTuxTools-QT4/C_GoogleAPI/C_GoogleAuthentification.h
+    ../../MedinTuxTools-QT4/C_GoogleAPI/C_GoogleAuthentification.h \
+    ../../MedinTuxTools-QT4/Agenda/c_dlg_plagesdispo.h
 FORMS += C_Manager.ui \
          C_Dlg_Assure.ui \
     ../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.ui \
     ../../MedinTuxTools-QT4/GetPassword/CDlg_PasswordGet.ui \
     ../../MedinTuxTools-QT4/UserList/C_Frm_UserList.ui \
-    ../../MedinTuxTools-QT4/C_Dlg_DoList/C_Dlg_DoList.ui
+    ../../MedinTuxTools-QT4/C_Dlg_DoList/C_Dlg_DoList.ui \
+    ../../MedinTuxTools-QT4/Agenda/c_dlg_plagesdispo.ui
 TRANSLATIONS = Manager_fr.ts 
 CODECFORTR = UTF8
 OTHER_FILES += ../bin/Ressources/Changements.html \

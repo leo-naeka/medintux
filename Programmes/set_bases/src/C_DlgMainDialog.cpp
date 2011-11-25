@@ -908,7 +908,7 @@ void C_DlgMainDialog::Compilation(const QString &path, const QString & target)
             "export QMAKESPEC\n"
             "export DYLD_LIBRARY_PATH\n"
             "export INCLUDE\n"
-            "cd "+G_pCApp->m_PathAppli+"\n"
+            "cd '"+G_pCApp->m_PathAppli+"'\n"
             "./MakeAllMac.sh '" + m_CurrentCompil + "' '" + lineEdit_Qt3->text() + "'";
             qDebug(script);
         #else
@@ -940,13 +940,13 @@ void C_DlgMainDialog::Compilation(const QString &path, const QString & target)
                      "export QTDIR\n"
                      "export PATH\n"
                      "export LD_LIBRARY_PATH\n"
-                     "qmake {{target}}.pro\n"
+                     "qmake '{{target}}.pro'\n"
                      "make clean\n"
                      "make\n"
                      "make clean\n"
-                     "cd "+ G_pCApp->m_PathAppli + "\n"
+                     "cd '"+ G_pCApp->m_PathAppli + "'\n"
                      "./modulepatch-Qt4.sh {{target}}\n"
-                     "cd "+ G_pCApp->m_PathAppli + "\n";
+                     "cd '"+ G_pCApp->m_PathAppli + "'\n";
              if (target=="guinch")   script += "strip ../../Manager/bin/{{target}}.app/Contents/MacOS/{{target}}\n";   // sous mac pas de -s pour strip
              else                    script += "strip ../../{{target}}/bin/{{target}}.app/Contents/MacOS/{{target}}\n";
              script.replace("{{sdkDir}}",sdkDir);

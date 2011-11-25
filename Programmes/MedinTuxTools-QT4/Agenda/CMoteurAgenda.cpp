@@ -32,9 +32,10 @@
 #include <QSqlRecord>
 #include <QSqlError>
 #include <QTimer>
+#include <QDateTime>
 #include <QSqlTableModel>
 #include <QDebug>
-
+#include <QMessageBox>
 //#define TR QObject::tr
 
 //=============================================== INCLUDES ===================================================================
@@ -56,6 +57,8 @@ CMoteurAgenda::CMoteurAgenda(const QString &driver,        // nom du driver: "QO
   m_pReconnectTimer = 0;
   m_ModifConfirm    = 0;
   m_Representation  = 0;
+  m_NbDayInModeWeek = 7;
+  m_nbWeeksToSee    = 28;
   //m_log             = "";
   initBase   ( driver,        // nom du driver: "QODBC3" "QMYSQL3" "QPSQL7"
                DataBaseName,  // nom de la base: si QODBC3 -> nom de la source de données (userDSN)
@@ -66,9 +69,7 @@ CMoteurAgenda::CMoteurAgenda(const QString &driver,        // nom du driver: "QO
                confFile,
                baseLabel,
                errMess);
-  SetDaysHeight();
   SetMinDaysHeight();
-  SetSpaceBetwenDays();
 }
 
 //-----------------------------------------------------  initBase -------------------------------------------
@@ -276,40 +277,18 @@ char  *CMoteurAgenda::SetConfBase_SetProperties(char *pt, QString &propertie, co
 void CMoteurAgenda::GotoDebug()
 {
 }
-
-//-------------------------------------- SetProportionnalDays ----------------------------------------------------------------------------
-void  CMoteurAgenda::SetProportionnalDays(int val  /* = 15*/)
-{m_ProportionnalHeight = val;
-}
-//-------------------------------------- GetProportionnalDays ----------------------------------------------------------------------------
-int  CMoteurAgenda::GetProportionnalDays()
-{return m_ProportionnalHeight;
-}
-//-------------------------------------- SetDaysHeight ----------------------------------------------------------------------------
-void  CMoteurAgenda::SetDaysHeight(int val  /* = 15*/)
-{m_DaysHeight = val;
-}
 //-------------------------------------- SetMinDaysHeight ----------------------------------------------------------------------------
 void  CMoteurAgenda::SetMinDaysHeight(int val  /* = 15*/)
 {m_MinDaysHeight = val;
-}
-//-------------------------------------- SetSpaceBetwenDays ----------------------------------------------------------------------------
-void  CMoteurAgenda::SetSpaceBetwenDays(int val /* = 1*/)
-{m_SpaceBetwenDays = val;
-}
-//-------------------------------------- GetDaysHeight ----------------------------------------------------------------------------
-int  CMoteurAgenda::GetDaysHeight()
-{return m_DaysHeight;
 }
 //-------------------------------------- GetMinDaysHeight ----------------------------------------------------------------------------
 int  CMoteurAgenda::GetMinDaysHeight()
 {return m_MinDaysHeight;
 }
-//-------------------------------------- GetSpaceBetwenDays ----------------------------------------------------------------------------
-int  CMoteurAgenda::GetSpaceBetwenDays()
-{return m_SpaceBetwenDays;
+//-------------------------------------- SetDaysHeight ----------------------------------------------------------------------------
+void  CMoteurAgenda::SetTitleHeight(int val  /* = 15*/)
+{m_TitleHeight = val;
 }
-
 //-------------------------------------- makeNextPk ----------------------------------------------------------------------------
 QString CMoteurAgenda::makeNextPk(const QString &tableName, const QString host,const QString &pkFieldName)
 { QString   requete  = "SELECT ";
@@ -856,4 +835,353 @@ QString CMoteurAgenda::OutSQL_error(const QSqlError &error, const char *messFunc
      return error.databaseText();
 }
 
+//CZA --------------------------------------------------------------------------------------------
+// A PLACER DANS UNE CLASSE SEPAREE APPELEE AUSSI PAR MANAGER >>>> BOULOT DE OUF !!!!
+// A REVOIR AVEC RS
+// EN ATTENDANT ....
+#define DOSS_INDEX_TBL_NAME     "IndexNomPrenom"
+#define DOSS_INDEX_NOM          "FchGnrl_NomDos"
+#define DOSS_INDEX_PRENOM       "FchGnrl_Prenom"
+#define DOSS_INDEX_PRIM_KEY     "ID_PrimKey"
+#define DOSS_INDEX_GUID         "FchGnrl_IDDos"
 
+
+#define DOSS_IDENT_TBL_NAME     "fchpat"
+#define DOSS_IDENT_REF_PK       "FchPat_RefPk"
+#define DOSS_IDENT_GUID         "FchPat_GUID_Doss"
+#define DOSS_IDENT_NSS          "FchPat_Nee"
+#define DOSS_IDENT_TEL1         "FchPat_Tel1"
+#define DOSS_IDENT_SEXE         "FchPat_Sexe"
+
+#define ST_LIST_PATIENT_MAX   "200"
+
+//-----------------------------------------------------  GetPatientList -------------------------------------------
+/*! \brief Remplit la QListView avec les patients retrouves dans la base de donnees.
+ *  \param pQlistView : ListView qui recevra les patients recherches
+ *  \param qsrt_nom : Nom a rechercher
+ *  \param qsrt_prenom : Prenom a rechercher
+ *  \param statusMess : message de retour
+ *  \param errMess : Message d'erreur.
+ *  \return nombre d'enregistrements inseres dans la QListView passee en paramètre
+*/
+long CMoteurAgenda::GetPatientList(       QTreeWidget     *pQlistView,
+                                  const QString         &qstr_nom,
+                                  const QString         &qstr_prenom,
+                                        QLabel          *statutMess, /* = 0  */
+                                        QString         *errMess     /* = 0  */
+                                )
+
+{QString   q_nom    = "";
+ QString   q_prenom = "";
+ QString   tmp      = "";
+ //................. Preparer la requete .....................................
+  if (OpenBase()==0)
+     {if (errMess) *errMess = TR("CMoteurBase::GetPatientList(): data base can't be open");
+      return 0;
+     }
+  QString requete, requete_ident;
+  if (qstr_nom != ""||qstr_prenom!="")
+     {q_nom    = qstr_nom;
+      q_prenom = qstr_prenom;
+     }
+  q_nom.replace("\'","\\\'");
+  q_prenom.replace("\'","\\\'");
+  int nb_columns = pQlistView->columnCount();
+  requete        = "SELECT ";
+  requete       += DOSS_INDEX_NOM       ", "  DOSS_INDEX_PRENOM     ", "        // 0 - 1
+                   DOSS_INDEX_PRIM_KEY  ", "  DOSS_INDEX_GUID       ", "        // 2 - 3
+                   DOSS_IDENT_NSS       ", "  DOSS_IDENT_TEL1       ", "        // 4 - 5
+                   DOSS_IDENT_SEXE
+                   " FROM "                   DOSS_INDEX_TBL_NAME
+                   " INNER JOIN "             DOSS_IDENT_TBL_NAME
+                   " ON "                     DOSS_INDEX_PRIM_KEY " = " DOSS_IDENT_REF_PK
+                   " WHERE "
+                   DOSS_INDEX_NOM       " LIKE '"   + q_nom      +  "%' AND "
+                   DOSS_INDEX_PRENOM    " LIKE '"   + q_prenom   +   "%' "
+                   " ORDER BY "               DOSS_INDEX_NOM  ","   DOSS_INDEX_PRENOM
+                   " LIMIT "  ST_LIST_PATIENT_MAX;
+
+  QSqlQuery query(requete , QSqlDatabase::database(m_BaseLabel) );
+  //QSqlQuery query_ident;
+
+  //................ scanner les enregistrements ................................................
+  //                 pour remplir la listview
+
+  int i  = 0;
+  //.................. si la requète a un resultat ..............................................
+  if (query.isActive())
+  {pQlistView->clear();
+   while (query.next())
+   { //if (i < 200)
+     { QTreeWidgetItem *pQTreeWidgetItem = new QTreeWidgetItem();
+       if (pQTreeWidgetItem)
+          {
+           //CPrtQListViewItem* line = 0;
+           //............... on rempli la listbox selon son nombre de colonnes .....................
+           /*
+            switch (nb_columns)
+           {case 1:
+                pQTreeWidgetItem->setText(0, Utf8_Query(query, 0 ));
+                break;
+            case 2:
+                pQTreeWidgetItem->setText(0, Utf8_Query(query, 0 ));
+                pQTreeWidgetItem->setText(1, Utf8_Query(query, 1 ));
+                break;
+            case 3:
+                pQTreeWidgetItem->setText(0, Utf8_Query(query, 0 ));
+                pQTreeWidgetItem->setText(1, Utf8_Query(query, 1 ));
+                pQTreeWidgetItem->setText(2, Utf8_Query(query, 2 ));
+                break;
+            case 4:
+                pQTreeWidgetItem->setText(0, Utf8_Query(query, 0 ));   // Nom
+                pQTreeWidgetItem->setText(1, Utf8_Query(query, 1 ));   // Prenom
+                pQTreeWidgetItem->setText(2, Utf8_Query(query, 2 ));   // PK
+                pQTreeWidgetItem->setText(3, Utf8_Query(query, 3 ));   // GUID
+                break;
+            case 8 : // Recupère les elèments d'identite en plus
+               {
+                 requete_ident        = "SELECT " + m_DOSS_IDENT_RUE + ", " + m_DOSS_IDENT_CODE_POST + ", \n";
+                 requete_ident        += m_DOSS_IDENT_VILLE + ", " + m_DOSS_IDENT_JFNOM + ", \n";
+                 requete_ident        += m_DOSS_IDENT_TEL1 + ", " + m_DOSS_IDENT_TEL2 + " \n";
+                 requete_ident        += " FROM " + m_DOSS_IDENT_TBL_NAME + " \nWHERE ";
+                 requete_ident        += m_DOSS_IDENT_REF_PK    + " = "+ query.value(2).toString() + "; \n";
+                 query_ident = QSqlQuery(requete_ident , QSqlDatabase::database(m_BaseLabel) );
+                 if ( query_ident.isActive() && query_ident.next())
+                 { line = new CPrtQListViewItem( pQlistView , line, Utf8_Query(query, 0 )); // Nom
+                   // Si pas de CP enregistre alors il est == 0 ==> ne pas l'afficher
+                   tmp = Utf8_Query(query_ident, 1) ;
+                   if (tmp == "0") tmp ="";
+                   line->setText( 1, Utf8_Query(query_ident, 3) );        // Nom JF
+                   line->setText( 2, Utf8_Query(query, 1 ) );                // Prenom
+                   line->setText( 3, Utf8_Query(query_ident, 0) );        // Rue
+                   line->setText( 4, tmp );        // CP
+                   line->setText( 5, Utf8_Query(query_ident, 2));        // Ville
+                   line->setText( 6, Utf8_Query(query_ident, 4));        // Tel 1
+                   line->setText( 7, Utf8_Query(query_ident, 5));        // Tel 2
+                   line->setMultiLinesEnabled ( FALSE );                //Plusieurs lignes par item si necessaire
+                   //......... Dichotomiser Affichage et donnees a exploiter ..........
+                   line->setNom(    Utf8_Query(query, 0 ) );                // Nom
+                   line->setPrenom( Utf8_Query(query, 1 ) );                // Prenom
+                   line->setPkDoc(  Utf8_Query(query, 2 ) );                // PK
+                   line->setGUID(   Utf8_Query(query, 3 ) );                // GUID
+                 }
+
+                break;
+               }
+            } // end switch (nb_columns)
+           */
+            if (query.value(6).toString() == "F")                      // Sexe
+                pQTreeWidgetItem->setIcon(0,Theme::getIcon("Agenda/Femme.png"));
+            else
+                pQTreeWidgetItem->setIcon(0,Theme::getIcon("Agenda/Homme.png"));
+            pQTreeWidgetItem->setText(0, query.value(0).toString());   // Nom
+            pQTreeWidgetItem->setText(1, query.value(1).toString());   // Prenom
+            pQTreeWidgetItem->setText(2, query.value(2).toString());   // PK
+            pQTreeWidgetItem->setText(3, query.value(3).toString());   // GUID
+            tmp = query.value(4).toString();                           // Date naissance
+            pQTreeWidgetItem->setText(4,tmp.mid(8,2) + "-" + tmp.mid(5,2) +"-"+tmp.mid(0,4));
+            pQTreeWidgetItem->setTextAlignment(4,Qt::AlignCenter);
+            pQTreeWidgetItem->setText(5,query.value(5).toString());     // Tel 1
+            pQTreeWidgetItem->setTextAlignment(5,Qt::AlignCenter);
+
+
+
+
+
+
+           pQlistView->addTopLevelItem(pQTreeWidgetItem);
+           if (i == 0) pQTreeWidgetItem->setSelected(true);
+          } //endif (pQTreeWidgetItem)
+       //else if (line) pQlistView->insertItem ( line );
+       ++i;
+     } // // fin if i < 200
+     //++nb;
+   } //end while (pSqlQuery->next())
+
+   // Cacher les contenus des colonnes 8 et 9 si 10 demandes
+   if (nb_columns == 10)
+   { //pQlistView->hideColumn ( 8 );
+     //pQlistView->hideColumn ( 9 );
+   }
+  } //endif (pSqlQuery && pSqlQuery->isActive())
+
+  //ListViewPatient->setCurrentItem(0);   // se placer sur le premier enregistrement de la liste
+  //....................... sortir le message d'erreur si besoin ..........................................
+  /*
+  if (statutMess)
+     {int nb = GetNbRecord(m_DOSS_INDEX_TBL_NAME).toInt();
+      QString txt = TR("Trouv\303\251(s) %1 parmi %2").arg(i).arg(nb);
+      if ( i>=NB_LIST_PATIENT_MAX)
+         {txt.prepend("<html><head><meta name=\"qrichtext\" content=\"1\" /> "
+                      "</head><body><span style=\"font-weight:600; color:#ff0000;\">");
+          txt +=      "</span></body></html>";
+         }
+      statutMess->setText( txt );
+     }
+     */
+  CloseBase();
+  return i;
+}
+
+//-------------------------------------chargeListePlagesDisponibles----------------------------------------------
+// Lecture des Rdv ? venir dans Agenda pour recherche des plages disponibles.
+void CMoteurAgenda::chargeListePlagesDisponibles(QTreeWidget  *pQlistViewPlage, QString user) // CZA
+{
+    QDateTime qDatePlageDeb = QDateTime::currentDateTime();   // ? partir de maintenant seulement.
+    QString  sDatePlageDeb  = qDatePlageDeb.toString("yyyy-MM-dd hh:mm");
+    QDateTime qDateFinJourn = QDateTime::currentDateTime();
+    qDateFinJourn.setTime(QTime::fromString(m_TimeEnd,"hh:mm"));
+
+    if (OpenBase()==0) { return ; }
+    pQlistViewPlage->clear();
+    //................. Preparer la requete ..................................................
+    QString requete("");
+    requete  += "SELECT " + m_AGENDA_DATETIME   +  ","         // 0
+                          + m_AGENDA_DUREE                     // 1
+                          + " FROM  " + m_AGENDA_TBL_NAME
+                          +  " WHERE "
+                          +  m_AGENDA_DATETIME   +  " >= '" + sDatePlageDeb
+                          + "' AND "
+                          + m_AGENDA_PRIS_AVEC  +  "  = '" + user
+                          + "' ORDER BY " + m_AGENDA_DATETIME;
+
+    QSqlQuery query(requete , QSqlDatabase::database(m_BaseLabel) );
+    if (query.isActive())
+       { while (query.next())
+            { // tant qu'on a pas d?pass? la date du prochain rdv
+            while ( qDatePlageDeb.operator <=(query.value( 0 ).toDateTime()))
+                {
+                // test si changement de journ?e avant prochain RDV
+                // La date du prochain RDV est sup?rieure ? la fin de journ?e en cours
+                if (query.value(0).toDateTime().operator >=(qDateFinJourn))
+                    {
+                    // on charge la plage jusqu'? la fin de journ?e.
+                    ajouterPlageDispo(pQlistViewPlage, qDatePlageDeb, qDateFinJourn, 0);
+                    // on change de jour.
+                    qDatePlageDeb = qDatePlageDeb.addDays(1);
+                    if (qDatePlageDeb.date().dayOfWeek() == 7) // on bosse pas le dimanche
+                        qDatePlageDeb = qDatePlageDeb.addDays(1);
+
+                    qDatePlageDeb.setTime(QTime::fromString(m_TimeDeb,"hh:mm"));
+                    qDateFinJourn = qDatePlageDeb;
+                    qDateFinJourn.setTime(QTime::fromString(m_TimeEnd,"hh:mm"));
+                    continue;
+                    } // fin chgt de jour
+
+                // on charge la plage jusqu'au prochain RDV
+                ajouterPlageDispo(pQlistViewPlage, qDatePlageDeb, query.value(0).toDateTime(), 0);
+
+                // la nouvelle plage debut devient la fin du RDV
+                qDatePlageDeb = query.value(0).toDateTime().addSecs(query.value( 1 ).toInt() * 60);
+                } // fin while datedeb < date rdv
+
+            } //end while (pSqlQuery->next())
+       } //endif (query.isActive())
+    ajouterPlageDispo(pQlistViewPlage, qDatePlageDeb, qDatePlageDeb, 1);
+    CloseBase();
+}
+//------------------------------------ ajouterPlageDispo ---------------------------------------------------
+// ALimente une ligne du treeview des plages dispo.
+void CMoteurAgenda::ajouterPlageDispo(QTreeWidget  *pQlistViewPlage, QDateTime DatePlageDeb, QDateTime DatePlageFin, int fini)
+{   QString zdat, zDuree;
+    int dureePlage;
+    QTreeWidgetItem *pQTreeWidgetItem = new QTreeWidgetItem();
+
+    if (!fini)
+        {dureePlage =   (DatePlageFin.time().hour() * 60 + DatePlageFin.time().minute())
+                         - (DatePlageDeb.time().hour() * 60 + DatePlageDeb.time().minute());
+        int h = dureePlage / 60;
+        zdat  = QString::number(dureePlage - ( h * 60));
+        if (zdat.length() == 1) zdat = "0" + zdat;
+        zDuree = QString::number(h) + "h" + zdat;
+        }
+
+    if (pQTreeWidgetItem && dureePlage > 5)             // que les plages > ? 5 mn
+        {
+        zdat = DatePlageDeb.toString("dd-MM-yyyy hh:mm");
+        DatePlageDeb.date().day();
+
+        pQTreeWidgetItem->setText(0, DatePlageDeb.toString("ddd  dd-MM-yyyy"));                       // date
+        pQTreeWidgetItem->setText(5, zdat.mid(0,10));                           // date
+        pQTreeWidgetItem->setText(1, zdat.mid(11,2)+"h"+zdat.mid(14,2));        // heure d?but
+        zdat = DatePlageFin.toString("dd-MM-yyyy hh:mm");
+        if (!fini)
+            {pQTreeWidgetItem->setText(2, zdat.mid(11,2)+"h"+zdat.mid(14,2));   // heure fin
+            pQTreeWidgetItem->setText(3, zDuree);                               // duree
+            }
+        else
+            pQTreeWidgetItem->setText(2, "Fin RDV");                            // heure fin
+        pQTreeWidgetItem->setText(4, QString::number(DatePlageDeb.date().weekNumber())); // n? semaine
+
+        pQTreeWidgetItem->setTextAlignment(0,Qt::AlignHCenter);
+        pQTreeWidgetItem->setTextAlignment(1,Qt::AlignHCenter);
+        pQTreeWidgetItem->setTextAlignment(2,Qt::AlignHCenter);
+        pQTreeWidgetItem->setTextAlignment(3,Qt::AlignHCenter);
+        pQTreeWidgetItem->setTextAlignment(4,Qt::AlignLeft);
+        pQTreeWidgetItem->setIcon(4,Theme::getIcon("Agenda/Calendrier.png"));
+        pQlistViewPlage->addTopLevelItem(pQTreeWidgetItem);
+        }
+}
+
+//--------------------------------- creerRDVFactices --------------------------------------------------------------------------------
+void CMoteurAgenda::creerRDVFactices (QString user)
+{
+//QMessageBox::warning(0, NomAppli + tr("export"), "");
+QString requete;
+QStringList lnom;
+lnom << "LAGAFFE" << "ZEBULON" << "LUKE" << "SARQUO"   << "AULANDE" << "LAPINE" ;
+QStringList lpre;
+lpre << "GASTON"  << "Polux"   << "LUKY" <<  "Nicole"  << "FRANCOISE" <<"MARINETTE"  ;
+QDateTime date_time = QDateTime(QDate::currentDate(),QTime::fromString("08:00","hh:mm"));
+QDate          date ;
+QTime          time ;
+QString        datr;
+QSqlQuery query(QSqlDatabase::database(m_BaseLabel));
+
+requete = "INSERT into agenda ( Date_Time, Duree, Nom, Prenom, Tel, RDV_PrisAvec, RDV_PrisPar, Note, Type, status ) "
+              " VALUES ( :Date_Time, :Duree, :Nom, :Prenom, :Tel, :RDV_PrisAvec,:RDV_PrisPar, :Note, :Type, :status ) ";
+
+query.prepare(requete);
+
+
+        int nbrdv = 1;
+        int j = 0;
+    for (int mois = 1; mois <13; ++mois)
+        {
+            //for (int jour = 1; jour < 28; jour ++) // REMETTRE 28 POUR CREATION SUR UN AN !!!!!!!!!!!!!!!!!!!!!!!!
+            for (int jour = 1; jour < 14; ++jour)
+            {date = date_time.date().addDays(jour-1);
+                for (int heure = 0; heure < 12; ++heure)
+                {
+                    for (int minu = 0; minu < 50; minu = minu+15)
+                    {   time = date_time.time().addSecs(heure*3600+minu*60);
+                        //QString jr, mr,ar, hr, mir, datr;
+                        //jr = QString::number(jour);     if (jour < 10)  jr = "0"+jr;
+                        //mr = QString::number(mois);     if (mois < 10)  mr = "0"+mr;
+                        //hr = QString::number(heure);    if (heure < 10) hr = "0"+hr;
+                        //mir = QString::number(minu);    if (minu < 10)  mir = "0"+mir;
+                        //datr = "2011-"  + mr + "-" + jr + " " + hr + ":" + mir + ":00";
+                        datr = date.toString("yyyy-MM-dd")+"T"+time.toString("hh:mm:00");
+                        query.bindValue(":Date_Time",       datr);
+                        query.bindValue(":Duree",       "15");
+                        if ( ++j  > 5) j =0;
+                        query.bindValue(":Nom",         lnom.at(j));
+                        query.bindValue(":Prenom",      lpre.at(j));
+                        query.bindValue(":Tel",         "04.42.85.30.08");
+                        query.bindValue(":RDV_PrisAvec",user);
+                        query.bindValue(":RDV_PrisPar", user);
+                        query.bindValue(":Note",        "Visite de controle");
+                        query.bindValue(":Type",        "Urgences Chirurgicales");
+                        query.bindValue(":status",      "Absent");
+
+                        if (!query.exec() )
+                            {OutSQL_error(query, "Erreur Insert Agenda", requete.toAscii());
+                             return;
+                            }
+                        qDebug() << "RDV num�ro : " + QString::number(nbrdv++);
+                    } // fin minute
+                } // fin for heure
+            } // fi jour
+            break; // VIRER LE BREAK  POUR CREATION SUR UN AN !!!!!!!!!!!!!!!!!!!!!!!!
+        } // fin mois
+}

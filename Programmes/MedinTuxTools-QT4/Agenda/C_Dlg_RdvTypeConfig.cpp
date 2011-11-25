@@ -56,6 +56,8 @@ C_Dlg_RdvTypeConfig::C_Dlg_RdvTypeConfig(MAP_COLOR* pColorProfils, CMoteurAgenda
     m_IsNew          = isNew;
     m_ui.setupUi(this);
     m_pLastQActionHovered = 0;
+    m_pTreeWidgetPatients = 0; // CZA
+    m_pQFrameListPatients = 0; // CZA
     m_ui.pushButton_Anonymize->setIcon( QIcon( Theme::getIcon("Agenda/identityDelete.png")));
     m_ui.pushButton_Heure->setIcon(     QIcon( Theme::getIcon("Agenda/datetime.png")));
     m_ui.pushButton_Duree->setIcon(     QIcon( Theme::getIcon("Agenda/Duree.png")));
@@ -82,7 +84,10 @@ C_Dlg_RdvTypeConfig::C_Dlg_RdvTypeConfig(MAP_COLOR* pColorProfils, CMoteurAgenda
              m_ui.comboBox_Statut->addItem(QIcon(QPixmap(file)), statut );
             }
         m_ui.comboBox_Statut->setCurrentIndex(index);
-        m_ui.textEdit_note->setFocus();
+        if (m_ui.lineEdit_Nom->text().length() == 0)     // CZA
+            m_ui.lineEdit_Nom->setFocus();              // CZA
+        else
+            m_ui.textEdit_note->setFocus();
        }
     else
        {m_ui.frame_RdvEdit->hide();
@@ -103,8 +108,9 @@ C_Dlg_RdvTypeConfig::C_Dlg_RdvTypeConfig(MAP_COLOR* pColorProfils, CMoteurAgenda
     connect( m_ui.pushButton_Anonymize,     SIGNAL( clicked()  ),     this ,     SLOT(   Slot_pushButton_Anonymize_clicked ()  )  );
     connect( m_ui.pushButton_Heure,         SIGNAL( clicked()  ),     this ,     SLOT(   Slot_pushButton_Heure_clicked ()  )  );
     connect( m_ui.pushButton_Duree,         SIGNAL( clicked()  ),     this ,     SLOT(   Slot_pushButton_Duree_clicked ()  )  );
-    connect( m_ui.treeWidget_RdvTypeList,   SIGNAL(itemClicked ( QTreeWidgetItem * , int  )), this, SLOT(Slot_treeWidget_RdvTypeList_Clicked( QTreeWidgetItem * , int)) );
+    connect( m_ui.treeWidget_RdvTypeList,   SIGNAL(itemClicked ( QTreeWidgetItem * ,       int  )), this, SLOT(Slot_treeWidget_RdvTypeList_Clicked( QTreeWidgetItem * , int)) );
     connect( m_ui.treeWidget_RdvTypeList,   SIGNAL(itemDoubleClicked ( QTreeWidgetItem * , int  )), this, SLOT(Slot_treeWidget_RdvTypeList_DoubleClicked( QTreeWidgetItem * , int)) );
+    connect( m_ui.lineEdit_Nom,             SIGNAL(textChanged(const QString &)),          this, SLOT(Slot_lineEdit_Nom_textChanged(const QString &)) );       //CZA
 
     m_ui.pushButton_Moins->setIcon ( Theme::getIcon("Agenda/Moins.png") );
     m_ui.pushButton_Plus->setIcon  ( Theme::getIcon("Agenda/Plus.png") );
@@ -389,4 +395,109 @@ void C_Dlg_RdvTypeConfig::changeEvent(QEvent *e)
     default:
         break;
     }
+}
+//---------------------------------Slot_createTreeViewPatients-------------------------------------------------
+void C_Dlg_RdvTypeConfig::Slot_createTreeViewPatients()
+{
+    QStringList TitreColonne;
+    TitreColonne << tr("Name") << tr("First name") << "Ident" << "GUID" << tr("Birth") << tr("Phone");
+    int widthListP      = 575;
+    int heightListP     = 305;
+    int nbColonneMax    = 6;
+
+    m_pQFrameListPatients = new QFrame(this);
+    m_pQFrameListPatients->move(5,147);
+    m_pQFrameListPatients->resize(widthListP,heightListP);
+
+    m_pTreeWidgetPatients = new QTreeWidget(m_pQFrameListPatients);
+    m_pTreeWidgetPatients->setObjectName(QString::fromUtf8("listModele")) ;
+    m_pTreeWidgetPatients->move(0,0);
+    m_pTreeWidgetPatients->resize(widthListP,heightListP);
+    m_pTreeWidgetPatients->setColumnCount(nbColonneMax);
+    m_pTreeWidgetPatients->setColumnHidden(2,true);
+    m_pTreeWidgetPatients->setColumnHidden(3,true);
+    m_pTreeWidgetPatients->setAlternatingRowColors(true);
+    m_pTreeWidgetPatients->setColumnWidth(0,150);
+    m_pTreeWidgetPatients->setColumnWidth(1,120);
+    m_pTreeWidgetPatients->setColumnWidth(4,100);
+    m_pTreeWidgetPatients->setHeaderLabels(TitreColonne);
+    m_pTreeWidgetPatients->header()->setDefaultAlignment(Qt::AlignHCenter);
+
+    connect( m_pTreeWidgetPatients,   SIGNAL(itemDoubleClicked ( QTreeWidgetItem * , int  )), this, SLOT(Slot_TreeWidgetPatients_DoubleClicked( QTreeWidgetItem * , int)) );
+}
+// ------------- A METTRE DANS UNE CLASSE COMMUNE AVEC MANAGER ......
+//--------------------------------- initListePatient ---------------------------------------------------------------------------
+void C_Dlg_RdvTypeConfig::initListePatient( const QString & qstr_nom, const QString & qstr_prenom)
+{
+    // Cr?ation du Treeview si existe pas
+    if (!m_pTreeWidgetPatients)
+        Slot_createTreeViewPatients();
+    m_pQFrameListPatients->show();
+    m_pCMoteurAgenda->GetPatientList(m_pTreeWidgetPatients, qstr_nom, qstr_prenom, m_pQLabelStatus );
+    m_pTreeWidgetPatients->sortItems (0, Qt::AscendingOrder );
+   // effacement du treeview s'il est vide ...
+   if (m_pTreeWidgetPatients->topLevelItemCount() == 0)
+       m_pQFrameListPatients->hide();
+
+   //m_pLastQListViewItem = 0;
+}
+//--------------------------------- Slot_lineEdit_Nom_textChanged -------------------------------------------------------------
+void C_Dlg_RdvTypeConfig::Slot_lineEdit_Nom_textChanged(const QString &texte)
+{   if (texte.length()<3) return;
+    QStringList lst = m_ui.lineEdit_Nom->text().split(';',QString::KeepEmptyParts);
+   //.................. rechercher le separateur de nom ; prenom .......................
+   if (lst.count()==1) initListePatient( lst[0], "");
+   else                initListePatient( lst[0], lst[1]);
+}
+
+//-------------------------------------- keyPressEvent --------------------------------------------------------------
+void C_Dlg_RdvTypeConfig::keyPressEvent ( QKeyEvent * event )
+{
+    QTreeWidgetItem * pQTreeWidgetItem = 0;
+
+    switch (event->key()) {
+    case Qt::Key_Down:
+            if (m_ui.lineEdit_Nom->hasFocus())              // Que pour la gestion de la liste patient
+            {m_pTreeWidgetPatients->setFocus();
+            pQTreeWidgetItem = m_pTreeWidgetPatients->currentItem();
+            pQTreeWidgetItem->setSelected(true);
+            }
+            return;
+
+    case Qt::Key_Return:
+            if (m_ui.lineEdit_Nom->hasFocus())          // si Return sur le nom on ferme la liste
+                { if (m_pQFrameListPatients)
+                    {m_pQFrameListPatients->hide();
+                    m_ui.lineEdit_Prenom->setFocus();
+                    }
+                return;
+                }
+            if (m_pTreeWidgetPatients->hasFocus())      // Que pour la gestion de la liste patient
+                Valid_Patient_Selected(m_pTreeWidgetPatients->currentItem());
+            return;
+    case Qt::Key_Escape:
+            if (m_pTreeWidgetPatients->hasFocus())
+                {m_pQFrameListPatients->hide();
+                m_ui.lineEdit_Nom->setFocus();
+                }
+    default:
+        break;
+    }
+}
+//---------------------------------------- Slot_TreeWidgetPatients_DoubleClicked --------------------------------------------
+void C_Dlg_RdvTypeConfig::Slot_TreeWidgetPatients_DoubleClicked( QTreeWidgetItem *pQTreeWidgetPatientItem , int)
+{
+    Valid_Patient_Selected(pQTreeWidgetPatientItem);
+}
+//--------------------------------- getSelectedListViewItem -------------------------------------------------------------
+void C_Dlg_RdvTypeConfig::Valid_Patient_Selected(QTreeWidgetItem *pQTreeWidgetPatientItem)
+{
+    m_ui.lineEdit_Prenom->setText   (pQTreeWidgetPatientItem->text(1));
+    m_ui.lineEdit_GUID->setText     (pQTreeWidgetPatientItem->text(3));
+    m_ui.lineEdit_Tel->setText      (pQTreeWidgetPatientItem->text(5));
+    m_ui.lineEdit_Nom->setText      (pQTreeWidgetPatientItem->text(0));
+    // ????? //
+
+    m_pQFrameListPatients->hide();
+    m_ui.textEdit_note->setFocus();
 }

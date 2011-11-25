@@ -366,7 +366,7 @@ QString CGestIni::Param_WriteParam(QString *pQstr, const char *section, const ch
  //.............. eliminer tous les espaces rn tab  arrieres .......................
  pos = pQstr->length();
  while (pos>0)
-       {QChar c= (*pQstr)[pos-1];
+       {QChar c= pQstr->at(pos-1);
         if (c=='\t' || c=='\r'|| c=='\n'|| c==' ') --pos;
         else                                       break;
        }

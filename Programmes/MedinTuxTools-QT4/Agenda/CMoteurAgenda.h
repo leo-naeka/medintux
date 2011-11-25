@@ -32,6 +32,9 @@
 #include <QSqlQuery>
 #include <QDateTime>
 #include <QTimer>
+#include <QTreeWidget>        // CZA
+#include <QLabel>             // CZA
+
 #define BASE_AGENDA            "BaseAgenda"
 #define SKIP_BLANK_CAR(a)       while( *(a) && (*(a)==' ' || *(a)=='\t' || *(a)== 96) ) (a)++
 #define NEXT_LINE(a)            while( *(a) && *(a)!='\r' && *(a)!='\n')(a)++; while( *(a) && (*(a)=='\r'|| *(a)=='\n'))(a)++
@@ -115,13 +118,13 @@ class CMoteurAgenda : public QObject
   static QString  dayOfWeek(int dayOfWeek);
   QString         OutSQL_error(const QSqlQuery &cur, const char *messFunc =0, const char *requete=0);
   QString         OutSQL_error(const QSqlError &error, const char *messFunc =0, const char *requete =0);
+  void            creerRDVFactices (QString user);
 
-  void            SetProportionnalDays(int val  = 1);
-  void            SetDaysHeight(int = 15);
-  void            SetSpaceBetwenDays(int = 1);
   void            SetMinDaysHeight(int = 15);
   void            SetVerboseMode(int mode) {m_isVerbose = mode;}
   int             GetVerboseMode() {return m_isVerbose;}
+  void            SetEditNoteMode(int value = 1){m_EditNoteMode=value;}
+  int             GetEditNoteMode(){return m_EditNoteMode;}
   void            SetRafraichissement(int raf= 0){m_Rafraichissement = raf;}
   int             GetRafraichissement(){return m_Rafraichissement;}
   void            SetDebDay(const QString &deb){m_TimeDeb = deb;}
@@ -134,26 +137,52 @@ class CMoteurAgenda : public QObject
   int             GetRepresentation(){return m_Representation;}
   void            SetAgendaWidth(int value= 300){m_AgendaWidth = value;}
   int             GetAgendaWidth(){return m_AgendaWidth;}
+  void            SetAgendaWeekWidth(int value= 1200){m_AgendaWeekWidth = value;}   // CZA
+  int             GetAgendaWeekWidth(){return m_AgendaWeekWidth;}                   // CZA
+  void            SetNbDayInWeek(int value= 6){m_NbDayInModeWeek = value;}          // CZA
+  int             GetNbDayInWeek(){return m_NbDayInModeWeek;}                       // CZA
+  void            SetNbDayInModeDay(int value= 6){m_NbDayInModeDay = value;}
+  int             GetNbDayInModeDay(){return m_NbDayInModeDay;}
+  void            SetWeekOrDay(QString WoD = "DAY"){m_WeekOrDay = WoD;}             // CZA
+  QString         GetWeekOrDay(){return m_WeekOrDay;}                               // CZA
+  void            SetAgendaSimple(int presimple = 0){m_PresentSimple = presimple;}  // CZA
+  void            SetTitleHeight(int = 15);                                         // CZA
+  void            SetWeeksToSee(int value = 28){m_nbWeeksToSee=value;}
+  int             GetWeeksToSee(){return m_nbWeeksToSee;}
+  void            chargeListePlagesDisponibles(QTreeWidget  *pQlistView, QString user); // CZA
+  void            ajouterPlageDispo(QTreeWidget  *pQlistViewPlage, QDateTime DatePlageDeb, QDateTime DatePlageFin, int fini); // CZA
 
-  int             GetProportionnalDays();
-  int             GetDaysHeight();
-  int             GetSpaceBetwenDays();
   int             GetMinDaysHeight();
   void            setOpenCloseMode(int /*mode */ ){/*m_CloseAfterQuery=mode; if (m_CloseAfterQuery==0 && m_DataBase &&  m_DataBase->isOpen()==FALSE) m_DataBase->open();*/ }
   int             OpenBase();
   void            CloseBase(); //m_CloseAfterQuery
   QString         GetDataBaseLabel(){return m_BaseLabel;}
+  // CZA ----
+  long            GetPatientList(     QTreeWidget *pQlistView,     // pointeur sur une QListView ?  3 colonnes
+                                  const QString   &qstr_nom,       // nom d'entrée
+                                  const QString   &qstr_prenom,    // prenom d'entré
+                                        QLabel    *statutMess=0,   // pointeur sur Qlabel de sortie message
+                                        QString   *errMess=0       // pointeur sur Qlabel de sortie message
+                                 );
+
+  // --- CZA
+
 //............................... DATA .............................................................................
  public:
-  int           m_SpaceBetwenDays;
+  int           m_EditNoteMode;
+  int           m_nbWeeksToSee;
   int           m_isVerbose;
-  int           m_DaysHeight;
   int           m_AgendaWidth;
+  int           m_AgendaWeekWidth;          // CZA
+  int           m_NbDayInModeWeek;          // CZA
+  int           m_NbDayInModeDay;
+  int           m_PresentSimple;            // CZA
+  int           m_TitleHeight;              // CZA
   int           m_MinDaysHeight;
-  int           m_ProportionnalHeight;
   int           m_ModifConfirm;
   int           m_Rafraichissement;
   int           m_Representation;       // 0/sur 1 ligne 1/sur deux lignes
+  QString       m_WeekOrDay;            // Vide ou DAY = affichage journee, WEEK= Affichage Semaine // CZA
   QString       m_TimeDeb;
   QString       m_TimeEnd;
   //QString       m_log;

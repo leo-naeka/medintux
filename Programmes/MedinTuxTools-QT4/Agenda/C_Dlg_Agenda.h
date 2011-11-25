@@ -75,6 +75,9 @@
 #include "../../MedinTuxTools-QT4/Theme/Theme.h"
 #include "../../MedinTuxTools-QT4/C_GoogleAPI/C_GoogleAPI.h"
 
+#include "c_dlg_plagesdispo.h"                  // CZA
+#include "ui_c_dlg_plagesdispo.h"               // CZA
+
 #define SIZE_BORDER_DAY            5         // largeur de la zone sensible au niveau des bordure pour etirement rendez-vous
 #define DAY_OFS_X                 20         // ofset affichage dans le jour replie
 #define W_OFSET                    0         // ofset lateral affichage du jour
@@ -124,6 +127,7 @@ class C_BitMapCollection
       m_ButtonCreateDoss          = QPixmap(pathImage + "AgendaCreateDoss.png");
       m_MenuRendezvousDel         = QPixmap(pathImage + "RendezvousDel.png");
       m_ButtonGoogle_Pixmap       = QPixmap(pathImage + "Google.png");
+      m_ButtonGotoWeek_Pixmap     = QPixmap(pathImage + "gotoWeek.png");
       QStringList list  = CGestIni::listDirectory(pathImage + "Statuts", ".png");
       for (int i = 0; i < list.size(); ++i)
           {QString file   = pathImage + "Statuts/" + list[i];
@@ -166,6 +170,7 @@ class C_BitMapCollection
      QPixmap m_ButtonCreateDoss;
      QPixmap m_MenuRendezvousDel;
      QPixmap m_ButtonGoogle_Pixmap;
+     QPixmap m_ButtonGotoWeek_Pixmap;
  };
 
 //====================================== C_QMenuRdv =======================================================
@@ -401,8 +406,7 @@ public:
                       CMoteurAgenda*pCMoteurAgenda = 0,
                       MAP_COLOR *colorProfils      = 0,
                       C_BitMapCollection  *pC_BitMapCollection = 0,
-                      int minHeight=15, int proportionnalHeight = 1,
-                      int x = W_OFSET,  int y = 0, QWidget *parent = 0);
+                      int minHeight=15, QWidget *parent = 0);
     ~C_Frm_Rdv();
     void     setWidgetStyleOnRdv(const C_RendezVous &rdv);
     void     setWidgetOnRdv(const C_RendezVous &rdv);
@@ -474,7 +478,7 @@ private:
   int                 m_GrabIsOn;;
   int                 m_startPosY;
   QRubberBand        *m_pQRubberBand;
-
+  QColor              m_background_color;
 
 signals:
   void Sign_DeleteRendezVous (const char*, void *);
@@ -571,7 +575,8 @@ public:
               int timeGranu,
               int x = W_OFSET,
               int y = 0,
-              int resoPix=1);
+              int resoPix=1,
+              int day_expand=0);  // CZA);
     ~C_Frm_Day();
     void            toGoogle(C_GoogleAPI *pC_GoogleAPI);
     int             getHeight(){return m_Height;}
@@ -630,7 +635,12 @@ public:
 
     void            ExpandDialog();
     int             getStateLook(){return m_DontRecreateWidget;}
+
+    void            cherchePlagesDisponibles(QString User);
+    //.......... DATA  public ........
     C_RendezVous    m_DropedRdv;
+    CMyButton       *m_ButtonExpand;
+
 private:
   QDate            m_Date;
   QString          m_HeureDeb;
@@ -642,7 +652,6 @@ private:
   int              m_Height;
   int              m_DayLF;
   int              m_Magnetisme;
-  CMyButton       *m_ButtonExpand;
   CMyButton       *m_ButtonNewRDV;
   CMyButton       *m_ButtonSave;
   CMyButton       *m_ButtonGoogle;
@@ -673,6 +682,7 @@ public slots:
   void Slot_Drop_Rdv ();
 signals:
   void Sign_AgendaMustBeReArange();
+  void Sign_AgendaMustDisplayFromThisDate(const QDate &  ); // CZA
   void Sign_agenda_GetInfoFromUser(QString &, QString &, QString &, QString &);
   void Sign_LauchPatient(const QString &, C_RendezVous *);
 };
@@ -749,13 +759,18 @@ public:
     QWebView    *getWebView();
     void         reinitAgendaOnDate(QDate dateDeb , QMap<QDate,int> map);
     //void         paintEvent ( QPaintEvent * event );
-    QDate    getStartDate(){return m_StartDate;}
+    QDate    getStartDate(){ return m_StartDate;}
+    void     setStartDate(const QDate &date){m_StartDate = date;}
     void     setMagnetisme(int mag)        { m_Magnetisme = mag;}
     int      getMagnetisme()        { return m_Magnetisme;}
     int      getResoPixByMinutes(){return m_PixByMinute;}
     void     setResoPixByMinutes(int resoPix){m_PixByMinute = resoPix;}
     QString  getUser()    {return m_User;}
     QString  getSignUser(){return m_SignUser; }
+    QString  getWeekOrDay() ;       // CZA
+    int      getTitleHeight();      // CZA
+    int      getPresentSimple();    // CZA
+
     //.............. google .........................
     void     setGoogleLoginParam (const QString &googleUser, const QString &googlePass );
     QString  getGoogleUser (){return m_googleUser;}
@@ -774,12 +789,17 @@ public:
     void     changeRepresentation(int representation);
     void     changeModifConfirm(int value);
     void     changeAgendaWidth(int value);
+    void     changeWeekOrDay(QString WeekOrDay);            // CZA
 
+    void     creerRDVFactices(const QString &user);
+    QDate    m_dateToStart;
 public slots:
     void   OnButtonGoogleClickedPtr (const char*, void *);
+    void   On_AgendaMustDisplayFromThisDate(const QDate & newDate);        // CZA
     void   On_AgendaMustBeReArange();
     void   reinitAgendaOnDate(QDate dateDeb);
     void   reinitAgendaOnUser(const QString& user, const QString &droits);
+    void   Slot_startToDate();
 
 private:
     QString              m_googleUser;
@@ -805,9 +825,11 @@ private:
     QString              m_BackgroundMessage;
     QWebView            *m_pQWebView;
     C_GoogleAPI         *m_pC_GoogleAPI;
+
 signals:
     void Sign_agenda_GetInfoFromUser(QString &, QString &, QString &, QString &);
     void Sign_LauchPatient(const QString &, C_RendezVous *);
+    void Sign_ReinitModeWeekDayMonth_OnDate(const QDate & date, const QString &mode, C_Frm_Agenda* pC_Frm_Agenda);
 };
 
 /*

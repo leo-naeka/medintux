@@ -69,12 +69,14 @@ public:
     void *getPtr_2() {return m_Ptr_2;}
     void  setPtr_3(void *ptr){m_Ptr_3 = ptr;}
     void *getPtr_3() {return m_Ptr_3;}
-
+    void  setPtr_4(void *ptr){m_Ptr_4 = ptr;}
+    void *getPtr_4() {return m_Ptr_4;}
    ~Wdg_ButtonPtr(){}
 protected:
    void *m_Ptr_1;
    void *m_Ptr_2;
    void *m_Ptr_3;
+   void *m_Ptr_4;
 protected slots:
     void Slot_IsClicked()
     {emit clicked(this);
@@ -137,7 +139,7 @@ public:
     //.................. agenda .................................
     void            initComboBoxAgendaUser();
     C_Frm_UserList *getFrm_UserList() {return m_pC_Frm_UserList;}
-    void            get_RecordDispos();
+    void            get_RecordDispos(const QString &mode="FICHE");
     void            reinitAgendaOnUser(const QString &user , const QString &signUser);
     void            reinitListUserOnUser(const QString &user , const QString &signUser);
     void            editUser(QString cps);
@@ -250,7 +252,12 @@ private slots:
    void Slot_buttonAgendaDelete_Clicked(Wdg_ButtonPtr *pWdg_ButtonPtr);
    void Slot_pQPushButtonAgendaDate_Clicked ( Wdg_ButtonPtr *pWdg_ButtonPtr);
    void Slot_pQPushButtonMenuAgenda_Clicked(Wdg_ButtonPtr* pWdg_ButtonPtr);
+   void Slot_pQPushButtonNextDay_Clicked (Wdg_ButtonPtr* pWdg_ButtonPtr); // CZA
+   void Slot_pQPushButtonPreviusDay_Clicked (Wdg_ButtonPtr* pWdg_ButtonPtr); // CZA
+   void Slot_pQPushButtonThisDay_Clicked (Wdg_ButtonPtr* pWdg_ButtonPtr);
+   void Slot_pQPushButtonWeekDay_Clicked (Wdg_ButtonPtr* pWdg_ButtonPtr); // CZA
    void Slot_setUserAgendaVisible();
+   void Slot_ReinitModeWeekDayMonth_OnDate(const QDate &date , const QString &mode, C_Frm_Agenda *pC_Frm_Agenda);
    //........................ connecter les slot de changement ............................................................................................
    void Slot_TextChanged_lineEdit_NomDossier(const QString & );
    void Slot_TextChanged_lineEdit_PrenomDossier(const QString & );
@@ -331,6 +338,7 @@ private slots:
     void Slot_pushButtonVitale_clicked();
     void Slot_action_Imprimer(bool);
     void Slot_pushButton_SigemsPA_Clicked();
+    void Slot_Type_Affichage_Change();          // CZA
 
     void Slot_pushButton_FSE();                                        // Cz_Pyxvital
     void Slot_saisieFSEenCours();                                      // Cz_Pyxvital
@@ -377,6 +385,7 @@ private:
    QMenu              *m_menuInfo;
    QAction            *m_action_A_Propos;
    QAction            *m_action_Aide;
+   QAction            *m_actionTypeAffichage; // CZA
 
    C_Frm_UserList     *m_pC_Frm_UserList;
    int                 m_InterfaceMode;
@@ -400,6 +409,8 @@ private:
    bool                m_FSEenCours;                                // Cz_Pyxvital Ordre de FSE en cours sur Pyxvital
    QString             m_Facture_Seule;                             // Cz_Pyxvital
    QString             m_typFact;                                   // CZ_Cpta
+   QString             m_Type_Affichage_EnCours;                    // CZA
+   Wdg_ButtonPtr      *m_Button_Affichage_EnCours;
 signals:
    void               Sign_applicationMustBeStop();
 };

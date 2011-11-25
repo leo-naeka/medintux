@@ -14,7 +14,7 @@
  *                              http://www.cecill.info/                           *
  *   as published by :                                                            *
  *                                                                                *
- *   Commissariat à l'Energie Atomique                                            *
+ *   Commissariat �  l'Energie Atomique                                            *
  *   - CEA,                                                                       *
  *                            31-33 rue de la Fédération, 75752 PARIS cedex 15.   *
  *                            FRANCE                                              *
@@ -64,6 +64,7 @@ public:
 protected:
     virtual void     changeEvent(QEvent *e);
     int              initRdvTypeList();
+    void             initListePatient( const QString & qstr_nom, const QString & qstr_prenom); // CZA
     QTreeWidgetItem *getSelectedListViewItem(QTreeWidget *pQTreeWidget);
     QMenu           *makeMenuDuree(menuMode mode = C_Dlg_RdvTypeConfig::Long);
 private slots:
@@ -77,12 +78,22 @@ private slots:
     void Slot_pushButton_Heure_clicked();
     void Slot_pushButton_Duree_clicked();
     void Slot_menuHeure_hovered (QAction *pQAction);
+    void Slot_createTreeViewPatients ();                                    // CZA
+    void Slot_lineEdit_Nom_textChanged(const QString &);                    // CZA
+    //void Slot_lineEdit_Nom_keyPressEvent(QKeyEvent *, int &);
+    void Slot_TreeWidgetPatients_DoubleClicked( QTreeWidgetItem * , int);   // CZA
+    void Valid_Patient_Selected(QTreeWidgetItem *pQTreeWidgetPatientItem);  // CZA
+    void keyPressEvent ( QKeyEvent * event );                               // CZA
 
 private:
     CMoteurAgenda          *m_pCMoteurAgenda;
     MAP_COLOR              *m_pColorProfils;
     C_RendezVous           *m_pC_RendezVous;
     QAction                *m_pLastQActionHovered;
+
+    QFrame                 *m_pQFrameListPatients;              //CZA
+    QTreeWidget            *m_pTreeWidgetPatients;              //CZA
+    QLabel                 *m_pQLabelStatus;
     Ui::C_Dlg_RdvTypeConfig m_ui;
 };
 
