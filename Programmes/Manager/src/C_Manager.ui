@@ -2209,7 +2209,7 @@ p, li { white-space: pre-wrap; }
         </property>
         <item row="0" column="0" colspan="2">
          <layout class="QGridLayout">
-          <item row="0" column="1" colspan="2">
+          <item row="0" column="2" colspan="2">
            <widget class="QComboBox" name="comboBoxAgendaUser">
             <property name="toolTip">
              <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -2220,7 +2220,7 @@ p, li { white-space: pre-wrap; }
             </property>
            </widget>
           </item>
-          <item row="0" column="0">
+          <item row="0" column="1">
            <widget class="QLabel" name="labelAgendaSelect">
             <property name="font">
              <font>
@@ -2232,7 +2232,7 @@ p, li { white-space: pre-wrap; }
             </property>
            </widget>
           </item>
-          <item row="1" column="0" colspan="3">
+          <item row="1" column="0" colspan="4">
            <widget class="QLabel" name="textLabelPixMap">
             <property name="font">
              <font>
@@ -2243,6 +2243,9 @@ p, li { white-space: pre-wrap; }
              <string>noTranslate àâéèêïîÈÉÊÀÂûÙçÇ«»ô</string>
             </property>
            </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QDialogButtonBox" name="buttonBox_agendas"/>
           </item>
          </layout>
         </item>
@@ -2262,7 +2265,7 @@ p, li { white-space: pre-wrap; }
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>205</width>
+          <width>343</width>
           <height>866</height>
          </rect>
         </property>

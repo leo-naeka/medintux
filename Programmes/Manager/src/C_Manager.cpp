@@ -84,6 +84,7 @@
 #include <QDebug>
 #include <QPainter>
 #include <QPaintEngine>
+#include <QAbstractButton>
 
 #define MODE_SELECTION_PATIENT 0
 #define MODE_CREATION_PATIENT  1
@@ -323,22 +324,6 @@ C_Manager::C_Manager(CMoteurBase *pCMoteurBase,  QWidget *parent, const QString 
    m_pAgendaQLayout->setObjectName(QString::fromUtf8("m_pAgendaQLayout"));
    m_pAgendaQLayout->setContentsMargins(0, 0, 0, 0);
 
-   // CZA ================ test plusieurs agendas ouverts au lancement ==============================
-   QString     listagendas = CGestIni::Param_ReadUniqueParam(G_pCApp->m_LocalParam, "Agenda", "Liste des agendas a ouvrir");
-   QStringList listeUsersAgenda;
-   listeUsersAgenda = listagendas.split(';',QString::SkipEmptyParts);
-   if (listeUsersAgenda.count() > 0)
-      {for (int i = 0; i < listeUsersAgenda.count(); i++)
-           {addUserAgenda(listeUsersAgenda[i].remove(' '), QDate::currentDate());
-           }
-      }
-   else
-      {addUserAgenda(G_pCApp->m_SignUser, QDate::currentDate());
-      }
-   if (CGestIni::Param_ReadUniqueParam(G_pCApp->m_LocalParam, "Agenda", "Affichage logo Data Medical Design")== "NON")  // CZA
-      {m_pGUI->textLabelPixMap->hide();
-      }  //CZA
-
    setComboBoxOnValue(m_pGUI->comboBoxAgendaUser, G_pCApp->m_SignUser);
    //........................ customiser quelques widgets ..............................
    pQHeaderView = m_pGUI->listView_Doublons->header();                 // cacher les colonnes du Pk et GUID
@@ -483,6 +468,8 @@ if (CGestIni::Param_ReadUniqueParam(G_pCApp->m_LocalParam, "Sesam-Vitale", "Modu
    connect( m_pGUI->comboBoxSexe,                SIGNAL( currentIndexChanged (const QString & ) ), this, SLOT(   Slot_TextChanged_comboBoxSexe( const QString &))  );
    connect( m_pGUI->comboBoxQualiteAyantDroit,   SIGNAL( currentIndexChanged (const QString & ) ), this, SLOT(   Slot_TextChanged_comboBoxQualiteAyantDroit( const QString &))  );
    connect( m_pGUI->comboBoxAgendaUser,          SIGNAL( activated( const QString & )),            this, SLOT(   Slot_comboBoxAgendaUser_activated( const QString& )) );
+   connect(m_pGUI->buttonBox_agendas,            SIGNAL(clicked(QAbstractButton *)),               this, SLOT(   Slot_OnFastAccesAgendaButtonClicked(QAbstractButton *)) );        // CZA
+
    //................... connexions ....................................................
    connect( m_pC_Frm_UserList,                SIGNAL(Sign_UserSelected( QTreeWidgetItem * , QTreeWidgetItem * )),       this, SLOT(Slot_UserSelected_InListUser( QTreeWidgetItem * , QTreeWidgetItem *)) );
    connect( m_pC_Frm_UserList,                SIGNAL(Sign_UserMustBeEdited( const QString&, const QString& )),          this, SLOT(Slot_EditUser( const QString&, const QString&)) );
@@ -560,6 +547,7 @@ if (CGestIni::Param_ReadUniqueParam(G_pCApp->m_LocalParam, "Sesam-Vitale", "Modu
    connect( m_pGUI->pushButton_SigemsPA,      SIGNAL(clicked()),                                                     this, SLOT(Slot_pushButton_SigemsPA_Clicked()) );
    //connect(m_actionTypeAffichage,             SIGNAL(triggered()),                                                   this, SLOT(Slot_Type_Affichage_Change()) );        // CZA
    connect(m_Button_Affichage_EnCours,        SIGNAL(clicked()),                                                     this, SLOT(Slot_Type_Affichage_Change()) );        // CZA
+
    //....................... nomadisme ....................................................
    if (G_pCApp->m_IsGestionNomadisme)
       {m_NomadismeToolBar = addToolBar("NomadisemetoolBar"); //new QToolBar(this);
@@ -648,6 +636,23 @@ if (CGestIni::Param_ReadUniqueParam(G_pCApp->m_LocalParam, "Sesam-Vitale", "Modu
    //............. placer les fontes de caractere sur les widgets .........
    initWidgetsList();
    setAllWidgetsOnFont(G_pCApp->m_GuiFont);
+   //................. ceration des agendas ......................................................
+   //                   teste si plusieurs agendas ouverts au lancement .
+   QString     listagendas = CGestIni::Param_ReadUniqueParam(G_pCApp->m_LocalParam, "Agenda", "Liste des agendas a ouvrir");
+   QStringList listeUsersAgenda;
+   listeUsersAgenda = listagendas.split(';',QString::SkipEmptyParts);
+   if (listeUsersAgenda.count() > 0)
+      {for (int i = 0; i < listeUsersAgenda.count(); i++)
+           {QString user = listeUsersAgenda[i].remove(' ');
+            if (m_pGUI->comboBoxAgendaUser->findText (user) != -1 )  addUserAgenda(user, QDate::currentDate());
+           }
+      }
+   else
+      {addUserAgenda(G_pCApp->m_SignUser, QDate::currentDate());
+      }
+   if (CGestIni::Param_ReadUniqueParam(G_pCApp->m_LocalParam, "Agenda", "Affichage logo Data Medical Design")== "NON")  // CZA
+      {m_pGUI->textLabelPixMap->hide();
+      }
 }
 
 //------------------------ ~C_Manager ---------------------------------------
@@ -667,6 +672,11 @@ void C_Manager::setAllWidgetsOnFont(const QFont &font)
     { G_pCApp->m_widgetList.at(i)->setFont(font);
       //qDebug() << G_pCApp->m_widgetList.at(i)->name();
     }
+ //............ ne pas oublier les boutons d'acces rapide aux  agendas .................................
+ QList<QAbstractButton *> buttonsList =	m_pGUI->buttonBox_agendas->buttons();
+ for (int i=0; i<buttonsList.size(); ++i)
+     {buttonsList[i]->setFont(font);
+     }
 }
 //------------------------ initWidgetsList ---------------------------------------
 void C_Manager::initWidgetsList()
@@ -751,6 +761,13 @@ void C_Manager::initWidgetsList()
  G_pCApp->m_widgetList.append(m_pGUI->listView_Patient);
  G_pCApp->m_widgetList.append(m_pGUI->textLabel_NumGuid);
  G_pCApp->m_widgetList.append(m_pGUI->textLabel_NumDoss);
+
+ G_pCApp->m_widgetList.append(m_Button_Affichage_EnCours);
+ G_pCApp->m_widgetList.append(m_menuBar);
+ G_pCApp->m_widgetList.append(m_menuFichiers);
+ G_pCApp->m_widgetList.append(m_menuFenetre);
+ G_pCApp->m_widgetList.append(m_menuInfo);
+
 }
 //------------------------ Slot_retranslateUi ---------------------------------------
 void C_Manager::Slot_retranslateUi()
@@ -5105,7 +5122,7 @@ QStringList C_Manager::deleteAllAgendas()
 
 //------------------------ getAgendasList ---------------------------------------
 QStringList C_Manager::getAgendasList()
-{   QStringList agendasList;
+{  QStringList agendasList;
    QMapIterator<QString, C_Frm_Agenda*> it(m_AgendaMap);
    while (it.hasNext())
          {it.next();
@@ -5120,12 +5137,18 @@ void C_Manager::eraseUserAgenda(C_Frm_Agenda* pC_Frm_Agenda)
    {deleteAgenda(pC_Frm_Agenda->getSignUser());
    }
 }
+//---------------------------------------------- Slot_OnFastAccesAgendaButtonClicked -----------------------------------------------------------------------
+void C_Manager::Slot_OnFastAccesAgendaButtonClicked(QAbstractButton *pQAbstractButton)
+{//Wdg_ButtonPtr *pWdg_ButtonPtr = (Wdg_ButtonPtr*) button;
+ QString user = QString(pQAbstractButton->name()).remove("ButtonThisAgenda_");
+ addUserAgenda(user, QDate::currentDate());
+}
 
 //---------------------------------------------- Slot_buttonAgendaDelete_Clicked -----------------------------------------------------------------------
 void C_Manager::Slot_buttonAgendaDelete_Clicked(Wdg_ButtonPtr *pWdg_ButtonPtr)
 {QString name     = pWdg_ButtonPtr->objectName();
-QString signUser = name.remove("ButtonClose_");
-deleteAgenda(signUser);
+ QString signUser = name.remove("ButtonClose_");
+ deleteAgenda(signUser);
 }
 
 //---------------------------------------------- Slot_buttonAgendaDelete_Clicked -----------------------------------------------------------------------
@@ -5136,6 +5159,14 @@ if (pQFrame)
     m_pAgendaQLayout->removeWidget(pQFrame);
     delete pQFrame;
    }
+ //............ effacer l'eventuel bouton d'acces rapide .................................
+ //              associe à cet agenda
+ QList<QAbstractButton *> buttonsList =	m_pGUI->buttonBox_agendas->buttons();
+ for (int i=0; i<buttonsList.size(); ++i)
+     {QAbstractButton *pQAbstractButton = buttonsList[i];
+      QString name = QString (pQAbstractButton->name()).remove("ButtonThisAgenda_");
+      if (name==signUser) m_pGUI->buttonBox_agendas->removeButton(pQAbstractButton);
+     }
 }
 
 //---------------------------------------------- Slot_comboBoxAgendaUser_activated -----------------------------------------------------------------------
@@ -5504,6 +5535,27 @@ C_Frm_Agenda *C_Manager::addUserAgenda(const QString &signUser, QDate date, QFra
    pQPushButtonMenu->setPtr_1(pC_Frm_Agenda);
    pQPushButtonMenu->setPtr_2(scrollArea_Days);
    pQPushButtonMenu->setPtr_3(agendaFrameDaysAndTitle);
+
+   //............... bouton d'acces rapide ...............................
+   //                que pour les utilisateurs de la liste
+   QString     listagendas = CGestIni::Param_ReadUniqueParam(G_pCApp->m_LocalParam, "Agenda", "Liste des agendas a ouvrir");
+   QStringList listeUsersAgenda;
+   listeUsersAgenda = listagendas.split(';',QString::SkipEmptyParts);
+   if (listeUsersAgenda.count() > 0)
+      {for (int i = 0; i < listeUsersAgenda.count(); i++)
+           {QString user = listeUsersAgenda[i].remove(' ');
+            if (user==signUser)
+               {Wdg_ButtonPtr *pQPushButtonAgendaSelect     = new Wdg_ButtonPtr( frameButtonAndTitle , "ButtonThisAgenda_" + signUser);
+                pQPushButtonAgendaSelect->setPtr_1(pC_Frm_Agenda);
+                pQPushButtonAgendaSelect->setText(nom+" "+prenom);
+                pQPushButtonAgendaSelect->setMaximumHeight(m_pGUI->comboBoxAgendaUser->height());
+             #ifdef  Q_WS_MAC
+                pQPushButtonAgendaSelect->setFlat(true);
+             #endif
+                m_pGUI->buttonBox_agendas->addButton (pQPushButtonAgendaSelect, QDialogButtonBox::ActionRole );
+               }
+           }
+      }
 
    Wdg_ButtonPtr *pQPushButtonPreviusDay     = new Wdg_ButtonPtr( frameButtonAndTitle , "ButtonPreviusDay_" + signUser);
    pQPushButtonPreviusDay->setPtr_1(pC_Frm_Agenda);

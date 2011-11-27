@@ -258,6 +258,7 @@ private slots:
    void Slot_pQPushButtonWeekDay_Clicked (Wdg_ButtonPtr* pWdg_ButtonPtr); // CZA
    void Slot_setUserAgendaVisible();
    void Slot_ReinitModeWeekDayMonth_OnDate(const QDate &date , const QString &mode, C_Frm_Agenda *pC_Frm_Agenda);
+   void Slot_OnFastAccesAgendaButtonClicked(QAbstractButton *);
    //........................ connecter les slot de changement ............................................................................................
    void Slot_TextChanged_lineEdit_NomDossier(const QString & );
    void Slot_TextChanged_lineEdit_PrenomDossier(const QString & );

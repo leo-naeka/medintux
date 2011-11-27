@@ -87,7 +87,7 @@
 #define LINE_RESUME_HEIGHT         24        // 20 hauteur totale d'une ligne de resume
 #define LINE_RESUME_XMARG          10         // marge d'affichage afin d'eviter que les rectangles debordent
 
-#define LABEL_MONTH_HEIGHT         20         // hauteur du separateur de mois en mode visusalisation mois
+#define LABEL_MONTH_HEIGHT         0         // hauteur du separateur de mois en mode visusalisation mois
 
 #define FIRST_DAY_POS_Y            2         // ofset vertical d'affichage de la zone des widgets de rendez vous
 #define NB_DAYS_TO_SEE             31        // nombre de jours par defaut a afficher
@@ -808,7 +808,6 @@ private:
     QString              m_StylePopup;
     QDate                m_StartDate;
     int                  m_StartBefore;
-    int                  m_NbDayToSee;
     int                  m_Magnetisme;
     QString              m_PathAppli;
     QString              m_LocalParam;

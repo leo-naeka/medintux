@@ -148,7 +148,6 @@ C_Frm_Agenda::C_Frm_Agenda(const QDate &date,
     m_googlePass        = googlePass;
     m_StartDate         = date;
     m_Magnetisme        = 5;
-    m_NbDayToSee        = 60;
     m_Droits            = droits;
     if (m_User.length()==0) m_User = m_SignUser;
     m_PaintMode         = C_Frm_Agenda::DISABLED;
@@ -261,12 +260,10 @@ C_Frm_Agenda::C_Frm_Agenda(const QDate &date,
     //..................... positionner la largeur des bit map selon semaine ou jour .........................
     int dayWitdth;
     if (m_pCMoteurAgenda->GetWeekOrDay() != "DAY")
-       {m_NbDayToSee  = m_pCMoteurAgenda->GetNbDayInWeek();
-        dayWitdth     = m_pCMoteurAgenda->GetAgendaWeekWidth()/m_NbDayToSee;
+       {dayWitdth     = m_pCMoteurAgenda->GetAgendaWeekWidth()/m_pCMoteurAgenda->GetNbDayInWeek();
        }
     else
-       {m_NbDayToSee  = m_pCMoteurAgenda->GetNbDayInModeDay();
-        dayWitdth     = m_pCMoteurAgenda->GetAgendaWidth();
+       {dayWitdth     = m_pCMoteurAgenda->GetAgendaWidth();
        }
     m_pBMC = new C_BitMapCollection(Theme::getPath(TRUE)+"Agenda/", dayWitdth, m_pCMoteurAgenda->GetRepresentation()?DOUBLE_DAY_HEIGHT:DAY_HEIGHT);
     resizeBitMapHeader(m_pCMoteurAgenda->GetWeekOrDay(), dayWitdth);
@@ -369,7 +366,7 @@ void C_Frm_Agenda::changeRepresentation(int representation)
 {m_pCMoteurAgenda->SetRepresentation(representation);
  int dayWitdth;
  if (m_pCMoteurAgenda->GetWeekOrDay() != "DAY")
-    {dayWitdth     = m_pCMoteurAgenda->GetAgendaWeekWidth()/m_NbDayToSee;
+    {dayWitdth     = m_pCMoteurAgenda->GetAgendaWeekWidth()/m_pCMoteurAgenda->GetNbDayInWeek();
     }
  else
     {dayWitdth     = m_pCMoteurAgenda->GetAgendaWidth();
@@ -389,12 +386,10 @@ void C_Frm_Agenda::changeWeekOrDay(QString WeekOrDay)
 {
     int dayWitdth    = 0;
     if (WeekOrDay == "DAY")
-       {m_NbDayToSee  = m_pCMoteurAgenda->GetNbDayInModeDay();
-        dayWitdth     = m_pCMoteurAgenda->GetAgendaWidth();
+       {dayWitdth     = m_pCMoteurAgenda->GetAgendaWidth();
        }
     else
-       {m_NbDayToSee  = m_pCMoteurAgenda->GetNbDayInWeek();
-        dayWitdth     = m_pCMoteurAgenda->GetAgendaWeekWidth()/m_NbDayToSee;
+       {dayWitdth     = m_pCMoteurAgenda->GetAgendaWeekWidth()/m_pCMoteurAgenda->GetNbDayInWeek();
        }
     resizeBitMapHeader(WeekOrDay, dayWitdth);
     m_pCMoteurAgenda->m_WeekOrDay = WeekOrDay;
@@ -425,7 +420,7 @@ void C_Frm_Agenda::reinitAgendaOnUser(const QString &signUser, const QString &dr
 
 //------------------------ reinitAgendaOnDate ---------------------------------------
 void C_Frm_Agenda::reinitAgendaOnDate(QDate dateDeb)
-{clear();
+{clear();         // effacer les jours
  //............ effacer les labels des mois ......................
  while (!m_MonthLabelList.isEmpty())
        {QLabel* pQLabel = m_MonthLabelList.takeFirst();
@@ -436,11 +431,11 @@ void C_Frm_Agenda::reinitAgendaOnDate(QDate dateDeb)
     {
      if (m_pCMoteurAgenda->m_WeekOrDay == "DAY")           // CZA
         { int day_expand; // CZA
-          m_NbDayToSee = m_pCMoteurAgenda->GetNbDayInModeDay();
-          m_StartDate  = dateDeb;
-          dateDeb      = dateDeb.addDays (-m_StartBefore );
-          int      y   = FIRST_DAY_POS_Y;     // ofset de demarrage en haut de la fenetre agenda
-          for (int i=0;  i<m_NbDayToSee; ++i)
+          int nbDayToSee = m_pCMoteurAgenda->GetNbDayInModeDay();
+          m_StartDate    = dateDeb;
+          dateDeb        = dateDeb.addDays (-m_StartBefore );
+          int        y   = FIRST_DAY_POS_Y;     // ofset de demarrage en haut de la fenetre agenda
+          for (int i=0;  i<nbDayToSee; ++i)
               {
                 day_expand = 0; // CZA
                 if (dateDeb==QDate::currentDate() || y == FIRST_DAY_POS_Y) day_expand = 1;  // CZA
@@ -469,24 +464,21 @@ void C_Frm_Agenda::reinitAgendaOnDate(QDate dateDeb)
                    }
                 dateDeb = dateDeb.addDays (1);
                 pC_Frm_Day->show();
-              } // end for (int i=0;  i<m_NbDayToSee; ++i)
+              } // end for (int i=0;  i<nbDayToSee; ++i)
           setFixedHeight (y);
           setFixedWidth(m_pCMoteurAgenda->GetAgendaWidth());
         } // end if (m_pCMoteurAgenda->m_WeekOrDay != "WEEK")
-
      else if (m_pCMoteurAgenda->m_WeekOrDay == "WEEK")
-        {    // DEBUT SEMAINE CZA
-             int day_expand = 1; // CZA TOUJOURS OUVERT POUR WEEK
-             m_NbDayToSee   = m_pCMoteurAgenda->GetNbDayInWeek();                     // CZA
-             int widthDay   = m_pCMoteurAgenda->GetAgendaWeekWidth() / m_NbDayToSee;  // CZA
-             m_StartDate    = dateDeb;
-
+        {
+             int nbDayToSee         = m_pCMoteurAgenda->GetNbDayInWeek();
+             int widthDay           = m_pCMoteurAgenda->GetAgendaWeekWidth() / nbDayToSee;  // CZA
+             m_StartDate            = dateDeb;
              dateDeb                = dateDeb.addDays (- m_StartDate.dayOfWeek() +1 );
              int      y             = FIRST_DAY_POS_Y;     // ofset de demarrage en haut de la fenetre agenda
              int maxHeightDayOfWeek = 0;                   // CZA
              int      x             = W_OFSET;             // CZA position du jour
 
-             for (int i=0;  i<m_NbDayToSee; ++i)
+             for (int i=0;  i<nbDayToSee; ++i)
                  {
                    C_Frm_Day* pC_Frm_Day = new C_Frm_Day(
                                            m_pCMoteurAgenda,
@@ -501,7 +493,7 @@ void C_Frm_Agenda::reinitAgendaOnDate(QDate dateDeb)
                                            x,
                                            FIRST_DAY_POS_Y,        // CZA
                                            getResoPixByMinutes(),
-                                           day_expand              // CZA
+                                           1              // jour toujours deploye pour mode semaine
                                           );
                    if (pC_Frm_Day)
                       { x += widthDay; // A REVOIR
@@ -515,32 +507,36 @@ void C_Frm_Agenda::reinitAgendaOnDate(QDate dateDeb)
                    pC_Frm_Day->show();
                    // on conserve la plus haute longueur de jour affiche de toute la semaine.
                    if (maxHeightDayOfWeek < y) maxHeightDayOfWeek = y;
-                 } // end for (int i=0;  i<m_NbDayToSee; ++i)
+                 } // end for (int i=0;  i<nbDayToSee; ++i)
              setFixedHeight (maxHeightDayOfWeek);
              setFixedWidth(x);
         }
      else       //    MONTH
-        { // DEBUT SEMAINE CZA
-          int day_expand         = 0;
+        {
           int nbDayInWeek        = m_pCMoteurAgenda->GetNbDayInWeek();                     // CZA
-          m_NbDayToSee           = nbDayInWeek;                     // CZA
           int widthDay           = m_pCMoteurAgenda->GetAgendaWeekWidth() / nbDayInWeek;  // CZA
           m_StartDate            = dateDeb;
           dateDeb                = dateDeb.addDays (- m_StartDate.dayOfWeek()+1 );
           int      y             = FIRST_DAY_POS_Y;     // ofset de demarrage en haut de la fenetre agenda
           int      x             = W_OFSET;             // CZA position du jour
           int      h             = 0;
-          int nbToSee            = m_NbDayToSee * m_pCMoteurAgenda->GetWeeksToSee();
+          int      nbDayToSee    = nbDayInWeek * m_pCMoteurAgenda->GetWeeksToSee();
           int      i             = 0;
           int      w_monthLabel  = widthDay*nbDayInWeek;
-          while ( i<nbToSee)
-              {if (dateDeb.day()==1)
+          while ( i<nbDayToSee)
+              {
+              //........ si premier jour du mois afficher l'entete de mois ..........
+               if (dateDeb.day()==1)
                   {
-                    y += h+LABEL_MONTH_HEIGHT;
+                    y += h;
                     QLabel* pQLabel = new QLabel(this);
                     pQLabel->setStyleSheet(m_MonthLabelCss);
-                    pQLabel->setText(dateDeb.toString(QString("<b><font color=\"#FF0000\">%1</font></b>").arg("MMMM yyyy")).upper());
-                    pQLabel->setGeometry(0, y-LABEL_MONTH_HEIGHT+1,   w_monthLabel, LABEL_MONTH_HEIGHT);
+                    pQLabel->setText(dateDeb.toString(QString("<h2><b><font color=\"#FF0000\">%1</font></b></h2>").arg("MMMM yyyy")).upper());
+                    if (dateDeb.dayOfWeek()==1)         // cas particulier ou pas d'espace dessous (tout demarre a 1) alors utiliser l'espace libre d'avant
+                        pQLabel->setGeometry(0, y+1-h,   w_monthLabel, LABEL_MONTH_HEIGHT+h);  // on recule de sa hauteur pour afficher espace libre d'avant
+                    else
+                        pQLabel->setGeometry(0, y+1,     w_monthLabel, LABEL_MONTH_HEIGHT+h);
+                    y += LABEL_MONTH_HEIGHT;
                     m_MonthLabelList.append(pQLabel);
                     pQLabel->show();
                   }
@@ -557,7 +553,7 @@ void C_Frm_Agenda::reinitAgendaOnDate(QDate dateDeb)
                                         x,
                                         y,
                                         getResoPixByMinutes(),
-                                        day_expand
+                                        0                        // dans le mode mois les jour ne sont pas deployes mais en mode resume
                                        );
                 if (pC_Frm_Day)
                    { x += widthDay; // A REVOIR
@@ -570,19 +566,19 @@ void C_Frm_Agenda::reinitAgendaOnDate(QDate dateDeb)
 
                 dateDeb = dateDeb.addDays (1);
                 pC_Frm_Day->show();
-                // on conserve la plus haute longueur de jour affiche de toute la semaine.
+                //.......... jour suivant si debut de semaine repartir de la gauche .......
                 ++i;
                 int modulo = i%nbDayInWeek;
                 if (modulo==0)
                    {y += h;
                     x  = W_OFSET;
                    }
-                if (modulo!=1) pC_Frm_Day->m_ButtonExpand->hide();
-              } // end for (int i=0;  i<m_NbDayToSee; ++i)
+                if (modulo!=1) pC_Frm_Day->m_ButtonExpand->hide();      // si pas premier jour de la semaine on cache le bouton de deploiement
+              } // end while ( i<nbDayToSee)
           setFixedHeight (y);
           setFixedWidth(widthDay*nbDayInWeek);
         } //enf else if (m_pCMoteurAgenda->m_WeekOrDay != "WEEK")
-    } // FIN SEMAINE CZA
+    } // else if (m_PaintMode >= C_Frm_Agenda::NORMAL)
 }
 //---------------------------------------- OnButtonGoogleClickedPtr --------------------------------------------
 void C_Frm_Agenda::OnButtonGoogleClickedPtr (const char*, void *ptrOnDay)
@@ -663,11 +659,9 @@ void C_Frm_Agenda::On_AgendaMustDisplayFromThisDate(const QDate & newDate )     
 //----------------------------------- On_AgendaMustBeReArange -------------------------------------------
 void C_Frm_Agenda::On_AgendaMustBeReArange()
 {   if  (m_PaintMode < C_Frm_Agenda::NORMAL) return;
-    int y  = FIRST_DAY_POS_Y;        // ofset de demarrage en haut de la fenetre agenda
-
+    int         y  = FIRST_DAY_POS_Y;        // ofset de demarrage en haut de la fenetre agenda
     if (m_pCMoteurAgenda->m_WeekOrDay == "DAY")           // CZA
-      {m_NbDayToSee  = m_pCMoteurAgenda->GetNbDayInModeDay();
-       for (int i = 0; i < C_Frm_DayList::size(); ++i)
+      {for (int i = 0; i < C_Frm_DayList::size(); ++i)
           {C_Frm_Day *pC_Frm_Day = at(i);
                       pC_Frm_Day->moveWidget( W_OFSET, y );
                  y += pC_Frm_Day->getHeight();
@@ -676,8 +670,7 @@ void C_Frm_Agenda::On_AgendaMustBeReArange()
       }
    else  if (m_pCMoteurAgenda->m_WeekOrDay == "WEEK") // Reaffichage mode semaine                             // CZA
       {
-       m_NbDayToSee = m_pCMoteurAgenda->GetNbDayInWeek();
-       int widthDay = m_pCMoteurAgenda->GetAgendaWeekWidth() / m_NbDayToSee;
+       int widthDay = m_pCMoteurAgenda->GetAgendaWeekWidth() / m_pCMoteurAgenda->GetNbDayInWeek();
        int x = W_OFSET;
        int maxHeightDayOfWeek = 0;
        for (int i = 0; i < C_Frm_DayList::size(); ++i)
@@ -691,7 +684,6 @@ void C_Frm_Agenda::On_AgendaMustBeReArange()
       }
    else
       {int nbDayInWeek = m_pCMoteurAgenda->GetNbDayInWeek();                     // CZA
-       m_NbDayToSee    = nbDayInWeek;                                           // CZA
        int widthDay    = m_pCMoteurAgenda->GetAgendaWeekWidth() / nbDayInWeek;  // CZA
        int      x      = W_OFSET;             // CZA position du jour
        int      h      = 0;
@@ -701,21 +693,15 @@ void C_Frm_Agenda::On_AgendaMustBeReArange()
              x += widthDay; // A REVOIR
              h  = pC_Frm_Day->getHeight();
              pC_Frm_Day->moveWidget( x, y );
-
-             // on conserve la plus haute longueur de jour affiche de toute la semaine.
-             //if (maxHeightDayOfWeek < y) maxHeightDayOfWeek = y;
              ++i;
              int modulo = i%nbDayInWeek;
              if (modulo==0)
                 {y += h;
                  x  = W_OFSET;
                 }
-           } // end for (int i=0;  i<m_NbDayToSee; ++i)
+           } // end while ( i < C_Frm_DayList::size())
        setFixedHeight (y+h);
        setFixedWidth(widthDay*nbDayInWeek);
-       //qDebug()<<QString("Nbr Jours : %1 Largeur d'un jour : % 2 Largeur totale : %3").arg(m_NbDayToSee,widthDay,x);
-       //((QScrollArea*)this->parent())->setMaximumSize ( x , 16777215);
-       //resize (x, maxHeightDayOfWeek );
       }
 }
 
@@ -846,7 +832,7 @@ void C_Frm_Day::toGoogle(C_GoogleAPI *pC_GoogleAPI)
                                            CHtmlTools::HtmlToAscii(pRdv->m_Note)  ,
                                            pRdv->m_Where                          ,
                                            getRdvColor(*pRdv)  ));
-         }
+        }
     //............ on cree dans google les rdv en mode batch ..................
     pC_GoogleAPI->createSeveralEvents(eventsList);
     if (pC_GoogleAPI->getError().length())QMessageBox::question ((QWidget*)parent(),
@@ -1242,7 +1228,6 @@ void C_Frm_Day::paintEvent ( QPaintEvent * /*event*/)
   //............. cadre noir du jour .....................................
   p.drawRoundedRect (1, 1, m_Width-2, m_BaseDayHeight-2, 2, 2);
   if (timePosPixmapX) p.drawPixmap (timePosPixmapX, timePosPixmapY, m_pBMC->m_AgendaTimeArrow_Pixmap );
-  //QFrame::paintEvent(event);
 }
 //---------------------------------------- generate_cacheRDV_List_FromDayWidget --------------------------------------------
 void C_Frm_Day::generate_cacheRDV_List_FromDayWidget()
@@ -2331,7 +2316,6 @@ C_Frm_Rdv::C_Frm_Rdv (  C_RendezVous *pC_RendezVous,       // data
     m_textLabel_Nom       = 0;
     m_InfoEdit            = 0;
     m_ButtonDelete        = 0;
-
     m_Magnetisme          = timeGranu;
     m_Width               = pCMoteurAgenda->GetAgendaWidth();
     if (m_pCMoteurAgenda->m_WeekOrDay != "DAY")                                    // CZA
@@ -2363,14 +2347,12 @@ C_Frm_Rdv::C_Frm_Rdv (  C_RendezVous *pC_RendezVous,       // data
      m_button_HeureDuree->setGeometry( 6,  2, 82,  widget_h-2);
      connect( m_button_HeureDuree,  SIGNAL( clicked ()  ),                                  this ,     SLOT(   Slot_textLabel_HeureClicked()  )  );
     }
-
  // m_textLabel_Nom     = new QLabel(this);
  if (m_textLabel_Nom)
     {m_textLabel_Nom->setGeometry( 137,  2, m_widget_w-137-5, widget_h-2);
      m_textLabel_Nom->setMouseTracking (TRUE );
      m_textLabel_Nom->installEventFilter(this);
     }
- //m_textLabel_Nom->setStyleSheet("border-style: none;font-size: 8px;");
  if (pCMoteurAgenda->GetEditNoteMode())
     {m_InfoEdit = new C_AgendaEdit(this);
      m_InfoEdit->setVerticalScrollBarPolicy (Qt::ScrollBarAlwaysOff);
@@ -2817,13 +2799,14 @@ void C_Frm_Rdv::mousePressEvent(QMouseEvent *event)
              int htr           = rect.height();     //rect.height()/getMagnetisme(); htr     = qMax(htr * getMagnetisme(), getMagnetisme()) ;
              int y             = event->pos().y();  //adjustToMagnetisme(event->pos().y());
              m_startPosY       = y;
-
+             bool moveToNewPos = false;
              //..................... on demarre le rectangle elastique .....................
              if (m_startPosY<=SIZE_BORDER_DAY)
                 { m_GrabIsOn = TOP_START;
                   m_pQRubberBand->setGeometry (rect.x(), top, width(), htr);
                   //m_pQRubberBand->show(); inutile car rajustement de la taille du widget cible se fait en temps reel
                   grabMouse (QCursor(Qt::SizeVerCursor));
+                  moveToNewPos = true;
                 }
              else if ( m_startPosY>=height()-SIZE_BORDER_DAY)
                 { m_GrabIsOn = BOTTOM_START;
@@ -2831,15 +2814,19 @@ void C_Frm_Rdv::mousePressEvent(QMouseEvent *event)
                   m_pQRubberBand->show();   // oblige car le reajustemnt en temps reel ne fonctionne pas (boucle)
                   grabMouse (QCursor(Qt::SizeVerCursor));
                   m_pQRubberBand->show();
+                  moveToNewPos = true;
                 }
              else if (event->pos().x()<10)
                 { m_GrabIsOn = MIDLE_START;
                   m_pQRubberBand->setGeometry (rect.x(), top, width(), htr);
                   //m_pQRubberBand->show(); //m_pQRubberBand->show(); inutile car rajustement de la taille du widget cible se fait en temps reel
                   setCursor(Qt::ClosedHandCursor);
+                  moveToNewPos = true;
                 }
-             rect = m_pQRubberBand->geometry ();
-             setGeometry(rect.x(),rect.y(),rect.width(),rect.height());
+             if (moveToNewPos)
+                { rect = m_pQRubberBand->geometry ();
+                  setGeometry(rect.x(),rect.y(),rect.width(),rect.height());
+                }
              }
          else
              {/*
