@@ -893,7 +893,7 @@ long CMoteurAgenda::GetPatientList(       QTreeWidget     *pQlistView,
                    DOSS_IDENT_NSS       ", "  DOSS_IDENT_TEL1       ", "        // 4 - 5
                    DOSS_IDENT_SEXE
                    " FROM "                   DOSS_INDEX_TBL_NAME
-                   " INNER JOIN "             DOSS_IDENT_TBL_NAME
+                   " JOIN "             DOSS_IDENT_TBL_NAME
                    " ON "                     DOSS_INDEX_PRIM_KEY " = " DOSS_IDENT_REF_PK
                    " WHERE "
                    DOSS_INDEX_NOM       " LIKE '"   + q_nom      +  "%' AND "
@@ -1124,32 +1124,30 @@ void CMoteurAgenda::ajouterPlageDispo(QTreeWidget  *pQlistViewPlage, QDateTime D
 }
 
 //--------------------------------- creerRDVFactices --------------------------------------------------------------------------------
-void CMoteurAgenda::creerRDVFactices (QString user)
+void CMoteurAgenda::creerRDVFactices (QString user, QDate date_in)
 {
-//QMessageBox::warning(0, NomAppli + tr("export"), "");
-QString requete;
-QStringList lnom;
-lnom << "LAGAFFE" << "ZEBULON" << "LUKE" << "SARQUO"   << "AULANDE" << "LAPINE" ;
-QStringList lpre;
-lpre << "GASTON"  << "Polux"   << "LUKY" <<  "Nicole"  << "FRANCOISE" <<"MARINETTE"  ;
-QDateTime date_time = QDateTime(QDate::currentDate(),QTime::fromString("08:00","hh:mm"));
-QDate          date ;
-QTime          time ;
-QString        datr;
-QSqlQuery query(QSqlDatabase::database(m_BaseLabel));
+    //QMessageBox::warning(0, NomAppli + tr("export"), "");
+    QStringList lnom;
+    lnom << "LAGAFFE" << "ZEBULON" << "LUKE" << "SARQUO"   << "AULANDE" << "LAPINE" ;
+    QStringList lpre;
+    lpre << "GASTON"  << "Polux"   << "LUKY" <<  "Nicole"  << "FRANCOISE" <<"MARINETTE"  ;
+    QDateTime date_time = QDateTime(date_in, QTime::fromString("08:00","hh:mm"));
+    QDate          date ;
+    QTime          time ;
+    QString        datr;
+    QSqlQuery query(QSqlDatabase::database(m_BaseLabel));
 
-requete = "INSERT into agenda ( Date_Time, Duree, Nom, Prenom, Tel, RDV_PrisAvec, RDV_PrisPar, Note, Type, status ) "
-              " VALUES ( :Date_Time, :Duree, :Nom, :Prenom, :Tel, :RDV_PrisAvec,:RDV_PrisPar, :Note, :Type, :status ) ";
+    QString requete = "INSERT into agenda ( Date_Time, Duree, Nom, Prenom, Tel, RDV_PrisAvec, RDV_PrisPar, Note, Type, status ) "
+                      " VALUES ( :Date_Time, :Duree, :Nom, :Prenom, :Tel, :RDV_PrisAvec,:RDV_PrisPar, :Note, :Type, :status ) ";
 
-query.prepare(requete);
+    query.prepare(requete);
 
-
-        int nbrdv = 1;
-        int j = 0;
+    int nbrdv = 1;
+    int     j = 0;
     for (int mois = 1; mois <13; ++mois)
         {
             //for (int jour = 1; jour < 28; jour ++) // REMETTRE 28 POUR CREATION SUR UN AN !!!!!!!!!!!!!!!!!!!!!!!!
-            for (int jour = 1; jour < 14; ++jour)
+            for (int jour = 1; jour <= 14; ++jour)
             {date = date_time.date().addDays(jour-1);
                 for (int heure = 0; heure < 12; ++heure)
                 {

@@ -118,11 +118,13 @@ class CMoteurAgenda : public QObject
   static QString  dayOfWeek(int dayOfWeek);
   QString         OutSQL_error(const QSqlQuery &cur, const char *messFunc =0, const char *requete=0);
   QString         OutSQL_error(const QSqlError &error, const char *messFunc =0, const char *requete =0);
-  void            creerRDVFactices (QString user);
+  void            creerRDVFactices (QString user, QDate date);
 
   void            SetMinDaysHeight(int = 15);
   void            SetVerboseMode(int mode) {m_isVerbose = mode;}
   int             GetVerboseMode() {return m_isVerbose;}
+  void            SetHeightDaysHeaderInExpandMode(int value = 25) {m_HeightDaysHeaderInExpandMode = value;}
+  int             GetHeightDaysHeaderInExpandMode()        {return m_HeightDaysHeaderInExpandMode;}
   void            SetEditNoteMode(int value = 1){m_EditNoteMode=value;}
   int             GetEditNoteMode(){return m_EditNoteMode;}
   void            SetRafraichissement(int raf= 0){m_Rafraichissement = raf;}
@@ -182,6 +184,7 @@ class CMoteurAgenda : public QObject
   int           m_ModifConfirm;
   int           m_Rafraichissement;
   int           m_Representation;       // 0/sur 1 ligne 1/sur deux lignes
+  int           m_HeightDaysHeaderInExpandMode;
   QString       m_WeekOrDay;            // Vide ou DAY = affichage journee, WEEK= Affichage Semaine // CZA
   QString       m_TimeDeb;
   QString       m_TimeEnd;

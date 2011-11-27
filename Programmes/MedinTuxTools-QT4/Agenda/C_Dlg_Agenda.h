@@ -87,6 +87,8 @@
 #define LINE_RESUME_HEIGHT         24        // 20 hauteur totale d'une ligne de resume
 #define LINE_RESUME_XMARG          10         // marge d'affichage afin d'eviter que les rectangles debordent
 
+#define LABEL_MONTH_HEIGHT         20         // hauteur du separateur de mois en mode visusalisation mois
+
 #define FIRST_DAY_POS_Y            2         // ofset vertical d'affichage de la zone des widgets de rendez vous
 #define NB_DAYS_TO_SEE             31        // nombre de jours par defaut a afficher
 #define BEFORE_DAYS                8         // nombre de jours par defaut a afficher avant
@@ -457,6 +459,7 @@ public slots:
    void  Slot_InfoEditFocusOutEvent(QFocusEvent *event);
    void            Slot_copy();
    void            Slot_cut();
+   void            Slot_delete();
 
 private:
   int            m_Width;
@@ -757,7 +760,6 @@ public:
                       );
     int          getPaintMode(){return m_PaintMode;}
     QWebView    *getWebView();
-    void         reinitAgendaOnDate(QDate dateDeb , QMap<QDate,int> map);
     //void         paintEvent ( QPaintEvent * event );
     QDate    getStartDate(){ return m_StartDate;}
     void     setStartDate(const QDate &date){m_StartDate = date;}
@@ -768,9 +770,8 @@ public:
     QString  getUser()    {return m_User;}
     QString  getSignUser(){return m_SignUser; }
     QString  getWeekOrDay() ;       // CZA
-    int      getTitleHeight();      // CZA
-    int      getPresentSimple();    // CZA
-
+    int      getTitleHeight();
+    void     resizeBitMapHeader(const QString &WeekOrDay, int dayWitdth);
     //.............. google .........................
     void     setGoogleLoginParam (const QString &googleUser, const QString &googlePass );
     QString  getGoogleUser (){return m_googleUser;}
@@ -790,15 +791,15 @@ public:
     void     changeModifConfirm(int value);
     void     changeAgendaWidth(int value);
     void     changeWeekOrDay(QString WeekOrDay);            // CZA
+    void     reinitAgendaOnDate(QDate dateDeb);
+    void     reinitAgendaOnUser(const QString& user, const QString &droits);
 
     void     creerRDVFactices(const QString &user);
-    QDate    m_dateToStart;
+    QDate    m_tmpDateToStart;
 public slots:
     void   OnButtonGoogleClickedPtr (const char*, void *);
     void   On_AgendaMustDisplayFromThisDate(const QDate & newDate);        // CZA
     void   On_AgendaMustBeReArange();
-    void   reinitAgendaOnDate(QDate dateDeb);
-    void   reinitAgendaOnUser(const QString& user, const QString &droits);
     void   Slot_startToDate();
 
 private:
@@ -825,7 +826,8 @@ private:
     QString              m_BackgroundMessage;
     QWebView            *m_pQWebView;
     C_GoogleAPI         *m_pC_GoogleAPI;
-
+    QList <QLabel*>      m_MonthLabelList;
+    QString              m_MonthLabelCss;
 signals:
     void Sign_agenda_GetInfoFromUser(QString &, QString &, QString &, QString &);
     void Sign_LauchPatient(const QString &, C_RendezVous *);
