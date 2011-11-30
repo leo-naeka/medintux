@@ -53,13 +53,28 @@ CMoteurAgenda::CMoteurAgenda(const QString &driver,        // nom du driver: "QO
                              QObject*    parent
                             )
  : QObject(parent)
-{ m_IsValid         = 0;
-  m_pReconnectTimer = 0;
-  m_ModifConfirm    = 0;
-  m_Representation  = 0;
-  m_NbDayInModeWeek = 7;
-  m_nbWeeksToSee    = 28;
-  //m_log             = "";
+{ m_IsValid            = 0;
+  m_pReconnectTimer    = 0;
+  m_ModifConfirm       = 0;
+  m_Representation     = 0;
+  m_NbDayInModeWeek    = 7;
+  m_nbWeeksToSee       = 28;
+  m_buttonDeleteOnRdv  = 1;
+  m_EditNoteMode       = 1;
+  m_isVerbose          = 0;
+  m_AgendaWidth        = 300;
+  m_AgendaWeekWidth    = 1200;
+  m_NbDayInModeWeek    = 5;          // CZA
+  m_NbDayInModeDay     = 60;
+  m_TitleHeight        = 20;              // CZA
+  m_AgendaButtonHeight = 30;
+  m_MinDaysHeight      = 5;
+  m_ModifConfirm       = 0;
+  m_Rafraichissement   = 120;
+  m_Representation     = 1;       // 0/sur 1 ligne 1/sur deux lignes
+  m_HeightDaysHeaderInExpandMode = 25;
+  m_WeekOrDay          = "DAY";            // Vide ou DAY = affichage journee, WEEK= Affichage Semaine // CZA
+  m_TitleTemplate      = QString( "<font color=\"#FFFFFF\"><b>{{TITLE}}</b></font>" );
   initBase   ( driver,        // nom du driver: "QODBC3" "QMYSQL3" "QPSQL7"
                DataBaseName,  // nom de la base: si QODBC3 -> nom de la source de données (userDSN)
                user,          // = "root"
@@ -289,6 +304,19 @@ int  CMoteurAgenda::GetMinDaysHeight()
 void  CMoteurAgenda::SetTitleHeight(int val  /* = 15*/)
 {m_TitleHeight = val;
 }
+//-------------------------------------- GetTitleHeight ----------------------------------------------------------------------------
+int  CMoteurAgenda::GetTitleHeight()
+{return m_TitleHeight;
+}
+//-------------------------------------- SetAgendaButtonBoxHeight ----------------------------------------------------------------------------
+void CMoteurAgenda::SetAgendaButtonBoxHeight(int value)
+{m_AgendaButtonHeight = value;
+}
+//-------------------------------------- GetAgendaButtonBoxHeight ----------------------------------------------------------------------------
+int CMoteurAgenda::GetAgendaButtonBoxHeight()
+{return m_AgendaButtonHeight;
+}
+
 //-------------------------------------- makeNextPk ----------------------------------------------------------------------------
 QString CMoteurAgenda::makeNextPk(const QString &tableName, const QString host,const QString &pkFieldName)
 { QString   requete  = "SELECT ";
@@ -867,7 +895,7 @@ QString CMoteurAgenda::OutSQL_error(const QSqlError &error, const char *messFunc
 long CMoteurAgenda::GetPatientList(       QTreeWidget     *pQlistView,
                                   const QString         &qstr_nom,
                                   const QString         &qstr_prenom,
-                                        QLabel          *statutMess, /* = 0  */
+                                        QLabel          * /* statutMess,  = 0  */,
                                         QString         *errMess     /* = 0  */
                                 )
 

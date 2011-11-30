@@ -644,7 +644,9 @@ if (CGestIni::Param_ReadUniqueParam(G_pCApp->m_LocalParam, "Sesam-Vitale", "Modu
    if (listeUsersAgenda.count() > 0)
       {for (int i = 0; i < listeUsersAgenda.count(); i++)
            {QString user = listeUsersAgenda[i].remove(' ');
-            if (m_pGUI->comboBoxAgendaUser->findText (user) != -1 )  addUserAgenda(user, QDate::currentDate());
+            bool forceUserToBeUsed = user.startsWith('+');
+            user = user.remove('+');
+            if ( forceUserToBeUsed || m_pGUI->comboBoxAgendaUser->findText (user) != -1 )  addUserAgenda(user, QDate::currentDate());
            }
       }
    else
@@ -5210,6 +5212,11 @@ else
     pQWebView->back();
    }
 }
+//---------------------------------------------- Slot_pQPushButtonFreeSpace_Clicked -----------------------------------------------------------------------
+void C_Manager::Slot_pQPushButtonFreeSpace_Clicked (Wdg_ButtonPtr *pWdg_ButtonPtr)
+{ C_Frm_Agenda  *pC_Frm_Agenda  = (C_Frm_Agenda*) pWdg_ButtonPtr->getPtr_1();
+  pC_Frm_Agenda->getFreeSpace();
+}
 
 //---------------------------------------------- Slot_pQPushButtonPreviusDay_Clicked -----------------------------------------------------------------------
 // Afficher le jour Suivant CZA
@@ -5334,14 +5341,17 @@ void C_Manager::Slot_pQPushButtonWeekDay_Clicked (Wdg_ButtonPtr* pWdg_ButtonPtr)
      pQFrameButtonAndTitle->setMaximumWidth(newWidth);
      pQFrameButtonAndTitle->setMinimumWidth(newWidth);
 
-     pQlabelNomUser->resize(newWidth - (actuelWidthTitle - actualWidthLabel),pQlabelNomUser->height()); // ????????????
+     pQlabelNomUser->resize(newWidth - (actuelWidthTitle - actualWidthLabel),pQlabelNomUser->height());
+     setUserAgendaVisible(user);
    }
 }
+
 //---------------------------------------------- setUserAgendaVisible -----------------------------------------------------------------------
 void C_Manager::setUserAgendaVisible(const QString &signUser)
 {m_tmpSignUser = signUser;
-QTimer::singleShot(30, this, SLOT(Slot_setUserAgendaVisible()));
+ QTimer::singleShot(10, this, SLOT(Slot_setUserAgendaVisible()));
 }
+
 //---------------------------------------------- Slot_setUserAgendaVisible -----------------------------------------------------------------------
 void C_Manager::Slot_setUserAgendaVisible()
 {QFrame *pQFrame = m_pGUI->frame_MultiAgenda->findChild<QFrame *>("agendaRacine_" + m_tmpSignUser);
@@ -5351,6 +5361,7 @@ if (pQFrame)
 Wdg_ButtonPtr *pQPushButton  = m_pGUI->frame_MultiAgenda->findChild<Wdg_ButtonPtr *>("ButtonClose_" + m_tmpSignUser);
 if (pQPushButton)  m_pGUI->scrollArea_MultiAgenda->ensureWidgetVisible ( pQPushButton, 0, 0);
 }
+
 //---------------------------------------------- Slot_setUserAgendaVisible -----------------------------------------------------------------------
 void C_Manager::Slot_pQPushButtonMenuAgenda_Clicked(Wdg_ButtonPtr* pWdg_ButtonPtr)
 {   Theme::setFontSize_Menu(9);
@@ -5463,7 +5474,7 @@ void C_Manager::Slot_pQPushButtonMenuAgenda_Clicked(Wdg_ButtonPtr* pWdg_ButtonPt
          }
       }
    else if (opt==179)
-      {pC_Frm_Agenda->creerRDVFactices(G_pCApp->m_SignUser);
+      {pC_Frm_Agenda->creerRDVFactices(pC_Frm_Agenda->getSignUser());
       }
 }
 
@@ -5501,7 +5512,6 @@ C_Frm_Agenda *C_Manager::addUserAgenda(const QString &signUser, QDate date, QFra
       }
    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
    QString nom, prenom, googleUser, googlePass;
-   int offsetObj = 0;
    //.................. recuperer google user et pot de masse .............................
    QString userParam = m_pCMoteurBase->ReadDrTuxUserParametres(signUser);
    googleUser        = CGestIni::Param_ReadUniqueParam(userParam.toAscii(), "GoogleAgenda","user");
@@ -5536,8 +5546,8 @@ C_Frm_Agenda *C_Manager::addUserAgenda(const QString &signUser, QDate date, QFra
    pQPushButtonMenu->setPtr_2(scrollArea_Days);
    pQPushButtonMenu->setPtr_3(agendaFrameDaysAndTitle);
 
-   //............... bouton d'acces rapide ...............................
-   //                que pour les utilisateurs de la liste
+   //............... n'installer les boutons d'acces rapide ...............................
+   //                que pour les utilisateurs de la liste de prechargement
    QString     listagendas = CGestIni::Param_ReadUniqueParam(G_pCApp->m_LocalParam, "Agenda", "Liste des agendas a ouvrir");
    QStringList listeUsersAgenda;
    listeUsersAgenda = listagendas.split(';',QString::SkipEmptyParts);
@@ -5603,16 +5613,22 @@ C_Frm_Agenda *C_Manager::addUserAgenda(const QString &signUser, QDate date, QFra
    pQPushButtonMonth->setToolTip ( "<font color=\"#000000\">"+tr("Display Month")+"</font>" );
    pQPushButtonMonth->hide();
 
+   Wdg_ButtonPtr *pQPushButtonFreeSpace        = new Wdg_ButtonPtr( frameButtonAndTitle , "ButtonFreeSpace_" + signUser);
+   pQPushButtonFreeSpace->setPtr_1(pC_Frm_Agenda);
+   pQPushButtonFreeSpace->setToolTip ( "<font color=\"#000000\">"+tr("Choose free space for new appointment")+"</font>" );
+
    QScrollBar    *pQScrollBar                = scrollArea_Days->verticalScrollBar();   // juste pour la largeur
    int            wScroll                    = 14;
-   int w                                     = pC_Frm_Agenda->width() + wScroll+5;
-   int agendaTitleHeight                     = pC_Frm_Agenda->getTitleHeight() - HEIGHT_USER_AGENDA_LABEL;        // CZA
-   int ofsYbutton                            = HEIGHT_USER_AGENDA_LABEL;
+   int                  w                    = pC_Frm_Agenda->width() + wScroll+5;
+   int agendaButtonHeight                    = pC_Frm_Agenda->getAgendaButtonBoxHeight();        // CZA
+   int agendaTitleHeight                     = pC_Frm_Agenda->getTitleHeight();
+   int pos_Obj_X                             = 0;
+
    pC_Frm_Agenda->setUser(signUser);
 
-   pQPushButtonDay->setGeometry(0,ofsYbutton,  agendaTitleHeight,agendaTitleHeight);
-   pQPushButtonWeek->setGeometry(0,ofsYbutton, agendaTitleHeight,agendaTitleHeight);
-   pQPushButtonMonth->setGeometry(0,ofsYbutton,agendaTitleHeight,agendaTitleHeight);
+   pQPushButtonDay->setGeometry(   0, agendaTitleHeight,  agendaButtonHeight,agendaButtonHeight);
+   pQPushButtonWeek->setGeometry(  0, agendaTitleHeight,  agendaButtonHeight,agendaButtonHeight);
+   pQPushButtonMonth->setGeometry( 0, agendaTitleHeight,  agendaButtonHeight,agendaButtonHeight);
 
 
    QString        scrollStyle ="QScrollBar:vertical {"
@@ -5668,23 +5684,23 @@ C_Frm_Agenda *C_Manager::addUserAgenda(const QString &signUser, QDate date, QFra
    // CZA ---------xx----------------------
    if (pC_Frm_Agenda->getWeekOrDay() == "DAY")
        { w = CGestIni::Param_ReadUniqueParam(G_pCApp->m_LocalParam, "Agenda", "Largeur").toInt() + wScroll + 5;
-         frameButtonAndTitle->setMinimumSize ( w , agendaTitleHeight + HEIGHT_USER_AGENDA_LABEL);
-         frameButtonAndTitle->setMaximumSize ( w , agendaTitleHeight + HEIGHT_USER_AGENDA_LABEL);
+         frameButtonAndTitle->setMinimumSize ( w , agendaButtonHeight + agendaTitleHeight);
+         frameButtonAndTitle->setMaximumSize ( w , agendaButtonHeight + agendaTitleHeight);
        }
    else
        { w = CGestIni::Param_ReadUniqueParam(G_pCApp->m_LocalParam, "Agenda", "Largeur semaine").toInt() + wScroll + 5;
-         frameButtonAndTitle->setMinimumSize ( w , agendaTitleHeight + HEIGHT_USER_AGENDA_LABEL);
-         frameButtonAndTitle->setMaximumSize ( w , agendaTitleHeight + HEIGHT_USER_AGENDA_LABEL);
+         frameButtonAndTitle->setMinimumSize ( w , agendaButtonHeight + agendaTitleHeight);
+         frameButtonAndTitle->setMaximumSize ( w , agendaButtonHeight + agendaTitleHeight);
         }
-   pQPushButtonClose->resize(   agendaTitleHeight , agendaTitleHeight);
-   pQPushButtonClose->move  ( 0 , ofsYbutton);
+   pQPushButtonClose->resize( agendaTitleHeight , agendaTitleHeight);
+   pQPushButtonClose->move  ( 0 ,          0);
    pQPushButtonClose->setIcon(Theme::getIcon("Agenda/CloseAgenda.png"));
-   offsetObj += pQPushButtonClose->width();                         // CZA
+   //pos_Obj_X += pQPushButtonClose->width();                         // CZA
 
        // bouton appel calendrier
-   pQPushButtonDate->resize     ( agendaTitleHeight , agendaTitleHeight);
-   pQPushButtonDate->move       ( offsetObj  , ofsYbutton);                  // CZA
-   offsetObj += pQPushButtonDate->width();                         // CZA
+   pQPushButtonDate->resize     ( agendaButtonHeight , agendaButtonHeight);
+   pQPushButtonDate->move       ( pos_Obj_X  ,         agendaTitleHeight);                  // CZA
+   pos_Obj_X += pQPushButtonDate->width();                         // CZA
    if (pC_Frm_Agenda->getPaintMode() >= C_Frm_Agenda::NORMAL)
       { pQPushButtonDate->setIcon    ( Theme::getIcon("Agenda/dateChange.png"));
         pQPushButtonDate->setToolTip ( "<font color=\"#000000\">"+tr("Which date to start schedule")+"</font>" );
@@ -5705,17 +5721,17 @@ C_Frm_Agenda *C_Manager::addUserAgenda(const QString &signUser, QDate date, QFra
         TipSuivan = tr("Schedule of next week");
       }
       // bouton jour precedent
-   pQPushButtonPreviusDay->resize(   agendaTitleHeight , agendaTitleHeight);
-   pQPushButtonPreviusDay->move  ( offsetObj , ofsYbutton);                  // CZA
+   pQPushButtonPreviusDay->resize( agendaButtonHeight , agendaButtonHeight);
+   pQPushButtonPreviusDay->move  ( pos_Obj_X ,          agendaTitleHeight);                  // CZA
    pQPushButtonPreviusDay->setIcon(Theme::getIcon("Agenda/Precedent.png"));
    pQPushButtonPreviusDay->setToolTip ( "<font color=\"#000000\">"+TipPreced+"</font>" );
-   offsetObj += pQPushButtonPreviusDay->width();                         // CZA
+   pos_Obj_X += pQPushButtonPreviusDay->width();                         // CZA
    // bouton ce jour
-   pQPushButtonThisDay->resize(   agendaTitleHeight , agendaTitleHeight);
-   pQPushButtonThisDay->move  ( offsetObj , ofsYbutton);                  // CZA
+   pQPushButtonThisDay->resize( agendaButtonHeight , agendaButtonHeight);
+   pQPushButtonThisDay->move  ( pos_Obj_X ,          agendaTitleHeight);                  // CZA
    pQPushButtonThisDay->setIcon(Theme::getIcon("Agenda/ThisDay.png"));
    pQPushButtonThisDay->setToolTip ( "<font color=\"#000000\">"+tr("this day")+"</font>" );
-   offsetObj += pQPushButtonThisDay->width();
+   pos_Obj_X += pQPushButtonThisDay->width();
    // QlineEdit Date du jour
    pQLineEditDate->hide();
    /*..... pas besoin de parametrer las positions car hide ............
@@ -5723,52 +5739,58 @@ C_Frm_Agenda *C_Manager::addUserAgenda(const QString &signUser, QDate date, QFra
       {pQLineEditDate->setText      (date.toString("ddMMyyyy"));
        pQLineEditDate->setStyleSheet(QString("border-radius: 6px; background-color: #fff9d8; border: 1px solid #8f8f91; border-radius: 1px; font-size: 9px;"));
        pQLineEditDate->setAlignment ( Qt::AlignHCenter );
-       pQLineEditDate->resize       ( W_DATE_EDIT, agendaTitleHeight );
-       pQLineEditDate->move         ( offsetObj , ofsYbutton);
+       pQLineEditDate->resize       ( W_DATE_EDIT, agendaButtonHeight );
+       pQLineEditDate->move         ( pos_Obj_X , ofsYbutton);
        pQLineEditDate->setToolTip   ("<font color=\"#000000\">"+tr("Which date to start schedule")+"</font>" );
        pQLineEditDate->setReadOnly  ( TRUE );
-       // offsetObj += pQLineEditDate->width();                         // CZA
+       // pos_Obj_X += pQLineEditDate->width();                         // CZA
       }
    else
        pQLineEditDate->hide();
    */
    // bouton jour suivant
-   pQPushButtonNextDay->resize(   agendaTitleHeight , agendaTitleHeight);
-   pQPushButtonNextDay->move  ( offsetObj , ofsYbutton);
+   pQPushButtonNextDay->resize( agendaButtonHeight , agendaButtonHeight);
+   pQPushButtonNextDay->move  ( pos_Obj_X ,          agendaTitleHeight);
    pQPushButtonNextDay->setIcon(Theme::getIcon("Agenda/Suivant.png"));
    pQPushButtonNextDay->setToolTip ( "<font color=\"#000000\">"+TipSuivan+"</font>" );
-   offsetObj += pQPushButtonNextDay->width();                         // CZA
+   pos_Obj_X += pQPushButtonNextDay->width();                         // CZA
 
    // bouton affichage jour
    QString dayWeekMonthMode = pC_Frm_Agenda->getWeekOrDay();
    if (dayWeekMonthMode != "DAY")
-      { pQPushButtonDay->setGeometry(offsetObj,ofsYbutton,agendaTitleHeight,agendaTitleHeight);
+      { pQPushButtonDay->setGeometry(pos_Obj_X,agendaTitleHeight,agendaButtonHeight,agendaButtonHeight);
         pQPushButtonDay->show();
-        offsetObj += pQPushButtonDay->width();                         // CZA
+        pos_Obj_X += pQPushButtonDay->width();                         // CZA
       }
    // bouton affichage semaine
    if (dayWeekMonthMode != "WEEK")
-      { pQPushButtonWeek->setGeometry(offsetObj,ofsYbutton,agendaTitleHeight,agendaTitleHeight);
+      { pQPushButtonWeek->setGeometry(pos_Obj_X,agendaTitleHeight,agendaButtonHeight,agendaButtonHeight);
         pQPushButtonWeek->show();
-        offsetObj += pQPushButtonWeek->width();
+        pos_Obj_X += pQPushButtonWeek->width();
       }
    // bouton affichage mois
    if (dayWeekMonthMode != "MONTH")
-      { pQPushButtonMonth->setGeometry(offsetObj,ofsYbutton,agendaTitleHeight,agendaTitleHeight);
+      { pQPushButtonMonth->setGeometry(pos_Obj_X,agendaTitleHeight,agendaButtonHeight,agendaButtonHeight);
         pQPushButtonMonth->show();
-        offsetObj += pQPushButtonMonth->width();
+        pos_Obj_X += pQPushButtonMonth->width();
       }
+   // bouton recherche espace libre
+   pQPushButtonFreeSpace->resize( agendaButtonHeight , agendaButtonHeight);
+   pQPushButtonFreeSpace->move  ( pos_Obj_X ,          agendaTitleHeight);
+   pQPushButtonFreeSpace->setIcon    ( Theme::getIcon("Agenda/getFreeSpace.png"));
+   pos_Obj_X += pQPushButtonFreeSpace->width();
+
    // bouton menu parametres
-   pQPushButtonMenu->resize( agendaTitleHeight , agendaTitleHeight);
-   pQPushButtonMenu->move  ( offsetObj , ofsYbutton);                        // CZA
+   pQPushButtonMenu->resize( agendaButtonHeight , agendaButtonHeight);
+   pQPushButtonMenu->move  ( pos_Obj_X ,          agendaTitleHeight);                        // CZA
    pQPushButtonMenu->setIcon(Theme::getIcon("Agenda/AgendaMenu.png"));
    pQPushButtonMenu->setToolTip ( "<font color=\"#000000\">"+tr("Various options for schedule")+"</font>" );
-   offsetObj += pQPushButtonMenu->width();                          // CZA
+   pos_Obj_X += pQPushButtonMenu->width();                          // CZA
 
    // label nom utilisateur
    pQLabel->setAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
-   pQLabel->setText( QString(" <font color=\"#FFFFFF\"><b>") + nom + " " + prenom +"</b></font>" );
-   pQLabel->resize ( w  , HEIGHT_USER_AGENDA_LABEL );   // CZA
+   pQLabel->setText( pC_Frm_Agenda->getTitleTemplate().replace("{{TITLE}}", nom + " " + prenom) );
+   pQLabel->resize ( w  , agendaTitleHeight );   // CZA
    pQLabel->move   ( 0  , 0);                           // CZA
 
    scrollArea_Days->setMaximumSize ( w , 16777215);
@@ -5788,6 +5810,7 @@ C_Frm_Agenda *C_Manager::addUserAgenda(const QString &signUser, QDate date, QFra
    connect( pQPushButtonDay        , SIGNAL(clicked (Wdg_ButtonPtr*)), this, SLOT(Slot_pQPushButtonWeekDay_Clicked (Wdg_ButtonPtr*)) );
    connect( pQPushButtonWeek       , SIGNAL(clicked (Wdg_ButtonPtr*)), this, SLOT(Slot_pQPushButtonWeekDay_Clicked (Wdg_ButtonPtr*)) );
    connect( pQPushButtonMonth      , SIGNAL(clicked (Wdg_ButtonPtr*)), this, SLOT(Slot_pQPushButtonWeekDay_Clicked (Wdg_ButtonPtr*)) );
+   connect( pQPushButtonFreeSpace  , SIGNAL(clicked (Wdg_ButtonPtr*)), this, SLOT(Slot_pQPushButtonFreeSpace_Clicked (Wdg_ButtonPtr*)) );
    // ------------- CZA
 
    connect( pC_Frm_Agenda,     SIGNAL(Sign_LauchPatient(const QString &, C_RendezVous *)),   this, SLOT( Slot_LauchPatient(const QString &, C_RendezVous *)));

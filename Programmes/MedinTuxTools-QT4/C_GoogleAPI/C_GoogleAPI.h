@@ -55,7 +55,7 @@ class C_GoogleAPI : public QObject
 
       bool              login(QString mail, QString password);
       void              configureProxy(QNetworkProxy::ProxyType type, const QString &hostName = QString(), quint16 port = 0, const QString &user = QString(), const QString &password = QString());
-      C_GoogleEventList getEventsBetweenTwoDates(const QDate &newStartDate, const QDate &newEndDate);
+      int               getEventsBetweenTwoDates(const QDate &newStartDate, const QDate &newEndDate);
       void              deleteAllEventsBetweenTwoDates(const QDate &newStartDate, const QDate &newEndDate);
       void              createSeveralEvents(const C_GoogleEventList &eventsList);
 

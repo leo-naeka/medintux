@@ -770,6 +770,9 @@ public:
     QString  getUser()    {return m_User;}
     QString  getSignUser(){return m_SignUser; }
     QString  getWeekOrDay() ;       // CZA
+    QString  getTitleTemplate();
+    void     getFreeSpace();
+    int      getAgendaButtonBoxHeight();
     int      getTitleHeight();
     void     resizeBitMapHeader(const QString &WeekOrDay, int dayWitdth);
     //.............. google .........................

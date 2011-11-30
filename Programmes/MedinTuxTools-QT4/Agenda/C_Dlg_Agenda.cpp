@@ -245,17 +245,18 @@ C_Frm_Agenda::C_Frm_Agenda(const QDate &date,
     m_pCMoteurAgenda->SetEndDay (CGestIni::Param_ReadUniqueParam(m_LocalParam.toAscii(),                                     "Agenda", "Heure limite haute"));
     m_pCMoteurAgenda->SetRafraichissement (CGestIni::Param_ReadUniqueParam(m_LocalParam.toAscii(),                           "Agenda", "Rafraichissement").toInt());
     m_pCMoteurAgenda->SetMinDaysHeight(qMax(CGestIni::Param_ReadUniqueParam(m_LocalParam.toAscii(),                          "Agenda", "Hauteur mini jour").toInt(),3));
-    m_pCMoteurAgenda->SetWeekOrDay(CGestIni::Param_ReadUniqueParam(m_LocalParam.toAscii(),                                   "Agenda", "Affichage Jour ou Semaine"));     // CZA
-    m_pCMoteurAgenda->SetTitleHeight(qMax(20,qMin(CGestIni::Param_ReadUniqueParam(m_LocalParam.toAscii(),                    "Agenda", "Hauteur titre").toInt(),150)));       // CZA
+    m_pCMoteurAgenda->SetWeekOrDay(CGestIni::Param_ReadUniqueParam(m_LocalParam.toAscii(),                                   "Agenda", "Affichage Jour ou Semaine"));
+    m_pCMoteurAgenda->SetTitleHeight(qMax(20,qMin(CGestIni::Param_ReadUniqueParam(m_LocalParam.toAscii(),                    "Agenda", "Hauteur titre").toInt(),150)));
+    m_pCMoteurAgenda->SetAgendaButtonBoxHeight(qMax(20,qMin(CGestIni::Param_ReadUniqueParam(m_LocalParam.toAscii(),          "Agenda", "Hauteur bouton").toInt(),150)));
     m_pCMoteurAgenda->SetAgendaWidth(qMin(600,qMax(CGestIni::Param_ReadUniqueParam(m_LocalParam.toAscii(),                   "Agenda", "Largeur").toInt(),100)));
     m_pCMoteurAgenda->SetWeeksToSee(qMin(104,qMax(CGestIni::Param_ReadUniqueParam(m_LocalParam.toAscii(),                    "Agenda", "Nombre de semaines visibles").toInt(),4)));                                                 // CZA
     m_pCMoteurAgenda->SetAgendaWeekWidth(qMin(1800,qMax(CGestIni::Param_ReadUniqueParam(m_LocalParam.toAscii(),              "Agenda", "Largeur semaine").toInt(),150)));                                                 // CZA
     m_pCMoteurAgenda->SetNbDayInWeek(qMin(7,qMax(CGestIni::Param_ReadUniqueParam(m_LocalParam.toAscii(),                     "Agenda", "Nombre de jours par semaine").toInt(),1)));                                                              // CZA
-    m_pCMoteurAgenda->SetAgendaSimple(CGestIni::Param_ReadUniqueParam(m_LocalParam.toAscii(),                                "Agenda", "Presentation simplifiee").toInt());                                                                            // CZA
     m_pCMoteurAgenda->SetEditNoteMode(CGestIni::Param_ReadUniqueParam(m_LocalParam.toAscii(),                                "Agenda", "Edition de la note").toInt());
     m_pCMoteurAgenda->SetVerboseMode(CGestIni::Param_ReadUniqueParam(m_LocalParam.toAscii(),                                 "Agenda", "VerboseMode").toInt());
     m_pCMoteurAgenda->SetHeightDaysHeaderInExpandMode(qMin(150,qMax(CGestIni::Param_ReadUniqueParam(m_LocalParam.toAscii(),  "Agenda", "Hauteur bandeau jour ouvert").toInt(),20)));
-
+    m_pCMoteurAgenda->SetDeleteMode(CGestIni::Param_ReadUniqueParam(m_LocalParam.toAscii(),                                  "Agenda", "Activer bouton delete sur les rdv").toInt());
+    m_pCMoteurAgenda->SetTitleTemplate(CGestIni::Param_ReadUniqueParam(m_LocalParam.toAscii(),                               "Agenda", "Template titre"));
     m_pCMoteurAgenda->COL_Get_List(m_ColorProfils);
     //..................... positionner la largeur des bit map selon semaine ou jour .........................
     int dayWitdth;
@@ -312,6 +313,56 @@ void C_Frm_Agenda::baseReConnect(         const QString &driver,        // nom d
 {if (m_PaintMode < C_Frm_Agenda::NORMAL) return;
  m_pCMoteurAgenda->BaseConnect(driver, baseToConnect, user, pasword, hostname, port, 0, m_pCMoteurAgenda->GetDataBaseLabel());
 }
+//------------------------ getFreeSpace ---------------------------------------
+void C_Frm_Agenda::getFreeSpace()
+{   //............. on cherche une plage libre avec le dialogue .................
+    C_Dlg_PlagesDispo *Dlg_PlagesDispo = new C_Dlg_PlagesDispo;
+    Dlg_PlagesDispo->setWindowTitle(tr("Available dates for %1").arg(m_UserNomPrenom));
+
+    m_pCMoteurAgenda->chargeListePlagesDisponibles(Dlg_PlagesDispo->ui->TreeWidget_PlagesDispo, m_SignUser); // CZA
+    if (!Dlg_PlagesDispo->ui->TreeWidget_PlagesDispo->topLevelItemCount() )
+        {delete Dlg_PlagesDispo;
+        return;
+        }
+    if (Dlg_PlagesDispo->exec() != QDialog::Accepted)
+        {delete Dlg_PlagesDispo;
+        return;
+        }
+    int col = Dlg_PlagesDispo->m_Col;
+    QString   sdatePlage   = Dlg_PlagesDispo->m_sDatePlage;                    // jj-mm-aaaa
+    QString   sheurePlage  = Dlg_PlagesDispo->m_sHeurePlage.replace('h',':');   // 08:30
+    QDateTime  qdatePlage  = QDateTime::fromString(sdatePlage + " " + sheurePlage,"dd-MM-yyyy hh:mm");
+    if (!sdatePlage.length())   return;
+    //.................. exploitation des resultats .....................................................
+    //  rechercher si un jour deja affiche est concerne par cette date
+    C_Frm_Day *pC_Frm_Day = 0;
+    int                 i = 0;
+    for (i = 0; i < C_Frm_DayList::size(); ++i)
+        { pC_Frm_Day = at(i);
+          if (pC_Frm_Day->getDate()==qdatePlage.date()) break;
+        }
+    if (i >= C_Frm_DayList::size()) pC_Frm_Day = 0;              // si pas trouve on met a zero
+    //.......... si semaine cliquee on y va ..........................................
+    if (col == 4)
+       {On_AgendaMustDisplayFromThisDate(qdatePlage.date());
+        return;
+       }
+    //.............. si jour affiche on le cre directement dans le jour...........
+    if (pC_Frm_Day)
+       {pC_Frm_Day->newRDVAtThisDate(qdatePlage, 15);
+        return;
+       }
+    //............... si non le prendre en base directement .............
+    C_RendezVous rdv (qdatePlage, 15,"","","","","",m_SignUser, m_User);
+    C_Dlg_RdvTypeConfig *pC_Dlg_RdvTypeConfig   = new C_Dlg_RdvTypeConfig(&m_ColorProfils, m_pCMoteurAgenda, this,&rdv, 1);
+    if (pC_Dlg_RdvTypeConfig)
+       {pC_Dlg_RdvTypeConfig->setCaption(tr("Set new apointment for %1 at %2").arg(m_UserNomPrenom, qdatePlage.toString("dd MMMM yyyy")));
+        if (pC_Dlg_RdvTypeConfig->exec() == QDialog::Accepted) m_pCMoteurAgenda->RDV_Create(rdv);
+       }
+    delete pC_Dlg_RdvTypeConfig;
+
+}
+
 //------------------------ creerRDVFactices ---------------------------------------
 void C_Frm_Agenda::creerRDVFactices(const QString &user)
 {m_pCMoteurAgenda->creerRDVFactices(user, getStartDate());
@@ -322,11 +373,18 @@ QString C_Frm_Agenda::getWeekOrDay()
 {return(m_pCMoteurAgenda->m_WeekOrDay);
 }
 
+//------------------------ getAgendaButtonBoxHeight ---------------------------------------
+int C_Frm_Agenda::getAgendaButtonBoxHeight()
+{return m_pCMoteurAgenda->GetAgendaButtonBoxHeight();
+}
 //------------------------ getTitleHeight ---------------------------------------
 int C_Frm_Agenda::getTitleHeight()
-{return(m_pCMoteurAgenda->m_TitleHeight);
+{return m_pCMoteurAgenda->GetTitleHeight();
 }
-
+//------------------------ getTitleTemplate ---------------------------------------
+QString C_Frm_Agenda::getTitleTemplate()
+{return m_pCMoteurAgenda->GetTitleTemplate();
+}
 //------------------------ setGoogleLoginParam ---------------------------------------
 void C_Frm_Agenda::setGoogleLoginParam (const QString &googleUser, const QString &googlePass )
 {m_googleUser = googleUser;
@@ -512,7 +570,7 @@ void C_Frm_Agenda::reinitAgendaOnDate(QDate dateDeb)
              setFixedWidth(x);
         }
      else       //    MONTH
-        {
+        { int jourDeLaSemaine    = 0;
           int nbDayInWeek        = m_pCMoteurAgenda->GetNbDayInWeek();                     // CZA
           int widthDay           = m_pCMoteurAgenda->GetAgendaWeekWidth() / nbDayInWeek;  // CZA
           m_StartDate            = dateDeb;
@@ -540,7 +598,9 @@ void C_Frm_Agenda::reinitAgendaOnDate(QDate dateDeb)
                     m_MonthLabelList.append(pQLabel);
                     pQLabel->show();
                   }
-                C_Frm_Day* pC_Frm_Day = new C_Frm_Day(
+
+               if (jourDeLaSemaine<nbDayInWeek)
+                  { C_Frm_Day* pC_Frm_Day = new C_Frm_Day(
                                         m_pCMoteurAgenda,
                                         &m_ColorProfils,
                                         m_pBMC,
@@ -555,25 +615,25 @@ void C_Frm_Agenda::reinitAgendaOnDate(QDate dateDeb)
                                         getResoPixByMinutes(),
                                         0                        // dans le mode mois les jour ne sont pas deployes mais en mode resume
                                        );
-                if (pC_Frm_Day)
-                   { x += widthDay; // A REVOIR
-                     h  = appendDay (pC_Frm_Day  );
-                     connect( pC_Frm_Day, SIGNAL( Sign_agenda_GetInfoFromUser(QString &, QString &, QString &, QString &)),
-                              this,       SIGNAL( Sign_agenda_GetInfoFromUser(QString &, QString &, QString &, QString &)));
-                     connect( pC_Frm_Day, SIGNAL( Sign_LauchPatient(const QString &, C_RendezVous *)),
-                              this,       SIGNAL( Sign_LauchPatient(const QString &, C_RendezVous *)));
-                   }
-
-                dateDeb = dateDeb.addDays (1);
-                pC_Frm_Day->show();
+                   if (pC_Frm_Day)
+                      { x += widthDay; // A REVOIR
+                        h  = appendDay (pC_Frm_Day  );
+                        connect( pC_Frm_Day, SIGNAL( Sign_agenda_GetInfoFromUser(QString &, QString &, QString &, QString &)),
+                                 this,       SIGNAL( Sign_agenda_GetInfoFromUser(QString &, QString &, QString &, QString &)));
+                        connect( pC_Frm_Day, SIGNAL( Sign_LauchPatient(const QString &, C_RendezVous *)),
+                                 this,       SIGNAL( Sign_LauchPatient(const QString &, C_RendezVous *)));
+                        pC_Frm_Day->show();
+                      }
+                  }
+                ++jourDeLaSemaine;
                 //.......... jour suivant si debut de semaine repartir de la gauche .......
-                ++i;
-                int modulo = i%nbDayInWeek;
-                if (modulo==0)
-                   {y += h;
-                    x  = W_OFSET;
+                if (jourDeLaSemaine==7)
+                   {jourDeLaSemaine = 0;
+                    y              += h;
+                    x               = W_OFSET;
                    }
-                if (modulo!=1) pC_Frm_Day->m_ButtonExpand->hide();      // si pas premier jour de la semaine on cache le bouton de deploiement
+                dateDeb = dateDeb.addDays (1);
+                ++i;
               } // end while ( i<nbDayToSee)
           setFixedHeight (y);
           setFixedWidth(widthDay*nbDayInWeek);
@@ -779,10 +839,6 @@ C_Frm_Day::C_Frm_Day(CMoteurAgenda       * pCMoteurAgenda ,
  m_ButtonGoogle->setFlat( TRUE );
  m_ButtonGoogle->setToolTip ( "<font color=\"#000000\">"+tr("Push to Google Agenda.</font>") );
 
- if (m_pCMoteurAgenda->GetWeekOrDay() == "MONTH")
-    {m_ButtonExpand->setToolTip(tr("goto this week"));
-     m_ButtonExpand->setPixmap(m_pBMC->m_ButtonGotoWeek_Pixmap);
-    }
  resize(m_Width,     m_Height );
  connect( m_ButtonNewRDV,  SIGNAL( Sign_ButtonClickedPtr (const char*, void *)  ),          this ,     SLOT(   OnButtonNewRDVClickedPtr (const char*, void *)  )  );
  connect( m_ButtonSave,    SIGNAL( Sign_ButtonClickedPtr (const char*, void *)  ),          this ,     SLOT(   OnButtonSaveClickedPtr (const char*, void *)  ) );
@@ -810,6 +866,11 @@ C_Frm_Day::C_Frm_Day(CMoteurAgenda       * pCMoteurAgenda ,
 
  //if (m_Date==QDate::currentDate()) ExpandDialog();
  if (day_expand == 1) ExpandDialog();
+ if (m_pCMoteurAgenda->GetWeekOrDay() == "MONTH")
+    {m_ButtonExpand->setToolTip(tr("goto this week"));
+     m_ButtonExpand->setPixmap(m_pBMC->m_ButtonGotoWeek_Pixmap);
+     if (date.dayOfWeek()!=1) m_ButtonExpand->hide();
+    }
  setMouseTracking (TRUE );
 }
 
@@ -1849,7 +1910,7 @@ void C_Frm_Day::On_Day_mousePressEvent ( QMouseEvent * event )
      case 10: { cherchePlagesDisponibles(m_SignUser);                   // CZA
                 return;                                                 // CZA
               } break;
-     case 11: { emit Sign_AgendaMustDisplayFromThisDate(QDate::currentDate());    // CZA
+     case 11: { emit (QDate::currentDate());    // CZA
                 return;                                                 // CZA
               } break;
      default: {UNLOOKREFRESH;
@@ -1873,6 +1934,9 @@ QString C_Frm_Day::doRdvMenu(C_RendezVous *pRdvDst, int isOptionDetruire  /* = 0
     // "Copy" "Replace" "Cut" "Type :" "Status :"  "Modify"  "Open" "Anomymize" "Quit"
     C_QMenuRdv menu(tr("Appointment available"),(QWidget*)parent());
     menu.setStyleSheet("font-size: 12px");  // "border: 1px solid #8f8f91; border-radius: 6px; font-size: 11px; color:#000000;border-width: 3px;  border-style: solid;  border-color: blue; background: yellow; icon-size:16px"
+    menu.addAction (m_pBMC->m_Configure_Pixmap,     tr("Modify the parameters of this appointment...")
+                         )->setData ("Modify");
+    menu.addSeparator ();
     //..............menu clasique copier coller couper ...............................
     menu.addAction (m_pBMC->m_Copier_Pixmap, tr("Copy the current appointment into the copy memory")
                    )->setData ("Copy");
@@ -1880,7 +1944,8 @@ QString C_Frm_Day::doRdvMenu(C_RendezVous *pRdvDst, int isOptionDetruire  /* = 0
     //.......................... menu coller si rendez-vous en buffer de copie existe ...............
     C_RendezVous rdvCopy = getCopy();
     if (isCopyExist())
-    {if (rdvCopy.m_Nom.trimmed().length()||rdvCopy.m_Prenom.trimmed().length())
+    {
+        if (rdvCopy.m_Nom.trimmed().length()||rdvCopy.m_Prenom.trimmed().length())
             menu.addAction (m_pBMC->m_Paste_Pixmap,
                             tr("Replace the actual appointment with the one inside the copy memory with the name of the patient: '%1' ").arg(rdvCopy.m_Nom.trimmed()+" "+rdvCopy.m_Prenom.trimmed())
                            )->setData ("Replace");
@@ -1917,8 +1982,6 @@ QString C_Frm_Day::doRdvMenu(C_RendezVous *pRdvDst, int isOptionDetruire  /* = 0
                         )->setData (QString("Status :%1").arg(ut.key()));
     }
     menu.addSeparator ();
-    menu.addAction (m_pBMC->m_Configure_Pixmap,     tr("Modify the parameters of this appointment...")
-                   )->setData ("Modify");
     if (pRdvDst->m_GUID.length())
        { menu.addAction (m_pBMC->m_ButtonAcceder_Pixmap, tr("Open folder: %1").arg(pRdvDst->m_Nom+" "+pRdvDst->m_Prenom)
                        )->setData ("Open");
@@ -1974,14 +2037,17 @@ void C_Frm_Day::newRDVAtThisDate(QDateTime dateTime, int duree, const QString &t
  if (pk.length())     pC_RendezVous->m_PrimKey = pk;
 
  C_Dlg_RdvTypeConfig *pC_Dlg_RdvTypeConfig   = new C_Dlg_RdvTypeConfig(m_pColorProfils, m_pCMoteurAgenda, this, pC_RendezVous, 1);
- if (pC_Dlg_RdvTypeConfig && pC_Dlg_RdvTypeConfig->exec() == QDialog::Accepted)
-    {C_Frm_Rdv *pC_Frm_Rdv = appendNewRDVItem(pC_RendezVous);    // ne pas effacer pC_RendezVous car appendNewRDVItem
-     if (pC_Frm_Rdv)                                             // si echec pC_RendezVous aura ete efface
-        {if (isDayExpand())  pC_Frm_Rdv->show();
-         ReArangeIfDayHeightChange();                            // reajuster eventuellement la hauteur du jour et reorganiser les jours sous jacents et mettre a jour la hauteur du jour
+ if (pC_Dlg_RdvTypeConfig)
+    {pC_Dlg_RdvTypeConfig->setCaption(tr("Set new apointment for %1 at %2").arg(m_UserNomPrenom, dateTime.toString("dd MMMM yyyy")));
+     if (pC_Dlg_RdvTypeConfig->exec() == QDialog::Accepted)
+        { C_Frm_Rdv *pC_Frm_Rdv = appendNewRDVItem(pC_RendezVous);    // ne pas effacer pC_RendezVous car appendNewRDVItem
+          if (pC_Frm_Rdv)                                             // si echec pC_RendezVous aura ete efface
+             {if (isDayExpand())  pC_Frm_Rdv->show();
+              ReArangeIfDayHeightChange();                            // reajuster eventuellement la hauteur du jour et reorganiser les jours sous jacents et mettre a jour la hauteur du jour
+             }
+          delete pC_Dlg_RdvTypeConfig;
+          return;
         }
-     delete pC_Dlg_RdvTypeConfig;
-     return;
     }
  delete pC_RendezVous;                                           // effacer pC_RendezVous car pas appendNewRDVItem
 }
@@ -2364,9 +2430,9 @@ C_Frm_Rdv::C_Frm_Rdv (  C_RendezVous *pC_RendezVous,       // data
 //.................. style des bontons ...................................
 //QString style = "QPushButton { border: 1px solid #8f8f91; border-radius: 0px; background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #f6f7fa, stop: 1 #dadbde);}"    // style normal
 //                "QPushButton:pressed {                    border-radius: 0px; background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #dadbde, stop: 1 #f6f7fa);}";   // style selectionne
-//m_ButtonDelete = new CMyButton(m_pBMC->m_RdvCancel_Pixmap, this, "", this);
-if (m_ButtonDelete)
-   {if (m_button_HeureDuree) m_ButtonDelete->setGeometry(90, y, widget_h, widget_h);   // icone = carre donc widget_hxwidget_h
+if ( pCMoteurAgenda->GetDeleteMode() )
+   {m_ButtonDelete = new CMyButton(m_pBMC->m_RdvCancel_Pixmap, this, "", this);
+    if (m_button_HeureDuree) m_ButtonDelete->setGeometry(90, y, widget_h, widget_h);   // icone = carre donc widget_hxwidget_h
     else                     m_ButtonDelete->setGeometry(m_widget_w-(widget_h*3)-2, y, widget_h, widget_h);   // icone = carre donc widget_hxwidget_h
     m_ButtonDelete->setFlat( TRUE );
     m_ButtonDelete->setToolTip ( "<font color=\"#000000\">"+tr("Delete this appointment")+"</font>" );
@@ -2782,7 +2848,7 @@ void C_Frm_Rdv::adjustWidgetToMagnetisme(C_Frm_Rdv::adjustMode mode  /* = C_Frm_
 
 //---------------------------- mousePressEvent ------------------------------------------------
 void C_Frm_Rdv::mousePressEvent(QMouseEvent *event)
- {   if (event->button() == Qt::LeftButton)
+ {  if (event->button() == Qt::LeftButton)
         {if (m_GrabIsOn==0)
             {
              ((C_Frm_Day*)parent())->Slot_StopTimer(1);   // le timer sera debloque lors du release button
@@ -2843,13 +2909,17 @@ void C_Frm_Rdv::mousePressEvent(QMouseEvent *event)
               */
              }
          }
-     else if (event->button() == Qt::RightButton && m_GrabIsOn==0)
+    else if ( event->button() == Qt::RightButton  && m_GrabIsOn==0)
          { //................ menu ....................
            ((C_Frm_Day*)parent())->Slot_StopTimer(1);   // le timer ser debloque lors du release button
            QString       ret =  ((C_Frm_Day*)parent())->doRdvMenu(this->rdv_instance(),1);
            // "Copy" "Replace" "Cut" "Type :" "Status :"  "Modify"  "Open" "Anomymize" "Quit"
            if (ret.length())
-              {if (ret.indexOf("Status :") != -1)
+              {
+                if (ret.indexOf("Modify") != -1)
+                   {emit Sign_RendezVousChangeClicked(this);
+                   }
+               else if (ret.indexOf("Status :") != -1)
                   { QString statut = ret.remove("Status :");
                     m_State = statut.trimmed();
                     setWidgetOnRdv(*this);                // on reajuste le widget sur les nouvelles donn\303\251es
@@ -2973,7 +3043,7 @@ int C_Frm_Rdv::getHeight()
 void C_Frm_Day::cherchePlagesDisponibles(QString User) // CZA
 {
     C_Dlg_PlagesDispo *Dlg_PlagesDispo = new C_Dlg_PlagesDispo;
-    Dlg_PlagesDispo->setWindowTitle("Dates disponibles pour " + User);
+    Dlg_PlagesDispo->setWindowTitle(tr("Available dates for %").arg(User));
 
     m_pCMoteurAgenda->chargeListePlagesDisponibles(Dlg_PlagesDispo->ui->TreeWidget_PlagesDispo, User); // CZA
     if (!Dlg_PlagesDispo->ui->TreeWidget_PlagesDispo->topLevelItemCount() )
@@ -2993,7 +3063,7 @@ void C_Frm_Day::cherchePlagesDisponibles(QString User) // CZA
     if (!sdatePlage.length())   return;
 
     if (col == 4)   // clic sur colonne semaine, --> on affiche la semaine concern?e.
-        emit Sign_AgendaMustDisplayFromThisDate(qdatePlage.date());
+        emit (qdatePlage.date());
 
     else        // sinon on lance la saisie d'un RDV
         {newRDVAtThisDate(qdatePlage, 15); // ???????????

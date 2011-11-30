@@ -153,9 +153,9 @@ This function starts the retrieval of all-day-events from the calendar
 between two dates.
 \param debDate is the start date.
 \param endDate is the end date.
-\return C_GoogleEventList whith all events between debDate and endDate .
+\return in number of retrived events between debDate and endDate .
 */
-C_GoogleEventList C_GoogleAPI::getEventsBetweenTwoDates(const QDate &debDate, const QDate &endDate)
+int C_GoogleAPI::getEventsBetweenTwoDates(const QDate &debDate, const QDate &endDate)
 { m_eventsList.clear();
   if (m_serviceWorking)
      {QString debDateStr = debDate.toString("yyyy-MM-dd")+"T00:00:00";
@@ -176,7 +176,7 @@ C_GoogleEventList C_GoogleAPI::getEventsBetweenTwoDates(const QDate &debDate, co
       connect(m_reply, SIGNAL(finished()), this, SLOT(Slot_getEventsDone()));
       while (m_serviceWorking == false) {qApp->processEvents();}
      }
-  return m_eventsList;
+  return m_eventsList.count();
 }
 
 //------------------------------------Slot_getEventsDone ---------------------------------------------
@@ -228,7 +228,7 @@ void C_GoogleAPI::Slot_getEventsDone()
                    QString value = "";
                    if (attributes.hasAttribute("name"))   name = attributes.value("name").toString().simplified();
                    if (attributes.hasAttribute("value")) value = attributes.value("value").toString().simplified();
-                   if (name=="isFromMedinTux") isFromMedinTux = true;
+                   if (name=="isFromMedinTux")  isFromMedinTux = true;
                  }
               if (xml.isStartElement() && xml.qualifiedName() == "gd:where" && readData )
                  { QXmlStreamAttributes attributes = xml.attributes();
@@ -355,40 +355,41 @@ This function erase all events already presents between two dates
 void C_GoogleAPI::deleteAllEventsBetweenTwoDates(const QDate &debDate, const QDate &endDate)
 {//............ retrieve list (m_eventsList) of all events ................................
  //                     between debDate and endDate
- getEventsBetweenTwoDates(debDate, endDate);   // initialize m_eventsList to all events
- if (m_eventsList.size()<=0) return;
- //.............. for each event put xml request .....................................................
- //               batch mode for beter performance
- QString data  = "";
- for (int i = 0; i < m_eventsList.size(); ++i)
-     {data    += QString("<entry gd:etag='%1'>"
-                         "<batch:id>Delete item%2</batch:id>"
-                         "<batch:operation type='delete' />"
-                         "<id>%3</id>"
-                         "</entry>").arg(m_eventsList[i].getEtag(),QString::number(i),m_eventsList[i].getEvent_ID());
-     }
- //............. add header and xml close mention ............................................
- data.prepend("<feed xmlns='http://www.w3.org/2005/Atom' xmlns:app='http://www.w3.org/2007/app' xmlns:batch='http://schemas.google.com/gdata/batch' xmlns:gCal='http://schemas.google.com/gCal/2005' xmlns:gd='http://schemas.google.com/g/2005'>"
-              "<category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/g/2005#event' />"
-             );
- data    +="</feed>";
- CGestIni::Param_UpdateToDisk("/home/ro/googleDel.xml", data);
+ while (getEventsBetweenTwoDates(debDate, endDate))   // initialize m_eventsList to all events
+       {
+        //.............. for each event put xml request .....................................................
+        //               batch mode for beter performance
+        QString data  = "";
+        for (int i = 0; i < m_eventsList.size(); ++i)
+            {data    += QString("<entry gd:etag='%1'>"
+                                "<batch:id>Delete item%2</batch:id>"
+                                "<batch:operation type='delete' />"
+                                "<id>%3</id>"
+                                "</entry>").arg(m_eventsList[i].getEtag(),QString::number(i),m_eventsList[i].getEvent_ID());
+            }
+        //............. add header and xml close mention ............................................
+        data.prepend("<feed xmlns='http://www.w3.org/2005/Atom' xmlns:app='http://www.w3.org/2007/app' xmlns:batch='http://schemas.google.com/gdata/batch' xmlns:gCal='http://schemas.google.com/gCal/2005' xmlns:gd='http://schemas.google.com/g/2005'>"
+                     "<category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/g/2005#event' />"
+                    );
+        data    +="</feed>";
+        CGestIni::Param_UpdateToDisk("/home/ro/googleDel.xml", data);
 
- if (m_serviceWorking)
-    {
-      QUrl address("http://www.google.com/calendar/feeds/default/private/full/batch");
-      address.addQueryItem("gsessionid", m_session);
-      QNetworkRequest request = QNetworkRequest();
-      request.setUrl(address);
-      request.setHeader(QNetworkRequest::ContentTypeHeader, "application/atom+xml; charset=UTF-8; type=entry"); //application/x-www-form-urlencoded
-      QString authorization = QString("GoogleLogin auth=%1").arg(m_auth->getAuth()).toLatin1();
-      request.setRawHeader("Authorization", authorization.toAscii());
-      request.setRawHeader("GData-Version", "2.0");
-      m_serviceWorking = false;
-      m_reply          = m_netAccMan->post(request,data.toUtf8());
-      connect(m_reply, SIGNAL(finished()), this, SLOT(Slot_deleteEventsDone()));
-      while (m_serviceWorking == false) {qApp->processEvents();}
-    }
+        if (m_serviceWorking)
+           {
+             QUrl address("http://www.google.com/calendar/feeds/default/private/full/batch");
+             address.addQueryItem("gsessionid", m_session);
+             QNetworkRequest request = QNetworkRequest();
+             request.setUrl(address);
+             request.setHeader(QNetworkRequest::ContentTypeHeader, "application/atom+xml; charset=UTF-8; type=entry"); //application/x-www-form-urlencoded
+             QString authorization = QString("GoogleLogin auth=%1").arg(m_auth->getAuth()).toLatin1();
+             request.setRawHeader("Authorization", authorization.toAscii());
+             request.setRawHeader("GData-Version", "2.0");
+             m_serviceWorking = false;
+             m_reply          = m_netAccMan->post(request,data.toUtf8());
+             connect(m_reply, SIGNAL(finished()), this, SLOT(Slot_deleteEventsDone()));
+             while (m_serviceWorking == false) {qApp->processEvents();}
+           }
+       }
 }
 //------------------------------------Slot_deleteEventsDone ---------------------------------------------
 /*!

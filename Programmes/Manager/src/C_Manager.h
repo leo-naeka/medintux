@@ -256,6 +256,7 @@ private slots:
    void Slot_pQPushButtonPreviusDay_Clicked (Wdg_ButtonPtr* pWdg_ButtonPtr); // CZA
    void Slot_pQPushButtonThisDay_Clicked (Wdg_ButtonPtr* pWdg_ButtonPtr);
    void Slot_pQPushButtonWeekDay_Clicked (Wdg_ButtonPtr* pWdg_ButtonPtr); // CZA
+   void Slot_pQPushButtonFreeSpace_Clicked (Wdg_ButtonPtr*);
    void Slot_setUserAgendaVisible();
    void Slot_ReinitModeWeekDayMonth_OnDate(const QDate &date , const QString &mode, C_Frm_Agenda *pC_Frm_Agenda);
    void Slot_OnFastAccesAgendaButtonClicked(QAbstractButton *);

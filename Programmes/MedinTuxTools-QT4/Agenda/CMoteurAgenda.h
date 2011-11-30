@@ -119,8 +119,10 @@ class CMoteurAgenda : public QObject
   QString         OutSQL_error(const QSqlQuery &cur, const char *messFunc =0, const char *requete=0);
   QString         OutSQL_error(const QSqlError &error, const char *messFunc =0, const char *requete =0);
   void            creerRDVFactices (QString user, QDate date);
-
+  void            SetDeleteMode(int value){m_buttonDeleteOnRdv=value;}
+  int             GetDeleteMode(){return m_buttonDeleteOnRdv;}
   void            SetMinDaysHeight(int = 15);
+  int             GetMinDaysHeight();
   void            SetVerboseMode(int mode) {m_isVerbose = mode;}
   int             GetVerboseMode() {return m_isVerbose;}
   void            SetHeightDaysHeaderInExpandMode(int value = 25) {m_HeightDaysHeaderInExpandMode = value;}
@@ -145,16 +147,19 @@ class CMoteurAgenda : public QObject
   int             GetNbDayInWeek(){return m_NbDayInModeWeek;}                       // CZA
   void            SetNbDayInModeDay(int value= 6){m_NbDayInModeDay = value;}
   int             GetNbDayInModeDay(){return m_NbDayInModeDay;}
+  void            SetTitleTemplate(QString value ){m_TitleTemplate = value;}
+  QString         GetTitleTemplate(){return m_TitleTemplate;}
   void            SetWeekOrDay(QString WoD = "DAY"){m_WeekOrDay = WoD;}             // CZA
   QString         GetWeekOrDay(){return m_WeekOrDay;}                               // CZA
-  void            SetAgendaSimple(int presimple = 0){m_PresentSimple = presimple;}  // CZA
   void            SetTitleHeight(int = 15);                                         // CZA
+  int             GetTitleHeight();                                                 // CZA
+  void            SetAgendaButtonBoxHeight(int = 15);
+  int             GetAgendaButtonBoxHeight();
   void            SetWeeksToSee(int value = 28){m_nbWeeksToSee=value;}
   int             GetWeeksToSee(){return m_nbWeeksToSee;}
   void            chargeListePlagesDisponibles(QTreeWidget  *pQlistView, QString user); // CZA
   void            ajouterPlageDispo(QTreeWidget  *pQlistViewPlage, QDateTime DatePlageDeb, QDateTime DatePlageFin, int fini); // CZA
 
-  int             GetMinDaysHeight();
   void            setOpenCloseMode(int /*mode */ ){/*m_CloseAfterQuery=mode; if (m_CloseAfterQuery==0 && m_DataBase &&  m_DataBase->isOpen()==FALSE) m_DataBase->open();*/ }
   int             OpenBase();
   void            CloseBase(); //m_CloseAfterQuery
@@ -171,6 +176,7 @@ class CMoteurAgenda : public QObject
 
 //............................... DATA .............................................................................
  public:
+  int           m_buttonDeleteOnRdv;
   int           m_EditNoteMode;
   int           m_nbWeeksToSee;
   int           m_isVerbose;
@@ -178,13 +184,14 @@ class CMoteurAgenda : public QObject
   int           m_AgendaWeekWidth;          // CZA
   int           m_NbDayInModeWeek;          // CZA
   int           m_NbDayInModeDay;
-  int           m_PresentSimple;            // CZA
   int           m_TitleHeight;              // CZA
+  int           m_AgendaButtonHeight;
   int           m_MinDaysHeight;
   int           m_ModifConfirm;
   int           m_Rafraichissement;
   int           m_Representation;       // 0/sur 1 ligne 1/sur deux lignes
   int           m_HeightDaysHeaderInExpandMode;
+  QString       m_TitleTemplate;
   QString       m_WeekOrDay;            // Vide ou DAY = affichage journee, WEEK= Affichage Semaine // CZA
   QString       m_TimeDeb;
   QString       m_TimeEnd;
