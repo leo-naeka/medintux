@@ -1613,10 +1613,10 @@ void C_Frm_Day::replaceRdvByRdv(C_Frm_Rdv *pC_Frm_Rdv_Dst, const C_RendezVous &r
   pC_Frm_Rdv_Dst->m_Tel    = rdvSrc.m_Tel;
   pC_Frm_Rdv_Dst->m_Where  = rdvSrc.m_Where;
 
-  pC_Frm_Rdv_Dst->m_textLabel_Nom->setText(rdvSrc.m_Nom + " " + rdvSrc.m_Prenom);
+  if (pC_Frm_Rdv_Dst->m_textLabel_Nom) pC_Frm_Rdv_Dst->m_textLabel_Nom->setText(rdvSrc.m_Nom + " " + rdvSrc.m_Prenom);
   pC_Frm_Rdv_Dst->m_ButtonAcceder->setEnabled(TRUE);
   pC_Frm_Rdv_Dst->m_ButtonAcceder->setIcon(m_pBMC->m_ButtonAcceder_Pixmap);
-
+  pC_Frm_Rdv_Dst->update();
   //........... enregistrer la modification dans la base ................
   QString errMess;
   if ( ! m_pCMoteurAgenda->RDV_Update(*pC_Frm_Rdv_Dst, &errMess) )

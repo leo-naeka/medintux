@@ -19,7 +19,7 @@ int main( int argc, char ** argv )
  CApp a( argc, argv );
 
  // ouvre une fenêtre choix de date
-  Dlg_Calendar *dlg  = new Dlg_Calendar(0, "Calendar_Dial", TRUE, Qt::WStyle_Customize | Qt::WStyle_NormalBorder | Qt::WStyle_Title |Qt::WStyle_MinMax | Qt::WStyle_SysMenu);
+  Dlg_Calendar *dlg  = new Dlg_Calendar(0, "Calendar_Dial", FALSE, Qt::WStyle_Customize | Qt::WStyle_NormalBorder | Qt::WStyle_Title |Qt::WStyle_MinMax | Qt::WStyle_SysMenu);
  if (dlg ==0)  return -1;
  dlg->setCaption("Calendrier");
  dlg->show();
