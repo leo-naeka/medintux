@@ -639,7 +639,6 @@ public:
     void            ExpandDialog();
     int             getStateLook(){return m_DontRecreateWidget;}
 
-    void            cherchePlagesDisponibles(QString User);
     //.......... DATA  public ........
     C_RendezVous    m_DropedRdv;
     CMyButton       *m_ButtonExpand;
@@ -769,7 +768,6 @@ public:
     void     setResoPixByMinutes(int resoPix){m_PixByMinute = resoPix;}
     QString  getUser()    {return m_User;}
     QString  getSignUser(){return m_SignUser; }
-    QString  getWeekOrDay() ;       // CZA
     QString  getTitleTemplate();
     void     getFreeSpace();
     int      getAgendaButtonBoxHeight();
@@ -793,7 +791,8 @@ public:
     void     changeRepresentation(int representation);
     void     changeModifConfirm(int value);
     void     changeAgendaWidth(int value);
-    void     changeWeekOrDay(QString WeekOrDay);            // CZA
+    void     setAgendaMode_WeekOrDayOrMonth(QString WeekOrDay);
+    QString  getAgendaMode_WeekOrDayOrMonth() ;
     void     reinitAgendaOnDate(QDate dateDeb);
     void     reinitAgendaOnUser(const QString& user, const QString &droits);
 

@@ -31,13 +31,13 @@
 QString C_RendezVous::getQWhatsThisString(   const QString &pathTheme, QString color)
 {QString                                     mess  = QString("<img src=\"") + pathTheme + "Agenda/AgendaToolTipHead.png\" /><br />";   // un bandeau pour elargir le tool tip
                                              mess += tr("<font color=\"#000000\"><b>Dated&nbsp;:&nbsp;</b></font><font color=\"#7f0000\"><b>\t%1 at <u>%2</u></b></font><font color=\"#000000\"><br />"
-                                                        "<b>Scheduled duration :</b>%3&nbsp; minutes<hr>"
+                                                        "Scheduled duration :<b>%3&nbsp; minutes</b><hr>"
                                                        ).arg(m_date.toString("ddd dd MMMM yyyy"),m_date.time().toString("hh:mm"),QString::number(m_Duree));
- if (m_Nom.length() || m_Prenom.length())    mess += "<b>"+tr("Appointment  of:&nbsp;</b> ") + m_Nom + "&nbsp;" + m_Prenom;
- else                                        mess += tr("<i><b>Anonymous appointment:</b>&nbsp;name - first name not filled&nbsp;</i>");
- if (m_Tel.length())                         mess += tr("<br><b>Phone&nbsp;:</b> ")    + m_Tel;
-                                             mess += "<hr>";
-                                             mess += tr("<b>With:&nbsp;</b>")    + m_PrisAvec + tr("<b>Taken by:</b>")+m_PrisPar+"&nbsp;<br />";
+ if (m_Nom.length() || m_Prenom.length())    mess += ""+tr("Appointment  of:&nbsp;<font color=\"#7f0000\"><b>") + m_Nom + "&nbsp;" + m_Prenom+"</b></font>";
+ else                                        mess += tr("<i>Anonymous appointment:&nbsp;<b>name - first name not filled&nbsp;</b></i>");
+ if (m_Tel.length())                         mess += tr("<br>Phone&nbsp;:<b>")    + m_Tel;
+                                             mess += "</b> <hr>";
+                                             mess += tr("With:&nbsp;<b>")    + m_PrisAvec + tr("</b>Taken by:<b>")+m_PrisPar+"</b>&nbsp;<br />";
  if (m_Type.length())
                                             {mess += tr("<b>Cause: </b>")   + m_Type   ;
                                              mess += "<TABLE cellSpacing=\"2\"  cellpadding=\"0\" width=100 border=\"1\">"

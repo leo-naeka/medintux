@@ -149,8 +149,8 @@ class CMoteurAgenda : public QObject
   int             GetNbDayInModeDay(){return m_NbDayInModeDay;}
   void            SetTitleTemplate(QString value ){m_TitleTemplate = value;}
   QString         GetTitleTemplate(){return m_TitleTemplate;}
-  void            SetWeekOrDay(QString WoD = "DAY"){m_WeekOrDay = WoD;}             // CZA
-  QString         GetWeekOrDay(){return m_WeekOrDay;}                               // CZA
+  void            SetAgendaMode_WeekOrDayOrMonth(QString WoD = "DAY"){m_WeekOrDay = WoD;}             // CZA
+  QString         GetAgendaMode_WeekOrDayOrMonth(){return m_WeekOrDay;}                               // CZA
   void            SetTitleHeight(int = 15);                                         // CZA
   int             GetTitleHeight();                                                 // CZA
   void            SetAgendaButtonBoxHeight(int = 15);

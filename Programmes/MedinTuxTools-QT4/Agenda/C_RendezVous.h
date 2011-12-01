@@ -134,7 +134,7 @@ typedef QList <C_RendezVous*>  RDV_LIST;
   //------------------------ getRdvColor ---------------------------------------
   static QString getRdvColor(const C_RendezVous & rdv, MAP_COLOR *colorProfils);
   //---------------------------- addXmlData ------------------------------------------------
-  static void addXmlData(const QString& dName, QByteArray data, QString &modeleXML, bool mustBeB64Protected)
+  static void addXmlData(const QString& dName, QByteArray data, QString &modeleXML, bool mustBeB64Protected=FALSE)
   {QString dataName    = dName;
    QString dataToPlace = "";
    data.replace('>',"&gt;");
