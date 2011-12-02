@@ -73,8 +73,12 @@ CMoteurAgenda::CMoteurAgenda(const QString &driver,        // nom du driver: "QO
   m_Rafraichissement   = 120;
   m_Representation     = 1;       // 0/sur 1 ligne 1/sur deux lignes
   m_HeightDaysHeaderInExpandMode = 25;
-  m_WeekOrDay          = "DAY";            // Vide ou DAY = affichage journee, WEEK= Affichage Semaine // CZA
-  m_TitleTemplate      = QString( "<font color=\"#FFFFFF\"><b>{{TITLE}}</b></font>" );
+  m_isDayOfMonthToBeDisplay      = 0;
+  m_WeekOrDay                    = "DAY";            // Vide ou DAY = affichage journee, WEEK= Affichage Semaine // CZA
+  m_TitleTemplate                = "<font color=\"#FFFFFF\"><b>{{TITLE}}</b></font>";
+  m_FormatDateInResumeD          = "ddd dd MMMM yyyy";
+  m_FormatDateInResumeW          = "ddd dd MMMM yyyy";
+  m_FormatDateInResumeM          = "ddd dd MMMM";
   initBase   ( driver,        // nom du driver: "QODBC3" "QMYSQL3" "QPSQL7"
                DataBaseName,  // nom de la base: si QODBC3 -> nom de la source de donnÃ©es (userDSN)
                user,          // = "root"
@@ -291,6 +295,29 @@ char  *CMoteurAgenda::SetConfBase_SetProperties(char *pt, QString &propertie, co
 //--------------------------------------------- GotoDebug ------------------------------------------------
 void CMoteurAgenda::GotoDebug()
 {
+}
+//-------------------------------------- SetFormatDateInResume ----------------------------------------------------------------------------
+void  CMoteurAgenda::SetFormatDateInResume(QString value )
+{if (value.length())
+    {   QStringList       lst = value.split('|', QString::SkipEmptyParts);
+        //......... on recupere premiere valeur ............................
+        //          par defaut les autres formats la prennent aussi
+        m_FormatDateInResumeD = lst[0];
+        m_FormatDateInResumeW = m_FormatDateInResumeD;
+        m_FormatDateInResumeM = m_FormatDateInResumeD;
+        //          si autres formats précises alors les affecter ...........
+        if (lst.size()>0) m_FormatDateInResumeW = lst[1];
+        if (lst.size()>1) m_FormatDateInResumeM = lst[2];
+    }
+}
+//-------------------------------------- GetFormatDateInResume ----------------------------------------------------------------------------
+QString CMoteurAgenda::GetFormatDateInResume(char mode)
+{switch((int)mode)
+       {case 'D': return m_FormatDateInResumeD;
+        case 'W': return m_FormatDateInResumeW;
+        case 'M': return m_FormatDateInResumeM;
+        default:  return m_FormatDateInResumeD;
+       }
 }
 //-------------------------------------- SetMinDaysHeight ----------------------------------------------------------------------------
 void  CMoteurAgenda::SetMinDaysHeight(int val  /* = 15*/)

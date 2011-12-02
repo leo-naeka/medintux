@@ -5227,7 +5227,7 @@ QLineEdit     *pQLineEditDate = (QLineEdit*)    pWdg_ButtonPtr->getPtr_2();
 if (pC_Frm_Agenda->getPaintMode() >= C_Frm_Agenda::NORMAL)
    {//............... recuperer la date de ce calendrier .................................................
     QDate   dateIn = pC_Frm_Agenda->getStartDate();
-    if (pC_Frm_Agenda->getWeekOrDay() == "DAY")
+    if (pC_Frm_Agenda->getAgendaMode_WeekOrDayOrMonth() == "DAY")
         dateIn = dateIn.addDays(-1);
     else
         dateIn = dateIn.addDays(-7);
@@ -5245,7 +5245,7 @@ QLineEdit     *pQLineEditDate = (QLineEdit*)    pWdg_ButtonPtr->getPtr_2();
 if (pC_Frm_Agenda->getPaintMode() >= C_Frm_Agenda::NORMAL)
    {//............... recuperer la date de ce calendrier .................................................
     QDate   dateIn = pC_Frm_Agenda->getStartDate();
-    if (pC_Frm_Agenda->getWeekOrDay() == "DAY")
+    if (pC_Frm_Agenda->getAgendaMode_WeekOrDayOrMonth() == "DAY")
         dateIn = dateIn.addDays(1);
     else
         dateIn = dateIn.addDays(7);
@@ -5297,15 +5297,15 @@ void C_Manager::Slot_pQPushButtonWeekDay_Clicked (Wdg_ButtonPtr* pWdg_ButtonPtr)
      Wdg_ButtonPtr *pQPushButtonNextDay = m_pGUI->frame_MultiAgenda->findChild<Wdg_ButtonPtr *>("ButtonNextDay_" + user);
      posFirstButton                     = pQPushButtonNextDay->x() + pQPushButtonNextDay->width();
 
-     if      (mode.contains("ButtonDay_"))   pC_Frm_Agenda->changeWeekOrDay("DAY");
-     else if (mode.contains("ButtonWeek_"))  pC_Frm_Agenda->changeWeekOrDay("WEEK");
-     else if (mode.contains("ButtonMonth_")) pC_Frm_Agenda->changeWeekOrDay("MONTH");
+     if      (mode.contains("ButtonDay_"))   pC_Frm_Agenda->setAgendaMode_WeekOrDayOrMonth("DAY");
+     else if (mode.contains("ButtonWeek_"))  pC_Frm_Agenda->setAgendaMode_WeekOrDayOrMonth("WEEK");
+     else if (mode.contains("ButtonMonth_")) pC_Frm_Agenda->setAgendaMode_WeekOrDayOrMonth("MONTH");
 
      pC_Frm_Agenda->reinitAgendaOnDate(pC_Frm_Agenda->getStartDate());
 
      QScrollArea     *pToSrcollArea = (QScrollArea*)    pWdg_ButtonPtr->getPtr_2();
      int newWidth;
-     QString modeDayWeekMonth = pC_Frm_Agenda->getWeekOrDay();
+     QString modeDayWeekMonth = pC_Frm_Agenda->getAgendaMode_WeekOrDayOrMonth();
      if (modeDayWeekMonth == "DAY")
         {newWidth = CGestIni::Param_ReadUniqueParam(G_pCApp->m_LocalParam, "Agenda", "Largeur").toInt() + 20;
          pQPushButtonDay->hide();
@@ -5682,7 +5682,7 @@ C_Frm_Agenda *C_Manager::addUserAgenda(const QString &signUser, QDate date, QFra
    scrollArea_Days->setWidget(pC_Frm_Agenda);
 
    // CZA ---------xx----------------------
-   if (pC_Frm_Agenda->getWeekOrDay() == "DAY")
+   if (pC_Frm_Agenda->getAgendaMode_WeekOrDayOrMonth() == "DAY")
        { w = CGestIni::Param_ReadUniqueParam(G_pCApp->m_LocalParam, "Agenda", "Largeur").toInt() + wScroll + 5;
          frameButtonAndTitle->setMinimumSize ( w , agendaButtonHeight + agendaTitleHeight);
          frameButtonAndTitle->setMaximumSize ( w , agendaButtonHeight + agendaTitleHeight);
@@ -5715,7 +5715,7 @@ C_Frm_Agenda *C_Manager::addUserAgenda(const QString &signUser, QDate date, QFra
    QString SemOuJour = tr("Day");
    QString TipPreced = tr("Schedule of previus day");
    QString TipSuivan = tr("Schedule of next day");
-   if (pC_Frm_Agenda->getWeekOrDay() != "DAY")
+   if (pC_Frm_Agenda->getAgendaMode_WeekOrDayOrMonth() != "DAY")
       { SemOuJour = tr("Week");
         TipPreced = tr("Schedule of previus week");
         TipSuivan = tr("Schedule of next week");
@@ -5756,7 +5756,7 @@ C_Frm_Agenda *C_Manager::addUserAgenda(const QString &signUser, QDate date, QFra
    pos_Obj_X += pQPushButtonNextDay->width();                         // CZA
 
    // bouton affichage jour
-   QString dayWeekMonthMode = pC_Frm_Agenda->getWeekOrDay();
+   QString dayWeekMonthMode = pC_Frm_Agenda->getAgendaMode_WeekOrDayOrMonth();
    if (dayWeekMonthMode != "DAY")
       { pQPushButtonDay->setGeometry(pos_Obj_X,agendaTitleHeight,agendaButtonHeight,agendaButtonHeight);
         pQPushButtonDay->show();

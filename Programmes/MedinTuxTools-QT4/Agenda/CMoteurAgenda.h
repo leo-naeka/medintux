@@ -141,24 +141,29 @@ class CMoteurAgenda : public QObject
   int             GetRepresentation(){return m_Representation;}
   void            SetAgendaWidth(int value= 300){m_AgendaWidth = value;}
   int             GetAgendaWidth(){return m_AgendaWidth;}
-  void            SetAgendaWeekWidth(int value= 1200){m_AgendaWeekWidth = value;}   // CZA
-  int             GetAgendaWeekWidth(){return m_AgendaWeekWidth;}                   // CZA
-  void            SetNbDayInWeek(int value= 6){m_NbDayInModeWeek = value;}          // CZA
-  int             GetNbDayInWeek(){return m_NbDayInModeWeek;}                       // CZA
+  void            SetAgendaWeekWidth(int value= 1200){m_AgendaWeekWidth = value;}
+  int             GetAgendaWeekWidth(){return m_AgendaWeekWidth;}
+  void            SetNbDayInWeek(int value= 6){m_NbDayInModeWeek = value;}
+  int             GetNbDayInWeek(){return m_NbDayInModeWeek;}
   void            SetNbDayInModeDay(int value= 6){m_NbDayInModeDay = value;}
   int             GetNbDayInModeDay(){return m_NbDayInModeDay;}
-  void            SetTitleTemplate(QString value ){m_TitleTemplate = value;}
+  void            SetTitleTemplate(QString value ){if (value.length())      m_TitleTemplate = value;}
   QString         GetTitleTemplate(){return m_TitleTemplate;}
-  void            SetAgendaMode_WeekOrDayOrMonth(QString WoD = "DAY"){m_WeekOrDay = WoD;}             // CZA
-  QString         GetAgendaMode_WeekOrDayOrMonth(){return m_WeekOrDay;}                               // CZA
-  void            SetTitleHeight(int = 15);                                         // CZA
-  int             GetTitleHeight();                                                 // CZA
+  void            SetFormatDateInResume( QString value );
+  QString         GetFormatDateInResume(char mode);
+  void            SetAgendaMode_WeekOrDayOrMonth(QString WoD = "DAY"){m_WeekOrDay = WoD;}
+  QString         GetAgendaMode_WeekOrDayOrMonth(){return m_WeekOrDay;}
+  void            SetDayOfMonthToBeDisplay(int value = 0){m_isDayOfMonthToBeDisplay = value;}
+  int             isDayOfMonthToBeDisplay() {return m_isDayOfMonthToBeDisplay;}
+
+  void            SetTitleHeight(int = 15);
+  int             GetTitleHeight();
   void            SetAgendaButtonBoxHeight(int = 15);
   int             GetAgendaButtonBoxHeight();
   void            SetWeeksToSee(int value = 28){m_nbWeeksToSee=value;}
   int             GetWeeksToSee(){return m_nbWeeksToSee;}
-  void            chargeListePlagesDisponibles(QTreeWidget  *pQlistView, QString user); // CZA
-  void            ajouterPlageDispo(QTreeWidget  *pQlistViewPlage, QDateTime DatePlageDeb, QDateTime DatePlageFin, int fini); // CZA
+  void            chargeListePlagesDisponibles(QTreeWidget  *pQlistView, QString user);
+  void            ajouterPlageDispo(QTreeWidget  *pQlistViewPlage, QDateTime DatePlageDeb, QDateTime DatePlageFin, int fini);
 
   void            setOpenCloseMode(int /*mode */ ){/*m_CloseAfterQuery=mode; if (m_CloseAfterQuery==0 && m_DataBase &&  m_DataBase->isOpen()==FALSE) m_DataBase->open();*/ }
   int             OpenBase();
@@ -176,6 +181,7 @@ class CMoteurAgenda : public QObject
 
 //............................... DATA .............................................................................
  public:
+  bool          m_isDayOfMonthToBeDisplay;
   int           m_buttonDeleteOnRdv;
   int           m_EditNoteMode;
   int           m_nbWeeksToSee;
@@ -192,6 +198,9 @@ class CMoteurAgenda : public QObject
   int           m_Representation;       // 0/sur 1 ligne 1/sur deux lignes
   int           m_HeightDaysHeaderInExpandMode;
   QString       m_TitleTemplate;
+  QString       m_FormatDateInResumeD;
+  QString       m_FormatDateInResumeW;
+  QString       m_FormatDateInResumeM;
   QString       m_WeekOrDay;            // Vide ou DAY = affichage journee, WEEK= Affichage Semaine // CZA
   QString       m_TimeDeb;
   QString       m_TimeEnd;

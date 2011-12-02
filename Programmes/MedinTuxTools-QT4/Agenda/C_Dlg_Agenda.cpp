@@ -139,21 +139,21 @@ C_Frm_Agenda::C_Frm_Agenda(const QDate &date,
                            const QString &googlePass     /*=""*/
                            )
     : QFrame(parent)
-{   m_PathAppli         = pathAppli;
-    m_SignUser          = signUser;
-    m_User              = user;
-    m_UserNomPrenom     = userNomPrenom;
-    m_pC_GoogleAPI      = 0;
-    m_googleUser        = googleUser;
-    m_googlePass        = googlePass;
-    m_StartDate         = date;
-    m_Magnetisme        = 5;
-    m_Droits            = droits;
+{   m_PathAppli                    = pathAppli;
+    m_SignUser                     = signUser;
+    m_User                         = user;
+    m_UserNomPrenom                = userNomPrenom;
+    m_pC_GoogleAPI                 = 0;
+    m_googleUser                   = googleUser;
+    m_googlePass                   = googlePass;
+    m_StartDate                    = date;
+    m_Magnetisme                   = 5;
+    m_Droits                       = droits;
     if (m_User.length()==0) m_User = m_SignUser;
-    m_PaintMode         = C_Frm_Agenda::DISABLED;
-    m_pQWebView         = 0;
-    m_BackgroundMessage = "";
+    m_pQWebView                    = 0;
+    m_BackgroundMessage            = "";
     m_StylePopup        = " border: 1px solid #8f8f91; border-radius: 6px; font-size: 11px;";
+    m_PaintMode         = C_Frm_Agenda::DISABLED;
     if (m_Droits.indexOf("agm")!=-1) m_PaintMode |= C_Frm_Agenda::FOR_OTHERS;
     if (m_Droits.indexOf("agc")!=-1) m_PaintMode |= C_Frm_Agenda::NORMAL;
     setAcceptDrops ( TRUE );
@@ -257,6 +257,8 @@ C_Frm_Agenda::C_Frm_Agenda(const QDate &date,
     m_pCMoteurAgenda->SetHeightDaysHeaderInExpandMode(qMin(150,qMax(CGestIni::Param_ReadUniqueParam(m_LocalParam.toAscii(),  "Agenda", "Hauteur bandeau jour ouvert").toInt(),20)));
     m_pCMoteurAgenda->SetDeleteMode(CGestIni::Param_ReadUniqueParam(m_LocalParam.toAscii(),                                  "Agenda", "Activer bouton delete sur les rdv").toInt());
     m_pCMoteurAgenda->SetTitleTemplate(CGestIni::Param_ReadUniqueParam(m_LocalParam.toAscii(),                               "Agenda", "Template titre"));
+    m_pCMoteurAgenda->SetDayOfMonthToBeDisplay(CGestIni::Param_ReadUniqueParam(m_LocalParam.toAscii(),                       "Agenda", "Afficher Jour du mois").toInt());
+    m_pCMoteurAgenda->SetFormatDateInResume(CGestIni::Param_ReadUniqueParam(m_LocalParam.toAscii(),                          "Agenda", "Format date dans le resume"));
     m_pCMoteurAgenda->COL_Get_List(m_ColorProfils);
     //..................... positionner la largeur des bit map selon semaine ou jour .........................
     int dayWitdth;
@@ -1079,20 +1081,24 @@ void C_Frm_Day::paintEvent ( QPaintEvent * /*event*/)
   QDate curDt           = QDate::currentDate();
   int timePosPixmapX    = 0;
   int timePosPixmapY    = 0;
+  char  mdw             = m_pCMoteurAgenda->GetAgendaMode_WeekOrDayOrMonth().toAscii()[0];
+  QString tmpStr        = "";
+  int nextTmpPosX       = DAY_OFS_X-15;
+
   //////////////////////////////////////////////////// JOUR EXPANSE ////////////////////////////////////////////////////////
   if (isDayExpand())    // si jour expand
      {
-       QTime tps  = getStartTime();
-       int y_der  = tps.secsTo(getStopTime())/60*getResoPixByMinutes();
-       //............................ titre du jour ..............
-       f.setPointSize(8); f.setBold(TRUE); p.setFont ( f );
+       QTime tps   = getStartTime();
+       int y_der   = tps.secsTo(getStopTime())/60*getResoPixByMinutes();
+       tmpStr      = getDate().toString(m_pCMoteurAgenda->GetFormatDateInResume(mdw));  // date du jour en cours d'affichage
+       //............................ titre du jour (date courante)..............
        p.drawPixmap (0, y_deb-m_BaseDayHeight-3, m_pBMC->m_HeadOpenDay_Pixmap );
+       f.setPointSize(8); f.setBold(TRUE); p.setFont(f);
        p.setPen (Qt::black);
-       p.drawText ( QPoint(DAY_OFS_X,y_deb-8), getDate().toString("ddd dd MMMM yyyy") );
+       p.drawText ( QPoint(nextTmpPosX, y_deb-8), tmpStr );
+       nextTmpPosX += QFontMetrics (f).boundingRect (tmpStr).width();
        if (m_Date==curDt && m_rafraich>=4)
-          {p.setPen (QColor ( "#d22f2f" ));
-           p.drawText (QPoint(DAY_OFS_X + 170, y_deb-8),QTime::currentTime().toString("hh:mm:ss"));
-           //........ heure courante .........
+          {//........ heure courante indicateur graphique.........
            int    mnDeb      = tps.hour()*60 + tps.minute();   // initialise au debut de  if (isDayExpand())
            QTime     tm      = QTime::currentTime();
            int    mnCur      = tm.hour()*60+tm.minute(); mnCur -= mnDeb;
@@ -1117,8 +1123,7 @@ void C_Frm_Day::paintEvent ( QPaintEvent * /*event*/)
      } // endif (pC_Frm_Day->isDayExpand())
   //////////////////////////////////////////////////// JOUR REPLIE ////////////////////////////////////////////////////////
   else
-     {
-      QTime tpsDeb      = getStartTime();
+     {QTime tpsDeb      = getStartTime();
       QTime tpsEnd      = getStopTime();
       int nbMnToSee     = getNbMinutesToseeInResume(tpsDeb, tpsEnd);
       int nbRdv         = m_cacheRDV_List.count();
@@ -1157,17 +1162,14 @@ void C_Frm_Day::paintEvent ( QPaintEvent * /*event*/)
                p.drawRoundedRect (rp, 4, 4);
               }
          }
-      if (m_Date==curDt && m_rafraich>=4 )  //....... heure courante ..........
+      if (m_Date==curDt && m_rafraich>=4 )                        //....... heure courante indicateur graphique trait vertical ..........
          {QTime tm           = QTime::currentTime();
           mnCur              = tm.hour()*60+tm.minute();
-          if ( tm>tpsDeb &&  tm<tpsEnd )  // on calcule maintenant et on affiche le cursur des heures en dernier pour ne pas se faire recouvrir
+          if ( tm>tpsDeb &&  tm<tpsEnd )  // on calcule maintenant et on affiche le curseur des heures en dernier pour ne pas se faire recouvrir
              {QPoint point   = computeResumePosXYFromTimeInMinute(mnCur, mnDeb, nbMnToSee, m_pBMC->m_HeadResume_Pixmap.width()-LINE_RESUME_XMARG, LINE_RESUME_HEIGHT + 5, m_DayLF?2:1);
               timePosPixmapX = point.x() + ofsetX;
               timePosPixmapY = point.y() + 2;
              }
-          f.setPointSize(7); f.setBold(FALSE); p.setFont ( f );
-          p.setPen (QColor ( "#d22f2f" ));
-          p.drawText ( QPoint(220, y_deb-6), QTime::currentTime().toString("hh:mm:ss") );
          }
       f.setPointSize(6); p.setFont ( f );
       //..................... graduations horaires ........................
@@ -1258,23 +1260,30 @@ void C_Frm_Day::paintEvent ( QPaintEvent * /*event*/)
                    }
               }
          }
+
+      //............................ titre du jour ................................................
+      //nextTmpPosX = DAY_OFS_X - 5;
+      tmpStr     = getDate().toString(m_pCMoteurAgenda->GetFormatDateInResume(mdw));   // mdw = 'D' or 'W' or 'M'
+      f.setPointSize(7); f.setBold(TRUE); p.setFont ( f );
+      p.setPen (Qt::black);
+      p.drawText ( QPoint(nextTmpPosX, y_deb-6), tmpStr );
+      nextTmpPosX  += QFontMetrics (f).boundingRect(tmpStr).width()+5;
       //..................... nb rdv........................
       if (nbRdv)
-         {
+         {tmpStr = QString::number(nbRdv);
           f.setPointSize(7); f.setBold(FALSE); p.setFont ( f );
           p.setPen (QColor("#FF0000"));
-          p.drawText ( QPoint(130, y_deb-6),QString::number(nbRdv));
+          p.drawText ( QPoint(nextTmpPosX, y_deb-6), tmpStr);
+          nextTmpPosX += QFontMetrics (f).boundingRect (tmpStr).width();
           f.setPointSize(7); f.setBold(FALSE); p.setFont ( f );
           p.setPen (QColor("#000000"));
-          p.drawText ( QPoint(144, y_deb-6), tr(" Appointment") );
+          tmpStr = tr(" Appointment");
+          p.drawText ( QPoint(nextTmpPosX, y_deb-6), tmpStr );
+          nextTmpPosX += QFontMetrics (f).boundingRect (tmpStr).width();
          }
-      //............................ titre du jour ................................................
-      f.setPointSize(7); f.setBold(FALSE); p.setFont ( f );
-      p.setPen (Qt::black);
-      p.drawText ( QPoint(DAY_OFS_X, y_deb-6), getDate().toString("ddd dd MMMM yyyy") );
-
      }  // end else if (isDayExpand())
   ////////////////////////////////// COMMON /////////////////////////////////
+  //  a ce stade nextTmpPosX est la position la plus a droite de la date affichee en bas
   if (m_Date==curDt)       // tracer les rectangles interieurs rouges du jour courant
      { QColor color("#d22f2f");
        p.setPen (color.lighter(180));
@@ -1282,13 +1291,32 @@ void C_Frm_Day::paintEvent ( QPaintEvent * /*event*/)
        p.setPen (color.lighter(195));
        p.drawRoundedRect (3, 3, m_Width-6, m_BaseDayHeight-6, 2, 2);
        p.setPen (color);
+       if (m_rafraich>=4)  // tracer le texte de l'heure courante en bas a droite (que si place)
+          {
+           tmpStr       = QTime::currentTime().toString("hh:mm:ss");
+           f.setPointSize(isDayExpand()?8:7); f.setBold(isDayExpand()); p.setFont ( f );    // si jour deploye c'est en gras
+           p.setPen (QColor ( "#d22f2f" ));                                 // couleur est la meme pour mode deploye ou pas
+           QFontMetrics fm = QFontMetrics(f);
+           QSize        ts = fm.size(Qt::TextSingleLine,tmpStr);
+           int        posX = width()-ts.width()-4;
+           if (posX > nextTmpPosX-4)
+               p.drawText ( QPoint(posX, y_deb - (isDayExpand()?8:6)/*-fm.ascent()*/), tmpStr );
+           // qDebug()<< tr("nextTmpPosX : %1    posX : %2" ).arg(QString::number(nextTmpPosX),QString::number(posX));
+          }
      }
   else
      { p.setPen (Qt::black);
      }
+
   //............. cadre noir du jour .....................................
   p.drawRoundedRect (1, 1, m_Width-2, m_BaseDayHeight-2, 2, 2);
   if (timePosPixmapX) p.drawPixmap (timePosPixmapX, timePosPixmapY, m_pBMC->m_AgendaTimeArrow_Pixmap );
+  //........................ affichage jour du mois ....................................
+  if (mdw == 'M'&& m_pCMoteurAgenda->isDayOfMonthToBeDisplay())
+     {f.setPointSize(8); f.setBold(TRUE); p.setFont ( f );
+      p.setPen (QColor ( "#ae0d0d" ));
+      p.drawText ( QPoint(2, 12), QString::number(this->getDate().day()) );
+     }
 }
 //---------------------------------------- generate_cacheRDV_List_FromDayWidget --------------------------------------------
 void C_Frm_Day::generate_cacheRDV_List_FromDayWidget()
