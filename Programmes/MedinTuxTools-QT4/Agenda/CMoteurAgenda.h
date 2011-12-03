@@ -32,8 +32,8 @@
 #include <QSqlQuery>
 #include <QDateTime>
 #include <QTimer>
-#include <QTreeWidget>        // CZA
-#include <QLabel>             // CZA
+#include <QTreeWidget>
+#include <QLabel>
 
 #define BASE_AGENDA            "BaseAgenda"
 #define SKIP_BLANK_CAR(a)       while( *(a) && (*(a)==' ' || *(a)=='\t' || *(a)== 96) ) (a)++
@@ -84,7 +84,7 @@ class CMoteurAgenda : public QObject
                    const QString &baseLabel,
                    QString*    errMess);
 
-  int BaseConnect(const QString &driver,        // nom du driver: "QODBC3" "QMYSQL3" "QPSQL7"
+  int BaseConnect(const QString &driver,                   // nom du driver: "QODBC3" "QMYSQL3" "QPSQL7"
                              const QString &DataBaseName,  // nom de la base: si QODBC3 -> nom de la source de données (userDSN)
                              const QString &user,          // = "root"
                              const QString &pasword,       // = ""
@@ -138,6 +138,7 @@ class CMoteurAgenda : public QObject
   void            SetModifConfirm(int modifConfirm= 0){m_ModifConfirm = modifConfirm;}
   int             isModifToConfirm(){return m_ModifConfirm;}
   void            SetRepresentation(int rep= 0){m_Representation = rep;}
+
   int             GetRepresentation(){return m_Representation;}
   void            SetAgendaWidth(int value= 300){m_AgendaWidth = value;}
   int             GetAgendaWidth(){return m_AgendaWidth;}
@@ -147,12 +148,15 @@ class CMoteurAgenda : public QObject
   int             GetNbDayInWeek(){return m_NbDayInModeWeek;}
   void            SetNbDayInModeDay(int value= 6){m_NbDayInModeDay = value;}
   int             GetNbDayInModeDay(){return m_NbDayInModeDay;}
-  void            SetTitleTemplate(QString value ){if (value.length())      m_TitleTemplate = value;}
+  void            SetTitleTemplate(const QString &value ){if (value.length())      m_TitleTemplate = value;}
   QString         GetTitleTemplate(){return m_TitleTemplate;}
-  void            SetFormatDateInResume( QString value );
+  void            SetFormatDateInResume( const QString &value );
   QString         GetFormatDateInResume(char mode);
-  void            SetAgendaMode_WeekOrDayOrMonth(QString WoD = "DAY"){m_WeekOrDay = WoD;}
+  void            SetAgendaMode_WeekOrDayOrMonth(const QString &WoD = "DAY"){m_WeekOrDay = WoD;}
   QString         GetAgendaMode_WeekOrDayOrMonth(){return m_WeekOrDay;}
+  QString         GetHtmlTemplateTitleMonth();
+  void            SetHtmlTemplateTitleMonth(const QString &value);
+
   void            SetDayOfMonthToBeDisplay(int value = 0){m_isDayOfMonthToBeDisplay = value;}
   int             isDayOfMonthToBeDisplay() {return m_isDayOfMonthToBeDisplay;}
 
@@ -178,7 +182,6 @@ class CMoteurAgenda : public QObject
                                  );
 
   // --- CZA
-
 //............................... DATA .............................................................................
  public:
   bool          m_isDayOfMonthToBeDisplay;
@@ -187,21 +190,22 @@ class CMoteurAgenda : public QObject
   int           m_nbWeeksToSee;
   int           m_isVerbose;
   int           m_AgendaWidth;
-  int           m_AgendaWeekWidth;          // CZA
-  int           m_NbDayInModeWeek;          // CZA
+  int           m_AgendaWeekWidth;
+  int           m_NbDayInModeWeek;
   int           m_NbDayInModeDay;
-  int           m_TitleHeight;              // CZA
+  int           m_TitleHeight;
   int           m_AgendaButtonHeight;
   int           m_MinDaysHeight;
   int           m_ModifConfirm;
   int           m_Rafraichissement;
-  int           m_Representation;       // 0/sur 1 ligne 1/sur deux lignes
+  int           m_Representation;         // 0/sur 1 ligne 1/sur deux lignes
   int           m_HeightDaysHeaderInExpandMode;
   QString       m_TitleTemplate;
+  QString       m_HtmlTemplateTitleMonth;
   QString       m_FormatDateInResumeD;
   QString       m_FormatDateInResumeW;
   QString       m_FormatDateInResumeM;
-  QString       m_WeekOrDay;            // Vide ou DAY = affichage journee, WEEK= Affichage Semaine // CZA
+  QString       m_WeekOrDay;              // Vide ou DAY = affichage journee, WEEK= Affichage Semaine // CZA
   QString       m_TimeDeb;
   QString       m_TimeEnd;
   //QString       m_log;
@@ -225,7 +229,6 @@ class CMoteurAgenda : public QObject
   QString      m_COLOR_PROFIL_NAME;
   QString      m_COLOR_PROFIL_COLOR;
   QString      m_COLOR_PROFIL_DUREE;
-
   QString      m_MASK_TBL_NAME;
   QString      m_MASK_PRIM_KEY;
   QString      m_MASK_MOTIF;
@@ -234,7 +237,6 @@ class CMoteurAgenda : public QObject
   QString      m_MASK_DUREE;
   QString      m_MASK_USER;
   QString      m_MASK_DAYOFWEEK;
-
 
 private:
   //......................... parametres de connexion ...............................................................

@@ -112,7 +112,8 @@ C_Manager::C_Manager(CMoteurBase *pCMoteurBase,  QWidget *parent, const QString 
    m_NomadismeToolBar  = 0;
    m_FSEenCours        = FALSE;            //Cz_Pyxvital
    m_timerFSE          = 0;                //Cz_Pyxvital
-
+   m_Facture_Seule     = "non";
+   CGestIni::Param_ReadParam(G_pCApp->m_LocalParam, "Sesam-Vitale", "Facture_Seule", &m_Facture_Seule); //Cz_Pyxvital
    // ................ listview patient (pomotion de C_DragQTreeWidget)  .................................
    m_pGUI->listView_Patient->setSortingEnabled(true);
    m_pGUI->listView_Patient->setMimeType("text/medintux_rdv_drag");
@@ -2195,7 +2196,7 @@ else if (nb==1)      // un seul patient trouv\303\251 pour cette carte vitale al
     if (m_Facture_Seule == "oui")
         Slot_pushButton_FSE();
     else
-       Slot_pushButtonAcceder_Clicked();
+        Slot_pushButtonAcceder_Clicked();
    }
 #endif
 }
@@ -3452,13 +3453,15 @@ if (G_pCApp->IsThisDroitExist("idv"))
    {
    }
  //................... bouton creer et acceder ou creer ...........................
-if (CGestIni::Param_ReadUniqueParam(G_pCApp->m_LocalParam, "Derniere Session", tr("Folder creation mode")).lower()[0] == 'a' &&
+if (CGestIni::Param_ReadUniqueParam(G_pCApp->m_LocalParam, "Derniere Session", QString("Mode de creation dossier")).lower()[0] == 'a' &&
     G_pCApp->IsThisDroitExist("idg")
    )
    {m_pGUI->pushButtonCreate->setText(tr("&Create and access"));
+    m_pGUI->pushButtonCreate->setName("Acceder et creer");
    }
 else
    {m_pGUI->pushButtonCreate->setText(tr("&Create folder"));
+    m_pGUI->pushButtonCreate->setName("Creer seulement");
    }
  if (G_pCApp->IsThisDroitExist("adm")) m_action_DebloquerBases->setVisible( TRUE );
  else                                  m_action_DebloquerBases->setVisible( FALSE );
@@ -4940,12 +4943,8 @@ void C_Manager::onCreateAction(int lauchEnabled  /*  = 1 */)
    m_pGUI->lineEditAutoLocator->setFocus();
    m_pGUI->lineEditAutoLocator->selectAll ();
    compareListVitaleWithBase();
-   //if (m_pGUI->pushButtonCreate->text().indexOf(tr("acc\303\251der")) != -1)
-   //   {Slot_LauchPatient(numGUID);
-   //   }
-       // if (m_pGUI->pushButtonCreate->text().indexOf(tr("acc\303\251der")) != -1)                           // Cz_Pyxvital
    m_pGUI->pushButton_FSE->setEnabled (TRUE );
-   if (lauchEnabled && m_pGUI->pushButtonCreate->text().indexOf(tr("acc\303\251der")) != -1 && m_Facture_Seule != "oui")  // Cz_Pyxvital
+   if (lauchEnabled && QString(m_pGUI->pushButtonCreate->name()) == "Acceder et creer" && m_Facture_Seule != "oui")  // Cz_Pyxvital
       {Slot_LauchPatient(numGUID);
       }
 

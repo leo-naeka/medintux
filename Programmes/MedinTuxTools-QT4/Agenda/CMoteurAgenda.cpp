@@ -64,9 +64,9 @@ CMoteurAgenda::CMoteurAgenda(const QString &driver,        // nom du driver: "QO
   m_isVerbose          = 0;
   m_AgendaWidth        = 300;
   m_AgendaWeekWidth    = 1200;
-  m_NbDayInModeWeek    = 5;          // CZA
+  m_NbDayInModeWeek    = 5;
   m_NbDayInModeDay     = 60;
-  m_TitleHeight        = 20;              // CZA
+  m_TitleHeight        = 20;
   m_AgendaButtonHeight = 30;
   m_MinDaysHeight      = 5;
   m_ModifConfirm       = 0;
@@ -76,6 +76,7 @@ CMoteurAgenda::CMoteurAgenda(const QString &driver,        // nom du driver: "QO
   m_isDayOfMonthToBeDisplay      = 0;
   m_WeekOrDay                    = "DAY";            // Vide ou DAY = affichage journee, WEEK= Affichage Semaine // CZA
   m_TitleTemplate                = "<font color=\"#FFFFFF\"><b>{{TITLE}}</b></font>";
+  m_HtmlTemplateTitleMonth       = "<h2><b><font color=\"#FF0000\">{{MONTH_NAME}}</font></b></h2>";
   m_FormatDateInResumeD          = "ddd dd MMMM yyyy";
   m_FormatDateInResumeW          = "ddd dd MMMM yyyy";
   m_FormatDateInResumeM          = "ddd dd MMMM";
@@ -297,7 +298,7 @@ void CMoteurAgenda::GotoDebug()
 {
 }
 //-------------------------------------- SetFormatDateInResume ----------------------------------------------------------------------------
-void  CMoteurAgenda::SetFormatDateInResume(QString value )
+void  CMoteurAgenda::SetFormatDateInResume(const QString &value )
 {if (value.length())
     {   QStringList       lst = value.split('|', QString::SkipEmptyParts);
         //......... on recupere premiere valeur ............................
@@ -318,6 +319,16 @@ QString CMoteurAgenda::GetFormatDateInResume(char mode)
         case 'M': return m_FormatDateInResumeM;
         default:  return m_FormatDateInResumeD;
        }
+}
+//-------------------------------------- SetHtmlTemplateTitleMonth ----------------------------------------------------------------------------
+void  CMoteurAgenda::SetHtmlTemplateTitleMonth(const QString &value)
+{if (value.length())
+    { m_HtmlTemplateTitleMonth=value;
+    }
+}
+//-------------------------------------- GetHtmlTemplateTitleMonth ----------------------------------------------------------------------------
+QString CMoteurAgenda::GetHtmlTemplateTitleMonth()
+{return m_HtmlTemplateTitleMonth;
 }
 //-------------------------------------- SetMinDaysHeight ----------------------------------------------------------------------------
 void  CMoteurAgenda::SetMinDaysHeight(int val  /* = 15*/)

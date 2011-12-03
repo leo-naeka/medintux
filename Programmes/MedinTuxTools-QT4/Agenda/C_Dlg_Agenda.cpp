@@ -257,8 +257,9 @@ C_Frm_Agenda::C_Frm_Agenda(const QDate &date,
     m_pCMoteurAgenda->SetHeightDaysHeaderInExpandMode(qMin(150,qMax(CGestIni::Param_ReadUniqueParam(m_LocalParam.toAscii(),  "Agenda", "Hauteur bandeau jour ouvert").toInt(),20)));
     m_pCMoteurAgenda->SetDeleteMode(CGestIni::Param_ReadUniqueParam(m_LocalParam.toAscii(),                                  "Agenda", "Activer bouton delete sur les rdv").toInt());
     m_pCMoteurAgenda->SetTitleTemplate(CGestIni::Param_ReadUniqueParam(m_LocalParam.toAscii(),                               "Agenda", "Template titre"));
-    m_pCMoteurAgenda->SetDayOfMonthToBeDisplay(CGestIni::Param_ReadUniqueParam(m_LocalParam.toAscii(),                       "Agenda", "Afficher Jour du mois").toInt());
+    m_pCMoteurAgenda->SetDayOfMonthToBeDisplay(CGestIni::Param_ReadUniqueParam(m_LocalParam.toAscii(),                       "Agenda", "Afficher jour du mois").toInt());
     m_pCMoteurAgenda->SetFormatDateInResume(CGestIni::Param_ReadUniqueParam(m_LocalParam.toAscii(),                          "Agenda", "Format date dans le resume"));
+    m_pCMoteurAgenda->SetHtmlTemplateTitleMonth(CGestIni::Param_ReadUniqueParam(m_LocalParam.toAscii(),                      "Agenda", "Format nom du mois"));
     m_pCMoteurAgenda->COL_Get_List(m_ColorProfils);
     //..................... positionner la largeur des bit map selon semaine ou jour .........................
     int dayWitdth;
@@ -591,7 +592,7 @@ void C_Frm_Agenda::reinitAgendaOnDate(QDate dateDeb)
                     y += h;
                     QLabel* pQLabel = new QLabel(this);
                     pQLabel->setStyleSheet(m_MonthLabelCss);
-                    pQLabel->setText(dateDeb.toString(QString("<h2><b><font color=\"#FF0000\">%1</font></b></h2>").arg("MMMM yyyy")).upper());
+                    pQLabel->setText( m_pCMoteurAgenda->GetHtmlTemplateTitleMonth().replace("{{MONTH_NAME}}",dateDeb.toString("MMMM yyyy").upper() ) );
                     if (dateDeb.dayOfWeek()==1)         // cas particulier ou pas d'espace dessous (tout demarre a 1) alors utiliser l'espace libre d'avant
                         pQLabel->setGeometry(0, y+1-h,   w_monthLabel, LABEL_MONTH_HEIGHT+h);  // on recule de sa hauteur pour afficher espace libre d'avant
                     else
@@ -1301,7 +1302,6 @@ void C_Frm_Day::paintEvent ( QPaintEvent * /*event*/)
            int        posX = width()-ts.width()-4;
            if (posX > nextTmpPosX-4)
                p.drawText ( QPoint(posX, y_deb - (isDayExpand()?8:6)/*-fm.ascent()*/), tmpStr );
-           // qDebug()<< tr("nextTmpPosX : %1    posX : %2" ).arg(QString::number(nextTmpPosX),QString::number(posX));
           }
      }
   else
