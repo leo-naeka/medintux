@@ -3457,11 +3457,11 @@ if (CGestIni::Param_ReadUniqueParam(G_pCApp->m_LocalParam, "Derniere Session", Q
     G_pCApp->IsThisDroitExist("idg")
    )
    {m_pGUI->pushButtonCreate->setText(tr("&Create and access"));
-    m_pGUI->pushButtonCreate->setName("Acceder et creer");
+    m_pGUI->pushButtonCreate->setObjectName("Acceder et creer");
    }
 else
    {m_pGUI->pushButtonCreate->setText(tr("&Create folder"));
-    m_pGUI->pushButtonCreate->setName("Creer seulement");
+    m_pGUI->pushButtonCreate->setObjectName("Creer seulement");
    }
  if (G_pCApp->IsThisDroitExist("adm")) m_action_DebloquerBases->setVisible( TRUE );
  else                                  m_action_DebloquerBases->setVisible( FALSE );
@@ -4944,7 +4944,7 @@ void C_Manager::onCreateAction(int lauchEnabled  /*  = 1 */)
    m_pGUI->lineEditAutoLocator->selectAll ();
    compareListVitaleWithBase();
    m_pGUI->pushButton_FSE->setEnabled (TRUE );
-   if (lauchEnabled && QString(m_pGUI->pushButtonCreate->name()) == "Acceder et creer" && m_Facture_Seule != "oui")  // Cz_Pyxvital
+   if (lauchEnabled && m_pGUI->pushButtonCreate->objectName() == "Acceder et creer" && m_Facture_Seule != "oui")  // Cz_Pyxvital
       {Slot_LauchPatient(numGUID);
       }
 
