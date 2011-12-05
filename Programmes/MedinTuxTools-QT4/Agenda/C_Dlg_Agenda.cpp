@@ -702,7 +702,6 @@ void C_Frm_Agenda::reinitAgendaOnDate(QDate dateDeb)
           int      x             = W_OFSET;             // CZA position du jour
           int      h             = 0;
           int      h_weekMax     = 0;
-          int      deltFirstDay  = 8-nbDayInWeek;
           int      lastMonth     = 0;
           int      nbDayToSee    = nbDayInWeek * m_pCMoteurAgenda->GetWeeksToSee();
           int      i             = 0;
@@ -712,15 +711,15 @@ void C_Frm_Agenda::reinitAgendaOnDate(QDate dateDeb)
           QLabel  *pQLabel       = 0;
           while ( i<nbDayToSee)
               {
-              //........ si premier jour a afficher du mois afficher l'entete de mois ..........
-               if (dateDeb.day()  <= deltFirstDay && dateDeb.dayOfWeek() <= nbDayInWeek && dateDeb.month() != lastMonth )              // on peu candidater a etre le premier jour du mois a afficher
+               //........ si premier jour a afficher du mois afficher le labe du mois ..........
+               if (dateDeb.day()  <= 7 && dateDeb.dayOfWeek() <= nbDayInWeek && dateDeb.month() != lastMonth )              // on ne peut candidater que la premiere semaine du mois et en zone autorisee et pas deja traite
                   { lastMonth     = dateDeb.month();
                     keyExpandMapY = dateDeb.year()*10000;       // au debut de chaque mois on met a jour le truc de l'annee
                     pQLabel       = new QLabel(this);
                     pQLabel->setStyleSheet(m_MonthLabelCss);
                     pQLabel->setText( m_pCMoteurAgenda->GetHtmlTemplateTitleMonth().replace("{{MONTH_NAME}}", dateDeb.toString("MMMM yyyy").upper() ));
 
-                    if (dateDeb.day() == deltFirstDay-1 )         // cas particulier ou pas d'espace dessous (tout demarre a 1) alors utiliser l'espace libre d'avant
+                    if ( dateDeb.dayOfWeek() == 1 )         // cas particulier ou pas d'espace dessous (tout demarre a 1) alors utiliser l'espace libre d'avant
                        {int h_label   = (m_pCMoteurAgenda->GetRepresentation())?DOUBLE_DAY_HEIGHT:DAY_HEIGHT;         // hauteur de base lorsque l'on ne peut pas utiliser l'espace libre a gauche du premier jour
                         pQLabel->setGeometry(0, y+1,    w_monthLabel, h_label);  // on creer la place d'affichage
                         y            += h_label;
@@ -760,8 +759,6 @@ void C_Frm_Agenda::reinitAgendaOnDate(QDate dateDeb)
                         pC_Frm_Day->show();
                       }
                   }
-
-
                 ++jourDeLaSemaine;
                 //.......... jour suivant si debut de semaine repartir de la gauche .......
                 dateDeb = dateDeb.addDays (1);
@@ -937,11 +934,11 @@ void C_Frm_Agenda::On_AgendaMustBeReArange()
        while ( i<nbDayToSee)
            {
            //........ si premier jour du mois afficher l'entete de mois ..........
-            if (dateDeb.day()  <= deltFirstDay && dateDeb.dayOfWeek() <= nbDayInWeek && dateDeb.month() != lastMonth) // (dateDeb.day()==1)
+            if (dateDeb.day()  <= 7 && dateDeb.dayOfWeek() <= nbDayInWeek && dateDeb.month() != lastMonth )
                { lastMonth     = dateDeb.month();
                  keyExpandMapY = dateDeb.year()*10000;       // au debut de chaque mois on met a jour le truc de l'annee
                  pQLabel       = m_MonthLabelList[ keyExpandMapY + lastMonth ];
-                 if (dateDeb.day() == deltFirstDay-1 )       // if (dateDeb.dayOfWeek()==1)         // cas particulier ou pas d'espace dessous (tout demarre a 1) alors utiliser l'espace libre d'avant
+                 if (dateDeb.dayOfWeek() == 1 )
                     {int h_label   = (m_pCMoteurAgenda->GetRepresentation())?DOUBLE_DAY_HEIGHT:DAY_HEIGHT;         // hauteur de base lorsque l'on ne peut pas utiliser l'espace libre a gauche du premier jour
                      pQLabel->setGeometry(0, y+1,    w_monthLabel, h_label);  // on creer la place d'affichage
                      y            += h_label;
@@ -1093,6 +1090,7 @@ C_Frm_Day::~C_Frm_Day()
 //---------------------------- toGoogle ------------------------------------------------
 void C_Frm_Day::toGoogle(C_GoogleAPI *pC_GoogleAPI)
 {   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+    LOOKREFRESH;
     //.................. on efface les RDV deja presents ce jour ...................
     pC_GoogleAPI->deleteAllEventsBetweenTwoDates(getDate(), getDate().addDays(1));
     //.................. on prepare la liste des RDV google ........................
@@ -1112,6 +1110,7 @@ void C_Frm_Day::toGoogle(C_GoogleAPI *pC_GoogleAPI)
                                                                  tr("Error in Google transaction"),
                                                                  tr("<b>Error in Google transation:</b><br>%1").arg(pC_GoogleAPI->getError()),
                                                                  QMessageBox::Cancel);
+    UNLOOKREFRESH;
     QApplication::restoreOverrideCursor ();
 }
 //---------------------------- dropEvent ------------------------------------------------
@@ -1253,8 +1252,8 @@ void  C_Frm_Day::ExpandDialog()
     //............................... SI deja replie alors expandre et construire la liste des widgets rendez vous .........................
     {m_IsDayExpand = 1;
      int nb = m_cacheRDV_List.count(); //m_pCMoteurAgenda->RDV_Get_List(m_Date, m_SignUser, m_cacheRDV_List);    // si il existe des rdv pour ce jour aller en chercher la liste
-     if (nb==0) nb = MaskDayToAgendaDay (m_cacheRDV_List);   // soit il en existe pas et on place le masque de la semaine pr\303\251vu (si il existe)
-     if (nb) RecreateRendezVousListWidget(m_cacheRDV_List);                                 // recreer les widgets avec la liste des rendez vous
+     if (nb==0)  nb = MaskDayToAgendaDay (m_cacheRDV_List);                // soit il en existe pas et on place le masque de la semaine pr\303\251vu (si il existe)
+     if (nb) RecreateRendezVousListWidget(m_cacheRDV_List);                // --- IMPORTANT --- recreer les widgets avec la liste des rendez vous
 
      if (m_pCMoteurAgenda->GetAgendaMode_WeekOrDayOrMonth() == "WEEK")
         {m_ButtonExpand->hide();
@@ -1265,7 +1264,7 @@ void  C_Frm_Day::ExpandDialog()
      else if (m_pCMoteurAgenda->GetAgendaMode_WeekOrDayOrMonth() == "MONTH")
         {m_ButtonNewRDV->show();
          m_ButtonSave->show();
-         m_ButtonGoogle->show();       // un seul doit être ouvert celui du debut
+         m_ButtonGoogle->show();
         }
      else
         {
@@ -1273,7 +1272,7 @@ void  C_Frm_Day::ExpandDialog()
          m_ButtonSave->show();
          m_ButtonGoogle->show();
         }
-     m_ButtonExpand->setIcon(m_pBMC->m_ButtonExpand_Close_Pixmap); // icone pour le jour ouvert
+     m_ButtonExpand->setIcon(m_pBMC->m_ButtonExpand_Close_Pixmap); // icone fleche basse pour le jour ouvert ( pareil pour tous les modes )  \/
     }
  else
     //............................... SI deja expande alors replier et detruire la liste des rendez vous .........................
@@ -1282,8 +1281,8 @@ void  C_Frm_Day::ExpandDialog()
      m_ButtonSave->hide();
      m_ButtonGoogle->hide();
      clear();  // effacer les widgets
-     if (m_pCMoteurAgenda->GetAgendaMode_WeekOrDayOrMonth() == "MONTH") m_ButtonExpand->setIcon(m_pBMC->m_ButtonGotoWeek_Pixmap);
-     else                                                               m_ButtonExpand->setIcon(m_pBMC->m_ButtonExpand_Open_Pixmap); // icone pour le jour ferme
+     if (m_pCMoteurAgenda->GetAgendaMode_WeekOrDayOrMonth() == "MONTH") m_ButtonExpand->setIcon(m_pBMC->m_ButtonGotoWeek_Pixmap);    // icone fleche horizontale verte pour le jour ferme  |>
+     else                                                               m_ButtonExpand->setIcon(m_pBMC->m_ButtonExpand_Open_Pixmap); // icone fleche horizontale bleue pour le jour ferme  |>
     }
  m_Height = computeDayHeight();
  resize(m_Width, m_Height );
@@ -2401,23 +2400,9 @@ void C_Frm_Day::OnButtonNewRDVClickedPtr(const char*, void*)
 //---------------------------------------- OnButtonExpandClickedPtr --------------------------------------------
 void C_Frm_Day::OnButtonExpandClickedPtr (const char*, void*)
 {if (m_pCMoteurAgenda->GetAgendaMode_WeekOrDayOrMonth() == "MONTH")
-    {
-      /*
+    { C_Frm_Agenda *pC_Frm_Agenda = static_cast<C_Frm_Agenda*>(parent());
       pC_Frm_Agenda->m_tmpDateToStart = getDate();
-      QTimer::singleShot(10, pC_Frm_Agenda, SLOT(Slot_startToDate()));
-      */
-      /*
-      C_Frm_Agenda * pC_Frm_Agenda = static_cast<C_Frm_Agenda*>(parent());
-      int            keyExpandMapY = m_Date.year()*10000 + m_Date.weekNumber();
-      int                   expand = pC_Frm_Agenda->m_WeekExpandMapState[keyExpandMapY]^1;
-      pC_Frm_Agenda->m_WeekExpandMapState[keyExpandMapY] = expand;
-      pC_Frm_Agenda->m_tmpDateToStart = pC_Frm_Agenda->getStartDate();
-      QTimer::singleShot(10, pC_Frm_Agenda, SLOT(Slot_startToDate()));
-      */
-      C_Frm_Agenda *pC_Frm_Agenda = static_cast<C_Frm_Agenda*>(parent());
-      pC_Frm_Agenda->m_tmpDateToStart = getDate();
-      QTimer::singleShot(10, pC_Frm_Agenda, SLOT(Slot_ExpandWeek()));
-      //emit Sign_AgendaMustBeReArange();
+      pC_Frm_Agenda->Slot_ExpandWeek();
     }
  else
     {ExpandDialog();
@@ -2512,8 +2497,11 @@ C_RendezVous *C_Frm_Day::getLastRdv()
 //  NOTE : suppose que m_cacheRDV_List est a jour car se fonde dessus pour creer la liste des widgets de rendez-vous
 int C_Frm_Day::RecreateRendezVousListWidget(C_RendezVousList &rendezVousList)
 {
-    if (m_DontRecreateWidget && m_pCMoteurAgenda->GetVerboseMode()) {qDebug()<< tr("recreate blocked : %1 ").arg(m_DontRecreateWidget); return 0;}
-    if (m_pCMoteurAgenda->GetVerboseMode())                         {qDebug()<< tr("recreate not blocked : %1").arg(m_DontRecreateWidget) ;}
+         if (m_DontRecreateWidget && m_pCMoteurAgenda->GetVerboseMode()) {qDebug()<< tr("recreate blocked : %1 ").arg(m_DontRecreateWidget); return 0;}
+         if (m_pCMoteurAgenda->GetVerboseMode())                         {qDebug()<< tr("recreate not blocked : %1").arg(m_DontRecreateWidget) ;}
+
+         LOOKREFRESH;
+
          int posY              = 0;
          QTime tpsDeb          = getStartTime();   // QTime::fromString(m_HeureDeb+":00");
          int     y_deb         = FIRST_DAY_POS_Y + m_BaseDayHeight;
@@ -2545,6 +2533,7 @@ int C_Frm_Day::RecreateRendezVousListWidget(C_RendezVousList &rendezVousList)
          if (pC_Frm_Rdv)
             { y_fin  =  y_deb + tpsDeb.secsTo(getStopTime())/60*pC_Frm_Rdv->getResoPixByMinutes();
             }
+         UNLOOKREFRESH;
          return y_fin;
 }
 //---------------------------------------- readjustListWidgetPositions --------------------------------------------
