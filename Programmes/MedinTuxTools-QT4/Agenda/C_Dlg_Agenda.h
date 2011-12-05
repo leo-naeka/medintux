@@ -63,7 +63,8 @@
 #include <QTextEdit>
 #include <QtGlobal>
 #include <QMap>
-
+#include <QAnimationGroup>
+#include <QPropertyAnimation>
 //...... definie si agenda non stand alone .......
 #ifndef AGENDA_IN_GUI
   // #include "../../src/ui/ui_Dlg_MainWindow.h"
@@ -86,8 +87,6 @@
 #define DOUBLE_DAY_HEIGHT          75
 #define LINE_RESUME_HEIGHT         24        // 20 hauteur totale d'une ligne de resume
 #define LINE_RESUME_XMARG          10         // marge d'affichage afin d'eviter que les rectangles debordent
-
-#define LABEL_MONTH_HEIGHT         0         // hauteur du separateur de mois en mode visusalisation mois
 
 #define FIRST_DAY_POS_Y            2         // ofset vertical d'affichage de la zone des widgets de rendez vous
 #define NB_DAYS_TO_SEE             31        // nombre de jours par defaut a afficher
@@ -773,6 +772,7 @@ public:
     int      getAgendaButtonBoxHeight();
     int      getTitleHeight();
     void     resizeBitMapHeader(const QString &WeekOrDay, int dayWitdth);
+    int      Get_C_Frm_Day_FromDate( QDate dt, int firstDayInWeek  = 0  );
     //.............. google .........................
     void     setGoogleLoginParam (const QString &googleUser, const QString &googlePass );
     QString  getGoogleUser (){return m_googleUser;}
@@ -797,12 +797,20 @@ public:
     void     reinitAgendaOnUser(const QString& user, const QString &droits);
 
     void     creerRDVFactices(const QString &user);
-    QDate    m_tmpDateToStart;
+    //............ animation .......................
+    void     createAnimations();
+    void     animateBottom();
+    void     animateRight();
+    void     animateLeft();
+    void     doAnimation(QPropertyAnimation *pQPropertyAnimation, int vaitForEnd=1);
+    QDate                m_tmpDateToStart;
+    QMap<int, int>       m_WeekExpandMapState;
 public slots:
     void   OnButtonGoogleClickedPtr (const char*, void *);
     void   On_AgendaMustDisplayFromThisDate(const QDate & newDate);        // CZA
     void   On_AgendaMustBeReArange();
     void   Slot_startToDate();
+    void   Slot_ExpandWeek();
 
 private:
     QString              m_googleUser;
@@ -827,8 +835,11 @@ private:
     QString              m_BackgroundMessage;
     QWebView            *m_pQWebView;
     C_GoogleAPI         *m_pC_GoogleAPI;
-    QList <QLabel*>      m_MonthLabelList;
+
+    QMap <int, QLabel*>  m_MonthLabelList;      // key = annee : 2000 *10000 + month number
     QString              m_MonthLabelCss;
+    QWidget             *m_viewport;
+    QAnimationGroup     *m_animationGroup;
 signals:
     void Sign_agenda_GetInfoFromUser(QString &, QString &, QString &, QString &);
     void Sign_LauchPatient(const QString &, C_RendezVous *);

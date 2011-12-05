@@ -5231,6 +5231,7 @@ if (pC_Frm_Agenda->getPaintMode() >= C_Frm_Agenda::NORMAL)
     else
         dateIn = dateIn.addDays(-7);
     pQLineEditDate->setText(dateIn.toString("dd-MM-yyyy"));
+    pC_Frm_Agenda->animateLeft();
     pC_Frm_Agenda->reinitAgendaOnDate(dateIn);
    }
 }
@@ -5249,8 +5250,8 @@ if (pC_Frm_Agenda->getPaintMode() >= C_Frm_Agenda::NORMAL)
     else
         dateIn = dateIn.addDays(7);
     pQLineEditDate->setText(dateIn.toString("dd-MM-yyyy"));
+    pC_Frm_Agenda->animateRight();
     pC_Frm_Agenda->reinitAgendaOnDate(dateIn);
-
    }
 }
 //---------------------------------------------- Slot_pQPushButtonThisDay_Clicked -----------------------------------------------------------------------
@@ -5259,7 +5260,8 @@ void C_Manager::Slot_pQPushButtonThisDay_Clicked (Wdg_ButtonPtr* pWdg_ButtonPtr)
 {
  C_Frm_Agenda  *pC_Frm_Agenda  = (C_Frm_Agenda*) pWdg_ButtonPtr->getPtr_1();
 if (pC_Frm_Agenda->getPaintMode() >= C_Frm_Agenda::NORMAL)
-   {pC_Frm_Agenda->reinitAgendaOnDate(QDate::currentDate());
+   {pC_Frm_Agenda->animateBottom();
+    pC_Frm_Agenda->reinitAgendaOnDate(QDate::currentDate());
    }
 }
 //---------------------------------------------- Slot_pQPushButtonWeekDay_Clicked -----------------------------------------------------------------------
@@ -5299,7 +5301,7 @@ void C_Manager::Slot_pQPushButtonWeekDay_Clicked (Wdg_ButtonPtr* pWdg_ButtonPtr)
      if      (mode.contains("ButtonDay_"))   pC_Frm_Agenda->setAgendaMode_WeekOrDayOrMonth("DAY");
      else if (mode.contains("ButtonWeek_"))  pC_Frm_Agenda->setAgendaMode_WeekOrDayOrMonth("WEEK");
      else if (mode.contains("ButtonMonth_")) pC_Frm_Agenda->setAgendaMode_WeekOrDayOrMonth("MONTH");
-
+     pC_Frm_Agenda->animateRight();
      pC_Frm_Agenda->reinitAgendaOnDate(pC_Frm_Agenda->getStartDate());
 
      QScrollArea     *pToSrcollArea = (QScrollArea*)    pWdg_ButtonPtr->getPtr_2();
