@@ -924,7 +924,6 @@ void C_Frm_Agenda::On_AgendaMustBeReArange()
        int      h             = 0;
        int      h_weekMax     = 0;
        int      nbDayToSee    = nbDayInWeek * m_pCMoteurAgenda->GetWeeksToSee();
-       int      deltFirstDay  = 8-nbDayInWeek;
        int      lastMonth     = 0;
        int      i             = 0;
        int      w_monthLabel  = widthDay*nbDayInWeek;
@@ -2400,7 +2399,7 @@ void C_Frm_Day::OnButtonNewRDVClickedPtr(const char*, void*)
 //---------------------------------------- OnButtonExpandClickedPtr --------------------------------------------
 void C_Frm_Day::OnButtonExpandClickedPtr (const char*, void*)
 {if (m_pCMoteurAgenda->GetAgendaMode_WeekOrDayOrMonth() == "MONTH")
-    { C_Frm_Agenda *pC_Frm_Agenda = static_cast<C_Frm_Agenda*>(parent());
+    { C_Frm_Agenda *pC_Frm_Agenda     = static_cast<C_Frm_Agenda*>(parent());
       pC_Frm_Agenda->m_tmpDateToStart = getDate();
       pC_Frm_Agenda->Slot_ExpandWeek();
     }

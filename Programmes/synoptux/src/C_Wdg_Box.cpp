@@ -3,14 +3,14 @@
 C_Wdg_Box::C_Wdg_Box(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::C_Wdg_Box)
-{
+{    m_UniqueCode = "";
     //m_ButtonNomMedResponsable = 0;
     //m_horizonLayoutResp       = 0;
     ui->setupUi(this);
 }
 
 C_Wdg_Box::~C_Wdg_Box()
-{
+{   emit Sign_byebyeBox( this );
     delete ui;
 }
 

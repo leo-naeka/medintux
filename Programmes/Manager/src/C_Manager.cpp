@@ -4979,7 +4979,7 @@ setIdentModifiedState(FALSE); // pas de modif \303\240 enregistrer
 }
 //--------------------------------- clearIdentFields -----------------------------------------------------------------------
 void C_Manager::clearIdentFields()
-{   m_pGUI->lineEdit_NomAssure->clear();
+{  m_pGUI->lineEdit_NomAssure->clear();
    m_pGUI->lineEdit_PrenomAssure->clear();
    m_pGUI->lineEdit_NomDeNss->clear();
    m_pGUI->textEdit_Adresse->clear();
@@ -5006,7 +5006,7 @@ void C_Manager::clearIdentFields()
 }
 //--------------------------------- clearDroitsFields ------------------------------------------------------------------------
 void C_Manager::clearDroitsFields()
-{   m_pGUI->lineEdit_DroitsDateDeb->setText("");
+{  m_pGUI->lineEdit_DroitsDateDeb->setText("");
    m_pGUI->lineEdit_DroitsDateFin->setText("");
    m_pGUI->lineEdit_CodeRegime->setText("");
    m_pGUI->lineEdit_CaisseGest->setText("");
@@ -5228,8 +5228,11 @@ if (pC_Frm_Agenda->getPaintMode() >= C_Frm_Agenda::NORMAL)
     QDate   dateIn = pC_Frm_Agenda->getStartDate();
     if (pC_Frm_Agenda->getAgendaMode_WeekOrDayOrMonth() == "DAY")
         dateIn = dateIn.addDays(-1);
-    else
+    else if (pC_Frm_Agenda->getAgendaMode_WeekOrDayOrMonth() == "WEEK")
         dateIn = dateIn.addDays(-7);
+    else if (pC_Frm_Agenda->getAgendaMode_WeekOrDayOrMonth() == "MONTH")
+        dateIn = dateIn.addDays(-30);
+
     pQLineEditDate->setText(dateIn.toString("dd-MM-yyyy"));
     pC_Frm_Agenda->animateLeft();
     pC_Frm_Agenda->reinitAgendaOnDate(dateIn);
@@ -5247,8 +5250,11 @@ if (pC_Frm_Agenda->getPaintMode() >= C_Frm_Agenda::NORMAL)
     QDate   dateIn = pC_Frm_Agenda->getStartDate();
     if (pC_Frm_Agenda->getAgendaMode_WeekOrDayOrMonth() == "DAY")
         dateIn = dateIn.addDays(1);
-    else
+    else if (pC_Frm_Agenda->getAgendaMode_WeekOrDayOrMonth() == "WEEK")
         dateIn = dateIn.addDays(7);
+    else if (pC_Frm_Agenda->getAgendaMode_WeekOrDayOrMonth() == "MONTH")
+        dateIn = dateIn.addDays(30);
+
     pQLineEditDate->setText(dateIn.toString("dd-MM-yyyy"));
     pC_Frm_Agenda->animateRight();
     pC_Frm_Agenda->reinitAgendaOnDate(dateIn);

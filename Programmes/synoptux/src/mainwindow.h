@@ -46,6 +46,7 @@
 #include <QVBoxLayout>
 #include <QSettings>
 #include <QtSql>
+#include <QMap>
 
 #include "C_Wdg_Box.h"
 #include "dlgbox.h"
@@ -66,6 +67,7 @@ class QMdiArea;
 class QMdiSubWindow;
 class QSignalMapper;
 class QProcess;
+
 class C_ClickableLed;
 
 QT_END_NAMESPACE
@@ -123,6 +125,7 @@ private slots:
     void Slot_pushButton_Apropos_clicked();
     void Slot_timerStateIndicator_clicked();
     void Slot_modif_Comment_Tache();
+    void Slot_byebyeBox(C_Wdg_Box *);
 private:
 
     bool        RecupInit();
@@ -156,7 +159,8 @@ private:
     QString     lectureBlobDrtux(int PrimKeyBlob);
     QString     RecupStyle(QString TypeObjet);
 
-    C_Wdg_Box     *m_pC_Wdg_Box[NB_BOX_MAX];
+    QMap <QString, C_Wdg_Box *> m_pC_Wdg_Box;
+    //C_Wdg_Box     *m_pC_Wdg_Box[NB_BOX_MAX];
 
     QDir           m_DirDossierEntree;
     QMdiArea      *m_mdiArea;

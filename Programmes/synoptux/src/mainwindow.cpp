@@ -73,7 +73,7 @@ MainWindow::MainWindow()
     m_popupTache      = 0;
     m_ResponsableSelectionne = "Tous";
 
-    for (int i = 0; i < NB_BOX_MAX; i++) m_pC_Wdg_Box[i] = 0;
+    //for (int i = 0; i < NB_BOX_MAX; i++) m_pC_Wdg_Box[i] = 0;
 
     //.................... indicateur d'action des timers ...........................................
     m_TimerStateIndicator = new C_ClickableLed(this);
@@ -273,8 +273,8 @@ bool MainWindow::RecupInit()
 // - On actualise les box existants (effacement des infos patients uniquement)
 void MainWindow::Afficher_Les_Box()
 {
-    int nubox = 0;          // BUGBUG
-
+    QMap <QString, C_Wdg_Box* >::const_iterator it;
+    QString nubox              = 0;                                 // BUGBUG
     m_DernierPkencours         = 0;
     m_DernierPkencours_taches  = 0;
     m_ListePositions.clear();
@@ -283,14 +283,17 @@ void MainWindow::Afficher_Les_Box()
     while (query.isActive() &&  query.next())
         { // au premier affichage, on cree les box et on stocke les pointeurs
         // DEB BUGBUG
-        if (m_pC_Wdg_Box[nubox] == 0)
-            {m_pC_Wdg_Box[nubox] = newBox(query.value(0).toString(),query.value(1).toString(), query.value(2).toString(), query.value(3).toString(), query.value(4).toString(), query.value(5).toString());
-            RemplirLeBox(m_pC_Wdg_Box[nubox], query.value(0).toString());
+        nubox  = query.value(0).toString();
+        it     = m_pC_Wdg_Box.find(nubox);
+        if (it == m_pC_Wdg_Box.end())
+        //if (m_pC_Wdg_Box[nubox] == 0)
+            { m_pC_Wdg_Box[nubox] = newBox(nubox,query.value(1).toString(), query.value(2).toString(), query.value(3).toString(), query.value(4).toString(), query.value(5).toString());
+              RemplirLeBox(m_pC_Wdg_Box[nubox], nubox);
             }
         else // ensuite on reutilise les pointeurs sur les box existants.
             {ActualiserUnBox(m_pC_Wdg_Box[nubox]);
             }
-        nubox ++;
+        // nubox ++;
         // FIN BUGBUG
 
         // TEST BUG C_Wdg_Box *pC_Wdg_Box = newBox(query.value(0).toString(),query.value(1).toString(), query.value(2).toString(), query.value(3).toString(), query.value(4).toString(), query.value(5).toString());
@@ -298,17 +301,30 @@ void MainWindow::Afficher_Les_Box()
         } // fin while table box
 
 }
+
+//-----------------------------------Slot_byebyeBox------------------------------------------------------
+// Cree une subWindow par box
+void MainWindow::Slot_byebyeBox(C_Wdg_Box *pC_Wdg_Box)
+{ m_pC_Wdg_Box.remove ( pC_Wdg_Box->getKey() );
+}
+
+
 //-----------------------------------newBox------------------------------------------------------
 // Cree une subWindow par box
 C_Wdg_Box *MainWindow::newBox(QString codeBox, QString nomBox, QString couleurBox, QString couleurTitre, QString nbMaxiPat, QString typeBox)
 {
     // C_Wdg_Box *pC_Wdg_Box = new C_Wdg_Box (this); TEST BUG
     C_Wdg_Box *pC_Wdg_Box = new C_Wdg_Box (m_mdiArea);
+
     Ui_Box       *pUi_Box = pC_Wdg_Box->ui;
     pUi_Box->label_BoxEnCours->setVisible(false);
     pUi_Box->label_Nb_Patients_Maxi->setVisible(false);
     pUi_Box->label_Nb_Patients_dans_Box->setVisible(false);
     pC_Wdg_Box->setAttribute(Qt::WA_DeleteOnClose);
+
+    pC_Wdg_Box->setKey(codeBox);
+
+    connect(pC_Wdg_Box, SIGNAL(Sign_byebyeBox(C_Wdg_Box* )), this, SLOT(Slot_byebyeBox(C_Wdg_Box*)));
 
     // formatage de la fenetre box
     pC_Wdg_Box->setWindowTitle(nomBox);
@@ -798,16 +814,17 @@ void MainWindow::Actualiser(QString partielOUtotal)             // BUGBUG
     m_BoxEnCours          = "";
 qDebug() << "PASSE ACTUALISER";
     if (partielOUtotal == "TOTAL")
-        {
-        for (int i = 0; i < NB_BOX_MAX; i++) m_pC_Wdg_Box[i] = 0;
+       {
+        //for (int i = 0; i < NB_BOX_MAX; i++) m_pC_Wdg_Box[i] = 0;
         m_mdiArea->closeAllSubWindows();
+        m_pC_Wdg_Box.clear();
         delete(m_mdiArea);
         m_mdiArea = new QMdiArea(this);
         m_mdiArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
         m_mdiArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
         setCentralWidget(m_mdiArea);
         Recuperer_Positions();
-        }
+       }
 
     Afficher_Les_Box();
     m_timerAlarme->start();
