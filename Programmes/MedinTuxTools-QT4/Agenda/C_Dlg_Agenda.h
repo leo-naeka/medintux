@@ -552,11 +552,12 @@ public:
 
     //------------------------ clear -------------------------------
     void clear()
-    { while (!isEmpty())
-        {C_RendezVous* pC_RendezVous = takeFirst();
-         delete pC_RendezVous;
+    {while (!isEmpty())
+        {   C_RendezVous* pC_RendezVous = takeFirst();
+            delete pC_RendezVous;
         }
     }
+
 };
 
 //======================== C_Frm_Day =============================

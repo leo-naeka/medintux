@@ -867,7 +867,8 @@ int C_Frm_Agenda::Get_C_Frm_Day_FromDate( QDate dt, int firstDayInWeek /* = 0 */
 
 //----------------------------------- Slot_ExpandWeek -------------------------------------------
 void C_Frm_Agenda::Slot_ExpandWeek()
-{QDate dateWeek         = m_tmpDateToStart;
+{QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+ QDate dateWeek         = m_tmpDateToStart;
  int      keyExpandMapY = dateWeek.year()*10000 + dateWeek.weekNumber();
  int      expand        = m_WeekExpandMapState[keyExpandMapY] ^ 1;                 // sert a noter les semaines a deployer lors redessin global
 
@@ -882,6 +883,7 @@ void C_Frm_Agenda::Slot_ExpandWeek()
        pC_Frm_Day->ExpandDialog();
      }
  On_AgendaMustBeReArange();
+ QApplication::restoreOverrideCursor();
 }
 
 //----------------------------------- On_AgendaMustBeReArange -------------------------------------------
@@ -1201,7 +1203,9 @@ void C_Frm_Day::Slot_Drop_Rdv ()
 }
 //------------------------ Slot_RefreshView ---------------------------------------
 void  C_Frm_Day::Slot_RefreshView()
-{if (m_DontRecreateWidget) return;
+{
+ if (m_DontRecreateWidget) return;
+
  m_pCMoteurAgenda->RDV_Get_List(m_Date, m_SignUser, m_cacheRDV_List);    // si il existe des rdv pour ce jour aller en chercher la liste
  if (isDayExpand())
     {if (m_cacheRDV_List.count())
@@ -1213,6 +1217,7 @@ void  C_Frm_Day::Slot_RefreshView()
     }
  ReArangeIfDayHeightChange();                 // reajuster eventuellement la hauteur du jour et reorganiser les jours sous jacents et mettre a jour la hauteur du jour
 }
+
 //---------------------------------------- computeDayHeight --------------------------------------------
 int  C_Frm_Day::computeDayHeight()
 {if (isDayExpand())  return (getStartTime().secsTo(getStopTime())/60*getResoPixByMinutes()) + 10 + m_BaseDayHeight +  FIRST_DAY_POS_Y;
@@ -2153,8 +2158,7 @@ void C_Frm_Day::On_Day_mousePressEvent ( QMouseEvent * event )
   C_Frm_Rdv *pC_Frm_Rdv = appendNewRDVItem(pC_RendezVous);    // ne pas effacer pC_RendezVous car appendNewRDVItem
   //................. repositionner le widget du rendez vous ...............................
   if (pC_Frm_Rdv)
-     {if (isDayExpand())  pC_Frm_Rdv->show();
-      ReArangeIfDayHeightChange();                 // reajuster eventuellement la hauteur du jour et reorganiser les jours sous jacents et mettre a jour la hauteur du jour
+     {ReArangeIfDayHeightChange();                 // reajuster eventuellement la hauteur du jour et reorganiser les jours sous jacents et mettre a jour la hauteur du jour
      }
   UNLOOKREFRESH;
 }
@@ -2274,8 +2278,7 @@ void C_Frm_Day::newRDVAtThisDate(QDateTime dateTime, int duree, const QString &t
      if (pC_Dlg_RdvTypeConfig->exec() == QDialog::Accepted)
         { C_Frm_Rdv *pC_Frm_Rdv = appendNewRDVItem(pC_RendezVous);    // ne pas effacer pC_RendezVous car appendNewRDVItem
           if (pC_Frm_Rdv)                                             // si echec pC_RendezVous aura ete efface
-             {if (isDayExpand())  pC_Frm_Rdv->show();
-              ReArangeIfDayHeightChange();                            // reajuster eventuellement la hauteur du jour et reorganiser les jours sous jacents et mettre a jour la hauteur du jour
+             {ReArangeIfDayHeightChange();                            // reajuster eventuellement la hauteur du jour et reorganiser les jours sous jacents et mettre a jour la hauteur du jour
              }
           delete pC_Dlg_RdvTypeConfig;
           return;
@@ -2292,26 +2295,34 @@ C_Frm_Rdv* C_Frm_Day::appendNewRDVItem(C_RendezVous *pC_RendezVous)
       C_Frm_Rdv *pC_Frm_Rdv = 0;
       //................... enregistrer le rendez vous dans la base ..........................................
       if ( (pC_RendezVous->m_PrimKey = m_pCMoteurAgenda->RDV_Create(*pC_RendezVous, &errMess)).length()==0)
-         {delete pC_RendezVous;
-          return 0;
+         { delete pC_RendezVous;
+           return 0;
          }
       //...................creer le widget rendez vous dans celui du jour .......................
-      pC_Frm_Rdv = append_C_Frm_Rdv(new C_Frm_Rdv( pC_RendezVous,
-                                                   getResoPixByMinutes(),                    // resolution en pixels
-                                                   getMagnetisme(),
-                                                   m_pQRubberBand,
-                                                   m_pCMoteurAgenda,
-                                                   m_pColorProfils,
-                                                   m_pBMC,
-                                                   m_pCMoteurAgenda->GetMinDaysHeight(),
-                                                   this
-                                                 )
-                                   );
-    //generate_cacheRDV_List_FromDayWidget();    // synchroniser le cache --> pas bon car si en mode replie pas de widgets
+      pC_Frm_Rdv = new C_Frm_Rdv( pC_RendezVous,
+                                  getResoPixByMinutes(),                    // resolution en pixels
+                                  getMagnetisme(),
+                                  m_pQRubberBand,
+                                  m_pCMoteurAgenda,
+                                  m_pColorProfils,
+                                  m_pBMC,
+                                  m_pCMoteurAgenda->GetMinDaysHeight(),
+                                  this
+                                );
+    //generate_cacheRDV_List_FromDayWidget();    // synchroniser le cache --> surtout pas car si en mode replie pas de widgets
     m_cacheRDV_List.appendRdv(pC_RendezVous);    // donc on l'ajoute donc simplement  la liste et ca le fait
-    pC_Frm_Rdv->adjustWidgetToMagnetisme();      // faut recadrer au contraintes de magnetisme
-    readjustListWidgetPositions();               // revoir toutes les positions car le debut peut avoir change si place avant la limite sup
-    update();                                    // faut aussi reafficher le fond si changement de debut
+
+    if (isDayExpand())                // SI jour deploye on ajoute le widget graphique et on ajuste les details graphiques
+       { pC_Frm_Rdv->adjustWidgetToMagnetisme();      // faut recadrer au contraintes de magnetisme
+         readjustListWidgetPositions();               // revoir toutes les positions car le debut peut avoir change si place avant la limite sup ou inf tout ca
+         append_C_Frm_Rdv(pC_Frm_Rdv );
+         pC_Frm_Rdv->show();
+       }
+    else                              // SI jour replie on ajoute pas le widget graphique et meme on le détruit
+       { delete pC_Frm_Rdv;
+         pC_Frm_Rdv = 0;
+         update();                                  // faut aussi reafficher le jour entier pour que le RDV soit visible
+       }
     return pC_Frm_Rdv;
 }
 
