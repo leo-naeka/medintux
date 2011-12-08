@@ -2709,7 +2709,6 @@ m_ButtonChange->installEventFilter(this);
 m_ButtonAcceder->installEventFilter(this);
 
 setWidgetOnRdv(*pC_RendezVous);
-//setWidgetStyleOnRdv(*pC_RendezVous);
 
 connect( m_ButtonAcceder,      SIGNAL( Sign_ButtonClickedPtr (const char*, void *) ),           parent ,   SLOT(   Slot_ButtonAccederClicked(const char*, void *) ));
 //................................ on emet ce signal en direction du pere pour qu'il efface le rendez-vous ......................................
@@ -2755,27 +2754,9 @@ int C_Frm_Rdv::getMagnetisme()
 void C_Frm_Rdv::setWidgetStyleOnRdv(const C_RendezVous &rdv) // to do : detecter si la date n'est pas en dehors du jour actuel
 {QString colorStr   = C_RendezVous::getRdvColor(rdv, m_pColorProfils);
  m_background_color = QColor(colorStr);
- /*
- //QString styles = QString(" background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 %1, stop: 1 #dadbde);").arg(background_color);
- QString styles = QString("background-color: %1; border: 1px solid #8f8f91; border-radius: 6px; font-size: 9px;").arg(m_background_color);
- //QString styles = QString("background-color: %1;  qlineargradient(x1: 0, y1: 0, x2: 0.5, y2: 0.5, stop: 0 #FF92BB, stop: 1 white); border:1px; border-radius: 6px; font-size: 9px;").arg(background_color);
- //QString styles = QString("background-color: %1; border: 3px solid #8f8f91; border-radius: 6px; font-size: 9px;").arg("qlineargradient(x1: 0, y1: 0, x2: 0.5, y2: 0.5, stop: 0 #FF92BB, stop: 1 white)");
-
- setStyleSheet(styles);
-
- QString style = "QPushButton { border: 1px solid #8f8f91; border-radius: 0px; background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #f6f7fa, stop: 1 #dadbde);}"    // style normal
-                 "QPushButton:pressed {                    border-radius: 0px; background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #dadbde, stop: 1 #f6f7fa);}";   // style selectionne
- m_ButtonDelete->setStyleSheet(style);   // background-color: #960101 background-image: url(images/welcome.png
- m_ButtonChange->setStyleSheet(style);   // background-color: #960101 background-image: url(images/welcome.png
- m_ButtonAcceder->setStyleSheet(style);  // background-color: #960101 background-image: url(images/welcome.png
- m_InfoEdit->setStyleSheet(QString("background-color: %1; border: 1px none #8f8f91;padding 6px; border-radius: 6px; font-size: 9px;").arg(m_background_color));
- // m_InfoEdit->setMenuBackgroundColor((*m_pColorProfils)[rdv.m_Type].getColor());
- */
- if (m_InfoEdit) m_InfoEdit->setMenuBackgroundColor(colorStr);
- /*
- m_button_HeureDuree->setStyleSheet(QString("background-color: %1; border: 1px solid #8f8f91;font-size: 9px;top: 2px;").arg(m_background_color));//font-weight: bold;
- m_textLabel_Nom->setStyleSheet(QString("background-color: %1; border-style: none;font-size: 9px;").arg(m_background_color));
-*/
+ if (m_InfoEdit)
+    {m_InfoEdit->setStyleSheet(QString("background-color: %1; border: 1px none #8f8f91;padding 6px; border-radius: 6px; font-size: 9px;").arg(colorStr));
+    }
 }
 
 //---------------------------------------- setWidgetOnRdv --------------------------------------------
