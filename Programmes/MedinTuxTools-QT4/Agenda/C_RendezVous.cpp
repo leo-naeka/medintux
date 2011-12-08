@@ -52,7 +52,7 @@ QString C_RendezVous::getQWhatsThisString(   const QString &pathTheme, QString c
  if (m_Note.length())                        mess += tr("<hr><b>Note&nbsp;:&nbsp;</b><i>%1</i><br>").arg(m_Note);
  if (m_State.length())                       mess += tr("<b>Status: </b><i>%1</i><br></font>").arg(m_State);
  if (m_Where.length())                       mess += tr("<hr><b>Where: </b><i>%1</i><br></font>").arg(m_Where);
- return mess;
+ return mess.replace("&NBSP;","&nbsp;");
 }
 //---------------------------- serialize ------------------------------------------------
 QString C_RendezVous::serialize() const

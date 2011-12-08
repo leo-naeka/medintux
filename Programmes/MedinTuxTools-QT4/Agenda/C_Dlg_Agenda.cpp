@@ -2147,19 +2147,15 @@ void C_Frm_Day::On_Day_mousePressEvent ( QMouseEvent * event )
               } break;
      case 1:  {pC_RendezVous    = new C_RendezVous(dt , 15, "", "", "", "", "", m_SignUser, m_User, ""); // anonyme
               } break;
-     case 11: { emit (QDate::currentDate());    // CZA
-                return;                                                 // CZA
+     case 11: { emit (QDate::currentDate());
+                return;
               } break;
      default: {UNLOOKREFRESH;
                return;
               }
      }
   if (pC_RendezVous==0)                                         {UNLOOKREFRESH;    return;}
-  C_Frm_Rdv *pC_Frm_Rdv = appendNewRDVItem(pC_RendezVous);    // ne pas effacer pC_RendezVous car appendNewRDVItem
-  //................. repositionner le widget du rendez vous ...............................
-  if (pC_Frm_Rdv)
-     {ReArangeIfDayHeightChange();                 // reajuster eventuellement la hauteur du jour et reorganiser les jours sous jacents et mettre a jour la hauteur du jour
-     }
+  appendNewRDVItem(pC_RendezVous);    // ne pas effacer pC_RendezVous car appendNewRDVItem s'en charge si besoin
   UNLOOKREFRESH;
 }
 
@@ -2171,7 +2167,7 @@ QString C_Frm_Day::doRdvMenu(C_RendezVous *pRdvDst, int isOptionDetruire  /* = 0
     C_QMenuRdv menu(tr("Appointment available"),(QWidget*)parent());
     menu.setStyleSheet("font-size: 12px");  // "border: 1px solid #8f8f91; border-radius: 6px; font-size: 11px; color:#000000;border-width: 3px;  border-style: solid;  border-color: blue; background: yellow; icon-size:16px"
     menu.addAction (m_pBMC->m_Configure_Pixmap,     tr("Modify the parameters of this appointment...")
-                         )->setData ("Modify");
+                   )->setData ("Modify");
     menu.addSeparator ();
     //..............menu clasique copier coller couper ...............................
     menu.addAction (m_pBMC->m_Copier_Pixmap, tr("Copy the current appointment into the copy memory")
@@ -2200,33 +2196,33 @@ QString C_Frm_Day::doRdvMenu(C_RendezVous *pRdvDst, int isOptionDetruire  /* = 0
     grabLabel.setStyleSheet(QString("border: 2px solid #010101; background-color: #FFFFFF;"));
     QPixmap pix = QPixmap::grabWidget (&grabLabel, 0, 0, 16, 16 );
     while (it != m_pColorProfils->constEnd())
-    {C_ColorType ct = it.value();
-        grabLabel.setStyleSheet(QString("border: 2px solid #010101; background-color: ")+ct.getColor()+";");
-        pix = QPixmap::grabWidget (&grabLabel, 0, 0, 16, 16 );
-        if (it.key().trimmed().length())
-        {menu.addAction (QIcon(pix), tr("Appointment of type: %1").arg(it.key())
-                        )->setData (QString("Type :%1").arg(it.key()));
-        }
+       { C_ColorType ct = it.value();
+         grabLabel.setStyleSheet(QString("border: 2px solid #010101; background-color: ")+ct.getColor()+";");
+         pix = QPixmap::grabWidget (&grabLabel, 0, 0, 16, 16 );
+         if (it.key().trimmed().length())
+            {menu.addAction (QIcon(pix), tr("Appointment of type: %1").arg(it.key())
+                            )->setData (QString("Type :%1").arg(it.key()));
+            }
         ++it;
     }
     //............. creer le menu des statuts.....................
     menu.addSeparator ();
     QMapIterator<QString, QPixmap> ut(m_pBMC->m_StatutsPixmap);
     while (ut.hasNext())
-    {ut.next();
+       {ut.next();
         menu.addAction (ut.value(), tr("Appointment Status: %1").arg(ut.key())
-                        )->setData (QString("Status :%1").arg(ut.key()));
-    }
+                       )->setData (QString("Status :%1").arg(ut.key()));
+       }
     menu.addSeparator ();
     if (pRdvDst->m_GUID.length())
        { menu.addAction (m_pBMC->m_ButtonAcceder_Pixmap, tr("Open folder: %1").arg(pRdvDst->m_Nom+" "+pRdvDst->m_Prenom)
-                       )->setData ("Open");
+                        )->setData ("Open");
        }
     menu.addSeparator ();
     menu.addAction (m_pBMC->m_IdentityDelete_Pixmap,  tr("Make this appointment anonymous and available")
                    )->setData ("Anomymize");
     if (isOptionDetruire) menu.addAction (m_pBMC->m_MenuRendezvousDel,    tr("Delete this appointment")
-       )->setData ("Delete");
+                                         )->setData ("Delete");
     menu.addSeparator ();
     menu.addAction (m_pBMC->m_QuitterMenu_Pixmap,   tr("Quit this menu")
                    )->setData ("Quit");
@@ -2276,10 +2272,7 @@ void C_Frm_Day::newRDVAtThisDate(QDateTime dateTime, int duree, const QString &t
  if (pC_Dlg_RdvTypeConfig)
     {pC_Dlg_RdvTypeConfig->setCaption(tr("Set new appointment for %1 at %2").arg(m_UserNomPrenom, dateTime.toString("dd MMMM yyyy")));
      if (pC_Dlg_RdvTypeConfig->exec() == QDialog::Accepted)
-        { C_Frm_Rdv *pC_Frm_Rdv = appendNewRDVItem(pC_RendezVous);    // ne pas effacer pC_RendezVous car appendNewRDVItem
-          if (pC_Frm_Rdv)                                             // si echec pC_RendezVous aura ete efface
-             {ReArangeIfDayHeightChange();                            // reajuster eventuellement la hauteur du jour et reorganiser les jours sous jacents et mettre a jour la hauteur du jour
-             }
+        { appendNewRDVItem(pC_RendezVous);    // ne pas effacer pC_RendezVous car appendNewRDVItem
           delete pC_Dlg_RdvTypeConfig;
           return;
         }
@@ -2309,21 +2302,26 @@ C_Frm_Rdv* C_Frm_Day::appendNewRDVItem(C_RendezVous *pC_RendezVous)
                                   m_pCMoteurAgenda->GetMinDaysHeight(),
                                   this
                                 );
-    //generate_cacheRDV_List_FromDayWidget();    // synchroniser le cache --> surtout pas car si en mode replie pas de widgets
-    m_cacheRDV_List.appendRdv(pC_RendezVous);    // donc on l'ajoute donc simplement  la liste et ca le fait
+      if (pC_Frm_Rdv==0)
+         {delete pC_RendezVous;
+          return 0;
+         }
+      //generate_cacheRDV_List_FromDayWidget();    // synchroniser le cache --> surtout pas car si en mode replie pas de widgets dispos
+      m_cacheRDV_List.appendRdv(pC_RendezVous);    // donc on ajoute donc simplement le rdv a la liste et ca le fait
 
-    if (isDayExpand())                // SI jour deploye on ajoute le widget graphique et on ajuste les details graphiques
-       { pC_Frm_Rdv->adjustWidgetToMagnetisme();      // faut recadrer au contraintes de magnetisme
-         readjustListWidgetPositions();               // revoir toutes les positions car le debut peut avoir change si place avant la limite sup ou inf tout ca
-         append_C_Frm_Rdv(pC_Frm_Rdv );
-         pC_Frm_Rdv->show();
-       }
-    else                              // SI jour replie on ajoute pas le widget graphique et meme on le détruit
-       { delete pC_Frm_Rdv;
-         pC_Frm_Rdv = 0;
-         update();                                  // faut aussi reafficher le jour entier pour que le RDV soit visible
-       }
-    return pC_Frm_Rdv;
+      if (isDayExpand())                // SI jour deploye on ajoute le widget graphique et on ajuste les details graphiques
+         { pC_Frm_Rdv->adjustWidgetToMagnetisme();      // faut recadrer au contraintes de magnetisme
+           readjustListWidgetPositions();               // revoir toutes les positions car le debut peut avoir change si place avant la limite sup ou inf tout ca
+           append_C_Frm_Rdv(pC_Frm_Rdv );
+           pC_Frm_Rdv->show();
+           ReArangeIfDayHeightChange();
+         }
+      else                              // SI jour replie on ajoute pas le widget graphique et meme on le détruit
+         { delete pC_Frm_Rdv;
+           pC_Frm_Rdv = 0;
+           update();                                  // faut aussi reafficher le jour entier pour que le RDV soit visible
+         }
+      return pC_Frm_Rdv;
 }
 
 //---------------------------- Slot_ButtonAccederClicked ------------------------------------------------
@@ -2442,8 +2440,6 @@ QTime C_Frm_Day::getStartTime()
  minute =  tpsDeb.minute(); minute/=15; minute*=15;   // arondir au 1/4 heure (affichage graduations)
  heure  =  tpsDeb.hour();
  tpsDeb = QTime(heure,minute,0,0);
- //QString strDebug = tr("StartTime : %1").arg(tpsDeb.toString("hh:mm:ss"));
- //if(this->isDayExpand()) qDebug() << strDebug;
  return tpsDeb;
 }
 
@@ -2743,7 +2739,7 @@ void C_Frm_Rdv::paintEvent ( QPaintEvent * /*event*/ )
     //QRectF rect (0,10,4,h-23);
     p.drawRoundedRect (rect(), 6, 6);p.setPen (QColor("#000000"));
     p.fillRect ( 1, 4, 4, height()-8, m_background_color.lighter(150) );
-    p.drawText (6,11, m_Nom+" "+m_Prenom );
+    p.drawText (6,11, QString(m_Nom+" "+m_Prenom).replace("&NBSP;","&nbsp;").replace("&nbsp;"," ") );
     //QFrame::paintEvent(event);
 
 }

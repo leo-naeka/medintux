@@ -662,8 +662,8 @@ QString CMoteurAgenda::RDV_Create(const C_RendezVous &rendezVous, QString *errMe
   query.bindValue(0, rendezVous.m_date);
   query.bindValue(1, (int)rendezVous.m_Duree);
   query.bindValue(2, rendezVous.m_GUID);
-  query.bindValue(3, rendezVous.m_Nom);
-  query.bindValue(4, rendezVous.m_Prenom);
+  query.bindValue(3, QString(rendezVous.m_Nom).replace("&NBSP;","&nbsp;"));
+  query.bindValue(4, QString(rendezVous.m_Prenom).replace("&NBSP;","&nbsp;"));
   query.bindValue(5, QString(rendezVous.m_Tel).remove(" "));
   query.bindValue(6, rendezVous.m_PrisAvec);
   query.bindValue(7, rendezVous.m_PrisPar);
@@ -710,8 +710,8 @@ int CMoteurAgenda::RDV_Update(const C_RendezVous &rendezVous, QString *errMess /
   query.bindValue(0, rendezVous.m_date);
   query.bindValue(1, (int)rendezVous.m_Duree);
   query.bindValue(2, rendezVous.m_GUID);
-  query.bindValue(3, rendezVous.m_Nom);
-  query.bindValue(4, rendezVous.m_Prenom);
+  query.bindValue(3, QString(rendezVous.m_Nom).replace("&NBSP;","&nbsp;"));
+  query.bindValue(4, QString(rendezVous.m_Prenom).replace("&NBSP;","&nbsp;"));
   query.bindValue(5, QString(rendezVous.m_Tel).remove(" "));
   query.bindValue(6, rendezVous.m_PrisAvec);
   query.bindValue(7, rendezVous.m_PrisPar);
@@ -945,10 +945,10 @@ QString CMoteurAgenda::OutSQL_error(const QSqlError &error, const char *messFunc
  *  \return nombre d'enregistrements inseres dans la QListView passee en paramètre
 */
 long CMoteurAgenda::GetPatientList(       QTreeWidget     *pQlistView,
-                                  const QString         &qstr_nom,
-                                  const QString         &qstr_prenom,
-                                        QLabel          * /* statutMess,  = 0  */,
-                                        QString         *errMess     /* = 0  */
+                                  const QString           &qstr_nom,
+                                  const QString           &qstr_prenom,
+                                        QLabel            * /* statutMess,  = 0  */,
+                                        QString           *errMess     /* = 0  */
                                 )
 
 {QString   q_nom    = "";
