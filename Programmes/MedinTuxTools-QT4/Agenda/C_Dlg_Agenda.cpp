@@ -2035,6 +2035,8 @@ void C_Frm_Day::On_Day_mousePressEvent ( QMouseEvent * event )
                       }
                    else if (ret.indexOf("Copy") != -1)
                       { copyRdv(*pRdv);
+                       UNLOOKREFRESH;
+                       return;
                       }
                    else if (ret.indexOf("Replace") != -1)
                       {C_RendezVous    rdv = getCopy();    // on recupere le rendez-vous
@@ -2043,7 +2045,7 @@ void C_Frm_Day::On_Day_mousePressEvent ( QMouseEvent * event )
                        pRdv->m_Note    = rdv.m_Note;
                        pRdv->m_Where   = rdv.m_Where;
                        pRdv->m_GUID    = rdv.m_GUID;
-                       pRdv->m_PrimKey = rdv.m_PrimKey;
+                       // pRdv->m_PrimKey = rdv.m_PrimKey; si on fait un replace la pk est celle du RDV original de destination et non celui du source
                        pRdv->m_Tel     = rdv.m_Tel;
                        pRdv->m_Type    = rdv.m_Type;
                        pRdv->m_State   = rdv.m_State;
@@ -2665,6 +2667,7 @@ C_Frm_Rdv::C_Frm_Rdv (  C_RendezVous *pC_RendezVous,       // data
  if (pCMoteurAgenda->GetEditNoteMode())
     {m_InfoEdit = new C_AgendaEdit(this);
      m_InfoEdit->setVerticalScrollBarPolicy (Qt::ScrollBarAlwaysOff);
+     m_InfoEdit->setWordWrapMode(QTextOption::WrapAtWordBoundaryOrAnywhere);
      m_InfoEdit->setStyleSheet(QString("background-color: %1; border: 1px none #8f8f91;padding 6px; border-radius: 6px; font-size: 9px;").arg(colorStr));
      connect( m_InfoEdit,           SIGNAL( textChanged ()),                                this ,     SLOT(   Slot_InfoEdittextChanged()  )  );
      connect( m_InfoEdit,           SIGNAL( cursorPositionChanged ()),                      this ,     SLOT(   Slot_InfoEdit_cursorPositionChanged()  )  );
@@ -2794,7 +2797,6 @@ void C_Frm_Rdv::setWidgetOnRdv(const C_RendezVous &rdv) // to do : detecter si l
  if (m_InfoEdit)          m_InfoEdit->setText(m_Note);
  if (m_button_HeureDuree) m_button_HeureDuree->setText(computeTextButton());
  if (m_textLabel_Nom)     m_textLabel_Nom->setText(m_Nom + " " + m_Prenom);
- placeInfoEdit(m_Duree*m_PixByMinute);
  //......................... les tool tip ..................................
  if ( m_GUID.length()!=0) m_ButtonAcceder->setIcon(m_pBMC->m_ButtonAcceder_Pixmap);
  else                     m_ButtonAcceder->setIcon(m_pBMC->m_ButtonCreateDoss);
@@ -2808,12 +2810,17 @@ void C_Frm_Rdv::setWidgetOnRdv(const C_RendezVous &rdv) // to do : detecter si l
      if (it != m_pBMC->m_StatutsPixmap.end())    m_ButtonChange->setIcon(it.value());
     }
  resize ( QSize ( m_widget_w, getHeight())) ;
+ placeInfoEdit(m_Duree*m_PixByMinute);
 }
 
 //---------------------------- Slot_InfoEditFocusOutEvent ------------------------------------------------
 void C_Frm_Rdv::Slot_InfoEditFocusOutEvent(QFocusEvent *)
-{if (m_InfoEdit) m_Note = m_InfoEdit->text();
- RDV_Update();
+{if (m_InfoEdit)
+    {if (m_Note != m_InfoEdit->text())
+        {m_Note = m_InfoEdit->text();
+         RDV_Update();
+        }
+    }
  //emit Sign_StopTimer(m_SavStateLook);
 }
 
@@ -2823,7 +2830,7 @@ void C_Frm_Rdv::Slot_InfoEdit_cursorPositionChanged ()
 }
 //---------------------------- Slot_InfoEdittextChanged ------------------------------------------------
 void C_Frm_Rdv::Slot_InfoEdittextChanged()
-{if (m_InfoEdit) m_Note     = m_InfoEdit->text();
+{//if (m_InfoEdit) m_Note     = m_InfoEdit->text();
  if (m_EditTimerActive==0)
     {emit Sign_StopTimer(1);
      QTimer::singleShot(2000, this, SLOT(Slot_EditTimeOut()));
@@ -2832,8 +2839,12 @@ void C_Frm_Rdv::Slot_InfoEdittextChanged()
 }
 //---------------------------- Slot_EditTimeOut ------------------------------------------------
 void C_Frm_Rdv::Slot_EditTimeOut()
-{if (m_InfoEdit) m_Note     = m_InfoEdit->text();
- RDV_Update();
+{if (m_InfoEdit)
+    {if (m_Note != m_InfoEdit->text())
+        {m_Note = m_InfoEdit->text();
+         RDV_Update();
+        }
+    }
  m_EditTimerActive = 0;
  emit Sign_StopTimer(0);
 }
@@ -2848,7 +2859,7 @@ void C_Frm_Rdv::placeInfoEdit (int h)
     else
        {m_InfoEdit->hide();
        }
-    m_InfoEdit->setGeometry ( 6, ofsetY, 200, h-ofsetY-4 );
+    m_InfoEdit->setGeometry ( 6, ofsetY, width()-4, h-ofsetY-4 );
  }
 //---------------------------- setGeometry ------------------------------------------------
 void C_Frm_Rdv::setGeometry ( int x, int y, int w, int h )
