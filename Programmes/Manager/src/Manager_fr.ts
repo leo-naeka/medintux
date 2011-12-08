@@ -3,17 +3,6 @@
 <TS version="2.0" language="fr_FR">
 <defaultcodec>UTF-8</defaultcodec>
 <context>
-    <name>@default</name>
-    <message>
-        <source>Pas d&apos;entrÃ©e trouvÃ©e pour ce code rÃ©gime : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> et caisse gestionnaire : </source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>CApp</name>
     <message>
         <source>Version with SesamVitale usage</source>
@@ -43,11 +32,11 @@ n&apos;existe pas</translation>
     </message>
     <message>
         <source>The process failed to start. Either the invoked program is missing, or you may have insufficient permissions to invoke the program.</source>
-        <translation>Le démarrage du processus a échoué. Soit le programme invoqué manque, soit vous avez des permissions insuffisantes pour invoquer le programme.</translation>
+        <translation type="obsolete">Le démarrage du processus a échoué. Soit le programme invoqué manque, soit vous avez des permissions insuffisantes pour invoquer le programme.</translation>
     </message>
     <message>
         <source>The process crashed some time after starting successfully.</source>
-        <translation>Le processus a planté un certain temps après avoir démarré correctement.</translation>
+        <translation type="obsolete">Le processus a planté un certain temps après avoir démarré correctement.</translation>
     </message>
     <message>
         <source>The last waitFor...() function timed out. The state of QProcess is unchanged, and you can try calling waitFor...() again.</source>
@@ -63,14 +52,30 @@ n&apos;existe pas</translation>
     </message>
     <message>
         <source>UnknownError</source>
+        <translation type="obsolete">Erreur inconnue</translation>
+    </message>
+    <message>
+        <source>The process failed to start. Either the invoked program is missing, or you may have insufficient permission to launch the program.</source>
+        <translation type="obsolete">Le démarrage du processus a échoué. Soit le programme invoqué manque, soit vous avez des permissions insuffisantes pour invoquer le programme.</translation>
+    </message>
+    <message>
+        <source>The process crashed sometime after starting successfully.</source>
+        <translation>Le processus a planté un certain temps après avoir démarré correctement.</translation>
+    </message>
+    <message>
+        <source>Unknown Error</source>
         <translation>Erreur inconnue</translation>
+    </message>
+    <message>
+        <source>The process failed to start. Either the requested program is missing, or you may have insufficient permission to launch the program.</source>
+        <translation>Le démarrage du processus a échoué. Soit le programme invoqué manque, soit vous avez des permissions insuffisantes pour invoquer le programme.</translation>
     </message>
 </context>
 <context>
     <name>CDlg_PasswordGet</name>
     <message>
         <source>Dialog</source>
-        <translation>Dialogue</translation>
+        <translation type="obsolete">Dialogue</translation>
     </message>
     <message>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -107,6 +112,10 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Annuler</translation>
+    </message>
+    <message>
+        <source>Connection</source>
+        <translation>Connexion</translation>
     </message>
 </context>
 <context>
@@ -211,34 +220,8 @@ p, li { white-space: pre-wrap; }
         <translation> - erreur SQL de type inconnu : </translation>
     </message>
     <message>
-        <source>Syntax Error: SetConfBaseGetValue()
- End delimiter &quot;&apos;&quot;  not find at line NÂ°: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Syntax Error: SetConfBaseGetValue()
- Start delimiter &quot;&apos;&quot;  not find at line NÂ°: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Error : CMoteurAgenda::MASK_Append() 
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Error : CMoteurAgenda::COL_Create() 
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Error : CMoteurAgenda::COL_RecordAllColorMap() 
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Error : CMoteurAgenda::RDV_Create() 
-</source>
-        <translation type="unfinished"></translation>
+        <source>CMoteurBase::GetPatientList(): data base can&apos;t be open</source>
+        <translation>CMoteurBase::GetPatientList(): impossible d&apos;ouvrir la base de données</translation>
     </message>
 </context>
 <context>
@@ -313,7 +296,7 @@ ERREUR %1 table(s) non trouvée(s) dans la base actuellement : </translation>
     </message>
     <message>
         <source> - SQL no error occurred: </source>
-        <translation> - Aucune erreur SQL n&apos;est survenue : </translation>
+        <translation type="obsolete"> - Aucune erreur SQL n&apos;est survenue : </translation>
     </message>
     <message>
         <source> - SQL connection error: </source>
@@ -325,15 +308,15 @@ ERREUR %1 table(s) non trouvée(s) dans la base actuellement : </translation>
     </message>
     <message>
         <source> - SQL transaction failed error: </source>
-        <translation> - Erreur de transaction SQL : </translation>
+        <translation type="obsolete"> - Erreur de transaction SQL : </translation>
     </message>
     <message>
         <source> - SQL unknown error: </source>
-        <translation> - Erreur SQL inconnue : </translation>
+        <translation type="obsolete"> - Erreur SQL inconnue : </translation>
     </message>
     <message>
         <source> - unknown SQL type error: </source>
-        <translation> - erreur SQL de type inconnu : </translation>
+        <translation type="obsolete"> - erreur SQL de type inconnu : </translation>
     </message>
     <message>
         <source>CMoteurBase::GetUserSpecialite(): database can&apos;t be opened</source>
@@ -380,7 +363,7 @@ ERREUR %1 table(s) non trouvée(s) dans la base actuellement : </translation>
     <message>
         <source>
 Failure when changing user: CMoteur_Base. </source>
-        <translation type="unfinished">
+        <translation>
 Échec lors du changement d&apos;utilisateur : CMoteur_Base. </translation>
     </message>
     <message>
@@ -447,7 +430,7 @@ SUCCÈS de la mise à jour des tables manquantes.</translation>
     </message>
     <message>
         <source>transaction failed error</source>
-        <translation>erreur de transaction</translation>
+        <translation type="obsolete">erreur de transaction</translation>
     </message>
     <message>
         <source>unknown error</source>
@@ -455,44 +438,47 @@ SUCCÈS de la mise à jour des tables manquantes.</translation>
     </message>
     <message>
         <source>
- Configuration du fichier &apos;DataBase.cfg&apos; incorrecte :</source>
-        <translation type="unfinished"></translation>
+ Incorrect &apos;DataBase.cfg&apos; Configuration file:</source>
+        <translation type="obsolete">
+Configuration du fichier &apos;DataBase.cfg&apos; incorrecte :</translation>
     </message>
     <message>
         <source>
-       Version exigÃ©e   du fichier &apos;DataBase.cfg&apos; : %1</source>
-        <translation type="unfinished"></translation>
+ &apos;DataBase.cfg&apos; mandatory version: %1</source>
+        <translation type="obsolete">
+      Version exigée   du fichier &apos;DataBase.cfg&apos; :%1</translation>
     </message>
     <message>
         <source>
-       Version actuelle du fichier &apos;DataBase.cfg&apos; : %1</source>
-        <translation type="unfinished"></translation>
+   &apos;DataBase.cfg&apos; current version : %1</source>
+        <translation type="obsolete">
+      Version actuelle du fichier &apos;DataBase.cfg&apos; : %1</translation>
     </message>
     <message>
         <source>
- Version de la base installÃ©e: %1 non Ã   jour, version souhaitÃ©e : %2</source>
-        <translation type="unfinished"></translation>
+ Installed database: %1 not up to date, mandatory version: %2</source>
+        <translation type="obsolete">
+ Version de la base installée: %1 non à jour, version souhaitée : %2</translation>
     </message>
     <message>
-        <source>
- verifyBaseIntegrity() Driver not started</source>
-        <translation type="unfinished"></translation>
+        <source> - no SQL error occurred: </source>
+        <translation> - Aucune erreur SQL n&apos;est survenue : </translation>
     </message>
     <message>
-        <source>
- verifyBaseIntegrity() tables do not match  
-</source>
-        <translation type="unfinished"></translation>
+        <source> - SQL transaction failed; error: </source>
+        <translation> - Erreur de transaction SQL : </translation>
     </message>
     <message>
-        <source>
- WARNING: these tables are not indicated in the configuration file: </source>
-        <translation type="unfinished"></translation>
+        <source> - unknown SQL error: </source>
+        <translation> - Erreur SQL inconnue : </translation>
     </message>
     <message>
-        <source>
-Indexation error: </source>
-        <translation type="unfinished"></translation>
+        <source> - unknown SQL error type: </source>
+        <translation> - erreur SQL de type inconnu : </translation>
+    </message>
+    <message>
+        <source>transaction failed; error</source>
+        <translation>erreur de transaction</translation>
     </message>
 </context>
 <context>
@@ -782,555 +768,555 @@ Indexation error: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>NÂ° d&apos;identification nationale</source>
+        <source>N° d&apos;identification nationale</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>ClÃ© du nÂ° d&apos;identification nationale</source>
+        <source>Clé du n° d&apos;identification nationale</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Code civilitÃ©</source>
+        <source>Code civilité</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PrÃ©nom du PS</source>
+        <source>Prénom du PS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>NÂ° logique de la situation de facturation du PS</source>
+        <source>N° logique de la situation de facturation du PS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Mode d&apos;exercice (LibÃ©ral, salariÃ©, remplacement, etc..)</source>
+        <source>Mode d&apos;exercice (Libéral, salarié, remplacement, etc..)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>secteur d&apos;activitÃ©</source>
+        <source>secteur d&apos;activité</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>NÂ° d&apos;identification structure</source>
+        <source>N° d&apos;identification structure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>ClÃ© du NÂ° d&apos;identification structure</source>
+        <source>Clé du N° d&apos;identification structure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>NÂ° d&apos;identification de facturation du PS</source>
+        <source>N° d&apos;identification de facturation du PS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>ClÃ© du NÂ° d&apos;identification de facturation du PS</source>
+        <source>Clé du N° d&apos;identification de facturation du PS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>NÂ° d&apos;identification du PS remplaÃ§ant</source>
+        <source>N° d&apos;identification du PS remplaçant</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>ClÃ© du NÂ° d&apos;identification du PS remplaÃ§ant</source>
+        <source>Clé du N° d&apos;identification du PS remplaçant</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Code spÃ©cialitÃ©</source>
+        <source>Code spécialité</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Code agrÃ©ment 1</source>
+        <source>Code agrément 1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Code agrÃ©ment 2</source>
+        <source>Code agrément 2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Code agrÃ©ment 3</source>
+        <source>Code agrément 3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Habilitation Ã  signer une facture</source>
+        <source>Habilitation à signer une facture</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Habilitation Ã  signer un lot</source>
+        <source>Habilitation à signer un lot</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>DonnÃ©es Carte Vitale et AssurÃ©</source>
+        <source>Données Carte Vitale et Assuré</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>NÂ° de sÃ©rie de la carte Vitale</source>
+        <source>N° de série de la carte Vitale</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Type d&apos;identification du porteur de la carte (assurÃ©, ou ayant droit)</source>
+        <source>Type d&apos;identification du porteur de la carte (assuré, ou ayant droit)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>NÂ° national d&apos;immatriculation : NIR</source>
+        <source>N° national d&apos;immatriculation : NIR</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>ClÃ© du NIR</source>
+        <source>Clé du NIR</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Code rÃ©gime</source>
+        <source>Code régime</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>DonnÃ©es BÃ©nÃ©ficiaire et pÃ©riodes de droits</source>
+        <source>Données Bénéficiaire et périodes de droits</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Nom usuel du bÃ©nÃ©ficiaire</source>
+        <source>Nom usuel du bénéficiaire</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Nom patronymique du bÃ©nÃ©ficiaire</source>
+        <source>Nom patronymique du bénéficiaire</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PrÃ©nom du bÃ©nÃ©ficiaire</source>
+        <source>Prénom du bénéficiaire</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Date de naissance du bÃ©nÃ©ficiaire</source>
+        <source>Date de naissance du bénéficiaire</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>QualitÃ© (lien de parentÃ©)</source>
+        <source>Qualité (lien de parenté)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Nombre de pÃ©riodes de droits AMO</source>
+        <source>Nombre de périodes de droits AMO</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Date de dÃ©but des droits AMO</source>
+        <source>Date de début des droits AMO</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Nombre de pÃ©riodes de droits Mutuelle</source>
+        <source>Nombre de périodes de droits Mutuelle</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Date de dÃ©but des droits Mutuelle</source>
+        <source>Date de début des droits Mutuelle</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Nombre de pÃ©riodes de code couverture</source>
+        <source>Nombre de périodes de code couverture</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Date de dÃ©but code couverture</source>
+        <source>Date de début code couverture</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>DonnÃ©es AssurÃ© (1 occurence)</source>
+        <source>Données Assuré (1 occurence)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Date de fin de validitÃ© de la carte Vitale</source>
+        <source>Date de fin de validité de la carte Vitale</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>DonnÃ©es administration carte RUF1</source>
+        <source>Données administration carte RUF1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>DonnÃ©es administration carte RUF2</source>
+        <source>Données administration carte RUF2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>DonnÃ©es RUF administration</source>
+        <source>Données RUF administration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Type d&apos;identification du porteur de carte (assurÃ© ou ayant droit)</source>
+        <source>Type d&apos;identification du porteur de carte (assuré ou ayant droit)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>DonnÃ©es RUF Famille</source>
+        <source>Données RUF Famille</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Service AMO Famille (0 Ã  1 occurence)</source>
+        <source>Service AMO Famille (0 à 1 occurence)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Date de dÃ©but du service AMO Famille</source>
+        <source>Date de début du service AMO Famille</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>DonnÃ©es Accident du Travail (0 Ã  1 occurence)</source>
+        <source>Données Accident du Travail (0 à 1 occurence)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Code AT BGDH (ce champ est non renseignÃ© pour la premiÃ¨re occurrence)</source>
+        <source>Code AT BGDH (ce champ est non renseigné pour la première occurrence)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Identifiant AT (ce champ est non renseignÃ© pour la premiÃ¨re occurrence)</source>
+        <source>Identifiant AT (ce champ est non renseigné pour la première occurrence)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Code AT1 BGDH (Code Budget Global Des HÃ´pitaux)</source>
+        <source>Code AT1 BGDH (Code Budget Global Des Hôpitaux)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Code AT2 BGDH (Code Budget Global Des HÃ´pitaux)</source>
+        <source>Code AT2 BGDH (Code Budget Global Des Hôpitaux)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>DonnÃ©es BÃ©nÃ©ficiaire (1 Ã  6 occurences)</source>
+        <source>Données Bénéficiaire (1 à 6 occurences)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Adresse ligne 1 (chez..., NÂ° appt, ou de boÃ®te Ã  lettres, escalier, couloir, Ã©tage)</source>
+        <source>Adresse ligne 1 (chez..., N° appt, ou de boîte à lettres, escalier, couloir, étage)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Adresse ligne 2 (rÃ©sidence, bÃ¢timent, immeuble, tour, entrÃ©e)</source>
+        <source>Adresse ligne 2 (résidence, bâtiment, immeuble, tour, entrée)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Adresse ligne 3 (NÂ° et libellÃ© de la voie)</source>
+        <source>Adresse ligne 3 (N° et libellé de la voie)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Adresse ligne 5 (code postal et localitÃ©)</source>
+        <source>Adresse ligne 5 (code postal et localité)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>NIR certifiÃ©</source>
+        <source>NIR certifié</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>ClÃ© du NIR certifiÃ©</source>
+        <source>Clé du NIR certifié</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Rang de naissance du bÃ©nÃ©ficiaire</source>
+        <source>Rang de naissance du bénéficiaire</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>QualitÃ© (lien de parentÃ© entre l&apos;ayant-droit et l&apos;assurÃ©)</source>
+        <source>Qualité (lien de parenté entre l&apos;ayant-droit et l&apos;assuré)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Code service AMO bÃ©nÃ©ficiaire (00 Pas de service sinon CMU GÃ©rÃ©e par 01-AMO 02-AMC-AMO 03-AMC 10-Sortant)</source>
+        <source>Code service AMO bénéficiaire (00 Pas de service sinon CMU Gérée par 01-AMO 02-AMC-AMO 03-AMC 10-Sortant)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Date de dÃ©but de service AMO bÃ©nÃ©ficiaire</source>
+        <source>Date de début de service AMO bénéficiaire</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Date de fin de service AMO bÃ©nÃ©ficiaire</source>
+        <source>Date de fin de service AMO bénéficiaire</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>DonnÃ©es RUF AMO bÃ©nÃ©ficiaire</source>
+        <source>Données RUF AMO bénéficiaire</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PÃ©riode de droits AMO (0 Ã  3 occurences)</source>
+        <source>Période de droits AMO (0 à 3 occurences)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Date de dÃ©but droits AMO</source>
+        <source>Date de début droits AMO</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PÃ©riode de code couverture (0 Ã  7 occurences)</source>
+        <source>Période de code couverture (0 à 7 occurences)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>DonnÃ©es Mutuelle (0 Ã  1 occurence)</source>
+        <source>Données Mutuelle (0 à 1 occurence)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Type de services associÃ©s</source>
+        <source>Type de services associés</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Services associÃ©s au contrat</source>
+        <source>Services associés au contrat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PÃ©riode de droits Mutuelle (0 Ã  3 occurences par bÃ©nÃ©ficiaire)</source>
+        <source>Période de droits Mutuelle (0 à 3 occurences par bénéficiaire)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Date de dÃ©but droits Mutuelle</source>
+        <source>Date de début droits Mutuelle</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>DonnÃ©es de la ComplÃ©mentaire de santÃ© (0 Ã  1 occurence par bÃ©nÃ©ficiaire)</source>
+        <source>Données de la Complémentaire de santé (0 à 1 occurence par bénéficiaire)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>NumÃ©ro complÃ©mentaire B2</source>
+        <source>Numéro complémentaire B2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>NumÃ©ro complÃ©mentaire EDI</source>
+        <source>Numéro complémentaire EDI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>NumÃ©ro d&apos;adhÃ©rent AMC</source>
+        <source>Numéro d&apos;adhérent AMC</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Indicateur de traitement AMC (service acceptÃ© par AMC : Tiers payant, CMU, DRE etc..)</source>
+        <source>Indicateur de traitement AMC (service accepté par AMC : Tiers payant, CMU, DRE etc..)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Date de dÃ©but de validitÃ© de prÃ©sence des donnÃ©es AMC</source>
+        <source>Date de début de validité de présence des données AMC</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Date de fin de validitÃ© de prÃ©sence des donnÃ©es AMC</source>
+        <source>Date de fin de validité de présence des données AMC</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Identifiant d&apos;hÃ´te</source>
+        <source>Identifiant d&apos;hôte</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Zone Commune (0 Ã  1 occurence par bÃ©nÃ©ficiaire)</source>
+        <source>Zone Commune (0 à 1 occurence par bénéficiaire)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Zone commune complÃ©mentaire (RUF bÃ©nÃ©ficiaire)</source>
+        <source>Zone commune complémentaire (RUF bénéficiaire)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>En-tÃªte de configuration</source>
+        <source>En-tête de configuration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>NÂ° de version du SSV</source>
+        <source>N° de version du SSV</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>NÂ° de version du GALSS</source>
+        <source>N° de version du GALSS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>NÂ° de version du PSS</source>
+        <source>N° de version du PSS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>NÂ° de sÃ©rie du lecteur</source>
+        <source>N° de série du lecteur</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>NÂ° de version du logiciel du lecteur</source>
+        <source>N° de version du logiciel du lecteur</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>NÂ° de version de la bibliothÃ¨que des SSV</source>
+        <source>N° de version de la bibliothèque des SSV</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>LibellÃ© du fichier des tables des SSV</source>
+        <source>Libellé du fichier des tables des SSV</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>NÂ° de version du fichier des tables des SSV</source>
+        <source>N° de version du fichier des tables des SSV</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Code rÃ©gime des organismes destinataires contenus dans le fichier</source>
+        <source>Code régime des organismes destinataires contenus dans le fichier</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>NÂ° version (RUF)</source>
+        <source>N° version (RUF)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>NÂ° de version de la bibliothÃ¨que des fonctions du GALSS</source>
+        <source>N° de version de la bibliothèque des fonctions du GALSS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>NÂ° de version du serveur des fonctions du GALSS</source>
+        <source>N° de version du serveur des fonctions du GALSS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>NÂ° de version du client des fonctions du GALSS</source>
+        <source>N° de version du client des fonctions du GALSS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>NÂ° de version de la bibliothÃ¨que de gestion du fichier de configuration du GALSS</source>
+        <source>N° de version de la bibliothèque de gestion du fichier de configuration du GALSS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>LibellÃ© descriptif du composant</source>
+        <source>Libellé descriptif du composant</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>NÂ° de version du composant</source>
+        <source>N° de version du composant</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>NÂ° de facture</source>
+        <source>N° de facture</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Nature d&apos;opÃ©ration</source>
+        <source>Nature d&apos;opération</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Date d&apos;Ã©laboration de la facture</source>
+        <source>Date d&apos;élaboration de la facture</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>NÂ° de facture rectifiÃ©</source>
+        <source>N° de facture rectifié</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Date d&apos;Ã©laboration de la facture rectifiÃ©e</source>
+        <source>Date d&apos;élaboration de la facture rectifiée</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Groupe Identification du Professionnel de santÃ©</source>
+        <source>Groupe Identification du Professionnel de santé</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>NÂ° d&apos;identification de facturation du Professionnel de santÃ©</source>
+        <source>N° d&apos;identification de facturation du Professionnel de santé</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>ClÃ© du NÂ° d&apos;identification de facturation du Professionnel de santÃ©</source>
+        <source>Clé du N° d&apos;identification de facturation du Professionnel de santé</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Nom du Professionnel de santÃ©</source>
+        <source>Nom du Professionnel de santé</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PrÃ©nom du Professionnel de santÃ©</source>
+        <source>Prénom du Professionnel de santé</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Code conventionnel sous lequel exerce le Professionnel de santÃ©</source>
+        <source>Code conventionnel sous lequel exerce le Professionnel de santé</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Conditions d&apos;exercice (LibÃ©ral L  SalariÃ© S)</source>
+        <source>Conditions d&apos;exercice (Libéral L  Salarié S)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Groupe Identification du bÃ©nÃ©ficiaire</source>
+        <source>Groupe Identification du bénéficiaire</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Type d&apos;identification du bÃ©nÃ©ficiaire</source>
+        <source>Type d&apos;identification du bénéficiaire</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>NÂ° National d&apos;immatriculation NIR</source>
+        <source>N° National d&apos;immatriculation NIR</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>QualitÃ©</source>
+        <source>Qualité</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Code couverture code ALD Code situation (optionnel en non sÃ©curisÃ©)</source>
+        <source>Code couverture code ALD Code situation (optionnel en non sécurisé)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Code de prÃ©sentation du carnet MÃ©dical</source>
+        <source>Code de présentation du carnet Médical</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>NÂ° Identification de structure dans laquelle le professionnel de santÃ© exerce</source>
+        <source>N° Identification de structure dans laquelle le professionnel de santé exerce</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>ClÃ© du NÂ° Identification de structure</source>
+        <source>Clé du N° Identification de structure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Groupe Identification RemplaÃ§ant</source>
+        <source>Groupe Identification Remplaçant</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>NÂ° d&apos;identification de facturation du Professionnel de santÃ© RemplaÃ§ant</source>
+        <source>N° d&apos;identification de facturation du Professionnel de santé Remplaçant</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>ClÃ© du NÂ° d&apos;identification de facturation</source>
+        <source>Clé du N° d&apos;identification de facturation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Nom du Professionnel de santÃ© RemplaÃ§ant</source>
+        <source>Nom du Professionnel de santé Remplaçant</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PrÃ©nom du Professionnel de santÃ© RemplaÃ§ant</source>
+        <source>Prénom du Professionnel de santé Remplaçant</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Indicateur de signature (facture Ã©laborÃ©e par un remplaÃ§ant ou sous sa responsabilitÃ©) </source>
+        <source>Indicateur de signature (facture élaborée par un remplaçant ou sous sa responsabilité) </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>NÂ° national d&apos;immatriculation individu</source>
+        <source>N° national d&apos;immatriculation individu</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>ClÃ© du NÂ° national d&apos;immatriculation individu</source>
+        <source>Clé du N° national d&apos;immatriculation individu</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Groupe ArrÃªt de travail prescrit</source>
+        <source>Groupe Arrêt de travail prescrit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Nombre de jours d&apos;arrÃªt de travail prescrit</source>
+        <source>Nombre de jours d&apos;arrêt de travail prescrit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Date de fin d&apos;arrÃªt de travail</source>
+        <source>Date de fin d&apos;arrêt de travail</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Groupe Organismes AMC (complÃ©mentaire)</source>
+        <source>Groupe Organismes AMC (complémentaire)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>NÂ° organisme complÃ©mentaire (carte vitale ou autre support)</source>
+        <source>N° organisme complémentaire (carte vitale ou autre support)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>NÂ° d&apos;adhÃ©rent Ã  un organisme complÃ©mentaire</source>
+        <source>N° d&apos;adhérent à un organisme complémentaire</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>DonÃ©es AMC Zone 1</source>
+        <source>Donées AMC Zone 1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>DonÃ©es AMC Zone 2</source>
+        <source>Donées AMC Zone 2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>NÂ° organisme complÃ©mentaire EDI (carte vitale ou autre support)</source>
+        <source>N° organisme complémentaire EDI (carte vitale ou autre support)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Identifiant de l&apos;assurÃ© AMC (carte vitale ou autre support AMC)</source>
+        <source>Identifiant de l&apos;assuré AMC (carte vitale ou autre support AMC)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Zone supplÃ©mentaire non certifiÃ©e (CertifiÃ©e ou non certifiÃ©e si type de contrat 99</source>
+        <source>Zone supplémentaire non certifiée (Certifiée ou non certifiée si type de contrat 99</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1605,371 +1591,371 @@ Indexation error: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>MÃ©decine gÃ©nÃ©rale</source>
+        <source>Médecine générale</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>AnesthÃ©sie rÃ©animation</source>
+        <source>Anesthésie réanimation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Chirurgie gÃ©nÃ©rale</source>
+        <source>Chirurgie générale</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Dermato-vÃ©nÃ©rologie</source>
+        <source>Dermato-vénérologie</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>GynÃ©cologie-obstÃ©trique</source>
+        <source>Gynécologie-obstétrique</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Gastro-entÃ©ro-hÃ©patologie</source>
+        <source>Gastro-entéro-hépatologie</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>MÃ©decine interne</source>
+        <source>Médecine interne</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PÃ©diatrie</source>
+        <source>Pédiatrie</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Masseur-kinÃ©sithÃ©rapeute</source>
+        <source>Masseur-kinésithérapeute</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PÃ©dicure-podologue</source>
+        <source>Pédicure-podologue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Laboratoire d&apos;analyses mÃ©dicales</source>
+        <source>Laboratoire d&apos;analyses médicales</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>RÃ©Ã©ducation-rÃ©adaptation</source>
+        <source>Rééducation-réadaptation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>NÃ©phrologie</source>
+        <source>Néphrologie</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Chirurgie dentaire spÃ©cialitÃ© O.D.F</source>
+        <source>Chirurgie dentaire spécialité O.D.F</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Directeur de laboratoire mÃ©decin</source>
+        <source>Directeur de laboratoire médecin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Laboratoire d&apos;analyses de biologie mÃ©dicale polyvalent</source>
+        <source>Laboratoire d&apos;analyses de biologie médicale polyvalent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Chirurgie orthopÃ©dique</source>
+        <source>Chirurgie orthopédique</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Endocrinologie mÃ©tabolisme</source>
+        <source>Endocrinologie métabolisme</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Chirurgie plastique et esthÃ©tique</source>
+        <source>Chirurgie plastique et esthétique</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Chirurgie viscÃ©rale et digestive</source>
+        <source>Chirurgie viscérale et digestive</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>GynÃ©cologie mÃ©dicale</source>
+        <source>Gynécologie médicale</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>HÃ©matologie</source>
+        <source>Hématologie</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>MÃ©decine nuclÃ©aire</source>
+        <source>Médecine nucléaire</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Oncologie mÃ©dicale</source>
+        <source>Oncologie médicale</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Oncologie radiothÃ©rapique</source>
+        <source>Oncologie radiothérapique</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>RadiothÃ©rapie</source>
+        <source>Radiothérapie</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>ObstÃ©trique</source>
+        <source>Obstétrique</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>GÃ©nÃ©tique mÃ©dicale</source>
+        <source>Génétique médicale</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Carte de Professionnel de SantÃ© (CPS)</source>
+        <source>Carte de Professionnel de Santé (CPS)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Carte de Professionnel de SantÃ© en Formation (CPF)</source>
+        <source>Carte de Professionnel de Santé en Formation (CPF)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Carte de Personnel d&apos;Etablissement de SantÃ© (CDE/CPE)</source>
+        <source>Carte de Personnel d&apos;Etablissement de Santé (CDE/CPE)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Carte de Personnel AutorisÃ© (CPA)</source>
+        <source>Carte de Personnel Autorisé (CPA)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>LibÃ©ral, exploitant ou commerÃ§ant</source>
+        <source>Libéral, exploitant ou commerçant</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>SalariÃ©</source>
+        <source>Salarié</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>RemplaÃ§ant</source>
+        <source>Remplaçant</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Non rÃ©tribuÃ©</source>
+        <source>Non rétribué</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>ADELI-Rang/NÂ° de registre</source>
+        <source>ADELI-Rang/N° de registre</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>FINESS/NÂ° de registre</source>
+        <source>FINESS/N° de registre</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>SIREN/NÂ° de registre</source>
+        <source>SIREN/N° de registre</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>SIRET/NÂ° de registre</source>
+        <source>SIRET/N° de registre</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>SIRET/Nom Application/Nom Serveur/NÂ° Carte</source>
+        <source>SIRET/Nom Application/Nom Serveur/N° Carte</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>FINESS/Nom Application/Nom Serveur/NÂ° Carte</source>
+        <source>FINESS/Nom Application/Nom Serveur/N° Carte</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>ADELI-Rang/Nom Application/Nom Serveur/NÂ° Carte</source>
+        <source>ADELI-Rang/Nom Application/Nom Serveur/N° Carte</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Carte de Professionnel ou Personnel de SantÃ©</source>
+        <source>Carte de Professionnel ou Personnel de Santé</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Carte patient/assurÃ©</source>
+        <source>Carte patient/assuré</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Module de SÃ©curitÃ©</source>
+        <source>Module de Sécurité</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Carte test de Professionnel ou Personnel de SantÃ©</source>
+        <source>Carte test de Professionnel ou Personnel de Santé</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Carte test patient/assurÃ©</source>
+        <source>Carte test patient/assuré</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Module de SÃ©curitÃ© de test</source>
+        <source>Module de Sécurité de test</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Non conventionnÃ©</source>
+        <source>Non conventionné</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>ConventionnÃ©</source>
+        <source>Conventionné</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>ConventionnÃ© avec dÃ©passement</source>
+        <source>Conventionné avec dépassement</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>ConventionnÃ© avec honoraires libres</source>
+        <source>Conventionné avec honoraires libres</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Etablissements publics de santÃ© (y compris SAMU - SMUR)</source>
+        <source>Etablissements publics de santé (y compris SAMU - SMUR)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>HÃ´pitaux militaires</source>
+        <source>Hôpitaux militaires</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Etablis. de santÃ© privÃ©s participant ï¿½  l&apos;exÃ©cution du service public (PSPH)</source>
+        <source>Etablis. de santé privés participant �  l&apos;exécution du service public (PSPH)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Etablissements de santÃ© privÃ©s ï¿½  but non lucratif (non PSPH)</source>
+        <source>Etablissements de santé privés �  but non lucratif (non PSPH)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Dispensaires de soins et autres Ã©tablis sans hospitalisation, centres de santÃ©</source>
+        <source>Dispensaires de soins et autres établis sans hospitalisation, centres de santé</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Autres structures de soins relevant du Service de SantÃ© des ArmÃ©es</source>
+        <source>Autres structures de soins relevant du Service de Santé des Armées</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Cabinets libÃ©raux de groupe ou associations</source>
+        <source>Cabinets libéraux de groupe ou associations</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Exercice en sociÃ©tÃ©</source>
+        <source>Exercice en société</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Transports sanitaires privÃ©s (sociÃ©tÃ©s d&apos;ambulance)</source>
+        <source>Transports sanitaires privés (sociétés d&apos;ambulance)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Entreprises d&apos;intÃ©rim</source>
+        <source>Entreprises d&apos;intérim</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Etablissements de soins et de prÃ©vention</source>
+        <source>Etablissements de soins et de prévention</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PrÃ©vention et soins en entreprise (y compris mÃ©decine du travail)</source>
+        <source>Prévention et soins en entreprise (y compris médecine du travail)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>SantÃ© scolaire et universitaire</source>
+        <source>Santé scolaire et universitaire</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Etablissements pour personnes handicapÃ©es ou en difficultÃ©</source>
+        <source>Etablissements pour personnes handicapées ou en difficulté</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Etablissements pour personnes Ã¢gÃ©es</source>
+        <source>Etablissements pour personnes âgées</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Etablissements et services sociaux d&apos;aide ï¿½  la famille</source>
+        <source>Etablissements et services sociaux d&apos;aide �  la famille</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Etablissements de formation (Ã©coles) et d&apos;enseignement (universitÃ©s)</source>
+        <source>Etablissements de formation (écoles) et d&apos;enseignement (universités)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Etablissements d&apos;hÃ©bergement et de rÃ©adaptation</source>
+        <source>Etablissements d&apos;hébergement et de réadaptation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Recherche dans un organisme public ou ï¿½  but non lucratif (INSERM, ORS, CNRS...)</source>
+        <source>Recherche dans un organisme public ou �  but non lucratif (INSERM, ORS, CNRS...)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Expertise SociÃ©tÃ©s d&apos;Assurance privÃ©es</source>
+        <source>Expertise Sociétés d&apos;Assurance privées</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Organismes de SÃ©curitÃ© Sociale (tous rÃ©gimes)</source>
+        <source>Organismes de Sécurité Sociale (tous régimes)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>MinistÃ¨re des Affaires Sociales et de la SantÃ© et Services dÃ©concentrÃ©s</source>
+        <source>Ministère des Affaires Sociales et de la Santé et Services déconcentrés</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>CollectivitÃ©s territoriales</source>
+        <source>Collectivités territoriales</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Laboratoires d&apos;analyses mÃ©dicales extra-hospitaliÃ¨res</source>
+        <source>Laboratoires d&apos;analyses médicales extra-hospitalières</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Autres Ã©tablis. sanitaires (CTS, stockage produits humains, centres antipoison)</source>
+        <source>Autres établis. sanitaires (CTS, stockage produits humains, centres antipoison)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Production et commerce en gros de produits ï¿½  usage mÃ©dical</source>
+        <source>Production et commerce en gros de produits �  usage médical</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Commerce de dÃ©tail, biens ï¿½  usage mÃ©dical (lunetterie, orthopÃ©die et prothÃ¨ses)</source>
+        <source>Commerce de détail, biens �  usage médical (lunetterie, orthopédie et prothèses)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Autres secteurs d&apos;activitÃ© (y compris activitÃ©s non mÃ©dicales)</source>
+        <source>Autres secteurs d&apos;activité (y compris activités non médicales)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Secteur non dÃ©fini</source>
+        <source>Secteur non défini</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>AumÃ´nier</source>
+        <source>Aumônier</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>EvÃªque</source>
+        <source>Evêque</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>GÃ©nÃ©ral</source>
+        <source>Général</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>IngÃ©nieur</source>
+        <source>Ingénieur</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>MaÃ®tre</source>
+        <source>Maître</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>MarÃ©chal</source>
+        <source>Maréchal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>MÃ©decin</source>
+        <source>Médecin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PrÃ©fet</source>
+        <source>Préfet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PrÃ©sident</source>
+        <source>Président</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Sous-PrÃ©fet</source>
+        <source>Sous-Préfet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1998,18 +1984,12 @@ Indexation error: </source>
  Le délimiteur de début &quot;&apos;&quot; est introuvable à la ligne N° : </translation>
     </message>
     <message>
+        <source>      ==&gt; la mention %1 est non trouvée à la ligne N°: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>
  Fichier de configuration des bases absent ou vide </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Syntax Error: SetConfBaseGetValue()
- End delimiter &quot;&apos;&quot;  not find at line NÂ°: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Syntax Error: SetConfBaseGetValue()
- Start delimiter &quot;&apos;&quot;  not find at line NÂ°: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2018,10 +1998,6 @@ Erreur de syntaxe : C_DBVarDrTux::SetConfBase()
 le fichier de configuration des bases &apos;DataBase.cfg&apos;
 comporte les erreurs suivantes : 
 </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>      ==&gt; la mention %1 est non trouvÃ©e Ã  la ligne NÂ°: %2</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2079,16 +2055,8 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>C_Dlg_DoList</name>
     <message>
-        <source>Liste de choix</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Confirmer</source>
-        <translation type="unfinished">Confirme</translation>
-    </message>
-    <message>
-        <source>Annuler</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Confirme</translation>
     </message>
     <message>
         <source>1</source>
@@ -2101,6 +2069,45 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>3</source>
         <translation>3</translation>
+    </message>
+    <message>
+        <source>Choice list</source>
+        <translation>Liste de choix</translation>
+    </message>
+    <message>
+        <source>Confirm</source>
+        <translation>Confirmer</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Annuler</translation>
+    </message>
+</context>
+<context>
+    <name>C_Dlg_PlagesDispo</name>
+    <message>
+        <source>Date</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Heure début</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Heure fin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Durée</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Semaine</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DateCachée</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2175,7 +2182,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Add a type of appointment</source>
-        <translation>Ajouter un type de rendez-vous</translation>
+        <translation type="unfinished">Ajouter un type de rendez-vous</translation>
     </message>
     <message>
         <source>Delete a type of appointment</source>
@@ -2192,7 +2199,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;° Select the type of appointment to attribute to the appointment by simple-clicking on the line of this type.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;° To modify the label of an appointment, double-click on its label.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;° To modify the colour of a type of appointment, double-click on the box of the colour.&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="obsolete">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+        <translation type="unfinished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:600; font-style:normal;&quot;&gt;
@@ -2259,12 +2266,60 @@ p, li { white-space: pre-wrap; }
         <source> minutes</source>
         <translation> minutes</translation>
     </message>
+    <message>
+        <source>Name</source>
+        <translation>Nom</translation>
+    </message>
+    <message>
+        <source>First name</source>
+        <translation>Prénom</translation>
+    </message>
+    <message>
+        <source>Birth</source>
+        <translation>Naissance</translation>
+    </message>
+    <message>
+        <source>Phone</source>
+        <translation>Téléphone</translation>
+    </message>
 </context>
 <context>
     <name>C_Frm_Agenda</name>
     <message>
         <source>Schedule not available for this user: %1</source>
         <translation>Agenda non disponible pour cet utilisateur : %1</translation>
+    </message>
+    <message>
+        <source>Available dates for %1</source>
+        <translation>Dates disponibles pour %1</translation>
+    </message>
+    <message>
+        <source>Set new appointment for %1 at %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error in Google transaction</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Error C_Frm_Agenda::toGoogle() : error in Google transaction:&lt;/b&gt;&lt;br&gt;%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Google connection failled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Google connection failled for Agenda for MedinTux.&lt;/b&gt;&lt;br&gt; </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;Developed using &lt;a href=&quot;http://qt.nokia.com&quot;&gt;Qt </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> framework&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;Email : &lt;a href=&quot;mailto:roland-sevin@medintux.org&quot;&gt;roland-sevin@medintux.org&lt;/a&gt;&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2529,6 +2584,30 @@ durée maximum possible :</translation>
     </message>
     <message>
         <source>recreate not blocked : %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Push to Google Agenda.&lt;/font&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>goto this week</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error in Google transaction</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Error in Google transation:&lt;/b&gt;&lt;br&gt;%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>=11=#Agenda/NewDoc.png#Afficher aujourd&apos;hui</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set new appointment for %1 at %2</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3206,7 +3285,7 @@ Mode nomade conservé.</translation>
     </message>
     <message>
         <source>Folder creation mode</source>
-        <translation>Mode de creation dossiers</translation>
+        <translation type="obsolete">Mode de creation dossiers</translation>
     </message>
     <message>
         <source>Research by name, first name and birth date: </source>
@@ -3551,251 +3630,363 @@ pas de dossier valide sélectionné.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>1- Mettre Ã  jour l&apos;identitÃ© avec le nom et prÃ©nom de l&apos;ayant droit : </source>
+        <source>CONNECTION AU SERVEUR NOMADE NON POSSIBLE</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>2- Mettre Ã  jour l&apos;identitÃ© avec le nom de naissance : </source>
+        <source> &lt;b&gt;&lt;u&gt;ATTENTION&lt;/b&gt;&lt;/u&gt; ! la connexion au serveur nomade &lt;br&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>4- Mettre Ã  jour l&apos;identitÃ© avec l&apos;adresse : </source>
+        <source>est non possible.&lt;br&gt;&lt;u&gt;Erreur :&lt;/u&gt;&lt;br&gt;&lt;pre&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>5- Mettre Ã  jour l&apos;identitÃ© avec le code postal : </source>
+        <source>Veuillez vérifier vos branchements et paramètres.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>6- Mettre Ã  jour l&apos;identitÃ© avec la ville : </source>
+        <source>1- Mettre à jour l&apos;identité avec le nom et prénom de l&apos;ayant droit : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>7- Mettre Ã  jour l&apos;identitÃ© avec le nom et prÃ©nom de l&apos;assurÃ© : </source>
+        <source>2- Mettre à jour l&apos;identité avec le nom de naissance : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>10- Mettre Ã  jour l&apos;identitÃ© avec le type d&apos;ayant droit : </source>
+        <source>4- Mettre à jour l&apos;identité avec l&apos;adresse : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>11- Mettre Ã  jour l&apos;identitÃ© avec toutes les donnÃ©es de la carte vitale </source>
+        <source>5- Mettre à jour l&apos;identité avec le code postal : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>23- Rechercher avec le numÃ©ro de SS : </source>
+        <source>6- Mettre à jour l&apos;identité avec la ville : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>27- Rechercher avec le nom et prÃ©nom de l&apos;ayant droit : </source>
+        <source>7- Mettre à jour l&apos;identité avec le nom et prénom de l&apos;assuré : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>29- Rechercher avec le prÃ©nom de l&apos;ayant droit : </source>
+        <source>10- Mettre à jour l&apos;identité avec le type d&apos;ayant droit : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>33- Utiliser les donnÃ©es de la carte Vitale : %1 pour remplir celles du patient en cours de crÃ©ation</source>
+        <source>11- Mettre à jour l&apos;identité avec toutes les données de la carte vitale </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>31- CrÃ©er un nouveau dossier avec l&apos;identitÃ© sÃ©lectionnÃ©e de la carte vitale : </source>
+        <source>23- Rechercher avec le numéro de SS : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>32- Attribuer les Ã©lÃ©ments de cette carte vitale au patient sÃ©lectionnÃ© : </source>
+        <source>27- Rechercher avec le nom et prénom de l&apos;ayant droit : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;- le nom prÃ©nom doit changer pour  : </source>
+        <source>29- Rechercher avec le prénom de l&apos;ayant droit : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;- le numÃ©ro de SS doit changer pour  :</source>
+        <source>33- Utiliser les données de la carte Vitale : %1 pour remplir celles du patient en cours de création</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>ATTENTION OPÃRATION Ã HAUT RISQUE &lt;/font&gt;&lt;/b&gt;</source>
+        <source>31- Créer un nouveau dossier avec l&apos;identité sélectionnée de la carte vitale : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;br&gt; nÃ©e le : &lt;b&gt;&lt;font color=&quot;#1200ff&quot;&gt;</source>
+        <source>32- Attribuer les éléments de cette carte vitale au patient sélectionné : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;br&gt; ayant pour numÃ©ro de SS : &lt;b&gt;</source>
+        <source>&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;- le nom prénom doit changer pour  : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>diffÃ¨re &lt;b&gt;&lt;font color=&quot;#e80d0d&quot;&gt;du&lt;/font&gt;&lt;/b&gt; critÃ¨re suivant Ã  modifier :</source>
+        <source>&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;- le numéro de SS doit changer pour  :</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source> diffÃ¨re d&apos;au moins des &lt;b&gt;&lt;font color=&quot;#e80d0d&quot;&gt;</source>
+        <source>ATTENTION OPÉRATION À HAUT RISQUE &lt;/font&gt;&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;/font&gt;&lt;/b&gt; critÃ¨res suivants Ã  modifier :</source>
+        <source>&lt;br&gt; née le : &lt;b&gt;&lt;font color=&quot;#1200ff&quot;&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;hr&gt;&lt;br&gt;semble Ãªtre la mÃªme que celle de la carte Vitale&lt;br&gt;nom, prÃ©nom, numÃ©ro de SS, date de naissance identiques.</source>
+        <source>&lt;br&gt; ayant pour numéro de SS : &lt;b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;br&gt;&lt;hr&gt;confirmez-vous tout de mÃªme cette opÃ©ration ? </source>
+        <source>diffère &lt;b&gt;&lt;font color=&quot;#e80d0d&quot;&gt;du&lt;/font&gt;&lt;/b&gt; critère suivant à modifier :</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;=&gt; en sachant que &lt;b&gt;ce patient a dÃ©jÃ  probablement Ã©tÃ© crÃ©Ã© par une carte vitale&lt;/b&gt;. </source>
+        <source> diffère d&apos;au moins des &lt;b&gt;&lt;font color=&quot;#e80d0d&quot;&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;=&gt; en sachant qu&apos;un changement de nom et prÃ©nom est suspect,</source>
+        <source>&lt;/font&gt;&lt;/b&gt; critères suivants à modifier :</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source> car tous &lt;b&gt;les documents du dossier en cours vont Ãªtre attribuÃ©s au nouveau nom&lt;/b&gt;. </source>
+        <source>&lt;hr&gt;&lt;br&gt;semble être la même que celle de la carte Vitale&lt;br&gt;nom, prénom, numéro de SS, date de naissance identiques.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>ÊTES-VOUS CERTAIN DE CETTE OPÉRATION ? &lt;/font&gt;&lt;/b&gt;</source>
+        <source>&lt;br&gt;&lt;hr&gt;confirmez-vous tout de même cette opération ? </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;hr&gt;&lt;br&gt; il est encore temps d&apos;annuler cette opÃ©ration.</source>
+        <source>&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;=&gt; en sachant que &lt;b&gt;ce patient a déjà probablement été créé par une carte vitale&lt;/b&gt;. </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;br&gt; qui sera non rÃ©versible aprÃ¨s confirmation.</source>
+        <source>&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;=&gt; en sachant qu&apos;un changement de nom et prénom est suspect,</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;br&gt;&lt;hr&gt;confirmez vous de nouveau cette opÃ©ration ? </source>
+        <source> car tous &lt;b&gt;les documents du dossier en cours vont être attribués au nouveau nom&lt;/b&gt;. </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Attribution d&apos;une carte Vitale Ã  une identitÃ© patient</source>
+        <source>�TES-VOUS CERTAIN DE CETTE OP�RATION ? &lt;/font&gt;&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>BÃ©nÃ©ficiaire/NumÃ©ro</source>
+        <source>&lt;hr&gt;&lt;br&gt; il est encore temps d&apos;annuler cette opération.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>/Code_qualitÃ©</source>
+        <source>&lt;br&gt; qui sera non réversible après confirmation.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>/PrÃ©nom</source>
+        <source>&lt;br&gt;&lt;hr&gt;confirmez vous de nouveau cette opération ? </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>/Rang_gÃ©mellaire</source>
+        <source>Attribution d&apos;une carte Vitale à une identité patient</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Carte vitale sans les donnÃ©es de l&apos;assurÃ©, vÃ©rifiez les manuellement.</source>
+        <source>Bénéficiaire/Numéro</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Patient (bÃ©nÃ©ficiaire) Ã¢gÃ© de : </source>
+        <source>/Code_qualité</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Patient (bÃ©nÃ©ficiaire) avec une date de naissance non valide</source>
+        <source>/Prénom</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Rechercher par le numÃ©ro de sÃ©curitÃ© sociale : </source>
+        <source>/Rang_gémellaire</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Associer la carte vitale sÃ©lectionnÃ©e : %1 Ã  ce patient : %2</source>
+        <source>Médico_administratif/Code_régime</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;br /&gt; numÃ©ro de SS : </source>
+        <source>Médico_administratif/Caisse_gestionnaire</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>accÃ©der</source>
+        <source>Médico_administratif/Centre_gestionnaire</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PS/NumÃ©ro</source>
+        <source>Médico_administratif/Code_gestion</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PS/ClÃ©</source>
+        <source>Bénéficiaire/Périodes_AMO_1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PS/PrÃ©nom</source>
+        <source>Bénéficiaire/Périodes_AMO_2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PS/Code_civilitÃ©</source>
+        <source>Carte vitale sans les données de l&apos;assuré, vérifiez les manuellement.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PS/Secteur_activitÃ©</source>
+        <source>Patient (bénéficiaire) âgé de : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PS/NumÃ©ro_identif_structure</source>
+        <source>Patient (bénéficiaire) avec une date de naissance non valide</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PS/ClÃ©_identif_structure</source>
+        <source>Rechercher par le numéro de sécurité sociale : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PS/Code_spÃ©cialitÃ©</source>
+        <source>Associer la carte vitale sélectionnée : %1 à ce patient : %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PS/Code_agrÃ©ment_1</source>
+        <source>&lt;br /&gt; numéro de SS : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PS/Code_agrÃ©ment_2</source>
+        <source>One month  Google Agenda Synchronization.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PS/Code_agrÃ©ment_3</source>
+        <source>Two months Google Agenda Synchronization.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;CrÃ©er</source>
+        <source>Six months Google Agenda Synchronization.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;b&gt;La carte Vitale n&apos;a pas Ã©tÃ© lue pour ce patient !&lt;br&gt;&lt;br&gt;&lt;/b&gt;Que voulez-vous faire : &lt;br&gt;&lt;br&gt;- Annuler et lire la carte Vitale,&lt;br&gt;- Continuer et saisir une feuille de soin en mode DÃ©gradÃ©,&lt;br&gt;- Continuer et saisir une feuille de soin papier ,&lt;br&gt;- Continuer et saisir une facture.&lt;br&gt;</source>
+        <source>Create several appointments for start of week.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Mode dÃ©gradÃ©</source>
+        <source>Day</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Formater les fichiers et TÃ©lÃ©transmettre</source>
+        <source>Display Day</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>TÃ©lÃ©transmission seule</source>
+        <source>Week</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>DÃ©charger le TLA</source>
+        <source>Display Week</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>TÃ©lÃ©tr</source>
+        <source>Month</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>DÃ©char</source>
+        <source>Display Month</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose free space for new appointment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Schedule of previus day</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Schedule of next day</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Schedule of previus week</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Schedule of next week</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>this day</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PS/Numéro</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PS/Clé</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PS/Prénom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PS/Code_civilité</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PS/Secteur_activité</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PS/Numéro_identif_structure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PS/Clé_identif_structure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PS/Code_spécialité</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PS/Code_agrément_1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PS/Code_agrément_2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PS/Code_agrément_3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>L&apos;utilisateur : &lt;b&gt; �</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Créer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>  &gt;&gt; Goto Schedule              </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>  &gt;&gt; Goto Patient list          </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;La carte Vitale n&apos;a pas été lue pour ce patient !&lt;br&gt;&lt;br&gt;&lt;/b&gt;Que voulez-vous faire : &lt;br&gt;&lt;br&gt;- Annuler et lire la carte Vitale,&lt;br&gt;- Continuer et saisir une feuille de soin en mode Dégradé,&lt;br&gt;- Continuer et saisir une feuille de soin papier ,&lt;br&gt;- Continuer et saisir une facture.&lt;br&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mode dégradé</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Formater les fichiers et Télétransmettre</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Télétransmission seule</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Décharger le TLA</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Télétr</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Déchar</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4070,7 +4261,7 @@ un intervenant</translation>
     <message>
         <source>Schedule</source>
         <comment>Schedule</comment>
-        <translation type="obsolete">Agenda</translation>
+        <translation type="unfinished">Agenda</translation>
     </message>
     <message>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -4144,107 +4335,107 @@ dossier</translation>
     </message>
     <message>
         <source>Hide Show Data Medical Design Logo</source>
-        <translation type="obsolete">Afficher - Cacher le logo de Data Medical Design</translation>
+        <translation type="unfinished">Afficher - Cacher le logo de Data Medical Design</translation>
     </message>
     <message>
         <source>I come back an reconnect to the server</source>
-        <translation type="obsolete">J&apos;arrive et me reconnecte au serveur</translation>
+        <translation type="unfinished">J&apos;arrive et me reconnecte au serveur</translation>
     </message>
     <message>
         <source>Print the contents of this page</source>
-        <translation type="obsolete">Imprimer le contenu de cette page</translation>
+        <translation type="unfinished">Imprimer le contenu de cette page</translation>
     </message>
     <message>
         <source>Access Medical data from MedWebTux</source>
-        <translation type="obsolete">Accéder aux données médicales avec MedWebTux</translation>
+        <translation type="unfinished">Accéder aux données médicales avec MedWebTux</translation>
     </message>
     <message>
         <source>Find text entered in the right field</source>
-        <translation type="obsolete">Rechercher le texte saisi ci-contre à droite</translation>
+        <translation type="unfinished">Rechercher le texte saisi ci-contre à droite</translation>
     </message>
     <message>
         <source>Remove all locks</source>
-        <translation type="obsolete">Enlever tous les verrous</translation>
+        <translation type="unfinished">Enlever tous les verrous</translation>
     </message>
     <message>
         <source>Hide Show Users and Schedules</source>
-        <translation type="obsolete">Afficher Cacher les utilisateurs et agendas</translation>
+        <translation type="unfinished">Afficher Cacher les utilisateurs et agendas</translation>
     </message>
     <message>
         <source>New folder</source>
-        <translation type="obsolete">Nouveau dossier</translation>
+        <translation type="unfinished">Nouveau dossier</translation>
     </message>
     <message>
         <source>Files</source>
-        <translation type="obsolete">&amp;Fichier</translation>
+        <translation type="unfinished">&amp;Fichier</translation>
     </message>
     <message>
         <source>Display and Windows</source>
-        <translation type="obsolete">Affichage et fenêtres</translation>
+        <translation type="unfinished">Affichage et fenêtres</translation>
     </message>
     <message>
         <source>Help</source>
-        <translation type="obsolete">Aide</translation>
+        <translation type="unfinished">Aide</translation>
     </message>
     <message>
         <source>Access to medical folder by MedWebTux</source>
-        <translation type="obsolete">Accès au dossier médical par MedWebTux</translation>
+        <translation type="unfinished">Accès au dossier médical par MedWebTux</translation>
     </message>
     <message>
         <source>Users management</source>
-        <translation type="obsolete">Gestion des utilisateurs</translation>
+        <translation type="unfinished">Gestion des utilisateurs</translation>
     </message>
     <message>
         <source>Print</source>
-        <translation type="obsolete">Imprimer</translation>
+        <translation type="unfinished">Imprimer</translation>
     </message>
     <message>
         <source>Tools for itinerant mode</source>
-        <translation type="obsolete">Outils pour le nomadisme</translation>
+        <translation type="unfinished">Outils pour le nomadisme</translation>
     </message>
     <message>
         <source>Access to the help and the documentation of MedinTux</source>
-        <translation type="obsolete">Accès à l&apos;aide et à la documentation de MedinTux</translation>
+        <translation type="unfinished">Accès à l&apos;aide et à la documentation de MedinTux</translation>
     </message>
     <message>
         <source>Save Windows position</source>
-        <translation type="obsolete">Enregistrer la position des fenêtres</translation>
+        <translation type="unfinished">Enregistrer la position des fenêtres</translation>
     </message>
     <message>
         <source>Choose a font for Manager...</source>
-        <translation type="obsolete">Choisir une police pour Manager...</translation>
+        <translation type="unfinished">Choisir une police pour Manager...</translation>
     </message>
     <message>
         <source>Itinerant mode</source>
-        <translation type="obsolete">Mode nomade</translation>
+        <translation type="unfinished">Mode nomade</translation>
     </message>
     <message>
         <source>Ctrl+N</source>
-        <translation type="obsolete">Ctrl+N</translation>
+        <translation type="unfinished">Ctrl+N</translation>
     </message>
     <message>
         <source>Quit</source>
-        <translation type="obsolete">Quitter</translation>
+        <translation type="unfinished">Quitter</translation>
     </message>
     <message>
         <source>Ctrl+Q</source>
-        <translation type="obsolete">Ctrl+Q</translation>
+        <translation type="unfinished">Ctrl+Q</translation>
     </message>
     <message>
         <source>About Manager</source>
-        <translation type="obsolete">À propos de Manager</translation>
+        <translation type="unfinished">À propos de Manager</translation>
     </message>
     <message>
         <source>MedinTux Documentation</source>
-        <translation type="obsolete">Documentation de MedinTux</translation>
+        <translation type="unfinished">Documentation de MedinTux</translation>
     </message>
     <message>
         <source>Ctrl+G</source>
-        <translation type="obsolete">Ctrl+G</translation>
+        <translation type="unfinished">Ctrl+G</translation>
     </message>
     <message>
         <source>Ctrl+P</source>
-        <translation type="obsolete">Ctrl+P</translation>
+        <translation type="unfinished">Ctrl+P</translation>
     </message>
     <message>
         <source>Création d&apos;une pré-admission SIGEMS</source>
@@ -4299,6 +4490,14 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Schedule</source>
+        <translation type="obsolete">Agenda</translation>
+    </message>
+    <message>
+        <source>noTranslate àâéèêïîÈÉÊÀÂûÙçÇ«»ô</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -4306,6 +4505,22 @@ p, li { white-space: pre-wrap; }
 &lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
 &lt;tr&gt;
 &lt;td style=&quot;border: none;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;========================================================================================================== &lt;br /&gt;Modif du ZAB et RS Manager du 25-11-2011  Version 2.14.020 &lt;br /&gt;---------------------------------------------------------------------------------------------------------- &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;- &lt;/span&gt;&lt;span style=&quot; font-family:&apos;courier&apos;; text-decoration: underline;&quot;&gt;FONCTIONNALITES&lt;/span&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt; : &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;    ° Le mode visualisation mois années et semaines est rajouté.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;    ° Gestion des plages disponibles pour prise de rendez-vous.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;    ° Gestion de la liste des patients lors prise de rendez-vous&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;    ° Manager possède deux modes de visualisation (Agenda et Liste patients)&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;    ° Nouveau champ &apos;Adresse&apos; VARCHAR(256) dans la table agenda de DrTuxTest&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;========================================================================================================== &lt;br /&gt;Modif RS Manager du 173-11-2011  Version 2.14.019 &lt;br /&gt;---------------------------------------------------------------------------------------------------------- &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;- &lt;/span&gt;&lt;span style=&quot; font-family:&apos;courier&apos;; text-decoration: underline;&quot;&gt;BUGS&lt;/span&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt; : &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;    ° Correction du bug utf-8 sous Mac (médecin référent etc...) merci Dr GIUDICI&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;    ° Lors définition de la police de caractères la zone d&apos;édition de la ville n&apos;était pas prise en compte&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;    ° L&apos;onglet Correspondant est désormais celui par défaut&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;========================================================================================================== &lt;br /&gt;Modif RS Manager du 03-11-2011  Version 2.14.018 &lt;br /&gt;---------------------------------------------------------------------------------------------------------- &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;- &lt;/span&gt;&lt;span style=&quot; font-family:&apos;courier&apos;; text-decoration: underline;&quot;&gt;FONCTIONNALITES&lt;/span&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt; : &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;    ° Gestion de la synchronisation Agenda Google et incoporation des modifications du zab&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;========================================================================================================== &lt;br /&gt;Modif RS Manager du 29-09-2011  Version 2.14.017 &lt;br /&gt;---------------------------------------------------------------------------------------------------------- &lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;- &lt;/span&gt;&lt;span style=&quot; font-family:&apos;courier&apos;; text-decoration: underline;&quot;&gt;FONCTIONNALITES&lt;/span&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt; : &lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;    ° Amélioration du support des langues étrangères et avancées dans la traduction&lt;/span&gt;&lt;/p&gt;
@@ -4444,11 +4659,18 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Schedule</source>
-        <translation type="unfinished">Agenda</translation>
+        <source>.                                                   Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>C_Organisme</name>
+    <message>
+        <source>Pas d&apos;entrée trouvée pour ce code régime : </source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>noTranslate àâéèêïîÈÉÊÀÂûÙçÇ«»ô</source>
+        <source> et caisse gestionnaire : </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4463,27 +4685,27 @@ p, li { white-space: pre-wrap; }
     <name>C_RendezVous</name>
     <message>
         <source>&lt;font color=&quot;#000000&quot;&gt;&lt;b&gt;Dated&amp;nbsp;:&amp;nbsp;&lt;/b&gt;&lt;/font&gt;&lt;font color=&quot;#7f0000&quot;&gt;&lt;b&gt;	%1 at &lt;u&gt;%2&lt;/u&gt;&lt;/b&gt;&lt;/font&gt;&lt;font color=&quot;#000000&quot;&gt;&lt;br /&gt;&lt;b&gt;Scheduled duration :&lt;/b&gt;%3&amp;nbsp; minutes&lt;hr&gt;</source>
-        <translation>&lt;font color=&quot;#000000&quot;&gt;&lt;b&gt;En date du&amp;nbsp;:&amp;nbsp;&lt;/b&gt;&lt;/font&gt;&lt;font color=&quot;#7f0000&quot;&gt;&lt;b&gt;	%1&amp;nbsp;à&amp;nbsp;&lt;u&gt;%2&lt;/u&gt;&lt;/b&gt;&lt;/font&gt;&lt;font color=&quot;#000000&quot;&gt;&lt;br /&gt;&lt;b&gt;Durée prévue&amp;nbsp;:&amp;nbsp;&lt;/b&gt;%3&amp;nbsp; minutes&lt;hr&gt;</translation>
+        <translation type="obsolete">&lt;font color=&quot;#000000&quot;&gt;&lt;b&gt;En date du&amp;nbsp;:&amp;nbsp;&lt;/b&gt;&lt;/font&gt;&lt;font color=&quot;#7f0000&quot;&gt;&lt;b&gt;	%1&amp;nbsp;à&amp;nbsp;&lt;u&gt;%2&lt;/u&gt;&lt;/b&gt;&lt;/font&gt;&lt;font color=&quot;#000000&quot;&gt;&lt;br /&gt;&lt;b&gt;Durée prévue&amp;nbsp;:&amp;nbsp;&lt;/b&gt;%3&amp;nbsp; minutes&lt;hr&gt;</translation>
     </message>
     <message>
         <source>Appointment  of:&amp;nbsp;&lt;/b&gt; </source>
-        <translation>Rendez-vous&amp;nbsp;de&amp;nbsp;:&amp;nbsp;&lt;/b&gt; </translation>
+        <translation type="obsolete">Rendez-vous&amp;nbsp;de&amp;nbsp;:&amp;nbsp;&lt;/b&gt; </translation>
     </message>
     <message>
         <source>&lt;i&gt;&lt;b&gt;Anonymous appointment:&lt;/b&gt;&amp;nbsp;name - first name not filled&amp;nbsp;&lt;/i&gt;</source>
-        <translation>&lt;i&gt;&lt;b&gt;Rendez-vous&amp;nbsp;anonyme&amp;nbsp;:&amp;nbsp;&lt;/b&gt;&amp;nbsp;nom - prénom non renseignés&amp;nbsp;&lt;/i&gt;</translation>
+        <translation type="obsolete">&lt;i&gt;&lt;b&gt;Rendez-vous&amp;nbsp;anonyme&amp;nbsp;:&amp;nbsp;&lt;/b&gt;&amp;nbsp;nom - prénom non renseignés&amp;nbsp;&lt;/i&gt;</translation>
     </message>
     <message>
         <source>&lt;br&gt;&lt;b&gt;Phone&amp;nbsp;:&lt;/b&gt; </source>
-        <translation>&lt;br&gt;&lt;b&gt;Téléphone&amp;nbsp;:&amp;nbsp;&lt;/b&gt; </translation>
+        <translation type="obsolete">&lt;br&gt;&lt;b&gt;Téléphone&amp;nbsp;:&amp;nbsp;&lt;/b&gt; </translation>
     </message>
     <message>
         <source>&lt;b&gt;With:&amp;nbsp;&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Avec:&amp;nbsp;:&amp;nbsp;&lt;/b&gt;</translation>
+        <translation type="obsolete">&lt;b&gt;Avec:&amp;nbsp;:&amp;nbsp;&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Taken by:&lt;/b&gt;</source>
-        <translation>&lt;b&gt;&amp;nbsp;Pris&amp;nbsp;par&amp;nbsp;:&amp;nbsp;&lt;/b&gt;</translation>
+        <translation type="obsolete">&lt;b&gt;&amp;nbsp;Pris&amp;nbsp;par&amp;nbsp;:&amp;nbsp;&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Cause: &lt;/b&gt;</source>
@@ -4496,6 +4718,34 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>&lt;b&gt;Status: &lt;/b&gt;&lt;i&gt;%1&lt;/i&gt;&lt;br&gt;&lt;/font&gt;</source>
         <translation>&lt;b&gt;Status&amp;nbsp;:&amp;nbsp;&lt;/b&gt;&lt;i&gt;%1&lt;/i&gt;&lt;br&gt;&lt;/font&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;font color=&quot;#000000&quot;&gt;&lt;b&gt;Dated&amp;nbsp;:&amp;nbsp;&lt;/b&gt;&lt;/font&gt;&lt;font color=&quot;#7f0000&quot;&gt;&lt;b&gt;	%1 at &lt;u&gt;%2&lt;/u&gt;&lt;/b&gt;&lt;/font&gt;&lt;font color=&quot;#000000&quot;&gt;&lt;br /&gt;Scheduled duration :&lt;b&gt;%3&amp;nbsp; minutes&lt;/b&gt;&lt;hr&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Appointment  of:&amp;nbsp;&lt;font color=&quot;#7f0000&quot;&gt;&lt;b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;i&gt;Anonymous appointment:&amp;nbsp;&lt;b&gt;name - first name not filled&amp;nbsp;&lt;/b&gt;&lt;/i&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;br&gt;Phone&amp;nbsp;:&lt;b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>With:&amp;nbsp;&lt;b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;/b&gt;Taken by:&lt;b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;hr&gt;&lt;b&gt;Where: &lt;/b&gt;&lt;i&gt;%1&lt;/i&gt;&lt;br&gt;&lt;/font&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4593,83 +4843,83 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>00 - Pas de tiers-payant complÃ©mentaire autorisÃ©</source>
+        <source>00 - Pas de tiers-payant complémentaire autorisé</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>01 - Tiers-payant complÃ©mentaire autorisÃ© selon accord PS et AMC</source>
+        <source>01 - Tiers-payant complémentaire autorisé selon accord PS et AMC</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>02 - Tiers-payant complÃ©mentaire autorisÃ© selon rÃ©glementation</source>
+        <source>02 - Tiers-payant complémentaire autorisé selon réglementation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>62 - BÃ©nÃ©ficiaire de la CMU Tiers-payant rÃ©glementaire. Pas d&apos;Ã©clatement possible</source>
+        <source>62 - Bénéficiaire de la CMU Tiers-payant réglementaire. Pas d&apos;éclatement possible</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>71 - BÃ©nÃ©ficiaire sortant de CMU complÃ©mentaire. Pas d&apos;Ã©clatement possible</source>
+        <source>71 - Bénéficiaire sortant de CMU complémentaire. Pas d&apos;éclatement possible</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>60 - BÃ©nÃ©ficiaire CMU complÃ©mentaire, Pas de DRE possible, pas de flux de rectification possible entre AMO et AMC</source>
+        <source>60 - Bénéficiaire CMU complémentaire, Pas de DRE possible, pas de flux de rectification possible entre AMO et AMC</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>62 - BÃ©nÃ©ficiaire CMU complÃ©mentaire, DRE possible, pas de flux de rectification possible entre AMO et AMC</source>
+        <source>62 - Bénéficiaire CMU complémentaire, DRE possible, pas de flux de rectification possible entre AMO et AMC</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>63 - BÃ©nÃ©ficiaire CMU complÃ©mentaire, DRE possible, flux de rectification possible entre AMO et AMC</source>
+        <source>63 - Bénéficiaire CMU complémentaire, DRE possible, flux de rectification possible entre AMO et AMC</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>72 - BÃ©nÃ©ficiaire sortant de CMU complÃ©mentaire, DRE possible, pas de flux de rectification possible entre AMO et AMC</source>
+        <source>72 - Bénéficiaire sortant de CMU complémentaire, DRE possible, pas de flux de rectification possible entre AMO et AMC</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>73 - BÃ©nÃ©ficiaire sortant de CMU complÃ©mentaire, DRE possible, flux de rectification possible entre AMO et AMC</source>
+        <source>73 - Bénéficiaire sortant de CMU complémentaire, DRE possible, flux de rectification possible entre AMO et AMC</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>00 - Pas de service AMO spÃ©cifique</source>
+        <source>00 - Pas de service AMO spécifique</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>01 - CMU complÃ©mentaire gÃ©rÃ©e par une AMO</source>
+        <source>01 - CMU complémentaire gérée par une AMO</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>02 - CMU complÃ©mentaire gÃ©rÃ©e par une AMC en convention ou dÃ©lÃ©gation avec une AMO</source>
+        <source>02 - CMU complémentaire gérée par une AMC en convention ou délégation avec une AMO</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>03 - CMU complÃ©mentaire gÃ©rÃ©e par une AMC</source>
+        <source>03 - CMU complémentaire gérée par une AMC</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>10 - Sortant de CMU complÃ©mentaire</source>
+        <source>10 - Sortant de CMU complémentaire</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>AssurÃ©</source>
+        <source>Assuré</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Ascendant, descendant, collatÃ©raux ascendants</source>
+        <source>Ascendant, descendant, collatéraux ascendants</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Conjoint divorcÃ©</source>
+        <source>Conjoint divorcé</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Conjoint sÃ©parÃ©</source>
+        <source>Conjoint séparé</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Pas de rÃ©sultat pour MUTNUM = </source>
+        <source>Pas de résultat pour MUTNUM = </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4728,15 +4978,15 @@ Ne peut être ouvert</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Erreur de syntaxe: Fichier de paramÃ¨tres vide</source>
+        <source>Erreur de syntaxe: Fichier de paramètres vide</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Signe = non trouvÃ© dans la section : </source>
+        <source>Signe = non trouvé dans la section : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>, variable recherchÃ©e : </source>
+        <source>, variable recherchée : </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
