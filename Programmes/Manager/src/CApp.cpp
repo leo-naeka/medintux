@@ -769,12 +769,12 @@ void CApp::Slot_error ( QProcess::ProcessError err )
 {QString erreur = "no se";
  switch (err)
   {
-   case  QProcess::FailedToStart: erreur = tr ("The process failed to start. Either the invoked program is missing, or you may have insufficient permissions to invoke the program."); break;
-   case  QProcess::Crashed:       erreur = tr ("The process crashed some time after starting successfully."); break;
+   case  QProcess::FailedToStart: erreur = tr ("The process failed to start. Either the requested program is missing, or you may have insufficient permission to launch the program."); break;
+   case  QProcess::Crashed:       erreur = tr ("The process crashed sometime after starting successfully."); break;
    case  QProcess::Timedout:      erreur = tr ("The last waitFor...() function timed out. The state of QProcess is unchanged, and you can try calling waitFor...() again."); break;
    case  QProcess::WriteError:    erreur = tr ("An error occurred when attempting to write to the process. For example, the process may not be running, or it may have closed its input channel."); break;
    case  QProcess::ReadError:     erreur = tr ("An error occurred when attempting to read from the process. For example, the process may not be running."); break;
-   case  QProcess::UnknownError:  erreur = tr ("UnknownError"); break;
+   case  QProcess::UnknownError:  erreur = tr ("Unknown Error"); break;
    }
  CouCou(erreur);
 }
