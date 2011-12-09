@@ -72,6 +72,7 @@ CMoteurAgenda::CMoteurAgenda(const QString &driver,        // nom du driver: "QO
   m_ModifConfirm       = 0;
   m_Rafraichissement   = 120;
   m_Representation     = 1;       // 0/sur 1 ligne 1/sur deux lignes
+  m_WeekDeploymentMode = 1;
   m_AnimationAuthorisation       = 0;
   m_HeightDaysHeaderInExpandMode = 25;
   m_isDayOfMonthToBeDisplay      = 0;
@@ -309,6 +310,18 @@ void CMoteurAgenda::SetAnimationAuthorisation(const QString &value)
 //-------------------------------------- GetAnimationAuthorisation ----------------------------------------------------------------------------
 int  CMoteurAgenda::GetAnimationAuthorisation()
 {return m_AnimationAuthorisation;
+}
+
+//--------------------------------------------- SetWeekDeploymentMode ------------------------------------------------
+void CMoteurAgenda::SetWeekDeploymentMode(const QString &value)
+{if (value.length())
+    {m_WeekDeploymentMode = value.toInt();
+    }
+}
+
+//--------------------------------------------- GetWeekDeploymentMode ------------------------------------------------
+int  CMoteurAgenda::GetWeekDeploymentMode()
+{return m_WeekDeploymentMode;
 }
 
 //-------------------------------------- SetFormatDateInResume ----------------------------------------------------------------------------
