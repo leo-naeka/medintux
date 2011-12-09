@@ -836,9 +836,9 @@ void C_Frm_Agenda::toGoogle(const QDateTime &dateDeb, const QDateTime &dateEnd)
 }
 //---------------------------------------- GoogleConnectionErrorDisplay --------------------------------------------
 void C_Frm_Agenda::GoogleConnectionErrorDisplay()
-{QMessageBox::about(this, tr("Google connection failled"),
-                    tr("<b>Google connection failled for Agenda for MedinTux.</b><br> ") +
-                    tr("<p>Developed using <a href=\"http://qt.nokia.com\">Qt ")
+{QMessageBox::about(this, tr("Google connection failed"),
+                    tr("<b>Google connection failed for Agenda for MedinTux.</b><br> ") +
+                    tr("<p>Developped using <a href=\"http://qt.nokia.com\">Qt ")
                        + qVersion() + tr(" framework</a>.</p>"
                        "<p>Email : <a href=\"mailto:roland-sevin@medintux.org\">roland-sevin@medintux.org</a></p>"));
 }
@@ -1042,7 +1042,7 @@ C_Frm_Day::C_Frm_Day(CMoteurAgenda       * pCMoteurAgenda ,
  m_ButtonSave = new CMyButton(m_pBMC->m_ButtonSave_Pixmap, this, "", this);
  m_ButtonSave->setGeometry(m_Width - 42,-1,20, m_BaseDayHeight);
  m_ButtonSave->setFlat( TRUE );
- m_ButtonSave->setToolTip ( "<font color=\"#000000\">"+tr("Save this day as template.</font>") );
+ m_ButtonSave->setToolTip ( "<font color=\"#000000\">"+tr("Save this day as a template.</font>") );
 
  m_ButtonGoogle = new CMyButton(m_pBMC->m_ButtonGoogle_Pixmap, this, "", this);
  m_ButtonGoogle->setGeometry(m_Width - 62,-1,20, m_BaseDayHeight);
@@ -1076,7 +1076,7 @@ C_Frm_Day::C_Frm_Day(CMoteurAgenda       * pCMoteurAgenda ,
 
  if (day_expand == 1) ExpandDialog();
  if (m_pCMoteurAgenda->GetAgendaMode_WeekOrDayOrMonth() == "MONTH")
-    {m_ButtonExpand->setToolTip(tr("goto this week"));
+    {m_ButtonExpand->setToolTip(tr("go to this week"));
      if (day_expand == 1)     m_ButtonExpand->setPixmap(m_pBMC->m_ButtonExpand_Close_Pixmap);
      else                     m_ButtonExpand->setPixmap(m_pBMC->m_ButtonGotoWeek_Pixmap);
      if (date.dayOfWeek()!=1) m_ButtonExpand->hide();
@@ -1109,7 +1109,7 @@ void C_Frm_Day::toGoogle(C_GoogleAPI *pC_GoogleAPI)
     pC_GoogleAPI->createSeveralEvents(eventsList);
     if (pC_GoogleAPI->getError().length())QMessageBox::question ((QWidget*)parent(),
                                                                  tr("Error in Google transaction"),
-                                                                 tr("<b>Error in Google transation:</b><br>%1").arg(pC_GoogleAPI->getError()),
+                                                                 tr("<b>Error in Google transaction:</b><br>%1").arg(pC_GoogleAPI->getError()),
                                                                  QMessageBox::Cancel);
     UNLOOKREFRESH;
     QApplication::restoreOverrideCursor ();
