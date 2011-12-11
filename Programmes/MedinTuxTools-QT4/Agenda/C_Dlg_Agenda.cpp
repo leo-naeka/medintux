@@ -264,6 +264,7 @@ C_Frm_Agenda::C_Frm_Agenda(const QDate &date,
     m_pCMoteurAgenda->SetFormatDateInResume(CGestIni::Param_ReadUniqueParam(m_LocalParam.toAscii(),                          "Agenda", "Format date dans le resume"));
     m_pCMoteurAgenda->SetHtmlTemplateTitleMonth(CGestIni::Param_ReadUniqueParam(m_LocalParam.toAscii(),                      "Agenda", "Format nom du mois"));
     m_pCMoteurAgenda->SetAnimationAuthorisation(CGestIni::Param_ReadUniqueParam(m_LocalParam.toAscii(),                      "Agenda", "Animation active"));
+    m_pCMoteurAgenda->SetWeekDeploymentMode(CGestIni::Param_ReadUniqueParam(m_LocalParam.toAscii(),                          "Agenda", "Deployer semaine toujours sur une ligne"));
     m_pCMoteurAgenda->COL_Get_List(m_ColorProfils);
     //..................... positionner la largeur des bit map selon semaine ou jour .........................
     int dayWitdth;
@@ -693,45 +694,74 @@ void C_Frm_Agenda::reinitAgendaOnDate(QDate dateDeb)
         }
      else       //    MONTH
         { QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-          int jourDeLaSemaine    = 0;
-          int nbDayInWeek        = m_pCMoteurAgenda->GetNbDayInWeek();                     // CZA
-          int widthDay           = m_pCMoteurAgenda->GetAgendaWeekWidth() / nbDayInWeek;  // CZA
-          m_StartDate            = dateDeb;
-          dateDeb                = dateDeb.addDays (- m_StartDate.dayOfWeek()+1 );
-          int      y             = FIRST_DAY_POS_Y;     // ofset de demarrage en haut de la fenetre agenda
-          int      x             = W_OFSET;             // CZA position du jour
-          int      h             = 0;
-          int      h_weekMax     = 0;
-          int      lastMonth     = 0;
-          int      nbDayToSee    = nbDayInWeek * m_pCMoteurAgenda->GetWeeksToSee();
-          int      i             = 0;
-          int      w_monthLabel  = widthDay*nbDayInWeek;
-          int      keyExpandMapY = dateDeb.year()*10000;
-          int      expand        = m_WeekExpandMapState.value(keyExpandMapY+dateDeb.weekNumber());
-          QLabel  *pQLabel       = 0;
+          int jourDeLaSemaine     = 0;
+          int nbDayInWeek         = m_pCMoteurAgenda->GetNbDayInWeek();                     // CZA
+          int widthDay            = m_pCMoteurAgenda->GetAgendaWeekWidth() / nbDayInWeek;  // CZA
+          m_StartDate             = dateDeb;
+          dateDeb                 = dateDeb.addDays (- m_StartDate.dayOfWeek()+1 );
+          int      y              = FIRST_DAY_POS_Y;     // ofset de demarrage en haut de la fenetre agenda
+          int      x              = W_OFSET;             // CZA position du jour
+          int      h              = 0;
+          int      h_weekMax      = 0;
+          int      lastMonth      = 0;
+          int      nbDayToSee     = nbDayInWeek * m_pCMoteurAgenda->GetWeeksToSee();
+          int      i              = 0;
+          int      w_monthLabel   = widthDay*nbDayInWeek;
+          int      keyExpandMapY  = dateDeb.year()*10000;
+          int      expand         = m_WeekExpandMapState.value(keyExpandMapY+dateDeb.weekNumber());
+          QLabel  *pQLabel        = 0;
+          int    nextY_posNotOk   = 0;
+          int      dayInWeek      = 0;
           while ( i<nbDayToSee)
-              {
-               //........ si premier jour a afficher du mois afficher le labe du mois ..........
-               if (dateDeb.day()  <= 7 && dateDeb.dayOfWeek() <= nbDayInWeek && dateDeb.month() != lastMonth )              // on ne peut candidater que la premiere semaine du mois et en zone autorisee et pas deja traite
-                  { lastMonth     = dateDeb.month();
-                    keyExpandMapY = dateDeb.year()*10000;       // au debut de chaque mois on met a jour le truc de l'annee
-                    pQLabel       = new QLabel(this);
-                    pQLabel->setStyleSheet(m_MonthLabelCss);
-                    pQLabel->setText( m_pCMoteurAgenda->GetHtmlTemplateTitleMonth().replace("{{MONTH_NAME}}", dateDeb.toString("MMMM yyyy").upper() ));
+             {
+              //........ si premier jour du mois afficher l'entete de mois ..........
+              if ( (dateDeb.day()  <= 7 && dateDeb.dayOfWeek() <= nbDayInWeek && dateDeb.month() != lastMonth) || nextY_posNotOk==1)
+                 { int h_label      = (m_pCMoteurAgenda->GetRepresentation())?DOUBLE_DAY_HEIGHT:DAY_HEIGHT;         // hauteur de base lorsque l'on ne peut pas utiliser l'espace libre a gauche du premier jour
+                   lastMonth        = dateDeb.month();
+                   keyExpandMapY    = dateDeb.year()*10000;       // au debut de chaque mois on met a jour le truc de l'annee
+                   dayInWeek        = dateDeb.dayOfWeek();
+                   bool isEndDeploy = FALSE;
 
-                    if ( dateDeb.dayOfWeek() == 1 )         // cas particulier ou pas d'espace dessous (tout demarre a 1) alors utiliser l'espace libre d'avant
-                       {int h_label   = (m_pCMoteurAgenda->GetRepresentation())?DOUBLE_DAY_HEIGHT:DAY_HEIGHT;         // hauteur de base lorsque l'on ne peut pas utiliser l'espace libre a gauche du premier jour
-                        pQLabel->setGeometry(0, y+1,    w_monthLabel, h_label);  // on creer la place d'affichage
-                        y            += h_label;
-                       }
-                    else                                // on utilise l'espace libre a gauche du premier jour a afficher
-                       {y            += h;
-                        pQLabel->setGeometry(0, y+1,     x,            h);  // x est la prochaine position du prochain jour
-                       }
-                    m_MonthLabelList[ keyExpandMapY + lastMonth ] = pQLabel;         // stocker le label (on va en avoir besoin dans le rearange()
-                    pQLabel->show();
-                  }
-
+                   //........... ne creer les labels que si besoin................
+                   //            sinon le recupérer dans la liste
+                   QMap<int, QLabel*>::iterator it = m_MonthLabelList.find(keyExpandMapY + lastMonth);
+                   if (it == m_MonthLabelList.end())
+                      {pQLabel       = new QLabel(this);
+                       pQLabel->setStyleSheet(m_MonthLabelCss);
+                       pQLabel->setText( m_pCMoteurAgenda->GetHtmlTemplateTitleMonth().replace("{{MONTH_NAME}}", dateDeb.toString("MMMM yyyy").upper() ));
+                       m_MonthLabelList[ keyExpandMapY + lastMonth ] = pQLabel;         // stocker le label (on va en avoir besoin dans le rearange()
+                       pQLabel->show();
+                      }
+                   else
+                      {pQLabel       = it.value();
+                      }
+                   //..................... si une semaine deployee de debut de mois se termine ...........
+                   //                      et qu'elle debordait sur l'autre mois
+                   if (nextY_posNotOk == 1)          // on est au bout du reliquat de semaine
+                      { pQLabel->setGeometry(0, y+1 + h,    w_monthLabel, h_label);  // on creer la place d'affichage
+                        nextY_posNotOk = 0;
+                        isEndDeploy    = TRUE;
+                        y             += h_label;
+                      }
+                   //..................... si une semaine de debut de mois deployee commence ...........
+                   //                      et qu'elle deborde sur l'autre mois
+                   else if ( expand && dateDeb.day()==1)
+                      { nextY_posNotOk = nbDayInWeek-dayInWeek + 2;    // nb de jours du mois suivant a continuer a afficher pour finir la semaine
+                        if (nextY_posNotOk==8) nextY_posNotOk = 0;     // cas du permier jour du mois aussi premier jour de la semaine (ne pas traiter de reliquat)
+                      }
+                   if (m_pCMoteurAgenda->GetWeekDeploymentMode()==0)   nextY_posNotOk = 0; // on annule le deployement sur une ligne
+                   if (isEndDeploy==FALSE && nextY_posNotOk<=0)  // SI l'on doit afficher normalement le label
+                      { if (    dayInWeek == 1 )                      // cas particulier ou pas d'espace dessous (tout demarre a 1) alors utiliser l'espace libre d'avant
+                           { pQLabel->setGeometry(0, y+1,    w_monthLabel, h_label);  // on creer la place d'affichage
+                             y            += h_label;
+                           }
+                        else                                         // on utilise l'espace libre a gauche du premier jour a afficher
+                           { y            += h;
+                             pQLabel->setGeometry(0, y+1,     x,            h);  // x est la prochaine position du prochain jour
+                           }
+                      }
+                 }
+              --nextY_posNotOk;
                if (jourDeLaSemaine<nbDayInWeek)
                   { C_Frm_Day* pC_Frm_Day = new C_Frm_Day(
                                         m_pCMoteurAgenda,
@@ -746,18 +776,20 @@ void C_Frm_Agenda::reinitAgendaOnDate(QDate dateDeb)
                                         x,
                                         y,
                                         getResoPixByMinutes(),
-                                        expand                        // dans le mode mois les jour ne sont pas deployes mais en mode resume
+                                        expand                // dans le mode mois les jours sont replies en mode resume (sauf si semaine deployee)
                                        );
                    if (pC_Frm_Day)
                       { x        += widthDay; // A REVOIR
                         h         = appendDay (pC_Frm_Day  );
                         h_weekMax = qMax(h, h_weekMax);
+
                         connect( pC_Frm_Day, SIGNAL( Sign_agenda_GetInfoFromUser(QString &, QString &, QString &, QString &)),
                                  this,       SIGNAL( Sign_agenda_GetInfoFromUser(QString &, QString &, QString &, QString &)));
                         connect( pC_Frm_Day, SIGNAL( Sign_LauchPatient(const QString &, C_RendezVous *)),
                                  this,       SIGNAL( Sign_LauchPatient(const QString &, C_RendezVous *)));
                         pC_Frm_Day->show();
                       }
+
                   }
                 ++jourDeLaSemaine;
                 //.......... jour suivant si debut de semaine repartir de la gauche .......
@@ -771,7 +803,7 @@ void C_Frm_Agenda::reinitAgendaOnDate(QDate dateDeb)
                     h_weekMax       = 0;
                    }
                 ++i;
-              } // end while ( i<nbDayToSee)
+             } // end while ( i<nbDayToSee)
           setFixedHeight (y);
           setFixedWidth(widthDay*nbDayInWeek);
           QApplication::restoreOverrideCursor ();
@@ -932,23 +964,48 @@ void C_Frm_Agenda::On_AgendaMustBeReArange()
        int      keyExpandMapY = dateDeb.year()*10000;
        QLabel  *pQLabel       = 0;
        int      dayIndex      = 0;
+       int      expand        = m_WeekExpandMapState.value(keyExpandMapY+dateDeb.weekNumber());
+       int   nextY_posNotOk   = 0;
+       int      dayInWeek     = 0;
+       QString strMonth       = "";
        while ( i<nbDayToSee)
            {
-           //........ si premier jour du mois afficher l'entete de mois ..........
-            if (dateDeb.day()  <= 7 && dateDeb.dayOfWeek() <= nbDayInWeek && dateDeb.month() != lastMonth )
-               { lastMonth     = dateDeb.month();
-                 keyExpandMapY = dateDeb.year()*10000;       // au debut de chaque mois on met a jour le truc de l'annee
-                 pQLabel       = m_MonthLabelList[ keyExpandMapY + lastMonth ];
-                 if (dateDeb.dayOfWeek() == 1 )
-                    {int h_label   = (m_pCMoteurAgenda->GetRepresentation())?DOUBLE_DAY_HEIGHT:DAY_HEIGHT;         // hauteur de base lorsque l'on ne peut pas utiliser l'espace libre a gauche du premier jour
-                     pQLabel->setGeometry(0, y+1,    w_monthLabel, h_label);  // on creer la place d'affichage
-                     y            += h_label;
+            //........ si premier jour du mois afficher l'entete de mois ..........
+            if ( (dateDeb.day()  <= 7 && dateDeb.dayOfWeek() <= nbDayInWeek && dateDeb.month() != lastMonth) || nextY_posNotOk==1)
+               { int h_label      = (m_pCMoteurAgenda->GetRepresentation())?DOUBLE_DAY_HEIGHT:DAY_HEIGHT;         // hauteur de base lorsque l'on ne peut pas utiliser l'espace libre a gauche du premier jour
+                 bool isEndDeploy = FALSE;
+                 lastMonth        = dateDeb.month();
+                 keyExpandMapY    = dateDeb.year()*10000;       // au debut de chaque mois on met a jour le truc de l'annee
+                 dayInWeek        = dateDeb.dayOfWeek();
+                 pQLabel          = m_MonthLabelList[ keyExpandMapY + lastMonth ];
+                 strMonth         = pQLabel->text();
+                 //..................... si une semaine deployee de debut de mois se termine ...........
+                 //                      et qu'elle debordait sur l'autre mois
+                 if (nextY_posNotOk == 1)          // on est au bout du reliquat de semaine
+                    { pQLabel->setGeometry(0, y+1 + h,    w_monthLabel, h_label);  // on creer la place d'affichage
+                      nextY_posNotOk = 0;
+                      isEndDeploy    = TRUE;
+                      y             += h_label;
                     }
-                 else                                // on utilise l'espace libre a gauche du premier jour a afficher
-                    {y            += h;
-                     pQLabel->setGeometry(0, y+1,     x,            h);  // x est la prochaine position du prochain jour
+                 //..................... si une semaine de debut de mois deployee commence ...........
+                 //                      et qu'elle deborde sur l'autre mois
+                 else if ( expand && dateDeb.day()==1)
+                    { nextY_posNotOk        = nbDayInWeek-dayInWeek + 2;    // nb de jours du mois suivant a continuer a afficher pour finir la semaine
+                      if (nextY_posNotOk==8) nextY_posNotOk = 0;            // cas du permier jour du mois aussi premier jour de la semaine (ne pas traiter de reliquat)
                     }
+                 if (m_pCMoteurAgenda->GetWeekDeploymentMode()==0)   nextY_posNotOk = 0; // on annule le deployement sur une ligne
+                 if (isEndDeploy==FALSE && nextY_posNotOk<=0) // SI l'on doit afficher normalement
+                    { if (    dayInWeek == 1 )          // cas particulier ou pas d'espace dessous (tout demarre a 1) alors utiliser l'espace libre d'avant
+                         { pQLabel->setGeometry(0, y+1,    w_monthLabel, h_label);  // on creer la place d'affichage
+                           y            += h_label;
+                         }
+                      else                                // on utilise l'espace libre a gauche du premier jour a afficher
+                         { y            += h;
+                           pQLabel->setGeometry(0, y+1,     x,            h);  // x est la prochaine position du prochain jour
+                         }
+                     }
                }
+            --nextY_posNotOk;
             if (jourDeLaSemaine < nbDayInWeek)
                {C_Frm_Day* pC_Frm_Day = this->at(dayIndex++);
                 if (pC_Frm_Day)
@@ -961,12 +1018,13 @@ void C_Frm_Agenda::On_AgendaMustBeReArange()
              ++jourDeLaSemaine;
              //.......... jour suivant si debut de semaine repartir de la gauche .......
              dateDeb = dateDeb.addDays (1);
-             if (jourDeLaSemaine==7)
+             if ( jourDeLaSemaine==7 )
                 {jourDeLaSemaine = 0;
                  y              += h_weekMax;
                  x               = W_OFSET;
                  h               = h_weekMax;
                  h_weekMax       = 0;
+                 expand          = m_WeekExpandMapState.value(keyExpandMapY+dateDeb.weekNumber());
                 }
              ++i;
            } // end while ( i<nbDayToSee)
@@ -1482,7 +1540,6 @@ void C_Frm_Day::paintEvent ( QPaintEvent * /*event*/)
          }
 
       //............................ titre du jour ................................................
-      //nextTmpPosX = DAY_OFS_X - 5;
       tmpStr     = getDate().toString(m_pCMoteurAgenda->GetFormatDateInResume(mdw));   // mdw = 'D' or 'W' or 'M'
       f.setPointSize(7); f.setBold(TRUE); p.setFont ( f );
       p.setPen (Qt::black);
@@ -2035,6 +2092,8 @@ void C_Frm_Day::On_Day_mousePressEvent ( QMouseEvent * event )
                       }
                    else if (ret.indexOf("Copy") != -1)
                       { copyRdv(*pRdv);
+                       UNLOOKREFRESH;
+                       return;
                       }
                    else if (ret.indexOf("Replace") != -1)
                       {C_RendezVous    rdv = getCopy();    // on recupere le rendez-vous
@@ -2043,7 +2102,7 @@ void C_Frm_Day::On_Day_mousePressEvent ( QMouseEvent * event )
                        pRdv->m_Note    = rdv.m_Note;
                        pRdv->m_Where   = rdv.m_Where;
                        pRdv->m_GUID    = rdv.m_GUID;
-                       pRdv->m_PrimKey = rdv.m_PrimKey;
+                       // pRdv->m_PrimKey = rdv.m_PrimKey; si on fait un replace la pk est celle du RDV original de destination et non celui du source
                        pRdv->m_Tel     = rdv.m_Tel;
                        pRdv->m_Type    = rdv.m_Type;
                        pRdv->m_State   = rdv.m_State;
@@ -2665,6 +2724,7 @@ C_Frm_Rdv::C_Frm_Rdv (  C_RendezVous *pC_RendezVous,       // data
  if (pCMoteurAgenda->GetEditNoteMode())
     {m_InfoEdit = new C_AgendaEdit(this);
      m_InfoEdit->setVerticalScrollBarPolicy (Qt::ScrollBarAlwaysOff);
+     m_InfoEdit->setWordWrapMode(QTextOption::WrapAtWordBoundaryOrAnywhere);
      m_InfoEdit->setStyleSheet(QString("background-color: %1; border: 1px none #8f8f91;padding 6px; border-radius: 6px; font-size: 9px;").arg(colorStr));
      connect( m_InfoEdit,           SIGNAL( textChanged ()),                                this ,     SLOT(   Slot_InfoEdittextChanged()  )  );
      connect( m_InfoEdit,           SIGNAL( cursorPositionChanged ()),                      this ,     SLOT(   Slot_InfoEdit_cursorPositionChanged()  )  );
@@ -2706,7 +2766,6 @@ m_ButtonChange->installEventFilter(this);
 m_ButtonAcceder->installEventFilter(this);
 
 setWidgetOnRdv(*pC_RendezVous);
-//setWidgetStyleOnRdv(*pC_RendezVous);
 
 connect( m_ButtonAcceder,      SIGNAL( Sign_ButtonClickedPtr (const char*, void *) ),           parent ,   SLOT(   Slot_ButtonAccederClicked(const char*, void *) ));
 //................................ on emet ce signal en direction du pere pour qu'il efface le rendez-vous ......................................
@@ -2752,27 +2811,9 @@ int C_Frm_Rdv::getMagnetisme()
 void C_Frm_Rdv::setWidgetStyleOnRdv(const C_RendezVous &rdv) // to do : detecter si la date n'est pas en dehors du jour actuel
 {QString colorStr   = C_RendezVous::getRdvColor(rdv, m_pColorProfils);
  m_background_color = QColor(colorStr);
- /*
- //QString styles = QString(" background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 %1, stop: 1 #dadbde);").arg(background_color);
- QString styles = QString("background-color: %1; border: 1px solid #8f8f91; border-radius: 6px; font-size: 9px;").arg(m_background_color);
- //QString styles = QString("background-color: %1;  qlineargradient(x1: 0, y1: 0, x2: 0.5, y2: 0.5, stop: 0 #FF92BB, stop: 1 white); border:1px; border-radius: 6px; font-size: 9px;").arg(background_color);
- //QString styles = QString("background-color: %1; border: 3px solid #8f8f91; border-radius: 6px; font-size: 9px;").arg("qlineargradient(x1: 0, y1: 0, x2: 0.5, y2: 0.5, stop: 0 #FF92BB, stop: 1 white)");
-
- setStyleSheet(styles);
-
- QString style = "QPushButton { border: 1px solid #8f8f91; border-radius: 0px; background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #f6f7fa, stop: 1 #dadbde);}"    // style normal
-                 "QPushButton:pressed {                    border-radius: 0px; background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #dadbde, stop: 1 #f6f7fa);}";   // style selectionne
- m_ButtonDelete->setStyleSheet(style);   // background-color: #960101 background-image: url(images/welcome.png
- m_ButtonChange->setStyleSheet(style);   // background-color: #960101 background-image: url(images/welcome.png
- m_ButtonAcceder->setStyleSheet(style);  // background-color: #960101 background-image: url(images/welcome.png
- m_InfoEdit->setStyleSheet(QString("background-color: %1; border: 1px none #8f8f91;padding 6px; border-radius: 6px; font-size: 9px;").arg(m_background_color));
- // m_InfoEdit->setMenuBackgroundColor((*m_pColorProfils)[rdv.m_Type].getColor());
- */
- if (m_InfoEdit) m_InfoEdit->setMenuBackgroundColor(colorStr);
- /*
- m_button_HeureDuree->setStyleSheet(QString("background-color: %1; border: 1px solid #8f8f91;font-size: 9px;top: 2px;").arg(m_background_color));//font-weight: bold;
- m_textLabel_Nom->setStyleSheet(QString("background-color: %1; border-style: none;font-size: 9px;").arg(m_background_color));
-*/
+ if (m_InfoEdit)
+    {m_InfoEdit->setStyleSheet(QString("background-color: %1; border: 1px none #8f8f91;padding 6px; border-radius: 6px; font-size: 9px;").arg(colorStr));
+    }
 }
 
 //---------------------------------------- setWidgetOnRdv --------------------------------------------
@@ -2794,7 +2835,6 @@ void C_Frm_Rdv::setWidgetOnRdv(const C_RendezVous &rdv) // to do : detecter si l
  if (m_InfoEdit)          m_InfoEdit->setText(m_Note);
  if (m_button_HeureDuree) m_button_HeureDuree->setText(computeTextButton());
  if (m_textLabel_Nom)     m_textLabel_Nom->setText(m_Nom + " " + m_Prenom);
- placeInfoEdit(m_Duree*m_PixByMinute);
  //......................... les tool tip ..................................
  if ( m_GUID.length()!=0) m_ButtonAcceder->setIcon(m_pBMC->m_ButtonAcceder_Pixmap);
  else                     m_ButtonAcceder->setIcon(m_pBMC->m_ButtonCreateDoss);
@@ -2808,13 +2848,17 @@ void C_Frm_Rdv::setWidgetOnRdv(const C_RendezVous &rdv) // to do : detecter si l
      if (it != m_pBMC->m_StatutsPixmap.end())    m_ButtonChange->setIcon(it.value());
     }
  resize ( QSize ( m_widget_w, getHeight())) ;
+ placeInfoEdit(m_Duree*m_PixByMinute);
 }
 
 //---------------------------- Slot_InfoEditFocusOutEvent ------------------------------------------------
 void C_Frm_Rdv::Slot_InfoEditFocusOutEvent(QFocusEvent *)
-{if (m_InfoEdit) m_Note = m_InfoEdit->text();
- RDV_Update();
- //emit Sign_StopTimer(m_SavStateLook);
+{if (m_InfoEdit)
+    {if (m_Note != m_InfoEdit->text())
+        {m_Note = m_InfoEdit->text();
+         RDV_Update();
+        }
+    }
 }
 
 //---------------------------------------- Slot_InfoEdit_cursorPositionChanged -----------------------------------------
@@ -2823,7 +2867,7 @@ void C_Frm_Rdv::Slot_InfoEdit_cursorPositionChanged ()
 }
 //---------------------------- Slot_InfoEdittextChanged ------------------------------------------------
 void C_Frm_Rdv::Slot_InfoEdittextChanged()
-{if (m_InfoEdit) m_Note     = m_InfoEdit->text();
+{//if (m_InfoEdit) m_Note     = m_InfoEdit->text();
  if (m_EditTimerActive==0)
     {emit Sign_StopTimer(1);
      QTimer::singleShot(2000, this, SLOT(Slot_EditTimeOut()));
@@ -2832,8 +2876,12 @@ void C_Frm_Rdv::Slot_InfoEdittextChanged()
 }
 //---------------------------- Slot_EditTimeOut ------------------------------------------------
 void C_Frm_Rdv::Slot_EditTimeOut()
-{if (m_InfoEdit) m_Note     = m_InfoEdit->text();
- RDV_Update();
+{if (m_InfoEdit)
+    {if (m_Note != m_InfoEdit->text())
+        {m_Note = m_InfoEdit->text();
+         RDV_Update();
+        }
+    }
  m_EditTimerActive = 0;
  emit Sign_StopTimer(0);
 }
@@ -2848,7 +2896,7 @@ void C_Frm_Rdv::placeInfoEdit (int h)
     else
        {m_InfoEdit->hide();
        }
-    m_InfoEdit->setGeometry ( 6, ofsetY, 200, h-ofsetY-4 );
+    m_InfoEdit->setGeometry ( 6, ofsetY, width()-4, h-ofsetY-4 );
  }
 //---------------------------- setGeometry ------------------------------------------------
 void C_Frm_Rdv::setGeometry ( int x, int y, int w, int h )
@@ -3266,6 +3314,7 @@ void C_Frm_Rdv::replaceWithCopy()
  rdv.m_PrisPar       = m_PrisPar;    // on garde l'utilisateur qui a pris le RDV
  rdv.m_PrisAvec      = m_PrisAvec;   // on garde l'utilisateur en cours
  rdv.m_State         = m_State;
+
  setWidgetOnRdv(rdv);                // on reajuste le widget sur les nouvelles donn\303\251es
  setWidgetStyleOnRdv(rdv);
  RDV_Update();

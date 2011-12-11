@@ -158,7 +158,8 @@ class CMoteurAgenda : public QObject
   void            SetHtmlTemplateTitleMonth(const QString &value);
   void            SetAnimationAuthorisation(const QString &value);
   int             GetAnimationAuthorisation();
-
+  void            SetWeekDeploymentMode(const QString &value);
+  int             GetWeekDeploymentMode();
   void            SetDayOfMonthToBeDisplay(int value = 0){m_isDayOfMonthToBeDisplay = value;}
   int             isDayOfMonthToBeDisplay() {return m_isDayOfMonthToBeDisplay;}
 
@@ -203,6 +204,7 @@ class CMoteurAgenda : public QObject
   int           m_Representation;         // 0/sur 1 ligne 1/sur deux lignes
   int           m_HeightDaysHeaderInExpandMode;
   int           m_AnimationAuthorisation;
+  int           m_WeekDeploymentMode;
   QString       m_TitleTemplate;
   QString       m_HtmlTemplateTitleMonth;
   QString       m_FormatDateInResumeD;
