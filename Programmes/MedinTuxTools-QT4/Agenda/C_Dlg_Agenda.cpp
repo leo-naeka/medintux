@@ -365,7 +365,7 @@ void C_Frm_Agenda::getFreeSpace()
     C_RendezVous rdv (qdatePlage, 15,"","","","","",m_SignUser, m_User);
     C_Dlg_RdvTypeConfig *pC_Dlg_RdvTypeConfig   = new C_Dlg_RdvTypeConfig(&m_ColorProfils, m_pCMoteurAgenda, this,&rdv, 1);
     if (pC_Dlg_RdvTypeConfig)
-       {pC_Dlg_RdvTypeConfig->setCaption(tr("Set new appointment for %1 at %2").arg(m_UserNomPrenom, qdatePlage.toString("dd MMMM yyyy")));
+       {pC_Dlg_RdvTypeConfig->setCaption(tr("Set new appointment for %1 on the %2").arg(m_UserNomPrenom, qdatePlage.toString("dd MMMM yyyy")));
         if (pC_Dlg_RdvTypeConfig->exec() == QDialog::Accepted) m_pCMoteurAgenda->RDV_Create(rdv);
        }
     delete pC_Dlg_RdvTypeConfig;
@@ -2270,7 +2270,7 @@ void C_Frm_Day::newRDVAtThisDate(QDateTime dateTime, int duree, const QString &t
 
  C_Dlg_RdvTypeConfig *pC_Dlg_RdvTypeConfig   = new C_Dlg_RdvTypeConfig(m_pColorProfils, m_pCMoteurAgenda, this, pC_RendezVous, 1);
  if (pC_Dlg_RdvTypeConfig)
-    {pC_Dlg_RdvTypeConfig->setCaption(tr("Set new appointment for %1 at %2").arg(m_UserNomPrenom, dateTime.toString("dd MMMM yyyy")));
+    {pC_Dlg_RdvTypeConfig->setCaption(tr("Set new appointment for %1 on the %2").arg(m_UserNomPrenom, dateTime.toString("dd MMMM yyyy")));
      if (pC_Dlg_RdvTypeConfig->exec() == QDialog::Accepted)
         { appendNewRDVItem(pC_RendezVous);    // ne pas effacer pC_RendezVous car appendNewRDVItem
           delete pC_Dlg_RdvTypeConfig;
