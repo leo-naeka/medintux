@@ -1532,11 +1532,11 @@ void C_Manager::action_fullSwitchReplication_triggered ()
           { reconnectToNomade(G_pCApp->m_IsGestionNomadisme);          // CZ 22.03.2011
           }
        else
-          { QMessageBox::information( this, tr("CONNECTION AU SERVEUR NOMADE NON POSSIBLE"),
-                                            tr ( " <b><u>ATTENTION</b></u> ! la connexion au serveur nomade <br>")+
-                                            tr ( "est non possible.<br><u>Erreur :</u><br><pre>" ) + err + "</pre><br>" +
-                                            tr(  "Veuillez v\303\251rifier vos branchements et param\303\250tres.") ,
-                                            tr("Annu&ler"), 0, 0,
+          { QMessageBox::information( this, tr("CONNECTION TO THE SERVER NOMADE NON POSSIBLE"),
+                                            tr ( " <b><u>WARNING</b></u> ! Connection to  serveur nomade <br>")+
+                                            tr ( "is not possible.<br><u>Error :</u><br><pre>" ) + err + "</pre><br>" +
+                                            tr(  "Please verify your connections and parameters.") ,
+                                            tr("&Cancel"), 0, 0,
                                             0, 0 );
                return;
           }
@@ -2091,7 +2091,7 @@ void C_Manager::accederDossier( QString nom,  QString prenom, const QString &pri
           {QMessageBox::information( this, tr(  "FOLDER IS UNREACHABLE"),
                                      tr(  " <b><b><u>WARNING</b></u> ! This folder ")+"<font color=\"#e80d0d\"><b>"          + nom     + " " + prenom  +
                                      tr(  "</b></font> is open on this terminal: <b>" )   + usedBy  +
-                                     "</b>.<br />"+ tr( "Its acces is impossible on this terminal.<br />Please, get it closed on its terminal before opening it on this terminal.") ,
+                                     "</b>.<br />"+ tr( "Its access is impossible on this terminal.<br />Please, get it closed on its terminal before opening it on this terminal.") ,
                                      tr("&Cancel"),0 , 0,
                                      1, 1 );
            return;
@@ -2156,7 +2156,7 @@ int  C_Manager::alertVerrou(const QString &userBy, const QString &dossNom, const
    {  QMessageBox::information( this, tr("CONFLICTING OPENING"),
                                 tr(  " <b><u>WARNING</b></u> ! This folder ")+"<font color=\"#e80d0d\"><b>"          + dossNom     + " " + dossPrenom  +
                                 tr(  "</b></font> is already open on this terminal: <b>" )   + userBy  +
-                                tr(  "</b><br /> Its access is read-only,<br />it will turnt into write mode<br />as soon as it will be available on this terminal") ,
+                                tr(  "</b><br /> Its access is read-only,<br />it will turn into write mode<br />as soon as it will be available on this terminal") ,
                                 //"&nbsp;&nbsp;&nbsp;&nbsp; ° <b>Quitter pour <u>Annuler</u></b> l'op\303\251ration en cours" ) ,
                                 tr("&Cancel"),0 , 0,
                                 1, 1 );
@@ -4491,7 +4491,7 @@ void C_Manager::Slot_lineEditAutoLocator_textChanged(const QString &)
 //--------------------------------- Slot_pushButtonDetruire_clicked -------------------------------------------------------------
 void C_Manager::Slot_pushButtonDetruire_clicked()
 {   if ( !G_pCApp->isCurrentIdentiteValid() )
-      {G_pCApp->CouCou(tr("Operation impossible: \nno valid folder selected."));
+      {G_pCApp->CouCou(tr("Impossible operation: \nno valid folder selected."));
        return;
       }
    QString nom       = G_pCApp->identitePatientNom() ;
@@ -4525,10 +4525,10 @@ void C_Manager::Slot_pushButtonDetruire_clicked()
 
    //............. noter la nouvelle identit\303\251 ..................................
    switch  (QMessageBox::warning ( this, tr("Patient's folder removal:"),
-                                  tr ( "<u><b> WARNING !</u></b><br />      YOU ARE ABOUT TO DELETE FOLDER: ")+"<br />      <font color=\"#e80d0d\"><b>"     +
+                                  tr ( "<u><b> WARNING !</u></b><br />      YOU ARE ABOUT TO DELETE A FOLDER: ")+"<br />      <font color=\"#e80d0d\"><b>"     +
                                   nom  + " " +prenom  +
                                   tr(  "</b></font><br>&nbsp;&nbsp;&nbsp;THIS ACTION CANNOT BE UNDONE<br />&nbsp;&nbsp;&nbsp;AND DATA WILL BE&nbsp;&nbsp;&nbsp;<u><b>UNRECOVERABLE</b></u> LATER") ,
-                                  tr("&Delete"), tr("&NO"), 0,
+                                  tr("&Delete"), tr("&No"), 0,
                                   1, 1 )
            )
            {case 1: m_pCMoteurBase->DeVerrouilleDossier (numGUID);
@@ -5720,11 +5720,11 @@ C_Frm_Agenda *C_Manager::addUserAgenda(const QString &signUser, QDate date, QFra
       }
    // CZA -----------------------
    QString SemOuJour = tr("Day");
-   QString TipPreced = tr("Schedule of previus day");
+   QString TipPreced = tr("Schedule of previous day");
    QString TipSuivan = tr("Schedule of next day");
    if (pC_Frm_Agenda->getAgendaMode_WeekOrDayOrMonth() != "DAY")
       { SemOuJour = tr("Week");
-        TipPreced = tr("Schedule of previus week");
+        TipPreced = tr("Schedule of previous week");
         TipSuivan = tr("Schedule of next week");
       }
       // bouton jour precedent
@@ -6094,7 +6094,7 @@ else   // cas standard QFSEVITALE
                                                    "»</b> de cette carte de praticien de sant\303\251<br/> n'est pas connu de MedinTux, <br/>" +
                                                    "faut-il cr\303\251er un nouvel utilisateur avec ?"
                                                   ) ,
-                                               tr("&Cr\303\251er"), tr("&Annuler"), 0,
+                                               tr("&Create"), tr("&Cancel"), 0,
                                                1, 1 );
          if (ret==0)
             { editUser(cps_data);    // todo evaluer si au retour l'utilisateur est effac\303\251
@@ -6226,12 +6226,12 @@ void C_Manager::get_RecordDispos(const QString & mode /* = "FICHE" */)
     QString nomFicDPS     = "";
     if (mode!="AGENDA")
        {m_Type_Affichage_EnCours = "FICHE";
-        textToDisplay            = tr("  >> Goto Schedule              ");
+        textToDisplay            = tr("  >> Go to Schedule              ");
         nomFicDPS                = "Manager.dps";
        }
     else
        {m_Type_Affichage_EnCours = mode;
-        textToDisplay            = tr("  >> Goto Patient list          ");
+        textToDisplay            = tr("  >> Go to Patient list          ");
         nomFicDPS                = "Manager_Agenda.dps";
        }
     //...... charge la config de presentation .................
