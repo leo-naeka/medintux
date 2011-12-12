@@ -819,7 +819,7 @@ folder</string>
                     </size>
                    </property>
                    <property name="toolTip">
-                    <string>to define</string>
+                    <string>Format: dd-mm-aaaa</string>
                    </property>
                    <property name="whatsThis">
                     <string>to define for best control</string>
@@ -835,7 +835,7 @@ folder</string>
                     </size>
                    </property>
                    <property name="toolTip">
-                    <string>to define</string>
+                    <string>1 for first twin, 2 for second</string>
                    </property>
                    <property name="whatsThis">
                     <string>to define for best control</string>
@@ -895,7 +895,7 @@ folder</string>
                         </font>
                        </property>
                        <property name="text">
-                        <string>Zip Code </string>
+                        <string>Postal Code </string>
                        </property>
                        <property name="alignment">
                         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -905,7 +905,7 @@ folder</string>
                      <item row="1" column="1">
                       <widget class="C_QLineEdit" name="lineEdit_CdPostal">
                        <property name="toolTip">
-                        <string>to define</string>
+                        <string>5 numbers without space</string>
                        </property>
                        <property name="whatsThis">
                         <string>to define for best control</string>
@@ -970,7 +970,7 @@ folder</string>
                           </size>
                          </property>
                          <property name="toolTip">
-                          <string>to define</string>
+                          <string>10 digits with no separator</string>
                          </property>
                          <property name="whatsThis">
                           <string>to define for best control</string>
@@ -1005,7 +1005,7 @@ folder</string>
                           </size>
                          </property>
                          <property name="toolTip">
-                          <string>to define</string>
+                          <string>10 digits with no separator</string>
                          </property>
                          <property name="whatsThis">
                           <string>to define for best control</string>
@@ -1040,7 +1040,7 @@ folder</string>
                           </size>
                          </property>
                          <property name="toolTip">
-                          <string>to define</string>
+                          <string>10 digits with no separator</string>
                          </property>
                          <property name="whatsThis">
                           <string>to define for best control</string>
@@ -1293,7 +1293,7 @@ folder</string>
                     </sizepolicy>
                    </property>
                    <property name="toolTip">
-                    <string>to define</string>
+                    <string>13 chiffres avec calcul automatique de la clé</string>
                    </property>
                    <property name="whatsThis">
                     <string>to define for best control</string>
@@ -1375,7 +1375,7 @@ folder</string>
                     </size>
                    </property>
                    <property name="toolTip">
-                    <string>to define</string>
+                    <string>Format dd-mm-yyyy</string>
                    </property>
                    <property name="whatsThis">
                     <string>to define for best control</string>
