@@ -223,6 +223,36 @@ p, li { white-space: pre-wrap; }
         <source>CMoteurBase::GetPatientList(): data base can&apos;t be open</source>
         <translation>CMoteurBase::GetPatientList(): impossible d&apos;ouvrir la base de données</translation>
     </message>
+    <message>
+        <source>Syntax Error: SetConfBaseGetValue()
+ End delimiter &quot;&apos;&quot;  not find at line N°: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Syntax Error: SetConfBaseGetValue()
+ Start delimiter &quot;&apos;&quot;  not find at line N°: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error : CMoteurAgenda::MASK_Append() 
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error : CMoteurAgenda::COL_Create() 
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error : CMoteurAgenda::COL_RecordAllColorMap() 
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error : CMoteurAgenda::RDV_Create() 
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CMoteurBase</name>
@@ -479,6 +509,47 @@ Configuration du fichier &apos;DataBase.cfg&apos; incorrecte :</translation>
     <message>
         <source>transaction failed; error</source>
         <translation>erreur de transaction</translation>
+    </message>
+    <message>
+        <source>
+ Incorrect &apos;DataBase.cfg&apos; Configuration file:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+ &apos;DataBase.cfg&apos; mandatory version: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+   &apos;DataBase.cfg&apos; current version : %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+ Installed database: %1 not up to date, mandatory version: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+ verifyBaseIntegrity() Driver not started</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+ verifyBaseIntegrity() tables do not match  
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+ WARNING: these tables are not indicated in the configuration file: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+Indexation error: </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1993,6 +2064,16 @@ Configuration du fichier &apos;DataBase.cfg&apos; incorrecte :</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Syntax Error: SetConfBaseGetValue()
+ End delimiter &quot;&apos;&quot;  not find at line N°: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Syntax Error: SetConfBaseGetValue()
+ Start delimiter &quot;&apos;&quot;  not find at line N°: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>
 Erreur de syntaxe : C_DBVarDrTux::SetConfBase()
 le fichier de configuration des bases &apos;DataBase.cfg&apos;
@@ -2199,7 +2280,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;° Select the type of appointment to attribute to the appointment by simple-clicking on the line of this type.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;° To modify the label of an appointment, double-click on its label.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;° To modify the colour of a type of appointment, double-click on the box of the colour.&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+        <translation type="obsolete">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:600; font-style:normal;&quot;&gt;
@@ -2292,7 +2373,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Render anonymous an appointment (not linked to a folder)</source>
-        <translation>Rendre ce rendez-vous anonyme</translation>
+        <translation type="obsolete">Rendre ce rendez-vous anonyme</translation>
     </message>
     <message>
         <source>File. #</source>
@@ -2325,6 +2406,32 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>Delete an appointment type</source>
         <translation>Effacer un type de rendez-vous</translation>
+    </message>
+    <message>
+        <source>Anonymise an appointment (not linked to a file)</source>
+        <translation>Rendre ce rendez-vous anonyme (non lié à un dossier)</translation>
+    </message>
+    <message>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:600; font-style:normal;&quot;&gt;
+&lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
+&lt;tr&gt;
+&lt;td style=&quot;border: none;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;° Select the appointment type to attribute to the appointment by simple-clicking on the line of this type.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;° To modify the label of an appointment, double-click on its label.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;° To modify the colour of an appointment type, double-click on the box of the colour.&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:600; font-style:normal;&quot;&gt;
+&lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
+&lt;tr&gt;
+&lt;td style=&quot;border: none;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;° Sélectionnez le type de rendez-vous à affecter au rendez-vous en cliquant une seule fois sur la ligne correspondant à ce type.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;° Pour modifier le libellé d&apos;un type de rendez-vous, double cliquez sur son libellé.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;° Pour modifier la couleur d&apos;un type de rendez-vous, double cliquez sur la case de la couleur.&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -2398,7 +2505,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Add a new appointment at this date.</source>
-        <translation>Ajouter un nouveau rendez-vous à cette date.</translation>
+        <translation type="obsolete">Ajouter un nouveau rendez-vous à cette date.</translation>
     </message>
     <message>
         <source>Save this day as template.&lt;/font&gt;</source>
@@ -2406,7 +2513,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>On the</source>
-        <translation>Le</translation>
+        <translation type="obsolete">Le</translation>
     </message>
     <message>
         <source>at</source>
@@ -2447,7 +2554,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>Free space at : %1 h %2 mn 
 maximum possible duration:</source>
-        <translation>Emplacement libre à : %1 h %2 mn 
+        <translation type="obsolete">Emplacement libre à : %1 h %2 mn 
 durée maximum possible :</translation>
     </message>
     <message>
@@ -2460,11 +2567,11 @@ durée maximum possible :</translation>
     </message>
     <message>
         <source>The actual appointment taken for:</source>
-        <translation>Le rendez-vous actuel pris pour :</translation>
+        <translation type="obsolete">Le rendez-vous actuel pris pour :</translation>
     </message>
     <message>
         <source>will change et will be given to:</source>
-        <translation>va changer et être pris pour :</translation>
+        <translation type="obsolete">va changer et être pris pour :</translation>
     </message>
     <message>
         <source>Confirm modification ?</source>
@@ -2480,7 +2587,7 @@ durée maximum possible :</translation>
     </message>
     <message>
         <source>&lt;u&gt;&lt;b&gt;WARNING&lt;/u&gt; :&lt;br /&gt;&lt;/b&gt; The actual appointment taken for :</source>
-        <translation>&lt;u&gt;&lt;b&gt;ATTENTION&lt;/u&gt; :&lt;br /&gt;&lt;/b&gt; Le rendez-vous actuel pris pour :</translation>
+        <translation type="obsolete">&lt;u&gt;&lt;b&gt;ATTENTION&lt;/u&gt; :&lt;br /&gt;&lt;/b&gt; Le rendez-vous actuel pris pour :</translation>
     </message>
     <message>
         <source>will be given to:</source>
@@ -2508,11 +2615,11 @@ durée maximum possible :</translation>
     </message>
     <message>
         <source>Confirm delete</source>
-        <translation>Confirmer la destruction</translation>
+        <translation type="obsolete">Confirmer la destruction</translation>
     </message>
     <message>
         <source>Confirm deleting this appointment </source>
-        <translation>Confirmer l&apos;effacement de ce rendez-vous</translation>
+        <translation type="obsolete">Confirmer l&apos;effacement de ce rendez-vous</translation>
     </message>
     <message>
         <source>Cut</source>
@@ -2520,7 +2627,7 @@ durée maximum possible :</translation>
     </message>
     <message>
         <source>Confirm deleting this appointment</source>
-        <translation>Confirmer l&apos;effacement de ce rendez-vous</translation>
+        <translation type="obsolete">Confirmer l&apos;effacement de ce rendez-vous</translation>
     </message>
     <message>
         <source>Copy</source>
@@ -2540,19 +2647,19 @@ durée maximum possible :</translation>
     </message>
     <message>
         <source>Create after the last one for the %2 at %3 an appointment with the patient &apos;%1&apos; selected in the list.</source>
-        <translation>Créer un rendez-vous à la suite du dernier pour le  %2 à %3 avec le patient : &apos;%1&apos; sélectionné dans la liste.</translation>
+        <translation type="obsolete">Créer un rendez-vous à la suite du dernier pour le  %2 à %3 avec le patient : &apos;%1&apos; sélectionné dans la liste.</translation>
     </message>
     <message>
         <source>Create for the %2 at %3 an appointment with the patient &apos;%1&apos; selected in the list.</source>
-        <translation>Créer pour l&apos;emplacement actuel le %2 à %3 un rendez-vous avec le patient : &apos;%1&apos; sélectionné dans la liste.</translation>
+        <translation type="obsolete">Créer pour l&apos;emplacement actuel le %2 à %3 un rendez-vous avec le patient : &apos;%1&apos; sélectionné dans la liste.</translation>
     </message>
     <message>
         <source>Create an appointment after the last one for the %1 at %2</source>
-        <translation>Créer.un rendez-vous à la suite du dernier pour le  %1 à %2 </translation>
+        <translation type="obsolete">Créer.un rendez-vous à la suite du dernier pour le  %1 à %2 </translation>
     </message>
     <message>
         <source>Create an appointment for the %1 at  %2</source>
-        <translation>Créer pour l&apos;emplacement actuel le %1 à %2 un rendez-vous</translation>
+        <translation type="obsolete">Créer pour l&apos;emplacement actuel le %1 à %2 un rendez-vous</translation>
     </message>
     <message>
         <source>Create for the %1 at %2 an empty appointment with no identity</source>
@@ -2560,11 +2667,11 @@ durée maximum possible :</translation>
     </message>
     <message>
         <source>Paste the appointment with the patient &apos;%1&apos; at this date : %2 at this hour: %3</source>
-        <translation>Coller le rendez-vous avec le patient &apos;%1&apos; à cette date : %2 à cette heure : %3</translation>
+        <translation type="obsolete">Coller le rendez-vous avec le patient &apos;%1&apos; à cette date : %2 à cette heure : %3</translation>
     </message>
     <message>
         <source>Paste after the last one the appointment with the patient &apos;%1&apos; </source>
-        <translation>Coller le rendez-vous avec ce patient &apos;%1&apos; à la suite du dernier</translation>
+        <translation type="obsolete">Coller le rendez-vous avec ce patient &apos;%1&apos; à la suite du dernier</translation>
     </message>
     <message>
         <source>Paste at this date : %1 and at this hour : %2 the appointment from copy memory</source>
@@ -2572,7 +2679,7 @@ durée maximum possible :</translation>
     </message>
     <message>
         <source>Paste after the last one the appointment from the copy memory.</source>
-        <translation>Coller après le dernier rendez-vous celui déjà copié et présent en mémoire.</translation>
+        <translation type="obsolete">Coller après le dernier rendez-vous celui déjà copié et présent en mémoire.</translation>
     </message>
     <message>
         <source>Configure the types of appointments</source>
@@ -2588,15 +2695,15 @@ durée maximum possible :</translation>
     </message>
     <message>
         <source>Copy the current appointment into the copy memory</source>
-        <translation>Copier ce rendez-vous en mémoire de copie</translation>
+        <translation type="obsolete">Copier ce rendez-vous en mémoire de copie</translation>
     </message>
     <message>
         <source>Replace the actual appointment with the one inside the copy memory with the name of the patient: &apos;%1&apos; </source>
-        <translation>Remplacer le rendez-vous actuel par celui présent en mémoire de copie, patient : &apos;%1&apos;</translation>
+        <translation type="obsolete">Remplacer le rendez-vous actuel par celui présent en mémoire de copie, patient : &apos;%1&apos;</translation>
     </message>
     <message>
         <source>Replace the actual appointment with the one inside the copy memory.</source>
-        <translation>Remplacer le rendez-vous actuel par celui présent en mémoire de copie.</translation>
+        <translation type="obsolete">Remplacer le rendez-vous actuel par celui présent en mémoire de copie.</translation>
     </message>
     <message>
         <source>Cut the current appointment and put into the copy memory</source>
@@ -2616,7 +2723,7 @@ durée maximum possible :</translation>
     </message>
     <message>
         <source>Open folder: %1</source>
-        <translation>Ouvrir le dossier de : %1</translation>
+        <translation type="obsolete">Ouvrir le dossier de : %1</translation>
     </message>
     <message>
         <source>Make this appointment anonymous and available</source>
@@ -2670,6 +2777,92 @@ durée maximum possible :</translation>
         <source>Set new appointment for %1 on the %2</source>
         <translation>Donner un nouveau rendez-vous pour %1 le %2</translation>
     </message>
+    <message>
+        <source>Add a new appointment on this date.</source>
+        <translation>Ajouter un nouveau rendez-vous à cette date.</translation>
+    </message>
+    <message>
+        <source>On</source>
+        <translation>Le</translation>
+    </message>
+    <message>
+        <source>Free slot at : %1 h %2 mn 
+maximum possible duration:</source>
+        <translation>Emplacement libre à : %1 h %2 mn 
+durée maximum possible :</translation>
+    </message>
+    <message>
+        <source>The current appointment taken for:</source>
+        <translation>Le rendez-vous actuel pris pour :</translation>
+    </message>
+    <message>
+        <source>be changed and be given to:</source>
+        <translation>va changer et être pris pour :</translation>
+    </message>
+    <message>
+        <source>&lt;u&gt;&lt;b&gt;WARNING&lt;/u&gt; :&lt;br /&gt;&lt;/b&gt; The current appointment taken for :</source>
+        <translation>&lt;u&gt;&lt;b&gt;ATTENTION&lt;/u&gt; :&lt;br /&gt;&lt;/b&gt; Le rendez-vous actuel pris pour :</translation>
+    </message>
+    <message>
+        <source>Confirm deletion</source>
+        <translation>Confirmer la destruction</translation>
+    </message>
+    <message>
+        <source>Confirm deletion this appointment </source>
+        <translation>Confirmer l&apos;effacement de ce rendez-vous</translation>
+    </message>
+    <message>
+        <source>Confirm deletion this appointment</source>
+        <translation>Confirmer l&apos;effacement de ce rendez-vous</translation>
+    </message>
+    <message>
+        <source>Make an appointment after the previous existing one for the %2 at %3 an appointment with the patient &apos;%1&apos; selected in the list.</source>
+        <translation>Créer un rendez-vous à la suite du dernier pour le  %2 à %3 avec le patient : &apos;%1&apos; sélectionné dans la liste.</translation>
+    </message>
+    <message>
+        <source>Mane an appointment for the %2 at %3 with the patient &apos;%1&apos; selected in the list.</source>
+        <translation type="obsolete">Créer pour l&apos;emplacement actuel le %2 à %3 un rendez-vous avec le patient : &apos;%1&apos; sélectionné dans la liste.</translation>
+    </message>
+    <message>
+        <source>Make an appointment for the %2 at %3 after the previous existing one</source>
+        <translation>Créer.un rendez-vous à la suite du dernier pour le  %1 à %2 </translation>
+    </message>
+    <message>
+        <source>Make an appointment for the %1 at  %2</source>
+        <translation>Créer un rendez-vous le %1 à %2 </translation>
+    </message>
+    <message>
+        <source>Paste appointment with the patient &apos;%1&apos; at this date : %2 at this hour: %3</source>
+        <translation>Coller le rendez-vous avec le patient &apos;%1&apos; à cette date : %2 à cette heure : %3</translation>
+    </message>
+    <message>
+        <source>Paste after the previous existing one the appointment with the patient &apos;%1&apos; </source>
+        <translation>Créer.un rendez-vous à la suite du dernier pour le  %1 à %2 </translation>
+    </message>
+    <message>
+        <source>Paste after the previous existing one the appointment from the copy memory.</source>
+        <translation>Créer.un rendez-vous à la suite du dernier pour le  %1 à %2 </translation>
+    </message>
+    <message>
+        <source>Copy the current appointment to the copy memory</source>
+        <translation>Copier ce rendez-vous en mémoire de copie</translation>
+    </message>
+    <message>
+        <source>Replace the current appointment with the one inside the copy memory with the name of the patient: &apos;%1&apos; </source>
+        <translation>Remplacer le rendez-vous actuel par celui présent en mémoire de copie, patient : &apos;%1&apos;</translation>
+    </message>
+    <message>
+        <source>Replace the current appointment with the one inside the copy memory.</source>
+        <translation>Remplacer le rendez-vous actuel par celui présent en mémoire de copie.</translation>
+    </message>
+    <message>
+        <source>Open file: %1</source>
+        <translation>Ouvrir le dossier de : %1</translation>
+    </message>
+    <message>
+        <source>Make an appointment for the %2 at %3 with the patient &apos;%1&apos; selected in the list.</source>
+        <translation>Créer pour l&apos;emplacement actuel le %2 à %3 un rendez-vous avec le patient : &apos;%1&apos; sélectionné dans la liste.</translation>
+    </message>
 </context>
 <context>
     <name>C_Frm_Rdv</name>
@@ -2687,7 +2880,7 @@ durée maximum possible :</translation>
     </message>
     <message>
         <source>Access the patient&apos;s folder.</source>
-        <translation>Accéder au dossier patient.</translation>
+        <translation type="obsolete">Accéder au dossier patient.</translation>
     </message>
     <message>
         <source>Undefined status</source>
@@ -2700,6 +2893,16 @@ durée maximum possible :</translation>
     <message>
         <source>The features of this appointment have been modified 
 Confirm modifications </source>
+        <translation type="obsolete">Les caractéristiques de ce rendez-vous on été modifiées, 
+confirmez-vous les modifications ?</translation>
+    </message>
+    <message>
+        <source>Access the patient&apos;s file.</source>
+        <translation>Accéder au dossier patient.</translation>
+    </message>
+    <message>
+        <source>The features of this appointment have been modified 
+Confirm modifications ?</source>
         <translation>Les caractéristiques de ce rendez-vous on été modifiées, 
 confirmez-vous les modifications ?</translation>
     </message>
@@ -2803,7 +3006,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Disconnect from main server and turn into itinerant mode</source>
-        <translation>Se déconnecter du serveur central et passer en mode Nomade</translation>
+        <translation type="obsolete">Se déconnecter du serveur central et passer en mode Nomade</translation>
     </message>
     <message>
         <source>Master mode active</source>
@@ -2819,7 +3022,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Schedule management and patients list module</source>
-        <translation>Module de gestion de l&apos;agenda et de la liste des patients</translation>
+        <translation type="obsolete">Module de gestion de l&apos;agenda et de la liste des patients</translation>
     </message>
     <message>
         <source>&amp;Female</source>
@@ -2863,7 +3066,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>%1 The socket is about to close (data may still be waiting to be written).</source>
-        <translation>%1 Le connecteur est prêt de fermer (les données peuvent attendre pour être écrites).</translation>
+        <translation>%1 Le socket va fermer (les données peuvent encore attendre pour être écrites).</translation>
     </message>
     <message>
         <source>%1 For internal use only.</source>
@@ -2879,7 +3082,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>The connection was refused by the peer. Make sure the fortune server is running, and check that the host name and port settings are correct.  %1</source>
-        <translation>La connexion a été refusée par le pair. Assurez-vous que le serveur fonctionne et vérifiez que les réglages de nom d&apos;hôte de de port sont corrects.  %1</translation>
+        <translation type="obsolete">La connexion a été refusée par le pair. Assurez-vous que le serveur fonctionne et vérifiez que les réglages de nom d&apos;hôte de de port sont corrects.  %1</translation>
     </message>
     <message>
         <source>The following error occurred: %1.</source>
@@ -2887,11 +3090,11 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>The connection was refused by the peer. Make sure the fortune server is running, and check that the host name and port settings are correct.</source>
-        <translation>La connexion a été refusée par le pair. Assurez-vous que le serveur fonctionne et vérifiez que les réglages de nom d&apos;hôte de de port sont corrects.</translation>
+        <translation type="obsolete">La connexion a été refusée par le pair. Assurez-vous que le serveur fonctionne et vérifiez que les réglages de nom d&apos;hôte de de port sont corrects.</translation>
     </message>
     <message>
         <source>Failed to open database : </source>
-        <translation>Impossible d&apos;ouvrir la base de données : </translation>
+        <translation type="obsolete">Impossible d&apos;ouvrir la base de données : </translation>
     </message>
     <message>
         <source>CONNECTION TO MASTER SERVER FAILED</source>
@@ -2912,62 +3115,62 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>
       is used by: </source>
-        <translation>
+        <translation type="unfinished">
       est utilisé par : </translation>
     </message>
     <message>
         <source>Do you confirm this merging</source>
-        <translation>Confirmez-vous cette fusion</translation>
+        <translation type="unfinished">Confirmez-vous cette fusion</translation>
     </message>
     <message>
         <source>&lt;hr&gt;&lt;br /&gt; It is still time to cancel this operation.</source>
-        <translation>&lt;hr&gt;&lt;br /&gt; il est encore temps d&apos;annuler cette opération.</translation>
+        <translation type="obsolete">&lt;hr&gt;&lt;br /&gt; il est encore temps d&apos;annuler cette opération.</translation>
     </message>
     <message>
         <source>&lt;br /&gt; which will not be reversed after confirmation.</source>
-        <translation>&lt;br /&gt; qui sera irréversible après confirmation.</translation>
+        <translation type="obsolete">&lt;br /&gt; qui sera irréversible après confirmation.</translation>
     </message>
     <message>
         <source>&lt;br /&gt;&lt;hr&gt;Are you sure ? </source>
-        <translation>&lt;br /&gt;&lt;hr&gt;Confirmez-vous ? </translation>
+        <translation type="unfinished">&lt;br /&gt;&lt;hr&gt;Confirmez-vous ? </translation>
     </message>
     <message>
         <source>Saving:</source>
-        <translation>Enregistrement :</translation>
+        <translation type="unfinished">Enregistrement :</translation>
     </message>
     <message>
         <source>&lt;u&gt;&lt;b&gt;WARNING:&lt;/u&gt;&lt;/b&gt;&lt;br /&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;Are you sure this folder:</source>
-        <translation>&lt;u&gt;&lt;b&gt;ATTENTION :&lt;/u&gt;&lt;/b&gt;&lt;br /&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;Confirmez-vous que ce dossier :</translation>
+        <translation type="obsolete">&lt;u&gt;&lt;b&gt;ATTENTION :&lt;/u&gt;&lt;/b&gt;&lt;br /&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;Confirmez-vous que ce dossier :</translation>
     </message>
     <message>
         <source>&lt;/b&gt;&lt;/font&gt;&amp;nbsp;&amp;nbsp;should be modified with these new name and first name:</source>
-        <translation>&lt;/b&gt;&lt;/font&gt;&amp;nbsp;&amp;nbsp;doit être modifié avec ces nouveaux nom et prénom :</translation>
+        <translation type="obsolete">&lt;/b&gt;&lt;/font&gt;&amp;nbsp;&amp;nbsp;doit être modifié avec ces nouveaux nom et prénom :</translation>
     </message>
     <message>
         <source>&amp;Modify</source>
-        <translation>&amp;Modifier</translation>
+        <translation type="unfinished">&amp;Modifier</translation>
     </message>
     <message>
         <source>
     because it is in use by: </source>
-        <translation>
+        <translation type="unfinished">
      car il est en cours d&apos;utilisation par : </translation>
     </message>
     <message>
         <source>name first name:</source>
-        <translation>nom prénom :</translation>
+        <translation type="obsolete">nom prénom :</translation>
     </message>
     <message>
         <source>&lt;br /&gt; born:</source>
-        <translation>&lt;br /&gt; né le :</translation>
+        <translation type="obsolete">&lt;br /&gt; né le :</translation>
     </message>
     <message>
         <source>&lt;br /&gt; zip code:</source>
-        <translation>&lt;br /&gt; code postal :</translation>
+        <translation type="obsolete">&lt;br /&gt; code postal :</translation>
     </message>
     <message>
         <source>Possible duplicates</source>
-        <translation>Doublons possibles</translation>
+        <translation type="unfinished">Doublons possibles</translation>
     </message>
     <message>
         <source>&lt;br&gt; Person: </source>
@@ -2975,43 +3178,43 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>&lt;br /&gt;&lt;hr&gt;Do you confirm this operation, risking to create duplicates ?</source>
-        <translation>&lt;br /&gt;&lt;hr&gt; Confirmez-vous cette opération, au risque de créer un doublon ?</translation>
+        <translation type="obsolete">&lt;br /&gt;&lt;hr&gt; Confirmez-vous cette opération, au risque de créer un doublon ?</translation>
     </message>
     <message>
         <source>You do not have rights to use the schedule</source>
-        <translation>Vous n&apos;avez pas les droits pour utiliser l&apos;agenda</translation>
+        <translation type="obsolete">Vous n&apos;avez pas les droits pour utiliser l&apos;agenda</translation>
     </message>
     <message>
         <source>Update every five seconds.</source>
-        <translation>Intervalle de mise à.jour de cinq secondes.</translation>
+        <translation type="unfinished">Intervalle de mise à.jour de cinq secondes.</translation>
     </message>
     <message>
         <source>Update every ten seconds.</source>
-        <translation>Intervalle de mise à.jour de dix secondes.</translation>
+        <translation type="unfinished">Intervalle de mise à.jour de dix secondes.</translation>
     </message>
     <message>
         <source>Update every twenty seconds.</source>
-        <translation>Intervalle de mise à.jour de vingt secondes.</translation>
+        <translation type="unfinished">Intervalle de mise à.jour de vingt secondes.</translation>
     </message>
     <message>
         <source>Update every one minute</source>
-        <translation>Intervalle de mise à.jour d&apos;une minute</translation>
+        <translation type="unfinished">Intervalle de mise à.jour d&apos;une minute</translation>
     </message>
     <message>
         <source>Modify schedule width.</source>
-        <translation>Modifier la largeur de l&apos;agenda.</translation>
+        <translation type="unfinished">Modifier la largeur de l&apos;agenda.</translation>
     </message>
     <message>
         <source>Quit this menu.</source>
-        <translation>Quitter ce menu.</translation>
+        <translation type="unfinished">Quitter ce menu.</translation>
     </message>
     <message>
         <source>Hour (hh:mm) :</source>
-        <translation>Heure (hh:mm) :</translation>
+        <translation type="unfinished">Heure (hh:mm) :</translation>
     </message>
     <message>
         <source>Enter width of schedule</source>
-        <translation>Saisir la largeur de l&apos;agenda</translation>
+        <translation type="unfinished">Saisir la largeur de l&apos;agenda</translation>
     </message>
     <message>
         <source>Widt in pixels:</source>
@@ -3019,15 +3222,15 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Previous page</source>
-        <translation>Page précédente</translation>
+        <translation type="unfinished">Page précédente</translation>
     </message>
     <message>
         <source>Close this page.</source>
-        <translation>Fermer cette page.</translation>
+        <translation type="unfinished">Fermer cette page.</translation>
     </message>
     <message>
         <source>Annu&amp;ler</source>
-        <translation>&amp;Cancel</translation>
+        <translation type="unfinished">&amp;Cancel</translation>
     </message>
     <message>
         <source>Itinerant mode activated
@@ -3037,7 +3240,7 @@ connecté : </translation>
     </message>
     <message>
         <source>Users list</source>
-        <translation>Liste des utilisateurs</translation>
+        <translation type="obsolete">Liste des utilisateurs</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -3080,20 +3283,20 @@ connecté à : </translation>
     <message>
         <source>Connection failing
 Itinerant Mode keeped.</source>
-        <translation>Échec de la connexion
+        <translation type="obsolete">Échec de la connexion
 Mode nomade conservé.</translation>
     </message>
     <message>
         <source>Launch a folder</source>
-        <translation>Lancer un dossier</translation>
+        <translation type="obsolete">Lancer un dossier</translation>
     </message>
     <message>
         <source>Your rights are insufficient to launch a folder</source>
-        <translation>Vos droits sont insuffisants pour lancer un dossier</translation>
+        <translation type="obsolete">Vos droits sont insuffisants pour lancer un dossier</translation>
     </message>
     <message>
         <source> &lt;b&gt;&lt;b&gt;&lt;u&gt;WARNING&lt;/b&gt;&lt;/u&gt; ! This folder </source>
-        <translation> &lt;b&gt;&lt;b&gt;&lt;u&gt;ATTENTION&lt;/b&gt;&lt;/u&gt; ! Ce dossier </translation>
+        <translation type="obsolete"> &lt;b&gt;&lt;b&gt;&lt;u&gt;ATTENTION&lt;/b&gt;&lt;/u&gt; ! Ce dossier </translation>
     </message>
     <message>
         <source>non possible</source>
@@ -3145,63 +3348,63 @@ Mode nomade conservé.</translation>
     </message>
     <message>
         <source>Your rights are insufficient to modify a folder</source>
-        <translation>Vos droits sont insuffisants pour modifier un dossier</translation>
+        <translation type="obsolete">Vos droits sont insuffisants pour modifier un dossier</translation>
     </message>
     <message>
         <source>  connected to server: </source>
-        <translation>  connecté au serveur : </translation>
+        <translation type="unfinished">  connecté au serveur : </translation>
     </message>
     <message>
         <source>Close the duplicate resolution list</source>
-        <translation>Fermer la liste de résolution des doublons</translation>
+        <translation type="unfinished">Fermer la liste de résolution des doublons</translation>
     </message>
     <message>
         <source>unlock this patient&apos;s file: %1 </source>
-        <translation>Déverrouiller le dossier de ce patient : %1</translation>
+        <translation type="unfinished">Déverrouiller le dossier de ce patient : %1</translation>
     </message>
     <message>
         <source>Research by birth date: </source>
-        <translation>Rechercher par la date de naissance : </translation>
+        <translation type="unfinished">Rechercher par la date de naissance : </translation>
     </message>
     <message>
         <source>the name</source>
-        <translation>le nom</translation>
+        <translation type="obsolete">le nom</translation>
     </message>
     <message>
         <source>first name</source>
-        <translation>le prénom</translation>
+        <translation type="unfinished">le prénom</translation>
     </message>
     <message>
         <source>maiden</source>
-        <translation>nom de jeune fille</translation>
+        <translation type="unfinished">nom de jeune fille</translation>
     </message>
     <message>
         <source>Patient&apos;s folder removal:</source>
-        <translation>Effacement d&apos;un dossier patient :</translation>
+        <translation type="obsolete">Effacement d&apos;un dossier patient :</translation>
     </message>
     <message>
         <source> Your rights are insufficient do delete the folder:</source>
-        <translation>Vos droits sont insuffisants pour effacer le dossier :</translation>
+        <translation type="obsolete">Vos droits sont insuffisants pour effacer le dossier :</translation>
     </message>
     <message>
         <source>Close the duplicates resolution list</source>
-        <translation>Fermer la liste de résolution des doublons</translation>
+        <translation type="unfinished">Fermer la liste de résolution des doublons</translation>
     </message>
     <message>
         <source>Open the duplicate resolution list</source>
-        <translation>Ouvrir la liste de résolution des doublons</translation>
+        <translation type="unfinished">Ouvrir la liste de résolution des doublons</translation>
     </message>
     <message>
         <source>date</source>
-        <translation>date</translation>
+        <translation type="unfinished">date</translation>
     </message>
     <message>
         <source>number</source>
-        <translation>numéro</translation>
+        <translation type="unfinished">numéro</translation>
     </message>
     <message>
         <source>&amp;Create and access</source>
-        <translation>&amp;Créer et accéder</translation>
+        <translation type="unfinished">&amp;Créer et accéder</translation>
     </message>
     <message>
         <source>Browsing</source>
@@ -3225,23 +3428,23 @@ Mode nomade conservé.</translation>
     </message>
     <message>
         <source>Create a folder</source>
-        <translation>Créer un dossier</translation>
+        <translation type="obsolete">Créer un dossier</translation>
     </message>
     <message>
         <source>&amp;Create a folder</source>
-        <translation>&amp;Créer un dossier</translation>
+        <translation type="obsolete">&amp;Créer un dossier</translation>
     </message>
     <message>
         <source>Folder Creation</source>
-        <translation>Création de dossier</translation>
+        <translation type="obsolete">Création de dossier</translation>
     </message>
     <message>
         <source>Create a new folder ?</source>
-        <translation>Créer un nouveau dossier ?</translation>
+        <translation type="obsolete">Créer un nouveau dossier ?</translation>
     </message>
     <message>
         <source>FOLDER IS UNREACHABLE</source>
-        <translation>LE DOSSIER N&apos;EST PAS ACCESSIBLE</translation>
+        <translation type="obsolete">LE DOSSIER N&apos;EST PAS ACCESSIBLE</translation>
     </message>
     <message>
         <source>&lt;/b&gt;&lt;/font&gt; is open on this terminal: &lt;b&gt;</source>
@@ -3257,43 +3460,43 @@ Mode nomade conservé.</translation>
     </message>
     <message>
         <source>&amp;Create folder</source>
-        <translation>&amp;Créer le dossier</translation>
+        <translation type="obsolete">&amp;Créer le dossier</translation>
     </message>
     <message>
         <source>Use the data of %1 to fill the new form</source>
-        <translation>Utiliser les données de : %1 pour remplir celles du patient en cours de création</translation>
+        <translation type="unfinished">Utiliser les données de : %1 pour remplir celles du patient en cours de création</translation>
     </message>
     <message>
         <source>Create a new folder using data from: </source>
-        <translation>Créer un nouveau dossier en se servant des données de : </translation>
+        <translation type="obsolete">Créer un nouveau dossier en se servant des données de : </translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="unfinished">OK</translation>
     </message>
     <message>
         <source>&lt;/b&gt;&lt;/font&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;THIS ACTION CANNOT BE UNDONE&lt;br /&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;AND DATA WILL BE&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;u&gt;&lt;b&gt;UNRECOVERABLE&lt;/b&gt;&lt;/u&gt; LATER</source>
-        <translation>&lt;/b&gt;&lt;/font&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;CETTE ACTION EST IRRÉVERSIBLE&lt;br /&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;ET LES DONNÉES DU DOSSIER SERONT&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;u&gt;&lt;b&gt;IRRÉCUPÉRABLES&lt;/b&gt;&lt;/u&gt; ENSUITE</translation>
+        <translation type="unfinished">&lt;/b&gt;&lt;/font&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;CETTE ACTION EST IRRÉVERSIBLE&lt;br /&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;ET LES DONNÉES DU DOSSIER SERONT&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;u&gt;&lt;b&gt;IRRÉCUPÉRABLES&lt;/b&gt;&lt;/u&gt; ENSUITE</translation>
     </message>
     <message>
         <source>Delete the duplicates resolution list</source>
-        <translation>Effacer la liste de résolution des doublons</translation>
+        <translation type="unfinished">Effacer la liste de résolution des doublons</translation>
     </message>
     <message>
         <source>Remove this folder from duplicates list: </source>
-        <translation>Retirer de la liste des doublons ce dossier : </translation>
+        <translation type="obsolete">Retirer de la liste des doublons ce dossier : </translation>
     </message>
     <message>
         <source>Give all the folders in this list to patient: </source>
-        <translation>Assigner tous les dossiers présents dans cette liste au patient : </translation>
+        <translation type="obsolete">Assigner tous les dossiers présents dans cette liste au patient : </translation>
     </message>
     <message>
         <source>A folder exists for this name:</source>
-        <translation>Un dossier existe déjà pour ce nom :</translation>
+        <translation type="obsolete">Un dossier existe déjà pour ce nom :</translation>
     </message>
     <message>
         <source>Should we launch this folder ?</source>
-        <translation>Faut-il lancer ce dossier ?</translation>
+        <translation type="obsolete">Faut-il lancer ce dossier ?</translation>
     </message>
     <message>
         <source>&amp;Launch</source>
@@ -3301,7 +3504,7 @@ Mode nomade conservé.</translation>
     </message>
     <message>
         <source>There is no folder for this name:</source>
-        <translation>Il n&apos;y a pas de dossier pour ce nom :</translation>
+        <translation type="obsolete">Il n&apos;y a pas de dossier pour ce nom :</translation>
     </message>
     <message>
         <source>should we create one ?</source>
@@ -3313,7 +3516,7 @@ Mode nomade conservé.</translation>
     </message>
     <message>
         <source> &lt;b&gt;&lt;u&gt;WARNING&lt;/b&gt;&lt;/u&gt; ! This folder </source>
-        <translation> &lt;b&gt;&lt;u&gt;ATTENTION &lt;/b&gt;&lt;/u&gt; ! Ce dossier </translation>
+        <translation type="obsolete"> &lt;b&gt;&lt;u&gt;ATTENTION &lt;/b&gt;&lt;/u&gt; ! Ce dossier </translation>
     </message>
     <message>
         <source>&lt;/b&gt;&lt;/font&gt; is already open on this terminal: &lt;b&gt;</source>
@@ -3325,7 +3528,7 @@ Mode nomade conservé.</translation>
     </message>
     <message>
         <source> &lt;b&gt;&lt;u&gt;WARNING&lt;/b&gt;&lt;/u&gt; ! This folder &lt;b&gt;</source>
-        <translation> &lt;b&gt;&lt;u&gt;ATTENTION&lt;/b&gt;&lt;/u&gt; ! Ce dossier &lt;b&gt;</translation>
+        <translation type="obsolete"> &lt;b&gt;&lt;u&gt;ATTENTION&lt;/b&gt;&lt;/u&gt; ! Ce dossier &lt;b&gt;</translation>
     </message>
     <message>
         <source>&lt;/b&gt;is already open on this terminal: &lt;b&gt;</source>
@@ -3345,7 +3548,7 @@ Mode nomade conservé.</translation>
     </message>
     <message>
         <source>Research by name, first name and birth date: </source>
-        <translation>Rechercher avec le nom le prénom et la date de naissance : </translation>
+        <translation type="obsolete">Rechercher avec le nom le prénom et la date de naissance : </translation>
     </message>
     <message>
         <source>Operation impossible: 
@@ -3357,7 +3560,7 @@ pas de dossier valide sélectionné.</translation>
         <source> WARNING :
       folder removal impossible : 
       </source>
-        <translation> ATTENTION : 
+        <translation type="obsolete"> ATTENTION : 
            suppression du dossier impossible : 
            </translation>
     </message>
@@ -3367,7 +3570,7 @@ pas de dossier valide sélectionné.</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation>&amp;Détruire</translation>
+        <translation type="unfinished">&amp;Détruire</translation>
     </message>
     <message>
         <source>&amp;NO</source>
@@ -3375,111 +3578,51 @@ pas de dossier valide sélectionné.</translation>
     </message>
     <message>
         <source>Your rights are insufficient to save a folder.</source>
-        <translation>Vos droits sont insuffisants pour enregistrer un dossier.</translation>
+        <translation type="obsolete">Vos droits sont insuffisants pour enregistrer un dossier.</translation>
     </message>
     <message>
         <source>&lt;/b&gt;&lt;/font&gt;&amp;nbsp;&amp;nbsp;(don&apos;t you want to create a new folder ?)</source>
-        <translation>&lt;/b&gt;&lt;/font&gt;&amp;nbsp;&amp;nbsp;(votre intention ne serait elle pas plutôt de créer un nouveau dossier ?)</translation>
+        <translation type="obsolete">&lt;/b&gt;&lt;/font&gt;&amp;nbsp;&amp;nbsp;(votre intention ne serait elle pas plutôt de créer un nouveau dossier ?)</translation>
     </message>
     <message>
         <source>&lt;u&gt;&lt;b&gt;WARNING :&lt;/u&gt;&lt;/b&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;do you confirm the modifications&amp;nbsp;&amp;nbsp;on this folder : </source>
-        <translation>&lt;u&gt;&lt;b&gt;ATTENTION :&lt;/u&gt;&lt;/b&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;confirmez-vous les modifications apportées à ce dossier: </translation>
+        <translation type="obsolete">&lt;u&gt;&lt;b&gt;ATTENTION :&lt;/u&gt;&lt;/b&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;confirmez-vous les modifications apportées à ce dossier: </translation>
     </message>
     <message>
         <source>&amp;Validate</source>
-        <translation>&amp;Valider</translation>
+        <translation type="unfinished">&amp;Valider</translation>
     </message>
     <message>
         <source>ANONYMOUS</source>
-        <translation>ANONYME</translation>
+        <translation type="unfinished">ANONYME</translation>
     </message>
     <message>
         <source>&lt;br /&gt;&lt;hr&gt; of a person already in the folders list</source>
-        <translation>&lt;br /&gt;&lt;hr&gt; d&apos;une personne déjà présente dans la liste des dossiers</translation>
+        <translation type="obsolete">&lt;br /&gt;&lt;hr&gt; d&apos;une personne déjà présente dans la liste des dossiers</translation>
     </message>
     <message>
         <source>Do you still confirm this operation risking to create a duplicate ?</source>
-        <translation>Confirmez-vous tout de même cette opération au risque de créer un doublon ?</translation>
+        <translation type="unfinished">Confirmez-vous tout de même cette opération au risque de créer un doublon ?</translation>
     </message>
     <message>
         <source>Duplicates possible</source>
-        <translation>Doublons possibles</translation>
+        <translation type="unfinished">Doublons possibles</translation>
     </message>
     <message>
         <source>Display schedule with one pixel per minute.</source>
-        <translation>Représenter l&apos;agenda avec un pixel par minute.</translation>
+        <translation type="unfinished">Représenter l&apos;agenda avec un pixel par minute.</translation>
     </message>
     <message>
         <source>Display schedule with 2 pixels per minute.</source>
-        <translation>Représenter l&apos;agenda avec deux pixels par minute.</translation>
+        <translation type="unfinished">Représenter l&apos;agenda avec deux pixels par minute.</translation>
     </message>
     <message>
         <source>Display schedule with 3 pixels per minute.</source>
-        <translation>Représenter l&apos;agenda avec trois pixels par minute.</translation>
+        <translation type="unfinished">Représenter l&apos;agenda avec trois pixels par minute.</translation>
     </message>
     <message>
         <source>Display schedule with 4 pixels per minute.</source>
-        <translation>Représenter l&apos;agenda avec quatre pixels par minute.</translation>
-    </message>
-    <message>
-        <source>PS/Type_carte</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PS/ADELI</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PS/Nom</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PS/Type_identif_structure</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PS/Raison_sociale_structure</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PS/Code_convention</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PS/Code_zone_tarifaire</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PS/Code_zone_IK</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PS/Habilitation_Facture</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PS/Habilitation_Lot</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tarification/Taux</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Facturer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>FSE en cours</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;u&gt;&lt;b&gt;ATTENTION :&lt;/u&gt;&lt;/b&gt;&lt;br&gt;&lt;br&gt;Une FSE est en cours de saisie !&lt;br&gt;Voulez vous abandonner la FSE en cours ?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Abandonner la FSE en cours</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Représenter l&apos;agenda avec quatre pixels par minute.</translation>
     </message>
     <message>
         <source>&lt;br&gt; habitant : &lt;b&gt;%1 %2&lt;/b&gt;</source>
@@ -3495,147 +3638,147 @@ pas de dossier valide sélectionné.</translation>
     </message>
     <message>
         <source>Manager-V %1 used by: </source>
-        <translation>Manager-V %1 utilisé par : </translation>
+        <translation type="unfinished">Manager-V %1 utilisé par : </translation>
     </message>
     <message>
         <source>Manager-V %1 connected to server: </source>
-        <translation>Manager-V %1 connecté au serveur : </translation>
+        <translation type="unfinished">Manager-V %1 connecté au serveur : </translation>
     </message>
     <message>
         <source>To search by name and first name, you must separe the name and the first name by a semicolon. Example : &lt;b&gt;MARTIN;JEAN&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;The symbol % before the name or the first name lets make a research by anything which contains the expression&lt;br&gt;Example :  &lt;b&gt;%MART;%JE&lt;/b&gt; searches every person whose name contains: &lt;b&gt;MART&lt;/b&gt; and the first name : &lt;b&gt;JE&lt;/b&gt;</source>
-        <translation>Pour chercher par le nom et le prénom, il faut séparer le prénom du nom par un point-virgule. Exemple : &lt;b&gt;MARTIN;JEAN&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;Le Symbole pour cent % placé avant ou après le nom ou prénom permet de faire une recherche sur tout ce qui contient l&apos;expression&lt;br /&gt;Exemple :  &lt;b&gt;%MART;%JE&lt;/b&gt; cherchera toutes les personnes dont le nom contient : &lt;b&gt;MART&lt;/b&gt; et dont le prénom contient : &lt;b&gt;JE&lt;/b&gt;</translation>
+        <translation type="obsolete">Pour chercher par le nom et le prénom, il faut séparer le prénom du nom par un point-virgule. Exemple : &lt;b&gt;MARTIN;JEAN&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;Le Symbole pour cent % placé avant ou après le nom ou prénom permet de faire une recherche sur tout ce qui contient l&apos;expression&lt;br /&gt;Exemple :  &lt;b&gt;%MART;%JE&lt;/b&gt; cherchera toutes les personnes dont le nom contient : &lt;b&gt;MART&lt;/b&gt; et dont le prénom contient : &lt;b&gt;JE&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Put this patient : %1 into the list of duplicates resolution</source>
-        <translation>Placer ce patient : %1 dans  la liste de résolution des doublons</translation>
+        <translation type="unfinished">Placer ce patient : %1 dans  la liste de résolution des doublons</translation>
     </message>
     <message>
         <source>The patient %1 is already in the duplicates resolution list</source>
-        <translation>Le patient : %1 est déjà présent dans la liste de résolution des doublons</translation>
+        <translation type="unfinished">Le patient : %1 est déjà présent dans la liste de résolution des doublons</translation>
     </message>
     <message>
         <source>This itinerant mode does not allow duplicates resolution</source>
-        <translation>Ce mode de nomadisme ne permet pas la résolution des doublons</translation>
+        <translation type="unfinished">Ce mode de nomadisme ne permet pas la résolution des doublons</translation>
     </message>
     <message>
         <source>WARNING ! MERGING FUNCTION AT HIGH RISK ! &lt;/font&gt;&lt;/b&gt;&lt;hr&gt;&lt;br&gt; Person :</source>
-        <translation>ATTENTION ! OPÉRATION DE FUSION À HAUT RISQUE ! &lt;/font&gt;&lt;/b&gt;&lt;hr&gt;&lt;br&gt; La personne :</translation>
+        <translation type="unfinished">ATTENTION ! OPÉRATION DE FUSION À HAUT RISQUE ! &lt;/font&gt;&lt;/b&gt;&lt;hr&gt;&lt;br&gt; La personne :</translation>
     </message>
     <message>
         <source>&lt;br /&gt; will be the one who will get all the data: &lt;hr&gt;</source>
-        <translation>&lt;br /&gt;va être celle \à laquelle seront attribués tous les dossiers suivants : &lt;hr&gt;</translation>
+        <translation type="unfinished">&lt;br /&gt;va être celle \à laquelle seront attribués tous les dossiers suivants : &lt;hr&gt;</translation>
     </message>
     <message>
         <source>&lt;br&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;=&gt; Folder:</source>
-        <translation>&lt;br /&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;=&gt; Dossier :</translation>
+        <translation type="obsolete">&lt;br /&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;=&gt; Dossier :</translation>
     </message>
     <message>
         <source>&lt;br&gt;&lt;hr&gt;Do you confirm this operation ? </source>
-        <translation>&lt;br /&gt;&lt;hr&gt;Confirmez-vous cette opération ? </translation>
+        <translation type="unfinished">&lt;br /&gt;&lt;hr&gt;Confirmez-vous cette opération ? </translation>
     </message>
     <message>
         <source>Merge several folders</source>
-        <translation>Fusionner plusieurs dossiers</translation>
+        <translation type="obsolete">Fusionner plusieurs dossiers</translation>
     </message>
     <message>
         <source>&amp;Merge folders</source>
-        <translation>&amp;Fusionner les dossiers</translation>
+        <translation type="obsolete">&amp;Fusionner les dossiers</translation>
     </message>
     <message>
         <source> WARNING :
       Impossible to save the folder: 
       </source>
-        <translation> ATTENTION :
+        <translation type="obsolete"> ATTENTION :
         Impossible d&apos;enregistrer le dossier : 
          </translation>
     </message>
     <message>
         <source>POSSIBLE DUPLICATES ON THESE ELEMENTS</source>
-        <translation>DOUBLONS POSSIBLES SUR CES ÉLEMENTS</translation>
+        <translation type="unfinished">DOUBLONS POSSIBLES SUR CES ÉLEMENTS</translation>
     </message>
     <message>
         <source>POSSIBLE DUPLICATES ON NAME - FIRST NAME</source>
-        <translation>DOUBLONS POSSIBLES SUR NOM PRÉNOM</translation>
+        <translation type="obsolete">DOUBLONS POSSIBLES SUR NOM PRÉNOM</translation>
     </message>
     <message>
         <source>Person: </source>
-        <translation>La personne : </translation>
+        <translation type="unfinished">La personne : </translation>
     </message>
     <message>
         <source>&lt;hr&gt;&lt;br /&gt; is similar to the name of a folder in folders list</source>
-        <translation>&lt;hr&gt;&lt;br /&gt; est semblable à un nom de la liste des dossiers</translation>
+        <translation type="obsolete">&lt;hr&gt;&lt;br /&gt; est semblable à un nom de la liste des dossiers</translation>
     </message>
     <message>
         <source>$Agenda</source>
-        <translation>$Agenda</translation>
+        <translation type="unfinished">$Agenda</translation>
     </message>
     <message>
         <source>Display schedule with 5 pixels per minute.</source>
-        <translation>Représenter l&apos;agenda avec cinq pixels par minute.</translation>
+        <translation type="unfinished">Représenter l&apos;agenda avec cinq pixels par minute.</translation>
     </message>
     <message>
         <source>Define appointments on a multiple of one minute.</source>
-        <translation>Fixer les rendez-vous sur un multiple de une minute.</translation>
+        <translation type="unfinished">Fixer les rendez-vous sur un multiple de une minute.</translation>
     </message>
     <message>
         <source>Define appointments on a multiple of five minutes.</source>
-        <translation>Fixer les rendez-vous sur un multiple de cinq minutes.</translation>
+        <translation type="unfinished">Fixer les rendez-vous sur un multiple de cinq minutes.</translation>
     </message>
     <message>
         <source>Define appointments on a multiple of ten minutes.</source>
-        <translation>Fixer les rendez-vous sur un multiple de dix minutes.</translation>
+        <translation type="unfinished">Fixer les rendez-vous sur un multiple de dix minutes.</translation>
     </message>
     <message>
         <source>Define appointments on a multiple of fifteen minutes.</source>
-        <translation>Fixer les rendez-vous sur un multiple de quinze minutes.</translation>
+        <translation type="unfinished">Fixer les rendez-vous sur un multiple de quinze minutes.</translation>
     </message>
     <message>
         <source>Define the first visible hour.</source>
-        <translation>Fixer la première heure visible.</translation>
+        <translation type="unfinished">Fixer la première heure visible.</translation>
     </message>
     <message>
         <source>Define the last visible hour.</source>
-        <translation>Fixer la dernière heure visible.</translation>
+        <translation type="unfinished">Fixer la dernière heure visible.</translation>
     </message>
     <message>
         <source>Cancel automatic update.</source>
-        <translation>Annuler la mise à.jour automatique.</translation>
+        <translation type="unfinished">Annuler la mise à.jour automatique.</translation>
     </message>
     <message>
         <source>Show the miniature view (folded mode) on one line.</source>
-        <translation>Représenter la vue miniature (mode replié) sur une ligne.</translation>
+        <translation type="unfinished">Représenter la vue miniature (mode replié) sur une ligne.</translation>
     </message>
     <message>
         <source>Show the miniature view (folded mode) on two lines.</source>
-        <translation>Représenter la vue miniature (mode replié) sur deux lignes.</translation>
+        <translation type="unfinished">Représenter la vue miniature (mode replié) sur deux lignes.</translation>
     </message>
     <message>
         <source>Unactivate modifications confirmation.</source>
-        <translation>Désactiver la confirmation des modifications.</translation>
+        <translation type="unfinished">Désactiver la confirmation des modifications.</translation>
     </message>
     <message>
         <source>Activate modifications confirmation.</source>
-        <translation>Activer la confirmation des modifications.</translation>
+        <translation type="unfinished">Activer la confirmation des modifications.</translation>
     </message>
     <message>
         <source>Enter an hour formatted this way: hh:mm</source>
-        <translation>saisir une heure de la forme hh:mm</translation>
+        <translation type="unfinished">saisir une heure de la forme hh:mm</translation>
     </message>
     <message>
         <source>Width in pixels:</source>
-        <translation>Largeur en pixels :</translation>
+        <translation type="unfinished">Largeur en pixels :</translation>
     </message>
     <message>
         <source>Various options for schedule</source>
-        <translation>Options diverses pour l&apos;agenda</translation>
+        <translation type="unfinished">Options diverses pour l&apos;agenda</translation>
     </message>
     <message>
         <source>Which date to start schedule</source>
-        <translation>Date de début pour l&apos;agenda</translation>
+        <translation type="unfinished">Date de début pour l&apos;agenda</translation>
     </message>
     <message>
         <source>Close this schedule</source>
-        <translation>Fermer cet agenda</translation>
+        <translation type="unfinished">Fermer cet agenda</translation>
     </message>
     <message>
         <source>&lt;font color=&quot;#000000&quot;&gt;Previous page&lt;/font&gt;</source>
@@ -3647,43 +3790,19 @@ pas de dossier valide sélectionné.</translation>
     </message>
     <message>
         <source>Unknown user</source>
-        <translation>Utilisateur inconnu</translation>
+        <translation type="unfinished">Utilisateur inconnu</translation>
     </message>
     <message>
         <source>What is the police doing ?</source>
-        <translation>Que fait la police ?</translation>
-    </message>
-    <message>
-        <source>Saisir une FSP</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Saisir une facture</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Lancer Pyxvital</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Lancer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Liste des recettes</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Que fait la police ?</translation>
     </message>
     <message>
         <source>Test if the folders are locked and usable</source>
-        <translation>Tester si les dossiers sont verrouillés et utilisables</translation>
+        <translation type="obsolete">Tester si les dossiers sont verrouillés et utilisables</translation>
     </message>
     <message>
         <source>Format</source>
-        <translation>Format</translation>
-    </message>
-    <message>
-        <source>Liste </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Format</translation>
     </message>
     <message>
         <source>1- Mettre à jour l&apos;identité avec le nom et prénom de l&apos;ayant droit : </source>
@@ -3866,60 +3985,48 @@ pas de dossier valide sélectionné.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Rechercher par le numéro de sécurité sociale : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Associer la carte vitale sélectionnée : %1 à ce patient : %2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;br /&gt; numéro de SS : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>One month  Google Agenda Synchronization.</source>
-        <translation>Synchronisation d&apos;un mois avec Google Agenda.</translation>
+        <translation type="unfinished">Synchronisation d&apos;un mois avec Google Agenda.</translation>
     </message>
     <message>
         <source>Two months Google Agenda Synchronization.</source>
-        <translation>Synchronisation de deux mois avec Google Agenda.</translation>
+        <translation type="unfinished">Synchronisation de deux mois avec Google Agenda.</translation>
     </message>
     <message>
         <source>Six months Google Agenda Synchronization.</source>
-        <translation>Synchronisation de six mois avec Google Agenda.</translation>
+        <translation type="unfinished">Synchronisation de six mois avec Google Agenda.</translation>
     </message>
     <message>
         <source>Create several appointments for start of week.</source>
-        <translation>Créer plusieurs rendez-vous au début de la semaine.</translation>
+        <translation type="unfinished">Créer plusieurs rendez-vous au début de la semaine.</translation>
     </message>
     <message>
         <source>Day</source>
-        <translation>Jour</translation>
+        <translation type="unfinished">Jour</translation>
     </message>
     <message>
         <source>Display Day</source>
-        <translation>Afficher en mode jour</translation>
+        <translation type="unfinished">Afficher en mode jour</translation>
     </message>
     <message>
         <source>Week</source>
-        <translation>Semaine</translation>
+        <translation type="unfinished">Semaine</translation>
     </message>
     <message>
         <source>Display Week</source>
-        <translation>Afficher en mode semaine</translation>
+        <translation type="unfinished">Afficher en mode semaine</translation>
     </message>
     <message>
         <source>Month</source>
-        <translation>Mois</translation>
+        <translation type="unfinished">Mois</translation>
     </message>
     <message>
         <source>Display Month</source>
-        <translation>Afficher en mode mois</translation>
+        <translation type="unfinished">Afficher en mode mois</translation>
     </message>
     <message>
         <source>Choose free space for new appointment</source>
-        <translation>Choisir un emplacement libre pour un nouveau rendez-vous</translation>
+        <translation type="unfinished">Choisir un emplacement libre pour un nouveau rendez-vous</translation>
     </message>
     <message>
         <source>Schedule of previus day</source>
@@ -3927,7 +4034,7 @@ pas de dossier valide sélectionné.</translation>
     </message>
     <message>
         <source>Schedule of next day</source>
-        <translation>Agenda du jour suivant</translation>
+        <translation type="unfinished">Agenda du jour suivant</translation>
     </message>
     <message>
         <source>Schedule of previus week</source>
@@ -3935,91 +4042,15 @@ pas de dossier valide sélectionné.</translation>
     </message>
     <message>
         <source>Schedule of next week</source>
-        <translation>Agenda de la semaine suivante</translation>
+        <translation type="unfinished">Agenda de la semaine suivante</translation>
     </message>
     <message>
         <source>this day</source>
-        <translation>Ce jour</translation>
-    </message>
-    <message>
-        <source>PS/Numéro</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PS/Clé</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PS/Prénom</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PS/Code_civilité</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PS/Secteur_activité</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PS/Numéro_identif_structure</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PS/Clé_identif_structure</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PS/Code_spécialité</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PS/Code_agrément_1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PS/Code_agrément_2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PS/Code_agrément_3</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>L&apos;utilisateur : &lt;b&gt; �</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ce jour</translation>
     </message>
     <message>
         <source>  &gt;&gt; Goto Schedule              </source>
         <translation type="obsolete">  &gt;&gt; Goto Schedule              </translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;La carte Vitale n&apos;a pas été lue pour ce patient !&lt;br&gt;&lt;br&gt;&lt;/b&gt;Que voulez-vous faire : &lt;br&gt;&lt;br&gt;- Annuler et lire la carte Vitale,&lt;br&gt;- Continuer et saisir une feuille de soin en mode Dégradé,&lt;br&gt;- Continuer et saisir une feuille de soin papier ,&lt;br&gt;- Continuer et saisir une facture.&lt;br&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Mode dégradé</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Formater les fichiers et Télétransmettre</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Télétransmission seule</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Décharger le TLA</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Télétr</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Déchar</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>CONNECTION TO THE SERVER NOMADE NON POSSIBLE</source>
@@ -4048,12 +4079,12 @@ pas de dossier valide sélectionné.</translation>
     <message>
         <source>Impossible operation: 
 no valid folder selected.</source>
-        <translation>Opération impossible : 
+        <translation type="obsolete">Opération impossible : 
 pas de dossier valide sélectionné.</translation>
     </message>
     <message>
         <source>&lt;u&gt;&lt;b&gt; WARNING !&lt;/u&gt;&lt;/b&gt;&lt;br /&gt;      YOU ARE ABOUT TO DELETE A FOLDER: </source>
-        <translation>&lt;u&gt;&lt;b&gt; ATTENTION !&lt;/u&gt;&lt;/b&gt;&lt;br /&gt;      VOUS VOUS APPRÊTEZ À EFFACER LE DOSSIER : </translation>
+        <translation type="obsolete">&lt;u&gt;&lt;b&gt; ATTENTION !&lt;/u&gt;&lt;/b&gt;&lt;br /&gt;      VOUS VOUS APPRÊTEZ À EFFACER LE DOSSIER : </translation>
     </message>
     <message>
         <source>&amp;No</source>
@@ -4078,6 +4109,410 @@ pas de dossier valide sélectionné.</translation>
     <message>
         <source>  &gt;&gt; Go to Patient list          </source>
         <translation>  &gt;&gt; Aller à la liste des  patients          </translation>
+    </message>
+    <message>
+        <source>Launch a file</source>
+        <translation>Lancer un dossier</translation>
+    </message>
+    <message>
+        <source>A file exists for this name:</source>
+        <translation>Un dossier existe déjà pour ce nom :</translation>
+    </message>
+    <message>
+        <source>Should we launch this file ?</source>
+        <translation>Faut-il lancer ce dossier ?</translation>
+    </message>
+    <message>
+        <source>Create a file</source>
+        <translation>Créer un dossier</translation>
+    </message>
+    <message>
+        <source>There is no file for this name:</source>
+        <translation>Il n&apos;y a pas de dossier pour ce nom :</translation>
+    </message>
+    <message>
+        <source>&amp;Create a file</source>
+        <translation>&amp;Créer un dossier</translation>
+    </message>
+    <message>
+        <source>File Creation</source>
+        <translation>Création de dossier</translation>
+    </message>
+    <message>
+        <source>Create a new file ?</source>
+        <translation>Créer un nouveau dossier ?</translation>
+    </message>
+    <message>
+        <source>Your rights are insufficient to launch a file</source>
+        <translation>Vos droits sont insuffisants pour lancer un dossier</translation>
+    </message>
+    <message>
+        <source>FILE IS UNREACHABLE</source>
+        <translation>LE DOSSIER N&apos;EST PAS ACCESSIBLE</translation>
+    </message>
+    <message>
+        <source> &lt;b&gt;&lt;b&gt;&lt;u&gt;WARNING&lt;/b&gt;&lt;/u&gt; ! This file </source>
+        <translation> &lt;b&gt;&lt;u&gt;ATTENTION &lt;/b&gt;&lt;/u&gt; ! Ce dossier </translation>
+    </message>
+    <message>
+        <source> &lt;b&gt;&lt;u&gt;WARNING&lt;/b&gt;&lt;/u&gt; ! This file </source>
+        <translation> &lt;b&gt;&lt;u&gt;ATTENTION &lt;/b&gt;&lt;/u&gt; ! Ce dossier </translation>
+    </message>
+    <message>
+        <source> &lt;b&gt;&lt;u&gt;WARNING&lt;/b&gt;&lt;/u&gt; ! This file &lt;b&gt;</source>
+        <translation> &lt;b&gt;&lt;u&gt;ATTENTION &lt;/b&gt;&lt;/u&gt; ! Ce dossier </translation>
+    </message>
+    <message>
+        <source>Your rights are insufficient to modify a file</source>
+        <translation>Vos droits sont insuffisants pour modifier un dossier</translation>
+    </message>
+    <message>
+        <source>Your rights are insufficient to modify a file));</source>
+        <translation type="obsolete">Vos droits sont insuffisants pour modifier un dossier</translation>
+    </message>
+    <message>
+        <source>User list</source>
+        <translation>Liste des utilisateurs</translation>
+    </message>
+    <message>
+        <source>Disconnect from main server and activate itinerant mode</source>
+        <translation>Se déconnecter du serveur central et passer en mode Nomade</translation>
+    </message>
+    <message>
+        <source>Schedule management and patient list module</source>
+        <translation>Module de gestion de l&apos;agenda et de la liste des patients</translation>
+    </message>
+    <message>
+        <source>The connection was refused by the peer. Make sure the server is running, and check that the host name and port settings are correct.  %1</source>
+        <translation>La connexion a été refusée par le pair. Assurez-vous que le serveur fonctionne et vérifiez que les réglages de nom d&apos;hôte de de port sont corrects.</translation>
+    </message>
+    <message>
+        <source>The connection was refused by the peer. Make sure the server is running, and check that the host name and port settings are correct.</source>
+        <translation>La connexion a été refusée par le pair. Assurez-vous que le serveur fonctionne et vérifiez que les réglages de nom d&apos;hôte de de port sont corrects.</translation>
+    </message>
+    <message>
+        <source>Database failed to open: </source>
+        <translation>Impossible d&apos;ouvrir la base : </translation>
+    </message>
+    <message>
+        <source>Please check your parameters and slots.</source>
+        <translation>Veuillez vérifier vos paramètres et connexions.</translation>
+    </message>
+    <message>
+        <source>Connection failed
+Itinerant Mode kept.</source>
+        <translation>Échec de la connexion
+Mode nomade conservé.</translation>
+    </message>
+    <message>
+        <source>&amp;Create file</source>
+        <translation>&amp;Créer un dossier</translation>
+    </message>
+    <message>
+        <source>To search by family name and first name, you must separe the family name and the first name by a semicolon. Example : &lt;b&gt;MARTIN;JEAN&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;The symbol % before the family name or the first name lets make a research by anything which contains the expression&lt;br&gt;Example:  &lt;b&gt;%MART;%JE&lt;/b&gt; searches every person whose family name contains: &lt;b&gt;MART&lt;/b&gt; and the first name : &lt;b&gt;JE&lt;/b&gt;</source>
+        <translation>Pour chercher par le nom et le prénom, il faut séparer le prénom du nom par un point-virgule. Exemple : &lt;b&gt;MARTIN;JEAN&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;Le Symbole pour cent % placé avant ou après le nom ou prénom permet de faire une recherche sur tout ce qui contient l&apos;expression&lt;br /&gt;Exemple :  &lt;b&gt;%MART;%JE&lt;/b&gt; cherchera toutes les personnes dont le nom contient : &lt;b&gt;MART&lt;/b&gt; et dont le prénom contient : &lt;b&gt;JE&lt;/b&gt;</translation>
+    </message>
+    <message>
+        <source>Create a new file using data from: </source>
+        <translation>Créer un nouveau dossier en se servant des données de : </translation>
+    </message>
+    <message>
+        <source>Rechercher par le numéro de sécurité sociale : </source>
+        <translation type="unfinished">Vos droits sont insuffisants pour lancer un dossier</translation>
+    </message>
+    <message>
+        <source>Research by family name, first name and birth date: </source>
+        <translation>Rechercher avec le nom le prénom et la date de naissance : </translation>
+    </message>
+    <message>
+        <source>Associer la carte vitale sélectionnée : %1 à ce patient : %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>family name</source>
+        <translation>Nom</translation>
+    </message>
+    <message>
+        <source>Impossible operation: 
+no valid file selected.</source>
+        <translation>Opération impossible : 
+pas de dossier valide sélectionné.</translation>
+    </message>
+    <message>
+        <source>Patient&apos;s file removal:</source>
+        <translation>Effacement d&apos;un dossier patient :</translation>
+    </message>
+    <message>
+        <source> Your rights are insufficient do delete the file:</source>
+        <translation>Vos droits sont insuffisants pour effacer le dossier :</translation>
+    </message>
+    <message>
+        <source> WARNING :
+      file removal impossible : 
+      </source>
+        <translation> ATTENTION : 
+           suppression du dossier impossible : 
+           </translation>
+    </message>
+    <message>
+        <source>&lt;u&gt;&lt;b&gt; WARNING !&lt;/u&gt;&lt;/b&gt;&lt;br /&gt;      YOU ARE ABOUT TO DELETE A FILE: </source>
+        <translation>&lt;u&gt;&lt;b&gt; ATTENTION !&lt;/u&gt;&lt;/b&gt;&lt;br /&gt;      VOUS VOUS APPRÊTEZ À EFFACER LE DOSSIER : </translation>
+    </message>
+    <message>
+        <source>Remove this file from duplicates list: </source>
+        <translation>Retirer de la liste des doublons ce dossier : </translation>
+    </message>
+    <message>
+        <source>Test if the files are locked and usable</source>
+        <translation>Tester si les dossiers sont verrouillés et utilisables</translation>
+    </message>
+    <message>
+        <source>Give all the files in this list to patient: </source>
+        <translation>Assigner tous les dossiers présents dans cette liste au patient : </translation>
+    </message>
+    <message>
+        <source>&lt;br&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;=&gt; File:</source>
+        <translation>&lt;br /&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;=&gt; Dossier :</translation>
+    </message>
+    <message>
+        <source>Merge several files</source>
+        <translation>Fusionner plusieurs dossiers</translation>
+    </message>
+    <message>
+        <source>&amp;Merge files</source>
+        <translation>&amp;Fusionner les dossiers</translation>
+    </message>
+    <message>
+        <source>&lt;hr&gt;&lt;br /&gt; You can still cancel this operation.</source>
+        <translation>&lt;hr&gt;&lt;br /&gt; il est encore temps d&apos;annuler cette opération.</translation>
+    </message>
+    <message>
+        <source>&lt;br /&gt; which will be irreversible after confirmation.</source>
+        <translation>&lt;br /&gt; qui sera irréversible après confirmation.</translation>
+    </message>
+    <message>
+        <source>Your rights are insufficient to save a file.</source>
+        <translation>Vos droits sont insuffisants pour enregistrer un dossier.</translation>
+    </message>
+    <message>
+        <source>&lt;u&gt;&lt;b&gt;WARNING:&lt;/u&gt;&lt;/b&gt;&lt;br /&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;Are you sure this file:</source>
+        <translation>&lt;u&gt;&lt;b&gt;ATTENTION :&lt;/u&gt;&lt;/b&gt;&lt;br /&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;Confirmez-vous que ce dossier :</translation>
+    </message>
+    <message>
+        <source>&lt;/b&gt;&lt;/font&gt;&amp;nbsp;&amp;nbsp;must be modified with these new family name and first name:</source>
+        <translation>&lt;/b&gt;&lt;/font&gt;&amp;nbsp;&amp;nbsp;doit être modifié avec ces nouveaux nom et prénom :</translation>
+    </message>
+    <message>
+        <source>&lt;/b&gt;&lt;/font&gt;&amp;nbsp;&amp;nbsp;(don&apos;t you want to create a new file ?)</source>
+        <translation>&lt;/b&gt;&lt;/font&gt;&amp;nbsp;&amp;nbsp;(votre intention ne serait elle pas plutôt de créer un nouveau dossier ?)</translation>
+    </message>
+    <message>
+        <source>&lt;u&gt;&lt;b&gt;WARNING :&lt;/u&gt;&lt;/b&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;do you confirm the modifications&amp;nbsp;&amp;nbsp;on this file : </source>
+        <translation>&lt;u&gt;&lt;b&gt;ATTENTION :&lt;/u&gt;&lt;/b&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;confirmez-vous les modifications apportées à ce dossier: </translation>
+    </message>
+    <message>
+        <source> WARNING :
+      Impossible to save the file: 
+      </source>
+        <translation> ATTENTION :
+        Impossible d&apos;enregistrer le dossier : 
+         </translation>
+    </message>
+    <message>
+        <source>family name first name:</source>
+        <translation>nom prénom :</translation>
+    </message>
+    <message>
+        <source>&lt;br /&gt; birth date:</source>
+        <translation>Date de naissance </translation>
+    </message>
+    <message>
+        <source>&lt;br /&gt; postal code:</source>
+        <translation>&lt;br /&gt; code postal :</translation>
+    </message>
+    <message>
+        <source>&lt;br /&gt; numéro de SS : </source>
+        <translation type="unfinished">Date de naissance </translation>
+    </message>
+    <message>
+        <source>&lt;br /&gt;&lt;hr&gt; of a person already in the files list</source>
+        <translation>&lt;br /&gt;&lt;hr&gt; d&apos;une personne déjà présente dans la liste des dossiers</translation>
+    </message>
+    <message>
+        <source>POSSIBLE DUPLICATES ON FAMILY NAME - FIRST NAME</source>
+        <translation>DOUBLONS POSSIBLES SUR NOM PRÉNOM</translation>
+    </message>
+    <message>
+        <source>&lt;hr&gt;&lt;br /&gt; is similar to the name of a file in file list</source>
+        <translation>&lt;hr&gt;&lt;br /&gt; est semblable à un nom de la liste des dossiers</translation>
+    </message>
+    <message>
+        <source>&lt;br /&gt;&lt;hr&gt;Do you confirm this operation which risks to create duplicates ?</source>
+        <translation>&lt;br /&gt;&lt;hr&gt; Confirmez-vous cette opération, au risque de créer un doublon ?</translation>
+    </message>
+    <message>
+        <source>You do not have rights to use the appointment schedule</source>
+        <translation>Vous n&apos;avez pas les droits pour utiliser l&apos;agenda</translation>
+    </message>
+    <message>
+        <source>PS/Type_carte</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PS/ADELI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PS/Numéro</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PS/Clé</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PS/Nom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PS/Prénom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PS/Code_civilité</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PS/Secteur_activité</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PS/Type_identif_structure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PS/Numéro_identif_structure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PS/Clé_identif_structure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PS/Raison_sociale_structure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PS/Code_convention</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PS/Code_spécialité</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PS/Code_zone_tarifaire</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PS/Code_zone_IK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PS/Code_agrément_1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PS/Code_agrément_2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PS/Code_agrément_3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PS/Habilitation_Facture</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PS/Habilitation_Lot</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>L&apos;utilisateur : &lt;b&gt; �</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tarification/Taux</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Facturer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>FSE en cours</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;u&gt;&lt;b&gt;ATTENTION :&lt;/u&gt;&lt;/b&gt;&lt;br&gt;&lt;br&gt;Une FSE est en cours de saisie !&lt;br&gt;Voulez vous abandonner la FSE en cours ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Abandonner la FSE en cours</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;La carte Vitale n&apos;a pas été lue pour ce patient !&lt;br&gt;&lt;br&gt;&lt;/b&gt;Que voulez-vous faire : &lt;br&gt;&lt;br&gt;- Annuler et lire la carte Vitale,&lt;br&gt;- Continuer et saisir une feuille de soin en mode Dégradé,&lt;br&gt;- Continuer et saisir une feuille de soin papier ,&lt;br&gt;- Continuer et saisir une facture.&lt;br&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mode dégradé</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Saisir une FSP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Saisir une facture</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Formater les fichiers et Télétransmettre</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Télétransmission seule</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Décharger le TLA</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Liste des recettes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lancer Pyxvital</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Télétr</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Liste </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lancer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Déchar</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4159,7 +4594,7 @@ p, li { white-space: pre-wrap; }
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Pour sélectionner un patient,&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;donnez le &lt;span style=&quot; font-weight:600;&quot;&gt;nom&lt;/span&gt; séparé du &lt;span style=&quot; font-weight:600;&quot;&gt;prénome&lt;/span&gt; par un point-virgule.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;donnez le &lt;span style=&quot; font-weight:600;&quot;&gt;nom&lt;/span&gt; séparé du &lt;span style=&quot; font-weight:600;&quot;&gt;prénom&lt;/span&gt; par un point-virgule.&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Le symbole % spécifie : recherche par tout ce qui suit, n&apos;importe où.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
@@ -4204,7 +4639,7 @@ Cliquez du bouton droit sur un patient pour obtenir un menu comportant diverses 
     </message>
     <message>
         <source>to define</source>
-        <translation type="unfinished">à définir</translation>
+        <translation type="obsolete">à définir</translation>
     </message>
     <message>
         <source>Birth Date </source>
@@ -4216,7 +4651,7 @@ Cliquez du bouton droit sur un patient pour obtenir un menu comportant diverses 
     </message>
     <message>
         <source>Zip Code </source>
-        <translation>Code postal</translation>
+        <translation type="obsolete">Code postal</translation>
     </message>
     <message>
         <source>Tel 1</source>
@@ -4351,7 +4786,7 @@ un intervenant</translation>
     <message>
         <source>Schedule</source>
         <comment>Schedule</comment>
-        <translation type="unfinished">Agenda</translation>
+        <translation>Agenda</translation>
     </message>
     <message>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -4397,7 +4832,7 @@ dossier</translation>
     </message>
     <message>
         <source>First name </source>
-        <translation type="unfinished">Prénom</translation>
+        <translation>Prénom </translation>
     </message>
     <message>
         <source>Town </source>
@@ -4453,7 +4888,7 @@ dossier</translation>
     </message>
     <message>
         <source>New folder</source>
-        <translation>Nouveau dossier</translation>
+        <translation type="obsolete">Nouveau dossier</translation>
     </message>
     <message>
         <source>Files</source>
@@ -4469,7 +4904,7 @@ dossier</translation>
     </message>
     <message>
         <source>Access to medical folder by MedWebTux</source>
-        <translation>Accès au dossier médical par MedWebTux</translation>
+        <translation type="obsolete">Accès au dossier médical par MedWebTux</translation>
     </message>
     <message>
         <source>Users management</source>
@@ -4751,6 +5186,42 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>.                                                   Files</source>
         <translation>.                                                   Fichier</translation>
+    </message>
+    <message>
+        <source>New file</source>
+        <translation>Nouveau dossier</translation>
+    </message>
+    <message>
+        <source>Access to medical file by MedWebTux</source>
+        <translation>Accès au dossier médical par MedWebTux</translation>
+    </message>
+    <message>
+        <source>Format: dd-mm-aaaa</source>
+        <translation>Format: dd-mm-aaaa</translation>
+    </message>
+    <message>
+        <source>1 for first twin, 2 for second</source>
+        <translation>1 pour le premier jumeau, 2 pour le second</translation>
+    </message>
+    <message>
+        <source>5 numbers without space</source>
+        <translation>5 chiffres sans espace</translation>
+    </message>
+    <message>
+        <source>10 digits with no separator</source>
+        <translation>10 chiffres sans espace ni séparateur</translation>
+    </message>
+    <message>
+        <source>13 chiffres avec calcul automatique de la clé</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Format dd-mm-yyyy</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Postal Code </source>
+        <translation>Code postal</translation>
     </message>
 </context>
 <context>
