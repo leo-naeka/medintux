@@ -1095,7 +1095,7 @@ C_Frm_Day::C_Frm_Day(CMoteurAgenda       * pCMoteurAgenda ,
  m_ButtonNewRDV = new CMyButton(m_pBMC->m_ButtonNewRDV_Pixmap, this, "", this);
  m_ButtonNewRDV->setGeometry(m_Width - 22,-1,20, m_BaseDayHeight);
  m_ButtonNewRDV->setFlat( TRUE );
- m_ButtonNewRDV->setToolTip ( "<font color=\"#000000\">"+tr("Add a new appointment at this date.")+"</font>" );
+ m_ButtonNewRDV->setToolTip ( "<font color=\"#000000\">"+tr("Add a new appointment on this date.")+"</font>" );
 
  m_ButtonSave = new CMyButton(m_pBMC->m_ButtonSave_Pixmap, this, "", this);
  m_ButtonSave->setGeometry(m_Width - 42,-1,20, m_BaseDayHeight);
@@ -1215,7 +1215,7 @@ void C_Frm_Day::dragMoveEvent(QDragMoveEvent * event)
                         "<tbody>"
                         "<tr>"
                         "<td width=100% align=\"left\" bgcolor=\"#FEFFDD\">"+
-                        QString(tr("On the")+"&nbsp;<b><font color=\"#0000FF\">%1</font></b>&nbsp;"+tr("at")+"&nbsp;<b><font color=\"#e80d0d\">%2</font></b>&nbsp;"+tr("(duration")+"&nbsp;:&nbsp;<b><font color=\"#e80d0d\">%3</b></font>&nbsp;mn) <b>"+tr("Occupied")+"</b>&nbsp;par&nbsp;<font color=\"#FF8000\"><b>%4</b></font></b>"
+                        QString(tr("On")+"&nbsp;<b><font color=\"#0000FF\">%1</font></b>&nbsp;"+tr("at")+"&nbsp;<b><font color=\"#e80d0d\">%2</font></b>&nbsp;"+tr("(duration")+"&nbsp;:&nbsp;<b><font color=\"#e80d0d\">%3</b></font>&nbsp;mn) <b>"+tr("Occupied")+"</b>&nbsp;par&nbsp;<font color=\"#FF8000\"><b>%4</b></font></b>"
                         "</TD>"
                         "</TBODY>"
                         "</TABLE>").arg(m_Date.toString("dd-MM-yyyy"),rdv.m_date.time().toString("hh:mm"), QString::number(rdv.m_Duree), rdv.m_Nom.replace(" ","&nbsp;")+"&nbsp;"+rdv.m_Prenom.replace(" ","&nbsp;")) ;
@@ -1661,7 +1661,7 @@ bool C_Frm_Day::event(QEvent * event )
                 mn      = mn - (h*60);
                 int hD  = mnNext/60;
                 mnNext  = mnNext - (hD*60);
-                setToolTip ("<font color=\"#000000\">"+QString(tr("Free space at : %1 h %2 mn \nmaximum possible duration:")+ "%3 h %4 mn</font>").arg(QString::number(h),QString::number(mn),QString::number(hD),QString::number(mnNext)));
+                setToolTip ("<font color=\"#000000\">"+QString(tr("Free slot at : %1 h %2 mn \nmaximum possible duration:")+ "%3 h %4 mn</font>").arg(QString::number(h),QString::number(mn),QString::number(hD),QString::number(mnNext)));
                }
            }
        }
@@ -1901,9 +1901,9 @@ void C_Frm_Day::replaceRdvByRdv(C_Frm_Rdv *pC_Frm_Rdv_Dst, const C_RendezVous &r
   if (pC_Frm_Rdv_Dst == 0)        return;
   if (pC_Frm_Rdv_Dst->m_GUID.length()||pC_Frm_Rdv_Dst->m_Nom.length()||pC_Frm_Rdv_Dst->m_Prenom.length()) // si rendez-vous d\303\251j\303\240 attribu\303\251 demander confirmation du changement
      {int ret   = QMessageBox::warning ( this, tr("Modify an appointment :"),
-                                         QString( "<u><b>"+tr("WARNING")+"</u> :<br /></b>"+tr("The actual appointment taken for:")+"<br />"
+                                         QString( "<u><b>"+tr("WARNING")+"</u> :<br /></b>"+tr("The current appointment taken for:")+"<br />"
                                              " <b><font color=\"#1200ff\">%1</font></b><hr>").arg( pC_Frm_Rdv_Dst->m_Nom  + " " + pC_Frm_Rdv_Dst->m_Prenom ) +
-                                         QString(tr( "will change et will be given to:")+"<br />"
+                                         QString(tr( "be changed and be given to:")+"<br />"
                                              "<b><font color=\"#ff0000\">%1</font></b><br />").arg(rdvSrc.m_Nom+' '+rdvSrc.m_Prenom) +
                                          tr("Confirm modification ?"),
                                          tr("&Modify"), tr("&Cancel"), 0, 1, 1
@@ -2021,7 +2021,7 @@ void C_Frm_Day::On_Day_mousePressEvent ( QMouseEvent * event )
              {
               if (pRdv->m_GUID.length()||pRdv->m_Nom.length()||pRdv->m_Prenom.length()) // si rendez-vous d\303\251j\303\240 attribu\303\251 demander confirmation du changement
                  {int ret   = QMessageBox::warning ( this, tr("Modify an appointment :"),
-                                                     tr( "<u><b>WARNING</u> :<br /></b> The actual appointment taken for :")+QString("<br />"
+                                                     tr( "<u><b>WARNING</u> :<br /></b> The current appointment taken for :")+QString("<br />"
                                                          " <b><font color=\"#1200ff\">%1</font></b><hr>").arg( pRdv->m_Nom  + " " + pRdv->m_Prenom ) +
                                                      tr( "will be given to:")+QString("<br />"
                                                          "<b><font color=\"#ff0000\">%1</font></b><br />").arg(nom+' '+prenom) +
@@ -2057,8 +2057,8 @@ void C_Frm_Day::On_Day_mousePressEvent ( QMouseEvent * event )
                       {if (index != -1)
                           {if (m_pCMoteurAgenda->isModifToConfirm()&2  &&
                                QMessageBox::question ((QWidget*)parent(),
-                                                      tr("Confirm delete"),
-                                                      tr("Confirm deleting this appointment "),
+                                                      tr("Confirm deletion"),
+                                                      tr("Confirm deletion this appointment "),
                                                       QMessageBox::Ok|QMessageBox::Cancel)==QMessageBox::Cancel)
                               {UNLOOKREFRESH;
                                return;
@@ -2074,8 +2074,8 @@ void C_Frm_Day::On_Day_mousePressEvent ( QMouseEvent * event )
                    else if (ret.indexOf("Cut") != -1)  // il ne  peut pas se detruire lui meme et sortir ensuite de sa fonction donc QTIMER
                       {if (m_pCMoteurAgenda->isModifToConfirm()&2  &&
                            QMessageBox::question ((QWidget*)parent(),
-                                                  tr("Confirm delete"),
-                                                  tr("Confirm deleting this appointment"),
+                                                  tr("Confirm deletion"),
+                                                  tr("Confirm deletion this appointment"),
                                                   QMessageBox::Ok|QMessageBox::Cancel)==QMessageBox::Cancel)
                           {UNLOOKREFRESH;
                            return;
@@ -2149,12 +2149,12 @@ void C_Frm_Day::On_Day_mousePressEvent ( QMouseEvent * event )
   QStringList optionList;
   optionList<<"$Agenda";
   if (guid.length())
-     {optionList<<"=8=#Agenda/NewDocWithIdentAfter.png#"+tr("Create after the last one for the %2 at %3 an appointment with the patient '%1' selected in the list.").arg(nom+ " " +prenom,dtLast.date().toString("dd-MM-yyyy"),dtLast.time().toString("hh|mm").replace('|','h'));
-      optionList<<"=3=#Agenda/NewDocWithIdent.png#"+tr("Create for the %2 at %3 an appointment with the patient '%1' selected in the list.").arg(nom+ " " +prenom, dt.date().toString("dd-MM-yyyy"),dt.time().toString("hh|mm").replace('|','h'));
+     {optionList<<"=8=#Agenda/NewDocWithIdentAfter.png#"+tr("Make an appointment after the previous existing one for the %2 at %3 an appointment with the patient '%1' selected in the list.").arg(nom+ " " +prenom,dtLast.date().toString("dd-MM-yyyy"),dtLast.time().toString("hh|mm").replace('|','h'));
+      optionList<<"=3=#Agenda/NewDocWithIdent.png#"+tr("Make an appointment for the %2 at %3 with the patient '%1' selected in the list.").arg(nom+ " " +prenom, dt.date().toString("dd-MM-yyyy"),dt.time().toString("hh|mm").replace('|','h'));
       optionList<<"-----------";
      }
-  optionList<<"=7=#Agenda/NewDocAfter.png#"+tr("Create an appointment after the last one for the %1 at %2").arg(dtLast.date().toString("dd-MM-yyyy"),dtLast.time().toString("hh|mm").replace('|','h'));
-  optionList<<"=6=#Agenda/NewDoc.png#"+tr("Create an appointment for the %1 at  %2").arg(dt.date().toString("dd-MM-yyyy"),dt.time().toString("hh|mm").replace('|','h'));
+  optionList<<"=7=#Agenda/NewDocAfter.png#"+tr("Make an appointment for the %2 at %3 after the previous existing one").arg(dtLast.date().toString("dd-MM-yyyy"),dtLast.time().toString("hh|mm").replace('|','h'));
+  optionList<<"=6=#Agenda/NewDoc.png#"+tr("Make an appointment for the %1 at  %2").arg(dt.date().toString("dd-MM-yyyy"),dt.time().toString("hh|mm").replace('|','h'));
   optionList<<"=1=#Agenda/NewDoc.png#"+tr("Create for the %1 at %2 an empty appointment with no identity").arg(dt.date().toString("dd-MM-yyyy"),dt.time().toString("hh|mm").replace('|','h'));
 
   optionList<<tr("=11=#Agenda/NewDoc.png#Afficher aujourd'hui");   // CZA
@@ -2165,17 +2165,17 @@ void C_Frm_Day::On_Day_mousePressEvent ( QMouseEvent * event )
   if (isCopyExist())
      {C_RendezVous rdv = getCopy();
       if (rdv.m_Nom.trimmed().length()||rdv.m_Prenom.trimmed().length())
-         {optionList<<"=4=#Agenda/editpaste.png#"+tr("Paste the appointment with the patient '%1' at this date : %2 at this hour: %3").arg(rdv.m_Nom.trimmed()+" "+rdv.m_Prenom.trimmed(),
+         {optionList<<"=4=#Agenda/editpaste.png#"+tr("Paste appointment with the patient '%1' at this date : %2 at this hour: %3").arg(rdv.m_Nom.trimmed()+" "+rdv.m_Prenom.trimmed(),
                                                                                                                     dt.date().toString("dd-MM-yyyy"),
                                                                                                                     dt.time().toString("hh|mm").replace('|','h')
                                                                                                                    );
-          optionList<<"=9=#Agenda/editpasteLast.png#"+tr("Paste after the last one the appointment with the patient '%1' ").arg(rdv.m_Nom.trimmed()+" "+rdv.m_Prenom.trimmed());
+          optionList<<"=9=#Agenda/editpasteLast.png#"+tr("Paste after the previous existing one the appointment with the patient '%1' ").arg(rdv.m_Nom.trimmed()+" "+rdv.m_Prenom.trimmed());
          }
       else
          {optionList<<"=4=#Agenda/editpaste.png#"+tr("Paste at this date : %1 and at this hour : %2 the appointment from copy memory").arg(dt.date().toString("dd-MM-yyyy"),
                                                                                                        dt.time().toString("hh|mm").replace('|','h')
                                                                                                       );
-          optionList<<"=9=#Agenda/editpasteLast.png#"+tr("Paste after the last one the appointment from the copy memory.");
+          optionList<<"=9=#Agenda/editpasteLast.png#"+tr("Paste after the previous existing one the appointment from the copy memory.");
          }
      }
 
@@ -2229,7 +2229,7 @@ QString C_Frm_Day::doRdvMenu(C_RendezVous *pRdvDst, int isOptionDetruire  /* = 0
                    )->setData ("Modify");
     menu.addSeparator ();
     //..............menu clasique copier coller couper ...............................
-    menu.addAction (m_pBMC->m_Copier_Pixmap, tr("Copy the current appointment into the copy memory")
+    menu.addAction (m_pBMC->m_Copier_Pixmap, tr("Copy the current appointment to the copy memory")
                    )->setData ("Copy");
 
     //.......................... menu coller si rendez-vous en buffer de copie existe ...............
@@ -2238,10 +2238,10 @@ QString C_Frm_Day::doRdvMenu(C_RendezVous *pRdvDst, int isOptionDetruire  /* = 0
     {
         if (rdvCopy.m_Nom.trimmed().length()||rdvCopy.m_Prenom.trimmed().length())
             menu.addAction (m_pBMC->m_Paste_Pixmap,
-                            tr("Replace the actual appointment with the one inside the copy memory with the name of the patient: '%1' ").arg(rdvCopy.m_Nom.trimmed()+" "+rdvCopy.m_Prenom.trimmed())
+                            tr("Replace the current appointment with the one inside the copy memory with the name of the patient: '%1' ").arg(rdvCopy.m_Nom.trimmed()+" "+rdvCopy.m_Prenom.trimmed())
                            )->setData ("Replace");
         else
-            menu.addAction (m_pBMC->m_Paste_Pixmap, tr("Replace the actual appointment with the one inside the copy memory.")
+            menu.addAction (m_pBMC->m_Paste_Pixmap, tr("Replace the current appointment with the one inside the copy memory.")
                            )->setData ("Replace");
     }
     menu.addAction (m_pBMC->m_Cut_Pixmap, tr("Cut the current appointment and put into the copy memory")
@@ -2274,7 +2274,7 @@ QString C_Frm_Day::doRdvMenu(C_RendezVous *pRdvDst, int isOptionDetruire  /* = 0
        }
     menu.addSeparator ();
     if (pRdvDst->m_GUID.length())
-       { menu.addAction (m_pBMC->m_ButtonAcceder_Pixmap, tr("Open folder: %1").arg(pRdvDst->m_Nom+" "+pRdvDst->m_Prenom)
+       { menu.addAction (m_pBMC->m_ButtonAcceder_Pixmap, tr("Open file: %1").arg(pRdvDst->m_Nom+" "+pRdvDst->m_Prenom)
                         )->setData ("Open");
        }
     menu.addSeparator ();
@@ -2397,8 +2397,8 @@ void C_Frm_Day::Slot_ButtonRDVDeleteClicked(const char*, void *ptr)
 {LOOKREFRESH;     // bloquer le raffraississement
  if (m_pCMoteurAgenda->isModifToConfirm()&2  &&
      QMessageBox::question ((QWidget*)parent(),
-                            tr("Confirm delete"),
-                            tr("Confirm deleting this appointment "),
+                            tr("Confirm deletion"),
+                            tr("Confirm deletion this appointment "),
                             QMessageBox::Ok|QMessageBox::Cancel)==QMessageBox::Cancel)
     {UNLOOKREFRESH;
      return;
@@ -2756,7 +2756,7 @@ m_ButtonAcceder = new CMyButton(m_pBMC->m_ButtonChange_Pixmap, this, "", this);
 if (m_button_HeureDuree) m_ButtonAcceder->setGeometry(120, 0, widget_h, widget_h);
 else                     m_ButtonAcceder->setGeometry(m_widget_w-widget_h-2, y, widget_h, widget_h);
 m_ButtonAcceder->setFlat( TRUE );
-m_ButtonAcceder->setToolTip ( "<font color=\"#000000\">"+TR("Access the patient's folder.")+"</font>" );  //AgendaCreateDoss.png
+m_ButtonAcceder->setToolTip ( "<font color=\"#000000\">"+TR("Access the patient's file.")+"</font>" );  //AgendaCreateDoss.png
 //m_ButtonAcceder->setStyleSheet(style);  // background-color: #960101 background-image: url(images/welcome.png
 
 //.......................... installer le filtre evenementiel ....................................
@@ -3105,7 +3105,7 @@ void C_Frm_Rdv::mouseReleaseEvent ( QMouseEvent * /*event*/ )
      if (m_pCMoteurAgenda->isModifToConfirm()&1 &&
          QMessageBox::question ((QWidget*)parent(),
                                 tr("Confirm modification"),
-                                tr("The features of this appointment have been modified \nConfirm modifications "),
+                                tr("The features of this appointment have been modified \nConfirm modifications ?"),
                                 QMessageBox::Ok|QMessageBox::Cancel)==QMessageBox::Cancel)
         {m_date                      = m_C_RendezVousSav.m_date; // restituer la config initiale
          m_Duree                     = m_C_RendezVousSav.m_Duree;
