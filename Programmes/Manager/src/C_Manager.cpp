@@ -302,7 +302,7 @@ C_Manager::C_Manager(CMoteurBase *pCMoteurBase,  QWidget *parent, const QString 
    m_pC_Frm_UserList = new C_Frm_UserList(m_pCMoteurBase, this);
    QLabel * wdg_labelDocWidget_Title_User = new QLabel(this);
    wdg_labelDocWidget_Title_User->setStyleSheet(styles);
-   wdg_labelDocWidget_Title_User->setText(tr("Users list"));
+   wdg_labelDocWidget_Title_User->setText(tr("User list"));
    wdg_labelDocWidget_Title_User->setAlignment ( Qt::AlignHCenter|Qt::AlignVCenter );
    m_pGUI->wdg_DockWidget_User->setTitleBarWidget ( wdg_labelDocWidget_Title_User );
    m_pGUI->wdg_DockWidget_User->setWidget(m_pC_Frm_UserList);
@@ -561,7 +561,7 @@ if (CGestIni::Param_ReadUniqueParam(G_pCApp->m_LocalParam, "Sesam-Vitale", "Modu
            G_pCApp->CouCou(tr("Itinerant Mode Active "));
           }
        else
-          {m_action_ModeNomade->setText(tr("Disconnect from main server and turn into itinerant mode"));
+          {m_action_ModeNomade->setText(tr("Disconnect from main server and activate itinerant mode"));
            m_action_ModeNomade->setIconSet ( Theme::getIcon("32x32/connected.png") ) ;
            G_pCApp->CouCou(tr("Master mode active"));
           }
@@ -785,7 +785,7 @@ m_action_WebHelp->setText(QApplication::translate("C_ManagerClass", "Access to t
 m_action_WebFind->setText(QApplication::translate("C_ManagerClass", "Find text entered in the right field", 0, QApplication::UnicodeUTF8));
 m_action_DebloquerBases->setText(QApplication::translate("C_ManagerClass", "Remove all locks", 0, QApplication::UnicodeUTF8));
 m_action_dockMenu->setText(QApplication::translate("C_ManagerClass", "Hide Show Users and Schedules", 0, QApplication::UnicodeUTF8));
-m_action_NouveauDossier->setText(QApplication::translate("C_ManagerClass", "New folder", 0, QApplication::UnicodeUTF8));
+m_action_NouveauDossier->setText(QApplication::translate("C_ManagerClass", "New file", 0, QApplication::UnicodeUTF8));
 m_action_NouveauDossier->setShortcut(QApplication::translate("C_ManagerClass", "Ctrl+N", 0, QApplication::UnicodeUTF8));
 m_actionQuitter->setText(QApplication::translate("C_ManagerClass", "Quit", 0, QApplication::UnicodeUTF8));
 m_actionQuitter->setShortcut(QApplication::translate("C_ManagerClass", "Ctrl+Q", 0, QApplication::UnicodeUTF8));
@@ -797,7 +797,7 @@ m_actionQuitter->setShortcut(QApplication::translate("C_ManagerClass", "Ctrl+Q",
 m_menuFenetre->setTitle(QApplication::translate("C_ManagerClass", "Display and Windows", 0, QApplication::UnicodeUTF8));
 m_action_A_Propos->setText(QApplication::translate("C_ManagerClass", "About Manager", 0, QApplication::UnicodeUTF8));
 m_menuInfo->setTitle(QApplication::translate("C_ManagerClass", "Help", 0, QApplication::UnicodeUTF8));
-m_action_AccesWebMedTux->setText(QApplication::translate("C_ManagerClass", "Access to medical folder by MedWebTux", 0, QApplication::UnicodeUTF8));
+m_action_AccesWebMedTux->setText(QApplication::translate("C_ManagerClass", "Access to medical file by MedWebTux", 0, QApplication::UnicodeUTF8));
 m_action_Aide->setText(QApplication::translate("C_ManagerClass", "MedinTux Documentation", 0, QApplication::UnicodeUTF8));
 m_action_UserParams->setText(QApplication::translate("C_ManagerClass", "Users management", 0, QApplication::UnicodeUTF8));
 m_action_UserParams->setShortcut(QApplication::translate("C_ManagerClass", "Ctrl+G", 0, QApplication::UnicodeUTF8));
@@ -994,7 +994,7 @@ void C_Manager::Slot_actionAproposDisplay()
         QProcess::ProcessState procState;
         //......................... completer les autres arguments .........................................
         argList << "Manager";                                                       // 1  nom du module
-        argList << tr("Schedule management and patients list module"); // 2  description courte
+        argList << tr("Schedule management and patient list module"); // 2  description courte
         argList << (G_pCApp->getNumVers()+" Qt : "+QT_VERSION_STR);                 // 3  numero de version
         argList << G_pCApp->m_PathAppli+"Ressources/Changements.html";              // 4  fichiers d?crivant les changements
         argList << Theme::getPath(Theme::WithSeparator)+"32x32/Manager.png";        // 5  Icone du programme
@@ -1233,7 +1233,7 @@ void C_Manager::Slot_hostMasterError (QAbstractSocket::SocketError socketError)
     case QAbstractSocket::ConnectionRefusedError:
         QMessageBox::information(this, "MasterError",
                                  tr("The connection was refused by the peer. "
-                                    "Make sure the fortune server is running, "
+                                    "Make sure the server is running, "
                                     "and check that the host name and port "
                                     "settings are correct.  %1"));
         break;
@@ -1256,7 +1256,7 @@ void C_Manager::Slot_hostSlaveError (QAbstractSocket::SocketError socketError)
     case QAbstractSocket::ConnectionRefusedError:
         QMessageBox::information(this, "SlaveError",
                                  tr("The connection was refused by the peer. "
-                                    "Make sure the fortune server is running, "
+                                    "Make sure the server is running, "
                                     "and check that the host name and port "
                                     "settings are correct."));
         break;
@@ -1278,7 +1278,7 @@ if (nomadismeStateToSet)
     m_action_ModeNomade->setIconSet ( Theme::getIcon("32x32/unconnected.png") ) ;
    }
 else
-   {m_action_ModeNomade->setText(tr("Disconnect from main server and turn into itinerant mode"));
+   {m_action_ModeNomade->setText(tr("Disconnect from main server and activate itinerant mode"));
     m_action_ModeNomade->setIconSet ( Theme::getIcon("32x32/connected.png") ) ;
    }
 }
@@ -1301,7 +1301,7 @@ int C_Manager::testConnection(QString connexionVar,  QString *errMess )
        defaultDB.setPort        ( port.toInt());
        if ( ! defaultDB.open() )
           {QString qstr = "";
-           qstr += tr("Failed to open database : ")    + "TEST_CONNECTION  Driver : " +  QString(driver) + "  " + QString(baseToConnect) + "\r\n" +
+           qstr += tr("Database failed to open: ")    + "TEST_CONNECTION  Driver : " +  QString(driver) + "  " + QString(baseToConnect) + "\r\n" +
                     defaultDB.lastError().driverText() + "\r\n" + defaultDB.lastError().databaseText();
            qWarning()<<qstr.toLatin1();
            if (errMess) *errMess = qstr;
@@ -1348,7 +1348,7 @@ QString C_Manager::tryToFindConnectionFromList (QString connexionVar,  QString *
                  defaultDB.setPort        ( port.toInt());
                  if ( ! defaultDB.open() )
                     {QString qstr = "";
-                     qstr += tr("Failed to open database : ")    + "TEST_CONNECTION  Driver : " +  QString(driver) + "  " + QString(baseToConnect) + "\r\n" +
+                     qstr += tr("Database failed to open: ")    + "TEST_CONNECTION  Driver : " +  QString(driver) + "  " + QString(baseToConnect) + "\r\n" +
                      defaultDB.lastError().driverText() + "\r\n" + defaultDB.lastError().databaseText();
                      qWarning()<<qstr.toLatin1();
                      if (errMess) *errMess = qstr;
@@ -1386,7 +1386,7 @@ if (paramConn.length()==0)
    {QMessageBox::information( this, tr("CONNECTION TO MASTER SERVER FAILED"),
                                     tr( " <b><u>WARNING</b></u> ! Connection to master server <br />")+
                                     tr( "is impossible.<br /><u>Error ") + ":</u><br><pre>"  + errMess + "</pre><br />" +
-                                    tr( "Please, check your parameters and slots.") ,
+                                    tr( "Please check your parameters and slots.") ,
                                     tr("&Cancel"), 0, 0,
                                     0, 0 );
     return;
@@ -1734,7 +1734,7 @@ int C_Manager::reconnectToMaster(int gestionNomadisme)
                G_pCApp->CouCou(tr("Master mode active\nconnected to: ") + G_pCApp->m_pCMoteurBase->GetDataBaseLabel() + QString("\ndriver : %1\nbase : %2\nuser : %3\nhost : %4").arg(driver, baseToOpen, login_Master, host_Master+":"+port_Master),"", 4000);
               }
            else
-              {G_pCApp->CouCou(tr("Connection failing\nItinerant Mode keeped.") );
+              {G_pCApp->CouCou(tr("Connection failed\nItinerant Mode kept.") );
                return -1;
               }
            /////////////////////// / CZ 22.10.2010 //////////// fin
@@ -1947,10 +1947,10 @@ if (guid.length()== 0)
                            }
                if (pQListViewItem)
                   {pQListViewItem->setSelected(TRUE);      // pour mettre \303\240 jour la fiche identite
-                   int ret = QMessageBox::information( this, tr("Launch a folder"),
-                                               tr( "A folder exists for this name:")+" <br /><b>«" + pC_RendezVous->m_Nom + "  " + pC_RendezVous->m_Prenom +
+                   int ret = QMessageBox::information( this, tr("Launch a file"),
+                                               tr( "A file exists for this name:")+" <br /><b>«" + pC_RendezVous->m_Nom + "  " + pC_RendezVous->m_Prenom +
                                                    "»</b>" +
-                                                   "<br />"+tr("Should we launch this folder ?") ,
+                                                   "<br />"+tr("Should we launch this file ?") ,
                                                tr("&Launch"), tr("&Cancel"), 0,
                                                1, 1 );
                    if (ret==0)
@@ -1959,12 +1959,12 @@ if (guid.length()== 0)
                   } //if (pQListViewItem)
               }
            else if (m_pGUI->listView_Patient->topLevelItemCount()==0)
-              {int ret = QMessageBox::information( this, tr("Create a folder"),
-                                               tr( "There is no folder for this name:")+ "<br /><b>«" + pC_RendezVous->m_Nom + "  " + pC_RendezVous->m_Prenom +
+              {int ret = QMessageBox::information( this, tr("Create a file"),
+                                               tr( "There is no file for this name:")+ "<br /><b>«" + pC_RendezVous->m_Nom + "  " + pC_RendezVous->m_Prenom +
                                                    "»</b>" +
                                                    "<br />"+ tr("should we create one ?"
                                                   ) ,
-                                               tr("&Create a folder"), tr("&Cancel"), 0,
+                                               tr("&Create a file"), tr("&Cancel"), 0,
                                                1, 1 );
               if (ret==0)
                  {Slot_pushButtonNew_clicked();
@@ -1975,9 +1975,9 @@ if (guid.length()== 0)
               }
          }
     else
-         {int ret = QMessageBox::information( this, tr("Folder Creation"),
-                                              tr( "Create a new folder ?"  ) ,
-                                              tr("Create a folder"), tr("&Cancel"), 0,
+         {int ret = QMessageBox::information( this, tr("File Creation"),
+                                              tr( "Create a new file ?"  ) ,
+                                              tr("Create a file"), tr("&Cancel"), 0,
                                               1, 1 );
              if (ret==0)
                 {Slot_pushButtonNew_clicked();
@@ -2059,7 +2059,7 @@ void C_Manager::Slot_pushButtonAcceder_Clicked()
 //--------------------------------- accederDossier -----------------------------------------------------------------------------
 void C_Manager::accederDossier( QString nom,  QString prenom, const QString &primKey, const QString &guid, const QString &user, const QString &sign_user)
 {  if (G_pCApp->IsThisDroitExist( "idg")==0)
-     {G_pCApp->CouCou(tr( "Your rights are insufficient to launch a folder"));
+     {G_pCApp->CouCou(tr( "Your rights are insufficient to launch a file"));
       return;
      }
    if (getInterfaceMode() != MODE_CREATION_PATIENT && m_pGUI->pushButtonSavModif->isEnabled() )  //Slot_pushButtonSavModif();
@@ -2088,8 +2088,8 @@ void C_Manager::accederDossier( QString nom,  QString prenom, const QString &pri
    if ( m_pCMoteurBase->IsDossierVerrouille( guid, usedBy ))
       {CGestIni::Param_ReadParam(G_pCApp->m_LocalParam, "Gestion des dossiers", "Acces Concurrent", &value);   // path editeur de texte non d\303\251fini
        if (value.lower().left(3) == "exc")
-          {QMessageBox::information( this, tr(  "FOLDER IS UNREACHABLE"),
-                                     tr(  " <b><b><u>WARNING</b></u> ! This folder ")+"<font color=\"#e80d0d\"><b>"          + nom     + " " + prenom  +
+          {QMessageBox::information( this, tr(  "FILE IS UNREACHABLE"),
+                                     tr(  " <b><b><u>WARNING</b></u> ! This file ")+"<font color=\"#e80d0d\"><b>"          + nom     + " " + prenom  +
                                      tr(  "</b></font> is open on this terminal: <b>" )   + usedBy  +
                                      "</b>.<br />"+ tr( "Its access is impossible on this terminal.<br />Please, get it closed on its terminal before opening it on this terminal.") ,
                                      tr("&Cancel"),0 , 0,
@@ -2154,7 +2154,7 @@ int  C_Manager::alertVerrou(const QString &userBy, const QString &dossNom, const
    CGestIni::Param_ReadParam(G_pCApp->m_LocalParam, "Gestion des dossiers", "Acces Concurrent", &value);   // path editeur de texte non d\303\251fini
    if (value.lower() == tr("non possible"))
    {  QMessageBox::information( this, tr("CONFLICTING OPENING"),
-                                tr(  " <b><u>WARNING</b></u> ! This folder ")+"<font color=\"#e80d0d\"><b>"          + dossNom     + " " + dossPrenom  +
+                                tr(  " <b><u>WARNING</b></u> ! This file ")+"<font color=\"#e80d0d\"><b>"          + dossNom     + " " + dossPrenom  +
                                 tr(  "</b></font> is already open on this terminal: <b>" )   + userBy  +
                                 tr(  "</b><br /> Its access is read-only,<br />it will turn into write mode<br />as soon as it will be available on this terminal") ,
                                 //"&nbsp;&nbsp;&nbsp;&nbsp; ° <b>Quitter pour <u>Annuler</u></b> l'op\303\251ration en cours" ) ,
@@ -2163,7 +2163,7 @@ int  C_Manager::alertVerrou(const QString &userBy, const QString &dossNom, const
        return 1;
    }
    return QMessageBox::information( this, tr("CONFLICTING OPENING"),
-                                    tr ( " <b><u>WARNING</b></u> ! This folder <b>")          + dossNom     + " " + dossPrenom  +
+                                    tr ( " <b><u>WARNING</b></u> ! This file <b>")          + dossNom     + " " + dossPrenom  +
                                     tr(  "</b>is already open on this terminal: <b>" )   + userBy  +
                                     tr(  "</b><br> Should we try to open it anyway ?<br />") ,
                                     //"&nbsp;&nbsp;&nbsp;&nbsp; ° <b>Quitter pour <u>Annuler</u></b> l'op\303\251ration en cours" ) ,   1111b0
@@ -3256,7 +3256,7 @@ if (pQTreeWidgetItemInterv)
 //--------------------------------- Slot_pushButton_DelMedTTT_clicked -----------------------------------------------------------------------
 void C_Manager::Slot_pushButton_DelMedTTT_clicked()
 {  if (G_pCApp->IsThisDroitExist( "idc")==0)
-     {G_pCApp->CouCou(tr( "Your rights are insufficient to modify a folder"));
+     {G_pCApp->CouCou(tr( "Your rights are insufficient to modify a file"));
       return;
      }
    QTreeWidgetItem *pQListViewItem = getSelectedListViewItem(m_pGUI->listView_Praticiens);
@@ -3284,7 +3284,7 @@ exeAnnuaire(idInterv);
 //--------------------------------- exeAnnuaire -------------------------------------------------------------
 void C_Manager::exeAnnuaire(QString idInterv )
 {   if (G_pCApp->IsThisDroitExist( "idc")==0)
-     {G_pCApp->CouCou(tr( "Your rights are insufficient to modify a folder"));
+     {G_pCApp->CouCou(tr( "Your rights are insufficient to modify a file"));
       return;
      }
    //.............................. rechercher executable et son fichier d'echange ..........................
@@ -3460,7 +3460,7 @@ if (CGestIni::Param_ReadUniqueParam(G_pCApp->m_LocalParam, "Derniere Session", Q
     m_pGUI->pushButtonCreate->setObjectName("Acceder et creer");
    }
 else
-   {m_pGUI->pushButtonCreate->setText(tr("&Create folder"));
+   {m_pGUI->pushButtonCreate->setText(tr("&Create file"));
     m_pGUI->pushButtonCreate->setObjectName("Creer seulement");
    }
  if (G_pCApp->IsThisDroitExist("adm")) m_action_DebloquerBases->setVisible( TRUE );
@@ -3665,9 +3665,9 @@ int C_Manager::setSexFromQualiteAyantDroit(int qualiteAyantDroit)
 }
 //--------------------------------- Slot_pushButtonInfoClicked -------------------------------------------------------------
 void C_Manager::Slot_pushButtonInfoClicked()
-{QWhatsThis::showText (QCursor().pos(), "<font color=\"#000000\">"+tr("To search by name and first name, you must separe the name and the first name by a semicolon. Example : <b>MARTIN;JEAN</b><br /><br />"
-                         "The symbol % before the name or the first name lets make a research by anything which contains the expression<br>"
-                         "Example :  <b>%MART;%JE</b> searches every person whose name contains: <b>MART</b> and the first name : <b>JE</b>")+"</font>" );
+{QWhatsThis::showText (QCursor().pos(), "<font color=\"#000000\">"+tr("To search by family name and first name, you must separe the family name and the first name by a semicolon. Example : <b>MARTIN;JEAN</b><br /><br />"
+                         "The symbol % before the family name or the first name lets make a research by anything which contains the expression<br>"
+                         "Example:  <b>%MART;%JE</b> searches every person whose family name contains: <b>MART</b> and the first name : <b>JE</b>")+"</font>" );
 }
 
 //---- AYANT DROIT ------------- tryToSetInterfaceFromAyantDroit ---------------------------------------------------------------------------------
@@ -4036,7 +4036,7 @@ QTreeWidgetItem *pQListViewItemVitale   = getSelectedListViewItem(m_pGUI->listVi
 if (pQListViewItem){if( getInterfaceMode()==MODE_CREATION_PATIENT)
                         list.append(tr("Use the data of %1 to fill the new form").arg(pQListViewItem->text(LIST_NOM)+" "+pQListViewItem->text(LIST_PRENOM)));
                     else
-                        list.append(tr("Create a new folder using data from: ")+pQListViewItem->text(LIST_NOM)+" "+pQListViewItem->text(LIST_PRENOM));
+                        list.append(tr("Create a new file using data from: ")+pQListViewItem->text(LIST_NOM)+" "+pQListViewItem->text(LIST_PRENOM));
                     list.append("-------------");
                    }
 if (m_pGUI->listView_Doublons->isShown())  list.append(tr("Close the duplicate resolution list"));
@@ -4057,7 +4057,7 @@ if (pQListViewItem){ //.............. verifier si pas verrouill\303\251 ........
                      list.append(tr("Research by birth date: ")+m_pGUI->lineEdit_DtNss->text());
                      //list.append(tr("Rechercher par le n. de jeune fille : ")+lineEdit_NomDeNss->text());
                      list.append(tr("Rechercher par le num\303\251ro de s\303\251curit\303\251 sociale : ")+m_pGUI->lineEdit_NumSecu->text());
-                     list.append(tr("Research by name, first name and birth date: ")  +m_pGUI->lineEditAutoLocator->text().replace(";"," ")+" "+m_pGUI->lineEdit_DtNss->text());
+                     list.append(tr("Research by family name, first name and birth date: ")  +m_pGUI->lineEditAutoLocator->text().replace(";"," ")+" "+m_pGUI->lineEdit_DtNss->text());
                    }
  #ifdef SESAM_VERSION
 if (pQListViewItemVitale && pQListViewItem)
@@ -4147,7 +4147,7 @@ switch((int)(QChar(ret[0]).latin1()))
        QString dtNss   = "";
        QString numSecu = "";
        QString jeuneF  = "";
-       if      (ret.find(tr("the name"))!=-1)       nom        =   QString("%")+m_pGUI->lineEdit_NomDossier->text()+"%";
+       if      (ret.find(tr("family name"))!=-1)       nom        =   QString("%")+m_pGUI->lineEdit_NomDossier->text()+"%";
        if      (ret.find(tr("first name"))!=-1)       prenom     =   QString("%")+m_pGUI->lineEdit_PrenomDossier->text()+"%";
        dtNss = m_pGUI->lineEdit_DtNss->text().remove('-');
        if      (ret.find(tr("date"))!=-1)         dtNss      =   dtNss.mid(4,4)+"-"+dtNss.mid(2,2)+"-"+dtNss.mid(0,2)+ " 00:00:00";
@@ -4491,14 +4491,14 @@ void C_Manager::Slot_lineEditAutoLocator_textChanged(const QString &)
 //--------------------------------- Slot_pushButtonDetruire_clicked -------------------------------------------------------------
 void C_Manager::Slot_pushButtonDetruire_clicked()
 {   if ( !G_pCApp->isCurrentIdentiteValid() )
-      {G_pCApp->CouCou(tr("Impossible operation: \nno valid folder selected."));
+      {G_pCApp->CouCou(tr("Impossible operation: \nno valid file selected."));
        return;
       }
    QString nom       = G_pCApp->identitePatientNom() ;
    QString prenom    = G_pCApp->identitePatientPrenom();
    if (G_pCApp->IsThisDroitExist("idd"))
-      {QMessageBox::warning ( this, tr("Patient's folder removal:"),
-                              tr ( " Your rights are insufficient do delete the folder:")+ "<br><b> <font color=\"#e80d0d\"> "     +
+      {QMessageBox::warning ( this, tr("Patient's file removal:"),
+                              tr ( " Your rights are insufficient do delete the file:")+ "<br><b> <font color=\"#e80d0d\"> "     +
                               nom  + " " + prenom  +  "</b></font>",
                               tr("OK"));
       return;
@@ -4513,8 +4513,8 @@ void C_Manager::Slot_pushButtonDetruire_clicked()
    //              car utilise par quelqu'un d'autre
    QString  usedBy;
    if (m_pCMoteurBase->VerrouilleDossier (numGUID, G_pCApp->getUser() , usedBy  )==0)
-      {QMessageBox::warning ( this, tr("Patient's folder removal:"),
-                           tr ( " WARNING :\n      folder removal impossible : \n      ")     +
+      {QMessageBox::warning ( this, tr("Patient's file removal:"),
+                           tr ( " WARNING :\n      file removal impossible : \n      ")     +
                            nom  + " " + prenom  +
                            tr(  "\n      is used by: ") + usedBy ,
                            tr("OK"), 0, 0,
@@ -4524,8 +4524,8 @@ void C_Manager::Slot_pushButtonDetruire_clicked()
       }
 
    //............. noter la nouvelle identit\303\251 ..................................
-   switch  (QMessageBox::warning ( this, tr("Patient's folder removal:"),
-                                  tr ( "<u><b> WARNING !</u></b><br />      YOU ARE ABOUT TO DELETE A FOLDER: ")+"<br />      <font color=\"#e80d0d\"><b>"     +
+   switch  (QMessageBox::warning ( this, tr("Patient's file removal:"),
+                                  tr ( "<u><b> WARNING !</u></b><br />      YOU ARE ABOUT TO DELETE A FILE: ")+"<br />      <font color=\"#e80d0d\"><b>"     +
                                   nom  + " " +prenom  +
                                   tr(  "</b></font><br>&nbsp;&nbsp;&nbsp;THIS ACTION CANNOT BE UNDONE<br />&nbsp;&nbsp;&nbsp;AND DATA WILL BE&nbsp;&nbsp;&nbsp;<u><b>UNRECOVERABLE</b></u> LATER") ,
                                   tr("&Delete"), tr("&No"), 0,
@@ -4592,10 +4592,10 @@ QStringList list;
 list.append(tr("Close the duplicates resolution list"));
 list.append(tr("Delete the duplicates resolution list"));
 if (pQListViewItem)
-   {list.append(tr("Remove this folder from duplicates list: ")                     + pQListViewItem->text(0)+" "+pQListViewItem->text(1));
-    list.append(tr("Test if the folders are locked and usable"));
+   {list.append(tr("Remove this file from duplicates list: ")                     + pQListViewItem->text(0)+" "+pQListViewItem->text(1));
+    list.append(tr("Test if the files are locked and usable"));
     list.append("------");
-    list.append(tr("Give all the folders in this list to patient: ") + pQListViewItem->text(0)+" "+pQListViewItem->text(1));
+    list.append(tr("Give all the files in this list to patient: ") + pQListViewItem->text(0)+" "+pQListViewItem->text(1));
    }
 QString    ret = G_pCApp->DoPopupList(list);
 QString usedBy = "";
@@ -4631,20 +4631,20 @@ switch((int)(QChar(ret[0]).latin1()))
        while ( *ut )
               {QTreeWidgetItem *pQListViewItem_D = (*ut);
                if (pQListViewItem_D->text(2) != pQListViewItem->text(2))
-                   message += tr(  "<br> &nbsp;&nbsp;&nbsp;&nbsp;=> Folder:")+ "<b><font color=\"#1200ff\">" + pQListViewItem_D->text(0)+" "+pQListViewItem_D->text(1) + "</font></b>";
+                   message += tr(  "<br> &nbsp;&nbsp;&nbsp;&nbsp;=> File:")+ "<b><font color=\"#1200ff\">" + pQListViewItem_D->text(0)+" "+pQListViewItem_D->text(1) + "</font></b>";
                ++ut;
               }
                message += tr("<br><hr>Do you confirm this operation ? ");
-       int sel = QMessageBox::information( this, tr("Merge several folders"), message,
-                                                 tr("&Cancel"), tr("&Merge folders"), 0 /*tr("Annuler")*/,
+       int sel = QMessageBox::information( this, tr("Merge several files"), message,
+                                                 tr("&Cancel"), tr("&Merge files"), 0 /*tr("Annuler")*/,
                                                  0, 1 );
        if (sel != 1)                             return;
        message  = "<b><font color=\"#e80d0d\">"+tr("Do you confirm this merging")+ "</font></b>" +
-                  tr(  "<hr><br /> It is still time to cancel this operation.") +
-                  tr(  "<br /> which will not be reversed after confirmation." ) +
+                  tr(  "<hr><br /> You can still cancel this operation.") +
+                  tr(  "<br /> which will be irreversible after confirmation." ) +
                   tr(  "<br /><hr>Are you sure ? ");
-       sel = QMessageBox::information( this, tr("Merge several folders"), message,
-                                             tr("&Merge folders"),tr("&Cancel") , 0 /*tr("Annuler")*/,
+       sel = QMessageBox::information( this, tr("Merge several files"), message,
+                                             tr("&Merge files"),tr("&Cancel") , 0 /*tr("Annuler")*/,
                                              1, 1 );
        if (sel == 1)                         return;
        //.............. verifier si verrous .................................
@@ -4712,7 +4712,7 @@ void C_Manager::Slot_pushButtonSavModif()
 //--------------------------------- savModifications -------------------------------------------------------------
 void C_Manager::savModifications(const QString &oldNom, const QString &oldPrenom,  const QString &oldPk, int confirmModif /*=1*/)
 {  if (G_pCApp->IsThisDroitExist("idc")==0)
-     {G_pCApp->CouCou(tr( "Your rights are insufficient to save a folder."));
+     {G_pCApp->CouCou(tr( "Your rights are insufficient to save a file."));
       return;
      }
    int     ret       = 0;
@@ -4722,10 +4722,10 @@ void C_Manager::savModifications(const QString &oldNom, const QString &oldPrenom
 
    if (oldNom != nom || oldPrenom != prenom)
    { ret   = QMessageBox::warning ( this, tr("Saving:"),
-                                    tr( "<u><b>WARNING:</u></b><br />&nbsp;&nbsp;&nbsp;Are you sure this folder:") +"<br>&nbsp;&nbsp; <font color=\"#e80d0d\"><b>"     +
+                                    tr( "<u><b>WARNING:</u></b><br />&nbsp;&nbsp;&nbsp;Are you sure this file:") +"<br>&nbsp;&nbsp; <font color=\"#e80d0d\"><b>"     +
                                     oldNom  + " " + oldPrenom  +
-                                    tr(  "</b></font>&nbsp;&nbsp;should be modified with these new name and first name:")+ "<font color=\"#1111b0\"><b>" +
-                                    nom + " " + prenom + tr("</b></font>&nbsp;&nbsp;(don't you want to create a new folder ?)"),
+                                    tr(  "</b></font>&nbsp;&nbsp;must be modified with these new family name and first name:")+ "<font color=\"#1111b0\"><b>" +
+                                    nom + " " + prenom + tr("</b></font>&nbsp;&nbsp;(don't you want to create a new file ?)"),
                                     tr("&Modify"), tr("&Cancel"), 0,
                                     1, 1
                                     );
@@ -4734,7 +4734,7 @@ void C_Manager::savModifications(const QString &oldNom, const QString &oldPrenom
    {if (confirmModif)
        {
         ret   = QMessageBox::warning ( this, tr("Saving:"),
-                                       tr ( "<u><b>WARNING :</u></b><br>&nbsp;&nbsp;&nbsp;do you confirm the modifications&nbsp;&nbsp;on this folder : ")+"<br>&nbsp;&nbsp;<font color=\"#e80d0d\"><b>"     +
+                                       tr ( "<u><b>WARNING :</u></b><br>&nbsp;&nbsp;&nbsp;do you confirm the modifications&nbsp;&nbsp;on this file : ")+"<br>&nbsp;&nbsp;<font color=\"#e80d0d\"><b>"     +
                                        oldNom  + " " + oldPrenom  + "</b></font>",
                                        tr("&Modify"), tr("&Cancel"), 0,
                                        1, 1
@@ -4753,7 +4753,7 @@ void C_Manager::savModifications(const QString &oldNom, const QString &oldPrenom
    QString  usedBy;
    if (m_pCMoteurBase->VerrouilleDossier (numGUID, G_pCApp->getUser() , usedBy  )==0)
       {QMessageBox::warning ( this, tr("Saving:"),
-                           tr ( " WARNING :\n      Impossible to save the folder: \n      ")     +
+                           tr ( " WARNING :\n      Impossible to save the file: \n      ")     +
                            nom  + " " +prenom  +
                            tr(  "\n    because it is in use by: ") + usedBy ,
                            tr("&Validate"), 0, 0,
@@ -4841,14 +4841,14 @@ void C_Manager::onCreateAction(int lauchEnabled  /*  = 1 */)
                                                                              m_pGUI->textLabel_StateList
                                                                            );
    if (nb)
-      {      QString  message  = "<hr><b><font color=\"#e80d0d\">"+tr(  "POSSIBLE DUPLICATES ON THESE ELEMENTS")+"</font></b><br /><hr> "+tr("name first name:")+ "<b><font color=\"#1200ff\">" + nom + " " +   prenom         + "</font></b>";
+      {      QString  message  = "<hr><b><font color=\"#e80d0d\">"+tr(  "POSSIBLE DUPLICATES ON THESE ELEMENTS")+"</font></b><br /><hr> "+tr("family name first name:")+ "<b><font color=\"#1200ff\">" + nom + " " +   prenom         + "</font></b>";
               if (dnss.length())
-                      message += tr(  "<br /> born:")+ "<b><font color=\"#1200ff\">"          + dnss                         + "</font></b>";
+                      message += tr(  "<br /> birth date:")+ "<b><font color=\"#1200ff\">"          + dnss                         + "</font></b>";
               if (m_pGUI->lineEdit_CdPostal->text().remove(' ').toInt() !=0)
-                      message += tr(  "<br /> zip code:")+" <b><font color=\"#1200ff\">"     + m_pGUI->lineEdit_CdPostal->text()    + "</font></b>";
+                      message += tr(  "<br /> postal code:")+" <b><font color=\"#1200ff\">"     + m_pGUI->lineEdit_CdPostal->text()    + "</font></b>";
               if (numSecu.length())
                       message += tr(  "<br /> num\303\251ro de SS : ")+"<b><font color=\"#1200ff\">"     + numSecu                      + "</font></b><br />";
-                      message += tr(  "<br /><hr> of a person already in the folders list");
+                      message += tr(  "<br /><hr> of a person already in the files list");
                       message += tr(  "Do you still confirm this operation risking to create a duplicate ?");
              int sel = QMessageBox::information( this, tr("Possible duplicates"), message,
                                                  //"&nbsp;&nbsp;&nbsp;&nbsp; ° <b>Quitter pour <u>Annuler</u></b> l'op\303\251ration en cours" ) ,
@@ -4881,9 +4881,9 @@ void C_Manager::onCreateAction(int lauchEnabled  /*  = 1 */)
                                                                                " = ",   //  egal_like  " = ",
                                                                                m_pGUI->textLabel_StateList
                                                                              )))
-      {      QString  message  = QString(  "<hr><b><font color=\"#e80d0d\">"+tr("POSSIBLE DUPLICATES ON NAME - FIRST NAME")+" </font></b>"             "<br /> "+tr("Person: ")+"<b><font color=\"#1200ff\">" + nom + " " +   prenom         + "</font></b>");
-                      message += tr(  "<hr><br /> is similar to the name of a folder in folders list");
-                      message += tr(  "<br /><hr>Do you confirm this operation, risking to create duplicates ?");
+      {      QString  message  = QString(  "<hr><b><font color=\"#e80d0d\">"+tr("POSSIBLE DUPLICATES ON FAMILY NAME - FIRST NAME")+" </font></b>"             "<br /> "+tr("Person: ")+"<b><font color=\"#1200ff\">" + nom + " " +   prenom         + "</font></b>");
+                      message += tr(  "<hr><br /> is similar to the name of a file in file list");
+                      message += tr(  "<br /><hr>Do you confirm this operation which risks to create duplicates ?");
              int sel = QMessageBox::information( this, tr("Duplicates possible"), message,
                                                  //"&nbsp;&nbsp;&nbsp;&nbsp; ° <b>Quitter pour <u>Annuler</u></b> l'op\303\251ration en cours" ) ,
                                             tr("&Cancel"), tr("Confirm"), 0 /*tr("Annuler")*/,
@@ -5175,7 +5175,7 @@ void C_Manager::Slot_comboBoxAgendaUser_activated( const QString &signUser )
 {
    if (!G_pCApp->IsThisDroitExist("agc") &&      // si pas d'agenda possible pour l'utilisateur en cours
        !G_pCApp->IsThisDroitExist("agm"))        // et qu'il n'est pas autorise a gerer des agendas multiples (ceux des autres)
-      {G_pCApp->CouCou(tr("You do not have rights to use the schedule"));
+      {G_pCApp->CouCou(tr("You do not have rights to use the appointment schedule"));
        return;
       }
  addUserAgenda(signUser, QDate::currentDate());
