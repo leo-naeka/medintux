@@ -55,7 +55,7 @@
 #include "../../MedinTuxTools-QT4/GetPassword/CDlg_PasswordGet.h"
 CApp* G_pCApp = 0;  // contiendra l'instance globale de l'application
 
-static char NUM_VERSION[]     = "==##@@==2.14.020==@@##==";
+static char NUM_VERSION[]     = "==##@@==2.14.021==@@##==";
 
 //--------------------------------------------- C_App -------------------------------------------------------------------
 CApp::~CApp()
@@ -588,7 +588,23 @@ void CApp::CouCouDestroy()
 {if (m_pCCoolPopup) delete m_pCCoolPopup;
  m_pCCoolPopup = 0;
 }
+//------------------------------------ launchSpecificJob --------------------------------------
+void CApp::launchSpecificJob(QString nameOfJob) // CZB
+{
+    QString data_ini, Titre_Job, Job, Param_job, pathJob;
+    QStringList listParam;
+    CGestIni::Param_UpdateFromDisk(G_pCApp->m_PathIni , data_ini);
+    CGestIni::Param_ReadParam( data_ini, "Specifiques", nameOfJob, &Titre_Job, &Job,  &Param_job);
+    listParam << Param_job << m_User ;
+    pathJob = QApplication::applicationDirPath()+ "/" + Job;
+#ifdef Q_WS_WIN
+    if (!pathJob.contains(".exe"))
+        pathJob +=".exe";
+#endif
 
+    QProcess::startDetached (pathJob, listParam);
+
+}
 //------------------------------------------------------- PluginExe --------------------------------------------------
 QString CApp::PluginExe(        QObject         * pQObject,
                                 const char      * pluginScript,

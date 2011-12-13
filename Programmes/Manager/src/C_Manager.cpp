@@ -162,6 +162,12 @@ C_Manager::C_Manager(CMoteurBase *pCMoteurBase,  QWidget *parent, const QString 
    m_actionImprimer->setObjectName(QString::fromUtf8("actionImprimer"));
    m_actionImprimer->setShortcutContext(Qt::ApplicationShortcut);
 
+   // CZB
+   m_actionSpecifique = new QAction(this);
+   m_actionSpecifique->setObjectName(QString::fromUtf8("actionSpecifique"));
+   m_actionSpecifique->setShortcutContext(Qt::ApplicationShortcut);
+
+
    m_actionQuitter = new QAction(this);
    m_actionQuitter->setObjectName(QString::fromUtf8("actionQuitter"));
    m_actionQuitter->setShortcutContext(Qt::ApplicationShortcut);
@@ -191,6 +197,8 @@ C_Manager::C_Manager(CMoteurBase *pCMoteurBase,  QWidget *parent, const QString 
    m_menuFichiers->addSeparator();
    m_menuFichiers->addAction(m_actionImprimer);
    m_menuFichiers->addSeparator();
+   m_menuFichiers->addAction(m_actionSpecifique);       // CZB
+   m_menuFichiers->addSeparator();                      // CZB
    m_menuFichiers->addAction(m_actionQuitter);
    m_menuFichiers->addSeparator();
    m_menuBar->addAction(m_menuFichiers->menuAction());
@@ -546,8 +554,9 @@ if (CGestIni::Param_ReadUniqueParam(G_pCApp->m_LocalParam, "Sesam-Vitale", "Modu
    // test saisie reglt direct CZ_Cpta.
    connect( m_pGUI->pushButton_solde,         SIGNAL(clicked()),                                                     this, SLOT(Slot_Saisie_Reglement ()) );
    connect( m_pGUI->pushButton_SigemsPA,      SIGNAL(clicked()),                                                     this, SLOT(Slot_pushButton_SigemsPA_Clicked()) );
-   //connect(m_actionTypeAffichage,             SIGNAL(triggered()),                                                   this, SLOT(Slot_Type_Affichage_Change()) );        // CZA
-   connect(m_Button_Affichage_EnCours,        SIGNAL(clicked()),                                                     this, SLOT(Slot_Type_Affichage_Change()) );        // CZA
+   connect(m_Button_Affichage_EnCours,        SIGNAL(clicked()),                                                     this, SLOT(Slot_Type_Affichage_Change()) );
+   connect( m_actionSpecifique,               SIGNAL(triggered ( bool )),                                            this, SLOT(Slot_launchSpecificJob (bool)) );
+
 
    //....................... nomadisme ....................................................
    if (G_pCApp->m_IsGestionNomadisme)
@@ -804,6 +813,10 @@ m_action_UserParams->setShortcut(QApplication::translate("C_ManagerClass", "Ctrl
 m_actionImprimer->setText(QApplication::translate("C_ManagerClass", "Print", 0, QApplication::UnicodeUTF8));
 m_actionImprimer->setShortcut(QApplication::translate("C_ManagerClass", "Ctrl+P", 0, QApplication::UnicodeUTF8));
 if (m_NomadismeToolBar) m_NomadismeToolBar->setWindowTitle(QApplication::translate("C_ManagerClass", "Tools for itinerant mode", 0, QApplication::UnicodeUTF8));
+// CZB
+QString titreJob;
+if (CGestIni::Param_ReadParam(G_pCApp->m_LocalParam,"Specifiques", "Menu_Files", &titreJob)==QString::null)  // zero = pas d'erreur
+    m_actionSpecifique->setText(titreJob);
 }
 //--------------------------------- closeEvent -----------------------------------------------------------------------
 void C_Manager::closeEvent(QCloseEvent *event)
@@ -994,7 +1007,7 @@ void C_Manager::Slot_actionAproposDisplay()
         QProcess::ProcessState procState;
         //......................... completer les autres arguments .........................................
         argList << "Manager";                                                       // 1  nom du module
-        argList << tr("Schedule management and patient list module"); // 2  description courte
+        argList << tr("Schedule management and patient list module");               // 2  description courte
         argList << (G_pCApp->getNumVers()+" Qt : "+QT_VERSION_STR);                 // 3  numero de version
         argList << G_pCApp->m_PathAppli+"Ressources/Changements.html";              // 4  fichiers d?crivant les changements
         argList << Theme::getPath(Theme::WithSeparator)+"32x32/Manager.png";        // 5  Icone du programme
@@ -1532,11 +1545,11 @@ void C_Manager::action_fullSwitchReplication_triggered ()
           { reconnectToNomade(G_pCApp->m_IsGestionNomadisme);          // CZ 22.03.2011
           }
        else
-          { QMessageBox::information( this, tr("CONNECTION TO THE SERVER NOMADE NON POSSIBLE"),
-                                            tr ( " <b><u>WARNING</b></u> ! Connection to  serveur nomade <br>")+
-                                            tr ( "is not possible.<br><u>Error :</u><br><pre>" ) + err + "</pre><br>" +
-                                            tr(  "Please verify your connections and parameters.") ,
-                                            tr("&Cancel"), 0, 0,
+          { QMessageBox::information( this, tr("CONNECTION AU SERVEUR NOMADE NON POSSIBLE"),
+                                            tr ( " <b><u>ATTENTION</b></u> ! la connexion au serveur nomade <br>")+
+                                            tr ( "est non possible.<br><u>Erreur :</u><br><pre>" ) + err + "</pre><br>" +
+                                            tr(  "Veuillez v\303\251rifier vos branchements et param\303\250tres.") ,
+                                            tr("Annu&ler"), 0, 0,
                                             0, 0 );
                return;
           }
@@ -1948,8 +1961,8 @@ if (guid.length()== 0)
                if (pQListViewItem)
                   {pQListViewItem->setSelected(TRUE);      // pour mettre \303\240 jour la fiche identite
                    int ret = QMessageBox::information( this, tr("Launch a file"),
-                                               tr( "A file exists for this name:")+" <br /><b>´" + pC_RendezVous->m_Nom + "  " + pC_RendezVous->m_Prenom +
-                                                   "ª</b>" +
+                                               tr( "A file exists for this name:")+" <br /><b>" + pC_RendezVous->m_Nom + "&nbsp;" + pC_RendezVous->m_Prenom +
+                                                   "</b>" +
                                                    "<br />"+tr("Should we launch this file ?") ,
                                                tr("&Launch"), tr("&Cancel"), 0,
                                                1, 1 );
@@ -1960,8 +1973,8 @@ if (guid.length()== 0)
               }
            else if (m_pGUI->listView_Patient->topLevelItemCount()==0)
               {int ret = QMessageBox::information( this, tr("Create a file"),
-                                               tr( "There is no file for this name:")+ "<br /><b>´" + pC_RendezVous->m_Nom + "  " + pC_RendezVous->m_Prenom +
-                                                   "ª</b>" +
+                                               tr( "There is no file for this name:")+ "<br /><b>?" + pC_RendezVous->m_Nom + "  " + pC_RendezVous->m_Prenom +
+                                                   "?</b>" +
                                                    "<br />"+ tr("should we create one ?"
                                                   ) ,
                                                tr("&Create a file"), tr("&Cancel"), 0,
@@ -2012,7 +2025,7 @@ QString requete  = "SELECT ";
                    m_pCMoteurBase->m_DOSS_INDEX_PRIM_KEY                + "  "  +     // 2
                    " FROM "   + m_pCMoteurBase->m_DOSS_INDEX_TBL_NAME   + " WHERE " +
                                 m_pCMoteurBase->m_DOSS_INDEX_GUID       + " = '"    + guid + "' ";
- QString nom,prenom,pk;   // on va \303\240 la peche de Áa
+ QString nom,prenom,pk;   // on va \303\240 la peche de ?a
  QSqlQuery query(requete , m_pCMoteurBase->getDatabase() );
  //.................. si la requ\303\250te a un resultat ..............................................
  if (query.isActive())
@@ -2091,7 +2104,7 @@ void C_Manager::accederDossier( QString nom,  QString prenom, const QString &pri
           {QMessageBox::information( this, tr(  "FILE IS UNREACHABLE"),
                                      tr(  " <b><b><u>WARNING</b></u> ! This file ")+"<font color=\"#e80d0d\"><b>"          + nom     + " " + prenom  +
                                      tr(  "</b></font> is open on this terminal: <b>" )   + usedBy  +
-                                     "</b>.<br />"+ tr( "Its access is impossible on this terminal.<br />Please, get it closed on its terminal before opening it on this terminal.") ,
+                                     "</b>.<br />"+ tr( "Its acces is impossible on this terminal.<br />Please, get it closed on its terminal before opening it on this terminal.") ,
                                      tr("&Cancel"),0 , 0,
                                      1, 1 );
            return;
@@ -2156,8 +2169,8 @@ int  C_Manager::alertVerrou(const QString &userBy, const QString &dossNom, const
    {  QMessageBox::information( this, tr("CONFLICTING OPENING"),
                                 tr(  " <b><u>WARNING</b></u> ! This file ")+"<font color=\"#e80d0d\"><b>"          + dossNom     + " " + dossPrenom  +
                                 tr(  "</b></font> is already open on this terminal: <b>" )   + userBy  +
-                                tr(  "</b><br /> Its access is read-only,<br />it will turn into write mode<br />as soon as it will be available on this terminal") ,
-                                //"&nbsp;&nbsp;&nbsp;&nbsp; ∞ <b>Quitter pour <u>Annuler</u></b> l'op\303\251ration en cours" ) ,
+                                tr(  "</b><br /> Its access is read-only,<br />it will turnt into write mode<br />as soon as it will be available on this terminal") ,
+                                //"&nbsp;&nbsp;&nbsp;&nbsp; ? <b>Quitter pour <u>Annuler</u></b> l'op\303\251ration en cours" ) ,
                                 tr("&Cancel"),0 , 0,
                                 1, 1 );
        return 1;
@@ -2166,7 +2179,7 @@ int  C_Manager::alertVerrou(const QString &userBy, const QString &dossNom, const
                                     tr ( " <b><u>WARNING</b></u> ! This file <b>")          + dossNom     + " " + dossPrenom  +
                                     tr(  "</b>is already open on this terminal: <b>" )   + userBy  +
                                     tr(  "</b><br> Should we try to open it anyway ?<br />") ,
-                                    //"&nbsp;&nbsp;&nbsp;&nbsp; ∞ <b>Quitter pour <u>Annuler</u></b> l'op\303\251ration en cours" ) ,   1111b0
+                                    //"&nbsp;&nbsp;&nbsp;&nbsp; ? <b>Quitter pour <u>Annuler</u></b> l'op\303\251ration en cours" ) ,   1111b0
                                     tr("&Open"), tr("&Cancel"), 0,
                                     1, 1 );
 }
@@ -2192,7 +2205,7 @@ if (pQTreeWidgetItem->text(6).length()==0 /*nb==0*/)           // pas de patient
                             );
    }
 else if (nb==1)      // un seul patient trouv\303\251 pour cette carte vitale alors on le lance
-   { //Cz_Pyxvital     si on ne g√®re pas le dossier Patient on lance directement la FSE
+   { //Cz_Pyxvital     si on ne gËre pas le dossier Patient on lance directement la FSE
     if (m_Facture_Seule == "oui")
         Slot_pushButton_FSE();
     else
@@ -2434,11 +2447,11 @@ if (pQListViewItem->text(6).length()                                      &&
    )
    {tmp = pcVitale->GetMember(1,  104, occurence) + " " + pcVitale->GetMember(3,  104, occurence);
     if (m_pGUI->lineEdit_NomDossier->text()+" "+m_pGUI->lineEdit_PrenomDossier->text() != tmp)
-        list.append(tr("1- Mettre \303\240 jour l'identit\303\251 avec le nom et pr\303\251nom de l'ayant droit : ") + tmp);
+        list.append(tr("=1=Mettre \303\240 jour l'identit\303\251 avec le nom et pr\303\251nom de l'ayant droit : ") + tmp);
 
     tmp = pcVitale->GetMember(2,  104, occurence).trimmed();
     if (tmp.length() && m_pGUI->lineEdit_NomDeNss->text().remove(' ') != tmp)
-        list.append(tr("2- Mettre \303\240 jour l'identit\303\251 avec le nom de naissance : ") + tmp);
+        list.append(tr("=2=Mettre \303\240 jour l'identit\303\251 avec le nom de naissance : ") + tmp);
     /*
     tmp =  pcVitale->GetMember(8,  101, 1);                      // ce menu ne devrait pas etre possible car match obligatoire pour cette donn\303\251e
     if (tmp.length()>1 && tmp != m_pGUI->lineEdit_NumSecu->text())
@@ -2448,50 +2461,50 @@ if (pQListViewItem->text(6).length()                                      &&
     if (tmp.length()==0) tmp =  pcVitale->GetAdresseAssure();
     val_actual = m_pGUI->textEdit_Adresse->text();
     if (tmp.length() &&  val_actual != tmp)
-        list.append(tr("4- Mettre \303\240 jour l'identit\303\251 avec l'adresse : ") + tmp);
+        list.append(tr("=4=Mettre \303\240 jour l'identit\303\251 avec l'adresse : ") + tmp);
 
     pcVitale->GetCodePostalVilleAyanDroit(occurence, &tmp,0);  // code postal ville
     if (tmp.length()==0) pcVitale->GetCodePostalVilleAssure(&tmp, 0);
     if (tmp.length() && m_pGUI->lineEdit_CdPostal->text().remove(' ') != tmp)
-        list.append(tr("5- Mettre \303\240 jour l'identit\303\251 avec le code postal : ") + tmp);
+        list.append(tr("=5=Mettre \303\240 jour l'identit\303\251 avec le code postal : ") + tmp);
 
     pcVitale->GetCodePostalVilleAyanDroit(occurence,0, &tmp);  // code postal ville
     if (tmp.length()==0) pcVitale->GetCodePostalVilleAssure(0 ,&tmp);
     if (tmp.length() && m_pGUI->lineEditVille->text() != tmp)
-        list.append(tr("6- Mettre \303\240 jour l'identit\303\251 avec la ville : ") + tmp);
+        list.append(tr("=6=Mettre \303\240 jour l'identit\303\251 avec la ville : ") + tmp);
 
     tmp = pcVitale->GetNomPrenomAssure();
     if (tmp.length() && m_pGUI->lineEdit_NomAssure->text()+" "+m_pGUI->lineEdit_PrenomAssure->text() != tmp)
-        list.append(tr("7- Mettre \303\240 jour l'identit\303\251 avec le nom et pr\303\251nom de l'assur\303\251 : ") + tmp);
+        list.append(tr("=7=Mettre \303\240 jour l'identit\303\251 avec le nom et pr\303\251nom de l'assur\303\251 : ") + tmp);
     /*
     tmp = pcVitale->GetRangGemellaire(occurence);                  // ce menu ne devrait pas etre possible car match obligatoire pour cette donn\303\251e
     if (tmp.length() && m_pGUI->lineEdit_RangGeme->text() != tmp)
-        list.append(tr("8- Mettre \303\240 jour l'identit\303\251 avec le rang g\303\251mellaire : ") + tmp);
+        list.append(tr("=8=Mettre \303\240 jour l'identit\303\251 avec le rang g\303\251mellaire : ") + tmp);
 
     tmp = pcVitale->GetDateNaissanceAyantDroit(occurence,0,"/");  // ce menu ne devrait pas etre possible car match obligatoire pour cette donn\303\251e
     if (tmp.length() && m_pGUI->lineEdit_DtNss->getMixText() != tmp)
-        list.append(tr("9- Mettre \303\240 jour l'identit\303\251 avec la date de naissance : ") + tmp);
+        list.append(tr("=9=Mettre \303\240 jour l'identit\303\251 avec la date de naissance : ") + tmp);
     */
     if (qualiteAyantDroit_V !=  qualiteAyantDroit_P)
-        list.append(tr("10- Mettre \303\240 jour l'identit\303\251 avec le type d'ayant droit : ") + pcVitale->CodeQualiteToName( QString::number(qualiteAyantDroit_V )));
+        list.append(tr("=10=Mettre \303\240 jour l'identit\303\251 avec le type d'ayant droit : ") + pcVitale->CodeQualiteToName( QString::number(qualiteAyantDroit_V )));
 
-    if (list.count()) list.append(tr("11- Mettre \303\240 jour l'identit\303\251 avec toutes les donn\303\251es de la carte vitale ") );
+    if (list.count()) list.append(tr("=11=Mettre \303\240 jour l'identit\303\251 avec toutes les donn\303\251es de la carte vitale ") );
    }
 
 //............... Menu recherche pour toutes les identites de la CV ..........................
 list.append("----------");
 tmp =  pcVitale->GetMember(8,  101, 1); tmp += " "+CMoteurBase::ComputeClef_Secu(tmp);
-if (tmp.length()>1) list.append(tr("23- Rechercher avec le num\303\251ro de SS : ") + tmp);
+if (tmp.length()>1) list.append(tr("=23=Rechercher avec le num\303\251ro de SS : ") + tmp);
 
 tmp = pcVitale->GetNomPrenomAyanDroit(occurence);
-if (tmp.length()) list.append(tr("27- Rechercher avec le nom et pr\303\251nom de l'ayant droit : ") + tmp);
+if (tmp.length()) list.append(tr("=27=Rechercher avec le nom et pr\303\251nom de l'ayant droit : ") + tmp);
 
 pcVitale->GetNomPrenomAyanDroit(occurence, ";", &p_nom, &p_prenom);
-if (p_nom.length())    list.append(tr("28- Rechercher avec le nom de l'ayant droit    : ")    + p_nom);
-if (p_prenom.length()) list.append(tr("29- Rechercher avec le pr\303\251nom de l'ayant droit : ")    + p_prenom);
+if (p_nom.length())    list.append(tr("=28=Rechercher avec le nom de l'ayant droit    : ")    + p_nom);
+if (p_prenom.length()) list.append(tr("=29=Rechercher avec le pr\303\251nom de l'ayant droit : ")    + p_prenom);
 
 tmp = pcVitale->GetDateNaissanceAyantDroit(occurence);
-if (tmp.length()) list.append(tr("30- Rechercher avec la date de naissance : ") + tmp);
+if (tmp.length()) list.append(tr("=30=Rechercher avec la date de naissance : ") + tmp);
 
 //............... que si identite de la CV ne correspond pas \303\240 un dossier en base ........................
 //                on propose de l'attribuer au dossier selectionne
@@ -2499,20 +2512,20 @@ if (pQListViewItem->text(6).length()==0)
    {list.append("-------------");
     if ( getInterfaceMode()==MODE_CREATION_PATIENT)
        { list.append("-------------");
-         list.append(tr("33- Utiliser les donn\303\251es de la carte Vitale : %1 pour remplir celles du patient en cours de cr\303\251ation").arg(p_nom + " " + p_prenom));
+         list.append(tr("=33=Utiliser les donn\303\251es de la carte Vitale : %1 pour remplir celles du patient en cours de cr\303\251ation").arg(p_nom + " " + p_prenom));
        }
     else
-       { list.append(tr("31- Cr\303\251er un nouveau dossier avec l'identit\303\251 s\303\251lectionn\303\251e de la carte vitale : ") + p_nom + " " + p_prenom);
+       { list.append(tr("=31=Cr\303\251er un nouveau dossier avec l'identit\303\251 s\303\251lectionn\303\251e de la carte vitale : ") + p_nom + " " + p_prenom);
          list.append("-------------");
          QTreeWidgetItem *pQListViewItemPatient =  getSelectedListViewItem(m_pGUI->listView_Patient);
          if (pQListViewItemPatient)
-            {list.append(tr("32- Attribuer les \303\251l\303\251ments de cette carte vitale au patient s\303\251lectionn\303\251 : ")+ pQListViewItemPatient->text(0) + " " + pQListViewItemPatient->text(1));
+            {list.append(tr("=32=Attribuer les \303\251l\303\251ments de cette carte vitale au patient s\303\251lectionn\303\251 : ")+ pQListViewItemPatient->text(0) + " " + pQListViewItemPatient->text(1));
             }
        }
    }
 
 //.................. actionner le menu et les actions .................................................
-QString ret = G_pCApp->DoPopupList(list); action = ret.find('-'); if (action != -1) action = ret.left(action).toInt();
+action = G_pCApp->DoPopupList(list).toInt();
 switch(action)
        {case 1:
              {m_pGUI->lineEdit_NomDossier->setText(      pcVitale->GetMember(1,  104, occurence));
@@ -2678,11 +2691,11 @@ void C_Manager::setCVonPatient (C_Vitale *pcVitale, int occurence)
        message += tr("<br>&nbsp;&nbsp;&nbsp;&nbsp;=> en sachant qu'un changement de date de naissance est suspect. ");
 
    int sel = QMessageBox::information( this, tr("Vitaliser un patient"), message ,
-                                      //"&nbsp;&nbsp;&nbsp;&nbsp; ∞ <b>Quitter pour <u>Annuler</u></b> l'op\303\251ration en cours" ) ,
+                                      //"&nbsp;&nbsp;&nbsp;&nbsp; ? <b>Quitter pour <u>Annuler</u></b> l'op\303\251ration en cours" ) ,
                                       tr("&Cancel"), tr("Confirm"), 0 /*tr("Annuler")*/,
                                       0, 0 );
    if (sel != 1) return;
-   message  = "<b><font color=\"#e80d0d\">"+tr(" TES-VOUS CERTAIN DE CETTE OP…RATION ? </font></b>") +
+   message  = "<b><font color=\"#e80d0d\">"+tr("?TES-VOUS CERTAIN DE CETTE OP?RATION ? </font></b>") +
               tr(  "<hr><br> il est encore temps d'annuler cette op\303\251ration.") +
               tr(  "<br> qui sera non r\303\251versible apr\303\250s confirmation." ) +
               tr(  "<br><hr>confirmez vous de nouveau cette op\303\251ration ? ");
@@ -2790,7 +2803,7 @@ if (pathPlugin.length())
 else   // cas standard du QFSEVITALE
    { //..................................... ne pas rajouter "/" car c'est un nom de fichier ..........................
      if ( QDir::isRelativePath ( pathPlugin ) )  pathPlugin = QDir::cleanDirPath (pathPlugin.prepend(G_pCApp->m_PathAppli));
-     //..................................... rajouter "/" car le chemin doit √™tre donn\303\251 avec ..........................
+     //..................................... rajouter "/" car le chemin doit Ítre donn\303\251 avec ..........................
      if ( QDir::isRelativePath ( pathLog ) )     pathLog    = QDir::cleanDirPath (pathLog.prepend(G_pCApp->m_PathAppli) )+"/";
 
      QString pluginScript  = "[Execute]\r\n";
@@ -2846,7 +2859,7 @@ else   // cas standard du QFSEVITALE
                   //............ determine si le nom prenom entrent dans la comparaison .....................
                   QString        nom = pQListViewItem->text(0);
                   QString     prenom = pQListViewItem->text(1);
-                  if (QDate::isValid ( dnss.mid(0,4).toInt(), dnss.mid(5,2).toInt(), dnss.mid(8,2).toInt() ) ) // si date de naiss invalide on est obligÔøΩ de se servir du nom prenom
+                  if (QDate::isValid ( dnss.mid(0,4).toInt(), dnss.mid(5,2).toInt(), dnss.mid(8,2).toInt() ) ) // si date de naiss invalide on est oblig? de se servir du nom prenom
                      { if (!matchOnNom)     nom    = "";
                        if (!matchOnPrenom)  prenom = "";
                      }
@@ -3513,7 +3526,7 @@ switch (mode)
          }
       m_pGUI->pushButtonVitale->show();
       m_pGUI->pushButton_MultiCritere->show();
-      //.......... lancer une FSE ...............          //Cz_Pyxvital ????    Ajouter un droit d'acc√®s FSE
+      //.......... lancer une FSE ...............          //Cz_Pyxvital ????    Ajouter un droit d'accËs FSE
       if (G_pCApp->IsThisDroitExist("fse"))
          {m_pGUI->pushButton_FSE->show();
          }
@@ -3666,8 +3679,8 @@ int C_Manager::setSexFromQualiteAyantDroit(int qualiteAyantDroit)
 //--------------------------------- Slot_pushButtonInfoClicked -------------------------------------------------------------
 void C_Manager::Slot_pushButtonInfoClicked()
 {QWhatsThis::showText (QCursor().pos(), "<font color=\"#000000\">"+tr("To search by family name and first name, you must separe the family name and the first name by a semicolon. Example : <b>MARTIN;JEAN</b><br /><br />"
-                         "The symbol % before the family name or the first name lets make a research by anything which contains the expression<br>"
-                         "Example:  <b>%MART;%JE</b> searches every person whose family name contains: <b>MART</b> and the first name : <b>JE</b>")+"</font>" );
+                                         "The symbol % before the family name or the first name lets make a research by anything which contains the expression<br>"
+                                         "Example:  <b>%MART;%JE</b> searches every person whose family name contains: <b>MART</b> and the first name : <b>JE</b>")+"</font>" );
 }
 
 //---- AYANT DROIT ------------- tryToSetInterfaceFromAyantDroit ---------------------------------------------------------------------------------
@@ -3791,7 +3804,7 @@ void C_Manager::Slot_CharEventCodePostal(QKeyEvent *event, int &ret)
  m_pGUI->lineEdit_CdPostal->doParentPressEvent(event);
  ret = 0;    // du coup plus besoin d'\303\252tre trait\303\251 en retour de slot par C_QLineEdit
  //.......... maintenant  on  traite le code postal .................
- //           en appelant directement la fonction de contrÙle
+ //           en appelant directement la fonction de contr?le
  tryToSetVilleFromCodePostal();
 }
 
@@ -3828,7 +3841,7 @@ void C_Manager::Slot_CharEventNumSecu(QKeyEvent *event, int &ret)
  m_pGUI->lineEdit_NumSecu->doParentPressEvent(event);
  ret = 0;    // du coup plus besoin d'\303\252tre trait\303\251 en retour de slot par C_QLineEdit
  //.......... maintenant  on  traite le code postal .................
- //           en appelant directement la fonction de contrÙle
+ //           en appelant directement la fonction de contr?le
  QString numsecu = m_pGUI->lineEdit_NumSecu->text().remove(' ');  //18105m_IsModifiable = 0;
  if (numsecu.length()==13)
       {m_pGUI->lineEdit_NssClef->setText(m_pCMoteurBase->ComputeClef_Secu(numsecu));
@@ -3981,7 +3994,7 @@ clearDroitsFields();
 //--------------------------------- Slot_listView_Patient_DoubleClicked -----------------------------------------------------------------------
 void C_Manager::Slot_listView_Patient_DoubleClicked( QTreeWidgetItem *, int)
 {//Slot_pushButtonAcceder_Clicked();
-// Cz_Pyxvital     si on ne g√®re pas le dossier Patient on lance directement la FSE
+// Cz_Pyxvital     si on ne gËre pas le dossier Patient on lance directement la FSE
 if (m_Facture_Seule == "oui")
     Slot_pushButton_FSE();
 else
@@ -4032,57 +4045,59 @@ void C_Manager::Slot_pushButtonMenuNew_clicked()
 {
 QStringList list;
 QTreeWidgetItem *pQListViewItem         = getSelectedListViewPatientItem();
-QTreeWidgetItem *pQListViewItemVitale   = getSelectedListViewItem(m_pGUI->listView_Vitale);
+
 if (pQListViewItem){if( getInterfaceMode()==MODE_CREATION_PATIENT)
-                        list.append(tr("Use the data of %1 to fill the new form").arg(pQListViewItem->text(LIST_NOM)+" "+pQListViewItem->text(LIST_PRENOM)));
+                        list.append(tr("=1=Use the data of %1 to fill the new form").arg(pQListViewItem->text(LIST_NOM)+" "+pQListViewItem->text(LIST_PRENOM)));
                     else
-                        list.append(tr("Create a new file using data from: ")+pQListViewItem->text(LIST_NOM)+" "+pQListViewItem->text(LIST_PRENOM));
+                        list.append(tr("=2=Create a new file using data from: ")+pQListViewItem->text(LIST_NOM)+" "+pQListViewItem->text(LIST_PRENOM));
                     list.append("-------------");
                    }
-if (m_pGUI->listView_Doublons->isShown())  list.append(tr("Close the duplicate resolution list"));
-else if (G_pCApp->IsThisDroitExist("adr")) list.append(tr("Open the duplicate resolution list"));
+if (m_pGUI->listView_Doublons->isShown())  list.append(tr("=3=Close the duplicate resolution list"));
+else if (G_pCApp->IsThisDroitExist("adr")) list.append(tr("=4=Open the duplicate resolution list"));
 if (pQListViewItem){ //.............. verifier si pas verrouill\303\251 .................................if (!G_pCApp->IsThisDroitExist("adr")) return;
                      if (! m_pCMoteurBase->IsDossierVerrouille   ( pQListViewItem->text(LIST_GUID)) )
-                        {if ( G_pCApp->IsThisDroitExist("adr")) list.append(tr("Put this patient : %1 into the list of duplicates resolution").arg(pQListViewItem->text(LIST_NOM)+" "+pQListViewItem->text(LIST_PRENOM)));
+                        {if ( G_pCApp->IsThisDroitExist("adr")) list.append(tr("=5=Put this patient : %1 into the list of duplicates resolution").arg(pQListViewItem->text(LIST_NOM)+" "+pQListViewItem->text(LIST_PRENOM)));
                          list.append("-------------");
                         }
                      else if (!G_pCApp->IsThisDroitExist("nbv"))
                         {list.append("-------------");
-                         list.append(tr("unlock this patient's file: %1 ").arg(pQListViewItem->text(LIST_NOM)+" "+pQListViewItem->text(LIST_PRENOM)));
+                         list.append(tr("=6=unlock this patient's file: %1 ").arg(pQListViewItem->text(LIST_NOM)+" "+pQListViewItem->text(LIST_PRENOM)));
                          list.append("-------------");
                         }
 
-                     //list.append(tr("Rechercher par le nom : ")+lineEdit_NomDossier->text());
-                     //list.append(tr("Rechercher par le pr\303\251nom : ")+lineEdit_PrenomDossier->text());
-                     list.append(tr("Research by birth date: ")+m_pGUI->lineEdit_DtNss->text());
-                     //list.append(tr("Rechercher par le n. de jeune fille : ")+lineEdit_NomDeNss->text());
-                     list.append(tr("Rechercher par le num\303\251ro de s\303\251curit\303\251 sociale : ")+m_pGUI->lineEdit_NumSecu->text());
-                     list.append(tr("Research by family name, first name and birth date: ")  +m_pGUI->lineEditAutoLocator->text().replace(";"," ")+" "+m_pGUI->lineEdit_DtNss->text());
+                     //list.append(tr("=7=Rechercher par le nom : ")+lineEdit_NomDossier->text());
+                     //list.append(tr("=8=Rechercher par le pr\303\251nom : ")+lineEdit_PrenomDossier->text());
+                     list.append(tr("=9=Research by birth date: ")+m_pGUI->lineEdit_DtNss->text());
+                     //list.append(tr("=10=Rechercher par le n. de jeune fille : ")+lineEdit_NomDeNss->text());
+                     list.append(tr("=11=Rechercher par le num\303\251ro de s\303\251curit\303\251 sociale : ")+m_pGUI->lineEdit_NumSecu->text());
+                     list.append(tr("=12=Research by family name '%1', first name '%2' and birth date '%3' found in dialog's fields.").arg(m_pGUI->lineEdit_NomDossier->text(),m_pGUI->lineEdit_PrenomDossier->text(), m_pGUI->lineEdit_DtNss->text()));
                    }
  #ifdef SESAM_VERSION
+QTreeWidgetItem *pQListViewItemVitale   = getSelectedListViewItem(m_pGUI->listView_Vitale);
 if (pQListViewItemVitale && pQListViewItem)
    {QString dnss      = pQListViewItemVitale->text(2).left(8);             //  199306010000   -->  19930601
     dnss = dnss.mid(6,2)+"-"+dnss.mid(4,2)+"-"+dnss.mid(0,4);
     if (dnss==m_pGUI->lineEdit_DtNss->text())
        {list.prepend("-------------");
-        list.prepend("#22x22/VitaleButtLitle.png#"+tr("Associer la carte vitale s\303\251lectionn\303\251e : %1 \303\240 ce patient : %2").arg(pQListViewItemVitale->text(0)+" "+pQListViewItemVitale->text(1),pQListViewItem->text(LIST_NOM)+" "+pQListViewItem->text(LIST_PRENOM)));
+        list.prepend("=30=#22x22/VitaleButtLitle.png#"+tr("Associer la carte vitale s\303\251lectionn\303\251e : %1 \303\240 ce patient : %2").arg(pQListViewItemVitale->text(0)+" "+pQListViewItemVitale->text(1),pQListViewItem->text(LIST_NOM)+" "+pQListViewItem->text(LIST_PRENOM)));
        }
    }
 #endif
 QString      ret = G_pCApp->DoPopupList(list,"");
 bool pas_present = TRUE;
-switch((int)(QChar(ret[0]).latin1()))
+int       option = ret.toInt();
+switch(option)
    {
    #ifdef SESAM_VERSION
-    case 'A':
+    case 30:
       { setCVonPatient ( G_pCApp->m_pVitale, pQListViewItemVitale->text(8).toInt());
       } break;
    #endif
-    case 'D':
+    case 6:
       {m_pCMoteurBase->DeVerrouilleDossier ( pQListViewItem->text(LIST_GUID));
        pQListViewItem->setIcon ( 0, QIcon() );
       } break;
-    case 'P':
+    case 5:
       {m_pGUI->listView_Doublons->show();
        QTreeWidgetItem *pQListViewItem_D = 0;
        //.............. verifier si pas deja present .................................
@@ -4117,42 +4132,46 @@ switch((int)(QChar(ret[0]).latin1()))
        */
        break;
       }
-    case 'U':
+    case 1:
      {m_pGUI->textEdit_Note->clear();
       m_pGUI->listView_Praticiens->clear();
       DataToFormulaire( pQListViewItem );
       break;
      }
-    case 'C':
+    case 2:
      {m_pGUI->textEdit_Note->clear();
       m_pGUI->listView_Praticiens->clear();
       Slot_NewDossWithoutErase();
       break;
      }
-    case 'N':
-     {Slot_pushButtonNew_clicked();
-      break;
-     }
-    case 'F':
+    //case 'N':
+    // {Slot_pushButtonNew_clicked();
+    //  break;
+    // }
+    case 3:
       {m_pGUI->listView_Doublons->hide();
        break;
       }
-    case 'O':
+    case 4:
       {m_pGUI->listView_Doublons->show();
        break;
       }
-    case 'R':
+    case 7:
+    case 8:
+    case 9:
+    case 10:
+    case 11:
+    case 12:
       {QString nom     = "";
        QString prenom  = "";
-       QString dtNss   = "";
+       QString dtNss   = m_pGUI->lineEdit_DtNss->text().remove('-');
        QString numSecu = "";
        QString jeuneF  = "";
-       if      (ret.find(tr("family name"))!=-1)       nom        =   QString("%")+m_pGUI->lineEdit_NomDossier->text()+"%";
-       if      (ret.find(tr("first name"))!=-1)       prenom     =   QString("%")+m_pGUI->lineEdit_PrenomDossier->text()+"%";
-       dtNss = m_pGUI->lineEdit_DtNss->text().remove('-');
-       if      (ret.find(tr("date"))!=-1)         dtNss      =   dtNss.mid(4,4)+"-"+dtNss.mid(2,2)+"-"+dtNss.mid(0,2)+ " 00:00:00";
-       if      (ret.find(tr("number"))!=-1)       numSecu    =   QString("%")+m_pGUI->lineEdit_NumSecu->text().remove(' ')+"%";
-       if      (ret.find(tr("maiden"))!=-1)  jeuneF     =   QString("%")+m_pGUI->lineEdit_NomDeNss->text()+"%";
+       if      (option==7||option==12)       nom        =   QString("%")+m_pGUI->lineEdit_NomDossier->text()+"%";
+       if      (option==8||option==12)       prenom     =   QString("%")+m_pGUI->lineEdit_PrenomDossier->text()+"%";
+       if      (option==9||option==12)       dtNss      =   dtNss.mid(4,4)+"-"+dtNss.mid(2,2)+"-"+dtNss.mid(0,2)+ " 00:00:00";
+       if      (option==11)                  numSecu    =   QString("%")+m_pGUI->lineEdit_NumSecu->text().remove(' ')+"%";
+       if      (option==10||option==12)      jeuneF     =   QString("%")+m_pGUI->lineEdit_NomDeNss->text()+"%";
        if (G_pCApp->m_pCMoteurBase->GetPatientListFromNomPrenomSecuDtNssGeme(m_pGUI->listView_Patient,         // pas de listview car on veut juste savoir si trouve
                                                                                     nom,        // nom
                                                                                     prenom,     // prenom
@@ -4491,7 +4510,7 @@ void C_Manager::Slot_lineEditAutoLocator_textChanged(const QString &)
 //--------------------------------- Slot_pushButtonDetruire_clicked -------------------------------------------------------------
 void C_Manager::Slot_pushButtonDetruire_clicked()
 {   if ( !G_pCApp->isCurrentIdentiteValid() )
-      {G_pCApp->CouCou(tr("Impossible operation: \nno valid file selected."));
+      {G_pCApp->CouCou(tr("Operation impossible: \nno valid file selected."));
        return;
       }
    QString nom       = G_pCApp->identitePatientNom() ;
@@ -4525,11 +4544,11 @@ void C_Manager::Slot_pushButtonDetruire_clicked()
 
    //............. noter la nouvelle identit\303\251 ..................................
    switch  (QMessageBox::warning ( this, tr("Patient's file removal:"),
-                                  tr ( "<u><b> WARNING !</u></b><br />      YOU ARE ABOUT TO DELETE A FILE: ")+"<br />      <font color=\"#e80d0d\"><b>"     +
-                                  nom  + " " +prenom  +
-                                  tr(  "</b></font><br>&nbsp;&nbsp;&nbsp;THIS ACTION CANNOT BE UNDONE<br />&nbsp;&nbsp;&nbsp;AND DATA WILL BE&nbsp;&nbsp;&nbsp;<u><b>UNRECOVERABLE</b></u> LATER") ,
-                                  tr("&Delete"), tr("&No"), 0,
-                                  1, 1 )
+                                   tr ( "<u><b> WARNING !</u></b><br />      YOU ARE ABOUT TO DELETE A FILE: ")+"<br />      <font color=\"#e80d0d\"><b>"+
+                                   nom  + " " +prenom  +
+                                   tr(  "</b></font><br>&nbsp;&nbsp;&nbsp;THIS ACTION CANNOT BE UNDONE<br />&nbsp;&nbsp;&nbsp;AND DATA WILL BE&nbsp;&nbsp;&nbsp;<u><b>UNRECOVERABLE</b></u> LATER") ,
+                                   tr("&Delete"), tr("&NO"), 0,
+                                   1, 1 )
            )
            {case 1: m_pCMoteurBase->DeVerrouilleDossier (numGUID);
             return ;
@@ -4589,19 +4608,34 @@ if (pQListViewItem) DataToFormulaire( pQListViewItem->text(LIST_PK_PATIENT), pQL
 void C_Manager::Slot_listView_Doublons_MenuRequested()
 {QTreeWidgetItem * pQListViewItem = getSelectedListViewItem(m_pGUI->listView_Doublons);
 QStringList list;
-list.append(tr("Close the duplicates resolution list"));
-list.append(tr("Delete the duplicates resolution list"));
+list.append(tr("=1=Close the duplicates resolution list"));
+list.append(tr("=2=Delete the duplicates resolution list"));
 if (pQListViewItem)
-   {list.append(tr("Remove this file from duplicates list: ")                     + pQListViewItem->text(0)+" "+pQListViewItem->text(1));
-    list.append(tr("Test if the files are locked and usable"));
+   {list.append(tr("=3=Remove this file from duplicates list: ")      + pQListViewItem->text(0)+" "+pQListViewItem->text(1));
+    list.append(tr("=4=Test if the files are locked and usable"));
     list.append("------");
-    list.append(tr("Give all the files in this list to patient: ") + pQListViewItem->text(0)+" "+pQListViewItem->text(1));
+    list.append(tr("=5=Give all the files in this list to patient: ") + pQListViewItem->text(0)+" "+pQListViewItem->text(1));
    }
-QString    ret = G_pCApp->DoPopupList(list);
+
 QString usedBy = "";
 bool isVerrou  = FALSE;
-switch((int)(QChar(ret[0]).latin1()))
-   {case 'T':
+int option     = G_pCApp->DoPopupList(list).toInt();
+switch(option)
+   {
+    case 2:
+     {m_pGUI->listView_Doublons->clear ();
+      m_pGUI->listView_Doublons->hide();
+      break;
+     }
+    case 3:
+     {delete(pQListViewItem);
+      break;
+     }
+    case 1:
+     {m_pGUI->listView_Doublons->hide();
+      break;
+     }
+    case 4:
       {//.............. verifier si verrous .................................
        QTreeWidgetItemIterator it( m_pGUI->listView_Doublons );
        while ( *it )
@@ -4619,7 +4653,7 @@ switch((int)(QChar(ret[0]).latin1()))
           }
        break;
       }
-    case 'A':
+    case 5:
       {if (m_pGUI->listView_Doublons->topLevelItemCount() <=1) return;
        if ( (G_pCApp->m_IsNomadeActif?G_pCApp->m_IsGestionNomadisme:0)==CMoteurBase::progMasterUpdate)
           {G_pCApp->CouCou(tr("This itinerant mode does not allow duplicates resolution"));
@@ -4679,23 +4713,6 @@ switch((int)(QChar(ret[0]).latin1()))
           }
        break;
        }
-    case 'E':
-      {m_pGUI->listView_Doublons->clear ();
-       m_pGUI->listView_Doublons->hide();
-       break;
-      }
-    case 'R':
-      {delete(pQListViewItem);
-       break;
-      }
-    case 'F':
-      {m_pGUI->listView_Doublons->hide();
-       break;
-      }
-    case 'O':
-      {m_pGUI->listView_Doublons->show();
-       break;
-      }
    }
 }
 
@@ -4712,7 +4729,7 @@ void C_Manager::Slot_pushButtonSavModif()
 //--------------------------------- savModifications -------------------------------------------------------------
 void C_Manager::savModifications(const QString &oldNom, const QString &oldPrenom,  const QString &oldPk, int confirmModif /*=1*/)
 {  if (G_pCApp->IsThisDroitExist("idc")==0)
-     {G_pCApp->CouCou(tr( "Your rights are insufficient to save a file."));
+     {G_pCApp->CouCou(tr( "Your rights are insufficient to save a folder."));
       return;
      }
    int     ret       = 0;
@@ -4734,7 +4751,7 @@ void C_Manager::savModifications(const QString &oldNom, const QString &oldPrenom
    {if (confirmModif)
        {
         ret   = QMessageBox::warning ( this, tr("Saving:"),
-                                       tr ( "<u><b>WARNING :</u></b><br>&nbsp;&nbsp;&nbsp;do you confirm the modifications&nbsp;&nbsp;on this file : ")+"<br>&nbsp;&nbsp;<font color=\"#e80d0d\"><b>"     +
+                                       tr ( "<u><b>WARNING :</u></b><br>&nbsp;&nbsp;&nbsp;do you confirm the modifications&nbsp;&nbsp;on this file: ")+"<br>&nbsp;&nbsp;<font color=\"#e80d0d\"><b>"     +
                                        oldNom  + " " + oldPrenom  + "</b></font>",
                                        tr("&Modify"), tr("&Cancel"), 0,
                                        1, 1
@@ -4851,7 +4868,7 @@ void C_Manager::onCreateAction(int lauchEnabled  /*  = 1 */)
                       message += tr(  "<br /><hr> of a person already in the files list");
                       message += tr(  "Do you still confirm this operation risking to create a duplicate ?");
              int sel = QMessageBox::information( this, tr("Possible duplicates"), message,
-                                                 //"&nbsp;&nbsp;&nbsp;&nbsp; ∞ <b>Quitter pour <u>Annuler</u></b> l'op\303\251ration en cours" ) ,
+                                                 //"&nbsp;&nbsp;&nbsp;&nbsp; ? <b>Quitter pour <u>Annuler</u></b> l'op\303\251ration en cours" ) ,
                                             tr("&Cancel"), tr("Confirm"), 0 /*tr("Annuler")*/,
                                             0, 1 );
               if (sel != 1)
@@ -4885,7 +4902,7 @@ void C_Manager::onCreateAction(int lauchEnabled  /*  = 1 */)
                       message += tr(  "<hr><br /> is similar to the name of a file in file list");
                       message += tr(  "<br /><hr>Do you confirm this operation which risks to create duplicates ?");
              int sel = QMessageBox::information( this, tr("Duplicates possible"), message,
-                                                 //"&nbsp;&nbsp;&nbsp;&nbsp; ∞ <b>Quitter pour <u>Annuler</u></b> l'op\303\251ration en cours" ) ,
+                                                 //"&nbsp;&nbsp;&nbsp;&nbsp; ? <b>Quitter pour <u>Annuler</u></b> l'op\303\251ration en cours" ) ,
                                             tr("&Cancel"), tr("Confirm"), 0 /*tr("Annuler")*/,
                                             0, 1 );
               if (sel != 1)
@@ -4956,7 +4973,7 @@ void C_Manager::Slot_pushButtonNew_clicked( )
     if (m_Type_Affichage_EnCours == "AGENDA")                  // CZA
         Slot_Type_Affichage_Change();                          // CZA
 
-    //................... se mettre en mode creation en effaÁant les champs.................................
+    //................... se mettre en mode creation en effa?ant les champs.................................
     if (identIsModified() && G_pCApp->isCurrentIdentiteValid() && G_pCApp->IsThisDroitExist(G_pCApp->m_Droits, "idc") )
        { Slot_pushButtonSavModif();
        }
@@ -4965,7 +4982,7 @@ void C_Manager::Slot_pushButtonNew_clicked( )
 }
 //--------------------------------- Slot_NewDossWithoutErase -----------------------------------------------------------------------
 void C_Manager::Slot_NewDossWithoutErase( )
-{ //................... se mettre en mode creation sans effaÁer les champs.................................
+{ //................... se mettre en mode creation sans effa?er les champs.................................
  setInterfaceOnProfil(MODE_CREATION_PATIENT);
  m_pGUI->textLabel_NumDoss->setText(m_pCMoteurBase->GUID_Create());   // TRES IMPORTANT SERA (si confirmation de la creation) LE GUID DU NOUVEAU DOSSIER
  m_pGUI->lineEdit_NomDossier->setFocus();
@@ -5161,7 +5178,7 @@ if (pQFrame)
     delete pQFrame;
    }
  //............ effacer l'eventuel bouton d'acces rapide .................................
- //              associe ‡ cet agenda
+ //              associe ? cet agenda
  QList<QAbstractButton *> buttonsList =	m_pGUI->buttonBox_agendas->buttons();
  for (int i=0; i<buttonsList.size(); ++i)
      {QAbstractButton *pQAbstractButton = buttonsList[i];
@@ -5541,6 +5558,7 @@ C_Frm_Agenda *C_Manager::addUserAgenda(const QString &signUser, QDate date, QFra
                                                agendaFrameDaysAndTitle->setObjectName("agendaRacine_"+signUser);
                                                agendaFrameDaysAndTitle->setStyleSheet("font-size: 10px;");
    QFrame        *frameButtonAndTitle        = new QFrame(agendaFrameDaysAndTitle);
+
    QVBoxLayout   *agendaVBoxDaysAndTitle     = new QVBoxLayout(agendaFrameDaysAndTitle); agendaVBoxDaysAndTitle->setObjectName("agendaVBoxDaysAndTitle_" + signUser);
    QScrollArea   *scrollArea_Days            = new QScrollArea(agendaFrameDaysAndTitle);
    C_Frm_Agenda  *pC_Frm_Agenda              = new C_Frm_Agenda( date, scrollArea_Days, G_pCApp->m_PathAppli, G_pCApp->m_LocalParam, signUser,G_pCApp->m_User, nom+" "+prenom, userDroits,googleUser,googlePass);        // creer la liste des jours
@@ -5689,6 +5707,7 @@ C_Frm_Agenda *C_Manager::addUserAgenda(const QString &signUser, QDate date, QFra
    scrollArea_Days->setWidget(pC_Frm_Agenda);
 
    // CZA ---------xx----------------------
+   /***************** CZC
    if (pC_Frm_Agenda->getAgendaMode_WeekOrDayOrMonth() == "DAY")
        { w = CGestIni::Param_ReadUniqueParam(G_pCApp->m_LocalParam, "Agenda", "Largeur").toInt() + wScroll + 5;
          frameButtonAndTitle->setMinimumSize ( w , agendaButtonHeight + agendaTitleHeight);
@@ -5699,6 +5718,45 @@ C_Frm_Agenda *C_Manager::addUserAgenda(const QString &signUser, QDate date, QFra
          frameButtonAndTitle->setMinimumSize ( w , agendaButtonHeight + agendaTitleHeight);
          frameButtonAndTitle->setMaximumSize ( w , agendaButtonHeight + agendaTitleHeight);
         }
+   CZC **************************/
+
+   // ------ CZC debut ---------------------
+   int widthWeek        = CGestIni::Param_ReadUniqueParam(G_pCApp->m_LocalParam, "Agenda", "Largeur semaine").toInt() ;
+   int heightTitle      = CGestIni::Param_ReadUniqueParam(G_pCApp->m_LocalParam, "Agenda", "Hauteur bandeau jour ouvert").toInt();
+   int nbDayInWeek      = CGestIni::Param_ReadUniqueParam(G_pCApp->m_LocalParam, "Agenda", "Nombre de jours par semaine").toInt();
+
+   if (pC_Frm_Agenda->getAgendaMode_WeekOrDayOrMonth() == "DAY")
+       w = CGestIni::Param_ReadUniqueParam(G_pCApp->m_LocalParam, "Agenda", "Largeur").toInt() + wScroll + 5;
+   else
+       w = widthWeek + wScroll + 5;
+   frameButtonAndTitle->setMinimumSize ( w , agendaButtonHeight + agendaTitleHeight);
+   frameButtonAndTitle->setMaximumSize ( w , agendaButtonHeight + agendaTitleHeight);
+
+   // Creation d'un Frame qui contiendra les titres de colonnes jours
+   QFrame *pQFrameDays = new QFrame(agendaFrameDaysAndTitle);
+   pQFrameDays->setObjectName("FrameDesJours_" + signUser);
+   //leCss = CGestIni::Param_ReadUniqueParam(G_pCApp->m_LocalParam, "Agenda", "Style du label jour");
+   pQFrameDays->setStyleSheet(CGestIni::Param_ReadUniqueParam(G_pCApp->m_LocalParam, "Agenda", "Style du label jour").trimmed().replace("_",","));
+
+   pQFrameDays->setGeometry(0,agendaButtonHeight + agendaTitleHeight + 6, widthWeek, heightTitle +2);
+   // creation des 7 labels pour les 7 titres de jour
+   QDate dateJW = date.addDays(-(date.dayOfWeek() - 1));
+   int xlab = 0;
+   int widthLabelDay = widthWeek / nbDayInWeek;
+   for (int i = 1; i <= nbDayInWeek; i++)
+        {QLabel *pLabelDateJour = new QLabel(pQFrameDays);
+        pLabelDateJour->setObjectName("pLabelDateJour_" + QString::number(i) +"_"+ signUser);
+        pLabelDateJour->setAlignment(Qt::AlignCenter);
+        // utile que pour le 1er affichage si WEEK
+        pLabelDateJour->setText(dateJW.toString(pC_Frm_Agenda->GetCMoteurAgenda()->GetFormatDateInResume('W'))); // RECUPERER FORMAT
+        pLabelDateJour->setGeometry(xlab,0,widthLabelDay, heightTitle + 2);
+        xlab += widthLabelDay;
+        dateJW = dateJW.addDays(1);
+        }
+   if (pC_Frm_Agenda->getAgendaMode_WeekOrDayOrMonth() != "WEEK")
+        pQFrameDays->hide();
+
+  // -- fin CZC ------------
    pQPushButtonClose->resize( agendaTitleHeight , agendaTitleHeight);
    pQPushButtonClose->move  ( 0 ,          0);
    pQPushButtonClose->setIcon(Theme::getIcon("Agenda/CloseAgenda.png"));
@@ -5720,11 +5778,11 @@ C_Frm_Agenda *C_Manager::addUserAgenda(const QString &signUser, QDate date, QFra
       }
    // CZA -----------------------
    QString SemOuJour = tr("Day");
-   QString TipPreced = tr("Schedule of previous day");
+   QString TipPreced = tr("Schedule of previus day");
    QString TipSuivan = tr("Schedule of next day");
    if (pC_Frm_Agenda->getAgendaMode_WeekOrDayOrMonth() != "DAY")
       { SemOuJour = tr("Week");
-        TipPreced = tr("Schedule of previous week");
+        TipPreced = tr("Schedule of previus week");
         TipSuivan = tr("Schedule of next week");
       }
       // bouton jour precedent
@@ -5969,8 +6027,8 @@ else
     //.......................... sinon le cr\303\251er .........................................
     else if ( G_pCApp->m_pCps->m_NIR.length() && G_pCApp->m_pCps->m_Nom.length() && G_pCApp->m_pCps->m_Prenom.length())
        { ret = QMessageBox::information( this, tr("Utilisateur inconnu"),
-                                               tr( "L'utilisateur : <b>´" + G_pCApp->m_pCps->m_Nom + "  " + G_pCApp->m_pCps->m_Prenom +
-                                                   "ª</b>de cette carte de praticien de sant\303\251<br/> n'est pas connu de MedinTux, <br/>" +
+                                               tr( "L'utilisateur : <b>?" + G_pCApp->m_pCps->m_Nom + "  " + G_pCApp->m_pCps->m_Prenom +
+                                                   "?</b>de cette carte de praticien de sant\303\251<br/> n'est pas connu de MedinTux, <br/>" +
                                                    "faut-il cr\303\251er un nouvel utilisateur avec ?"
                                                   ) ,
                                                tr("&Cr\303\251er"), tr("&Annuler"), 0,
@@ -6001,8 +6059,8 @@ CGestIni::Param_ReadParam(G_pCApp->m_LocalParam, "Sesam-Vitale", "ModuleName",  
  if (moduleName == "PYXVITAL")
    {
     // Cz_Pyxvital ------------- DEBUT -----------------------------------------------------------------
-    // Ex\303\251cution du programme Aixvitale avec le param√®tre CPS (lecture carte CPS)
-    // Aixvitale lancera lui m√™me la DLL de Pyxvital avec le param√®tre P.
+    // Ex\303\251cution du programme Aixvitale avec le paramËtre CPS (lecture carte CPS)
+    // Aixvitale lancera lui mÍme la DLL de Pyxvital avec le paramËtre P.
     // Aixvitale retourne le nom complet du fichier Praticien.par contenant les infos lues sur la carte
     QString     fic_PraticienPar = "";     // exemple de nom attendu : "C:/pyxvital/INTERF/Praticien.par";
     fieldList.append(m_pCMoteurBase->m_USER_IDENT_LOGIN);           // 0
@@ -6044,7 +6102,7 @@ else   // cas standard QFSEVITALE
    {
     //..................................... ne pas rajouter "/" car c'est un nom de fichier ..........................
     if ( QDir::isRelativePath ( pathPlugin ) )  pathPlugin = QDir::cleanDirPath (pathPlugin.prepend(G_pCApp->m_PathAppli));
-    //..................................... rajouter "/" car le chemin doit √™tre donn\303\251 avec ..........................
+    //..................................... rajouter "/" car le chemin doit Ítre donn\303\251 avec ..........................
     if ( QDir::isRelativePath ( pathLog ) )     pathLog    = QDir::cleanDirPath (pathLog.prepend(G_pCApp->m_PathAppli) )+"/";
 
     QString pluginScript  = "[Execute]\r\n";
@@ -6069,7 +6127,7 @@ else   // cas standard QFSEVITALE
        }
     } // end else Cas QFSEVITALE . Cz_Pyxvital ... La suite est commune .
 
-    //.......................... si existe d\303\251jÔøΩ  le selectionner ..................................
+    //.......................... si existe d\303\251j?  le selectionner ..................................
     if (userPk.length())
        {if (G_pCApp->m_pCps->m_NIR.length())
            {user = fieldList[0];                           // m_USER_IDENT_LOGIN
@@ -6090,11 +6148,11 @@ else   // cas standard QFSEVITALE
     //.......................... sinon le cr\303\251er .........................................
     else if ( G_pCApp->m_pCps->m_NIR.length() && G_pCApp->m_pCps->m_Nom.length() && G_pCApp->m_pCps->m_Prenom.length())
        { ret = QMessageBox::information( this, tr("Unknown user"),
-                                               tr( "L'utilisateur : <b> ´" + G_pCApp->m_pCps->m_Nom + "  " + G_pCApp->m_pCps->m_Prenom +
-                                                   "ª</b> de cette carte de praticien de sant\303\251<br/> n'est pas connu de MedinTux, <br/>" +
+                                               tr( "L'utilisateur : <b> ?" + G_pCApp->m_pCps->m_Nom + "  " + G_pCApp->m_pCps->m_Prenom +
+                                                   "?</b> de cette carte de praticien de sant\303\251<br/> n'est pas connu de MedinTux, <br/>" +
                                                    "faut-il cr\303\251er un nouvel utilisateur avec ?"
                                                   ) ,
-                                               tr("&Create"), tr("&Cancel"), 0,
+                                               tr("&Cr\303\251er"), tr("&Annuler"), 0,
                                                1, 1 );
          if (ret==0)
             { editUser(cps_data);    // todo evaluer si au retour l'utilisateur est effac\303\251
@@ -6226,16 +6284,15 @@ void C_Manager::get_RecordDispos(const QString & mode /* = "FICHE" */)
     QString nomFicDPS     = "";
     if (mode!="AGENDA")
        {m_Type_Affichage_EnCours = "FICHE";
-        textToDisplay            = tr("  >> Go to Schedule              ");
+        textToDisplay            = tr("  >> Goto Schedule              ");
         nomFicDPS                = "Manager.dps";
        }
     else
        {m_Type_Affichage_EnCours = mode;
-        textToDisplay            = tr("  >> Go to Patient list          ");
+        textToDisplay            = tr("  >> Goto Patient list          ");
         nomFicDPS                = "Manager_Agenda.dps";
        }
     //...... charge la config de presentation .................
-    //m_actionTypeAffichage->setText(textToDisplay);                            // CZA
     QRect rect = QFontMetrics ( this->font() ).boundingRect ( textToDisplay );
     m_Button_Affichage_EnCours->setText(textToDisplay);
     m_Button_Affichage_EnCours->setGeometry(m_Button_Affichage_EnCours->x(),m_Button_Affichage_EnCours->y(),rect.width(),m_Button_Affichage_EnCours->height());
@@ -6444,11 +6501,11 @@ if (style.length()!=0) return style.arg(pointSize);
 }
 //Cz_Pyxvital ------------------------------- DEBUT -----------------------------------------------------
 //----------------------------------- Slot_saisieFSEenCours -------------------------------------------------------------------------
-// Contr√¥le si la saisie FSE par PYxvital est en cours .
+// ContrÙle si la saisie FSE par PYxvital est en cours .
 // --> test de la pr\303\251sence du fichier Facture.par
 // --> si seulement un acte a \303\251t\303\251 saisi, le fichier Facture.par contient un groupe "Prestation" ?? PAS SUR
 // --> si la FSE est valid\303\251e le fichier Facture.par contient le groupe "Tarification" avec un "Taux".
-// Contr√¥le si le patient en cours dans Pyxvital est bien le patient s\303\251lectionn\303\251 dans Manager
+// ContrÙle si le patient en cours dans Pyxvital est bien le patient s\303\251lectionn\303\251 dans Manager
 void C_Manager::Slot_saisieFSEenCours()
 {   bool finFSE = false;
    QString nomficErreur = m_ficFacturePar;                      // CZ_Cpta
@@ -6459,7 +6516,7 @@ void C_Manager::Slot_saisieFSEenCours()
    if (QFile::exists(m_ficFacturePar) )
        {QSettings *settings = new QSettings(m_ficFacturePar, QSettings::IniFormat);
        QString    numfact = settings->value(tr("Tarification/Taux")).toString();
-       if (numfact.length() > 0)                               // la saisie est termin√©e : La FSE a ete validee.
+       if (numfact.length() > 0)                               // la saisie est terminÈe : La FSE a ete validee.
          {finFSE = true;
          }
        else                                                  // au moins une ligne d'acte a ete saisie : La saisie est en cours.
@@ -6473,20 +6530,20 @@ void C_Manager::Slot_saisieFSEenCours()
                    // soit on a reselectionne un autre patient dans medintux sans saisiz d'actes dans Pyxvital
        m_FSEenCours = FALSE;
        m_pGUI->pushButton_FSE->setText(tr("Facturer"));
-       m_pGUI->pushButton_FSE->setEnabled (FALSE );            // d√©sactiver ce bouton en plus ????
-       m_timerFSE->stop();                                     // arr√?¬™t du timer d'attente du fichier Facture.par
+       m_pGUI->pushButton_FSE->setEnabled (FALSE );            // dÈsactiver ce bouton en plus ????
+       m_timerFSE->stop();                                     // arr??™t du timer d'attente du fichier Facture.par
        QTreeWidget *pQlistView = m_pGUI->listView_Vitale;
        pQlistView->clear();
        Controle_Solde_Patient(G_pCApp->identitePatientGUID());                       // CZ_Cpta
 
-       } // fin du FSE valid√©e
+       } // fin du FSE validÈe
 }
 
 
 //--------------------------------- Slot_pushButton_FSE -----------------------------------------------------------------------
 // Lancement de Pyxvital pour saisie des actes et validation des FSE .
 // Pour simplifier la proc\303\251dure :
-// - manager g\303\251n√®re syst\303\251matiquement un fichier CV.par contenant toutes les infos du patient (+ les donn\303\251es AMC ?, AMO ?)
+// - manager g\303\251nËre syst\303\251matiquement un fichier CV.par contenant toutes les infos du patient (+ les donn\303\251es AMC ?, AMO ?)
 // - c'est Aixvitale qui testera si la CV a \303\251t\303\251 lue ...
 // - si CV OK avec patient en cours, c'est la CV qui est prise en compte.
 // - si pas de CV et D\303\251grad\303\251 OK , c'est CV.par qui sera pris par Pyxvital.
@@ -6511,18 +6568,18 @@ void C_Manager::Slot_pushButton_FSE()
 
   if (moduleName=="PYXVITAL")    // test inutile
      {
-      // v√©rification qu'une FSE n'est pas d√©j√?  en cours de saisie
+      // vÈrification qu'une FSE n'est pas dÈj??  en cours de saisie
       if (m_FSEenCours)
          {
           int ret    = QMessageBox::warning ( this, tr("FSE en cours"),
                        tr( "<u><b>ATTENTION :</u></b><br><br>Une FSE est en cours de saisie !<br>Voulez vous abandonner la FSE en cours ?"),
                        tr("&Abandonner la FSE en cours"), tr("Annu&ler"), 0, 1, 1);
           if (ret == 1) return;
-          // voir comment effacer le formulaire Pyxvital si acte d√©j√?  saisi...
-          // la lecture de la CV remet tout a z√©ro...
+          // voir comment effacer le formulaire Pyxvital si acte dÈj??  saisi...
+          // la lecture de la CV remet tout a zÈro...
          }
 
-      // cherche si le patient s√©lectionn√© dans la liste patient est bien dans la liste Vitale
+      // cherche si le patient sÈlectionnÈ dans la liste patient est bien dans la liste Vitale
       QTreeWidgetItemIterator it( m_pGUI->listView_Vitale );
       bool patientOK = false;
       m_typFact = "";
@@ -6578,8 +6635,8 @@ void C_Manager::Slot_pushButton_FSE()
          zcvnom   = m_pGUI->lineEdit_NomDossier->text();
          zcvprn   = m_pGUI->lineEdit_PrenomDossier->text();
 
-         // Cr√©ation du fichier CV.par ...................................................................
-         // Le fichier CV.Par ne sert que pour le mode D√©grad√©, les FSP ou les pr√©factures.
+         // CrÈation du fichier CV.par ...................................................................
+         // Le fichier CV.Par ne sert que pour le mode DÈgradÈ, les FSP ou les prÈfactures.
          // les infos fournies sont donc celles de la base Medintux et non pas celles de la Carte SV
          QString nomFicCVpar = interf_Pyx + "/CV.par";
          remove (nomFicCVpar);
@@ -6604,7 +6661,7 @@ void C_Manager::Slot_pushButton_FSE()
          zcvnss = m_pGUI->lineEdit_NumSecu->text(); zcvnss.remove(" ");
          settings->setValue("Numero",            zcvnss);
          settings->setValue("Cle",               m_pGUI->lineEdit_NssClef->text());
-         // pas de date de naissance de l'assur√©
+         // pas de date de naissance de l'assurÈ
          settings->endGroup();
          settings->sync();
          // ajouter la saisie et le stockage des champs dans les onglets AMC - AMO
@@ -6624,8 +6681,8 @@ void C_Manager::Slot_pushButton_FSE()
          */
          }
 
-         // appel √?  AixVitale (qui lance Pyxvital) pour saisie des actes et g√©n√©ration de la FSE.
-         //--- d√©but CZ_Cpta
+         // appel ??  AixVitale (qui lance Pyxvital) pour saisie des actes et gÈnÈration de la FSE.
+         //--- dÈbut CZ_Cpta
 
          QString numPS = G_pCApp->m_pCps->m_NIR.length() > 6 ? G_pCApp->m_pCps->m_NIR : "PasLu";
          QString listParam =  "p_actionPyx =" + m_typFact                              + "\r\n"
@@ -6649,7 +6706,7 @@ void C_Manager::Slot_pushButton_FSE()
            {
             // AU retour :
             // - soit on a pu lancer Pyxvital, et on a le nom du futur fichier Facture.par en retour.
-            //   on boucle sur le test de la pr√©sence de ce fichier pour le traiter...
+            //   on boucle sur le test de la prÈsence de ce fichier pour le traiter...
             // - soit on a le mot "Erreur" avec le message d'erreur.
              if (strncmp (m_ficFacturePar,"Erreur",6) != 0 )
                  {
@@ -6694,51 +6751,26 @@ void C_Manager::Slot_Button_Vitale_ContextMenuRequested (const QPoint &)
 //--------------------------------- Slot_Button_Vitale_MenuRequested -----------------------------------------------------------------------
 void C_Manager::Slot_Button_Vitale_MenuRequested()
 {
-//#ifdef VITALE_VERSION
+
 QStringList list;
-
-list.append(tr("Formater les fichiers et T\303\251l\303\251transmettre"));            // CZ_Cpta
-list.append(tr("T\303\251l\303\251transmission seule"));                              // CZ_Cpta
-list.append(tr("D\303\251charger le TLA"));                                           // CZ_Cpta
-
+list.append(tr("=1=Formater les fichiers et T\303\251l\303\251transmettre"));            // CZ_Cpta
+list.append(tr("=2=T\303\251l\303\251transmission seule"));                              // CZ_Cpta
+list.append(tr("=3=D\303\251charger le TLA"));                                           // CZ_Cpta
 list.append("----------");
-list.append(tr("Liste des recettes"));                                  // CZ_Cpta2
+list.append(tr("=4=Liste des recettes"));                                                // CZ_Cpta2
 list.append("----------");
-list.append(tr("Lancer Pyxvital"));
+list.append(tr("=5=Lancer Pyxvital"));
 list.append("----------");
 
 //.................. actionner le menu et les actions .................................................
-QString ret = G_pCApp->DoPopupList(list);
-/***********
-action = ret.find('-');
-if (action != -1) action = ret.left(action).toInt();
-switch(action)
-       {case 1:    appelPyxvital ( "m_Action  = FTL\r\n"
-                                   "m_logUser ="  + G_pCApp->m_User + "\r\n"); // CZ_Cpta;
-                   break;                                                      // CZ_Cpta;
-        case 2:    appelPyxvital ( "m_Action = TEL\r\n");     break;          // CZ_Cpta;
-        case 0:    appelPyxvital ( "m_Action = PYX\r\n");     break;
-        case 3:    appelCompta   ("TDB");                     break;          // CZ_Cpta2
-       }
-***********/
-//Debut CZ_Cpta2
-QString    queFaire = ret.left(6);
-
-   if (queFaire == tr("Format"))
-       appelPyxvital ( "m_Action  = FTL\r\n" "m_logUser ="  + G_pCApp->m_User + "\r\n");
-   else
-   if (queFaire == tr("T\303\251l\303\251tr"))
-       appelPyxvital ( "m_Action = TEL\r\n" "m_logUser ="  + G_pCApp->m_User + "\r\n"); //
-   else
-   if (queFaire == tr("Liste "))
-       appelCompta   ("TDB");
-   else
-   if (queFaire == tr("Lancer"))
-       appelPyxvital ( "m_Action = PYX\r\n");
-   else
-   if (queFaire == tr("D\303\251char"))
-       appelPyxvital ( "m_Action = TLA\r\n" "m_logUser ="  + G_pCApp->m_User + "\r\n"); // MODIF CZ 11.05.2010
-//fin CZ_Cpta2
+int option = G_pCApp->DoPopupList(list).toInt();
+switch(option)
+{  case 1: appelPyxvital ( "m_Action = FTL\r\n" "m_logUser ="  + G_pCApp->m_User + "\r\n");  break;
+   case 2: appelPyxvital ( "m_Action = TEL\r\n" "m_logUser ="  + G_pCApp->m_User + "\r\n");  break;
+   case 4: appelCompta   ("TDB");                                                            break;
+   case 5: appelPyxvital ( "m_Action = PYX\r\n");                                            break;
+   case 3: appelPyxvital ( "m_Action = TLA\r\n" "m_logUser ="  + G_pCApp->m_User + "\r\n");  break;
+}
 //#endif
 }
 
@@ -6843,3 +6875,8 @@ void C_Manager::appelCompta (QString /*nomProgCPta*/)
 }
 //Cz_Pyxvital ------------------------------------- FIN ---------------------------------------------------------
 
+//-------------------------------------- Slot_launchSpecificJob -------------------------------------
+void C_Manager::Slot_launchSpecificJob (bool)       // CZB
+{
+    G_pCApp->launchSpecificJob("Menu_Files");
+}

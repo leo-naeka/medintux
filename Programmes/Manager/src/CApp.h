@@ -119,6 +119,7 @@ class CApp : public QApplication
      /*! \brief Affiche un popup amusant */
      void  CouCou(const QString &message, const QString &imagePath="", int tempo = 0);
      void  CouCou(const QString &message, const QColor &color, const QFont &ft , int tempo = 0, const QString &imagePath="");
+     void  launchSpecificJob(QString nameOfJob); // CZB
      QString  PluginExe(        QObject         * pQObject,
                                 const char      * pluginScript,
                                 int               waitFlag  = CApp::endWait);
