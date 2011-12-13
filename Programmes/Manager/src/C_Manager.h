@@ -341,6 +341,7 @@ private slots:
     void Slot_action_Imprimer(bool);
     void Slot_pushButton_SigemsPA_Clicked();
     void Slot_Type_Affichage_Change();          // CZA
+    void Slot_launchSpecificJob (bool);
 
     void Slot_pushButton_FSE();                                        // Cz_Pyxvital
     void Slot_saisieFSEenCours();                                      // Cz_Pyxvital
@@ -370,6 +371,7 @@ private:
    QAction            *m_action_UserParams;
    QAction            *m_action_NouveauDossier;
    QAction            *m_actionImprimer;
+   QAction            *m_actionSpecifique;
    QAction            *m_actionQuitter;
    //............ menu fenetre .......
    QMenu              *m_menuFenetre;

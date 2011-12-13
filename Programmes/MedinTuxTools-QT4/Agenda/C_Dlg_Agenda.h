@@ -796,7 +796,7 @@ public:
     QString  getAgendaMode_WeekOrDayOrMonth() ;
     void     reinitAgendaOnDate(QDate dateDeb);
     void     reinitAgendaOnUser(const QString& user, const QString &droits);
-
+    CMoteurAgenda *GetCMoteurAgenda(){return m_pCMoteurAgenda;}
     void     creerRDVFactices(const QString &user);
     //............ animation .......................
     void     createAnimations();
