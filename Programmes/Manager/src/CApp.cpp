@@ -601,9 +601,14 @@ void CApp::launchSpecificJob(QString nameOfJob) // CZB
     if (!pathJob.contains(".exe"))
         pathJob +=".exe";
 #endif
-
+#ifdef Q_WS_X11
+       pathJob += "";
+#endif
+#ifdef  Q_WS_MAC
+       int pos = pathJob.lastIndexOf("/");
+       if (pos != -1) pathJob = pathJob+".app/Contents/MacOS/"+pathJob.mid(pos+1);
+#endif
     QProcess::startDetached (pathJob, listParam);
-
 }
 //------------------------------------------------------- PluginExe --------------------------------------------------
 QString CApp::PluginExe(        QObject         * pQObject,
@@ -757,10 +762,9 @@ QString CApp::PluginExe(        QObject         */*pQObject*/,
       QProcess*   proc = new QProcess();
       connect( proc,        SIGNAL(error ( QProcess::ProcessError  )),     this, SLOT(Slot_error ( QProcess::ProcessError  )) );
 
-      //proc.startDetached ( m_PluginRun, argList);
       proc->start(m_PluginRun, argList);
-      proc->waitForStarted  (-1);
-      proc->waitForFinished (-1);
+      proc->waitForStarted  (4000);
+      proc->waitForFinished ();
       //QByteArray ba = proc->readAllStandardError ();
       //qDebug(ba);
       /*

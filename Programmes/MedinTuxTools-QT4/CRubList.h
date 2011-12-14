@@ -11,7 +11,7 @@
  *                              http://www.cecill.info/                           *
  *   as published by :                                                            *
  *                                                                                *
- *   Commissariat √† l'Energie Atomique                                            *
+ *   Commissariat √  l'Energie Atomique                                            *
  *   - CEA,                                                                       *
  *                            31-33 rue de la F√©d√©ration, 75752 PARIS cedex 15.   *
  *                            FRANCE                                              *
@@ -56,7 +56,7 @@
  *  \brief Classe de donn√©es pour stocker les relations hierarchiques entre les documents du dossier m√©dical.
  * la structure est la representation de la table : Evnmt_Liens avec le pk de l'enregistrement
  * si le m_Pk commence par # alors les caracteres qui suivent sont celui  d'un pk provisoire unique qui sert a
- * reperer un enregistrement nouveau lors la mise √† jour definitive du pk lors d'un enregistrement des donnees
+ * reperer un enregistrement nouveau lors la mise √  jour definitive du pk lors d'un enregistrement des donnees
 */
 
 class CRubEvntPair
@@ -87,7 +87,7 @@ class CRubEvntPair
  *  \brief Classe de liste de donn√©es pour stocker les relations hierarchiques entre les documents du dossier m√©dical.
  * la structure est la representation de la table : Evnmt_Liens avec le pk de l'enregistrement
  * si le m_Pk commence par # alors les caracteres qui suivent sont celui  d'un pk provisoire unique qui sert a
- * reperer un enregistrement nouveau lors la mise √† jour definitive du pk lors d'un enregistrement des donnees
+ * reperer un enregistrement nouveau lors la mise √  jour definitive du pk lors d'un enregistrement des donnees
 */
 class CRubEvntList : public Q3ValueList <CRubEvntPair>
 {
@@ -126,8 +126,8 @@ int  GetLastPkProvisoire()
 
 //----------------------------------------------- Evnmt_SetDefinitivePkDoc ---------------------------------------------------
 /*! \brief Fonction qui remplace le numero d'enregistrement provisoire d'un document par un definitif
- *  \param provPk           const QString : numero provisoire √† changer
- *  \param defPk            const QString : numero definitif √† placer
+ *  \param provPk           const QString : numero provisoire √  changer
+ *  \param defPk            const QString : numero definitif √  placer
  *  \return neant
 */
 void Evnmt_SetDefinitivePkDoc(const QString &provPk, const QString &defPk)
@@ -141,8 +141,8 @@ void Evnmt_SetDefinitivePkDoc(const QString &provPk, const QString &defPk)
  }
 //----------------------------------------------- Evnmt_SetDefinitivePkEvnt ---------------------------------------------------
 /*! \brief Fonction qui remplace le numero d'enregistrement provisoire d'un element de la vigie par un definitif
- *  \param provPk           const QString : numero provisoire √† changer
- *  \param defPk            const QString : numero definitif √† placer
+ *  \param provPk           const QString : numero provisoire √  changer
+ *  \param defPk            const QString : numero definitif √  placer
  *  \return neant
 */
 void Evnmt_SetDefinitivePkEvnt(const QString &provPk, const QString &defPk)
@@ -157,7 +157,7 @@ void Evnmt_SetDefinitivePkEvnt(const QString &provPk, const QString &defPk)
 
 //----------------------------------------------- Evnmt_SetToDelete_Pk ---------------------------------------------------
 /*! \brief Fonction qui met un des elements de la vigie en etat d'effacement futur
- *  \param pk_Head           const QString : pk de l'enregistrement √† modifier
+ *  \param pk_Head           const QString : pk de l'enregistrement √  modifier
  *  \return neant
 */
 int Evnmt_SetToDelete_Pk(const QString &pk_Head)
@@ -172,8 +172,8 @@ int Evnmt_SetToDelete_Pk(const QString &pk_Head)
 
 //----------------------------------------------- Evnmt_Set_StateOn_AllFils ---------------------------------------------------
 /*! \brief Fonction qui met un des elements et toute sa descendance de la vigie sur un etat
- *  \param pk_Pere  const QString : pk de l'enregistrement parent √† modifier
- *  \param state    int : etat √† positionner
+ *  \param pk_Pere  const QString : pk de l'enregistrement parent √  modifier
+ *  \param state    int : etat √  positionner
  *  \return neant
 */
 int Evnmt_Set_StateOn_AllFils(QString pk_Pere, int state)
@@ -181,15 +181,15 @@ int Evnmt_Set_StateOn_AllFils(QString pk_Pere, int state)
   for (it = begin(); it !=  end(); ++it )
       {if (pk_Pere == (*it).m_Pere)
           {(*it).setState(state);
-            while (Evnmt_Set_StateOn_AllFils((*it).m_Pk, state)); // voir si la filliation n'est pas a effacer
+           while (Evnmt_Set_StateOn_AllFils((*it).m_Pk, state)){}; // voir si la filliation n'est pas a effacer
           }
       }
  return 0;
 }
 //----------------------------------------------- Evnmt_Remove_StateOn_AllFils ---------------------------------------------------
 /*! \brief Fonction qui enleve un des elements et toute sa descendance de la vigie sur un etat
- *  \param pk_Pere  const QString : pk de l'enregistrement parent √† modifier
- *  \param state    int : etat √† positionner
+ *  \param pk_Pere  const QString : pk de l'enregistrement parent √  modifier
+ *  \param state    int : etat √  positionner
  *  \return neant
 */
 int Evnmt_Remove_StateOn_AllFils(QString pk_Pere, int state)
@@ -219,7 +219,7 @@ void Evnmt_RemoveAllItemsToDestroy()
       }
 }
 //----------------------------------------------- GetEvenementRecordInListFromPk ---------------------------------------------------
-/*! \brief Fonction qui retourne un pointeur sur un enregistrement evennement de la liste d'evennement √† partir de son Pk
+/*! \brief Fonction qui retourne un pointeur sur un enregistrement evennement de la liste d'evennement √  partir de son Pk
  *  \param pk           const QString : le pk de l'evennement
  *  \return CRubEvntPair* : pointeur sur l'enregistrement ou zero si pas trouve
 */
@@ -235,7 +235,7 @@ CRubEvntPair* GetEvenementRecordInListFromPk(const QString &pk)
 //----------------------------------------------- FirstStateFindInParents ---------------------------------------------------
 /*! \brief Fonction qui recherche dans les parents le premier etat trouv√©
  *  \param pCRubEvntPairSrc*   CRubEvntPair * : pointeur sur l'enregistrement a partir duquel explorer les parents
- *  \param state           int :      etat √† tester
+ *  \param state           int :      etat √  tester
  *  \return CRubEvntPair* qui est le premier parent avec l'√©tat place sinon z√©ro
 */
 
@@ -284,7 +284,7 @@ bool IsThisItemInBranch( CRubEvntPair* pCRubEvntPairSrc, const QString &pk_toTes
 }
 
 //----------------------------------------------- ExploreItemInBranch ---------------------------------------------------
-/*! \brief Fonction recursive auto appelee qui explore tous les fils √† la recherche d'un autre fils si un enregistrement est fils de l'autre cette fonction met la variable  m_IsThisItemInBranch a TRUE si trouve
+/*! \brief Fonction recursive auto appelee qui explore tous les fils √  la recherche d'un autre fils si un enregistrement est fils de l'autre cette fonction met la variable  m_IsThisItemInBranch a TRUE si trouve
  *  \param pEvnmtList  EVNT_LIST *  :  pointeur sur la liste d'evennement patient
  *  \param pk_pere*    QString     :  primary key de l'enregistrement suppose etre parent de l'autre
  *  \param pk_toTest   QString : sur le pk de l'enregistrement suppose fils de l'autre
@@ -349,7 +349,7 @@ public:
                    const char* prop_3         = "",
                    const char* prop_4         = ""
                   )
-              {m_PrimKey        = primKey;               // peut etre √† zero lors de nouveaux documents dans liste et non enregistr√©s
+              {m_PrimKey        = primKey;               // peut etre √  zero lors de nouveaux documents dans liste et non enregistr√©s
                m_Libelle        = libelle;
                m_Type           = type;
                m_SubType        = subType;
@@ -366,7 +366,7 @@ public:
                m_Prop_3         = prop_3;
                m_Prop_4         = prop_4;
                m_LastErr        = "";
-               //  plantage √† cause du delete[] dans la classe !!!!! normal car
+               //  plantage √  cause du delete[] dans la classe !!!!! normal car
                //  QMemArray<type> & QMemArray::assign ( const type * data, uint size )
                //  This is an overloaded member function, provided for convenience. It behaves essentially like the above function.
                //  Shallow copy. Dereferences the current array and references the array data data, which contains size elements. Returns a reference to this array.
