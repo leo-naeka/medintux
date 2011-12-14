@@ -14,7 +14,7 @@
 *                              http://www.cecill.info/                           *
 *   as published by :                                                            *
 *                                                                                *
-*   Commissariat Ã  l'Energie Atomique                                            *
+*   Commissariat ï¿½  l'Energie Atomique                                            *
 *   - CEA,                                                                       *
 *                            31-33 rue de la FÃ©dÃ©ration, 75752 PARIS cedex 15.   *
 *                            FRANCE                                              *
@@ -171,11 +171,14 @@ C_DlgApropos::C_DlgApropos(QWidget *parent,
   setWindowTitle(title);
   setPageHelp(m_PathPageHelp);
   ui->pushButtonClose->setFocus();
-
+  setWindowState(windowState() & ~Qt::WindowMinimized);
+  show();
+  activateWindow();
+  raise();
   //QStringList argList = QCoreApplication::arguments () ;
   //QString argum = "";
   //for (int i=0; i<argList.count();++i)
-  //    {argum += QString("Argument N°%1 : %2<br>").arg(QString::number(i),argList[i]);
+  //    {argum += QString("Argument Nï¿½%1 : %2<br>").arg(QString::number(i),argList[i]);
   //    }
   //ui->textBrowser_Changements->setText(argum);
 
@@ -221,6 +224,7 @@ void C_DlgApropos::Slot_webView_Apropos_linkClicked ( const QUrl & url )
 { if (URL_ExecSpecialSyntax ( url.toString().trimmed() ,m_PathAppli)) return;
   ui->webView_Apropos->load (url );
 }
+
 //--------------------------------- URL_ExecSpecialSyntax -----------------------------------------------------------------------
 int  C_DlgApropos::URL_ExecSpecialSyntax ( QString urlStr , const QString &pathAppli)
 {   if (urlStr.startsWith("exec:"))
@@ -229,12 +233,21 @@ int  C_DlgApropos::URL_ExecSpecialSyntax ( QString urlStr , const QString &pathA
         urlStr = argList[0]; if (!argList.isEmpty()) argList.removeAt(0);
         if ( QDir(urlStr).isRelative()) urlStr.prepend(pathAppli);
         urlStr = QDir::cleanPath(urlStr) + F_EXE;
+#ifdef Q_WS_MAC
+        QString module = urlStr;
+        int     posDeb = module.lastIndexOf("/");
+        if (posDeb != -1)
+           { ++posDeb;
+             module = module.mid(posDeb);
+           }
+        urlStr += ".app/Contents/MacOS/" + module;
+#endif
         QProcess::startDetached(urlStr, argList);
         return 1;
        }
     else if (urlStr.startsWith("mailto:"))
        {urlStr      = urlStr.mid(7);
-        int posArg  = urlStr.indexOf("?");                 //"mailto:%1?subject=%2&body=%3" la liste d'arguments commence après '?' et sont separes par '&'
+        int posArg  = urlStr.indexOf("?");                 //"mailto:%1?subject=%2&body=%3" la liste d'arguments commence aprï¿½s '?' et sont separes par '&'
         if (posArg != -1)
            {++posArg;
             QString   argMailTo = urlStr.mid(posArg);
@@ -269,7 +282,6 @@ int  C_DlgApropos::URL_ExecSpecialSyntax ( QString urlStr , const QString &pathA
        }
     return 0;
 }
-
 
 //--------------------------------- Slot_On_webView_Help_statusBarMessage -----------------------------------------------------------------------
 void C_DlgApropos::Slot_On_webView_Help_statusBarMessage (const QString &text)
@@ -388,7 +400,7 @@ void C_DlgApropos::Slot_pushButtonrecordNumVers_clicked (bool)
        }
     if (numVers.count(".")!=2)
        {QMessageBox::warning ( this, tr("Modifier un num\303\251ro de version"),
-                                     tr("Le num\303\251ro de version saisi :<b>%1</b> est incorrect <br>le nombre de deux point n'est pas \303\251gal à deux.").arg(numVers),
+                                     tr("Le num\303\251ro de version saisi :<b>%1</b> est incorrect <br>le nombre de deux point n'est pas \303\251gal ï¿½ deux.").arg(numVers),
                                      QMessageBox::Ok );
                                                     return;
        }
@@ -431,7 +443,7 @@ void C_DlgApropos::Slot_pushButtonrecordNumVers_clicked (bool)
     int end = ba.indexOf( motif+"==",deb);
     if (end==-1)
        {QMessageBox::warning ( this, tr("Modifier un num\303\251ro de version"),
-                                     tr("Le fichier ex\303\251cutable :  <b>%1</b> <br>comporte une erreur dans son syst\303\250me de num\303\251ro de version<br>(motif de début trouv\303\251 mais pas celui de fin)").arg(fileName),
+                                     tr("Le fichier ex\303\251cutable :  <b>%1</b> <br>comporte une erreur dans son syst\303\250me de num\303\251ro de version<br>(motif de dï¿½but trouv\303\251 mais pas celui de fin)").arg(fileName),
                                      QMessageBox::Ok );
                                                    return;
        }

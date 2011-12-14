@@ -244,7 +244,7 @@ QString CMoteurCCAM_Base::GetCCAM_Version()
 {   // ......... Recherche des phases et des activités de l'acte sélectionné .......................
     QSqlQuery query("SELECT CHRONOLOGIE FROM VERSION;", m_obj_CCAM_Base);
     QString version = "?";
-    if ( query.next() ) version = query.value(0).toString();
+    while ( query.next() ) version = query.value(0).toString();
     char *pt_deb = (char*)(const char*) version;
     char *pt     = pt_deb;
     while (pt && *pt && *pt =='0')  {++pt;};
@@ -2427,13 +2427,13 @@ void CMoteurCCAM_Base::CreationTables()
                "LIBELLE varchar(255) default NULL,"
                "PRIMARY KEY  (CODE),"
                "KEY ACCES (ACCES)"
-               ") TYPE=MyISAM;" );
+               ");" );
 
     query.exec("CREATE TABLE ACCES2 ("
                "PERE char(1) default NULL,"
                "LIBELLE varchar(150) default NULL,"
                "KEY PERE (PERE)"
-               ") TYPE=MyISAM;" );
+               ");" );
 
     query.exec("CREATE TABLE ACTION1 ("
                "VERBE varchar(20) NOT NULL default '',"
@@ -2441,7 +2441,7 @@ void CMoteurCCAM_Base::CreationTables()
                "LIBELLE varchar(255) default NULL,"
                "PRIMARY KEY  (VERBE),"
                "KEY CODE (CODE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE ACTION2 ("
                "VERBE varchar(30) default NULL,"
@@ -2450,13 +2450,13 @@ void CMoteurCCAM_Base::CreationTables()
                "KEY ACTION (VERBE),"
                "KEY CODE (CODE),"
                "KEY VERBE (SUBSTANTIF)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE TOPOGRAPHIE1 ("
                "CODE char(1) NOT NULL default '',"
                "LIBELLE varchar(80) default NULL,"
                "PRIMARY KEY  (CODE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE TOPOGRAPHIE2 ("
                "CODE char(2) NOT NULL default '',"
@@ -2464,7 +2464,7 @@ void CMoteurCCAM_Base::CreationTables()
                "LIBELLE varchar(150) default NULL,"
                "PRIMARY KEY  (CODE),"
                "KEY PERE (PERE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS ACTES ("
                "CODE varchar(13) NOT NULL default '',"
@@ -2508,14 +2508,14 @@ void CMoteurCCAM_Base::CreationTables()
                "CCAM31 varchar(20) default NULL,"
                "CCAM34 varchar(10) default NULL,"
                "PRIMARY KEY  (CODE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS ACTIVITEACTE ("
                "CODEACTE char(13) default NULL,"
                "ACTIVITE char(1) default NULL,"
                "KEY CODEACTE (CODEACTE),"
                "KEY ACTIVITE (ACTIVITE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS ASSOCIABILITE ("
                "CODEACTE char(13) default NULL,"
@@ -2526,21 +2526,21 @@ void CMoteurCCAM_Base::CreationTables()
                "REGLE char(1) default NULL,"
                "KEY CODEACTE (CODEACTE),"
                "KEY ACTIVITE (ACTIVITE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS INCOMPATIBILITE ("
                "CODEACTE char(13) default NULL,"
                "DATEEFFET char(8) default NULL,"
                "INCOMPATIBLE char(13) default NULL,"
                "KEY CODEACTE (CODEACTE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS PROCEDURES ("
                "CODEACTE char(13) default NULL,"
                "DATEEFFET char(8) default NULL,"
                "CODEPROCEDURE char(13) default NULL,"
                "KEY CODEACTE (CODEACTE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS MODIFICATEURACTE ("
                "CODEACTE varchar(13) default NULL,"
@@ -2550,7 +2550,7 @@ void CMoteurCCAM_Base::CreationTables()
                "KEY CODEACTE (CODEACTE),"
                "KEY CODEACTIVITE (CODEACTIVITE),"
                "KEY MODIFICATEUR (MODIFICATEUR)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS NOTES ("
                "CODEACTE varchar(13) default NULL,"
@@ -2558,7 +2558,7 @@ void CMoteurCCAM_Base::CreationTables()
                "TEXTE text,"
                "KEY CODEACTE (CODEACTE),"
                "KEY TYPE (TYPE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS PHASEACTE ("
                "CODEACTE char(13) default NULL,"
@@ -2569,7 +2569,7 @@ void CMoteurCCAM_Base::CreationTables()
                "AGEMAXI char(3) default NULL,"
                "ICR char(4) default NULL,"
                "CLASSANT char(1) default NULL"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS ARBORESCENCE ("
                "CODEMENU varchar(6) NOT NULL default '',"
@@ -2579,20 +2579,20 @@ void CMoteurCCAM_Base::CreationTables()
                "PRIMARY KEY  (CODEMENU),"
                "KEY CODEPERE (CODEPERE),"
                "KEY RANG (RANG)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS NOTESARBORESCENCE ("
                "CODEMENU varchar(6) default NULL,"
                "TYPE char(2) default NULL,"
                "TEXTE text,"
                "KEY CODEMENU (CODEMENU)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS ACTIVITE ("
                "CODE char(1) NOT NULL default '',"
                "LIBELLE varchar(100) default NULL,"
                "PRIMARY KEY  (CODE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS ASSOCIATION ("
                "CODE char(1) NOT NULL default '',"
@@ -2600,25 +2600,25 @@ void CMoteurCCAM_Base::CreationTables()
                "DATEFIN char(8) default NULL,"
                "COEFFICIENT decimal(4,3),"
                "PRIMARY KEY  (CODE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS MODIFICATEUR ("
                "CODE char(1) NOT NULL default '',"
                "LIBELLE varchar(100) default NULL,"
                "PRIMARY KEY  (CODE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS PHASE ("
                "CODE char(1) NOT NULL default '',"
                "LIBELLE varchar(80) default NULL,"
                "PRIMARY KEY  (CODE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS TYPENOTE ("
                "CODE char(2) NOT NULL default '',"
                "LIBELLE varchar(100) default NULL,"
                "PRIMARY KEY  (CODE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec(" CREATE TABLE IF NOT EXISTS MEDECINS ("
                "CODE char(6) NOT NULL default '',"
@@ -2628,7 +2628,7 @@ void CMoteurCCAM_Base::CreationTables()
                "NID char(9) default NULL,"
                "SPEC char(2) default NULL,"
                "PRIMARY KEY (CODE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS THESAURUS ("
                "SERIE INT(11)  NOT NULL auto_increment ,"
@@ -2638,7 +2638,7 @@ void CMoteurCCAM_Base::CreationTables()
                "CODEACTE char(13) default NULL,"
                "PRIMARY KEY (SERIE),"
                "KEY (CODEMEDECIN)"
-               ") TYPE=MyISAM;");
+               ");");
 
 
     // ***** nouvelles tables pour la tairification *****
@@ -2648,7 +2648,7 @@ void CMoteurCCAM_Base::CreationTables()
                "DATEFIN char(8) default NULL,"
                "COEFFICIENT decimal(4,3),"
                "PRIMARY KEY  (REGLE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS TB04 ("
                "SPECIALITE char(2) NOT NULL default '',"
@@ -2656,7 +2656,7 @@ void CMoteurCCAM_Base::CreationTables()
                "DATEFIN char(8) default NULL,"
                "CLASSE_SPECIALITE char(2) default NULL,"
                "KEY SPECIALITE (SPECIALITE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS TB05 ("
                "NAT_PRESTATION char(3) NOT NULL default '',"
@@ -2664,7 +2664,7 @@ void CMoteurCCAM_Base::CreationTables()
                "DATEFIN char(8) default NULL,"
                "TYPE_FORFAIT char(1) default NULL,"
                "KEY NAT_PRESTATION (NAT_PRESTATION)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS TB06 ("
                "CODE_MODIF char(1) NOT NULL default '',"
@@ -2675,7 +2675,7 @@ void CMoteurCCAM_Base::CreationTables()
                "UNITE_AGEMAXI char(1) default NULL,"
                "AGEMAXI INT(3) default NULL,"
                "KEY CODE_MODIF (CODE_MODIF)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS TB07 ("
                "SERIE INT(11)  NOT NULL auto_increment ,"
@@ -2686,7 +2686,7 @@ void CMoteurCCAM_Base::CreationTables()
                "SEUIL_REU decimal(7,2) default NULL,"
                "SEUIL_GUY decimal(7,2) default NULL,"
                "PRIMARY KEY (SERIE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS TB08 ("
                "SERIE INT(11)  NOT NULL auto_increment ,"
@@ -2696,7 +2696,7 @@ void CMoteurCCAM_Base::CreationTables()
                "TYPE_FERIE char(1) default NULL,"
                "JOUR char(8) default NULL,"
                "PRIMARY KEY (SERIE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS TB09 ("
                "SERIE INT(11)  NOT NULL auto_increment ,"
@@ -2705,7 +2705,7 @@ void CMoteurCCAM_Base::CreationTables()
                "DATEDEBUT char(8) default NULL,"
                "DATEFIN char(8) default NULL,"
                "PRIMARY KEY (SERIE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS TB10 ("
                "SERIE INT(11)  NOT NULL auto_increment ,"
@@ -2715,7 +2715,7 @@ void CMoteurCCAM_Base::CreationTables()
                "COHERENCE char(1) default NULL,"
                "PRES_MULTIPLE char(1) default NULL,"
                "PRIMARY KEY (SERIE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS TB11 ("
                "SERIE INT(11)  NOT NULL auto_increment ,"
@@ -2725,7 +2725,7 @@ void CMoteurCCAM_Base::CreationTables()
                "FORFAIT decimal(7,2) default NULL,"
                "COEF decimal(4,3) default NULL,"
                "PRIMARY KEY (SERIE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS TB12 ("
                "SERIE INT(11)  NOT NULL auto_increment ,"
@@ -2734,7 +2734,7 @@ void CMoteurCCAM_Base::CreationTables()
                "FORFAIT decimal(7,2) default NULL,"
                "COEF decimal(4,3) default NULL,"
                "PRIMARY KEY (SERIE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS TB13 ("
                "SERIE INT(11)  NOT NULL auto_increment ,"
@@ -2743,7 +2743,7 @@ void CMoteurCCAM_Base::CreationTables()
                "DATEFIN char(8) default NULL,"
                "EQUIVAL char(1) default NULL,"
                "PRIMARY KEY (SERIE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS TB14 ("
                "SERIE INT(11)  NOT NULL auto_increment ,"
@@ -2752,7 +2752,7 @@ void CMoteurCCAM_Base::CreationTables()
                "DATEFIN char(8) default NULL,"
                "CLASSE_DMT char(2) default NULL,"
                "PRIMARY KEY (SERIE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS TB15 ("
                "SERIE INT(11)  NOT NULL auto_increment ,"
@@ -2761,7 +2761,7 @@ void CMoteurCCAM_Base::CreationTables()
                "DATEFIN char(8) default NULL,"
                "MODIF_OC char(1) default NULL,"
                "PRIMARY KEY (SERIE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS TB17 ("
                "SERIE INT(11)  NOT NULL auto_increment ,"
@@ -2769,7 +2769,7 @@ void CMoteurCCAM_Base::CreationTables()
                "SPECIALITE char(2) default NULL,"
                "DATE_OBLIG char(8) default NULL,"
                "PRIMARY KEY (SERIE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS TB18 ("
                "SERIE INT(11)  NOT NULL auto_increment ,"
@@ -2777,7 +2777,7 @@ void CMoteurCCAM_Base::CreationTables()
                "DATEFIN char(8) default NULL,"
                "LOCALISATION char(2) default NULL,"
                "PRIMARY KEY (SERIE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS TB19 ("
                "SERIE INT(11)  NOT NULL auto_increment ,"
@@ -2785,7 +2785,7 @@ void CMoteurCCAM_Base::CreationTables()
                "DATEFIN char(8) default NULL,"
                "NB_MODIF INT(3) default NULL,"
                "PRIMARY KEY (SERIE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS TB20 ("
                "SERIE INT(11)  NOT NULL auto_increment ,"
@@ -2794,147 +2794,147 @@ void CMoteurCCAM_Base::CreationTables()
                "DATEFIN char(8) default NULL,"
                "VALEUR char(10) default NULL,"
                "PRIMARY KEY (SERIE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS COND_GEN ("
                "CODE char(4) NOT NULL default '',"
                "LIBELLE varchar(100) default NULL,"
                "PRIMARY KEY  (CODE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS CLASSE_DMT ("
                "CODE char(2) NOT NULL default '',"
                "LIBELLE varchar(100) default NULL,"
                "PRIMARY KEY  (CODE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS EXO_TM ("
                "CODE char(1) NOT NULL default '',"
                "LIBELLE varchar(80) default NULL,"
                "PRIMARY KEY  (CODE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS NAT_ASS ("
                "CODE char(2) NOT NULL default '',"
                "LIBELLE varchar(100) default NULL,"
                "PRIMARY KEY  (CODE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS ADM_REMB ("
                "CODE char(1) NOT NULL default '',"
                "LIBELLE varchar(80) default NULL,"
                "PRIMARY KEY  (CODE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS FRAIS_DEP ("
                "CODE char(1) NOT NULL default '',"
                "LIBELLE varchar(80) default NULL,"
                "PRIMARY KEY  (CODE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS TYPE_ACTE ("
                "CODE char(1) NOT NULL default '',"
                "LIBELLE varchar(80) default NULL,"
                "PRIMARY KEY  (CODE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS TYPE_FORFAIT ("
                "CODE char(1) NOT NULL default '',"
                "LIBELLE varchar(100) default NULL,"
                "PRIMARY KEY  (CODE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS EXT_DOC ("
                "CODE char(1) NOT NULL default '',"
                "LIBELLE varchar(100) default NULL,"
                "PRIMARY KEY  (CODE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS CAT_MED ("
                "CODE char(2) NOT NULL default '',"
                "LIBELLE varchar(100) default NULL,"
                "PRIMARY KEY  (CODE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS COD_REGROUP ("
                "CODE char(3) NOT NULL default '',"
                "LIBELLE varchar(100) default NULL,"
                "PRIMARY KEY  (CODE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS CAT_SPEC ("
                "CODE char(2) NOT NULL default '',"
                "LIBELLE varchar(100) default NULL,"
                "PRIMARY KEY  (CODE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS AGR_RADIO ("
                "CODE char(2) NOT NULL default '',"
                "LIBELLE varchar(100) default NULL,"
                "PRIMARY KEY  (CODE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS CODE_PAIEMENT ("
                "CODE char(1) NOT NULL default '',"
                "LIBELLE varchar(80) default NULL,"
                "PRIMARY KEY  (CODE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS NUM_DENTS ("
                "CODE char(2) NOT NULL default '',"
                "LIBELLE varchar(80) default NULL,"
                "PRIMARY KEY  (CODE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS DOM ("
                "CODE char(3) NOT NULL default '',"
                "LIBELLE varchar(50) default NULL,"
                "PRIMARY KEY  (CODE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS ASS_NPREV ("
                "CODE char(1) NOT NULL default '',"
                "LIBELLE varchar(100) default NULL,"
                "PRIMARY KEY  (CODE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS RGL_TARIF ("
                "CODE char(1) NOT NULL default '',"
                "LIBELLE varchar(100) default NULL,"
                "PRIMARY KEY  (CODE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS SPECIALITES ("
                "CODE char(2) NOT NULL default '',"
                "LIBELLE varchar(100) default NULL,"
                "PRIMARY KEY  (CODE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS DMT ("
                "CODE char(3) NOT NULL default '',"
                "LIBELLE varchar(100) default NULL,"
                "PRIMARY KEY  (CODE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS COMPAT_EXO_TM ("
                "EXOTM char(1) NOT NULL default '',"
                "EXOTMCOMPAT char(1) NOT NULL default '',"
                "PRIMARY KEY  (EXOTM)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS VAL_UNITE_OEUVRE ("
                "CODE char(3) NOT NULL default '',"
                "DATEEFFET char(8) default NULL,"
                "VALEUR decimal(6,2) default NULL,"
                "PRIMARY KEY (CODE)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS COND_GEN_ACTE ("
                "ACTE varchar(13) default NULL,"
                "CONDITION char(4) default NULL,"
                "KEY ACTE (ACTE),"
                "KEY CONDITION (CONDITION)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS REC_MED_ACTE ("
                "ACTE varchar(13) default NULL,"
@@ -2944,13 +2944,13 @@ void CMoteurCCAM_Base::CreationTables()
                "KEY ACTE (ACTE),"
                "KEY ACTIVITE (ACTIVITE),"
                "KEY RECMED (RECMED)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS LISTE_MOTS ("
                "MOT varchar(50) default NULL,"
                "DEFINITION text,"
                "KEY MOT (MOT)"
-               ") TYPE=MyISAM;");
+               ");");
 
     query.exec("CREATE TABLE IF NOT EXISTS HISTO_PHASE ("
                "CODEACTE varchar(13) default NULL,"
@@ -2969,11 +2969,11 @@ void CMoteurCCAM_Base::CreationTables()
                "MAJDOM3 decimal(4,3) default NULL,"
                "MAJDOM4 decimal(4,3) default NULL,"
                "SUPP_CHG decimal(6,2) default NULL"
-               ") TYPE=MyISAM;");
+               ");");
 
         query.exec("CREATE TABLE IF NOT EXISTS DATES_EFFET ("
                "DATE_EFFET char(8) default NULL"
-               ") TYPE=MyISAM;");
+               ");");
 
 
     return;

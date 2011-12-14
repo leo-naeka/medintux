@@ -35,12 +35,23 @@
  **********************************************************************************/
 
 #include <QtGui/QApplication>
+#include <QTranslator>
+#include <QLibraryInfo>
+
 #include "C_Dlg_personnes.h"
 #include "C_App.h"
 
 int main(int argc, char *argv[])
 {
     C_App a(argc, argv);
+    QTranslator qtTranslator;
+    qtTranslator.load("qt_" + QLocale::system().name(), QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+    a.installTranslator(&qtTranslator);
+
+    QTranslator myappTranslator;
+    myappTranslator.load(QString("personnes_")+ QLocale::system().name(),G_pCApp->getPathAppli()+"Ressources/lang");
+    a.installTranslator(&myappTranslator);
+
     if (a.isValid())
        {C_Dlg_personnes w;
         w.show();

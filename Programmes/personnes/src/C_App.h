@@ -122,6 +122,13 @@ public:
     QString       m_INTERVENANTS_TEL_ABR_1;           // Numero de telephone abrégé
     QString       m_INTERVENANTS_TEL_ABR_2;           // Numero de telephone abrégé
     QString       m_INTERVENANTS_TEL_ABR_3;           // Numero de telephone abrégé
+    QString       m_INTERVENANTS_COULEUR;             // couleur associee a cet intervenant
+
+    QString       m_CODEPOST_TBL_NAME;                // table des codes postaux
+    QString       m_CODEPOST_PK;                      // clef primaire
+    QString       m_CODEPOST_CODE_POST;               // code postal
+    QString       m_CODEPOST_VILLE;                   // ville
+
 private:
 
     QString       m_DriverName;

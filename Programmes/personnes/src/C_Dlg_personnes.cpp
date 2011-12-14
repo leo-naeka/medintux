@@ -14,9 +14,9 @@
  *                              http://www.cecill.info/                           *
  *   as published by :                                                            *
  *                                                                                *
- *   Commissariat Ã  l'Energie Atomique                                           *
+ *   Commissariat ï¿½  l'Energie Atomique                                           *
  *   - CEA,                                                                       *
- *                            31-33 rue de la Fédération, 75752 PARIS cedex 15.   *
+ *                            31-33 rue de la Fï¿½dï¿½ration, 75752 PARIS cedex 15.   *
  *                            FRANCE                                              *
  *   Centre National de la Recherche Scientifique                                 *
  *   - CNRS,                                                                      *
@@ -56,7 +56,6 @@
 #include <QFileInfo>
 #include <QIcon>
 
-#define TOUTES_SPEC      "Toutes spécialités"
 #define ST_LIST_MAX      "2000"
 //--------------------------------------- C_Dlg_personnes ----------------------------------------------------------
 C_Dlg_personnes::C_Dlg_personnes(QWidget *parent)
@@ -76,10 +75,10 @@ C_Dlg_personnes::C_Dlg_personnes(QWidget *parent)
     //........................ initaliser les listes ......................................
     InitAllComboTelType();
     InitComboSpec();
-    initListesMedecin(tr(TOUTES_SPEC), "");
+    initListesMedecin("", "");
     //......................... brancher ..................................................
     connect( m_pUI->lineEdit_FiltreListe,      SIGNAL( textChanged(const QString &)),                   this, SLOT( Slot_FiltrerListe(const QString &)) );
-    connect( m_pUI->comboBox_FiltreListe,      SIGNAL( currentIndexChanged(const QString &)),           this, SLOT( Slot_comboBox_FiltreListe_currentIndexChanged(const QString &)) );
+    connect( m_pUI->comboBox_FiltreListe,      SIGNAL( currentIndexChanged(int)),                       this, SLOT( Slot_comboBox_FiltreListe_currentIndexChanged(int)) );
     connect( m_pUI->treeWidget_ListeMedecins,  SIGNAL( itemClicked ( QTreeWidgetItem * , int  )),       this, SLOT( Slot_treeWidget_ListeMedecins_itemClicked( QTreeWidgetItem * , int)) );
     connect( m_pUI->treeWidget_ListeMedecins,  SIGNAL( itemDoubleClicked ( QTreeWidgetItem * , int  )), this, SLOT( Slot_treeWidget_ListeMedecins_itemDoubleClicked( QTreeWidgetItem * , int)) );
     connect( m_pUI->treeWidget_ListeMedecins,  SIGNAL( itemSelectionChanged ()) ,                       this, SLOT( Slot_treeWidget_ListeMedecins_itemSelectionChanged()) );
@@ -108,7 +107,7 @@ C_Dlg_personnes::C_Dlg_personnes(QWidget *parent)
            {m_pUI->treeWidget_ListeMedecins->topLevelItem ( 0 )->setSelected(TRUE);
            }
        }
-    m_pUI->textEdit_Changements->hide();    // juste la pour contenir le texte à envoyer au gestionnaire de  a propos
+    m_pUI->textEdit_Changements->hide();    // juste la pour contenir le texte ï¿½ envoyer au gestionnaire de  a propos
     QList <int> list;                                                   // reduire le spliter des listes
     list.append(200);
     list.append(width()-200);
@@ -116,6 +115,10 @@ C_Dlg_personnes::C_Dlg_personnes(QWidget *parent)
     setWindowTitle(tr("Annuaire - Data Medical Design - Version :")+G_pCApp->m_NUM_VERSION.remove("@").remove("#").remove("="));
     m_pUI->pushButtonOK->setEnabled(G_pCApp->argc() > 1);
     getAndSetPositions();
+    show();
+    setWindowState(windowState() & ~Qt::WindowMinimized);
+    activateWindow();
+    raise();
 }
 
 //--------------------------------------- ~C_Dlg_personnes ----------------------------------------------------------
@@ -133,7 +136,7 @@ void C_Dlg_personnes::Slot_pushButton_Apropos_clicked()
          argList << "personnes";                                                     // 1  nom du module
          argList << tr("Module de gestion de l'annuaire");                           // 2  description courte
          argList << G_pCApp->m_NUM_VERSION.remove("@").remove("#").remove("=")+ "  Qt : " + QT_VERSION_STR;      // 3  numero de version
-         argList << G_pCApp->getPathAppli()+"Ressources/Changements.html";           // 4  fichiers décrivant les changements
+         argList << G_pCApp->getPathAppli()+"Ressources/Changements.html";           // 4  fichiers dï¿½crivant les changements
 
          if (m_Apropos_Proc==0)
             {m_Apropos_Proc = new QProcess(this);
@@ -234,7 +237,7 @@ void C_Dlg_personnes::tryToSetCodePostalFromVille()
        {tryToSetVilleFromCodePostal();
         return;
        }
-    //............... chercher liste de codepostaux pouvant correspondre Ã  cette ville .............
+    //............... chercher liste de codepostaux pouvant correspondre ï¿½  cette ville .............
     QStringList codePostalList;
     G_pCApp->GetCodePostalFromVille( ville.replace("SAINT ","ST "),  codePostalList);
     if (codePostalList.indexOf ( m_pUI->lineEdit_CodePostal->text().remove(' ') + " " + m_pUI->lineEdit_Ville->text() ) != -1 ) return;
@@ -306,7 +309,7 @@ void C_Dlg_personnes::Slot_pushButton_NouvelleFiche_clicked()
  if (m_pUI->frame_Liste->isHidden ())
     {m_pUI->frame_Liste->show();
      m_pUI->pushButton_Enregistrer->setText(tr("&Enregistrer les modifications"));
-     m_pUI->pushButton_NouvelleFiche->setText(tr("&Créer une nouvelle fiche"));
+     m_pUI->pushButton_NouvelleFiche->setText(tr("&Crï¿½er une nouvelle fiche"));
      m_pUI->pushButton_Effacer->show();
      m_pUI->pushButtonOK->show();
      ItemToForm( m_LastPk );
@@ -317,9 +320,9 @@ void C_Dlg_personnes::Slot_pushButton_NouvelleFiche_clicked()
  else
     {m_pUI->frame_Liste->hide();
      //........ "Enregistrer les modifications" ....................
-     m_pUI->pushButton_Enregistrer->setText(tr("Créer et a&jouter cette fiche"));
+     m_pUI->pushButton_Enregistrer->setText(tr("Crï¿½er et a&jouter cette fiche"));
      //........ "CrÃ©er une nouvelle Fiche" ....................
-     m_pUI->pushButton_NouvelleFiche->setText(tr("Annu&ler la création de fiche"));
+     m_pUI->pushButton_NouvelleFiche->setText(tr("Annu&ler la crï¿½ation de fiche"));
      m_pUI->pushButton_Effacer->hide();
      m_pUI->pushButtonOK->hide();
      ClearSaisie();
@@ -348,7 +351,7 @@ void C_Dlg_personnes::Slot_pushButton_Enregistrer_clicked()
      //........... replacer les outils de consultation en visible ..........................
      m_pUI->frame_Liste->show();
      m_pUI->pushButton_Enregistrer->setText(tr("&Enregistrer les modifications"));
-     m_pUI->pushButton_NouvelleFiche->setText(tr("&Créer une nouvelle fiche"));
+     m_pUI->pushButton_NouvelleFiche->setText(tr("&Crï¿½er une nouvelle fiche"));
      m_pUI->pushButton_Effacer->show();
      m_pUI->pushButtonOK->show();
      //........... reinitialiser les combo-box ..................
@@ -359,7 +362,7 @@ void C_Dlg_personnes::Slot_pushButton_Enregistrer_clicked()
     }
  //.......... si Mode = Consultation des fiches en cours ............................
  //           (listBoxChoixNom est alors visible) et que ce
- //           bouton est appuyÃ© --> mettre Ã  jour la fiche en cours
+ //           bouton est appuyÃ© --> mettre ï¿½  jour la fiche en cours
  else if (m_LastPk.length())
     { FormToDisk(m_LastPk);
       InitAllComboTelType();
@@ -402,7 +405,7 @@ void C_Dlg_personnes::Slot_pushButton_Effacer_clicked()
      if (G_pCApp->getDroits().indexOf("med")!= -1)
         {QMessageBox::warning (this,"Annuaire",
                                  tr("<u><b>ATTENTION  </b></u> les utilisateurs de <b> MedinTux </b><br>"
-                                 " ne peuvent être effacés qu'à  partir du gestionnaire d'utilisateurs <br>"
+                                 " ne peuvent ï¿½tre effacï¿½s qu'ï¿½  partir du gestionnaire d'utilisateurs <br>"
                                  " <b>\"gest_user\"</b> et que si vous disposez des droits "
                                  " <b> administrateur </b> ."),
                                  0,0,0,1);
@@ -411,10 +414,10 @@ void C_Dlg_personnes::Slot_pushButton_Effacer_clicked()
      if (ret==1)   return;
      ret = QMessageBox::warning (this,"Annuaire",
                                  tr("ATTENTION ! L'effacement de cette fiche : <br><b>%1"
-                                 "</b><br>est définitif.<br> Soyez sûr de cette action.").arg(pQTreeWidgetItem->text(0)+" "+pQTreeWidgetItem->text(1)),
+                                 "</b><br>est dï¿½finitif.<br> Soyez sï¿½r de cette action.").arg(pQTreeWidgetItem->text(0)+" "+pQTreeWidgetItem->text(1)),
                                  tr("&Effacer"),tr("&Ne Rien Faire"),0,1);
      if (ret==1)   return;
-     EraseRecord(m_LastPk); // m_LastPk y est initialise à ""
+     EraseRecord(m_LastPk); // m_LastPk y est initialise ï¿½ ""
      QString pk = "";
      if (m_pUI->treeWidget_ListeMedecins->topLevelItemCount()>1)
         {QTreeWidgetItem *                 pQTreeWidgetItemToSelect = m_pUI->treeWidget_ListeMedecins->itemBelow( pQTreeWidgetItem );
@@ -512,17 +515,26 @@ void C_Dlg_personnes::EraseRecord( const QString &pk)
  m_LastPk   = "";
 }
 //--------------------------------------- Slot_comboBox_FiltreListe_currentIndexChanged ----------------------------------------------------------
-void C_Dlg_personnes::Slot_comboBox_FiltreListe_currentIndexChanged(const QString &text)
-{QTreeWidgetItem *pQTreeWidgetItem = initListesMedecin(text, m_pUI->lineEdit_FiltreListe->text());
+void C_Dlg_personnes::Slot_comboBox_FiltreListe_currentIndexChanged(int index)
+{QTreeWidgetItem *pQTreeWidgetItem = initListesMedecin(index, m_pUI->lineEdit_FiltreListe->text());
  if (pQTreeWidgetItem) {m_LastPk = pQTreeWidgetItem->text(3);selectMedecinById(m_LastPk);}
 }
 //--------------------------------------- Slot_FiltrerListe ----------------------------------------------------------
-void C_Dlg_personnes::Slot_FiltrerListe(const QString &text)
-{QTreeWidgetItem *pQTreeWidgetItem = initListesMedecin(m_pUI->comboBox_FiltreListe->currentText(), text);
+void C_Dlg_personnes::Slot_FiltrerListe(const QString &text_nomPrenom)
+{QTreeWidgetItem *pQTreeWidgetItem = initListesMedecin(m_pUI->comboBox_FiltreListe->currentIndex(), text_nomPrenom);
  if (pQTreeWidgetItem) {m_LastPk = pQTreeWidgetItem->text(3);selectMedecinById(m_LastPk);}
 }
+//--------------------------------------- initListesMedecin -----------------------------------------------------------------
+QTreeWidgetItem *C_Dlg_personnes::initListesMedecin(int index, QString q_nom)
+{QString spec;
+ if (index==0)
+    spec = "";
+ else
+    spec = m_pUI->comboBox_FiltreListe->currentText();
+ return initListesMedecin(spec,  q_nom);
+}
 
-//--------------------------------------- initListes -----------------------------------------------------------------
+//--------------------------------------- initListesMedecin -----------------------------------------------------------------
 QTreeWidgetItem *C_Dlg_personnes::initListesMedecin(QString spec, QString q_nom)
 { //............... extraire l'eventuel prenom (separe par ';').....................................
   QString  q_prenom = "";
@@ -546,7 +558,6 @@ QTreeWidgetItem *C_Dlg_personnes::initListesMedecin(QString spec, QString q_nom)
                            + G_pCApp->m_INTERVENANTS_PRENOM            + " LIKE '" + q_prenom      + "%' ";
 
   //............... filtrer selon specialite .....................................
-  if (spec == tr(TOUTES_SPEC)) spec = "";
   if (spec.length()) requete    += " AND (" + G_pCApp->m_INTERVENANTS_QUALITE + " ='"+ spec.toUtf8()+"' OR " + G_pCApp->m_INTERVENANTS_QUALITE + " ='"+ spec+ "')";
   //................ un peu d'ordre .............................................
   requete    += " ORDER BY "   + G_pCApp->m_INTERVENANTS_NOM + "," + G_pCApp->m_INTERVENANTS_PRENOM + " LIMIT "+ ST_LIST_MAX;
@@ -575,7 +586,7 @@ QTreeWidgetItem *C_Dlg_personnes::initListesMedecin(QString spec, QString q_nom)
      } //end if (pSqlQuery && sqlQuery.isActive())
   G_pCApp->OutSQL_error( sqlQuery, 0, requete.toAscii());
   G_pCApp->CloseBase() ;
-  m_pUI->label_trouves->setText(tr("Trouvé(s) %1 sur %2").arg(QString::number(i), GetNbRecord(G_pCApp->m_INTERVENANTS_TBL_NAME)));
+  m_pUI->label_trouves->setText(tr("Trouvés %1 sur %2").arg(QString::number(i), GetNbRecord(G_pCApp->m_INTERVENANTS_TBL_NAME)));
   if (i==1) return pQTreeWidgetItem;  // on ne retourne l'item selectionne que si il y en a un pour le slectionner dans
   return 0;
 }
@@ -598,7 +609,7 @@ QStringList C_Dlg_personnes::initListesTypesTel()
         QString val_1, val_2, val_3;
         //.................. fabriquer la requete ........................
         //                   de selection de l'enregistrement
-        //                   correspondant Ã  la cle
+        //                   correspondant ï¿½  la cle
         QString requete ("SELECT ");
         requete      +=  G_pCApp->m_INTERVENANTS_TEL_TYPE_1      + ","
                      +   G_pCApp->m_INTERVENANTS_TEL_TYPE_2      + ","
@@ -625,7 +636,7 @@ QStringList C_Dlg_personnes::initListesTypesTel()
 //--------------------------------- InitComboSpec ------------------------------------------------------------
 //  ACTION: parcoure la liste d'index et initialise le combobox avec toutes les valeurs trouvÃ©es de specialitÃ©s
 //          Il ne faut pas utiliser cette fonction si la liste n'est pas complete donc l'utiliser apres
-//          appel Ã  la fonction: InitAllList("Toutes SpÃ©cialitÃ©s");
+//          appel ï¿½  la fonction: InitAllList("Toutes SpÃ©cialitÃ©s");
 
 void C_Dlg_personnes::InitComboSpec()
 { if (G_pCApp->OpenBase()==0)   return ;
@@ -651,7 +662,7 @@ void C_Dlg_personnes::InitComboSpec()
   itemsList.sort();
   m_pUI->comboBox_Specialite->clear();
   m_pUI->comboBox_Specialite->insertItems(0, itemsList);
-  itemsList.prepend(tr(TOUTES_SPEC));
+  itemsList.prepend(tr("Toutes spécialités"));
   m_pUI->comboBox_FiltreListe->clear();
   m_pUI->comboBox_FiltreListe->insertItems(0, itemsList);
   G_pCApp->CloseBase();
@@ -717,7 +728,7 @@ void C_Dlg_personnes::ItemToForm( const QString& pk )
        {
         //.................. fabriquer la requete ........................
         //                   de selection de l'enregistrement
-        //                   correspondant Ã  la cle
+        //                   correspondant ï¿½  la cle
 
         QString requete ("SELECT ");
         requete      += G_pCApp->m_INTERVENANTS_NOM             + ","     // 0
@@ -792,8 +803,8 @@ QString C_Dlg_personnes::FormToDisk(QString pk )
     //                 cassos aprÃ¨s avertissement
     if (m_pUI->lineEdit_Nom->text().trimmed()=="")
         {QMessageBox::critical(this,"Annuaire",
-                               tr("Le champ <b>« Nom »</b> ne peut pas être  vide <br>"
-                                  "Veuillez le compléter avant de créer une nouvelle fiche."));
+                               tr("Le champ <b>ï¿½ Nom ï¿½</b> ne peut pas ï¿½tre  vide <br>"
+                                  "Veuillez le complï¿½ter avant de crï¿½er une nouvelle fiche."));
          return 0;
         }
      //................ si le champ specialite est vide .....................................

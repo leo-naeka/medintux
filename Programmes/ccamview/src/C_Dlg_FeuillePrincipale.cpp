@@ -29,8 +29,14 @@
 #ifdef Q_WS_X11
   #include <QX11Info>
 #endif
-static char NUM_VERSION[]     = "==##@@==2.14.002==@@##==";
+static char NUM_VERSION[]     = "==##@@==2.14.003==@@##==";
 static char CHANGEMENTS[]     = "==========================================================================================================<br>"
+                                "Modif RS ccam_view du 29-03-2010 Version 2.14.003<br>"
+                                "---------------------------------------------------------------------------------------------------------<br>"
+                                "- <b><u>AMELIORATION</u></b> : Affichage correct du num\303\251rde version <br>"
+                                "  et fonctionne parfaitement sous Mac correction de l'int\303\251gration des fichiers NX"
+                                "<br>"
+                                "==========================================================================================================<br>"
                                 "Modif RS ccam_view du 05-10-2010 Version 2.14.002<br>"
                                 "---------------------------------------------------------------------------------------------------------<br>"
                                 "- <b><u>AMELIORATION</u></b> : d\303\251sormais la doc est dans <br>"
@@ -1989,7 +1995,8 @@ void C_Dlg_FeuillePrincipale::AboutCCAM_View()
 
 //----------------------------------- Slot_actionAproposDisplay -----------------------------------------------------------------------
 void C_Dlg_FeuillePrincipale::Slot_actionAproposDisplay()
-{        CGestIni::Param_UpdateToDisk(GlobalPathAppli + "Ressources/Changements.html", QString::fromUtf8 ( CHANGEMENTS));
+{        QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+         CGestIni::Param_UpdateToDisk(GlobalPathAppli + "Ressources/Changements.html", QString::fromUtf8 ( CHANGEMENTS));
          QString pathExeAPropos     = CGestIni::Construct_Name_Exe("APropos", QFileInfo (qApp->argv()[0]).path());
          QString pathBinRessources  = CGestIni::Construct_PathBin_Module("APropos", QFileInfo (qApp->argv()[0]).path())+"Ressources/";
          QStringList argList;
@@ -2006,7 +2013,7 @@ void C_Dlg_FeuillePrincipale::Slot_actionAproposDisplay()
             {helpAboutAction->setDisabled(TRUE);
              m_Apropos_Proc = new QProcess(this);
              m_Apropos_Proc->start(pathExeAPropos, argList);
-             SLEEP(1);
+             SLEEP(3);
              qApp->processEvents ();
              while ( (procState = m_Apropos_Proc->state())== QProcess::Running /* && QFile::exists(pathBinRessources+"~A_propos.html")*/)
                    { //qDebug(QString::number(procState).toAscii());
@@ -2017,6 +2024,7 @@ void C_Dlg_FeuillePrincipale::Slot_actionAproposDisplay()
              QFile::remove(pathBinRessources+"~A_propos.html");
              helpAboutAction->setDisabled(FALSE);
             }
+         QApplication::restoreOverrideCursor();
 }
 //--------------------------------------- tryToStopAPropos ----------------------------------------------------------
 void C_Dlg_FeuillePrincipale::tryToStopAPropos()
@@ -3361,11 +3369,13 @@ void C_Dlg_FeuillePrincipale::change_onglet_recherche( QWidget * onglet_selectio
 
     switch (tabwidget_Recherche->indexOf(onglet_selectionne)){
     case ONGLET_RECHERCHE_CODE_ACTE:
-
+        /*
         tabwidget_Recherche->setGeometry(tabwidget_Recherche->x(),
                                          tabwidget_Recherche->y(),
                                          tabwidget_Recherche->width(),
                                          (lview_Hierarchie->y())-10);
+        */
+
         lview_Hierarchie->show();
         lview_ActesTrouves->show();
 
@@ -3386,7 +3396,7 @@ void C_Dlg_FeuillePrincipale::change_onglet_recherche( QWidget * onglet_selectio
         FillComboModesAcces();
         FillComboDateEffet();
         C_Dlg_FeuillePrincipale::critere_code(QString::null);
-
+       //*/
         break;
     case ONGLET_THESAURUS:
         //m_pCMoteurCCAM_Base->CheckThesaurus(listview_Thesaurus);
@@ -3397,11 +3407,12 @@ void C_Dlg_FeuillePrincipale::change_onglet_recherche( QWidget * onglet_selectio
             FillComboDateEffet();
             C_Dlg_FeuillePrincipale::critere_code(QString::null);
            }
-
+        /*
         tabwidget_Recherche->setGeometry(tabwidget_Recherche->x(),
                                          tabwidget_Recherche->y(),
                                          tabwidget_Recherche->width(),
                                          lview_Hierarchie->y()+lview_Hierarchie->height()+1);
+        */
         lview_Hierarchie->hide();
         lview_ActesTrouves->hide();
         // ..... r\303\251cup\303\250re les cat\303\251gories pour la combobox filtre cat\303\251gories .....
@@ -3449,10 +3460,12 @@ void C_Dlg_FeuillePrincipale::change_onglet_recherche( QWidget * onglet_selectio
                 setCaption( tr("CCAM View Utilis\303\251e par :  ") + info_med.m_Nom + " " + info_med.m_Prenom + tr(" \303\240 : ") + str);
                }
            }
+        /*
         tabwidget_Recherche->setGeometry(tabwidget_Recherche->x(),
                                          tabwidget_Recherche->y(),
                                          tabwidget_Recherche->width(),
                                          lview_Hierarchie->y()+lview_Hierarchie->height()+1);
+        */
         lview_Hierarchie->hide();
         lview_ActesTrouves->hide();
         bouton_AjouterThesaurus->setEnabled(FALSE);

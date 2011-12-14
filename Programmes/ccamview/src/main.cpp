@@ -49,7 +49,7 @@
 #define HOST              ""
 
 //=============================================== VARIABLES GLOBALES FONDAMENTALES =====================================================
-//                            Ã  instanciation UNIQUE,  Pour les rendre accessibles de partout
+//                            ï¿½  instanciation UNIQUE,  Pour les rendre accessibles de partout
 //........................... Chemins Frequements utilisÃ©s ............................................................................
  QString       GlobalPathAppli              = "";                // chemin de l'Applicatif
  QString       Global_PathIni               = "";
@@ -144,7 +144,7 @@ int main( int argc, char ** argv )
             switch( mb->exec() )
             {
              case QMessageBox::Yes:
-                // on se connecte Ã  la base mysql obligatoirement crÃ©Ã©e Ã  l'installation de mysql server
+                // on se connecte ï¿½  la base mysql obligatoirement crÃ©Ã©e ï¿½  l'installation de mysql server
                 delete mb;
                 pCMoteurCCAM_Base = new CMoteurCCAM_Base(drv_type,
                                                          base_secours,
@@ -163,7 +163,7 @@ int main( int argc, char ** argv )
                    }
                 // CrÃ©ation de la base
                 pCMoteurCCAM_Base->CreationBase(base_name);
-                // on se connecte Ã  la nouvelle base
+                // on se connecte ï¿½  la nouvelle base
                 pCMoteurCCAM_Base = new CMoteurCCAM_Base(drv_type,
                                                          base_name,
                                                          user,
@@ -303,6 +303,11 @@ int main( int argc, char ** argv )
 
     w->show();
     a.setMainWidget(w);
+    w->show();
+    w->setWindowState(w->windowState() & ~Qt::WindowMinimized);
+    w->activateWindow();
+    w->raise();
+    
     a.connect( &a, SIGNAL( lastWindowClosed() ), &a, SLOT( quit() ) );
 
     int ret = a.exec();

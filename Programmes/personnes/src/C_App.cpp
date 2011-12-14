@@ -53,7 +53,7 @@
 #define   NEXT_LINE(a)             while( *(a) && *(a)!='\r' && *(a)!='\n')(a)++; while( *(a) && (*(a)=='\r'|| *(a)=='\n'))(a)++
 
 C_App* G_pCApp = 0;  // contiendra l'instance globale de l'application
-static char NUM_VERSION[]     = "==##@@==1.00.003==@@##==";
+static char NUM_VERSION[]     = "==##@@==1.00.005==@@##==";
 
 //--------------------------------------------- C_App -------------------------------------------------------------------
 C_App::C_App( int & argc, char ** argv)
@@ -230,40 +230,47 @@ int C_App::initValues(const char *pt_in, QString *errMess)
   char      *pt = (char*) pt_in;   // n'est qu'en lecture
   int      line = 0;
   //.............................. NUMERO DE VERSION DE LA BASE .........................................................
-  pt = SetConfBase_SetProperties(pt, m_VERSION_NUMBER,           "VERSION_NUMBER",            &line , err); if (err.length())     goto SetConfBase_Error;
+  pt = SetConfBase_SetProperties(pt,  m_VERSION_NUMBER,                "m_VERSION_NUMBER",                       &line , err); if (err.length())     goto SetConfBase_Error;
   //.............................. DOSS_INDEX_TBL_NAME .........................................................
-  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_TBL_NAME,         "INTERVENANTS_TBL_NAME",                &line , err); if (err.length())     goto SetConfBase_Error;
-  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_GUID,             "INTERVENANTS_GUID",                    &line , err); if (err.length())     goto SetConfBase_Error;
-  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_LOGIN_SIGEMS,     "INTERVENANTS_LOGIN_SIGEMS",            &line , err); if (err.length())     goto SetConfBase_Error;
-  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_LOGIN,            "INTERVENANTS_LOGIN",                   &line , err); if (err.length())     goto SetConfBase_Error;
-  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_PASSWORD_SIGEMS,  "INTERVENANTS_PASSWORD_SIGEMS",         &line , err); if (err.length())     goto SetConfBase_Error;
-  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_PASSWORD,         "INTERVENANTS_PASSWORD",                &line , err); if (err.length())     goto SetConfBase_Error;
-  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_DROITS,           "INTERVENANTS_DROITS",                  &line , err); if (err.length())     goto SetConfBase_Error;
-  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_CODE_SPEC,        "INTERVENANTS_CODE_SPEC",               &line , err); if (err.length())     goto SetConfBase_Error;
-  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_NUM_ORDRE,        "INTERVENANTS_NUM_ORDRE",               &line , err); if (err.length())     goto SetConfBase_Error;
-  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_NOM,              "INTERVENANTS_NOM",                     &line , err); if (err.length())     goto SetConfBase_Error;
-  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_PRENOM,           "INTERVENANTS_PRENOM",                  &line , err); if (err.length())     goto SetConfBase_Error;
-  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_ADRESSE,          "INTERVENANTS_ADRESSE",                 &line , err); if (err.length())     goto SetConfBase_Error;
-  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_CONVENTION,       "INTERVENANTS_CONVENTION",              &line , err); if (err.length())     goto SetConfBase_Error;
-  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_CODE_POST,        "INTERVENANTS_CODE_POST",               &line , err); if (err.length())     goto SetConfBase_Error;
-  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_VILLE,            "INTERVENANTS_VILLE",                   &line , err); if (err.length())     goto SetConfBase_Error;
-  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_TEL_1,            "INTERVENANTS_TEL_1",                   &line , err); if (err.length())     goto SetConfBase_Error;
-  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_TEL_2,            "INTERVENANTS_TEL_2",                   &line , err); if (err.length())     goto SetConfBase_Error;
-  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_TEL_3,            "INTERVENANTS_TEL_3",                   &line , err); if (err.length())     goto SetConfBase_Error;
-  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_EMAIL,            "INTERVENANTS_EMAIL",                   &line , err); if (err.length())     goto SetConfBase_Error;
-  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_PK,               "INTERVENANTS_PK",                      &line , err); if (err.length())     goto SetConfBase_Error;
-  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_NOTE,             "INTERVENANTS_NOTE",                    &line , err); if (err.length())     goto SetConfBase_Error;
-  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_QUALITE,          "INTERVENANTS_QUALITE",                 &line , err); if (err.length())     goto SetConfBase_Error;
-  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_CODE_REGIME,      "INTERVENANTS_CODE_REGIME",             &line , err); if (err.length())     goto SetConfBase_Error;
-  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_SEXE,             "INTERVENANTS_SEXE",                    &line , err); if (err.length())     goto SetConfBase_Error;
-  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_TITRE,            "INTERVENANTS_TITRE",                   &line , err); if (err.length())     goto SetConfBase_Error;
-  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_CHER,             "INTERVENANTS_CHER",                    &line , err); if (err.length())     goto SetConfBase_Error;           // rang gemellaire
-  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_TEL_TYPE_1,       "INTERVENANTS_TEL_TYPE_1",              &line , err); if (err.length())     goto SetConfBase_Error;
-  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_TEL_TYPE_2,       "INTERVENANTS_TEL_TYPE_2",              &line , err); if (err.length())     goto SetConfBase_Error;
-  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_TEL_TYPE_3,       "INTERVENANTS_TEL_TYPE_3",              &line , err); if (err.length())     goto SetConfBase_Error;
-  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_TEL_ABR_1,        "INTERVENANTS_TEL_ABR_1",               &line , err); if (err.length())     goto SetConfBase_Error;
-  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_TEL_ABR_2,        "INTERVENANTS_TEL_ABR_2",               &line , err); if (err.length())     goto SetConfBase_Error;
-  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_TEL_ABR_3,        "INTERVENANTS_TEL_ABR_3",               &line , err); if (err.length())     goto SetConfBase_Error;
+  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_TBL_NAME,         "m_INTERVENANTS_TBL_NAME",                &line , err); if (err.length())     goto SetConfBase_Error;
+  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_GUID,             "m_INTERVENANTS_GUID",                    &line , err); if (err.length())     goto SetConfBase_Error;
+  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_LOGIN_SIGEMS,     "m_INTERVENANTS_LOGIN_SIGEMS",            &line , err); if (err.length())     goto SetConfBase_Error;
+  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_LOGIN,            "m_INTERVENANTS_LOGIN",                   &line , err); if (err.length())     goto SetConfBase_Error;
+  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_PASSWORD_SIGEMS,  "m_INTERVENANTS_PASSWORD_SIGEMS",         &line , err); if (err.length())     goto SetConfBase_Error;
+  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_PASSWORD,         "m_INTERVENANTS_PASSWORD",                &line , err); if (err.length())     goto SetConfBase_Error;
+  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_DROITS,           "m_INTERVENANTS_DROITS",                  &line , err); if (err.length())     goto SetConfBase_Error;
+  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_CODE_SPEC,        "m_INTERVENANTS_CODE_SPEC",               &line , err); if (err.length())     goto SetConfBase_Error;
+  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_NUM_ORDRE,        "m_INTERVENANTS_NUM_ORDRE",               &line , err); if (err.length())     goto SetConfBase_Error;
+  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_NOM,              "m_INTERVENANTS_NOM",                     &line , err); if (err.length())     goto SetConfBase_Error;
+  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_PRENOM,           "m_INTERVENANTS_PRENOM",                  &line , err); if (err.length())     goto SetConfBase_Error;
+  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_ADRESSE,          "m_INTERVENANTS_ADRESSE",                 &line , err); if (err.length())     goto SetConfBase_Error;
+  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_CONVENTION,       "m_INTERVENANTS_CONVENTION",              &line , err); if (err.length())     goto SetConfBase_Error;
+  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_CODE_POST,        "m_INTERVENANTS_CODE_POST",               &line , err); if (err.length())     goto SetConfBase_Error;
+  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_VILLE,            "m_INTERVENANTS_VILLE",                   &line , err); if (err.length())     goto SetConfBase_Error;
+  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_TEL_1,            "m_INTERVENANTS_TEL_1",                   &line , err); if (err.length())     goto SetConfBase_Error;
+  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_TEL_2,            "m_INTERVENANTS_TEL_2",                   &line , err); if (err.length())     goto SetConfBase_Error;
+  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_TEL_3,            "m_INTERVENANTS_TEL_3",                   &line , err); if (err.length())     goto SetConfBase_Error;
+  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_EMAIL,            "m_INTERVENANTS_EMAIL",                   &line , err); if (err.length())     goto SetConfBase_Error;
+  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_PK,               "m_INTERVENANTS_PK",                      &line , err); if (err.length())     goto SetConfBase_Error;
+  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_NOTE,             "m_INTERVENANTS_NOTE",                    &line , err); if (err.length())     goto SetConfBase_Error;
+  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_QUALITE,          "m_INTERVENANTS_QUALITE",                 &line , err); if (err.length())     goto SetConfBase_Error;
+  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_CODE_REGIME,      "m_INTERVENANTS_CODE_REGIME",             &line , err); if (err.length())     goto SetConfBase_Error;
+  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_SEXE,             "m_INTERVENANTS_SEXE",                    &line , err); if (err.length())     goto SetConfBase_Error;
+  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_TITRE,            "m_INTERVENANTS_TITRE",                   &line , err); if (err.length())     goto SetConfBase_Error;
+  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_CHER,             "m_INTERVENANTS_CHER",                    &line , err); if (err.length())     goto SetConfBase_Error;           // rang gemellaire
+  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_TEL_TYPE_1,       "m_INTERVENANTS_TEL_TYPE_1",              &line , err); if (err.length())     goto SetConfBase_Error;
+  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_TEL_TYPE_2,       "m_INTERVENANTS_TEL_TYPE_2",              &line , err); if (err.length())     goto SetConfBase_Error;
+  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_TEL_TYPE_3,       "m_INTERVENANTS_TEL_TYPE_3",              &line , err); if (err.length())     goto SetConfBase_Error;
+  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_TEL_ABR_1,        "m_INTERVENANTS_TEL_ABR_1",               &line , err); if (err.length())     goto SetConfBase_Error;
+  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_TEL_ABR_2,        "m_INTERVENANTS_TEL_ABR_2",               &line , err); if (err.length())     goto SetConfBase_Error;
+  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_TEL_ABR_3,        "m_INTERVENANTS_TEL_ABR_3",               &line , err); if (err.length())     goto SetConfBase_Error;
+  pt = SetConfBase_SetProperties(pt,  m_INTERVENANTS_COULEUR ,         "m_INTERVENANTS_COULEUR",                 &line , err); if (err.length())     goto SetConfBase_Error;              // couleur associee a cet intervenant
+
+  pt = SetConfBase_SetProperties(pt,  m_CODEPOST_TBL_NAME,             "m_CODEPOST_TBL_NAME",                    &line , err); if (err.length())     goto SetConfBase_Error;
+  pt = SetConfBase_SetProperties(pt,  m_CODEPOST_PK,                   "m_CODEPOST_PK",                          &line , err); if (err.length())     goto SetConfBase_Error;
+  pt = SetConfBase_SetProperties(pt,  m_CODEPOST_CODE_POST,            "m_CODEPOST_CODE_POST",                   &line , err); if (err.length())     goto SetConfBase_Error;
+  pt = SetConfBase_SetProperties(pt,  m_CODEPOST_VILLE,                "m_CODEPOST_VILLE",                       &line , err); if (err.length())     goto SetConfBase_Error;
+
   return 1;
 
 SetConfBase_Error:
@@ -360,8 +367,7 @@ QString C_App::OutSQL_error(const QSqlError &error, const char *messFunc /*=0*/,
 //-----------------------------------------------------  GetVilleFromCodePostal -------------------------------------------
 QString C_App::GetVilleFromCodePostal(const QString &codePostal)
 { QString result  ("");
-  QString requete ("SELECT ville FROM codes_postaux WHERE code_postal = ");
-          requete +=  codePostal ;
+  QString requete = QString("SELECT %1 FROM %2 WHERE %3 = %4").arg(m_CODEPOST_VILLE, m_CODEPOST_TBL_NAME , m_CODEPOST_CODE_POST, codePostal);
   if (OpenBase()==0)   return result;
   QSqlQuery query(requete , QSqlDatabase::database(m_BaseLabel) );
   if (query.isActive() && query.next())
@@ -374,8 +380,7 @@ QString C_App::GetVilleFromCodePostal(const QString &codePostal)
 //-----------------------------------------------------  GetCodePostalFromVille -------------------------------------------
 QString C_App::GetCodePostalFromVille(const QString &ville)
 { QString result  ("");
-  QString requete ("SELECT code_postal FROM codes_postaux WHERE ville = '");
-          requete +=  ville + "'";
+  QString requete = QString("SELECT %1 FROM %2 WHERE ville = '%3'").arg(m_CODEPOST_CODE_POST, m_CODEPOST_TBL_NAME, m_CODEPOST_VILLE, ville);
   if (OpenBase()==0)   return result;
   QSqlQuery query(requete , QSqlDatabase::database(m_BaseLabel) );
   if (query.isActive() && query.next())
@@ -390,8 +395,7 @@ void C_App::GetVilleFromCodePostal(const QString &codePostal, QStringList &ville
 { QString cdPost (codePostal);
   if (cdPost[0]=='0') cdPost.remove(0,1);
   villeList.clear();
-  QString requete ("SELECT ville FROM codes_postaux WHERE code_postal = ");
-          requete +=  cdPost ;
+  QString requete = QString("SELECT %1 FROM %2 WHERE %3 = %4").arg(m_CODEPOST_VILLE, m_CODEPOST_TBL_NAME, m_CODEPOST_CODE_POST, cdPost);
   if (OpenBase()==0)   return ;
   QSqlQuery query(requete , QSqlDatabase::database(m_BaseLabel) );
   if (query.isActive())
@@ -404,8 +408,7 @@ void C_App::GetVilleFromCodePostal(const QString &codePostal, QStringList &ville
 //-----------------------------------------------------  GetCodePostalFromVille -------------------------------------------
 void C_App::GetCodePostalFromVille(const QString &ville, QStringList &codePostalList)
 { codePostalList.clear();
-  QString requete ("SELECT code_postal , ville FROM codes_postaux WHERE ville  LIKE '");
-          requete +=  ville + "%'";
+  QString requete = QString("SELECT %1 , %2 FROM %3 WHERE %4  LIKE '%5'").arg(m_CODEPOST_CODE_POST, m_CODEPOST_VILLE, m_CODEPOST_TBL_NAME, m_CODEPOST_VILLE, ville+"%");
   if (OpenBase()==0)   return ;
   QSqlQuery query(requete , QSqlDatabase::database(m_BaseLabel) );
   if (query.isActive())
