@@ -258,7 +258,7 @@ void  C_BaseCommon::executeSQL( const QString &fname, QProgressBar *pQProgressBa
                 if (pQProgressBar)  {pQProgressBar->setValue(m_position/1000); qApp->processEvents();qApp->processEvents();}
                 if (line[0]==')' && (line[2]=='T' || line[2]=='E'))
                    {   if (line.left(7) == ") TYPE=" || line.left(9) == ") ENGINE=" )  // ne surtout pas inclure ';' dans la comparaison
-                          {requete += ") TYPE=MyISAM;";
+                          {requete += ")ENGINE=MyISAM;";
                            line.remove ("collate utf8_unicode_ci");
                            line.remove ("collate utf8_bin");
                            line.remove ("character set utf8");

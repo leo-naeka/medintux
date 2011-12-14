@@ -54,13 +54,13 @@
 #define DB_DRTUX              CApp::pCApp()->getDB()->database()
 #define DATA_BASE_SYNOPTUX    CApp::pCApp()->getDB()->database()
 #define BASE_SYNOPTUX         CApp::pCApp()->getDB()
-#define TACHES          "ST_taches"
-#define ETATS           "ST_etats"
-#define ETATS_TACHES    "ST_etats_taches"
-#define ENCOURS         "ST_encours"
-#define ENCOURS_TACHES  "ST_encours_taches"
-#define BOX             "ST_box"
-#define HISTORIQUE      "ST_historique"
+#define TACHES          "synopt_taches"
+#define ETATS           "synopt_etats"
+#define ETATS_TACHES    "synopt_etats_taches"
+#define ENCOURS         "synopt_encours"
+#define ENCOURS_TACHES  "synopt_encours_taches"
+#define BOX             "synopt_box"
+#define HISTORIQUE      "synopt_historique"
 
 //-----------------------------------------MainWindow---------------------------------------------
 MainWindow::MainWindow()
@@ -68,6 +68,7 @@ MainWindow::MainWindow()
     // Initialisation des variables globales
     m_timerClignote   = 0;
     m_timerAlarme     = 0;
+    m_timerEntrees    = 0;
     m_Apropos_Proc    = 0;
     m_notAction       = 0;
     m_popupTache      = 0;
@@ -204,7 +205,7 @@ void MainWindow::sortieAppli()
 bool MainWindow::RecupInit()
 {
     // lecture du fichier synoptux.ini
-    m_nomFicIni   = QApplication::applicationDirPath()+ "/synoptux.ini";
+    m_nomFicIni   = CApp::pCApp()->pathAppli() + "synoptux.ini";
     m_settingsIni = new QSettings(m_nomFicIni, QSettings::IniFormat);
     m_settingsIni->setIniCodec ("ISO 8859-1");
 
@@ -705,7 +706,7 @@ void MainWindow::creerActionsGene()
 //---------------------------------RestaureBase----------------------------------------
 // Creation actions pour la m_mdiArea
 void MainWindow::RestaureBase()
-{QString fileName =  QFileDialog::getOpenFileName ( this, tr("Choose a file to restore"), CApp::pCApp()->pathAppli()+tr("Ressources"), tr("SQL files (*.SQL *.sql *.Sql)"));
+{QString fileName =  QFileDialog::getOpenFileName ( this, tr("Choose a file to restore"), CApp::pCApp()->pathAppli()+"Ressources", tr("SQL files (*.SQL *.sql *.Sql)"));
  if (fileName.length())
     {int ret = QMessageBox::question(0,NAME_APPLI,tr("Do you really want to restore this file ? This will erase all the existing data."),tr("YES"),tr("NO"),0,1,1);
      if (ret == 0)
@@ -1279,7 +1280,7 @@ void MainWindow::Lancer_DrTux(QWidget *UnWidget)
 #ifdef Q_OS_MACX
     QFileInfo fi(nomProg);
     QString   fname = fi.fileName();                // name = "archive.tar.gz"
-    nomProg += ".app/Contents/MacOS/" + fname
+    nomProg += ".app/Contents/MacOS/" + fname;
 #endif
 #ifdef Q_WS_WIN
     nomProg += ".exe" ;  // BUGBUG
@@ -1471,9 +1472,18 @@ QString MainWindow::lectureBlobDrtux(int primKeyBlob)
    QByteArray toto = queryb.value(0).toByteArray();
    return(QString::fromUtf8(toto));
 }
+
 //--------------------------------------Annule_Tache------------------------------------------------
 void MainWindow::Annule_Tache(QWidget *UnWidget)
-{
+{  if (QMessageBox::question ( this,
+                               tr("Delete a task"),
+                               tr("Are you sure that this task must be delete"),
+                               QMessageBox::Ok|QMessageBox::Cancel,
+                               QMessageBox::Cancel
+                             ) ==QMessageBox::Cancel) return;
+
+
+
     QPushButton *annuleTache;
     QStringList listInfoTache;
     QString     numEnCours, numTache, requete;
@@ -1495,8 +1505,8 @@ void MainWindow::Annule_Tache(QWidget *UnWidget)
                   tr("Error = (") +  noerr + ") " + query.lastError().text() + "<br />" + zlastquery );
        } // fin if erreur exec Annulation
     Actualiser("PARTIEL");
-
 }
+
 //--------------------------------------modif_Etat------------------------------------------------
 // Si changement etat par Bouton :
 // ---> Mise a jour dans la base du debut de la tache si premier etat.
@@ -2097,7 +2107,9 @@ void MainWindow::Controle_Entrees()
             QSqlQuery query1(requete, DATA_BASE_SYNOPTUX);
             if (!query1.isActive() ||  !query1.next())
                { QMessageBox::warning(0, NAME_APPLI, tr("Creating entrance. Error when looking for last key!"));
-                 return;
+                if (m_timerEntrees) m_timerEntrees->stop();
+                if (m_timerAlarme)  m_timerAlarme->stop();
+                return;
                }
             EC_PK = query1.value(0).toInt();
            } // fin else pas d'encours pour ce patient
@@ -2160,7 +2172,9 @@ void MainWindow::Controle_Entrees()
         QSqlQuery query1(requete, DATA_BASE_SYNOPTUX);
         if (!query1.isActive() ||  !query1.next())
            { QMessageBox::warning(0, NAME_APPLI, tr("Entries control. Error when looking for last key"));
-             return;
+            if (m_timerEntrees) m_timerEntrees->stop();
+            if (m_timerAlarme)  m_timerAlarme->stop();
+            return;
            }
         if (m_DernierPkencours != query1.value(0).toInt())
             IlFautActualiser = true;
@@ -2170,7 +2184,9 @@ void MainWindow::Controle_Entrees()
         requete = "SELECT MAX(EN_Num_tache) FROM " ENCOURS_TACHES ; // BUGBUG
         QSqlQuery query2(requete, DATA_BASE_SYNOPTUX);
         if (!query2.isActive() ||  !query2.next())
-           { QMessageBox::warning(0, NAME_APPLI, "Controle des entr\303\251es. Erreur recherche derni\303\250re cl\303\251");
+           { QMessageBox::warning(0, NAME_APPLI, tr("Entries control. Error when looking for last key"));
+             if (m_timerEntrees) m_timerEntrees->stop();
+             if (m_timerAlarme)  m_timerAlarme->stop();
              return;
            }
 /* BUGBUG POUR TESTER ACTUALISATION FREQUENTE - TEST A REMETTRE
@@ -2200,7 +2216,7 @@ void MainWindow::PopUp_Tache(QString Message, int largeur, int hauteur, QString 
 //--------------------------------LireleCSS----------------------------------------------------
 bool MainWindow::LireleCSS()
 {
-      QString     nomficCSS = QApplication::applicationDirPath()+ "/Ressources/synoptux.css";
+      QString     nomficCSS = CApp::pCApp()->pathAppli() + "Ressources/synoptux.css";
       QFile      *fileCSS   = new QFile(nomficCSS); if (fileCSS==0) return false;
       if (!fileCSS->open(QIODevice::ReadOnly)) {
           QMessageBox::warning(0, NAME_APPLI, tr("File %1 cannot be open!").arg(nomficCSS));
