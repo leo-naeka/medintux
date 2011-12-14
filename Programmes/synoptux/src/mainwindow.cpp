@@ -1305,7 +1305,7 @@ void MainWindow::masquerNomPatient(QWidget *UnWidget)
        {Anonyme = "1";
         nomPatient->setText("Anonyme");
        }
-    // mise à jour nom du flag anonyme dans la base pour réaffichage.
+    // mise ï¿½ jour nom du flag anonyme dans la base pour rï¿½affichage.
     majTableEncours(nomPatient->whatsThis(), "EC_Anonyme = '" + Anonyme , tr("Hide name"));
 }
 
