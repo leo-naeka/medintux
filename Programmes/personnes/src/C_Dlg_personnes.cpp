@@ -131,22 +131,20 @@ void C_Dlg_personnes::Slot_pushButton_Apropos_clicked()
          QString pathExeAPropos     = CGestIni::Construct_Name_Exe("APropos", QFileInfo (qApp->argv()[0]).path());
          QString pathBinRessources  = CGestIni::Construct_PathBin_Module("APropos", QFileInfo (qApp->argv()[0]).path())+"Ressources/";
          QStringList argList;
-         QProcess::ProcessState procState;
          //......................... completer les autres arguments .........................................
          argList << "personnes";                                                     // 1  nom du module
          argList << tr("Module de gestion de l'annuaire");                           // 2  description courte
          argList << G_pCApp->m_NUM_VERSION.remove("@").remove("#").remove("=")+ "  Qt : " + QT_VERSION_STR;      // 3  numero de version
-         argList << G_pCApp->getPathAppli()+"Ressources/Changements.html";           // 4  fichiers d�crivant les changements
-
+         argList << G_pCApp->getPathAppli()+"Ressources/Changements.html";                                       // 4  fichiers d�crivant les changements
+         argList <<"";                                                                                           // 5  Icone par defaut
+         argList <<"";                                                                                           // 6  aide en ligne (vide pour prendre celle par defaut)
+         argList <<"";                                                                                           // 7  apropos (on met une chaine vide pour qu'il prenne celui par d?faut)
+         argList << G_pCApp->getBDVersionNumber();                                                               // 8  numero de version de la base de donnee
          if (m_Apropos_Proc==0)
             {m_Apropos_Proc = new QProcess(this);
              m_Apropos_Proc->start(pathExeAPropos, argList);
-             SLEEP(1);
-             G_pCApp->processEvents ();
-             while ( (procState = m_Apropos_Proc->state())== QProcess::Running /* && QFile::exists(pathBinRessources+"~A_propos.html")*/)
-                   { //qDebug(QString::number(procState).toAscii());
-                     QApplication::processEvents ( QEventLoop::WaitForMoreEvents );
-                   }
+             m_Apropos_Proc->waitForStarted  (4000);
+             m_Apropos_Proc->waitForFinished ();
              if (m_Apropos_Proc) delete m_Apropos_Proc;
              m_Apropos_Proc = 0;
              QFile::remove(pathBinRessources+"~A_propos.html");

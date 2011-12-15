@@ -8,8 +8,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>366</width>
-            <height>270</height>
+            <width>457</width>
+            <height>320</height>
         </rect>
     </property>
     <property name="caption">
@@ -186,7 +186,7 @@
     <slot>Get_Bases_List( QString &amp; val )</slot>
     <slot>pushButtonOk_clicked()</slot>
     <slot>setConnexionParam( const QString &amp; module, int mode )</slot>
-    <slot returnType="double">GetMedinTuxLocalVersion( QString &amp; val )</slot>
+    <slot returnType="int">GetMedinTuxLocalVersion( QString &amp; val )</slot>
     <slot>Sortir()</slot>
     <slot>CopieDataBaseCfg( const QString &amp; fileName )</slot>
     <slot>AddDroitsToAllUser( QSqlQuery &amp; qsqlQuery, const QString &amp; droits, int table_type )</slot>
@@ -197,15 +197,16 @@
 </slots>
 <functions>
     <function access="private" specifier="non virtual">init()</function>
+    <function>normalizeConnexionParam( const QString &amp; moduleToSet, QString &amp; driver, QString &amp; base, QString &amp; login, QString &amp; pass, QString &amp; host, QString &amp; port )</function>
     <function returnType="double">toDouble( const QString &amp; str )</function>
-    <function returnType="double">GetMedinTuxGlossaireVersion( QString &amp; val, QString * pGloPath )</function>
-    <function returnType="int">isUpgradeOk( double &amp; resultVersion, double &amp; lastVersion, const QString &amp; fromTo )</function>
+    <function returnType="int">GetMedinTuxGlossaireVersion( QString &amp; val, QString * pGloPath )</function>
+    <function returnType="int">isUpgradeOk( int &amp; resultVersion, int &amp; lastVersion, const QString &amp; fromTo )</function>
+    <function returnType="int">normaliseVersion( QString &amp; version )</function>
     <function returnType="int">testBase( QString &amp; val )</function>
     <function returnType="QString">InitCMoteurBase()</function>
     <function returnType="QString">InitCMedicaBase()</function>
     <function access="private" specifier="non virtual">destroy()</function>
     <function returnType="QString">toNum( const QString &amp; text, const QString &amp; cutFirstStr_in )</function>
-    <function returnType="void">normalizeConnexionParam( const QString &amp; baseToSet, QString &amp; driver,  QString &amp; base ,  QString &amp; login,  QString &amp; pass,  QString &amp; host,  QString &amp; port )</function>
     <function returnType="QString">GetDatasempIndexVersion()</function>
 </functions>
 <layoutdefaults spacing="6" margin="11"/>

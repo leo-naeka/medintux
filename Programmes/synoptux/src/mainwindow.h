@@ -122,6 +122,11 @@ private slots:
     void PlierDeplier(QWidget *UnWidget);
     void GestionDestinationsSortie();
     void GestionDestinationsAbsence();
+    //----------------------------------- Slot_pushButton_Apropos_clicked -----------------------------------------------------------------------
+    /*! \brief lauch ../../APropos/bin/APropos for display informations about the programme
+     *  the application version is defined in .pro  after mention  NUM_VERS =
+     *  when this mention change  C_AppCore must be recompiled.
+     */
     void Slot_pushButton_Apropos_clicked();
     void Slot_timerStateIndicator_clicked();
     void Slot_modif_Comment_Tache();

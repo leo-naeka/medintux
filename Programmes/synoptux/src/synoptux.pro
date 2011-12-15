@@ -2,7 +2,7 @@ QT += sql
 
 #........... make the binary name and version number available in c++ code using macro definition ................
 TARGET       = synoptux
-NUM_VERS     = 2.14.000
+NUM_VERS     = 2.15.000
 NAME_DOM     = MedinTux
 NAME_ORG     = Data Medical Design
 DEFINES     += "NUM_VERSION=\"\\\"$${NUM_VERS}\\\"\""

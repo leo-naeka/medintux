@@ -250,9 +250,15 @@ class CMoteurBase: public QObject,          // classe QObject classique
 
   ~CMoteurBase();
   void         killBase();
-  double       GetMedinTuxVersion();
-  double       GetMedinTuxVersion(QString &version);
-  void         SetMedinTuxVersion(const QString &version);
+  //...............................  versions ...................................................
+    int      GetMedinTuxNormalisedVersion();
+    static int      normaliseVersion(QString &version, const QString &sep ="");
+    int      normaliseVersion(const QString &version, const QString &sep = "");
+    int      GetMedinTuxNormalisedVersion(QString &version, const QString &sep ="");
+    double   GetMedinTuxVersion();
+    double   GetMedinTuxVersion(QString &version);
+    void     SetMedinTuxVersion(const QString &version);
+
   int          verifyBaseIntegrity(const QString &confFile, QString *errMess);
   QStringList  getTableListFromCfgFile(const QString &confFile, QString *errMess);
   int          tryToSetThisTable(const QString &tbl, const QString fileSQL, const QString &baseLabel);

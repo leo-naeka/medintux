@@ -53,7 +53,7 @@
 #define   NEXT_LINE(a)             while( *(a) && *(a)!='\r' && *(a)!='\n')(a)++; while( *(a) && (*(a)=='\r'|| *(a)=='\n'))(a)++
 
 C_App* G_pCApp = 0;  // contiendra l'instance globale de l'application
-static char NUM_VERSION[]     = "==##@@==1.00.005==@@##==";
+static char NUM_VERSION[]     = "==##@@==2.15.000==@@##==";
 
 //--------------------------------------------- C_App -------------------------------------------------------------------
 C_App::C_App( int & argc, char ** argv)
@@ -134,6 +134,10 @@ C_App::~C_App()
 {killBase();
 }
 
+//-----------------------------------------------------  getBDVersionNumber -------------------------------------------
+QString C_App::getBDVersionNumber()
+{return m_VERSION_NUMBER;
+}
 //-----------------------------------------------------  killBase -------------------------------------------
 void C_App::killBase()
 {if (m_pReconnectTimer)

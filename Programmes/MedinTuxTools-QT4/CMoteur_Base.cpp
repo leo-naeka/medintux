@@ -34,7 +34,7 @@
  **********************************************************************************/
 
 //=============================================== INCLUDES ============================================================
-#define VERSION_BASE    2.14
+#define VERSION_BASE    "02.15.000"
 #define MAX_READ        32000
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
@@ -79,6 +79,10 @@
  * @param name                 :  nom de la l'objet (par d\303\251faut 'CMoteurBase')
  * @return
  */
+// on verivfie deux coherences :
+//     1) celle du numero de version du fichier DataConfig.cfg  m_VERSION_NUMBER qui doit etre la meme que celle exigee par ce code : VERSION_BASE
+//     2) celle du numero de version de la base de donnee en cours qui doit etre la meme que celle exigee par ce code : VERSION_BASE
+
 CMoteurBase::CMoteurBase(const QString & driver,             // nom du driver: "QODBC3" "QMYSQL3" "QPSQL7"
                          const QString & dataBaseToConnect,  // nom de la base: si QODBC3 -> nom de la source de donnees (userDSN)
                          const QString & user,               // = "root"
@@ -93,8 +97,9 @@ CMoteurBase::CMoteurBase(const QString & driver,             // nom du driver: "
                          verifyMode /* verifyMode  = CMoteurBase::verifyBaseStruct */)
 : QObject(parent, name),                   // initialisation classique de l'objet
  C_DBVarDrTux(confData , errMess)           // initialiser les nom des variables champs de la base de donnee
-{  QString versionWhish = QString::number(VERSION_BASE);          // version exigee de la base avec le programme actuel
-   double versionInUse  = 0;
+{  //QString versionWhish = QString::number(VERSION_BASE);          // version exigee de la base avec le programme actuel
+   int versionWhish  = normaliseVersion(VERSION_BASE);                               // version exigee de la base avec le programme actuel
+   int versionInUse  = 0;
    //.............. initialiser les variables .....................................................
    m_DestBaseLabel   = "";
    m_DriverName      = driver;
@@ -123,17 +128,17 @@ CMoteurBase::CMoteurBase(const QString & driver,             // nom du driver: "
   if ( !m_IsValid) return;
   //................ verifier l'integrite des bases ...................................
   QString         mess = "";
-  if (versionWhish    != m_VERSION_NUMBER)  // on compare des chaines car bug de conversion 2.139999 etc... version de definition du fichier de configuration des bases
+  if (versionWhish    != normaliseVersion(m_VERSION_NUMBER,".") )  // on compare des chaines car bug de conversion 2.139999 etc... version de definition du fichier de configuration des bases
      {mess +=  tr("\r\n Configuration du fichier 'DataBase.cfg' incorrecte :");
-      mess +=  tr("\r\n       Version exig\303\251e   du fichier 'DataBase.cfg' : %1").arg(versionWhish);
+      mess +=  tr("\r\n       Version exig\303\251e   du fichier 'DataBase.cfg' : %1").arg(VERSION_BASE);
       mess +=  tr("\r\n       Version actuelle du fichier 'DataBase.cfg' : %1").arg(m_VERSION_NUMBER);
       m_IsValid = 0;
      }
   else
-     {
-      versionInUse = GetMedinTuxVersion();
-      if (versionInUse < versionWhish.toDouble())
-         {mess     +=  tr("\r\n Version de la base install\303\251e: %1 non \303\240  jour, version souhait\303\251e : %2").arg(QString::number(versionInUse), versionWhish);
+     {QString versUsedStr = "";
+      versionInUse    = GetMedinTuxNormalisedVersion(versUsedStr,".");    // retourne versUsedStr = 02.14.011
+      if (versionInUse < versionWhish)
+         {mess     +=  tr("\r\n Version de la base install\303\251e: %1 non \303\240  jour, version souhait\303\251e : %2").arg(versUsedStr, m_VERSION_NUMBER);
           m_IsValid = verifyBaseIntegrity(confData, &mess);
          } // endif (versionInUse < versionWhish)
      } // endelseif(versionWhish   != m_VERSION_NUMBER.toDouble())
@@ -160,20 +165,72 @@ void CMoteurBase::killBase()
  QSqlDatabase::database( m_BaseLabel ).close();
  QSqlDatabase::removeDatabase (m_BaseLabel);
 }
+
 //-----------------------------------------------------  GetMedinTuxVersion -------------------------------------------
 double CMoteurBase::GetMedinTuxVersion()
 {QString version;
  return GetMedinTuxVersion(version);
 }
 
-//-----------------------------------------------------  SetMedinTuxVersion -------------------------------------------
-void CMoteurBase::SetMedinTuxVersion(const QString &version)
-{   if (OpenBase()==0)  return;
-    QString requete =  QString("INSERT INTO ") + m_VERSION_TBL_NAME   + " (NumVers) VALUES ('" + version +"' )";
-    QSqlQuery query(requete, QSqlDatabase::database(m_BaseLabel));
-    CloseBase();
+//-----------------------------------------------------  GetMedinTuxVersion -------------------------------------------
+double CMoteurBase::GetMedinTuxVersion(QString &version)
+{   GetMedinTuxNormalisedVersion(version, ".");   // 02.15.000
+    QString tmp = version;
+    return tmp.remove(5,1).toDouble();
 }
 
+//-------------------------------------- GetMedinTuxNormalisedVersion( ---------------------------------------------------
+int CMoteurBase::GetMedinTuxNormalisedVersion()
+{QString version="";
+ return GetMedinTuxNormalisedVersion(version);
+}
+
+//-------------------------------------- GetMedinTuxNormalisedVersion( ---------------------------------------------------
+int CMoteurBase::GetMedinTuxNormalisedVersion(QString &version, const QString &sep /*=""*/)
+{if (OpenBase()==0)  return 0;
+    version = "0000000";
+    int ret =  0;
+    QString tmp;
+    QSqlQuery sqlQuery ( QString ("SELECT NumVers FROM %2 ").arg(m_VERSION_TBL_NAME) , QSqlDatabase::database(m_BaseLabel) );
+    if (sqlQuery.isActive())
+       {while (sqlQuery.next())
+              {tmp     = sqlQuery.value(0).toString();
+               if (tmp[1]=='.') tmp = tmp.prepend('0'); // cas du 1.20.001  --> 01.20.001     1.20 -->01.20
+               tmp  = tmp.remove('.');
+               if ( tmp.length() <= 5 ) tmp +="000";
+               if (tmp.toInt() > version.toInt())  version = tmp;  // attention  .toFloat() bug sous VC++
+              }
+       }
+    CloseBase();
+    ret     = version.toInt();
+    if (sep.length()) version = version.left(2)+"."+version.mid(2,2)+"."+version.mid(4,3);
+    return ret;
+}
+
+//-------------------------------------- normaliseVersion ---------------------------------------------------
+int CMoteurBase::normaliseVersion(const QString &version, const QString &sep /*=""*/ )
+{QString vers = version;
+ return normaliseVersion(vers, sep  );
+}
+//-------------------------------------- normaliseVersion ---------------------------------------------------
+int CMoteurBase::normaliseVersion(QString &version, const QString &sep /*=""*/ )
+{if (version[1]=='.') version = version.prepend('0');   // cas du 1.20.001  --> 01.20.001     1.20 -->01.20
+ version = version.remove('.');
+ if (version.length() <= 5 ) version +="000";
+ int ret = version.toInt();
+ if (sep.length()) version = version.left(2)+"."+version.mid(2,2)+"."+version.mid(4,3);
+ return ret;
+}
+
+
+
+
+/*
+//-----------------------------------------------------  GetMedinTuxVersion -------------------------------------------
+double CMoteurBase::GetMedinTuxVersion()
+{QString version;
+ return GetMedinTuxVersion(version);
+}
 //-----------------------------------------------------  GetMedinTuxVersion -------------------------------------------
 double CMoteurBase::GetMedinTuxVersion(QString &version)
 {   if (OpenBase()==0)  return 0;
@@ -189,6 +246,15 @@ double CMoteurBase::GetMedinTuxVersion(QString &version)
     CloseBase();
     return version.toDouble();
 }
+*/
+//-----------------------------------------------------  SetMedinTuxVersion -------------------------------------------
+void CMoteurBase::SetMedinTuxVersion(const QString &version)
+{   if (OpenBase()==0)  return;
+    QString requete =  QString("INSERT INTO ") + m_VERSION_TBL_NAME   + " (NumVers) VALUES ('" + version +"' )";
+    QSqlQuery query(requete, QSqlDatabase::database(m_BaseLabel));
+    CloseBase();
+}
+
 //-----------------------------------------------------  verifyBaseIntegrity -------------------------------------------
 int  CMoteurBase::verifyBaseIntegrity(const QString &confFile, QString *errMess)
 {QString mess;

@@ -608,6 +608,10 @@ void MainWindow::AppliquerUnStyle(QString /*TypeDeTruc */, QWidget *Letruc, QStr
 }
 
 //----------------------------------- Slot_pushButton_Apropos_clicked -----------------------------------------------------------------------
+/*! \brief lauch ../../APropos/bin/APropos for display informations about the programme
+ *  the application version is defined in .pro  after mention  NUM_VERS =
+ *  when this mention change  C_AppCore must be recompiled.
+ */
 void MainWindow::Slot_pushButton_Apropos_clicked()
 {        C_Dlg_Changements *dlg = new C_Dlg_Changements(this);
          if (dlg==0) return;
@@ -615,20 +619,20 @@ void MainWindow::Slot_pushButton_Apropos_clicked()
          QString pathExeAPropos     = CGestIni::Construct_Name_Exe("APropos", QFileInfo (qApp->argv()[0]).path());
          QString pathBinRessources  = CGestIni::Construct_PathBin_Module("APropos", QFileInfo (qApp->argv()[0]).path())+"Ressources/";
          QStringList argList;
-         QProcess::ProcessState procState;
          //......................... completer les autres arguments .........................................
          argList << NAME_APPLI;                                                                                  // 1  nom du module
-         argList << tr("Synoptic of current actions");                                                       // 2  description courte
-         argList << CApp::pCApp()->applicationVersion() + "  Qt : " + QT_VERSION_STR;                            // 3  numero de version
+         argList << tr("Synoptic of current actions");                                                           // 2  description courte
+         argList << CApp::pCApp()->ApplicationAndQtVersion();                                                    // 3  numero de version appli et Qt
          argList << CApp::pCApp()->pathAppli()+"Ressources/Changements.html";                                    // 4  fichiers decrivant les changements
+         argList <<"";                                                                                           // 5  Icone par defaut
+         argList <<"";                                                                                           // 6  aide en ligne (vide pour prendre celle par defaut)
+         argList <<"";                                                                                           // 7  apropos (on met une chaine vide pour qu'il prenne celui par défaut)
+         argList <<BASE_SYNOPTUX->getVersionNumber();                                                            // 8  numero de version de la base de donnee
          if (m_Apropos_Proc==0)
             {m_Apropos_Proc = new QProcess(this);
              m_Apropos_Proc->start(pathExeAPropos, argList);
-             SLEEP(1);
-             CApp::pCApp()->processEvents ();
-             while ( (procState = m_Apropos_Proc->state())== QProcess::Running )
-                   { QApplication::processEvents ( QEventLoop::WaitForMoreEvents );
-                   }
+             m_Apropos_Proc->waitForStarted  (4000);
+             m_Apropos_Proc->waitForFinished ();
              if (m_Apropos_Proc) delete m_Apropos_Proc;
              m_Apropos_Proc = 0;
              QFile::remove(pathBinRessources+"~A_propos.html");

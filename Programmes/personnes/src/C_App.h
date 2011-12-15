@@ -73,6 +73,7 @@ class C_App : public QApplication
     QSqlDatabase    getDatabase();
     int             OpenBase();
     void            CloseBase();
+    QString         getBDVersionNumber();
     QString         OutSQL_error(const QSqlQuery &cur,   const char *messFunc =0, const char *requete =0);
     QString         OutSQL_error(const QSqlError &error, const char *messFunc =0, const char *requete =0);
     QString         Utf8_Query(QSqlQuery &cur, int field);

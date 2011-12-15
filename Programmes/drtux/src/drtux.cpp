@@ -404,10 +404,11 @@ void DrTux::Slot_actionApropos()
 //----------------------------------- Slot_actionAproposDisplay -----------------------------------------------------------------------
 void DrTux::Slot_actionAproposDisplay()
 {        //CGestIni::Param_UpdateToDisk(G_pCApp->m_PathAppli+"Ressources/Changements.html",textEdit_Changements->text());
+         QStringList argList;
          QString pathExeAPropos     = CGestIni::Construct_Name_Exe("APropos", QFileInfo (qApp->argv()[0]).dirPath (true));
          QString pathBinRessources  = CGestIni::Construct_PathBin_Module("APropos", QFileInfo (qApp->argv()[0]).dirPath (true))+"Ressources/";
-         QStringList argList;
-
+         QString versionBase        = "";
+         G_pCApp->m_pCMoteurBase->GetMedinTuxNormalisedVersion(versionBase,".");
          //......................... completer les autres arguments .........................................
 
          if (m_Apropos_Proc==0)
@@ -419,8 +420,9 @@ void DrTux::Slot_actionAproposDisplay()
              m_Apropos_Proc->addArgument(G_pCApp->m_NUM_VERSION.remove("@").remove("#").remove("=") + " Qt : "+QT_VERSION_STR);    // 3  numero de version
              m_Apropos_Proc->addArgument(G_pCApp->m_PathAppli+"Ressources/Changements.html");            // 4  fichiers d�crivant les changements
              m_Apropos_Proc->addArgument(Theme::getPath(Theme::WithSeparator)+"32x32/DrTux.png");        // 5  Icone du programme
-             m_Apropos_Proc->addArgument(G_pCApp->m_PathAppli+"../../Doc/DrTux.html");            // 6  aide en ligne
-
+             m_Apropos_Proc->addArgument(G_pCApp->m_PathAppli+"../../Doc/DrTux.html");                   // 6  aide en ligne
+             m_Apropos_Proc->addArgument("");                                                            // 7  fichier template de APropos (vide pour celui par defaut)
+             m_Apropos_Proc->addArgument(versionBase);                                                   // 8  numero de version de la base de donneee
              m_Apropos_Proc->start();
              SLEEP(1);
              G_pCApp->processEvents ();

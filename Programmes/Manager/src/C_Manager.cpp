@@ -1014,26 +1014,27 @@ void C_Manager::Slot_actionAproposDisplay()
         QString pathExeAPropos     = CGestIni::Construct_Name_Exe("APropos", QFileInfo (qApp->argv()[0]).path());
         QString pathBinRessources  = CGestIni::Construct_PathBin_Module("APropos", QFileInfo (qApp->argv()[0]).path())+"Ressources/";
         QStringList argList;
-        QProcess::ProcessState procState;
+
         //......................... completer les autres arguments .........................................
+        QString dataBaseVersion = "";
+        m_pCMoteurBase->GetMedinTuxNormalisedVersion(dataBaseVersion, ".");
         argList << "Manager";                                                       // 1  nom du module
         argList << tr("Schedule management and patient list module");               // 2  description courte
         argList << (G_pCApp->getNumVers()+" Qt : "+QT_VERSION_STR);                 // 3  numero de version
         argList << G_pCApp->m_PathAppli+"Ressources/Changements.html";              // 4  fichiers d?crivant les changements
         argList << Theme::getPath(Theme::WithSeparator)+"32x32/Manager.png";        // 5  Icone du programme
         argList << QDir::cleanPath(G_pCApp->m_PathAppli+"../../Doc/index.html") ;   // 6  aide en ligne
+        argList << "";                                                              // 7  apropos (on met une chaine vide pour qu'il prenne celui par défaut)
+        argList << dataBaseVersion ;                                                // 8  version de la base de donnee
         //QProcess::startDetached (pathExeAPropos, argList);
+
 
         if (m_Apropos_Proc==0)
            {m_action_A_Propos->setDisabled(TRUE);
             m_Apropos_Proc = new QProcess(this);
             m_Apropos_Proc->start(pathExeAPropos, argList);
-            SLEEP(2);
-            G_pCApp->processEvents ();
-            while ( (procState = m_Apropos_Proc->state())== QProcess::Running ) // && QFile::exists(pathBinRessources+"~A_propos.html")
-                  { //qDebug(QString::number(procState).toAscii());
-                    QApplication::processEvents ( QEventLoop::WaitForMoreEvents );
-                  }
+            m_Apropos_Proc->waitForStarted  (4000);
+            m_Apropos_Proc->waitForFinished ();
             if (m_Apropos_Proc) delete m_Apropos_Proc;
             m_Apropos_Proc = 0;
             QFile::remove(pathBinRessources+"~A_propos.html");

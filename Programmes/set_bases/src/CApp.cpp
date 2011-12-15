@@ -46,7 +46,7 @@
 #define MAX_READ 0XFFFFFFF
 
 CApp* G_pCApp = 0;  // contiendra l'instance globale de l'application
-static char NUM_VERSION[]     = "==##@@==2.14.007==@@##==";
+static char NUM_VERSION[]     = "==##@@==2.15.000==@@##==";
 
 //--------------------------------------------- CApp -------------------------------------------------------------------
 CApp::CApp(int & argc, char ** argv)

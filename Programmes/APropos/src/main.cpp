@@ -35,16 +35,26 @@
 **********************************************************************************/
 #include <QtGui/QApplication>
 #include <QDir>
-#include<QMessageBox>
+#include <QMessageBox>
+#include <QTranslator>
+#include <QLibraryInfo>
+#include <QLocale>
 #include "../../MedinTuxTools-QT4/CGestIni.h"
 #include "../../MedinTuxTools-QT4/C_DlgApropos/C_DlgApropos.h"
 #include "CApp.h"
-
 
 // la macro NAME_APPLI est definie dans le projet
 
 int main(int argc, char *argv[])
 {   CApp a(NAME_APPLI, argc, argv);
+
+    QTranslator qtTranslator;
+    qtTranslator.load("qt_" + QLocale::system().name(), QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+    a.installTranslator(&qtTranslator);
+    QTranslator myappTranslator;
+    myappTranslator.load(QString("APropos_")+ QLocale::system().name(),G_pCApp->getPathAppli()+"Ressources/lang");
+    a.installTranslator(&myappTranslator);
+
     if (a.m_ModuleName.indexOf("MailOnly") !=-1 )
        {if (!a.m_Description.startsWith("mailto:")) a.m_Description = a.m_Description.prepend("mailto:");
         C_DlgApropos::URL_ExecSpecialSyntax ( a.m_Description , a.m_PathAppli);
@@ -64,7 +74,8 @@ int main(int argc, char *argv[])
                    a.m_PathChangements, //              body
                    a.m_PathIcone,
                    a.m_PathHelp,
-                   a.m_PathApropos);
+                   a.m_PathApropos,
+                   a.m_BaseVersion);
      w.show();
     return a.exec();
 

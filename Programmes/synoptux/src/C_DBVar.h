@@ -49,11 +49,13 @@ class C_DBVar
 {
 public:
     C_DBVar( QString& confData );
+    QString       getVersionNumber();
     int           initValues( QString& confData);
     static char  *SetConfBase_SetProperties(char *pt, QString &propertie, const char *token, int *line, QString &err);
     int           areFieldsNamesValids() {return (m_LastError.length()==0);}
     QString       getLastError()         {return  m_LastError;}
 public:
+QString m_VERSION_NUMBER;               // numero de version de la base de donnee
 QString m_BO_TBL_NAME;
 QString m_BO_PK;
 QString m_BO_LIBELLE;
