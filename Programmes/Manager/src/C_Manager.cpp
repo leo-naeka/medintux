@@ -1014,7 +1014,7 @@ void C_Manager::Slot_actionAproposDisplay()
         QString pathExeAPropos     = CGestIni::Construct_Name_Exe("APropos", QFileInfo (qApp->argv()[0]).path());
         QString pathBinRessources  = CGestIni::Construct_PathBin_Module("APropos", QFileInfo (qApp->argv()[0]).path())+"Ressources/";
         QStringList argList;
-
+        int procState;
         //......................... completer les autres arguments .........................................
         QString dataBaseVersion = "";
         m_pCMoteurBase->GetMedinTuxNormalisedVersion(dataBaseVersion, ".");
@@ -1028,18 +1028,25 @@ void C_Manager::Slot_actionAproposDisplay()
         argList << dataBaseVersion ;                                                // 8  version de la base de donnee
         //QProcess::startDetached (pathExeAPropos, argList);
 
-
         if (m_Apropos_Proc==0)
            {m_action_A_Propos->setDisabled(TRUE);
             m_Apropos_Proc = new QProcess(this);
+            connect( m_Apropos_Proc,  SIGNAL(error ( QProcess::ProcessError  )), G_pCApp, SLOT(Slot_error ( QProcess::ProcessError  )) );
             m_Apropos_Proc->start(pathExeAPropos, argList);
             m_Apropos_Proc->waitForStarted  (4000);
-            m_Apropos_Proc->waitForFinished ();
+            // m_Apropos_Proc->waitForFinished ();     // crash crash bug QT connu
+            //..... pour contourner le bug on fait une boucle d'attente un peu sale ....
+            G_pCApp->processEvents ();
+            while ( (procState = m_Apropos_Proc->state())== QProcess::Running ) // && QFile::exists(pathBinRessources+"~A_propos.html")
+                  { //qDebug(QString::number(procState).toAscii());
+                    QApplication::processEvents ( QEventLoop::ExcludeUserInput );
+                  }
             if (m_Apropos_Proc) delete m_Apropos_Proc;
             m_Apropos_Proc = 0;
             QFile::remove(pathBinRessources+"~A_propos.html");
             m_action_A_Propos->setDisabled(FALSE);
            }
+
        QApplication::restoreOverrideCursor();
 
 }
@@ -3329,16 +3336,16 @@ void C_Manager::exeAnnuaire(QString idInterv )
    if ( !QFile::exists( pathExe ) ) {G_pCApp->CouCou(tr( "Binary is not found.").arg(pathExe));  return; }
    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
    QString pathExch;
-   // si path executable non d\303\251fini le fixer par defaut sur '../../tmp'
+   // si path executable non defini le fixer par defaut sur '../../tmp'
    if (CGestIni::Param_ReadParam(G_pCApp->m_LocalParam, "Repertoire Temporaire", "Repertoire", &pathExch)!=QString::null)
       {pathExch = "../../tmp";
       }
-   // Adaptation \303\240 la plateforme
+   // Adaptation a la plateforme
    if ( QDir(pathExch).isRelative()) pathExch.prepend(G_pCApp->m_PathAppli);
    pathExch += "/ManagerGetPersonnne"+  m_pCMoteurBase->GUID_Create() +".ech";   // on cree un nom de fichier unique
-   pathExch = QDir::cleanDirPath(pathExch);
-   // l'effacer au ca ou ne l'aurait pas deja ete
-   QFile::remove (pathExch);
+   pathExch  = QDir::cleanDirPath(pathExch);
+   // l'effacer au ca ou ne l'aurait pas deja ete (euh avec un GUID c'est un peut idiot
+   //QFile::remove (pathExch);
 
    QStringList argList;
    //......................... completer les autres arguments .........................................
@@ -3350,10 +3357,15 @@ void C_Manager::exeAnnuaire(QString idInterv )
    if (m_Contacts_Run==FALSE)
       { m_Contacts_Run = TRUE;
         QProcess   proc;
-
+        connect( &proc,  SIGNAL(error ( QProcess::ProcessError  )), G_pCApp, SLOT(Slot_error ( QProcess::ProcessError  )) );
         proc.start(pathExe, argList);
         if (!proc.waitForStarted(4000))  {QApplication::restoreOverrideCursor(); m_Contacts_Run = FALSE;  return;};
-        if (!proc.waitForFinished())     {QApplication::restoreOverrideCursor(); m_Contacts_Run = FALSE;  return;};
+        // if (!proc.waitForFinished())     {QApplication::restoreOverrideCursor(); m_Contacts_Run = FALSE;  return;}; // crash
+        // on fait une boucle d'attente car crash du process appele avec waitForFinished() !!!
+        G_pCApp->processEvents ();
+        while (proc.state()==QProcess::Running )
+             { QApplication::processEvents ( QEventLoop::ExcludeUserInput );
+             }
 
         //......... recuperer fichier d'echange .............
         //          genere par l'executable

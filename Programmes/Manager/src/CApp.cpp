@@ -764,16 +764,14 @@ QString CApp::PluginExe(        QObject         */*pQObject*/,
 
       proc->start(m_PluginRun, argList);
       proc->waitForStarted  (4000);
-      proc->waitForFinished ();
+      //proc->waitForFinished (); //crash crash
       //QByteArray ba = proc->readAllStandardError ();
       //qDebug(ba);
-      /*
-      SLEEP(1);
+
       processEvents ();
-      while (waitFlag==CApp::endWait && proc.state()==QProcess::Running )
-           { QApplication::processEvents ( QEventLoop::WaitForMore );
+      while (waitFlag==CApp::endWait && proc->state()==QProcess::Running )
+           { QApplication::processEvents ( QEventLoop::ExcludeUserInput );
            }
-      */
       m_PluginRun = "";
       //............lire le fichier d'echange ..........................
       //dst  = "/home/ro/QFseVitale-53671d5a-52c0-42ff-a39c-bed207109033-New.exc";
