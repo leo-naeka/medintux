@@ -47,6 +47,9 @@
 #include <QSettings>
 #include <QtSql>
 #include <QMap>
+#include <QApplication>
+#include <QCoreApplication>
+#include <QEventLoop>
 
 #include "C_Wdg_Box.h"
 #include "dlgbox.h"
@@ -87,6 +90,8 @@ protected:
     void    setTimerActionOn();
     void    setTimerActionOff();
     void    setLedStateOnTimerState();
+    void    onSqlError();
+    int     areBasesInstalled();
 signals:
     void triggered(QAction *actEtat);
 
@@ -131,11 +136,11 @@ private slots:
     void Slot_timerStateIndicator_clicked();
     void Slot_modif_Comment_Tache();
     void Slot_byebyeBox(C_Wdg_Box *);
-private:
 
+private:
     bool        RecupInit();
     bool        LireleCSS();
-    void        Afficher_Les_Box();
+    int         Afficher_Les_Box();
     void        sortieAppli();
     void        creerActionsGene();
     void        creerActionsMdi();
