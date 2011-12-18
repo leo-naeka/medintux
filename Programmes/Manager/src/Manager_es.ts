@@ -25,37 +25,37 @@ does not exist</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="CApp.cpp" line="687"/>
+        <location filename="CApp.cpp" line="703"/>
         <source>Path to plugin not found: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="CApp.cpp" line="772"/>
+        <location filename="CApp.cpp" line="788"/>
         <source>The process failed to start. Either the requested program is missing, or you may have insufficient permission to launch the program.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="CApp.cpp" line="773"/>
+        <location filename="CApp.cpp" line="789"/>
         <source>The process crashed sometime after starting successfully.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="CApp.cpp" line="774"/>
+        <location filename="CApp.cpp" line="790"/>
         <source>The last waitFor...() function timed out. The state of QProcess is unchanged, and you can try calling waitFor...() again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="CApp.cpp" line="775"/>
+        <location filename="CApp.cpp" line="791"/>
         <source>An error occurred when attempting to write to the process. For example, the process may not be running, or it may have closed its input channel.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="CApp.cpp" line="776"/>
+        <location filename="CApp.cpp" line="792"/>
         <source>An error occurred when attempting to read from the process. For example, the process may not be running.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="CApp.cpp" line="777"/>
+        <location filename="CApp.cpp" line="793"/>
         <source>Unknown Error</source>
         <translation type="unfinished"></translation>
     </message>
@@ -118,6 +118,11 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../MedinTuxTools-QT4/Agenda/CMoteurAgenda.cpp" line="292"/>
+        <source> not found on line # </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../MedinTuxTools-QT4/Agenda/CMoteurAgenda.cpp" line="272"/>
         <source>Syntax Error: SetConfBaseGetValue()
  End delimiter &quot;&apos;&quot;  not find at line N°: </source>
@@ -127,11 +132,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../../MedinTuxTools-QT4/Agenda/CMoteurAgenda.cpp" line="279"/>
         <source>Syntax Error: SetConfBaseGetValue()
  Start delimiter &quot;&apos;&quot;  not find at line N°: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/CMoteurAgenda.cpp" line="292"/>
-        <source> not found on line # </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -233,6 +233,44 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>CMoteurBase</name>
     <message>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="234"/>
+        <source>
+    = </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="236"/>
+        <source> ==&gt; Failure attempting to create</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="240"/>
+        <source> ==&gt; Success when attempting to create</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="244"/>
+        <source>
+ SUCCESS when updating missing tables.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="245"/>
+        <source>
+ ERROR %1 table(s) not found in the present base: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="453"/>
+        <source>Failed to open database : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="567"/>
+        <source>ConvertToNew(): database can&apos;t be open</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="127"/>
         <source>
  Incorrect &apos;DataBase.cfg&apos; Configuration file:</source>
@@ -273,44 +311,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="220"/>
         <source>
  WARNING: these tables are not indicated in the configuration file: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="234"/>
-        <source>
-    = </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="236"/>
-        <source> ==&gt; Failure attempting to create</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="240"/>
-        <source> ==&gt; Success when attempting to create</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="244"/>
-        <source>
- SUCCESS when updating missing tables.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="245"/>
-        <source>
- ERROR %1 table(s) not found in the present base: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="453"/>
-        <source>Failed to open database : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../MedinTuxTools-QT4/CMoteur_Base.cpp" line="567"/>
-        <source>ConvertToNew(): database can&apos;t be open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2788,32 +2788,32 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="864"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="887"/>
         <source>Error in Google transaction</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="865"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="888"/>
         <source>&lt;b&gt;Error C_Frm_Agenda::toGoogle() : error in Google transaction:&lt;/b&gt;&lt;br&gt;%1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="871"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="894"/>
         <source>Google connection failed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="872"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="895"/>
         <source>&lt;b&gt;Google connection failed for Agenda for MedinTux.&lt;/b&gt;&lt;br&gt; </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="873"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="896"/>
         <source>&lt;p&gt;Developped using &lt;a href=&quot;http://qt.nokia.com&quot;&gt;Qt </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="874"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="897"/>
         <source> framework&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;Email : &lt;a href=&quot;mailto:roland-sevin@medintux.org&quot;&gt;roland-sevin@medintux.org&lt;/a&gt;&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2821,307 +2821,307 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>C_Frm_Day</name>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1091"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1155"/>
         <source>Opens and closes a page of the schedule.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1098"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1162"/>
         <source>Add a new appointment on this date.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1103"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1167"/>
         <source>Save this day as a template.&lt;/font&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1108"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1172"/>
         <source>Push to Google Agenda.&lt;/font&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1137"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1201"/>
         <source>go to this week</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1169"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1233"/>
         <source>Error in Google transaction</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1170"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1234"/>
         <source>&lt;b&gt;Error in Google transaction:&lt;/b&gt;&lt;br&gt;%1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1218"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1282"/>
         <source>On</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1218"/>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1228"/>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1239"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1282"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1292"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1303"/>
         <source>at</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1218"/>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1228"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1282"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1292"/>
         <source>(duration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1218"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1282"/>
         <source>Occupied</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1228"/>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1239"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1292"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1303"/>
         <source>The</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1228"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1292"/>
         <source>available</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1229"/>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1240"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1293"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1304"/>
         <source>with</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1239"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1303"/>
         <source>Creation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1239"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1303"/>
         <source>for</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1557"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1621"/>
         <source> Appointment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1612"/>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1613"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1676"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1677"/>
         <source>DontCreate set to : %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1664"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1728"/>
         <source>Free slot at : %1 h %2 mn 
 maximum possible duration:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1903"/>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2023"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1967"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2087"/>
         <source>Modify an appointment :</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1904"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1968"/>
         <source>WARNING</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1904"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1968"/>
         <source>The current appointment taken for:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1906"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1970"/>
         <source>be changed and be given to:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1908"/>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2028"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1972"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2092"/>
         <source>Confirm modification ?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1909"/>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2029"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1973"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2093"/>
         <source>&amp;Modify</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1909"/>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2029"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="1973"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2093"/>
         <source>&amp;Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2024"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2088"/>
         <source>&lt;u&gt;&lt;b&gt;WARNING&lt;/u&gt; :&lt;br /&gt;&lt;/b&gt; The current appointment taken for :</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2026"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2090"/>
         <source>will be given to:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2060"/>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2077"/>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2400"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2124"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2141"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2464"/>
         <source>Confirm deletion</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2061"/>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2401"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2125"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2465"/>
         <source>Confirm deletion this appointment </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2078"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2142"/>
         <source>Confirm deletion this appointment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2152"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2216"/>
         <source>Make an appointment after the previous existing one for the %2 at %3 an appointment with the patient &apos;%1&apos; selected in the list.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2153"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2217"/>
         <source>Make an appointment for the %2 at %3 with the patient &apos;%1&apos; selected in the list.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2156"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2220"/>
         <source>Make an appointment for the %2 at %3 after the previous existing one</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2157"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2221"/>
         <source>Make an appointment for the %1 at  %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2158"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2222"/>
         <source>Create for the %1 at %2 an empty appointment with no identity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2160"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2224"/>
         <source>=11=#Agenda/NewDoc.png#Afficher aujourd&apos;hui</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2168"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2232"/>
         <source>Paste appointment with the patient &apos;%1&apos; at this date : %2 at this hour: %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2172"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2236"/>
         <source>Paste after the previous existing one the appointment with the patient &apos;%1&apos; </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2175"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2239"/>
         <source>Paste at this date : %1 and at this hour : %2 the appointment from copy memory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2178"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2242"/>
         <source>Paste after the previous existing one the appointment from the copy memory.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2182"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2246"/>
         <source>Configure the types of appointments</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2184"/>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2286"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2248"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2350"/>
         <source>Quit this menu</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2226"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2290"/>
         <source>Appointment available</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2228"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2292"/>
         <source>Modify the parameters of this appointment...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2232"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2296"/>
         <source>Copy the current appointment to the copy memory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2241"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2305"/>
         <source>Replace the current appointment with the one inside the copy memory with the name of the patient: &apos;%1&apos; </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2244"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2308"/>
         <source>Replace the current appointment with the one inside the copy memory.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2247"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2311"/>
         <source>Cut the current appointment and put into the copy memory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2262"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2326"/>
         <source>Appointment of type: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2272"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2336"/>
         <source>Appointment Status: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2277"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2341"/>
         <source>Open file: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2281"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2345"/>
         <source>Make this appointment anonymous and available</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2283"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2347"/>
         <source>Delete this appointment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2299"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2363"/>
         <source> Appointment available </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2332"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2396"/>
         <source>Set new appointment for %1 on the %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2565"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2629"/>
         <source>recreate blocked : %1 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2566"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2630"/>
         <source>recreate not blocked : %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3129,32 +3129,32 @@ maximum possible duration:</source>
 <context>
     <name>C_Frm_Rdv</name>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2741"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2805"/>
         <source>Delete this appointment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2752"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2816"/>
         <source>Modify the appointment.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2759"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2823"/>
         <source>Access the patient&apos;s file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2845"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="2909"/>
         <source>Undefined status</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="3107"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="3171"/>
         <source>Confirm modification</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="3108"/>
+        <location filename="../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp" line="3172"/>
         <source>The features of this appointment have been modified 
 Confirm modifications ?</source>
         <translation type="unfinished"></translation>
@@ -3266,256 +3266,234 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>C_Manager</name>
     <message>
-        <location filename="C_Manager.cpp" line="240"/>
+        <location filename="C_Manager.cpp" line="248"/>
         <source>Browsing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="305"/>
+        <location filename="C_Manager.cpp" line="313"/>
         <source>User list</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="316"/>
+        <location filename="C_Manager.cpp" line="324"/>
         <source>Schedule</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="437"/>
+        <location filename="C_Manager.cpp" line="445"/>
         <source>Ressources/QualiteBeneficiaire.tbl not found</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="559"/>
-        <location filename="C_Manager.cpp" line="1277"/>
+        <location filename="C_Manager.cpp" line="568"/>
+        <location filename="C_Manager.cpp" line="1290"/>
         <source>Quit itinerant mode and reconnect to main server</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="561"/>
+        <location filename="C_Manager.cpp" line="570"/>
         <source>Itinerant Mode Active </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="564"/>
-        <location filename="C_Manager.cpp" line="1281"/>
+        <location filename="C_Manager.cpp" line="573"/>
+        <location filename="C_Manager.cpp" line="1294"/>
         <source>Disconnect from main server and activate itinerant mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="566"/>
+        <location filename="C_Manager.cpp" line="575"/>
         <source>Master mode active</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="573"/>
+        <location filename="C_Manager.cpp" line="582"/>
         <source>Itinerant mode managing not active</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="948"/>
+        <location filename="C_Manager.cpp" line="961"/>
         <source>Accessories</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="997"/>
+        <location filename="C_Manager.cpp" line="1010"/>
         <source>Schedule management and patient list module</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="1048"/>
+        <location filename="C_Manager.cpp" line="1061"/>
         <source>Print template &apos;%1&apos; empty</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="1114"/>
+        <location filename="C_Manager.cpp" line="1127"/>
         <source>&amp;Female</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="1115"/>
+        <location filename="C_Manager.cpp" line="1128"/>
         <source>&amp;Male</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="1116"/>
+        <location filename="C_Manager.cpp" line="1129"/>
         <source>Entering sex is important an good</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="1133"/>
-        <location filename="C_Manager.cpp" line="6564"/>
+        <location filename="C_Manager.cpp" line="1146"/>
+        <location filename="C_Manager.cpp" line="6621"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="1134"/>
+        <location filename="C_Manager.cpp" line="1147"/>
         <source>Inconsistency between the patient&apos;s sex and the first number of social insurance number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="1152"/>
+        <location filename="C_Manager.cpp" line="1165"/>
         <source>Path to InterfaceSigems plugin not found: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="1195"/>
+        <location filename="C_Manager.cpp" line="1208"/>
         <source>%1 The socket is not connected.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="1196"/>
+        <location filename="C_Manager.cpp" line="1209"/>
         <source>%1 The socket is performing a host name lookup.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="1197"/>
+        <location filename="C_Manager.cpp" line="1210"/>
         <source>%1 The socket has started establishing a connection.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="1198"/>
+        <location filename="C_Manager.cpp" line="1211"/>
         <source>%1 A connection is established.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="1199"/>
+        <location filename="C_Manager.cpp" line="1212"/>
         <source>%1 The socket is bound to an address and port (for servers).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="1200"/>
+        <location filename="C_Manager.cpp" line="1213"/>
         <source>%1 The socket is about to close (data may still be waiting to be written).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="1201"/>
+        <location filename="C_Manager.cpp" line="1214"/>
         <source>%1 For internal use only.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="1207"/>
+        <location filename="C_Manager.cpp" line="1220"/>
         <source>Master status: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="1211"/>
+        <location filename="C_Manager.cpp" line="1224"/>
         <source>Itinerant status: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="1230"/>
-        <location filename="C_Manager.cpp" line="1253"/>
+        <location filename="C_Manager.cpp" line="1243"/>
+        <location filename="C_Manager.cpp" line="1266"/>
         <source>The host was not found. Please check the host name and port settings.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="1235"/>
+        <location filename="C_Manager.cpp" line="1248"/>
         <source>The connection was refused by the peer. Make sure the server is running, and check that the host name and port settings are correct.  %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="1242"/>
-        <location filename="C_Manager.cpp" line="1265"/>
+        <location filename="C_Manager.cpp" line="1255"/>
+        <location filename="C_Manager.cpp" line="1278"/>
         <source>The following error occurred: %1.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="1258"/>
+        <location filename="C_Manager.cpp" line="1271"/>
         <source>The connection was refused by the peer. Make sure the server is running, and check that the host name and port settings are correct.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="1304"/>
-        <location filename="C_Manager.cpp" line="1351"/>
+        <location filename="C_Manager.cpp" line="1317"/>
+        <location filename="C_Manager.cpp" line="1364"/>
         <source>Database failed to open: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="1386"/>
-        <location filename="C_Manager.cpp" line="1551"/>
+        <location filename="C_Manager.cpp" line="1399"/>
+        <location filename="C_Manager.cpp" line="1564"/>
         <source>CONNECTION TO MASTER SERVER FAILED</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="1387"/>
-        <location filename="C_Manager.cpp" line="1552"/>
+        <location filename="C_Manager.cpp" line="1400"/>
+        <location filename="C_Manager.cpp" line="1565"/>
         <source> &lt;b&gt;&lt;u&gt;WARNING&lt;/b&gt;&lt;/u&gt; ! Connection to master server &lt;br /&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="1388"/>
-        <location filename="C_Manager.cpp" line="1553"/>
+        <location filename="C_Manager.cpp" line="1401"/>
+        <location filename="C_Manager.cpp" line="1566"/>
         <source>is impossible.&lt;br /&gt;&lt;u&gt;Error </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="1389"/>
+        <location filename="C_Manager.cpp" line="1402"/>
         <source>Please check your parameters and slots.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="1390"/>
-        <location filename="C_Manager.cpp" line="1539"/>
-        <location filename="C_Manager.cpp" line="1555"/>
-        <location filename="C_Manager.cpp" line="1954"/>
+        <location filename="C_Manager.cpp" line="1403"/>
+        <location filename="C_Manager.cpp" line="1568"/>
         <location filename="C_Manager.cpp" line="1967"/>
         <location filename="C_Manager.cpp" line="1980"/>
-        <location filename="C_Manager.cpp" line="2095"/>
-        <location filename="C_Manager.cpp" line="2161"/>
-        <location filename="C_Manager.cpp" line="2170"/>
-        <location filename="C_Manager.cpp" line="2682"/>
-        <location filename="C_Manager.cpp" line="2690"/>
-        <location filename="C_Manager.cpp" line="4639"/>
-        <location filename="C_Manager.cpp" line="4647"/>
-        <location filename="C_Manager.cpp" line="4729"/>
-        <location filename="C_Manager.cpp" line="4739"/>
-        <location filename="C_Manager.cpp" line="4855"/>
-        <location filename="C_Manager.cpp" line="4889"/>
-        <location filename="C_Manager.cpp" line="6097"/>
+        <location filename="C_Manager.cpp" line="1993"/>
+        <location filename="C_Manager.cpp" line="2108"/>
+        <location filename="C_Manager.cpp" line="2174"/>
+        <location filename="C_Manager.cpp" line="2183"/>
+        <location filename="C_Manager.cpp" line="2695"/>
+        <location filename="C_Manager.cpp" line="2703"/>
+        <location filename="C_Manager.cpp" line="4673"/>
+        <location filename="C_Manager.cpp" line="4681"/>
+        <location filename="C_Manager.cpp" line="4746"/>
+        <location filename="C_Manager.cpp" line="4756"/>
+        <location filename="C_Manager.cpp" line="4872"/>
+        <location filename="C_Manager.cpp" line="4906"/>
         <source>&amp;Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="1503"/>
+        <location filename="C_Manager.cpp" line="1516"/>
         <source>Itinerant mode activated
 connected: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="1535"/>
-        <source>CONNECTION TO THE SERVER NOMADE NON POSSIBLE</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="1536"/>
-        <source> &lt;b&gt;&lt;u&gt;WARNING&lt;/b&gt;&lt;/u&gt; ! Connection to  serveur nomade &lt;br&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="1537"/>
-        <source>is not possible.&lt;br&gt;&lt;u&gt;Error :&lt;/u&gt;&lt;br&gt;&lt;pre&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="1538"/>
-        <source>Please verify your connections and parameters.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="1554"/>
+        <location filename="C_Manager.cpp" line="1567"/>
         <source>Please, check your parameters and slots.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="1638"/>
+        <location filename="C_Manager.cpp" line="1651"/>
         <source>Itinerant mode activated
 connected
 : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="1674"/>
+        <location filename="C_Manager.cpp" line="1687"/>
         <source>Parameters 
 [Connexion]
 Nomade = 
@@ -3523,7 +3501,7 @@ not found in Manager.ini: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="1677"/>
+        <location filename="C_Manager.cpp" line="1690"/>
         <source>Parameters 
 [Connexion]
 Master = 
@@ -3531,1302 +3509,1279 @@ not found in Manager.ini: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="1734"/>
+        <location filename="C_Manager.cpp" line="1747"/>
         <source>Master mode active
 connected to: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="1737"/>
+        <location filename="C_Manager.cpp" line="1750"/>
         <source>Connection failed
 Itinerant Mode kept.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="1950"/>
+        <location filename="C_Manager.cpp" line="1963"/>
         <source>Launch a file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="1951"/>
+        <location filename="C_Manager.cpp" line="1964"/>
         <source>A file exists for this name:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="1953"/>
+        <location filename="C_Manager.cpp" line="1966"/>
         <source>Should we launch this file ?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="1954"/>
+        <location filename="C_Manager.cpp" line="1967"/>
         <source>&amp;Launch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="1962"/>
-        <location filename="C_Manager.cpp" line="1980"/>
+        <location filename="C_Manager.cpp" line="1975"/>
+        <location filename="C_Manager.cpp" line="1993"/>
         <source>Create a file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="1963"/>
+        <location filename="C_Manager.cpp" line="1976"/>
         <source>There is no file for this name:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="1965"/>
+        <location filename="C_Manager.cpp" line="1978"/>
         <source>should we create one ?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="1967"/>
+        <location filename="C_Manager.cpp" line="1980"/>
         <source>&amp;Create a file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="1978"/>
+        <location filename="C_Manager.cpp" line="1991"/>
         <source>File Creation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="1979"/>
+        <location filename="C_Manager.cpp" line="1992"/>
         <source>Create a new file ?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2062"/>
+        <location filename="C_Manager.cpp" line="2075"/>
         <source>Your rights are insufficient to launch a file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2091"/>
+        <location filename="C_Manager.cpp" line="2104"/>
         <source>FILE IS UNREACHABLE</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2092"/>
+        <location filename="C_Manager.cpp" line="2105"/>
         <source> &lt;b&gt;&lt;b&gt;&lt;u&gt;WARNING&lt;/b&gt;&lt;/u&gt; ! This file </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2093"/>
+        <location filename="C_Manager.cpp" line="2106"/>
         <source>&lt;/b&gt;&lt;/font&gt; is open on this terminal: &lt;b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2094"/>
-        <source>Its access is impossible on this terminal.&lt;br /&gt;Please, get it closed on its terminal before opening it on this terminal.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="2155"/>
+        <location filename="C_Manager.cpp" line="2168"/>
         <source>non possible</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2156"/>
-        <location filename="C_Manager.cpp" line="2165"/>
+        <location filename="C_Manager.cpp" line="2169"/>
+        <location filename="C_Manager.cpp" line="2178"/>
         <source>CONFLICTING OPENING</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2157"/>
+        <location filename="C_Manager.cpp" line="2170"/>
         <source> &lt;b&gt;&lt;u&gt;WARNING&lt;/b&gt;&lt;/u&gt; ! This file </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2158"/>
+        <location filename="C_Manager.cpp" line="2171"/>
         <source>&lt;/b&gt;&lt;/font&gt; is already open on this terminal: &lt;b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2159"/>
-        <source>&lt;/b&gt;&lt;br /&gt; Its access is read-only,&lt;br /&gt;it will turn into write mode&lt;br /&gt;as soon as it will be available on this terminal</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="2166"/>
+        <location filename="C_Manager.cpp" line="2179"/>
         <source> &lt;b&gt;&lt;u&gt;WARNING&lt;/b&gt;&lt;/u&gt; ! This file &lt;b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2167"/>
+        <location filename="C_Manager.cpp" line="2180"/>
         <source>&lt;/b&gt;is already open on this terminal: &lt;b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2168"/>
+        <location filename="C_Manager.cpp" line="2181"/>
         <source>&lt;/b&gt;&lt;br&gt; Should we try to open it anyway ?&lt;br /&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2170"/>
+        <location filename="C_Manager.cpp" line="2183"/>
         <source>&amp;Open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2437"/>
-        <source>1- Mettre à jour l&apos;identité avec le nom et prénom de l&apos;ayant droit : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="2441"/>
-        <source>2- Mettre à jour l&apos;identité avec le nom de naissance : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="2451"/>
-        <source>4- Mettre à jour l&apos;identité avec l&apos;adresse : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="2456"/>
-        <source>5- Mettre à jour l&apos;identité avec le code postal : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="2461"/>
-        <source>6- Mettre à jour l&apos;identité avec la ville : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="2465"/>
-        <source>7- Mettre à jour l&apos;identité avec le nom et prénom de l&apos;assuré : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="2476"/>
-        <source>10- Mettre à jour l&apos;identité avec le type d&apos;ayant droit : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="C_Manager.cpp" line="2478"/>
-        <source>11- Mettre à jour l&apos;identité avec toutes les données de la carte vitale </source>
+        <source>=7=Mettre à jour l&apos;identité avec le nom et prénom de l&apos;assuré : </source>
+        <oldsource>11- Mettre à jour l&apos;identité avec toutes les données de la carte vitale </oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2484"/>
-        <source>23- Rechercher avec le numéro de SS : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="2487"/>
-        <source>27- Rechercher avec le nom et prénom de l&apos;ayant droit : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="2490"/>
-        <source>28- Rechercher avec le nom de l&apos;ayant droit    : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="2491"/>
-        <source>29- Rechercher avec le prénom de l&apos;ayant droit : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="2494"/>
-        <source>30- Rechercher avec la date de naissance : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="2502"/>
-        <source>33- Utiliser les données de la carte Vitale : %1 pour remplir celles du patient en cours de création</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="2505"/>
-        <source>31- Créer un nouveau dossier avec l&apos;identité sélectionnée de la carte vitale : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="2509"/>
-        <source>32- Attribuer les éléments de cette carte vitale au patient sélectionné : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="2648"/>
+        <location filename="C_Manager.cpp" line="2661"/>
         <source>&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;- le nom prénom doit changer pour  : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2649"/>
+        <location filename="C_Manager.cpp" line="2662"/>
         <source>&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;- la date de naissance doit changer pour  :</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2650"/>
+        <location filename="C_Manager.cpp" line="2663"/>
         <source>&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;- le code postal doit changer pour  :</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2651"/>
+        <location filename="C_Manager.cpp" line="2664"/>
         <source>&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;- le numéro de SS doit changer pour  :</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2652"/>
+        <location filename="C_Manager.cpp" line="2665"/>
         <source>ATTENTION OPÉRATION À HAUT RISQUE &lt;/font&gt;&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2653"/>
+        <location filename="C_Manager.cpp" line="2666"/>
         <source>&lt;hr&gt;&lt;br&gt; La personne : &lt;b&gt;&lt;font color=&quot;#1200ff&quot;&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2654"/>
+        <location filename="C_Manager.cpp" line="2667"/>
         <source>&lt;br&gt; née le : &lt;b&gt;&lt;font color=&quot;#1200ff&quot;&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2656"/>
+        <location filename="C_Manager.cpp" line="2669"/>
         <source>&lt;br&gt; habitant : &lt;b&gt;%1 %2&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2658"/>
+        <location filename="C_Manager.cpp" line="2671"/>
         <source>&lt;br&gt; ayant pour numéro de SS : &lt;b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2660"/>
+        <location filename="C_Manager.cpp" line="2673"/>
         <source>diffère &lt;b&gt;&lt;font color=&quot;#e80d0d&quot;&gt;du&lt;/font&gt;&lt;/b&gt; critère suivant à modifier :</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2664"/>
+        <location filename="C_Manager.cpp" line="2677"/>
         <source> diffère d&apos;au moins des &lt;b&gt;&lt;font color=&quot;#e80d0d&quot;&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2664"/>
+        <location filename="C_Manager.cpp" line="2677"/>
         <source>&lt;/font&gt;&lt;/b&gt; critères suivants à modifier :</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2668"/>
+        <location filename="C_Manager.cpp" line="2681"/>
         <source>&lt;hr&gt;&lt;br&gt;semble être la même que celle de la carte Vitale&lt;br&gt;nom, prénom, numéro de SS, date de naissance identiques.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2670"/>
+        <location filename="C_Manager.cpp" line="2683"/>
         <source>&lt;br&gt;&lt;hr&gt;confirmez-vous tout de même cette opération ? </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2672"/>
+        <location filename="C_Manager.cpp" line="2685"/>
         <source>&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;=&gt; en sachant que &lt;b&gt;ce patient a déjà probablement été créé par une carte vitale&lt;/b&gt;. </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2674"/>
+        <location filename="C_Manager.cpp" line="2687"/>
         <source>&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;=&gt; en sachant qu&apos;un changement de nom et prénom est suspect,</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2675"/>
+        <location filename="C_Manager.cpp" line="2688"/>
         <source> car tous &lt;b&gt;les documents du dossier en cours vont être attribués au nouveau nom&lt;/b&gt;. </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2678"/>
+        <location filename="C_Manager.cpp" line="2691"/>
         <source>&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;=&gt; en sachant qu&apos;un changement de date de naissance est suspect. </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2680"/>
+        <location filename="C_Manager.cpp" line="2693"/>
         <source>Vitaliser un patient</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2682"/>
-        <location filename="C_Manager.cpp" line="4855"/>
-        <location filename="C_Manager.cpp" line="4889"/>
+        <location filename="C_Manager.cpp" line="2695"/>
+        <location filename="C_Manager.cpp" line="4872"/>
+        <location filename="C_Manager.cpp" line="4906"/>
         <source>Confirm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2685"/>
-        <source>�TES-VOUS CERTAIN DE CETTE OP�RATION ? &lt;/font&gt;&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="2686"/>
+        <location filename="C_Manager.cpp" line="2699"/>
         <source>&lt;hr&gt;&lt;br&gt; il est encore temps d&apos;annuler cette opération.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2687"/>
+        <location filename="C_Manager.cpp" line="2700"/>
         <source>&lt;br&gt; qui sera non réversible après confirmation.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2688"/>
+        <location filename="C_Manager.cpp" line="2701"/>
         <source>&lt;br&gt;&lt;hr&gt;confirmez vous de nouveau cette opération ? </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2689"/>
+        <location filename="C_Manager.cpp" line="2702"/>
         <source>Attribution d&apos;une carte Vitale à une identité patient</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2690"/>
+        <location filename="C_Manager.cpp" line="2703"/>
         <source>&amp;Attribuer la carte Vitale</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2730"/>
+        <location filename="C_Manager.cpp" line="2743"/>
         <source>Bénéficiaire/Numéro</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2745"/>
+        <location filename="C_Manager.cpp" line="2758"/>
         <source>/Nom</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2748"/>
+        <location filename="C_Manager.cpp" line="2761"/>
         <source>/Code_qualité</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2751"/>
+        <location filename="C_Manager.cpp" line="2764"/>
         <source>/Prénom</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2753"/>
+        <location filename="C_Manager.cpp" line="2766"/>
         <source>/Date_de_naissance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2756"/>
+        <location filename="C_Manager.cpp" line="2769"/>
         <source>/Rang_gémellaire</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2759"/>
+        <location filename="C_Manager.cpp" line="2772"/>
         <source>Médico_administratif/Code_régime</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2761"/>
+        <location filename="C_Manager.cpp" line="2774"/>
         <source>Médico_administratif/Caisse_gestionnaire</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2763"/>
+        <location filename="C_Manager.cpp" line="2776"/>
         <source>Médico_administratif/Centre_gestionnaire</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2765"/>
+        <location filename="C_Manager.cpp" line="2778"/>
         <source>Médico_administratif/Code_gestion</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2768"/>
+        <location filename="C_Manager.cpp" line="2781"/>
         <source>Bénéficiaire/Périodes_AMO_1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="2777"/>
+        <location filename="C_Manager.cpp" line="2790"/>
         <source>Bénéficiaire/Périodes_AMO_2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="3100"/>
+        <location filename="C_Manager.cpp" line="3113"/>
         <source>Carte vitale sans les données de l&apos;assuré, vérifiez les manuellement.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="3121"/>
-        <location filename="C_Manager.cpp" line="3708"/>
-        <location filename="C_Manager.cpp" line="4437"/>
+        <location filename="C_Manager.cpp" line="3134"/>
+        <location filename="C_Manager.cpp" line="3721"/>
+        <location filename="C_Manager.cpp" line="4456"/>
         <source>Patient (bénéficiaire) âgé de : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="3124"/>
-        <location filename="C_Manager.cpp" line="3726"/>
-        <location filename="C_Manager.cpp" line="4438"/>
+        <location filename="C_Manager.cpp" line="3137"/>
+        <location filename="C_Manager.cpp" line="3739"/>
+        <location filename="C_Manager.cpp" line="4457"/>
         <source>Patient (bénéficiaire) avec une date de naissance non valide</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="3175"/>
+        <location filename="C_Manager.cpp" line="3188"/>
         <source>Remove property &apos;As&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="3259"/>
-        <location filename="C_Manager.cpp" line="3287"/>
+        <location filename="C_Manager.cpp" line="3272"/>
+        <location filename="C_Manager.cpp" line="3300"/>
         <source>Your rights are insufficient to modify a file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="3292"/>
+        <location filename="C_Manager.cpp" line="3305"/>
         <source>Binary is not found.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="3379"/>
+        <location filename="C_Manager.cpp" line="3392"/>
         <source>Manager-V %1 used by: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="3380"/>
+        <location filename="C_Manager.cpp" line="3393"/>
         <source>  connected to server: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="3383"/>
+        <location filename="C_Manager.cpp" line="3396"/>
         <source>Manager-V %1 connected to server: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="3459"/>
+        <location filename="C_Manager.cpp" line="3472"/>
         <source>&amp;Create and access</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="3463"/>
+        <location filename="C_Manager.cpp" line="3476"/>
         <source>&amp;Create file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="3668"/>
+        <location filename="C_Manager.cpp" line="3681"/>
         <source>To search by family name and first name, you must separe the family name and the first name by a semicolon. Example : &lt;b&gt;MARTIN;JEAN&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;The symbol % before the family name or the first name lets make a research by anything which contains the expression&lt;br&gt;Example:  &lt;b&gt;%MART;%JE&lt;/b&gt; searches every person whose family name contains: &lt;b&gt;MART&lt;/b&gt; and the first name : &lt;b&gt;JE&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4037"/>
-        <source>Use the data of %1 to fill the new form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4039"/>
-        <source>Create a new file using data from: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4042"/>
-        <source>Close the duplicate resolution list</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4043"/>
-        <source>Open the duplicate resolution list</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4046"/>
-        <source>Put this patient : %1 into the list of duplicates resolution</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4051"/>
-        <source>unlock this patient&apos;s file: %1 </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4057"/>
-        <source>Research by birth date: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4059"/>
-        <source>Rechercher par le numéro de sécurité sociale : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4060"/>
-        <source>Research by family name, first name and birth date: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4068"/>
+        <location filename="C_Manager.cpp" line="4082"/>
         <source>Associer la carte vitale sélectionnée : %1 à ce patient : %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4103"/>
+        <location filename="C_Manager.cpp" line="4118"/>
         <source>The patient %1 is already in the duplicates resolution list</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4150"/>
-        <source>family name</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4151"/>
-        <source>first name</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4153"/>
-        <source>date</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4154"/>
-        <source>number</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4155"/>
-        <source>maiden</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4494"/>
-        <source>Impossible operation: 
-no valid file selected.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4500"/>
-        <location filename="C_Manager.cpp" line="4516"/>
-        <location filename="C_Manager.cpp" line="4527"/>
+        <location filename="C_Manager.cpp" line="4519"/>
+        <location filename="C_Manager.cpp" line="4535"/>
+        <location filename="C_Manager.cpp" line="4546"/>
         <source>Patient&apos;s file removal:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4501"/>
+        <location filename="C_Manager.cpp" line="4520"/>
         <source> Your rights are insufficient do delete the file:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4503"/>
-        <location filename="C_Manager.cpp" line="4520"/>
+        <location filename="C_Manager.cpp" line="4522"/>
+        <location filename="C_Manager.cpp" line="4539"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4517"/>
+        <location filename="C_Manager.cpp" line="4536"/>
         <source> WARNING :
       file removal impossible : 
       </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4519"/>
+        <location filename="C_Manager.cpp" line="4538"/>
         <source>
       is used by: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4528"/>
+        <location filename="C_Manager.cpp" line="4547"/>
         <source>&lt;u&gt;&lt;b&gt; WARNING !&lt;/u&gt;&lt;/b&gt;&lt;br /&gt;      YOU ARE ABOUT TO DELETE A FILE: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4530"/>
+        <location filename="C_Manager.cpp" line="4549"/>
         <source>&lt;/b&gt;&lt;/font&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;THIS ACTION CANNOT BE UNDONE&lt;br /&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;AND DATA WILL BE&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;u&gt;&lt;b&gt;UNRECOVERABLE&lt;/b&gt;&lt;/u&gt; LATER</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4531"/>
+        <location filename="C_Manager.cpp" line="4550"/>
         <source>&amp;Delete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4531"/>
-        <source>&amp;No</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4592"/>
-        <source>Close the duplicates resolution list</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4593"/>
-        <source>Delete the duplicates resolution list</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4595"/>
-        <source>Remove this file from duplicates list: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4596"/>
-        <source>Test if the files are locked and usable</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4598"/>
-        <source>Give all the files in this list to patient: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4625"/>
+        <location filename="C_Manager.cpp" line="4659"/>
         <source>This itinerant mode does not allow duplicates resolution</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4628"/>
+        <location filename="C_Manager.cpp" line="4662"/>
         <source>WARNING ! MERGING FUNCTION AT HIGH RISK ! &lt;/font&gt;&lt;/b&gt;&lt;hr&gt;&lt;br&gt; Person :</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4629"/>
+        <location filename="C_Manager.cpp" line="4663"/>
         <source>&lt;br /&gt; will be the one who will get all the data: &lt;hr&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4634"/>
+        <location filename="C_Manager.cpp" line="4668"/>
         <source>&lt;br&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;=&gt; File:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4637"/>
+        <location filename="C_Manager.cpp" line="4671"/>
         <source>&lt;br&gt;&lt;hr&gt;Do you confirm this operation ? </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4638"/>
-        <location filename="C_Manager.cpp" line="4646"/>
+        <location filename="C_Manager.cpp" line="4672"/>
+        <location filename="C_Manager.cpp" line="4680"/>
         <source>Merge several files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4639"/>
-        <location filename="C_Manager.cpp" line="4647"/>
+        <location filename="C_Manager.cpp" line="4673"/>
+        <location filename="C_Manager.cpp" line="4681"/>
         <source>&amp;Merge files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4642"/>
+        <location filename="C_Manager.cpp" line="4676"/>
         <source>Do you confirm this merging</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4643"/>
+        <location filename="C_Manager.cpp" line="4677"/>
         <source>&lt;hr&gt;&lt;br /&gt; You can still cancel this operation.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4644"/>
+        <location filename="C_Manager.cpp" line="4678"/>
         <source>&lt;br /&gt; which will be irreversible after confirmation.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4645"/>
+        <location filename="C_Manager.cpp" line="4679"/>
         <source>&lt;br /&gt;&lt;hr&gt;Are you sure ? </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4715"/>
-        <source>Your rights are insufficient to save a file.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4724"/>
-        <location filename="C_Manager.cpp" line="4736"/>
-        <location filename="C_Manager.cpp" line="4755"/>
+        <location filename="C_Manager.cpp" line="4741"/>
+        <location filename="C_Manager.cpp" line="4753"/>
+        <location filename="C_Manager.cpp" line="4772"/>
         <source>Saving:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4725"/>
+        <location filename="C_Manager.cpp" line="4742"/>
         <source>&lt;u&gt;&lt;b&gt;WARNING:&lt;/u&gt;&lt;/b&gt;&lt;br /&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;Are you sure this file:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4727"/>
+        <location filename="C_Manager.cpp" line="4744"/>
         <source>&lt;/b&gt;&lt;/font&gt;&amp;nbsp;&amp;nbsp;must be modified with these new family name and first name:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4728"/>
+        <location filename="C_Manager.cpp" line="4745"/>
         <source>&lt;/b&gt;&lt;/font&gt;&amp;nbsp;&amp;nbsp;(don&apos;t you want to create a new file ?)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4729"/>
-        <location filename="C_Manager.cpp" line="4739"/>
+        <location filename="C_Manager.cpp" line="4746"/>
+        <location filename="C_Manager.cpp" line="4756"/>
         <source>&amp;Modify</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4737"/>
-        <source>&lt;u&gt;&lt;b&gt;WARNING :&lt;/u&gt;&lt;/b&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;do you confirm the modifications&amp;nbsp;&amp;nbsp;on this file : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="4756"/>
+        <location filename="C_Manager.cpp" line="4773"/>
         <source> WARNING :
       Impossible to save the file: 
       </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4758"/>
+        <location filename="C_Manager.cpp" line="4775"/>
         <source>
     because it is in use by: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4759"/>
+        <location filename="C_Manager.cpp" line="4776"/>
         <source>&amp;Validate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4765"/>
-        <location filename="C_Manager.cpp" line="4811"/>
+        <location filename="C_Manager.cpp" line="4782"/>
+        <location filename="C_Manager.cpp" line="4828"/>
         <source>ANONYMOUS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4844"/>
+        <location filename="C_Manager.cpp" line="4861"/>
         <source>POSSIBLE DUPLICATES ON THESE ELEMENTS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4844"/>
+        <location filename="C_Manager.cpp" line="4861"/>
         <source>family name first name:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4846"/>
+        <location filename="C_Manager.cpp" line="4863"/>
         <source>&lt;br /&gt; birth date:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4848"/>
+        <location filename="C_Manager.cpp" line="4865"/>
         <source>&lt;br /&gt; postal code:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4850"/>
+        <location filename="C_Manager.cpp" line="4867"/>
         <source>&lt;br /&gt; numéro de SS : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4851"/>
+        <location filename="C_Manager.cpp" line="4868"/>
         <source>&lt;br /&gt;&lt;hr&gt; of a person already in the files list</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4852"/>
+        <location filename="C_Manager.cpp" line="4869"/>
         <source>Do you still confirm this operation risking to create a duplicate ?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4853"/>
+        <location filename="C_Manager.cpp" line="4870"/>
         <source>Possible duplicates</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4884"/>
+        <location filename="C_Manager.cpp" line="4901"/>
         <source>POSSIBLE DUPLICATES ON FAMILY NAME - FIRST NAME</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4884"/>
+        <location filename="C_Manager.cpp" line="4901"/>
         <source>Person: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4885"/>
+        <location filename="C_Manager.cpp" line="4902"/>
         <source>&lt;hr&gt;&lt;br /&gt; is similar to the name of a file in file list</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4886"/>
+        <location filename="C_Manager.cpp" line="4903"/>
         <source>&lt;br /&gt;&lt;hr&gt;Do you confirm this operation which risks to create duplicates ?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="4887"/>
+        <location filename="C_Manager.cpp" line="4904"/>
         <source>Duplicates possible</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5178"/>
+        <location filename="C_Manager.cpp" line="5195"/>
         <source>You do not have rights to use the appointment schedule</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5376"/>
+        <location filename="C_Manager.cpp" line="5393"/>
         <source>$Agenda</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5377"/>
+        <location filename="C_Manager.cpp" line="5394"/>
         <source>Display schedule with one pixel per minute.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5378"/>
+        <location filename="C_Manager.cpp" line="5395"/>
         <source>Display schedule with 2 pixels per minute.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5379"/>
+        <location filename="C_Manager.cpp" line="5396"/>
         <source>Display schedule with 3 pixels per minute.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5380"/>
+        <location filename="C_Manager.cpp" line="5397"/>
         <source>Display schedule with 4 pixels per minute.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5381"/>
+        <location filename="C_Manager.cpp" line="5398"/>
         <source>Display schedule with 5 pixels per minute.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5383"/>
+        <location filename="C_Manager.cpp" line="5400"/>
         <source>Define appointments on a multiple of one minute.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5384"/>
+        <location filename="C_Manager.cpp" line="5401"/>
         <source>Define appointments on a multiple of five minutes.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5385"/>
+        <location filename="C_Manager.cpp" line="5402"/>
         <source>Define appointments on a multiple of ten minutes.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5386"/>
+        <location filename="C_Manager.cpp" line="5403"/>
         <source>Define appointments on a multiple of fifteen minutes.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5388"/>
+        <location filename="C_Manager.cpp" line="5405"/>
         <source>Define the first visible hour.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5389"/>
+        <location filename="C_Manager.cpp" line="5406"/>
         <source>Define the last visible hour.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5391"/>
+        <location filename="C_Manager.cpp" line="5408"/>
         <source>Cancel automatic update.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5392"/>
+        <location filename="C_Manager.cpp" line="5409"/>
         <source>Update every five seconds.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5393"/>
+        <location filename="C_Manager.cpp" line="5410"/>
         <source>Update every ten seconds.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5394"/>
+        <location filename="C_Manager.cpp" line="5411"/>
         <source>Update every twenty seconds.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5395"/>
+        <location filename="C_Manager.cpp" line="5412"/>
         <source>Update every one minute</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5397"/>
+        <location filename="C_Manager.cpp" line="5414"/>
         <source>Show the miniature view (folded mode) on one line.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5398"/>
+        <location filename="C_Manager.cpp" line="5415"/>
         <source>Show the miniature view (folded mode) on two lines.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5400"/>
+        <location filename="C_Manager.cpp" line="5417"/>
         <source>Modify schedule width.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5402"/>
+        <location filename="C_Manager.cpp" line="5419"/>
         <source>Unactivate modifications confirmation.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5403"/>
+        <location filename="C_Manager.cpp" line="5420"/>
         <source>Activate modifications confirmation.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5405"/>
+        <location filename="C_Manager.cpp" line="5422"/>
         <source>One month  Google Agenda Synchronization.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5406"/>
+        <location filename="C_Manager.cpp" line="5423"/>
         <source>Two months Google Agenda Synchronization.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5407"/>
+        <location filename="C_Manager.cpp" line="5424"/>
         <source>Six months Google Agenda Synchronization.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5409"/>
+        <location filename="C_Manager.cpp" line="5426"/>
         <source>Create several appointments for start of week.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5411"/>
+        <location filename="C_Manager.cpp" line="5428"/>
         <source>Quit this menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5448"/>
+        <location filename="C_Manager.cpp" line="5465"/>
         <source>Enter an hour formatted this way: hh:mm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5448"/>
+        <location filename="C_Manager.cpp" line="5465"/>
         <source>Hour (hh:mm) :</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5470"/>
+        <location filename="C_Manager.cpp" line="5487"/>
         <source>Enter width of schedule</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5470"/>
+        <location filename="C_Manager.cpp" line="5487"/>
         <source>Width in pixels:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5597"/>
-        <location filename="C_Manager.cpp" line="5722"/>
+        <location filename="C_Manager.cpp" line="5615"/>
+        <location filename="C_Manager.cpp" line="5780"/>
         <source>Day</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5602"/>
+        <location filename="C_Manager.cpp" line="5620"/>
         <source>Display Day</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5606"/>
-        <location filename="C_Manager.cpp" line="5726"/>
+        <location filename="C_Manager.cpp" line="5624"/>
+        <location filename="C_Manager.cpp" line="5784"/>
         <source>Week</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5611"/>
+        <location filename="C_Manager.cpp" line="5629"/>
         <source>Display Week</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5615"/>
+        <location filename="C_Manager.cpp" line="5633"/>
         <source>Month</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5620"/>
+        <location filename="C_Manager.cpp" line="5638"/>
         <source>Display Month</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5625"/>
+        <location filename="C_Manager.cpp" line="5643"/>
         <source>Choose free space for new appointment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5713"/>
+        <location filename="C_Manager.cpp" line="5771"/>
         <source>Which date to start schedule</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5714"/>
+        <location filename="C_Manager.cpp" line="5772"/>
         <source>Close this schedule</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5718"/>
+        <location filename="C_Manager.cpp" line="5776"/>
         <source>Previous page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5719"/>
+        <location filename="C_Manager.cpp" line="5777"/>
         <source>Close this page.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5723"/>
-        <source>Schedule of previous day</source>
+        <location filename="C_Manager.cpp" line="6756"/>
+        <source>=1=Formater les fichiers et Télétransmettre</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5724"/>
+        <location filename="C_Manager.cpp" line="6757"/>
+        <source>=2=Télétransmission seule</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="6758"/>
+        <source>=3=Décharger le TLA</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="6760"/>
+        <source>=4=Liste des recettes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="6762"/>
+        <source>=5=Lancer Pyxvital</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="5782"/>
         <source>Schedule of next day</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5727"/>
-        <source>Schedule of previous week</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="5728"/>
+        <location filename="C_Manager.cpp" line="5786"/>
         <source>Schedule of next week</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5740"/>
+        <location filename="C_Manager.cpp" line="5798"/>
         <source>this day</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="5794"/>
+        <location filename="C_Manager.cpp" line="5852"/>
         <source>Various options for schedule</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6016"/>
+        <location filename="C_Manager.cpp" line="6074"/>
         <source>PS/Type_carte</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6017"/>
+        <location filename="C_Manager.cpp" line="6075"/>
         <source>PS/ADELI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6018"/>
+        <location filename="C_Manager.cpp" line="6076"/>
         <source>PS/Numéro</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6019"/>
+        <location filename="C_Manager.cpp" line="6077"/>
         <source>PS/Clé</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6020"/>
+        <location filename="C_Manager.cpp" line="6078"/>
         <source>PS/Nom</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6021"/>
+        <location filename="C_Manager.cpp" line="6079"/>
         <source>PS/Prénom</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6022"/>
+        <location filename="C_Manager.cpp" line="6080"/>
         <source>PS/Code_civilité</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6023"/>
+        <location filename="C_Manager.cpp" line="6081"/>
         <source>PS/Secteur_activité</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6024"/>
+        <location filename="C_Manager.cpp" line="6082"/>
         <source>PS/Type_identif_structure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6025"/>
+        <location filename="C_Manager.cpp" line="6083"/>
         <source>PS/Numéro_identif_structure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6026"/>
+        <location filename="C_Manager.cpp" line="6084"/>
         <source>PS/Clé_identif_structure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6027"/>
+        <location filename="C_Manager.cpp" line="6085"/>
         <source>PS/Raison_sociale_structure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6028"/>
+        <location filename="C_Manager.cpp" line="6086"/>
         <source>PS/Code_convention</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6029"/>
+        <location filename="C_Manager.cpp" line="6087"/>
         <source>PS/Code_spécialité</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6030"/>
+        <location filename="C_Manager.cpp" line="6088"/>
         <source>PS/Code_zone_tarifaire</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6031"/>
+        <location filename="C_Manager.cpp" line="6089"/>
         <source>PS/Code_zone_IK</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6032"/>
+        <location filename="C_Manager.cpp" line="6090"/>
         <source>PS/Code_agrément_1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6033"/>
+        <location filename="C_Manager.cpp" line="6091"/>
         <source>PS/Code_agrément_2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6034"/>
+        <location filename="C_Manager.cpp" line="6092"/>
         <source>PS/Code_agrément_3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6035"/>
+        <location filename="C_Manager.cpp" line="6093"/>
         <source>PS/Habilitation_Facture</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6036"/>
+        <location filename="C_Manager.cpp" line="6094"/>
         <source>PS/Habilitation_Lot</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6092"/>
+        <location filename="C_Manager.cpp" line="6150"/>
         <source>Unknown user</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6093"/>
-        <source>L&apos;utilisateur : &lt;b&gt; �</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="6097"/>
-        <source>&amp;Create</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="6184"/>
+        <location filename="C_Manager.cpp" line="6242"/>
         <source>What is the police doing ?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6229"/>
-        <source>  &gt;&gt; Go to Schedule              </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="6234"/>
-        <source>  &gt;&gt; Go to Patient list          </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="6461"/>
+        <location filename="C_Manager.cpp" line="6518"/>
         <source>Tarification/Taux</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6475"/>
+        <location filename="C_Manager.cpp" line="6532"/>
         <source>Facturer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6517"/>
+        <location filename="C_Manager.cpp" line="6574"/>
         <source>FSE en cours</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6518"/>
+        <location filename="C_Manager.cpp" line="6575"/>
         <source>&lt;u&gt;&lt;b&gt;ATTENTION :&lt;/u&gt;&lt;/b&gt;&lt;br&gt;&lt;br&gt;Une FSE est en cours de saisie !&lt;br&gt;Voulez vous abandonner la FSE en cours ?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6519"/>
+        <location filename="C_Manager.cpp" line="6576"/>
         <source>&amp;Abandonner la FSE en cours</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6519"/>
+        <location filename="C_Manager.cpp" line="1552"/>
+        <location filename="C_Manager.cpp" line="6576"/>
         <source>Annu&amp;ler</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6558"/>
+        <location filename="C_Manager.cpp" line="1548"/>
+        <source>CONNECTION AU SERVEUR NOMADE NON POSSIBLE</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="1549"/>
+        <source> &lt;b&gt;&lt;u&gt;ATTENTION&lt;/b&gt;&lt;/u&gt; ! la connexion au serveur nomade &lt;br&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="1550"/>
+        <source>est non possible.&lt;br&gt;&lt;u&gt;Erreur :&lt;/u&gt;&lt;br&gt;&lt;pre&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="1551"/>
+        <source>Veuillez vérifier vos branchements et paramètres.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="2107"/>
+        <source>Its acces is impossible on this terminal.&lt;br /&gt;Please, get it closed on its terminal before opening it on this terminal.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="2172"/>
+        <source>&lt;/b&gt;&lt;br /&gt; Its access is read-only,&lt;br /&gt;it will turnt into write mode&lt;br /&gt;as soon as it will be available on this terminal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="2450"/>
+        <source>=1=Mettre à jour l&apos;identité avec le nom et prénom de l&apos;ayant droit : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="2454"/>
+        <source>=2=Mettre à jour l&apos;identité avec le nom de naissance : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="2464"/>
+        <source>=4=Mettre à jour l&apos;identité avec l&apos;adresse : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="2469"/>
+        <source>=5=Mettre à jour l&apos;identité avec le code postal : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="2474"/>
+        <source>=6=Mettre à jour l&apos;identité avec la ville : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="2489"/>
+        <source>=10=Mettre à jour l&apos;identité avec le type d&apos;ayant droit : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="2491"/>
+        <source>=11=Mettre à jour l&apos;identité avec toutes les données de la carte vitale </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="2497"/>
+        <source>=23=Rechercher avec le numéro de SS : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="2500"/>
+        <source>=27=Rechercher avec le nom et prénom de l&apos;ayant droit : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="2503"/>
+        <source>=28=Rechercher avec le nom de l&apos;ayant droit    : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="2504"/>
+        <source>=29=Rechercher avec le prénom de l&apos;ayant droit : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="2507"/>
+        <source>=30=Rechercher avec la date de naissance : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="2515"/>
+        <source>=33=Utiliser les données de la carte Vitale : %1 pour remplir celles du patient en cours de création</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="2518"/>
+        <source>=31=Créer un nouveau dossier avec l&apos;identité sélectionnée de la carte vitale : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="2522"/>
+        <source>=32=Attribuer les éléments de cette carte vitale au patient sélectionné : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="2698"/>
+        <source>?TES-VOUS CERTAIN DE CETTE OP?RATION ? &lt;/font&gt;&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="4050"/>
+        <source>=1=Use the data of %1 to fill the new form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="4052"/>
+        <source>=2=Create a new file using data from: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="4055"/>
+        <source>=3=Close the duplicate resolution list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="4056"/>
+        <source>=4=Open the duplicate resolution list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="4059"/>
+        <source>=5=Put this patient : %1 into the list of duplicates resolution</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="4064"/>
+        <source>=6=unlock this patient&apos;s file: %1 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="4070"/>
+        <source>=9=Research by birth date: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="4072"/>
+        <source>=11=Rechercher par le numéro de sécurité sociale : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="4073"/>
+        <source>=12=Research by family name &apos;%1&apos;, first name &apos;%2&apos; and birth date &apos;%3&apos; found in dialog&apos;s fields.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="4513"/>
+        <source>Operation impossible: 
+no valid file selected.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="4550"/>
+        <source>&amp;NO</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="4611"/>
+        <source>=1=Close the duplicates resolution list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="4612"/>
+        <source>=2=Delete the duplicates resolution list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="4614"/>
+        <source>=3=Remove this file from duplicates list: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="4615"/>
+        <source>=4=Test if the files are locked and usable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="4617"/>
+        <source>=5=Give all the files in this list to patient: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="4732"/>
+        <source>Your rights are insufficient to save a folder.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="4754"/>
+        <source>&lt;u&gt;&lt;b&gt;WARNING :&lt;/u&gt;&lt;/b&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;do you confirm the modifications&amp;nbsp;&amp;nbsp;on this file: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="5781"/>
+        <source>Schedule of previus day</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="5785"/>
+        <source>Schedule of previus week</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="6151"/>
+        <source>L&apos;utilisateur : &lt;b&gt; ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="6155"/>
+        <source>&amp;Créer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="6155"/>
+        <source>&amp;Annuler</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="6287"/>
+        <source>  &gt;&gt; Goto Schedule              </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="6292"/>
+        <source>  &gt;&gt; Goto Patient list          </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="C_Manager.cpp" line="6615"/>
         <source>&lt;b&gt;La carte Vitale n&apos;a pas été lue pour ce patient !&lt;br&gt;&lt;br&gt;&lt;/b&gt;Que voulez-vous faire : &lt;br&gt;&lt;br&gt;- Annuler et lire la carte Vitale,&lt;br&gt;- Continuer et saisir une feuille de soin en mode Dégradé,&lt;br&gt;- Continuer et saisir une feuille de soin papier ,&lt;br&gt;- Continuer et saisir une facture.&lt;br&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6565"/>
+        <location filename="C_Manager.cpp" line="6622"/>
         <source>Mode dégradé</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6566"/>
+        <location filename="C_Manager.cpp" line="6623"/>
         <source>Saisir une FSP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="6567"/>
+        <location filename="C_Manager.cpp" line="6624"/>
         <source>Saisir une facture</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="6700"/>
-        <source>Formater les fichiers et Télétransmettre</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="6701"/>
-        <source>Télétransmission seule</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="6702"/>
-        <source>Décharger le TLA</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="6705"/>
-        <source>Liste des recettes</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="6707"/>
-        <source>Lancer Pyxvital</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="6727"/>
-        <source>Format</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="6730"/>
-        <source>Télétr</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="6733"/>
-        <source>Liste </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="6736"/>
-        <source>Lancer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="C_Manager.cpp" line="6739"/>
-        <source>Déchar</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5325,6 +5280,15 @@ p, li { white-space: pre-wrap; }
 &lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
 &lt;tr&gt;
 &lt;td style=&quot;border: none;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;========================================================================================================== &lt;br /&gt;Modif du ZAB et RS Manager du 13-12-2011  Version 2.14.021 &lt;br /&gt;---------------------------------------------------------------------------------------------------------- &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;- &lt;/span&gt;&lt;span style=&quot; font-family:&apos;courier&apos;; text-decoration: underline;&quot;&gt;FONCTIONNALITES&lt;/span&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt; : &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;    ° Agenda mode WEEK  : Ajout d&apos;un bandeau persistant affichant les jours de la semaine.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;    ° Agenda mode MONTH : le déploiement des semaines à cheval sur un mois est correct (un enfer..)&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;    ° Agenda mode DAY   : affichage d&apos;un séparateur de mois&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;    ° Correction de divers petits dysfonctionnements liés à l&apos;internationalisation.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;    ° Toutes les chaînes de caractères anglaises on été corrigées par un natif d&apos;outre-Manche merci à lui.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;    ° Menu supplémentaire pour appel Apycript.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;    ° Optimisation de la gestion des zones d&apos;éditon des rdv&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;========================================================================================================== &lt;br /&gt;Modif du ZAB et RS Manager du 25-11-2011  Version 2.14.020 &lt;br /&gt;---------------------------------------------------------------------------------------------------------- &lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;- &lt;/span&gt;&lt;span style=&quot; font-family:&apos;courier&apos;; text-decoration: underline;&quot;&gt;FONCTIONNALITES&lt;/span&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt; : &lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;    ° Le mode visualisation mois années et semaines est rajouté.&lt;/span&gt;&lt;/p&gt;
@@ -5479,18 +5443,18 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.ui" line="2167"/>
+        <location filename="C_Manager.ui" line="2176"/>
         <source>Schedule allows to manage appointments</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.ui" line="2176"/>
+        <location filename="C_Manager.ui" line="2185"/>
         <source>Schedule</source>
         <comment>Schedule</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.ui" line="2215"/>
+        <location filename="C_Manager.ui" line="2224"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -5499,152 +5463,152 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.ui" line="2231"/>
+        <location filename="C_Manager.ui" line="2240"/>
         <source>Schedule of:  </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.ui" line="2243"/>
+        <location filename="C_Manager.ui" line="2252"/>
         <source>noTranslate àâéèêïîÈÉÊÀÂûÙçÇ«»ô</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.ui" line="2313"/>
+        <location filename="C_Manager.ui" line="2322"/>
         <source>Users</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="777"/>
+        <location filename="C_Manager.cpp" line="786"/>
         <source>Save Windows position</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="778"/>
+        <location filename="C_Manager.cpp" line="787"/>
         <source>Choose a font for Manager...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="779"/>
+        <location filename="C_Manager.cpp" line="788"/>
         <source>Hide Show Data Medical Design Logo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="780"/>
+        <location filename="C_Manager.cpp" line="789"/>
         <source>Itinerant mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="781"/>
+        <location filename="C_Manager.cpp" line="790"/>
         <source>I come back an reconnect to the server</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="782"/>
+        <location filename="C_Manager.cpp" line="791"/>
         <source>Print the contents of this page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="783"/>
+        <location filename="C_Manager.cpp" line="792"/>
         <source>Access Medical data from MedWebTux</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="784"/>
+        <location filename="C_Manager.cpp" line="793"/>
         <source>Access to the help and the documentation of MedinTux</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="785"/>
+        <location filename="C_Manager.cpp" line="794"/>
         <source>Find text entered in the right field</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="786"/>
+        <location filename="C_Manager.cpp" line="795"/>
         <source>Remove all locks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="787"/>
+        <location filename="C_Manager.cpp" line="796"/>
         <source>Hide Show Users and Schedules</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="788"/>
+        <location filename="C_Manager.cpp" line="797"/>
         <source>New file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="789"/>
+        <location filename="C_Manager.cpp" line="798"/>
         <source>Ctrl+N</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="790"/>
+        <location filename="C_Manager.cpp" line="799"/>
         <source>Quit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="791"/>
+        <location filename="C_Manager.cpp" line="800"/>
         <source>Ctrl+Q</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="793"/>
+        <location filename="C_Manager.cpp" line="802"/>
         <source>Files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="795"/>
+        <location filename="C_Manager.cpp" line="804"/>
         <source>.                                                   Files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="797"/>
+        <location filename="C_Manager.cpp" line="806"/>
         <source>Display and Windows</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="798"/>
+        <location filename="C_Manager.cpp" line="807"/>
         <source>About Manager</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="799"/>
+        <location filename="C_Manager.cpp" line="808"/>
         <source>Help</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="800"/>
+        <location filename="C_Manager.cpp" line="809"/>
         <source>Access to medical file by MedWebTux</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="801"/>
+        <location filename="C_Manager.cpp" line="810"/>
         <source>MedinTux Documentation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="802"/>
+        <location filename="C_Manager.cpp" line="811"/>
         <source>Users management</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="803"/>
+        <location filename="C_Manager.cpp" line="812"/>
         <source>Ctrl+G</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="804"/>
+        <location filename="C_Manager.cpp" line="813"/>
         <source>Print</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="805"/>
+        <location filename="C_Manager.cpp" line="814"/>
         <source>Ctrl+P</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="C_Manager.cpp" line="806"/>
+        <location filename="C_Manager.cpp" line="815"/>
         <source>Tools for itinerant mode</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5982,29 +5946,29 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="CApp.cpp" line="693"/>
+        <location filename="CApp.cpp" line="709"/>
         <source>Error:  PluginExe()  &quot;Temporary Directory&quot;, &quot;Directory&quot; can&apos;t find in ini File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="CApp.cpp" line="705"/>
+        <location filename="CApp.cpp" line="721"/>
         <source>PluginExe(): write pathExch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="CApp.cpp" line="706"/>
+        <location filename="CApp.cpp" line="722"/>
         <source>The file
 &apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="CApp.cpp" line="706"/>
+        <location filename="CApp.cpp" line="722"/>
         <source>&apos;
 can&apos;t be opened</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="CApp.cpp" line="708"/>
+        <location filename="CApp.cpp" line="724"/>
         <source>Error:  PluginExe() destination file can&apos;t be opened</source>
         <translation type="unfinished"></translation>
     </message>

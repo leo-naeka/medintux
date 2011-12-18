@@ -124,16 +124,16 @@ CMoteurBase::CMoteurBase(const QString & driver,             // nom du driver: "
   //................ verifier l'integrite des bases ...................................
   QString         mess = "";
   if (versionWhish    != m_VERSION_NUMBER)  // on compare des chaines car bug de conversion 2.139999 etc... version de definition du fichier de configuration des bases
-     {mess +=  tr("\r\n Configuration du fichier 'DataBase.cfg' incorrecte :");
-      mess +=  tr("\r\n       Version exig\303\251e   du fichier 'DataBase.cfg' : %1").arg(versionWhish);
-      mess +=  tr("\r\n       Version actuelle du fichier 'DataBase.cfg' : %1").arg(m_VERSION_NUMBER);
+     {mess +=  tr("\r\n Incorrect 'DataBase.cfg' Configuration file:");
+      mess +=  tr("\r\n 'DataBase.cfg' mandatory version: %1").arg(versionWhish);
+      mess +=  tr("\r\n   'DataBase.cfg' current version : %1").arg(m_VERSION_NUMBER);
       m_IsValid = 0;
      }
   else
      {
       versionInUse = GetMedinTuxVersion();
       if (versionInUse < versionWhish.toDouble())
-         {mess     +=  tr("\r\n Version de la base install\303\251e: %1 non \303\240  jour, version souhait\303\251e : %2").arg(QString::number(versionInUse), versionWhish);
+         {mess     +=  tr("\r\n Installed database: %1 not up to date, mandatory version: %2").arg(QString::number(versionInUse), versionWhish);
           m_IsValid = verifyBaseIntegrity(confData, &mess);
          } // endif (versionInUse < versionWhish)
      } // endelseif(versionWhish   != m_VERSION_NUMBER.toDouble())
@@ -2158,12 +2158,12 @@ QString CMoteurBase::OutSQL_error(const QSqlError &error, const char *messFunc /
 
      if (error.type() != QSqlError::NoError)
         {switch (error.type())
-           { case    QSqlError::NoError:             qserr = tr(" - SQL no error occurred: ")          ; break;
+           { case    QSqlError::NoError:             qserr = tr(" - no SQL error occurred: ")          ; break;
              case    QSqlError::ConnectionError:     qserr = tr(" - SQL connection error: ")           ; break;
              case    QSqlError::StatementError:      qserr = tr(" - SQL statement syntax error: ")     ; break;
-             case    QSqlError::TransactionError:    qserr = tr(" - SQL transaction failed error: ")   ; break;
-             case    QSqlError::UnknownError:        qserr = tr(" - SQL unknown error: ")              ; break;
-             default:                                qserr = tr(" - unknown SQL type error: ")         ; break;
+             case    QSqlError::TransactionError:    qserr = tr(" - SQL transaction failed; error: ")   ; break;
+             case    QSqlError::UnknownError:        qserr = tr(" - unknown SQL error: ")              ; break;
+             default:                                qserr = tr(" - unknown SQL error type: ")         ; break;
            }
          if (messFunc) qDebug()<<messFunc;
          qDebug()<< qserr.append(error.databaseText()).toLatin1();
@@ -3229,7 +3229,7 @@ int CMoteurBase::ChangeRubUserName(QString userName, QString rubPrimKey, QString
           {case QSqlError::None :        qstr  += tr("no error occurred");          break;
            case QSqlError::Connection :  qstr  += tr("connection error");           break;
            case QSqlError::Statement :   qstr  += tr("SQL statement syntax error"); break;
-           case QSqlError::Transaction : qstr  += tr("transaction failed error");   break;
+           case QSqlError::Transaction : qstr  += tr("transaction failed; error");   break;
            case QSqlError::Unknown :     qstr  += tr("unknown error");              break;
           }
    if (errMess) *errMess = qstr;

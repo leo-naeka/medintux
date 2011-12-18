@@ -3901,7 +3901,7 @@ pas de dossier valide sélectionné.</translation>
     </message>
     <message>
         <source>  &gt;&gt; Goto Schedule              </source>
-        <translation>  &gt;&gt; Goto Schedule              </translation>
+        <translation>  &gt;&gt; Aller à l&apos;agenda              </translation>
     </message>
     <message>
         <source>CONNECTION TO THE SERVER NOMADE NON POSSIBLE</source>
@@ -4407,31 +4407,31 @@ pas de dossier valide sélectionné.</translation>
     </message>
     <message>
         <source>=1=Use the data of %1 to fill the new form</source>
-        <translation type="unfinished"></translation>
+        <translation>=1=Utiliser les données de : %1 pour remplir celles du patient en cours de création</translation>
     </message>
     <message>
         <source>=2=Create a new file using data from: </source>
-        <translation type="unfinished"></translation>
+        <translation>=2=Créer un nouveau dossier en se servant des données de : </translation>
     </message>
     <message>
         <source>=3=Close the duplicate resolution list</source>
-        <translation type="unfinished"></translation>
+        <translation>=3=Fermer la liste de résolution des doublons</translation>
     </message>
     <message>
         <source>=4=Open the duplicate resolution list</source>
-        <translation type="unfinished"></translation>
+        <translation>=4=Ouvrir la liste de résolution des doublons</translation>
     </message>
     <message>
         <source>=5=Put this patient : %1 into the list of duplicates resolution</source>
-        <translation type="unfinished"></translation>
+        <translation>=5=Placer ce patient : %1 dans  la liste de résolution des doublons</translation>
     </message>
     <message>
         <source>=6=unlock this patient&apos;s file: %1 </source>
-        <translation type="unfinished"></translation>
+        <translation>=6=Déverrouiller le dossier de ce patient : %1</translation>
     </message>
     <message>
         <source>=9=Research by birth date: </source>
-        <translation type="unfinished"></translation>
+        <translation>=9=Rechercher par la date de naissance : </translation>
     </message>
     <message>
         <source>=11=Rechercher par le numéro de sécurité sociale : </source>
@@ -4439,36 +4439,37 @@ pas de dossier valide sélectionné.</translation>
     </message>
     <message>
         <source>=12=Research by family name &apos;%1&apos;, first name &apos;%2&apos; and birth date &apos;%3&apos; found in dialog&apos;s fields.</source>
-        <translation type="unfinished"></translation>
+        <translation>=12=Chercher par nom de famille &apos;%1&apos;, prénom &apos;%2&apos; et date de naissance &apos;%3&apos; trouvés dans les champs du formulaire.</translation>
     </message>
     <message>
         <source>Operation impossible: 
 no valid file selected.</source>
-        <translation type="unfinished"></translation>
+        <translation>Opération impossible : 
+pas de dossier valide sélectionné.</translation>
     </message>
     <message>
         <source>=1=Close the duplicates resolution list</source>
-        <translation type="unfinished"></translation>
+        <translation>=1=Fermer la liste de résolution des doublons</translation>
     </message>
     <message>
         <source>=2=Delete the duplicates resolution list</source>
-        <translation type="unfinished"></translation>
+        <translation>=2=Effacer la liste de résolution des doublons</translation>
     </message>
     <message>
         <source>=3=Remove this file from duplicates list: </source>
-        <translation type="unfinished"></translation>
+        <translation>=3=Retirer de la liste des doublons ce dossier : </translation>
     </message>
     <message>
         <source>=4=Test if the files are locked and usable</source>
-        <translation type="unfinished"></translation>
+        <translation>=4=Tester si les dossiers sont verrouillés et utilisables</translation>
     </message>
     <message>
         <source>=5=Give all the files in this list to patient: </source>
-        <translation type="unfinished"></translation>
+        <translation>=5=Assigner tous les dossiers présents dans cette liste au patient : </translation>
     </message>
     <message>
         <source>&lt;u&gt;&lt;b&gt;WARNING :&lt;/u&gt;&lt;/b&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;do you confirm the modifications&amp;nbsp;&amp;nbsp;on this file: </source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;u&gt;&lt;b&gt;ATTENTION :&lt;/u&gt;&lt;/b&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;confirmez-vous les modifications apportées à ce dossier: </translation>
     </message>
     <message>
         <source>L&apos;utilisateur : &lt;b&gt; ?</source>
@@ -4484,7 +4485,7 @@ no valid file selected.</source>
     </message>
     <message>
         <source>  &gt;&gt; Goto Patient list          </source>
-        <translation type="unfinished"></translation>
+        <translation>  &gt;&gt; Aller à la liste des  patients          </translation>
     </message>
     <message>
         <source>=1=Formater les fichiers et Télétransmettre</source>

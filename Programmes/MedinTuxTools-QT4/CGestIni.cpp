@@ -544,14 +544,14 @@ QString CGestIni::Param_ReadParam(  const char* txt, const char *section, const 
                                     QString *val1, QString *val2, QString *val3, QString *val4, QString *val5,
                                     QString *val6, QString *val7, QString *val8, QString *val9, QString *val10)
 
-{if (txt==0)   return QObject::tr("Erreur de syntaxe: Fichier de paramètres vide");
+{if (txt==0)   return QObject::tr("Syntax error: empty parameter file");
  char *pt          = (char*) txt;
  char *deb         = 0;
  char *end         = 0;
  long len_section  = 0;
  long len_variable = 0;
  if (section==0)
-    {QString str(QObject::tr("Erreur : pas de section dans l'appel de la fonction CGestIni::Param_ReadParam()"));
+    {QString str(QObject::tr("Error : no section in the call of function CGestIni::Param_ReadParam()"));
      //qDebug(str);
      return str;
     }
@@ -600,7 +600,7 @@ QString CGestIni::Param_ReadParam(  const char* txt, const char *section, const 
                         {if (*pt=='\\' && pt[1] !=0 ) pt += 2;
                          else ++pt;
                         }
-                  if (*pt==0||*pt=='[') return QObject::tr("Signe = non trouvé dans la section : ") + section + QObject::tr(", variable recherchée : ") + variable ;
+                  if (*pt==0||*pt=='[') return QObject::tr("Sign = not found in section: ") + section + QObject::tr(", requested variable: ") + variable ;
                   end = pt;
                   while (end>deb && (end[-1]==' '||end[-1]=='\t'|| end[-1]=='\a')) end-- ;   // enlever espaces de fin du nom de la vaiable
                   len_variable = end - deb;
@@ -612,14 +612,14 @@ QString CGestIni::Param_ReadParam(  const char* txt, const char *section, const 
                   pt = GotoNextDebLigne(pt);                                               // aller ligne suivante
                  }
                //......... si on arrive ici c'est que ok pour la section mais pas de variable ..........................
-               return QObject::tr("Pas de variable : ") + variable + QObject::tr("  pour la section : ") + section;
+               return QObject::tr("No variable: ") + variable + QObject::tr("  for section : ") + section;
               } // end if (strlen(section)==len_section && strncmp(section, deb, len_section)==0)   // SI c'est la section recherchée
           break;
       default:
           ++pt;
      } // end switch (pt[0])
   } // end while (*pt)
- return QObject::tr("Erreur de syntaxe : Pas de section dans ce fichier");
+ return QObject::tr("Syntax error: no section in this file");
 }
 
 //-----------------------------------------------------  ExtraireValeurs -----------------------------------

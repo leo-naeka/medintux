@@ -1000,7 +1000,9 @@ void C_Manager::Slot_actionApropos(bool)
 
 //----------------------------------- Slot_actionAproposDisplay -----------------------------------------------------------------------
 void C_Manager::Slot_actionAproposDisplay()
-{        CGestIni::Param_UpdateToDisk(G_pCApp->m_PathAppli+"Ressources/Changements.html",m_pGUI->textEdit_Changements->toHtml());
+{       QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+        CGestIni::Param_UpdateToDisk(G_pCApp->m_PathAppli+"Ressources/Changements.html",m_pGUI->textEdit_Changements->toHtml());
         QString pathExeAPropos     = CGestIni::Construct_Name_Exe("APropos", QFileInfo (qApp->argv()[0]).path());
         QString pathBinRessources  = CGestIni::Construct_PathBin_Module("APropos", QFileInfo (qApp->argv()[0]).path())+"Ressources/";
         QStringList argList;
@@ -1018,7 +1020,7 @@ void C_Manager::Slot_actionAproposDisplay()
            {m_action_A_Propos->setDisabled(TRUE);
             m_Apropos_Proc = new QProcess(this);
             m_Apropos_Proc->start(pathExeAPropos, argList);
-            SLEEP(1);
+            SLEEP(2);
             G_pCApp->processEvents ();
             while ( (procState = m_Apropos_Proc->state())== QProcess::Running ) // && QFile::exists(pathBinRessources+"~A_propos.html")
                   { //qDebug(QString::number(procState).toAscii());
@@ -1029,6 +1031,7 @@ void C_Manager::Slot_actionAproposDisplay()
             QFile::remove(pathBinRessources+"~A_propos.html");
             m_action_A_Propos->setDisabled(FALSE);
            }
+       QApplication::restoreOverrideCursor();
 
 }
 //--------------------------------------- tryToStopAPropos ----------------------------------------------------------
@@ -2205,7 +2208,7 @@ if (pQTreeWidgetItem->text(6).length()==0 /*nb==0*/)           // pas de patient
                             );
    }
 else if (nb==1)      // un seul patient trouv\303\251 pour cette carte vitale alors on le lance
-   { //Cz_Pyxvital     si on ne gère pas le dossier Patient on lance directement la FSE
+   { //Cz_Pyxvital     si on ne gï¿½re pas le dossier Patient on lance directement la FSE
     if (m_Facture_Seule == "oui")
         Slot_pushButton_FSE();
     else
@@ -2803,7 +2806,7 @@ if (pathPlugin.length())
 else   // cas standard du QFSEVITALE
    { //..................................... ne pas rajouter "/" car c'est un nom de fichier ..........................
      if ( QDir::isRelativePath ( pathPlugin ) )  pathPlugin = QDir::cleanDirPath (pathPlugin.prepend(G_pCApp->m_PathAppli));
-     //..................................... rajouter "/" car le chemin doit être donn\303\251 avec ..........................
+     //..................................... rajouter "/" car le chemin doit ï¿½tre donn\303\251 avec ..........................
      if ( QDir::isRelativePath ( pathLog ) )     pathLog    = QDir::cleanDirPath (pathLog.prepend(G_pCApp->m_PathAppli) )+"/";
 
      QString pluginScript  = "[Execute]\r\n";
@@ -3303,7 +3306,7 @@ void C_Manager::exeAnnuaire(QString idInterv )
    //.............................. rechercher executable et son fichier d'echange ..........................
    QString pathExe = CGestIni::Construct_Name_Exe("personnes",QFileInfo (qApp->argv()[0]).dirPath (true));
    if ( !QFile::exists( pathExe ) ) {G_pCApp->CouCou(tr( "Binary is not found.").arg(pathExe));  return; }
-
+   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
    QString pathExch;
    // si path executable non d\303\251fini le fixer par defaut sur '../../tmp'
    if (CGestIni::Param_ReadParam(G_pCApp->m_LocalParam, "Repertoire Temporaire", "Repertoire", &pathExch)!=QString::null)
@@ -3327,7 +3330,7 @@ void C_Manager::exeAnnuaire(QString idInterv )
       {m_Contacts_Run = TRUE;
        QProcess   proc;
        proc.start(pathExe, argList);
-       SLEEP(1);
+       SLEEP(2);
        G_pCApp->processEvents ();
        while (proc.state()==QProcess::Running )
           { QApplication::processEvents ( QEventLoop::WaitForMore );
@@ -3371,6 +3374,7 @@ void C_Manager::exeAnnuaire(QString idInterv )
           }
       }
    QFile::remove (pathExch);
+   QApplication::restoreOverrideCursor();
 }
 
 
@@ -3526,7 +3530,7 @@ switch (mode)
          }
       m_pGUI->pushButtonVitale->show();
       m_pGUI->pushButton_MultiCritere->show();
-      //.......... lancer une FSE ...............          //Cz_Pyxvital ????    Ajouter un droit d'accès FSE
+      //.......... lancer une FSE ...............          //Cz_Pyxvital ????    Ajouter un droit d'accï¿½s FSE
       if (G_pCApp->IsThisDroitExist("fse"))
          {m_pGUI->pushButton_FSE->show();
          }
@@ -3994,7 +3998,7 @@ clearDroitsFields();
 //--------------------------------- Slot_listView_Patient_DoubleClicked -----------------------------------------------------------------------
 void C_Manager::Slot_listView_Patient_DoubleClicked( QTreeWidgetItem *, int)
 {//Slot_pushButtonAcceder_Clicked();
-// Cz_Pyxvital     si on ne gère pas le dossier Patient on lance directement la FSE
+// Cz_Pyxvital     si on ne gï¿½re pas le dossier Patient on lance directement la FSE
 if (m_Facture_Seule == "oui")
     Slot_pushButton_FSE();
 else
@@ -6059,8 +6063,8 @@ CGestIni::Param_ReadParam(G_pCApp->m_LocalParam, "Sesam-Vitale", "ModuleName",  
  if (moduleName == "PYXVITAL")
    {
     // Cz_Pyxvital ------------- DEBUT -----------------------------------------------------------------
-    // Ex\303\251cution du programme Aixvitale avec le paramètre CPS (lecture carte CPS)
-    // Aixvitale lancera lui même la DLL de Pyxvital avec le paramètre P.
+    // Ex\303\251cution du programme Aixvitale avec le paramï¿½tre CPS (lecture carte CPS)
+    // Aixvitale lancera lui mï¿½me la DLL de Pyxvital avec le paramï¿½tre P.
     // Aixvitale retourne le nom complet du fichier Praticien.par contenant les infos lues sur la carte
     QString     fic_PraticienPar = "";     // exemple de nom attendu : "C:/pyxvital/INTERF/Praticien.par";
     fieldList.append(m_pCMoteurBase->m_USER_IDENT_LOGIN);           // 0
@@ -6102,7 +6106,7 @@ else   // cas standard QFSEVITALE
    {
     //..................................... ne pas rajouter "/" car c'est un nom de fichier ..........................
     if ( QDir::isRelativePath ( pathPlugin ) )  pathPlugin = QDir::cleanDirPath (pathPlugin.prepend(G_pCApp->m_PathAppli));
-    //..................................... rajouter "/" car le chemin doit être donn\303\251 avec ..........................
+    //..................................... rajouter "/" car le chemin doit ï¿½tre donn\303\251 avec ..........................
     if ( QDir::isRelativePath ( pathLog ) )     pathLog    = QDir::cleanDirPath (pathLog.prepend(G_pCApp->m_PathAppli) )+"/";
 
     QString pluginScript  = "[Execute]\r\n";
@@ -6501,11 +6505,11 @@ if (style.length()!=0) return style.arg(pointSize);
 }
 //Cz_Pyxvital ------------------------------- DEBUT -----------------------------------------------------
 //----------------------------------- Slot_saisieFSEenCours -------------------------------------------------------------------------
-// Contrôle si la saisie FSE par PYxvital est en cours .
+// Contrï¿½le si la saisie FSE par PYxvital est en cours .
 // --> test de la pr\303\251sence du fichier Facture.par
 // --> si seulement un acte a \303\251t\303\251 saisi, le fichier Facture.par contient un groupe "Prestation" ?? PAS SUR
 // --> si la FSE est valid\303\251e le fichier Facture.par contient le groupe "Tarification" avec un "Taux".
-// Contrôle si le patient en cours dans Pyxvital est bien le patient s\303\251lectionn\303\251 dans Manager
+// Contrï¿½le si le patient en cours dans Pyxvital est bien le patient s\303\251lectionn\303\251 dans Manager
 void C_Manager::Slot_saisieFSEenCours()
 {   bool finFSE = false;
    QString nomficErreur = m_ficFacturePar;                      // CZ_Cpta
@@ -6516,7 +6520,7 @@ void C_Manager::Slot_saisieFSEenCours()
    if (QFile::exists(m_ficFacturePar) )
        {QSettings *settings = new QSettings(m_ficFacturePar, QSettings::IniFormat);
        QString    numfact = settings->value(tr("Tarification/Taux")).toString();
-       if (numfact.length() > 0)                               // la saisie est terminée : La FSE a ete validee.
+       if (numfact.length() > 0)                               // la saisie est terminï¿½e : La FSE a ete validee.
          {finFSE = true;
          }
        else                                                  // au moins une ligne d'acte a ete saisie : La saisie est en cours.
@@ -6530,20 +6534,20 @@ void C_Manager::Slot_saisieFSEenCours()
                    // soit on a reselectionne un autre patient dans medintux sans saisiz d'actes dans Pyxvital
        m_FSEenCours = FALSE;
        m_pGUI->pushButton_FSE->setText(tr("Facturer"));
-       m_pGUI->pushButton_FSE->setEnabled (FALSE );            // désactiver ce bouton en plus ????
-       m_timerFSE->stop();                                     // arr??ªt du timer d'attente du fichier Facture.par
+       m_pGUI->pushButton_FSE->setEnabled (FALSE );            // dï¿½sactiver ce bouton en plus ????
+       m_timerFSE->stop();                                     // arr??ï¿½t du timer d'attente du fichier Facture.par
        QTreeWidget *pQlistView = m_pGUI->listView_Vitale;
        pQlistView->clear();
        Controle_Solde_Patient(G_pCApp->identitePatientGUID());                       // CZ_Cpta
 
-       } // fin du FSE validée
+       } // fin du FSE validï¿½e
 }
 
 
 //--------------------------------- Slot_pushButton_FSE -----------------------------------------------------------------------
 // Lancement de Pyxvital pour saisie des actes et validation des FSE .
 // Pour simplifier la proc\303\251dure :
-// - manager g\303\251nère syst\303\251matiquement un fichier CV.par contenant toutes les infos du patient (+ les donn\303\251es AMC ?, AMO ?)
+// - manager g\303\251nï¿½re syst\303\251matiquement un fichier CV.par contenant toutes les infos du patient (+ les donn\303\251es AMC ?, AMO ?)
 // - c'est Aixvitale qui testera si la CV a \303\251t\303\251 lue ...
 // - si CV OK avec patient en cours, c'est la CV qui est prise en compte.
 // - si pas de CV et D\303\251grad\303\251 OK , c'est CV.par qui sera pris par Pyxvital.
@@ -6568,18 +6572,18 @@ void C_Manager::Slot_pushButton_FSE()
 
   if (moduleName=="PYXVITAL")    // test inutile
      {
-      // vérification qu'une FSE n'est pas déj??  en cours de saisie
+      // vï¿½rification qu'une FSE n'est pas dï¿½j??  en cours de saisie
       if (m_FSEenCours)
          {
           int ret    = QMessageBox::warning ( this, tr("FSE en cours"),
                        tr( "<u><b>ATTENTION :</u></b><br><br>Une FSE est en cours de saisie !<br>Voulez vous abandonner la FSE en cours ?"),
                        tr("&Abandonner la FSE en cours"), tr("Annu&ler"), 0, 1, 1);
           if (ret == 1) return;
-          // voir comment effacer le formulaire Pyxvital si acte déj??  saisi...
-          // la lecture de la CV remet tout a zéro...
+          // voir comment effacer le formulaire Pyxvital si acte dï¿½j??  saisi...
+          // la lecture de la CV remet tout a zï¿½ro...
          }
 
-      // cherche si le patient sélectionné dans la liste patient est bien dans la liste Vitale
+      // cherche si le patient sï¿½lectionnï¿½ dans la liste patient est bien dans la liste Vitale
       QTreeWidgetItemIterator it( m_pGUI->listView_Vitale );
       bool patientOK = false;
       m_typFact = "";
@@ -6635,8 +6639,8 @@ void C_Manager::Slot_pushButton_FSE()
          zcvnom   = m_pGUI->lineEdit_NomDossier->text();
          zcvprn   = m_pGUI->lineEdit_PrenomDossier->text();
 
-         // Création du fichier CV.par ...................................................................
-         // Le fichier CV.Par ne sert que pour le mode Dégradé, les FSP ou les préfactures.
+         // Crï¿½ation du fichier CV.par ...................................................................
+         // Le fichier CV.Par ne sert que pour le mode Dï¿½gradï¿½, les FSP ou les prï¿½factures.
          // les infos fournies sont donc celles de la base Medintux et non pas celles de la Carte SV
          QString nomFicCVpar = interf_Pyx + "/CV.par";
          remove (nomFicCVpar);
@@ -6661,7 +6665,7 @@ void C_Manager::Slot_pushButton_FSE()
          zcvnss = m_pGUI->lineEdit_NumSecu->text(); zcvnss.remove(" ");
          settings->setValue("Numero",            zcvnss);
          settings->setValue("Cle",               m_pGUI->lineEdit_NssClef->text());
-         // pas de date de naissance de l'assuré
+         // pas de date de naissance de l'assurï¿½
          settings->endGroup();
          settings->sync();
          // ajouter la saisie et le stockage des champs dans les onglets AMC - AMO
@@ -6681,8 +6685,8 @@ void C_Manager::Slot_pushButton_FSE()
          */
          }
 
-         // appel ??  AixVitale (qui lance Pyxvital) pour saisie des actes et génération de la FSE.
-         //--- début CZ_Cpta
+         // appel ??  AixVitale (qui lance Pyxvital) pour saisie des actes et gï¿½nï¿½ration de la FSE.
+         //--- dï¿½but CZ_Cpta
 
          QString numPS = G_pCApp->m_pCps->m_NIR.length() > 6 ? G_pCApp->m_pCps->m_NIR : "PasLu";
          QString listParam =  "p_actionPyx =" + m_typFact                              + "\r\n"
@@ -6706,7 +6710,7 @@ void C_Manager::Slot_pushButton_FSE()
            {
             // AU retour :
             // - soit on a pu lancer Pyxvital, et on a le nom du futur fichier Facture.par en retour.
-            //   on boucle sur le test de la présence de ce fichier pour le traiter...
+            //   on boucle sur le test de la prï¿½sence de ce fichier pour le traiter...
             // - soit on a le mot "Erreur" avec le message d'erreur.
              if (strncmp (m_ficFacturePar,"Erreur",6) != 0 )
                  {

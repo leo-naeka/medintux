@@ -23,4 +23,7 @@ HEADERS += C_Dlg_personnes.h \
     C_App.h \
     ../../MedinTuxTools-QT4/Theme.h
 FORMS += Dlg_personnes.ui
-OTHER_FILES += ../bin/Ressources/Changements.html
+OTHER_FILES += ../bin/Ressources/Changements.html \
+    ../bin/DataBase.cfg
+TRANSLATIONS = personnes_fr.ts\
+personnes_es.ts

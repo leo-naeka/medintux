@@ -61,7 +61,8 @@ private:
     int               selectMedecinById(const QString &start_ID);
     int               IsThisValueInComboBox(QComboBox *pQComboBox, const QString& value);
     int               setComboBoxOnValue(QComboBox *pQComboBox, const QString& value);
-    QTreeWidgetItem* initListesMedecin( QString spec, QString nom);
+    QTreeWidgetItem*  initListesMedecin(int index, QString q_nom);
+    QTreeWidgetItem*  initListesMedecin( QString spec, QString nom);
     QString           GetNbRecord(const QString &table);
     void              ItemToForm( const QString& pk );
     QString           FormToDisk(QString pk );
@@ -86,7 +87,7 @@ private slots:
     virtual void reject();
     void         Slot_pushButton_Apropos_clicked();
     void         Slot_FiltrerListe(const QString &text);
-    void         Slot_comboBox_FiltreListe_currentIndexChanged(const QString &text);
+    void         Slot_comboBox_FiltreListe_currentIndexChanged(int index);
     void         Slot_treeWidget_ListeMedecins_itemClicked( QTreeWidgetItem *pQTreeWidgetItem , int);
     void         Slot_treeWidget_ListeMedecins_itemSelectionChanged();
     void         Slot_pushButtonOK_clicked();
