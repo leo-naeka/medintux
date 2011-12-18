@@ -7,7 +7,7 @@ QT += network \
 
 #........... make the binary name and version number available in c++ code using macro definition ................
 TARGET       = APropos
-NUM_VERS     = 2.14.004
+NUM_VERS     = 2.14.005
 
 DEFINES	    += "NUM_VERSION=\"\\\"$${NUM_VERS}\\\"\""
 DEFINES	    += "NAME_APPLI=\"\\\"$${TARGET}\\\"\""
