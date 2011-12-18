@@ -343,7 +343,7 @@ C_DlgMainDialog::C_DlgMainDialog(QWidget* parent, const char* name, bool modal, 
     }
     //groupBoxMedinTuxInstall->setTitle( title );
     ret = GetMAJVersion();
-    if (ret[0] >= '0'&& ret[0] <='9') SetTitle(ret);
+    if (ret[2] == '.') SetTitle(ret);
     else {G_pCApp->Datasemp_OutMessage(textEdit_Message, QString (tr("============ Erreur  : GetMAJVersion()==============\n")) + ret);
           SetTitle("?,??");
          }
@@ -398,7 +398,8 @@ void C_DlgMainDialog::Slot_actionAproposDisplay()
          QString pathExeAPropos     = CGestIni::Construct_Name_Exe("APropos", QFileInfo (qApp->argv()[0]).dirPath (true));
          QString pathBinRessources  = CGestIni::Construct_PathBin_Module("APropos", QFileInfo (qApp->argv()[0]).dirPath (true))+"Ressources/";
          QStringList argList;
-
+         QString dataBaseVersion    = GetMAJVersion();
+         if (dataBaseVersion[2] != '.') dataBaseVersion = tr("not retrieved");
          //......................... completer les autres arguments .........................................
 
          if (m_Apropos_Proc==0)
@@ -410,6 +411,9 @@ void C_DlgMainDialog::Slot_actionAproposDisplay()
              m_Apropos_Proc->addArgument(G_pCApp->m_NUM_VERSION.remove("@").remove("#").remove("=") + " Qt : "+QT_VERSION_STR);    // 3  numero de version
              m_Apropos_Proc->addArgument(G_pCApp->m_PathAppli+"SqlCreateTable/Changements.html");        // 4  fichiers decrivant les changements
              m_Apropos_Proc->addArgument(Theme::getPath(Theme::WithSeparator)+"32x32/set_bases.png");    // 5  Icone du programme
+             m_Apropos_Proc->addArgument("");                                                            // 6  aide en ligne (vide pour prendre celle par defaut)
+             m_Apropos_Proc->addArgument("");                                                            // 7  apropos (on met une chaine vide pour qu'il prenne celui par défaut)
+             m_Apropos_Proc->addArgument(dataBaseVersion);                                               // 8  version de la base de donnee
 
              m_Apropos_Proc->start();
              SLEEP(1);
@@ -1796,8 +1800,8 @@ void C_DlgMainDialog::pushButtonConnexionAppl_clicked()
     G_pCApp->Datasemp_OutMessage(textEdit_Message, tr("\n================================== Modification : ") + path + "==================================");
     if (  ! QFile::exists (path) ) {
         G_pCApp->Datasemp_OutMessage(textEdit_Message, tr("\nCe fichier n'existe pas"));
-        return ;
     }
+    else    {
     CGestIni::Param_UpdateFromDisk(path, param);
     CGestIni::Param_ReadParam (param,  "Connexion" ,    "Master" ,    &driverName , &baseName);
     CGestIni::Param_WriteParam(&param, "Connexion" ,    "Master" ,    driverName ,  baseName, userName , passWord , hostName, port);
@@ -1810,14 +1814,15 @@ void C_DlgMainDialog::pushButtonConnexionAppl_clicked()
     CGestIni::Param_WriteParam(&param, "Codage CIM10" , "Connexion" , driverName ,  baseName, userName , passWord , hostName);
     CGestIni::Param_UpdateToDisk(path, param);
     G_pCApp->Datasemp_OutMessage(textEdit_Message, param);
+   }
 
     //drtux-ccamview.ini
     path = CGestIni::Construct_Name_File_Ini("drtux",QFileInfo (qApp->argv()[0]).dirPath (true),"Ressources/ccam/ccamview.ini");
     G_pCApp->Datasemp_OutMessage(textEdit_Message, tr("\n================================== Modification : ") + path + "==================================");
     if (  ! QFile::exists (path) ) {
         G_pCApp->Datasemp_OutMessage(textEdit_Message, "\nCe fichier n'existe pas");
-        return ;
     }
+    else    {
     CGestIni::Param_UpdateFromDisk(path, param);
     CGestIni::Param_ReadParam (param,  "Connexion"  , "Parametres" ,  &driverName   ,  &baseName);
     CGestIni::Param_WriteParam(&param, "Connexion"  , "Parametres" ,  driverName    ,  baseName, userName , passWord , hostName, port);
@@ -1825,6 +1830,7 @@ void C_DlgMainDialog::pushButtonConnexionAppl_clicked()
     CGestIni::Param_WriteParam(&param, "Praticiens" , "Connexion"  ,  driverName    ,  baseName, userName , passWord , hostName, port);
     CGestIni::Param_UpdateToDisk(path, param);
     G_pCApp->Datasemp_OutMessage(textEdit_Message, param);
+   }
     //.............................. MedicaBase.ini ..................................................................
     // [Connexion]
     //     Parametres MedicaBase = QMYSQL3 , MedicaTuxTest , root,  , localhost
@@ -1835,8 +1841,8 @@ void C_DlgMainDialog::pushButtonConnexionAppl_clicked()
     G_pCApp->Datasemp_OutMessage(textEdit_Message, tr("\n================================== Modification : ") + path + "==================================");
     if (  ! QFile::exists (path) ) {
         G_pCApp->Datasemp_OutMessage(textEdit_Message, tr("\nCe fichier n'existe pas"));
-        return ;
     }
+    else    {
     CGestIni::Param_UpdateFromDisk(path, param);
     CGestIni::Param_ReadParam (param, "Connexion" , "Parametres MedicaBase" , &driverName , &baseName);
     CGestIni::Param_WriteParam(&param, "Connexion" , "Parametres MedicaBase" ,  driverName ,  baseName, userName , passWord , hostName, port);
@@ -1846,14 +1852,15 @@ void C_DlgMainDialog::pushButtonConnexionAppl_clicked()
     CGestIni::Param_WriteParam(&param, "Connexion" , "Parametres Get_Base"   ,  driverName ,  baseName, userName , passWord , hostName, port);
     CGestIni::Param_UpdateToDisk(path, param);
     G_pCApp->Datasemp_OutMessage(textEdit_Message, param);
+   }
 
     //.............................. ccamview.ini ..................................................................
     path = CGestIni::Construct_Name_File_Ini("ccamview",QFileInfo (qApp->argv()[0]).dirPath (true),"");
     G_pCApp->Datasemp_OutMessage(textEdit_Message, tr("\n================================== Modification : ") + path + "==================================");
     if (  ! QFile::exists (path) ) {
         G_pCApp->Datasemp_OutMessage(textEdit_Message, tr("\nCe fichier n'existe pas"));
-        return ;
     }
+    else    {
     CGestIni::Param_UpdateFromDisk(path, param);
     CGestIni::Param_ReadParam (param,  "Connexion"  , "Parametres" ,  &driverName  ,  &baseName);
     CGestIni::Param_WriteParam(&param, "Connexion"  , "Parametres" ,  driverName   ,  baseName, userName , passWord , hostName, port);
@@ -1861,40 +1868,43 @@ void C_DlgMainDialog::pushButtonConnexionAppl_clicked()
     CGestIni::Param_WriteParam(&param, "Praticiens" , "Connexion"  ,  driverName   ,  baseName, userName , passWord , hostName, port);
     CGestIni::Param_UpdateToDisk(path, param);
     G_pCApp->Datasemp_OutMessage(textEdit_Message, param);
+   }
 
     //.............................. personnes.ini ..................................................................
     path = CGestIni::Construct_Name_File_Ini("personnes",QFileInfo (qApp->argv()[0]).dirPath (true),"");
     G_pCApp->Datasemp_OutMessage(textEdit_Message, tr("\n================================== Modification : ") + path + "==================================");
     if (  ! QFile::exists (path) ) {
         G_pCApp->Datasemp_OutMessage(textEdit_Message, tr("\nCe fichier n'existe pas"));
-        return ;
     }
+    else    {
     CGestIni::Param_UpdateFromDisk(path, param);
     CGestIni::Param_ReadParam ( param, "Connexion" , "Parametres" , &driverName , &baseName);
     CGestIni::Param_WriteParam(&param, "Connexion" , "Parametres" ,  driverName ,  baseName, userName , passWord , hostName, port);
     CGestIni::Param_UpdateToDisk(path, param);
     G_pCApp->Datasemp_OutMessage(textEdit_Message, param);
+   }
 
     //.............................. gest_user.ini ..................................................................
     path = CGestIni::Construct_Name_File_Ini("gest_user",QFileInfo (qApp->argv()[0]).dirPath (true),"");
     G_pCApp->Datasemp_OutMessage(textEdit_Message, tr("\n================================== Modification : ") +  path + "==================================");
     if (  ! QFile::exists (path) ) {
         G_pCApp->Datasemp_OutMessage(textEdit_Message, tr("\nCe fichier n'existe pas"));
-        return ;
     }
+    else    {
     CGestIni::Param_UpdateFromDisk(path, param);
     CGestIni::Param_ReadParam ( param, "Connexion" , "Parametres" , &driverName , &baseName);
     CGestIni::Param_WriteParam(&param, "Connexion" , "Parametres" ,  driverName ,  baseName, userName , passWord , hostName, port);
     CGestIni::Param_UpdateToDisk(path, param);
     G_pCApp->Datasemp_OutMessage(textEdit_Message,param);
+   }
 
     //.............................. Manager.ini ..................................................................
     path = CGestIni::Construct_Name_File_Ini("Manager",QFileInfo (qApp->argv()[0]).dirPath (true),"");
     G_pCApp->Datasemp_OutMessage(textEdit_Message, tr("\n================================== Modification : ") +  path + "==================================");
     if (  ! QFile::exists (path) ) {
         G_pCApp->Datasemp_OutMessage(textEdit_Message, tr("\nCe fichier n'existe pas"));
-        return ;
     }
+    else    {
     CGestIni::Param_UpdateFromDisk(path, param);
     CGestIni::Param_ReadParam (param,  "Connexion" ,    "Master" ,     &driverName , &baseName);
     CGestIni::Param_WriteParam(&param, "Connexion" ,    "Master" ,     driverName ,  baseName, userName , passWord , hostName, port);
@@ -1907,45 +1917,62 @@ void C_DlgMainDialog::pushButtonConnexionAppl_clicked()
     CGestIni::Param_WriteParam(&param, "Codage CIM10" , "Connexion" ,  driverName ,  baseName, userName , passWord , hostName, port);
     CGestIni::Param_UpdateToDisk(path, param);
     G_pCApp->Datasemp_OutMessage(textEdit_Message,param);
+   }
 
     //.............................. med_stat.ini ..................................................................
     path = CGestIni::Construct_Name_File_Ini("med_stat",QFileInfo (qApp->argv()[0]).dirPath (true),"");
     G_pCApp->Datasemp_OutMessage(textEdit_Message, tr("\n================================== Modification : ") +  path + "==================================");
     if (  ! QFile::exists (path) ) {
         G_pCApp->Datasemp_OutMessage(textEdit_Message, tr("\nCe fichier n'existe pas"));
-        return ;
     }
+    else    {
     CGestIni::Param_UpdateFromDisk(path, param);
     CGestIni::Param_ReadParam (param,  "Connexion" ,    "Parametres" , &driverName , &baseName);
     CGestIni::Param_WriteParam(&param, "Connexion" ,    "Parametres" ,  driverName ,  baseName, userName , passWord , hostName, port);
     CGestIni::Param_UpdateToDisk(path, param);
     G_pCApp->Datasemp_OutMessage(textEdit_Message,param);
+   }
 
     //..............................QLaboFTP.ini ..................................................................
     path = CGestIni::Construct_Name_File_Ini("QLaboFTP",QFileInfo (qApp->argv()[0]).dirPath (true),"");
     G_pCApp->Datasemp_OutMessage(textEdit_Message, tr("\n================================== Modification : ") +   path + "==================================");
     if (  ! QFile::exists (path) ) {
         G_pCApp->Datasemp_OutMessage(textEdit_Message, tr("\nCe fichier n'existe pas"));
-        return ;
     }
+    else    {
     CGestIni::Param_UpdateFromDisk(path, param);
     CGestIni::Param_ReadParam (param,  "Connexion" ,    "Parametres" , &driverName , &baseName);
     CGestIni::Param_WriteParam(&param, "Connexion" ,    "Parametres" ,  driverName ,  baseName, userName , passWord , hostName, port);
     CGestIni::Param_UpdateToDisk(path, param);
     G_pCApp->Datasemp_OutMessage(textEdit_Message,param);
+   }
+    //..............................synoptux.ini ..................................................................
+    path = CGestIni::Construct_Name_File_Ini("synoptux",QFileInfo (qApp->argv()[0]).dirPath (true),"");
+    G_pCApp->Datasemp_OutMessage(textEdit_Message, tr("\n================================== Modification : ") +   path + "==================================");
+    if (  ! QFile::exists (path) ) {
+        G_pCApp->Datasemp_OutMessage(textEdit_Message, tr("\nCe fichier n'existe pas"));
+    }
+    else    {
+    CGestIni::Param_UpdateFromDisk(path, param);
+    CGestIni::Param_ReadParam (param,  "Connexion" ,    "Parametres" , &driverName , &baseName);
+    CGestIni::Param_WriteParam(&param, "Connexion" ,    "Parametres" ,  driverName ,  baseName, userName , passWord , hostName, port);
+    CGestIni::Param_UpdateToDisk(path, param);
+    G_pCApp->Datasemp_OutMessage(textEdit_Message,param);
+   }
 
 //..............................comptabilite.ini ..................................................................
     path = CGestIni::Construct_Name_File_Ini("comptabilite",QFileInfo (qApp->argv()[0]).dirPath (true),"");
     G_pCApp->Datasemp_OutMessage(textEdit_Message, tr("\n================================== Modification : ") +   path + "==================================");
     if (  ! QFile::exists (path) ) {
         G_pCApp->Datasemp_OutMessage(textEdit_Message, tr("\nCe fichier n'existe pas"));
-        return ;
     }
+    else    {
     CGestIni::Param_UpdateFromDisk(path, param);
     CGestIni::Param_ReadParam (param,  "Connexion" ,    "Parametres" , &driverName , &baseName);
     CGestIni::Param_WriteParam(&param, "Connexion" ,    "Parametres" ,  driverName ,  baseName, userName , passWord , hostName, port);
     CGestIni::Param_UpdateToDisk(path, param);
     G_pCApp->Datasemp_OutMessage(textEdit_Message,param);
+   }
 
     //..............................qgetdatasemp ..................................................................
     if ( IsSesamVersionExist()  )
@@ -1953,8 +1980,8 @@ void C_DlgMainDialog::pushButtonConnexionAppl_clicked()
         G_pCApp->Datasemp_OutMessage(textEdit_Message, tr("\n================================== Modification : ") +  path + "==================================");
         if (  ! QFile::exists (path) ) {
             G_pCApp->Datasemp_OutMessage(textEdit_Message, tr("\nCe fichier n'existe pas"));
-            return ;
         }
+        else    {
         CGestIni::Param_UpdateFromDisk(path, param);
         CGestIni::Param_ReadParam (  param,  "Connexion" ,     "Parametres" , &driverName , &baseName);
         CGestIni::Param_WriteParam( &param,  "Connexion" ,     "Parametres" ,  driverName ,  baseName, userName , passWord , hostName, port);
@@ -1982,13 +2009,14 @@ void C_DlgMainDialog::pushButtonConnexionAppl_clicked()
         CGestIni::Param_WriteParam( &param,  "QLaboFTPTest",   "Connexion",    driverName,  baseName,  userName,  passWord,  hostName, port);
         CGestIni::Param_UpdateToDisk(path, param);
         G_pCApp->Datasemp_OutMessage(textEdit_Message,param);
+       }
 
         path = CGestIni::Construct_Name_File_Ini("qgetdatasemp",QFileInfo (qApp->argv()[0]).dirPath (true),"Ressources/MedicaBase.ini");
         G_pCApp->Datasemp_OutMessage(textEdit_Message, tr("\n================================== Modification : ") +  path + "==================================");
         if (  ! QFile::exists (path) ) {
             G_pCApp->Datasemp_OutMessage(textEdit_Message, tr("\nCe fichier n'existe pas"));
-            return ;
         }
+        else    {
         CGestIni::Param_UpdateFromDisk(path, param);
         CGestIni::Param_ReadParam (param, "Connexion" , "Parametres MedicaBase" , &driverName , &baseName);
         CGestIni::Param_WriteParam(&param, "Connexion" , "Parametres MedicaBase" ,  driverName ,  baseName, userName , passWord , hostName, port);
@@ -1998,6 +2026,7 @@ void C_DlgMainDialog::pushButtonConnexionAppl_clicked()
         CGestIni::Param_WriteParam(&param, "Connexion" , "Parametres Get_Base"   ,  driverName ,  baseName, userName , passWord , hostName, port);
         CGestIni::Param_UpdateToDisk(path, param);
         G_pCApp->Datasemp_OutMessage(textEdit_Message, param);
+       }
     }
     //............................. setBases.ini .......................................................................
     //  [DrTuxTest]
@@ -2301,7 +2330,7 @@ void C_DlgMainDialog::pushButton_MajBases_clicked()
        }
     else if (setMajVersionButton()==1) SetButtonIndexVidal(0);
     QString ret = GetMAJVersion();
-    if (ret[0] >= '0'&& ret[0] <='9') SetTitle(ret);
+    if (ret[2] == '.') SetTitle(ret);
     else {G_pCApp->Datasemp_OutMessage(textEdit_Message, QString (tr("============ Erreur  : GetMAJVersion()==============\n")) + ret);
           SetTitle("?,??");
          }
@@ -2312,12 +2341,12 @@ int C_DlgMainDialog::setMajVersionButton()
 {
     pushButton_MajBases->hide();
     QString val = GetMAJVersion();
-    if (val[0] < '0'|| val[0] >'9')
+    if (val[2] != '.')
        {return 2;//val = "0.00";
        }
     QString version;
     if (CGestIni::Param_ReadParam(G_pCApp->m_ParamData,  "CONFIG", "VersBase", &version) !=0 )  // zero = pas d'erreur
-       {version = "0.09";
+       {version = "00.09.000";
        }
     pushButton_SetBases->setPaletteForegroundColor ( QColor("black") );
 
@@ -2343,15 +2372,15 @@ int C_DlgMainDialog::setMajVersionButton()
 
     //qDebug(QString("\n version de 'mise_a_jour'   : ") + QString::number(fval));
     //qDebug(QString("\n version de 'set_bases.ini' : ") + QString::number(fversion));
-    if ((version.toDouble()) > (val.toDouble()))
-        //if (fversion > fval)
+
+    if (CMoteurBase::normaliseVersion(version) > CMoteurBase::normaliseVersion(val))
        {   pushButton_MajBases->show();
-           if (val=="0.00") pushButton_SetBases->setPaletteForegroundColor ( QColor("red") );
+           if (val=="0.00.000") pushButton_SetBases->setPaletteForegroundColor ( QColor("red") );
            return 1;
        }
     else
        {   pushButton_MajBases->hide();
-           if (val=="0.00") pushButton_SetBases->setPaletteForegroundColor ( QColor("blue") );
+           if (val=="0.00.000") pushButton_SetBases->setPaletteForegroundColor ( QColor("blue") );
            return 0;
        }
 }
@@ -2443,10 +2472,8 @@ QString C_DlgMainDialog::GetMAJVersion()
     //............ recuperer infos de 'mise_a_jour' ....................
     QString version,val;
     QString exchFile = CGestIni::Construct_Name_File_Ini("mise_a_jour", QFileInfo (qApp->argv()[0]).dirPath (true), "Ressources/Version.txt");
-
     CGestIni::Param_UpdateFromDisk(exchFile , val);
-    if (val[0] <='0' || val[0] >'9') G_pCApp->Datasemp_OutMessage(textEdit_Message, QString (tr("============ Erreur  : GetMAJVersion()==============\n")) + val);
-
+    if (val[2] !='.') G_pCApp->Datasemp_OutMessage(textEdit_Message, QString (tr("============ Erreur  : GetMAJVersion()==============\n")) + val);
     return val;
 }
 

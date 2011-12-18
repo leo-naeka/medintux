@@ -85,8 +85,9 @@ CApp::CApp(QString mui_name, int & argc, char ** argv)
     m_Version         = NUMTAB_VERSION;
     m_Version         = m_Version.remove("@").remove("#").remove("=")+ "  Qt : " + QT_VERSION_STR;
     m_PathChangements = m_PathAppli + "Ressources/Changements.html";
-    m_PathApropos     = m_PathAppli + "Ressources/A_propos.html";
+    m_PathApropos     = "";
     m_PathHelp        = "";
+    m_BaseVersion     = tr("sans objet");
     if (argc==1) m_PathIcone       = Theme::getPath(TRUE) + "22x22/help.png";
     //.............. recuperer si il le faut les valeurs des parametres d'appel ....................
     if (argc>1)  m_ModuleName      = CGestIni::fromMyUTF8(argv[1]);
@@ -96,7 +97,9 @@ CApp::CApp(QString mui_name, int & argc, char ** argv)
     if (argc>5)  m_PathIcone       = CGestIni::fromMyUTF8(argv[5]);
     if (argc>6)  m_PathHelp        = CGestIni::fromMyUTF8(argv[6]);
     if (argc>7)  m_PathApropos     = CGestIni::fromMyUTF8(argv[7]);
-    if (m_PathHelp.length()==0) m_PathHelp        = QDir::cleanPath(m_PathAppli + "../../Doc/" + m_ModuleName + "/") + "/index.html";
+    if (argc>8)  m_BaseVersion     = CGestIni::fromMyUTF8(argv[8]);
+    if (m_PathApropos.length()==0) m_PathApropos = m_PathAppli + "Ressources/A_propos.html";
+    if (m_PathHelp.length()==0)    m_PathHelp    = QDir::cleanPath(m_PathAppli + "../../Doc/" + m_ModuleName + "/") + "/index.html";
     if (m_PathIcone.length()==0 || !QFile::exists(m_PathIcone)) m_PathIcone = QDir::cleanPath(m_PathAppli + "../../Doc/" + m_ModuleName ) + "/" + m_ModuleName+".png";
     if (m_PathIcone.length()==0 || !QFile::exists(m_PathIcone)) m_PathIcone = m_PathAppli + "Ressources/null.png";
     setWindowIcon (QPixmap(m_PathIcone));

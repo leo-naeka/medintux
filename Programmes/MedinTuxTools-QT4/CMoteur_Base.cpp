@@ -34,7 +34,7 @@
  **********************************************************************************/
 
 //=============================================== INCLUDES ============================================================
-#define VERSION_BASE    2.14
+#define VERSION_BASE    "02.15.000"
 #define MAX_READ        32000
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
@@ -68,17 +68,21 @@
  *
  * @param driver nom du driver : "QODBC3" "QMYSQL3" "QPSQL7"
  * @param dataBaseToConnect    :  nom de la base: si QODBC3 -> nom de la source de donnees (userDSN)
- * @param user                 :  login de connection Ã  la base de donn\303\251es
- * @param password             :  mot de passe de connection Ã  la base de donn\303\251es
- * @param hostname             :  adresse (IP, non d'hote, ou localhost si local) de connection Ã  la base de donn\303\251es
- * @param port                 :  port de connection Ã  la base de donn\303\251es (en g\303\251n\303\251ral 3306)
+ * @param user                 :  login de connection ï¿½  la base de donn\303\251es
+ * @param password             :  mot de passe de connection ï¿½  la base de donn\303\251es
+ * @param hostname             :  adresse (IP, non d'hote, ou localhost si local) de connection ï¿½  la base de donn\303\251es
+ * @param port                 :  port de connection ï¿½  la base de donn\303\251es (en g\303\251n\303\251ral 3306)
  * @param confData             :  donn\303\251es de configuration des bases (contenu du fichier 'DataBase.cfg')
  * @param baseLabel            :  nom d'identification de la base de donn\303\251es exemple "DRTUX_BASE"
- * @param errMess              :  pointeur sur une QString qui si pas \303\251gal Ã  z\303\251ro recevra les messages d'erreur
+ * @param errMess              :  pointeur sur une QString qui si pas \303\251gal ï¿½  z\303\251ro recevra les messages d'erreur
  * @param parent               :  pointeur sur un  QObject parent de cette classe (peut Ãªtre nul alors faudra d\303\251truire CMoteurBase apres usage)
  * @param name                 :  nom de la l'objet (par d\303\251faut 'CMoteurBase')
  * @return
  */
+// on verivfie deux coherences :
+//     1) celle du numero de version du fichier DataConfig.cfg  m_VERSION_NUMBER qui doit etre la meme que celle exigee par ce code : VERSION_BASE
+//     2) celle du numero de version de la base de donnee en cours qui doit etre la meme que celle exigee par ce code : VERSION_BASE
+
 CMoteurBase::CMoteurBase(const QString & driver,             // nom du driver: "QODBC3" "QMYSQL3" "QPSQL7"
                          const QString & dataBaseToConnect,  // nom de la base: si QODBC3 -> nom de la source de donnees (userDSN)
                          const QString & user,               // = "root"
@@ -93,8 +97,9 @@ CMoteurBase::CMoteurBase(const QString & driver,             // nom du driver: "
                          verifyMode /* verifyMode  = CMoteurBase::verifyBaseStruct */)
 : QObject(parent, name),                   // initialisation classique de l'objet
  C_DBVarDrTux(confData , errMess)           // initialiser les nom des variables champs de la base de donnee
-{  QString versionWhish = QString::number(VERSION_BASE);          // version exigee de la base avec le programme actuel
-   double versionInUse  = 0;
+{  //QString versionWhish = QString::number(VERSION_BASE);          // version exigee de la base avec le programme actuel
+   int versionWhish  = normaliseVersion(VERSION_BASE);                               // version exigee de la base avec le programme actuel
+   int versionInUse  = 0;
    //.............. initialiser les variables .....................................................
    m_DestBaseLabel   = "";
    m_DriverName      = driver;
@@ -123,17 +128,17 @@ CMoteurBase::CMoteurBase(const QString & driver,             // nom du driver: "
   if ( !m_IsValid) return;
   //................ verifier l'integrite des bases ...................................
   QString         mess = "";
-  if (versionWhish    != m_VERSION_NUMBER)  // on compare des chaines car bug de conversion 2.139999 etc... version de definition du fichier de configuration des bases
+  if (versionWhish    != normaliseVersion(m_VERSION_NUMBER,".") )  // on compare des chaines car bug de conversion 2.139999 etc... version de definition du fichier de configuration des bases
      {mess +=  tr("\r\n Incorrect 'DataBase.cfg' Configuration file:");
-      mess +=  tr("\r\n 'DataBase.cfg' mandatory version: %1").arg(versionWhish);
+      mess +=  tr("\r\n 'DataBase.cfg' mandatory version: %1").arg(VERSION_BASE);
       mess +=  tr("\r\n   'DataBase.cfg' current version : %1").arg(m_VERSION_NUMBER);
       m_IsValid = 0;
      }
   else
-     {
-      versionInUse = GetMedinTuxVersion();
-      if (versionInUse < versionWhish.toDouble())
-         {mess     +=  tr("\r\n Installed database: %1 not up to date, mandatory version: %2").arg(QString::number(versionInUse), versionWhish);
+     {QString versUsedStr = "";
+      versionInUse    = GetMedinTuxNormalisedVersion(versUsedStr,".");    // retourne versUsedStr = 02.14.011
+      if (versionInUse < versionWhish)
+         {mess     +=  tr("\r\n Installed database: %1 not up to date, mandatory version: %2").arg(versUsedStr, m_VERSION_NUMBER);
           m_IsValid = verifyBaseIntegrity(confData, &mess);
          } // endif (versionInUse < versionWhish)
      } // endelseif(versionWhish   != m_VERSION_NUMBER.toDouble())
@@ -160,20 +165,72 @@ void CMoteurBase::killBase()
  QSqlDatabase::database( m_BaseLabel ).close();
  QSqlDatabase::removeDatabase (m_BaseLabel);
 }
+
 //-----------------------------------------------------  GetMedinTuxVersion -------------------------------------------
 double CMoteurBase::GetMedinTuxVersion()
 {QString version;
  return GetMedinTuxVersion(version);
 }
 
-//-----------------------------------------------------  SetMedinTuxVersion -------------------------------------------
-void CMoteurBase::SetMedinTuxVersion(const QString &version)
-{   if (OpenBase()==0)  return;
-    QString requete =  QString("INSERT INTO ") + m_VERSION_TBL_NAME   + " (NumVers) VALUES ('" + version +"' )";
-    QSqlQuery query(requete, QSqlDatabase::database(m_BaseLabel));
-    CloseBase();
+//-----------------------------------------------------  GetMedinTuxVersion -------------------------------------------
+double CMoteurBase::GetMedinTuxVersion(QString &version)
+{   GetMedinTuxNormalisedVersion(version, ".");   // 02.15.000
+    QString tmp = version;
+    return tmp.remove(5,1).toDouble();
 }
 
+//-------------------------------------- GetMedinTuxNormalisedVersion( ---------------------------------------------------
+int CMoteurBase::GetMedinTuxNormalisedVersion()
+{QString version="";
+ return GetMedinTuxNormalisedVersion(version);
+}
+
+//-------------------------------------- GetMedinTuxNormalisedVersion( ---------------------------------------------------
+int CMoteurBase::GetMedinTuxNormalisedVersion(QString &version, const QString &sep /*=""*/)
+{if (OpenBase()==0)  return 0;
+    version = "0000000";
+    int ret =  0;
+    QString tmp;
+    QSqlQuery sqlQuery ( QString ("SELECT NumVers FROM %2 ").arg(m_VERSION_TBL_NAME) , QSqlDatabase::database(m_BaseLabel) );
+    if (sqlQuery.isActive())
+       {while (sqlQuery.next())
+              {tmp     = sqlQuery.value(0).toString();
+               if (tmp[1]=='.') tmp = tmp.prepend('0'); // cas du 1.20.001  --> 01.20.001     1.20 -->01.20
+               tmp  = tmp.remove('.');
+               if ( tmp.length() <= 5 ) tmp +="000";
+               if (tmp.toInt() > version.toInt())  version = tmp;  // attention  .toFloat() bug sous VC++
+              }
+       }
+    CloseBase();
+    ret     = version.toInt();
+    if (sep.length()) version = version.left(2)+"."+version.mid(2,2)+"."+version.mid(4,3);
+    return ret;
+}
+
+//-------------------------------------- normaliseVersion ---------------------------------------------------
+int CMoteurBase::normaliseVersion(const QString &version, const QString &sep /*=""*/ )
+{QString vers = version;
+ return normaliseVersion(vers, sep  );
+}
+//-------------------------------------- normaliseVersion ---------------------------------------------------
+int CMoteurBase::normaliseVersion(QString &version, const QString &sep /*=""*/ )
+{if (version[1]=='.') version = version.prepend('0');   // cas du 1.20.001  --> 01.20.001     1.20 -->01.20
+ version = version.remove('.');
+ if (version.length() <= 5 ) version +="000";
+ int ret = version.toInt();
+ if (sep.length()) version = version.left(2)+"."+version.mid(2,2)+"."+version.mid(4,3);
+ return ret;
+}
+
+
+
+
+/*
+//-----------------------------------------------------  GetMedinTuxVersion -------------------------------------------
+double CMoteurBase::GetMedinTuxVersion()
+{QString version;
+ return GetMedinTuxVersion(version);
+}
 //-----------------------------------------------------  GetMedinTuxVersion -------------------------------------------
 double CMoteurBase::GetMedinTuxVersion(QString &version)
 {   if (OpenBase()==0)  return 0;
@@ -189,6 +246,15 @@ double CMoteurBase::GetMedinTuxVersion(QString &version)
     CloseBase();
     return version.toDouble();
 }
+*/
+//-----------------------------------------------------  SetMedinTuxVersion -------------------------------------------
+void CMoteurBase::SetMedinTuxVersion(const QString &version)
+{   if (OpenBase()==0)  return;
+    QString requete =  QString("INSERT INTO ") + m_VERSION_TBL_NAME   + " (NumVers) VALUES ('" + version +"' )";
+    QSqlQuery query(requete, QSqlDatabase::database(m_BaseLabel));
+    CloseBase();
+}
+
 //-----------------------------------------------------  verifyBaseIntegrity -------------------------------------------
 int  CMoteurBase::verifyBaseIntegrity(const QString &confFile, QString *errMess)
 {QString mess;
@@ -263,7 +329,7 @@ int CMoteurBase::tryToSetThisTable(const QString &tbl, const QString fileSQL, co
     QFile file( fileSQL );
     if ( !file.open( QIODevice::ReadOnly  ) ) return 0;
 
-    //.......... on d\303\251clare une variable pour lire le fichier ligne Ã  ligne ..................
+    //.......... on d\303\251clare une variable pour lire le fichier ligne ï¿½  ligne ..................
     char *pt;
     QString requete       = "";
     QString line          = "";
@@ -295,7 +361,7 @@ int CMoteurBase::tryToSetThisTable(const QString &tbl, const QString fileSQL, co
            //...............................>>>>> INSERTION ........................
            //   INSERT INTO `RubriquesHead` VALUES (1,'30DC82DD-7632-2C46-9DC3-BC1AC0ECD20A',20030000,'Asthme sai','2004-12-08 19:23:41','admin',0,0);
            //   INSERT INTO `RubriquesHead` VALUES (2,'30DC82DD-7632-2C46-9DC3-BC1AC0ECD20A',20020200,'Bilan labo complet','2004-12-08 19:23:41','admin',0,0);
-           //   INSERT INTO `ACCES2` VALUES ('A','Ã  foyer ouvert'),('A','par ... abord '),('A','par dissection ...');
+           //   INSERT INTO `ACCES2` VALUES ('A','ï¿½  foyer ouvert'),('A','par ... abord '),('A','par dissection ...');
            //   INSERT INTO `codes_postaux` (`id`,`code_postal`,`ville`) VALUES
            //   (26662,62153,'ABLAIN ST NAZAIRE'),
            //   (35076,80320,'ABLAINCOURT PRESSOIR');
@@ -306,7 +372,7 @@ int CMoteurBase::tryToSetThisTable(const QString &tbl, const QString fileSQL, co
                    { //............ isoler le verbe .................................................................
                      long len_line;
                      requete   ="";
-                     //..................... isoler les donn\303\251es Ã  inserer ............................................
+                     //..................... isoler les donn\303\251es ï¿½  inserer ............................................
                      do
                       {
                         len_line = line.length();
@@ -330,7 +396,7 @@ int CMoteurBase::tryToSetThisTable(const QString &tbl, const QString fileSQL, co
 //-----------------------------------------------------  ParseSQL_InsertInto -------------------------------------------
 // INSERT INTO `RubriquesHead` VALUES (1,'30DC82DD-7632-2C46-9DC3-BC1AC0ECD20A',20030000,'Asthme sai','2004-12-08 19:23:41','admin',0,0);
 // INSERT INTO `RubriquesHead` VALUES (2,'30DC82DD-7632-2C46-9DC3-BC1AC0ECD20A',20020200,'Bilan labo complet','2004-12-08 19:23:41','admin',0,0);
-// INSERT INTO `ACCES2` VALUES ('A','Ã  foyer ouvert'),('A','par ... abord'),('A','par dissection ...');
+// INSERT INTO `ACCES2` VALUES ('A','ï¿½  foyer ouvert'),('A','par ... abord'),('A','par dissection ...');
 // INSERT INTO `codes_postaux` (`id`,`code_postal`,`ville`) VALUES
 //  (26662,62153,'ABLAIN ST NAZAIRE'),
 //  (35076,80320,'ABLAINCOURT PRESSOIR');
@@ -2428,7 +2494,7 @@ long CMoteurBase::GetUserList(    QTreeWidget     *pQlistView,
 
 //-----------------------------------------------------  GetUserList -------------------------------------------
 /*! \brief Fonction qui recupere et renseigne une QStringList avec le nom des utilisateurs
- *  \param qstringList    &QStringList  : reference sur la QStringList Ã  remplir avec le nom des utilisateurs
+ *  \param qstringList    &QStringList  : reference sur la QStringList ï¿½  remplir avec le nom des utilisateurs
  *  \param filterOnDroits &QStringList  : reference sur une chaine contenant les droits dont on veut les utilisateurs (vide si pas utilis\303\251e)
  *  \return QString   retourne une chaine contenant une eventuelle erreur (vide si pas d'erreur)
  */

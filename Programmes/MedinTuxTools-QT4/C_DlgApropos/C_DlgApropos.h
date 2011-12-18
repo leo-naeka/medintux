@@ -56,7 +56,8 @@ public:
                  const QString &pathChangements,
                  const QString &pathIcone,
                  const QString &pathHelp,
-                 const QString &pathApropos);
+                 const QString &pathApropos,
+                 const QString &baseVersion);
     ~C_DlgApropos();
      void setPageHelp(        const QString &path );
      void setPageAPropos(     const QString &text );

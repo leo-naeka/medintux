@@ -92,4 +92,5 @@ Manager_es.ts
 CODECFORTR = UTF8
 OTHER_FILES += ../bin/Ressources/Changements.html \
     Manager_fr.ts \
-    ../bin/lang/Manager_fr.qm
+    ../bin/lang/Manager_fr.qm \
+    ../bin/Manager.ini

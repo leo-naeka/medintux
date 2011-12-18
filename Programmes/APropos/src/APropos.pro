@@ -7,7 +7,7 @@ QT += network \
 
 #........... make the binary name and version number available in c++ code using macro definition ................
 TARGET       = APropos
-NUM_VERS     = 2.14.005
+NUM_VERS     = 2.15.000
 
 DEFINES	    += "NUM_VERSION=\"\\\"$${NUM_VERS}\\\"\""
 DEFINES	    += "NAME_APPLI=\"\\\"$${TARGET}\\\"\""
@@ -37,3 +37,4 @@ mac:OBJECTS_DIR   = $${SRC_DIR}/obj/mac
 UI_DIR   = $${SRC_DIR}/ui
 MOC_DIR  = $${SRC_DIR}/moc
 RCC_DIR  = $${SRC_DIR}/rcc
+TRANSLATIONS = Manager_fr.ts

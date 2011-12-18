@@ -46,6 +46,10 @@ C_DBVar::C_DBVar(  QString& confData)
  if (confData.length()==0) {m_LastError +=  TR("\r\n Configuration database file empty or unreachable "); return;}
  initValues(confData);
 }
+//-----------------------------------------------------  getVersionNumber -------------------------------------------
+QString C_DBVar::getVersionNumber()
+{return m_VERSION_NUMBER;
+}
 
 //-----------------------------------------------------  SetConfBase -------------------------------------------
 int C_DBVar::initValues( QString& confData)
@@ -54,7 +58,7 @@ int C_DBVar::initValues( QString& confData)
   char     *deb = (char*)(const char *)ba;
   char      *pt = deb;
   int      line = 0;
-
+  pt = SetConfBase_SetProperties(pt,  m_VERSION_NUMBER,    "m_VERSION_NUMBER",  &line , err); if (err.length())     goto SetConfBase_Error;
   pt = SetConfBase_SetProperties(pt,  m_BO_TBL_NAME,       "m_BO_TBL_NAME",     &line , err); if (err.length())     goto SetConfBase_Error;
   pt = SetConfBase_SetProperties(pt , m_BO_PK,             "m_BO_PK",           &line , err); if (err.length())     goto SetConfBase_Error;
   pt = SetConfBase_SetProperties(pt , m_BO_LIBELLE,        "m_BO_LIBELLE",      &line , err); if (err.length())     goto SetConfBase_Error;

@@ -59,7 +59,6 @@ CApp::~CApp()
 {if (m_pC_BaseSynoptux)   delete m_pC_BaseSynoptux;
 }
 
-
 //--------------------------------------------- CApp -------------------------------------------------------------------
 CApp::CApp(QString mui_name, int & argc, char ** argv)
 :   C_AppCore( mui_name, argc, argv )

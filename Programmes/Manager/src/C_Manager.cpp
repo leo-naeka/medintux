@@ -180,7 +180,11 @@ C_Manager::C_Manager(CMoteurBase *pCMoteurBase,  QWidget *parent, const QString 
    //m_actionQuitter->setText(QApplication::translate("C_ManagerClass", "Quitter", 0, QApplication::UnicodeUTF8));
 
    //..........//////// barre de menus ////////....................
+#ifdef  Q_WS_MAC
+   m_menuBar = new QMenuBar(0);
+#else
    m_menuBar = new QMenuBar(this);
+#endif
    m_menuBar->setObjectName(QString::fromUtf8("menuBar"));
    m_menuBar->setGeometry(QRect(0, 0, 1015, 23));
    //................. menu fichier ..........................
@@ -648,18 +652,19 @@ if (CGestIni::Param_ReadUniqueParam(G_pCApp->m_LocalParam, "Sesam-Vitale", "Modu
    setAllWidgetsOnFont(G_pCApp->m_GuiFont);
    //................. ceration des agendas ......................................................
    //                   teste si plusieurs agendas ouverts au lancement .
-   QString     listagendas = CGestIni::Param_ReadUniqueParam(G_pCApp->m_LocalParam, "Agenda", "Liste des agendas a ouvrir");
-   QStringList listeUsersAgenda;
-   listeUsersAgenda = listagendas.split(';',QString::SkipEmptyParts);
+   QString          listagendas = CGestIni::Param_ReadUniqueParam(G_pCApp->m_LocalParam, "Agenda", "Liste des agendas a ouvrir");
+   QStringList listeUsersAgenda = listagendas.split(';',QString::SkipEmptyParts);;
+   bool     isCurrentUserInList = false;
    if (listeUsersAgenda.count() > 0)
       {for (int i = 0; i < listeUsersAgenda.count(); i++)
-           {QString user = listeUsersAgenda[i].remove(' ');
+           {QString user = listeUsersAgenda[i].trimmed();
             bool forceUserToBeUsed = user.startsWith('+');
             user = user.remove('+');
+            if ( isCurrentUserInList==false && user == G_pCApp->m_SignUser) isCurrentUserInList = true;
             if ( forceUserToBeUsed || m_pGUI->comboBoxAgendaUser->findText (user) != -1 )  addUserAgenda(user, QDate::currentDate());
            }
       }
-   else
+   if ( ! isCurrentUserInList )
       {addUserAgenda(G_pCApp->m_SignUser, QDate::currentDate());
       }
    if (CGestIni::Param_ReadUniqueParam(G_pCApp->m_LocalParam, "Agenda", "Affichage logo Data Medical Design")== "NON")  // CZA
@@ -804,8 +809,8 @@ m_actionQuitter->setShortcut(QApplication::translate("C_ManagerClass", "Ctrl+Q",
     m_menuFichiers->setTitle(QApplication::translate("C_ManagerClass", ".                                                   Files", 0, QApplication::UnicodeUTF8));
 #endif
 m_menuFenetre->setTitle(QApplication::translate("C_ManagerClass", "Display and Windows", 0, QApplication::UnicodeUTF8));
-m_action_A_Propos->setText(QApplication::translate("C_ManagerClass", "About Manager", 0, QApplication::UnicodeUTF8));
-m_menuInfo->setTitle(QApplication::translate("C_ManagerClass", "Help", 0, QApplication::UnicodeUTF8));
+m_action_A_Propos->setText(QApplication::translate("C_ManagerClass", "&About Manager", 0, QApplication::UnicodeUTF8));
+m_menuInfo->setTitle(QApplication::translate("C_ManagerClass", "&Help", 0, QApplication::UnicodeUTF8));
 m_action_AccesWebMedTux->setText(QApplication::translate("C_ManagerClass", "Access to medical file by MedWebTux", 0, QApplication::UnicodeUTF8));
 m_action_Aide->setText(QApplication::translate("C_ManagerClass", "MedinTux Documentation", 0, QApplication::UnicodeUTF8));
 m_action_UserParams->setText(QApplication::translate("C_ManagerClass", "Users management", 0, QApplication::UnicodeUTF8));
@@ -845,8 +850,11 @@ m_action_WebStop->setEnabled(TRUE);
 
 //--------------------------------- Slot_On_webView_MedWebTux_loadFinished -----------------------------------------------------------------------
 void C_Manager::Slot_On_webView_MedWebTux_loadFinished(bool)
-{m_pGUI->progressBarWebView->hide();
-m_action_WebStop->setEnabled(FALSE);
+{QString url = m_webView_MedWebTux->url().toString();
+ m_pGUI->progressBarWebView->hide();
+ m_action_WebStop->setEnabled(FALSE);
+
+ if (url.indexOf("about:blank")!=-1) m_pGUI->tabWidget_Central->setCurrentIndex ( 0 );
 }
 
 //--------------------------------- Slot_actionWebStop -----------------------------------------------------------------------
@@ -1006,31 +1014,39 @@ void C_Manager::Slot_actionAproposDisplay()
         QString pathExeAPropos     = CGestIni::Construct_Name_Exe("APropos", QFileInfo (qApp->argv()[0]).path());
         QString pathBinRessources  = CGestIni::Construct_PathBin_Module("APropos", QFileInfo (qApp->argv()[0]).path())+"Ressources/";
         QStringList argList;
-        QProcess::ProcessState procState;
+        int procState;
         //......................... completer les autres arguments .........................................
+        QString dataBaseVersion = "";
+        m_pCMoteurBase->GetMedinTuxNormalisedVersion(dataBaseVersion, ".");
         argList << "Manager";                                                       // 1  nom du module
         argList << tr("Schedule management and patient list module");               // 2  description courte
         argList << (G_pCApp->getNumVers()+" Qt : "+QT_VERSION_STR);                 // 3  numero de version
         argList << G_pCApp->m_PathAppli+"Ressources/Changements.html";              // 4  fichiers d?crivant les changements
         argList << Theme::getPath(Theme::WithSeparator)+"32x32/Manager.png";        // 5  Icone du programme
         argList << QDir::cleanPath(G_pCApp->m_PathAppli+"../../Doc/index.html") ;   // 6  aide en ligne
+        argList << "";                                                              // 7  apropos (on met une chaine vide pour qu'il prenne celui par défaut)
+        argList << dataBaseVersion ;                                                // 8  version de la base de donnee
         //QProcess::startDetached (pathExeAPropos, argList);
 
         if (m_Apropos_Proc==0)
            {m_action_A_Propos->setDisabled(TRUE);
             m_Apropos_Proc = new QProcess(this);
+            connect( m_Apropos_Proc,  SIGNAL(error ( QProcess::ProcessError  )), G_pCApp, SLOT(Slot_error ( QProcess::ProcessError  )) );
             m_Apropos_Proc->start(pathExeAPropos, argList);
-            SLEEP(2);
+            m_Apropos_Proc->waitForStarted  (4000);
+            // m_Apropos_Proc->waitForFinished ();     // crash crash bug QT connu
+            //..... pour contourner le bug on fait une boucle d'attente un peu sale ....
             G_pCApp->processEvents ();
             while ( (procState = m_Apropos_Proc->state())== QProcess::Running ) // && QFile::exists(pathBinRessources+"~A_propos.html")
                   { //qDebug(QString::number(procState).toAscii());
-                    QApplication::processEvents ( QEventLoop::WaitForMoreEvents );
+                    QApplication::processEvents ( QEventLoop::ExcludeUserInput );
                   }
             if (m_Apropos_Proc) delete m_Apropos_Proc;
             m_Apropos_Proc = 0;
             QFile::remove(pathBinRessources+"~A_propos.html");
             m_action_A_Propos->setDisabled(FALSE);
            }
+
        QApplication::restoreOverrideCursor();
 
 }
@@ -3206,14 +3222,6 @@ m_pCMoteurBase->PatientIntervenantsWrite( iD_Doss , numGUID, pQListViewItem->tex
 }
 
 //--------------------------------- Slot_pushButton_AddMedTTT_clicked -----------------------------------------------------------------------
-void C_Manager::Slot_pushButton_AddMedTTT_clicked()
-{QString idInterv = "";
-//............ recuperer \303\251ventuel ID praticien en cours .......................................
-QTreeWidgetItem *pQListViewItem = getSelectedListViewItem(m_pGUI->listView_Praticiens);
-if (pQListViewItem) idInterv = pQListViewItem->text(ID_INTERV);
-exeAnnuaire( idInterv );
-}
-//--------------------------------- Slot_pushButton_AddMedTTT_clicked -----------------------------------------------------------------------
 void C_Manager::Slot_pushButton_AddMedTTT_Fast_clicked ()
 {   QString numGUID   = "";
    QString iD_Doss   = "";
@@ -3292,14 +3300,34 @@ void C_Manager::Slot_pushButton_DelMedTTT_clicked()
 
 //--------------------------------- Slot_listView_Praticiens_DoubleClicked -------------------------------------------------------------
 void C_Manager::Slot_listView_Praticiens_DoubleClicked( QTreeWidgetItem *pQTreeWidgetItem, int )
-{QString idInterv = "";
-if (pQTreeWidgetItem) idInterv = pQTreeWidgetItem->text(ID_INTERV);
-exeAnnuaire(idInterv);
+{m_pGUI->listView_Praticiens->setEnabled(false);
+ //disconnect( m_pGUI->listView_Praticiens, SIGNAL(itemDoubleClicked ( QTreeWidgetItem * , int  )), 0, 0 );
+ QString idInterv = "";
+ if (pQTreeWidgetItem) idInterv = pQTreeWidgetItem->text(ID_INTERV);
+ exeAnnuaire(idInterv);
+ //connect( m_pGUI->listView_Praticiens, SIGNAL(itemDoubleClicked ( QTreeWidgetItem * , int  )), this, SLOT(Slot_listView_Praticiens_DoubleClicked( QTreeWidgetItem * , int)) );
+ m_pGUI->listView_Praticiens->setEnabled(true);
+}
+//--------------------------------- Slot_pushButton_AddMedTTT_clicked -----------------------------------------------------------------------
+void C_Manager::Slot_pushButton_AddMedTTT_clicked()
+{m_pGUI->pushButton_AddMedTTT->setEnabled(false);
+ //disconnect(m_pGUI->pushButton_AddMedTTT, SIGNAL(clicked()), 0, 0);
+ QString idInterv = "";
+ //............ recuperer \303\251ventuel ID praticien en cours .......................................
+ QTreeWidgetItem *pQListViewItem = getSelectedListViewItem(m_pGUI->listView_Praticiens);
+ if (pQListViewItem) idInterv = pQListViewItem->text(ID_INTERV);
+ exeAnnuaire( idInterv );
+ //connect( m_pGUI->pushButton_AddMedTTT,     SIGNAL(clicked()), this, SLOT(Slot_pushButton_AddMedTTT_clicked()) );
+ m_pGUI->pushButton_AddMedTTT->setEnabled(true);
 }
 
 //--------------------------------- exeAnnuaire -------------------------------------------------------------
 void C_Manager::exeAnnuaire(QString idInterv )
-{   if (G_pCApp->IsThisDroitExist( "idc")==0)
+{ if (m_Contacts_Run)
+     {G_pCApp->CouCou(tr( "The process 'personnes' is still running"));
+      return;
+     }
+  if (G_pCApp->IsThisDroitExist( "idc")==0)
      {G_pCApp->CouCou(tr( "Your rights are insufficient to modify a file"));
       return;
      }
@@ -3308,16 +3336,16 @@ void C_Manager::exeAnnuaire(QString idInterv )
    if ( !QFile::exists( pathExe ) ) {G_pCApp->CouCou(tr( "Binary is not found.").arg(pathExe));  return; }
    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
    QString pathExch;
-   // si path executable non d\303\251fini le fixer par defaut sur '../../tmp'
+   // si path executable non defini le fixer par defaut sur '../../tmp'
    if (CGestIni::Param_ReadParam(G_pCApp->m_LocalParam, "Repertoire Temporaire", "Repertoire", &pathExch)!=QString::null)
       {pathExch = "../../tmp";
       }
-   // Adaptation \303\240 la plateforme
+   // Adaptation a la plateforme
    if ( QDir(pathExch).isRelative()) pathExch.prepend(G_pCApp->m_PathAppli);
    pathExch += "/ManagerGetPersonnne"+  m_pCMoteurBase->GUID_Create() +".ech";   // on cree un nom de fichier unique
-   pathExch = QDir::cleanDirPath(pathExch);
-   // l'effacer au ca ou ne l'aurait pas deja ete
-   QFile::remove (pathExch);
+   pathExch  = QDir::cleanDirPath(pathExch);
+   // l'effacer au ca ou ne l'aurait pas deja ete (euh avec un GUID c'est un peut idiot
+   //QFile::remove (pathExch);
 
    QStringList argList;
    //......................... completer les autres arguments .........................................
@@ -3327,54 +3355,57 @@ void C_Manager::exeAnnuaire(QString idInterv )
    argList <<( G_pCApp->m_Droits );
 
    if (m_Contacts_Run==FALSE)
-      {m_Contacts_Run = TRUE;
-       QProcess   proc;
-       proc.start(pathExe, argList);
-       SLEEP(2);
-       G_pCApp->processEvents ();
-       while (proc.state()==QProcess::Running )
-          { QApplication::processEvents ( QEventLoop::WaitForMore );
-          }
-       m_Contacts_Run = FALSE;
+      { m_Contacts_Run = TRUE;
+        QProcess   proc;
+        connect( &proc,  SIGNAL(error ( QProcess::ProcessError  )), G_pCApp, SLOT(Slot_error ( QProcess::ProcessError  )) );
+        proc.start(pathExe, argList);
+        if (!proc.waitForStarted(4000))  {QApplication::restoreOverrideCursor(); m_Contacts_Run = FALSE;  return;};
+        // if (!proc.waitForFinished())     {QApplication::restoreOverrideCursor(); m_Contacts_Run = FALSE;  return;}; // crash
+        // on fait une boucle d'attente car crash du process appele avec waitForFinished() !!!
+        G_pCApp->processEvents ();
+        while (proc.state()==QProcess::Running )
+             { QApplication::processEvents ( QEventLoop::ExcludeUserInput );
+             }
 
-       //......... recuperer fichier d'echange .............
-       //          genere par l'executable
-       QString ret;
-       CGestIni::Param_UpdateFromDisk(pathExch, ret);
-       //............... analyse du retour ................
-       QString id, spec,nom, prenom;
-       int deb =  0;
-       int end = ret.find('|');
-       id      = ret.mid(deb, end-deb);
-       deb     = end + 1;
-       end     = ret.find('|', deb);
-       nom     = ret.mid(deb, end-deb);
-       deb     = end + 1;
-       end     = ret.find('|', deb);
-       prenom  = ret.mid(deb, end-deb);
-       deb     = end + 1;
-       spec    = ret.mid(deb);
-       //................... si le dossier est en cr\303\251ation ajout uniquement dans la listview ...........................
-       QTreeWidgetItem* pQTreeWidgetItemInterv = 0;
-       if (getInterfaceMode() == MODE_CREATION_PATIENT)
-          { pQTreeWidgetItemInterv = new QTreeWidgetItem();
-          }
-       //................... si le dossier est deja cree on enregistre  ...........................
-       //                    l'intervenant avec les identifiants patients connus
-       else if (m_pCMoteurBase->PatientIntervenantsWrite( G_pCApp->identitePatientPk() , G_pCApp->identitePatientGUID(), id, "") != 0)
-          { pQTreeWidgetItemInterv = new QTreeWidgetItem();
-          }
+        //......... recuperer fichier d'echange .............
+        //          genere par l'executable
+        QString ret;
+        CGestIni::Param_UpdateFromDisk(pathExch, ret);
+        //............... analyse du retour ................
+        QString id, spec,nom, prenom;
+        int deb =  0;
+        int end = ret.find('|');
+        id      = ret.mid(deb, end-deb);
+        deb     = end + 1;
+        end     = ret.find('|', deb);
+        nom     = ret.mid(deb, end-deb);
+        deb     = end + 1;
+        end     = ret.find('|', deb);
+        prenom  = ret.mid(deb, end-deb);
+        deb     = end + 1;
+        spec    = ret.mid(deb);
+        //................... si le dossier est en cr\303\251ation ajout uniquement dans la listview ...........................
+        QTreeWidgetItem* pQTreeWidgetItemInterv = 0;
+        if (getInterfaceMode() == MODE_CREATION_PATIENT)
+           { pQTreeWidgetItemInterv = new QTreeWidgetItem();
+           }
+        //................... si le dossier est deja cree on enregistre  ...........................
+        //                    l'intervenant avec les identifiants patients connus
+        else if (m_pCMoteurBase->PatientIntervenantsWrite( G_pCApp->identitePatientPk() , G_pCApp->identitePatientGUID(), id, "") != 0)
+           { pQTreeWidgetItemInterv = new QTreeWidgetItem();
+           }
        if (pQTreeWidgetItemInterv)
-          {pQTreeWidgetItemInterv->setText(0,spec);
-           pQTreeWidgetItemInterv->setText(1,nom);
-           pQTreeWidgetItemInterv->setText(2,prenom);
-           pQTreeWidgetItemInterv->setText(3,"");      // en qualite de
-           pQTreeWidgetItemInterv->setText(4,id);
-           m_pGUI->listView_Praticiens->addTopLevelItem(pQTreeWidgetItemInterv);
+          { pQTreeWidgetItemInterv->setText(0,spec);
+            pQTreeWidgetItemInterv->setText(1,nom);
+            pQTreeWidgetItemInterv->setText(2,prenom);
+            pQTreeWidgetItemInterv->setText(3,"");      // en qualite de
+            pQTreeWidgetItemInterv->setText(4,id);
+            m_pGUI->listView_Praticiens->addTopLevelItem(pQTreeWidgetItemInterv);
           }
+        QFile::remove (pathExch);
+        m_Contacts_Run = FALSE;
       }
-   QFile::remove (pathExch);
-   QApplication::restoreOverrideCursor();
+        QApplication::restoreOverrideCursor();
 }
 
 

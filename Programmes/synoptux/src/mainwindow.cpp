@@ -39,9 +39,13 @@
 **
 ****************************************************************************/
 
+#include <Qt>
 #include <QtGui>
 #include <QFileInfo>
 #include <QCursor>
+#include <QApplication>
+#include <QCoreApplication>
+#include <QEventLoop>
 
 #include "mainwindow.h"
 #include "mdibox.h"
@@ -54,13 +58,14 @@
 #define DB_DRTUX              CApp::pCApp()->getDB()->database()
 #define DATA_BASE_SYNOPTUX    CApp::pCApp()->getDB()->database()
 #define BASE_SYNOPTUX         CApp::pCApp()->getDB()
-#define TACHES          "ST_taches"
-#define ETATS           "ST_etats"
-#define ETATS_TACHES    "ST_etats_taches"
-#define ENCOURS         "ST_encours"
-#define ENCOURS_TACHES  "ST_encours_taches"
-#define BOX             "ST_box"
-#define HISTORIQUE      "ST_historique"
+#define TACHES          "synopt_taches"
+#define ETATS           "synopt_etats"
+#define ETATS_TACHES    "synopt_etats_taches"
+#define ENCOURS         "synopt_encours"
+#define ENCOURS_TACHES  "synopt_encours_taches"
+#define BOX             "synopt_box"
+#define HISTORIQUE      "synopt_historique"
+
 
 //-----------------------------------------MainWindow---------------------------------------------
 MainWindow::MainWindow()
@@ -68,6 +73,7 @@ MainWindow::MainWindow()
     // Initialisation des variables globales
     m_timerClignote   = 0;
     m_timerAlarme     = 0;
+    m_timerEntrees    = 0;
     m_Apropos_Proc    = 0;
     m_notAction       = 0;
     m_popupTache      = 0;
@@ -138,7 +144,7 @@ MainWindow::MainWindow()
     m_helpMenu->addAction(m_aboutAct);
 
     // Affichage des BOX avec leur occupation
-    Afficher_Les_Box();
+    int ret = Afficher_Les_Box();
 
     // REVOIR AVEC LA CREATION DES BOX
     Recuperer_Positions();
@@ -155,11 +161,15 @@ MainWindow::MainWindow()
         connect(m_timerAlarme, SIGNAL(timeout()), this, SLOT(Controle_Alarmes()));
         m_timerAlarme->start(m_PeriodeAlarme * 1000);
        }
-
+    if (ret==-1) onSqlError();
 }
 //-----------------------------------------closeEvent---------------------------------------------
 void MainWindow::closeEvent(QCloseEvent *event)
-{
+{   int ret = QMessageBox::question(0,NAME_APPLI,tr("Do you want really quit synoptux ?"),tr("YES"),tr("NO"),0,1,1);
+    if (ret==1)
+       {event->ignore();
+        return;
+       }
     m_mdiArea->closeAllSubWindows();
     if (m_mdiArea->currentSubWindow()) {
         event->ignore();
@@ -204,7 +214,7 @@ void MainWindow::sortieAppli()
 bool MainWindow::RecupInit()
 {
     // lecture du fichier synoptux.ini
-    m_nomFicIni   = QApplication::applicationDirPath()+ "/synoptux.ini";
+    m_nomFicIni   = CApp::pCApp()->pathAppli() + "synoptux.ini";
     m_settingsIni = new QSettings(m_nomFicIni, QSettings::IniFormat);
     m_settingsIni->setIniCodec ("ISO 8859-1");
 
@@ -271,7 +281,7 @@ bool MainWindow::RecupInit()
 // Changement de methode :
 // - On ne detruit plus tous les box pour les recreer.
 // - On actualise les box existants (effacement des infos patients uniquement)
-void MainWindow::Afficher_Les_Box()
+int MainWindow::Afficher_Les_Box()
 {
     QMap <QString, C_Wdg_Box* >::const_iterator it;
     QString nubox              = 0;                                 // BUGBUG
@@ -280,26 +290,22 @@ void MainWindow::Afficher_Les_Box()
     m_ListePositions.clear();
     QString requete = "SELECT BO_Code, BO_Libelle, BO_CouleurBG, BO_CouleurTitre, BO_Nb_Maxi_Pat, BO_Type  FROM " BOX;
     QSqlQuery query(requete, DATA_BASE_SYNOPTUX);
+    if (!query.isActive()) return -1;
+    int nbBox = 0;
     while (query.isActive() &&  query.next())
         { // au premier affichage, on cree les box et on stocke les pointeurs
-        // DEB BUGBUG
-        nubox  = query.value(0).toString();
-        it     = m_pC_Wdg_Box.find(nubox);
-        if (it == m_pC_Wdg_Box.end())
-        //if (m_pC_Wdg_Box[nubox] == 0)
-            { m_pC_Wdg_Box[nubox] = newBox(nubox,query.value(1).toString(), query.value(2).toString(), query.value(3).toString(), query.value(4).toString(), query.value(5).toString());
-              RemplirLeBox(m_pC_Wdg_Box[nubox], nubox);
-            }
-        else // ensuite on reutilise les pointeurs sur les box existants.
-            {ActualiserUnBox(m_pC_Wdg_Box[nubox]);
-            }
-        // nubox ++;
-        // FIN BUGBUG
-
-        // TEST BUG C_Wdg_Box *pC_Wdg_Box = newBox(query.value(0).toString(),query.value(1).toString(), query.value(2).toString(), query.value(3).toString(), query.value(4).toString(), query.value(5).toString());
-        // TEST BUG RemplirLeBox(pC_Wdg_Box, query.value(0).toString());
+          nubox  = query.value(0).toString();
+          it     = m_pC_Wdg_Box.find(nubox);         // chercher si cette box existe deja
+          if (it == m_pC_Wdg_Box.end())              // SI non trouvee la creer
+             { m_pC_Wdg_Box[nubox] = newBox(nubox,query.value(1).toString(), query.value(2).toString(), query.value(3).toString(), query.value(4).toString(), query.value(5).toString());
+               RemplirLeBox(m_pC_Wdg_Box[nubox], nubox);
+             }
+          else                                       // SI trouvee on la reactualise
+             {ActualiserUnBox(m_pC_Wdg_Box[nubox]);
+             }
+          ++nbBox;
         } // fin while table box
-
+    return nbBox;
 }
 
 //-----------------------------------Slot_byebyeBox------------------------------------------------------
@@ -607,6 +613,10 @@ void MainWindow::AppliquerUnStyle(QString /*TypeDeTruc */, QWidget *Letruc, QStr
 }
 
 //----------------------------------- Slot_pushButton_Apropos_clicked -----------------------------------------------------------------------
+/*! \brief lauch ../../APropos/bin/APropos for display informations about the programme
+ *  the application version is defined in .pro  after mention  NUM_VERS =
+ *  when this mention change  C_AppCore must be recompiled.
+ */
 void MainWindow::Slot_pushButton_Apropos_clicked()
 {        C_Dlg_Changements *dlg = new C_Dlg_Changements(this);
          if (dlg==0) return;
@@ -614,19 +624,25 @@ void MainWindow::Slot_pushButton_Apropos_clicked()
          QString pathExeAPropos     = CGestIni::Construct_Name_Exe("APropos", QFileInfo (qApp->argv()[0]).path());
          QString pathBinRessources  = CGestIni::Construct_PathBin_Module("APropos", QFileInfo (qApp->argv()[0]).path())+"Ressources/";
          QStringList argList;
-         QProcess::ProcessState procState;
          //......................... completer les autres arguments .........................................
          argList << NAME_APPLI;                                                                                  // 1  nom du module
-         argList << tr("Synoptic of current actions");                                                       // 2  description courte
-         argList << CApp::pCApp()->applicationVersion() + "  Qt : " + QT_VERSION_STR;                            // 3  numero de version
+         argList << tr("Synoptic of current actions");                                                           // 2  description courte
+         argList << CApp::pCApp()->ApplicationAndQtVersion();                                                    // 3  numero de version appli et Qt
          argList << CApp::pCApp()->pathAppli()+"Ressources/Changements.html";                                    // 4  fichiers decrivant les changements
+         argList <<"";                                                                                           // 5  Icone par defaut
+         argList <<"";                                                                                           // 6  aide en ligne (vide pour prendre celle par defaut)
+         argList <<"";                                                                                           // 7  apropos (on met une chaine vide pour qu'il prenne celui par défaut)
+         argList <<BASE_SYNOPTUX->getVersionNumber();                                                            // 8  numero de version de la base de donnee
          if (m_Apropos_Proc==0)
             {m_Apropos_Proc = new QProcess(this);
              m_Apropos_Proc->start(pathExeAPropos, argList);
-             SLEEP(1);
-             CApp::pCApp()->processEvents ();
-             while ( (procState = m_Apropos_Proc->state())== QProcess::Running )
-                   { QApplication::processEvents ( QEventLoop::WaitForMoreEvents );
+             m_Apropos_Proc->waitForStarted  (4000);
+             // m_Apropos_Proc->waitForFinished ();     // crash crash bug QT connu
+             //..... pour contourner le bug on fait une boucle d'attente un peu sale ....
+             QApplication::processEvents();
+             while ( m_Apropos_Proc->state()== QProcess::Running ) // && QFile::exists(pathBinRessources+"~A_propos.html")
+                   { //QApplication::processEvents ( QEventLoop::ExcludeUserInput );
+                     CApp::pCApp()->processEvents (  );
                    }
              if (m_Apropos_Proc) delete m_Apropos_Proc;
              m_Apropos_Proc = 0;
@@ -702,16 +718,6 @@ void MainWindow::creerActionsGene()
     connect(m_aboutAct, SIGNAL(triggered()), this, SLOT(Slot_pushButton_Apropos_clicked()));
 }
 
-//---------------------------------RestaureBase----------------------------------------
-// Creation actions pour la m_mdiArea
-void MainWindow::RestaureBase()
-{QString fileName =  QFileDialog::getOpenFileName ( this, tr("Choose a file to restore"), CApp::pCApp()->pathAppli()+tr("Ressources"), tr("SQL files (*.SQL *.sql *.Sql)"));
- if (fileName.length())
-    {int ret = QMessageBox::question(0,NAME_APPLI,tr("Do you really want to restore this file ? This will erase all the existing data."),tr("YES"),tr("NO"),0,1,1);
-     if (ret == 0)
-     CApp::pCApp()->getDB()->executeSQL(fileName, 0, 0);
-    }
-}
 
 //---------------------------------creerActionsMdi----------------------------------------
 // Creation actions pour la m_mdiArea
@@ -812,18 +818,18 @@ void MainWindow::Actualiser(QString partielOUtotal)             // BUGBUG
     m_BoutonBougerEnCours = 0;
     m_BoxBougerEnCours    = 0;
     m_BoxEnCours          = "";
-qDebug() << "PASSE ACTUALISER";
+    qDebug() << "PASSE ACTUALISER";
     if (partielOUtotal == "TOTAL")
        {
-        //for (int i = 0; i < NB_BOX_MAX; i++) m_pC_Wdg_Box[i] = 0;
-        m_mdiArea->closeAllSubWindows();
-        m_pC_Wdg_Box.clear();
-        delete(m_mdiArea);
-        m_mdiArea = new QMdiArea(this);
-        m_mdiArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-        m_mdiArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-        setCentralWidget(m_mdiArea);
-        Recuperer_Positions();
+         //for (int i = 0; i < NB_BOX_MAX; i++) m_pC_Wdg_Box[i] = 0;
+         m_mdiArea->closeAllSubWindows();
+         m_pC_Wdg_Box.clear();
+         delete(m_mdiArea);
+         m_mdiArea = new QMdiArea(this);
+         m_mdiArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+         m_mdiArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+         setCentralWidget(m_mdiArea);
+         Recuperer_Positions();
        }
 
     Afficher_Les_Box();
@@ -1279,7 +1285,7 @@ void MainWindow::Lancer_DrTux(QWidget *UnWidget)
 #ifdef Q_OS_MACX
     QFileInfo fi(nomProg);
     QString   fname = fi.fileName();                // name = "archive.tar.gz"
-    nomProg += ".app/Contents/MacOS/" + fname
+    nomProg += ".app/Contents/MacOS/" + fname;
 #endif
 #ifdef Q_WS_WIN
     nomProg += ".exe" ;  // BUGBUG
@@ -1304,7 +1310,7 @@ void MainWindow::masquerNomPatient(QWidget *UnWidget)
        {Anonyme = "1";
         nomPatient->setText("Anonyme");
        }
-    // mise à jour nom du flag anonyme dans la base pour réaffichage.
+    // mise ï¿½ jour nom du flag anonyme dans la base pour rï¿½affichage.
     majTableEncours(nomPatient->whatsThis(), "EC_Anonyme = '" + Anonyme , tr("Hide name"));
 }
 
@@ -1471,9 +1477,18 @@ QString MainWindow::lectureBlobDrtux(int primKeyBlob)
    QByteArray toto = queryb.value(0).toByteArray();
    return(QString::fromUtf8(toto));
 }
+
 //--------------------------------------Annule_Tache------------------------------------------------
 void MainWindow::Annule_Tache(QWidget *UnWidget)
-{
+{  if (QMessageBox::question ( this,
+                               tr("Delete a task"),
+                               tr("Are you sure that this task must be delete"),
+                               QMessageBox::Ok|QMessageBox::Cancel,
+                               QMessageBox::Cancel
+                             ) ==QMessageBox::Cancel) return;
+
+
+
     QPushButton *annuleTache;
     QStringList listInfoTache;
     QString     numEnCours, numTache, requete;
@@ -1495,8 +1510,8 @@ void MainWindow::Annule_Tache(QWidget *UnWidget)
                   tr("Error = (") +  noerr + ") " + query.lastError().text() + "<br />" + zlastquery );
        } // fin if erreur exec Annulation
     Actualiser("PARTIEL");
-
 }
+
 //--------------------------------------modif_Etat------------------------------------------------
 // Si changement etat par Bouton :
 // ---> Mise a jour dans la base du debut de la tache si premier etat.
@@ -2096,7 +2111,7 @@ void MainWindow::Controle_Entrees()
             requete = "SELECT LAST_INSERT_ID() FROM "ENCOURS" WHERE EC_PK = LAST_INSERT_ID()" ;
             QSqlQuery query1(requete, DATA_BASE_SYNOPTUX);
             if (!query1.isActive() ||  !query1.next())
-               { QMessageBox::warning(0, NAME_APPLI, tr("Creating entrance. Error when looking for last key!"));
+               { onSqlError();
                  return;
                }
             EC_PK = query1.value(0).toInt();
@@ -2159,7 +2174,7 @@ void MainWindow::Controle_Entrees()
         requete = "SELECT MAX(EC_PK) FROM " ENCOURS ;
         QSqlQuery query1(requete, DATA_BASE_SYNOPTUX);
         if (!query1.isActive() ||  !query1.next())
-           { QMessageBox::warning(0, NAME_APPLI, tr("Entries control. Error when looking for last key"));
+           { onSqlError();
              return;
            }
         if (m_DernierPkencours != query1.value(0).toInt())
@@ -2170,7 +2185,7 @@ void MainWindow::Controle_Entrees()
         requete = "SELECT MAX(EN_Num_tache) FROM " ENCOURS_TACHES ; // BUGBUG
         QSqlQuery query2(requete, DATA_BASE_SYNOPTUX);
         if (!query2.isActive() ||  !query2.next())
-           { QMessageBox::warning(0, NAME_APPLI, "Controle des entr\303\251es. Erreur recherche derni\303\250re cl\303\251");
+           { onSqlError();
              return;
            }
 /* BUGBUG POUR TESTER ACTUALISATION FREQUENTE - TEST A REMETTRE
@@ -2180,6 +2195,71 @@ BUGBUG */
        }
     if (IlFautActualiser)
         Actualiser("PARTIEL");
+}
+//------------------------------------PopUp_Tache-------------------------------------------------
+void MainWindow::onSqlError()
+{   if (m_timerEntrees) m_timerEntrees->stop();
+    if (m_timerAlarme)  m_timerAlarme->stop();
+    setTimerActionEnabled(false);
+    if (areBasesInstalled())
+       { QMessageBox::warning(0, NAME_APPLI, tr("Creating entrance. Error when looking for last key!<br>"
+                                                "may be no data bases present, do menu 'Restore database'"));
+        return;
+       }
+    int ret = QMessageBox::question(0,NAME_APPLI,tr("Database for synoptux is not installed!<br> "
+                                                    "Do you want to proceed to installation."),tr("YES"),tr("NO"),0,1,1);
+    if (ret==0)
+       {
+        QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+        CApp::pCApp()->getDB()->executeSQL(CApp::pCApp()->pathAppli()+"Ressources/synoptuxBases.sql", 0, 0);
+        Actualiser("TOTAL");
+        m_timerEntrees->start(m_PeriodeEntrees * 1000);
+        m_timerAlarme->start(m_PeriodeAlarme * 1000);
+        setTimerActionEnabled(TRUE);
+        QApplication::restoreOverrideCursor();
+       }
+}
+
+//---------------------------------RestaureBase----------------------------------------
+// Creation actions pour la m_mdiArea
+void MainWindow::RestaureBase()
+{QString fileName =  QFileDialog::getOpenFileName ( this, tr("Choose a file to restore"), CApp::pCApp()->pathAppli()+"Ressources", tr("SQL files (*.SQL *.sql *.Sql)"));
+ if (fileName.length())
+    { int ret = QMessageBox::question(0,NAME_APPLI,tr("Do you really want to restore this file ? This will erase all the existing data."),tr("YES"),tr("NO"),0,1,1);
+      if (ret == 0)
+         { QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+           setTimerActionEnabled(false);
+           if (m_timerEntrees) m_timerEntrees->stop();
+           if (m_timerAlarme)  m_timerAlarme->stop();
+           CApp::pCApp()->getDB()->executeSQL(fileName, 0, 0);
+           Actualiser("TOTAL");
+           m_timerEntrees->start(m_PeriodeEntrees * 1000);
+           m_timerAlarme->start(m_PeriodeAlarme * 1000);
+           setTimerActionEnabled(true);
+           QApplication::restoreOverrideCursor();
+         }
+    }
+}
+
+//---------------------------------areBasesInstalled----------------------------------------
+int MainWindow::areBasesInstalled()
+{ QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+  int ret = 0;
+  QSqlDriver *pQSqlDriver =  DATA_BASE_SYNOPTUX.driver();
+  if ( ! pQSqlDriver)
+     { QMessageBox::warning(0, NAME_APPLI, tr("Driver not started<br>"
+                                              "may be bad SQL installation"));
+     }
+  else
+     {
+      //..................... verifier si les tables deja en place correspondent avec celles ..................
+      //                      indiquees par le fichier de configuration
+      QStringList tablesList = pQSqlDriver->tables(QSql::Tables);
+      if (tablesList.indexOf(BASE_SYNOPTUX->m_BO_TBL_NAME) == -1) ret = 0;
+      else                                                        ret = 1;
+    }
+  QApplication::restoreOverrideCursor();
+  return ret;
 }
 //------------------------------------PopUp_Tache-------------------------------------------------
 void MainWindow::PopUp_Tache(QString Message, int largeur, int hauteur, QString NomStyle)
@@ -2200,7 +2280,7 @@ void MainWindow::PopUp_Tache(QString Message, int largeur, int hauteur, QString 
 //--------------------------------LireleCSS----------------------------------------------------
 bool MainWindow::LireleCSS()
 {
-      QString     nomficCSS = QApplication::applicationDirPath()+ "/Ressources/synoptux.css";
+      QString     nomficCSS = CApp::pCApp()->pathAppli() + "Ressources/synoptux.css";
       QFile      *fileCSS   = new QFile(nomficCSS); if (fileCSS==0) return false;
       if (!fileCSS->open(QIODevice::ReadOnly)) {
           QMessageBox::warning(0, NAME_APPLI, tr("File %1 cannot be open!").arg(nomficCSS));

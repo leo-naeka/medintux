@@ -55,7 +55,7 @@
 #include "../../MedinTuxTools-QT4/GetPassword/CDlg_PasswordGet.h"
 CApp* G_pCApp = 0;  // contiendra l'instance globale de l'application
 
-static char NUM_VERSION[]     = "==##@@==2.14.021==@@##==";
+static char NUM_VERSION[]     = "==##@@==2.15.000==@@##==";
 
 //--------------------------------------------- C_App -------------------------------------------------------------------
 CApp::~CApp()
@@ -601,9 +601,14 @@ void CApp::launchSpecificJob(QString nameOfJob) // CZB
     if (!pathJob.contains(".exe"))
         pathJob +=".exe";
 #endif
-
+#ifdef Q_WS_X11
+       pathJob += "";
+#endif
+#ifdef  Q_WS_MAC
+       int pos = pathJob.lastIndexOf("/");
+       if (pos != -1) pathJob = pathJob+".app/Contents/MacOS/"+pathJob.mid(pos+1);
+#endif
     QProcess::startDetached (pathJob, listParam);
-
 }
 //------------------------------------------------------- PluginExe --------------------------------------------------
 QString CApp::PluginExe(        QObject         * pQObject,
@@ -757,19 +762,16 @@ QString CApp::PluginExe(        QObject         */*pQObject*/,
       QProcess*   proc = new QProcess();
       connect( proc,        SIGNAL(error ( QProcess::ProcessError  )),     this, SLOT(Slot_error ( QProcess::ProcessError  )) );
 
-      //proc.startDetached ( m_PluginRun, argList);
       proc->start(m_PluginRun, argList);
-      proc->waitForStarted  (-1);
-      proc->waitForFinished (-1);
+      proc->waitForStarted  (4000);
+      //proc->waitForFinished (); //crash crash
       //QByteArray ba = proc->readAllStandardError ();
       //qDebug(ba);
-      /*
-      SLEEP(1);
+
       processEvents ();
-      while (waitFlag==CApp::endWait && proc.state()==QProcess::Running )
-           { QApplication::processEvents ( QEventLoop::WaitForMore );
+      while (waitFlag==CApp::endWait && proc->state()==QProcess::Running )
+           { QApplication::processEvents ( QEventLoop::ExcludeUserInput );
            }
-      */
       m_PluginRun = "";
       //............lire le fichier d'echange ..........................
       //dst  = "/home/ro/QFseVitale-53671d5a-52c0-42ff-a39c-bed207109033-New.exc";

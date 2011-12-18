@@ -225,12 +225,17 @@ enum syncMode {
   void         ParseSQL_InsertInto(QString &text, QSqlDatabase *dataBase);
   int      SetConfBase(const char* confFile, QString *errMess);
   char    *SetConfBase_SetProperties(char *pt, QString &propertie, const char *token, int *line , QString &err);
-  double   GetMedinTuxVersion();
-  double   GetMedinTuxVersion(QString &version);
-  void     SetMedinTuxVersion(const QString &version);
   QString  GetNbRecord(const QString &table);
   QString  GetDataBaseLabel(){return m_BaseLabel;};
   QString  Utf8_Query(QSqlQuery &cur, int field);
+  //...............................  versions ...................................................
+  int      GetMedinTuxNormalisedVersion();
+  static int      normaliseVersion(QString &version, const QString &sep ="");
+  int      normaliseVersion(const QString &version, const QString &sep = "");
+  int      GetMedinTuxNormalisedVersion(QString &version, const QString &sep ="");
+  double   GetMedinTuxVersion();
+  double   GetMedinTuxVersion(QString &version);
+  void     SetMedinTuxVersion(const QString &version);
 /*
   //..................................... Nomadisme ...........................................
   int     synchroNomadeToMasterUpdate(         const QString & driver,

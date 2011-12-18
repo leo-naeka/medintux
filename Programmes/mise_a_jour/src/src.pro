@@ -31,10 +31,12 @@ TARGET = ../bin/mise_a_jour
 CONFIG += qt \
 thread \
  exceptions \
- warn_off
+ warn_off \
+ debug
 TEMPLATE = app
 UI_DIR = ui
 
 
-CONFIG -= warn_on
+CONFIG -= warn_on \
+ release
 

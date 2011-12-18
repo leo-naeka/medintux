@@ -22,8 +22,8 @@
 -- Definition of table `box`
 --
 
-DROP TABLE IF EXISTS `ST_box`;
-CREATE TABLE `ST_box` (
+DROP TABLE IF EXISTS `synopt_box`;
+CREATE TABLE `synopt_box` (
   `BO_Code` varchar(45) NOT NULL,
   `BO_Libelle` varchar(45) DEFAULT NULL,
   `BO_CouleurBG` varchar(45) DEFAULT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE `ST_box` (
 --
 
 /*!40000 ALTER TABLE `box` DISABLE KEYS */;
-INSERT INTO `ST_box` (`BO_Code`,`BO_Libelle`,`BO_CouleurBG`,`BO_CouleurTitre`,`BO_Nb_Maxi_Pat`,`BO_Type`) VALUES 
+INSERT INTO `synopt_box` (`BO_Code`,`BO_Libelle`,`BO_CouleurBG`,`BO_CouleurTitre`,`BO_Nb_Maxi_Pat`,`BO_Type`) VALUES 
  ('S1','Box S1','#aa00ff','#ffaa00',1,'Soins'),
  ('S2','Box S2','#aa00ff','#ffaa00',3,'Soins'),
  ('A1','Salle attente','#00aaff','#EEDDAA',4,'Attente'),
@@ -62,8 +62,8 @@ INSERT INTO `ST_box` (`BO_Code`,`BO_Libelle`,`BO_CouleurBG`,`BO_CouleurTitre`,`B
 -- Definition of table `destinations`
 --
 
-DROP TABLE IF EXISTS `ST_destinations`;
-CREATE TABLE `ST_destinations` (
+DROP TABLE IF EXISTS `synopt_destinations`;
+CREATE TABLE `synopt_destinations` (
   `DE_PK` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `DE_Destination` varchar(45) NOT NULL,
   `DE_TypeSortie` varchar(45) NOT NULL,
@@ -75,7 +75,7 @@ CREATE TABLE `ST_destinations` (
 --
 
 /*!40000 ALTER TABLE `destinations` DISABLE KEYS */;
-INSERT INTO `ST_destinations` (`DE_PK`,`DE_Destination`,`DE_TypeSortie`) VALUES 
+INSERT INTO `synopt_destinations` (`DE_PK`,`DE_Destination`,`DE_TypeSortie`) VALUES 
  (1, 'Retour Domicile'          ,'Sortie'),
  (2, 'Evasion'                  ,'Sortie'),
  (3, 'Police'                   ,'Sortie'),
@@ -109,8 +109,8 @@ INSERT INTO `ST_destinations` (`DE_PK`,`DE_Destination`,`DE_TypeSortie`) VALUES
 -- Definition of table `encours`
 --
 
-DROP TABLE IF EXISTS `ST_encours`;
-CREATE TABLE `ST_encours` (
+DROP TABLE IF EXISTS `synopt_encours`;
+CREATE TABLE `synopt_encours` (
   `EC_PK` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `EC_CodeBox` varchar(45) NOT NULL,
   `EC_NomPatient` varchar(45) NOT NULL,
@@ -133,8 +133,8 @@ CREATE TABLE `ST_encours` (
 -- Definition of table `encours_taches`
 --
 
-DROP TABLE IF EXISTS `ST_encours_taches`;
-CREATE TABLE `ST_encours_taches` (
+DROP TABLE IF EXISTS `synopt_encours_taches`;
+CREATE TABLE `synopt_encours_taches` (
   `EN_PK_encours` int(10) unsigned NOT NULL,
   `EN_Num_tache` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `EN_Code_tache` varchar(45) DEFAULT NULL,
@@ -157,8 +157,8 @@ CREATE TABLE `ST_encours_taches` (
 -- Definition of table `etats`
 --
 
-DROP TABLE IF EXISTS `ST_etats`;
-CREATE TABLE `ST_etats` (
+DROP TABLE IF EXISTS `synopt_etats`;
+CREATE TABLE `synopt_etats` (
   `ET_Code_etat` varchar(45) NOT NULL,
   `ET_Libelle_etat` varchar(45) DEFAULT NULL,
   `ET_Couleur_etat` varchar(45) DEFAULT NULL,
@@ -171,7 +171,7 @@ CREATE TABLE `ST_etats` (
 --
 
 /*!40000 ALTER TABLE `etats` DISABLE KEYS */;
-INSERT INTO `ST_etats` (`ET_Code_etat`,`ET_Libelle_etat`,`ET_Couleur_etat`,`ET_Tache_terminee`) VALUES 
+INSERT INTO `synopt_etats` (`ET_Code_etat`,`ET_Libelle_etat`,`ET_Couleur_etat`,`ET_Tache_terminee`) VALUES 
  ('CO','Commencé','#ffaa7f',0),
  ('EN','En Cours','#ffff7f',0),
  ('FI','Terminé','#55aa7f',1),
@@ -186,8 +186,8 @@ INSERT INTO `ST_etats` (`ET_Code_etat`,`ET_Libelle_etat`,`ET_Couleur_etat`,`ET_T
 -- Definition of table `etats_taches`
 --
 
-DROP TABLE IF EXISTS `ST_etats_taches`;
-CREATE TABLE `ST_etats_taches` (
+DROP TABLE IF EXISTS `synopt_etats_taches`;
+CREATE TABLE `synopt_etats_taches` (
   `ST_Code_tache` varchar(45) NOT NULL,
   `ST_Code_etat` varchar(45) NOT NULL,
   PRIMARY KEY (`ST_Code_tache`,`ST_Code_etat`)
@@ -198,7 +198,7 @@ CREATE TABLE `ST_etats_taches` (
 --
 
 /*!40000 ALTER TABLE `etats_taches` DISABLE KEYS */;
-INSERT INTO `ST_etats_taches` (`ST_Code_tache`,`ST_Code_etat`) VALUES 
+INSERT INTO `synopt_etats_taches` (`ST_Code_tache`,`ST_Code_etat`) VALUES 
  ('A1','AT'),
  ('A1','EN'),
  ('A1','FI'),
@@ -220,8 +220,8 @@ INSERT INTO `ST_etats_taches` (`ST_Code_tache`,`ST_Code_etat`) VALUES
 -- Definition of table `historique`
 --
 
-DROP TABLE IF EXISTS `ST_historique`;
-CREATE TABLE `ST_historique` (
+DROP TABLE IF EXISTS `synopt_historique`;
+CREATE TABLE `synopt_historique` (
   `HI_PK` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `HI_Code_box` varchar(45) DEFAULT NULL,
   `HI_Nom_patient` varchar(45) DEFAULT NULL,
@@ -243,8 +243,8 @@ CREATE TABLE `ST_historique` (
 -- Definition of table `taches`
 --
 
-DROP TABLE IF EXISTS `ST_taches`;
-CREATE TABLE `ST_taches` (
+DROP TABLE IF EXISTS `synopt_taches`;
+CREATE TABLE `synopt_taches` (
   `TA_Code_tache` varchar(45)  NOT NULL,
   `TA_Libelle_tache` varchar(45)  NOT NULL,
   `TA_Couleur_tache` varchar(45)  default NULL,
@@ -260,7 +260,7 @@ CREATE TABLE `ST_taches` (
 --
 
 /*!40000 ALTER TABLE `taches` DISABLE KEYS */;
-INSERT INTO `ST_taches` (`TA_Code_tache`,`TA_Libelle_tache`,`TA_Couleur_tache`,`TA_Duree_maxi`,`TA_Couleur_alarme`,`TA_BoutonMenu`) VALUES 
+INSERT INTO `synopt_taches` (`TA_Code_tache`,`TA_Libelle_tache`,`TA_Couleur_tache`,`TA_Duree_maxi`,`TA_Couleur_alarme`,`TA_BoutonMenu`) VALUES 
  ('RX THO','Radio du thorax','#aaaa7f',10,'#ffaa00','M'),
  ('RX ASP D','ASP debout de face et coupôles','#aaaa7f',10,'#ffaa00','M'),
  ('RX ASP C','ASP couché','#aaaa7f',10,'#ffaa00','M'),

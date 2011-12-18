@@ -53,7 +53,7 @@ class CApp : public QApplication
 
      CApp(QString mui_name, int & argc, char ** argv);
     ~CApp();
-
+    QString getPathAppli(){return m_PathAppli;}
 public:
 //................... les objets suivants sont relatifs au contexte de l'application..............................................
 QString              m_NameAppli;           /*!< Nom de l'applicatif */
@@ -66,7 +66,7 @@ QString              m_PathApropos;         /*!< chemin de la page html de l'ong
 QString              m_PathIcone;           /*!< chemin de l'icone du module a afficher */
 QString              m_PathHelp;            /*!< chemin de la page html de l'onglet d'aide */
 QString              m_PathTheme;           /*!< chemin du repertoire de themes */
-
+QString              m_BaseVersion;         /*!< numero de version de la base de données a afficher */
 };
 
 extern CApp* G_pCApp;                                 /*!< pointeur global sur l'application */

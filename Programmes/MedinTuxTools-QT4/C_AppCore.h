@@ -61,6 +61,10 @@ public:
     /*! \brief retire une section du fichier de configurtion
     */
     QString removeSectionParam(QString section);
+    //--------------------------------------------- ApplicationAndQtVersion -------------------------------------------------------------------
+    /*! \brief return the Application version number  aa Qt Version
+    */
+    QString ApplicationAndQtVersion();
 protected :
     QString             localizePathIni();
     //................... les objets suivants sont relatifs au contexte de l'application..............................................

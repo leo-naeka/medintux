@@ -257,13 +257,13 @@ if (m_Action == "GetBasesList")
 //---------------------------------------- Get_Bases_List ------------------------------------------------
 void Dlg_Patch::Get_Bases_List(QString &val)
 {QSqlDriver *pQSqlDriver =  m_pCMoteurBase->m_DataBase->driver();
- if ( pQSqlDriver == 0) 
-    {textEdit_infos->setText(tr("pushButtonOk_clicked() :  Driver non instancié")); 
+ if ( pQSqlDriver == 0)
+    {textEdit_infos->setText(tr("pushButtonOk_clicked() :  Driver non instancié"));
      val           = tr("Erreur Get Bases List() Driver non instancié \n");
      return ;
     }
  if (m_pCMoteurBase->OpenBase()==0)
-    {textEdit_infos->setText(tr("pushButtonOk_clicked() :  Driver non instancié")); 
+    {textEdit_infos->setText(tr("pushButtonOk_clicked() :  Driver non instancié"));
      val           = tr("Erreur Get Bases List() la base n'a pa pu être ouverte \n");
      return ;
     }
@@ -324,11 +324,12 @@ if (tablesList.findIndex (m_pCMoteurBase->m_DOSS_RUB_HEAD_TBL_NAME )==-1)
     return ;
    }
 #endif
-   
 
-double lastVersion   = m_pCMoteurBase->GetMedinTuxVersion(val);
-double resultVersion = 0.0;
-while (lastVersion < QString("2.14").toDouble())
+
+m_pCMoteurBase->GetMedinTuxVersion(val);   // fait plus grande valeur de  "SELECT NumVers FROM version "
+int lastVersion   = normaliseVersion(val);
+int resultVersion = 0;
+while (lastVersion < 215000)
  {//...................................................................... V0 ==> V1 .......................................
   /*
   if (lastVersion == QString("0").toDouble())
@@ -373,7 +374,7 @@ while (lastVersion < QString("2.14").toDouble())
     }
  */
  //...................................................................... V1 ==> V1.2 .......................................
- if ( lastVersion < QString("1.20").toDouble() ) /////////////////////////////////////////////////////////////////// V 1.20 //////////////////////////////////
+ if ( lastVersion < 120000 ) /////////////////////////////////////////////////////////////////// V 1.20 //////////////////////////////////
     {QApplication::setOverrideCursor( QCursor( Qt::WaitCursor ) );
      textLabelInfo->setText(tr("MedinTux version : 1 vers version 1.2 en cours ..."));
      //..................................Ouverture base patient ........................................
@@ -409,7 +410,7 @@ while (lastVersion < QString("2.14").toDouble())
      //............. verifions si l'upgrade est passe ..............................
      if (isUpgradeOk(resultVersion , lastVersion , "V1 => V1.20")==0) return;
     }
- if (lastVersion < QString("1.25").toDouble() ) /////////////////////////////////////////////////////////////////// V 1.25 //////////////////////////////////
+ if (lastVersion < 125000 ) /////////////////////////////////////////////////////////////////// V 1.25 //////////////////////////////////
     {QApplication::setOverrideCursor( QCursor( Qt::WaitCursor ) );
      textLabelInfo->setText(tr("MedinTux version : 1 vers version 1.25 en cours ..."));
      //..................................Ouverture base patient ........................................
@@ -450,7 +451,7 @@ while (lastVersion < QString("2.14").toDouble())
      //............. verifions si l'upgrade est passe ..............................
      if (isUpgradeOk(resultVersion , lastVersion , "V1.20 => V1.25")==0) return;
     }
- if ( lastVersion < QString("1.26").toDouble() ) /////////////////////////////////////////////////////////////////// V 1.26 //////////////////////////////////
+ if ( lastVersion < 126000 ) /////////////////////////////////////////////////////////////////// V 1.26 //////////////////////////////////
     {QApplication::setOverrideCursor( QCursor( Qt::WaitCursor ) );
      textLabelInfo->setText(tr("MedinTux version : 1.25 vers version 1.26 en cours ..."));
      //..................................Ouverture base patient ........................................
@@ -492,7 +493,7 @@ while (lastVersion < QString("2.14").toDouble())
      //............. verifions si l'upgrade est passe ..............................
      if (isUpgradeOk(resultVersion , lastVersion , "V1.25 => V1.26")==0) return;
     }
- if ( lastVersion <= QString("2.05").toDouble() ) /////////////////////////////////////////////////////////////////// V 2.00 //////////////////////////////////
+ if ( lastVersion <= 205000 ) /////////////////////////////////////////////////////////////////// V 2.00 //////////////////////////////////
     {QApplication::setOverrideCursor( QCursor( Qt::WaitCursor ) );
      textLabelInfo->setText(tr("MedinTux vers version 2.12 en cours ..."));
      QString     v;
@@ -651,7 +652,7 @@ while (lastVersion < QString("2.14").toDouble())
      //............. verifions si l'upgrade est passe ..............................
      if (isUpgradeOk(resultVersion , lastVersion , "vers V2.12")==0) return;
     }
- if ( lastVersion < QString("2.13").toDouble() ) /////////////////////////////////////////////////////////////////// V 2.13 //////////////////////////////////
+ if ( lastVersion < 213000 ) /////////////////////////////////////////////////////////////////// V 2.13 //////////////////////////////////
     {QApplication::setOverrideCursor( QCursor( Qt::WaitCursor ) );
      textLabelInfo->setText(tr("MedinTux vers version 2.13 en cours ..."));
      QString     v;
@@ -717,7 +718,7 @@ while (lastVersion < QString("2.14").toDouble())
      //............. verifions si l'upgrade est passe ..............................
      if (isUpgradeOk(resultVersion , lastVersion , "vers V2.13")==0) return;
     }
- if ( lastVersion < QString("2.14").toDouble() ) /////////////////////////////////////////////////////////////////// V 2.14 //////////////////////////////////
+ if ( lastVersion < 214000 ) /////////////////////////////////////////////////////////////////// V 2.14 //////////////////////////////////
     {QApplication::setOverrideCursor( QCursor( Qt::WaitCursor ) );
      textLabelInfo->setText(tr("MedinTux vers version 2.14 en cours ..."));
      QString     v;
@@ -738,13 +739,42 @@ while (lastVersion < QString("2.14").toDouble())
          if (QFile::exists(m_PathAppli + "Ressources/Vers-2.14/droitsToAdd.txt"))
             {QString droitsToAdd;
              CGestIni::Param_UpdateFromDisk(m_PathAppli + "Ressources/Vers-2.14/droitsToAdd.txt", droitsToAdd );
-             AddDroitsToAllUser(query, droitsToAdd, 3); 
+             AddDroitsToAllUser(query, droitsToAdd, 3);
             }
          m_pCMoteurBase->CloseBase();
         }
 
      //............. verifions si l'upgrade est passe ..............................
      if (isUpgradeOk(resultVersion , lastVersion , "vers V2.14")==0) return;
+    }
+ if ( lastVersion < 215000 ) /////////////////////////////////////////////////////////////////// V 2.15 //////////////////////////////////
+    {QApplication::setOverrideCursor( QCursor( Qt::WaitCursor ) );
+     textLabelInfo->setText(tr("MedinTux vers version 2.15.000 en cours ..."));
+     QString     v;
+     //..................................Ouverture base patient ........................................
+     if ( ! (m_pCMoteurBase->OpenBase()==0))
+        {QSqlQuery query(QString::null, m_pCMoteurBase->m_DataBase);
+         qDebug(query.lastError().text());
+         //................... mise à jour SQL ...............................................................
+         QString sql_txt;
+         CGestIni::Param_UpdateFromDisk(m_PathAppli + "Ressources/Vers-2.15/DrTuxTestUpdates.sql", sql_txt );
+         QStringList queryList = QStringList::split(";",sql_txt);
+         for (int i=0; i<queryList.size(); ++i)
+             { sql_txt = queryList[i];
+               query.exec(sql_txt);
+               qDebug(query.lastError().text());
+             }
+         //................... droits .................................................
+         if (QFile::exists(m_PathAppli + "Ressources/Vers-2.15/droitsToAdd.txt"))
+            {QString droitsToAdd;
+             CGestIni::Param_UpdateFromDisk(m_PathAppli + "Ressources/Vers-2.15/droitsToAdd.txt", droitsToAdd );
+             AddDroitsToAllUser(query, droitsToAdd, 3);
+            }
+         m_pCMoteurBase->CloseBase();
+        }
+
+     //............. verifions si l'upgrade est passe ..............................
+     if (isUpgradeOk(resultVersion , lastVersion , "vers V2.15")==0) return;
     }
  } // end while
 //////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -805,13 +835,13 @@ void Dlg_Patch::setConnexionParam(const QString &module, int mode)
     CGestIni::Param_UpdateFromDisk(m_medinTuxDir + "Programmes/"+module+"/bin/"+module+".ini", oriParam ); // on va chercher le Manager.ini d'origine ici
     if (oriParam.find("Master")==-1 && oriParam.find("Master")==-1)
        {CGestIni::Param_ReadParam(      oriParam, "Connexion", "Parametres", &driver, &base, &login, &pass, &host, &port);  // param par defaut lus dans module d'origine
-        normalizeConnexionParam(module, driver,  base ,  login,  pass,  host, port );        
+        normalizeConnexionParam(module, driver,  base ,  login,  pass,  host, port );
        }
     else
        {if   (CGestIni::Param_ReadParam(  oriParam, "Connexion", "Master", &driver, &base, &login, &pass, &host, &port)==0) isOriginalNomadismeParam = TRUE;
         else  CGestIni::Param_ReadParam(  oriParam, "Connexion", "Parametres", &driver, &base, &login, &pass, &host, &port);  // param par defaut lus dans module d'origine
         normalizeConnexionParam(module, driver,  base ,  login,  pass,  host, port );
-        
+
        }
     if (port.stripWhiteSpace().length()==0) port = "3306";
     //........................  placer les parametres originaux dans la nouvelle archive ............................
@@ -856,7 +886,7 @@ void Dlg_Patch::normalizeConnexionParam( const QString &moduleToSet, QString &dr
  if (host.stripWhiteSpace().length()==0)   {host  = "localhost"; }
  if (port.stripWhiteSpace().length()==0)   {port  = "3306"; }
 }
-    
+
 //--------------------------------------- toDouble ------------------------------------
 double Dlg_Patch::toDouble(const QString &str)
 {
@@ -872,9 +902,9 @@ double Dlg_Patch::toDouble(const QString &str)
  return ret.toDouble();
 }
 //--------------------------------------- GetMedinTuxLocalVersion ------------------------------------
-double Dlg_Patch::GetMedinTuxLocalVersion(QString &val)
-{   double v     = 0;
-    double vlast = 0;
+int Dlg_Patch::GetMedinTuxLocalVersion(QString &val)
+{   int v     = 0;
+    int vlast = 0;
     //........................ explorer la source .......................................
     QString dirMedinTux = m_medinTuxDir;
     if (dirMedinTux.endsWith("/")) dirMedinTux = dirMedinTux.left(dirMedinTux.length()-1);
@@ -891,7 +921,7 @@ double Dlg_Patch::GetMedinTuxLocalVersion(QString &val)
         QString fname = fi->fileName();
         if ( fi->isFile() && fname.startsWith("Version-"))   //  vers-2.13
                 {val = toNum(fname, "$allString");
-                 v   = val.toDouble();
+	         v   = normaliseVersion(val);
                  if ( v > vlast ) vlast = v;
                 }
         ++it;
@@ -899,9 +929,9 @@ double Dlg_Patch::GetMedinTuxLocalVersion(QString &val)
  return v;
 }
 //--------------------------------------- GetMedinTuxGlossaireVersion ------------------------------------
-double Dlg_Patch::GetMedinTuxGlossaireVersion(QString &val, QString *pGloPath)
-{   double             v  = 0;
-    double         vlast  = 0;
+int Dlg_Patch::GetMedinTuxGlossaireVersion(QString &val, QString *pGloPath)
+{   int                v  = 0;
+    int            vlast  = 0;
     QString     outParam  = "";
     QString      gloPath  = "";
     QString   managerDir  = m_medinTuxDir+"Programmes/Manager/bin/";
@@ -926,7 +956,7 @@ double Dlg_Patch::GetMedinTuxGlossaireVersion(QString &val, QString *pGloPath)
         QString fname = fi->fileName();
         if ( fi->isFile() && fname.startsWith("Version-"))   //  vers-2.13
                 {val = toNum(fname, "$allString");
-                 v   = val.toDouble();
+                 v   = normaliseVersion(val);
                  if ( v > vlast ) vlast = v;
                 }
         ++it;
@@ -935,10 +965,13 @@ double Dlg_Patch::GetMedinTuxGlossaireVersion(QString &val, QString *pGloPath)
 }
 
 //-------------------------------------- isUpgradeOk ---------------------------------------------------
-int Dlg_Patch::isUpgradeOk(double &resultVersion , double &lastVersion , const QString &fromTo)
+int Dlg_Patch::isUpgradeOk(int &resultVersion , int &lastVersion , const QString &fromTo)
 {    QString val;
      QApplication::restoreOverrideCursor();
-     resultVersion = m_pCMoteurBase->GetMedinTuxVersion(val);
+
+     m_pCMoteurBase->GetMedinTuxVersion(val);
+     resultVersion = normaliseVersion(val);
+
      if (resultVersion <= lastVersion)
         {QString message = tr("Erreur upgrade MedinTux : %2 Arrêt du processus.\n"
                               "Vérifiez si la base '%1' est celle devant être \n"
@@ -950,6 +983,16 @@ int Dlg_Patch::isUpgradeOk(double &resultVersion , double &lastVersion , const Q
         }
      lastVersion = resultVersion;
      return 1;
+}
+
+//-------------------------------------- normaliseVersion( ---------------------------------------------------
+int Dlg_Patch::normaliseVersion(QString &version)
+{if (version[1]=='.') version = version.prepend('0');   // cas du 1.20.001  --> 01.20.001     1.20 -->01.20
+ version = version.remove('.');
+ if (version.length() <= 3 )
+    {version +="000";
+    }
+ return version.toInt();
 }
 
 //-------------------------------------- testBase ---------------------------------------------------
@@ -1193,7 +1236,9 @@ void Dlg_Patch::pushButtonAnnuler_clicked()
 
 //---------------------------------------- pushButton_FindInstallation_clicked ------------------------------------------------
 void Dlg_Patch::pushButton_FindInstallation_clicked()
-{ m_medinTuxDir = QFileDialog::getExistingDirectory ( QString::null, this, "localizeDir", tr("répertoire d'installation de MedinTux") );
+{ QString startDir = m_PathAppli+"../../../";  // remonter Programmes/mise_a_jour/bin
+  startDir  = QDir::cleanDirPath (startDir); // le derelativiser
+  m_medinTuxDir   = QFileDialog::getExistingDirectory ( startDir, this, "localizeDir", tr("répertoire d'installation de MedinTux") );
   if (m_medinTuxDir.stripWhiteSpace().length()==0) {m_medinTuxDir=""; return;}
   if (!m_medinTuxDir.endsWith("/")) m_medinTuxDir += "/";
   lineEdit_MedinTuxFolder->setText(m_medinTuxDir);

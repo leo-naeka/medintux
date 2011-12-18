@@ -1177,7 +1177,7 @@ void CMoteurAgenda::chargeListePlagesDisponibles(QTreeWidget  *pQlistViewPlage, 
 // ALimente une ligne du treeview des plages dispo.
 void CMoteurAgenda::ajouterPlageDispo(QTreeWidget  *pQlistViewPlage, QDateTime DatePlageDeb, QDateTime DatePlageFin, int fini)
 {   QString zdat, zDuree;
-    int dureePlage;
+    int dureePlage=60;
     QTreeWidgetItem *pQTreeWidgetItem = new QTreeWidgetItem();
 
     if (!fini)

@@ -72,7 +72,12 @@ C_AppCore::C_AppCore(QString mui_name, int & argc, char ** argv)
     //qDebug (QString("NomDomaine : %1").arg(organizationName()).toLatin1());
     G_AppCore           =    this;
 }
-
+//--------------------------------------------- ApplicationAndQtVersion -------------------------------------------------------------------
+/*! \brief return the Application version number  aa Qt Version
+*/
+QString C_AppCore::ApplicationAndQtVersion()
+{return m_Version;
+}
 //--------------------------------------------- initSettingVar -------------------------------------------------------------------
 /*! \brief met ? jour le fichier de parametrage la ou il veut.
 */

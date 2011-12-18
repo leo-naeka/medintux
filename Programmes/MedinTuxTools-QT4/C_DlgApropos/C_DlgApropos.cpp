@@ -67,7 +67,8 @@ C_DlgApropos::C_DlgApropos(QWidget *parent,
                            const QString &pathChangements,
                            const QString &pathIcone,
                            const QString &pathHelp,
-                           const QString &pathApropos) :
+                           const QString &pathApropos,
+                           const QString &baseVersion) :
     QDialog(parent),  ui(new Ui::C_DlgApropos)
 { ui->setupUi(this);
   m_PathAppli       =   pathAppli;
@@ -162,6 +163,7 @@ C_DlgApropos::C_DlgApropos(QWidget *parent,
       text.replace("{{MODULE}}",      module);
       text.replace("{{DESCRIPTION}}", description);
       text.replace("{{ICONE}}",       pathIcone);
+      text.replace("{{BASEVERSION}}", baseVersion);
       CGestIni::Param_UpdateToDisk(pathAppli + "Ressources/~A_propos.html", text);
       setPageAPropos(pathAppli  + "Ressources/~A_propos.html" );
       setPageLicence(pathAppli  + "Ressources/Licence.html");

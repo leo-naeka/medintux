@@ -3,6 +3,7 @@
 #include <QFile>
 #include <QMessageBox>
 
+#include "CApp.h"
 #define NOM_APPLI "SynopTux"
 
 //--------------------------------- DlgParam --------------------------------------------------------------------------------
@@ -42,13 +43,13 @@ void   DlgParam::ChargeParam(QString typeParam)
     QFile       *FilePARAM;
     if (typeParam == "CSS")
         {
-        nomficPARAM = QApplication::applicationDirPath()+ "/Ressources/synoptux.css";
+        nomficPARAM = CApp::pCApp()->pathAppli()+ "Ressources/synoptux.css";
         setWindowTitle(tr("Objects layout") );
         setWindowIcon(QIcon(":/images/css.png"));
         }
     else
         {
-        nomficPARAM = QApplication::applicationDirPath()+ "/synoptux.ini";
+        nomficPARAM = CApp::pCApp()->pathAppli()+ "synoptux.ini";
         setWindowTitle(tr("General settings") );
         setWindowIcon(QIcon(":/images/ini.png"));
         }

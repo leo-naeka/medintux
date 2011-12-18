@@ -80,7 +80,7 @@ CREATE TABLE  `DrTuxTest`.`Personnes` (
   `Login` varchar(32) collate utf8_unicode_ci NOT NULL default '',
   `PasswordSigems` varchar(10) collate utf8_unicode_ci NOT NULL default '',
   `PassWord` varchar(32) collate utf8_unicode_ci default '',
-  `Droits` varchar(600) collate utf8_unicode_ci default '',
+  `Droits` varchar(400) collate utf8_unicode_ci default '',
   `Sexe` varchar(2) collate utf8_unicode_ci default '',
   `CodeSpec` char(2) collate utf8_unicode_ci NOT NULL default '',
   `NumOrdre` varchar(15) collate utf8_unicode_ci default '',
@@ -107,12 +107,12 @@ CREATE TABLE  `DrTuxTest`.`Personnes` (
   `Tel_Abr_2` varchar(8) collate utf8_unicode_ci default NULL,
   `Tel_Abr_3` varchar(50) collate utf8_unicode_ci default NULL,
   `Site` varchar(20) collate utf8_unicode_ci default NULL,
-  `Couleur` varchar(10) DEFAULT NULL,
+  `Couleur` varchar(10) collate utf8_unicode_ci default NULL,
   PRIMARY KEY  (`ID_PrimKey`),
   KEY `Nom` (`Nom`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-INSERT INTO `DrTuxTest`.`Personnes` VALUES  ('6BE6AE4A-577E-3E4C-8C18-EEB2D55D6CDE','','admin','DEFAULT','','-ata-adm-gln-cec-coc-doc-iec-obc-orc-etc-idc-clc-gld-gls-cep-cop-dop-iep-obp-orp-clp-idg-cem-com-orm-glc-atc-tvc-ttc-agc-cer-cor-orr-adr-ccc-bmc-agm-cic-lac-med-clv-atv-cev-cov-dov-iev-obv-orv-agv-tvv-ttv-idv-sgn','M','01','123456789','Admin','User','Avenue du Général Salan','99 MEDECINE GENERALE','13170','MEDINTUX VILLE','      ','      ','      ','',4,'','Maintenance informatique','','Mr','','','','','','','',NULL),
- ('0a6b4a78-8e71-4eb1-a286-363ad8e975f2','','','','','','M','','111111111111111','POURFERLAVESSEL','Vladimir','Quai du détergent','','84220','GORDES','12 12 12 12 12 12 12','      ','      ','lemail@fournisseur.fr',5,'Cabinet de 8h00 à 12h00 Lundi Mardi Jeudi Vendredi Samedi\nVisite l\'AM de 13h00 à 16h00 Lundi Mardi Jeudi Vendredi','Maintenance informatique',NULL,'Dr','Cher','Cabinet','','','1245','','',NULL);
+INSERT INTO `DrTuxTest`.`Personnes` VALUES  ('6BE6AE4A-577E-3E4C-8C18-EEB2D55D6CDE','','admin','DEFAULT','','-ata-adm-gln-cec-coc-doc-iec-obc-orc-etc-idc-clc-gld-gls-cep-cop-dop-iep-obp-orp-clp-idg-cem-com-orm-glc-atc-tvc-ttc-agc-cer-cor-orr-adr-ccc-bmc-agm-cic-lac-med-clv-atv-cev-cov-dov-iev-obv-orv-agv-tvv-ttv-idv-sgn','M','01','123456789','Admin','User','Avenue du Général Salan','99 MEDECINE GENERALE','13170','MEDINTUX VILLE','      ','      ','      ','',4,'','Maintenance informatique','','Mr','','','','','','','',NULL,' '),
+ ('0a6b4a78-8e71-4eb1-a286-363ad8e975f2','','','','','','M','','111111111111111','POURFERLAVESSEL','Vladimir','Quai du détergent','','84220','GORDES','12 12 12 12 12 12 12','      ','      ','lemail@fournisseur.fr',5,'Cabinet de 8h00 à 12h00 Lundi Mardi Jeudi Vendredi Samedi\nVisite l\'AM de 13h00 à 16h00 Lundi Mardi Jeudi Vendredi','Maintenance informatique',NULL,'Dr','Cher','Cabinet','','','1245','','',NULL,' ');
 CREATE TABLE  `DrTuxTest`.`RubriquesBlobs` (
   `RbDate_PrimKey` bigint(20) NOT NULL auto_increment,
   `RbDate_DataRub` longblob,
@@ -238,16 +238,16 @@ CREATE TABLE  `DrTuxTest`.`agenda` (
   `Note` varchar(256) collate utf8_unicode_ci default '',
   `Type` varchar(100) collate utf8_unicode_ci default '',
   `GUID` varchar(40) collate utf8_unicode_ci default '',
-  `Adresse` varchar(256) collate utf8_unicode_ci default '',
   `status` varchar(40) collate utf8_unicode_ci default '',
+  `Adresse` varchar(256) collate utf8_unicode_ci default '',
   `PrimKey` bigint(20) unsigned NOT NULL auto_increment,
   PRIMARY KEY  (`PrimKey`)
 ) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-INSERT INTO `DrTuxTest`.`agenda` VALUES  ('2005-08-18 08:00:00',15,'','','','admin','admin','','Bloc','','',1),
- ('2005-08-20 08:00:00',15,'','','','admin','admin','','Bloc','','',2),
- ('2005-08-19 08:00:00',15,'','','','admin','admin','','Bloc','','',4),
- ('2005-08-24 08:00:00',15,'TEST','GG','','admin','admin','','Bloc','95204af6-a00c-4a3d-9559-079b4cf5d23c','',5),
- ('2010-06-14 06:23:00',15,'TARTEMPION','MARCEL','1212457889','admin','admin','certificat de sport','Consultation','30DC82DD-7632-2C46-9DC3-BC1AC0ECD20A','Statut non dÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©fini',6);
+INSERT INTO `DrTuxTest`.`agenda` VALUES  ('2005-08-18 08:00:00',15,'','','','admin','admin','','Bloc','','',1,''),
+ ('2005-08-20 08:00:00',15,'','','','admin','admin','','Bloc','','',2,''),
+ ('2005-08-19 08:00:00',15,'','','','admin','admin','','Bloc','','',4,''),
+ ('2005-08-24 08:00:00',15,'TEST','GG','','admin','admin','','Bloc','95204af6-a00c-4a3d-9559-079b4cf5d23c','',5,''),
+ ('2010-06-14 06:23:00',15,'TARTEMPION','MARCEL','1212457889','admin','admin','certificat de sport','Consultation','30DC82DD-7632-2C46-9DC3-BC1AC0ECD20A','Statut non dÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©fini',6,'');
 CREATE TABLE  `DrTuxTest`.`banques` (
   `BQ_CodeBqe` varchar(20) collate utf8_unicode_ci NOT NULL default '',
   `BQ_NomBqe` varchar(30) collate utf8_unicode_ci default '',
@@ -39146,7 +39146,8 @@ INSERT INTO `DrTuxTest`.`codes_postaux` VALUES  (23668,57330,'ZOUFFTGEN'),
  (26925,62370,'ZUTKERQUE'),
  (29433,67330,'ZUTZENDORF'),
  (24534,59123,'ZUYDCOOTE'),
- (25089,59670,'ZUYTPEENE');
+ (25089,59670,'ZUYTPEENE'),
+ (99999,99999,'MEDINTUX VILLE');
 CREATE TABLE  `DrTuxTest`.`color_profils` (
   `Name` varchar(40) collate utf8_unicode_ci NOT NULL default '',
   `Color` varchar(10) collate utf8_unicode_ci NOT NULL default '',
@@ -39353,7 +39354,8 @@ INSERT INTO `DrTuxTest`.`version` VALUES  (1,'1.00'),
  (2,'1.26'),
  (3,'2.10'),
  (4,'2.13'),
- (5,'2.14');
+ (5,'2.14'),
+ (6,'2.15');
 
 
 
