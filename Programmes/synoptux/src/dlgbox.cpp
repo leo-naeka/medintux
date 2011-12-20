@@ -4,7 +4,7 @@
 #include "CApp.h"
 #include "C_BaseSynoptux.h"
 
-#define BOX "ST_box"
+#define BOX "synopt_box"
 
 DlgBox::DlgBox(QWidget *parent) :
     QDialog(parent),

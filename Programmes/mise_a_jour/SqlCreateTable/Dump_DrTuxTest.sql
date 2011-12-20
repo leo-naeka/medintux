@@ -80,7 +80,7 @@ CREATE TABLE  `DrTuxTest`.`Personnes` (
   `Login` varchar(32) collate utf8_unicode_ci NOT NULL default '',
   `PasswordSigems` varchar(10) collate utf8_unicode_ci NOT NULL default '',
   `PassWord` varchar(32) collate utf8_unicode_ci default '',
-  `Droits` varchar(400) collate utf8_unicode_ci default '',
+  `Droits` varchar(600) collate utf8_unicode_ci default '',
   `Sexe` varchar(2) collate utf8_unicode_ci default '',
   `CodeSpec` char(2) collate utf8_unicode_ci NOT NULL default '',
   `NumOrdre` varchar(15) collate utf8_unicode_ci default '',
@@ -39340,7 +39340,7 @@ CREATE TABLE  `DrTuxTest`.`user_perms` (
   `PrimKey` bigint(20) unsigned NOT NULL auto_increment,
   `SignataireGUID` varchar(36) collate utf8_unicode_ci default NULL,
   `FriendUserGUID` varchar(36) collate utf8_unicode_ci default NULL,
-  `FriendUserDroits` varchar(400) collate utf8_unicode_ci default NULL,
+  `FriendUserDroits` varchar(600) collate utf8_unicode_ci default NULL,
   `FriendUserBlobs` blob,
   PRIMARY KEY  (`PrimKey`),
   KEY `user_perms_Index` (`FriendUserGUID`)

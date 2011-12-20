@@ -2206,7 +2206,7 @@ void MainWindow::onSqlError()
                                                 "may be no data bases present, do menu 'Restore database'"));
         return;
        }
-    int ret = QMessageBox::question(0,NAME_APPLI,tr("Database for synoptux is not installed!<br> "
+    int ret = QMessageBox::question(0,NAME_APPLI,tr("Databases for synoptux are not installed!<br> "
                                                     "Do you want to proceed to installation."),tr("YES"),tr("NO"),0,1,1);
     if (ret==0)
        {

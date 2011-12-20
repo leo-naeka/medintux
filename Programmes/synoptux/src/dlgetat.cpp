@@ -4,7 +4,7 @@
 #include "CApp.h"
 #include "C_BaseSynoptux.h"
 
-#define ETATS "ST_etats"
+#define ETATS "synopt_etats"
 
 //-------------------------------DlgEtat----------------------------------------------------
 DlgEtat::DlgEtat(QWidget *parent) :

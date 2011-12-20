@@ -4,9 +4,9 @@
 #include "CApp.h"
 #include "C_BaseSynoptux.h"
 #include "../../MedinTuxTools-QT4/CGestIni.h"
-#define TACHES          "ST_taches"
-#define ETATS           "ST_etats"
-#define ETATS_TACHES    "ST_etats_taches"
+#define TACHES          "synopt_taches"
+#define ETATS           "synopt_etats"
+#define ETATS_TACHES    "synopt_etats_taches"
 
 //-----------------------------------------DlgTache----------------------------------------------------------------
 DlgTache::DlgTache(QWidget *parent) :

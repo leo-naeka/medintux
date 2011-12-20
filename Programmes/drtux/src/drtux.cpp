@@ -371,6 +371,9 @@ DrTux::DrTux()
     if (CGestIni::Param_ReadParam(USER_PARAM, "DrTuxPos", "Positions", &val1, &val2, &val3, &val4)==0)  // zero = pas d'erreur
        {int x = atoi(val1);
         int y = atoi(val2);
+#ifdef Q_OS_MACX
+        if (y<20) y=20;
+#endif
         if (x>=0 && y>=0)
             {move(y,   y);
              resize(val3.toInt(), val4.toInt());
