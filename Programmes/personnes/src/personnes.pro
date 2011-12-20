@@ -25,4 +25,5 @@ HEADERS += C_Dlg_personnes.h \
 FORMS += Dlg_personnes.ui
 OTHER_FILES += ../bin/Ressources/Changements.html \
     ../bin/DataBase.cfg
-TRANSLATIONS = Manager_fr.ts
+TRANSLATIONS = personnes_fr.ts\
+personnes_es.ts

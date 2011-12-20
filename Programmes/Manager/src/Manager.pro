@@ -87,7 +87,8 @@ FORMS += C_Manager.ui \
     ../../MedinTuxTools-QT4/UserList/C_Frm_UserList.ui \
     ../../MedinTuxTools-QT4/C_Dlg_DoList/C_Dlg_DoList.ui \
     ../../MedinTuxTools-QT4/Agenda/c_dlg_plagesdispo.ui
-TRANSLATIONS = Manager_fr.ts 
+TRANSLATIONS = Manager_fr.ts \
+Manager_es.ts
 CODECFORTR = UTF8
 OTHER_FILES += ../bin/Ressources/Changements.html \
     Manager_fr.ts \

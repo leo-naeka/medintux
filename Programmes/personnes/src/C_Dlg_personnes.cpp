@@ -14,9 +14,9 @@
  *                              http://www.cecill.info/                           *
  *   as published by :                                                            *
  *                                                                                *
- *   Commissariat �  l'Energie Atomique                                           *
+ *   Commissariat ï¿œ  l'Energie Atomique                                           *
  *   - CEA,                                                                       *
- *                            31-33 rue de la F�d�ration, 75752 PARIS cedex 15.   *
+ *                            31-33 rue de la Fï¿œdï¿œration, 75752 PARIS cedex 15.   *
  *                            FRANCE                                              *
  *   Centre National de la Recherche Scientifique                                 *
  *   - CNRS,                                                                      *
@@ -107,12 +107,12 @@ C_Dlg_personnes::C_Dlg_personnes(QWidget *parent)
            {m_pUI->treeWidget_ListeMedecins->topLevelItem ( 0 )->setSelected(TRUE);
            }
        }
-    m_pUI->textEdit_Changements->hide();    // juste la pour contenir le texte � envoyer au gestionnaire de  a propos
+    m_pUI->textEdit_Changements->hide();    // juste la pour contenir le texte ï¿œ envoyer au gestionnaire de  a propos
     QList <int> list;                                                   // reduire le spliter des listes
     list.append(200);
     list.append(width()-200);
     m_pUI->splitter->setSizes(list);
-    setWindowTitle(tr("Annuaire - Data Medical Design - Version :")+G_pCApp->m_NUM_VERSION.remove("@").remove("#").remove("="));
+    setWindowTitle(tr("Directory - Data Medical Design - Version:")+G_pCApp->m_NUM_VERSION.remove("@").remove("#").remove("="));
     m_pUI->pushButtonOK->setEnabled(G_pCApp->argc() > 1);
     getAndSetPositions();
     show();
@@ -133,7 +133,7 @@ void C_Dlg_personnes::Slot_pushButton_Apropos_clicked()
          QStringList argList;
          //......................... completer les autres arguments .........................................
          argList << "personnes";                                                     // 1  nom du module
-         argList << tr("Module de gestion de l'annuaire");                           // 2  description courte
+         argList << tr("Module for directory management");                           // 2  description courte
          argList << G_pCApp->m_NUM_VERSION.remove("@").remove("#").remove("=")+ "  Qt : " + QT_VERSION_STR;      // 3  numero de version
          argList << G_pCApp->getPathAppli()+"Ressources/Changements.html";                                       // 4  fichiers d�crivant les changements
          argList <<"";                                                                                           // 5  Icone par defaut
@@ -178,6 +178,7 @@ void C_Dlg_personnes::Slot_CharEventCodePostal(QKeyEvent *event, int &ret)
 { // on incorpore le caractere dans la QLineEdit car ce n'est pas encore fait
   // lors de l'appel de ce Slot par  C_QLineEdit
   m_pUI->lineEdit_CodePostal->doParentPressEvent(event);
+  ret = 0;    // du coup plus besoin d'Ãªtre traitÃ© en retour de slot par C_QLineEdit
   ret = 0;    // du coup plus besoin d'être traité en retour de slot par C_QLineEdit
   //.......... maintenant  on  traite le code postal .................
   //           en appelant directement la fonction de contrôle
@@ -235,7 +236,7 @@ void C_Dlg_personnes::tryToSetCodePostalFromVille()
        {tryToSetVilleFromCodePostal();
         return;
        }
-    //............... chercher liste de codepostaux pouvant correspondre �  cette ville .............
+    //............... chercher liste de codepostaux pouvant correspondre ï¿œ  cette ville .............
     QStringList codePostalList;
     G_pCApp->GetCodePostalFromVille( ville.replace("SAINT ","ST "),  codePostalList);
     if (codePostalList.indexOf ( m_pUI->lineEdit_CodePostal->text().remove(' ') + " " + m_pUI->lineEdit_Ville->text() ) != -1 ) return;
@@ -264,7 +265,7 @@ void C_Dlg_personnes::tryToSetCodePostalFromVille()
         m_pUI->lineEdit_Ville->setText(ville);
         return;
        }
-    //.............. si pas de code postal trouvé pour cette ville tenter de placer la ville du code postal .............
+    //.............. si pas de code postal trouvÃ© pour cette ville tenter de placer la ville du code postal .............
     if (codePostal.length()==0 )
        {ville = G_pCApp->GetVilleFromCodePostal(m_pUI->lineEdit_CodePostal->text().remove(' '));
         if (ville.length()!=0) m_pUI->lineEdit_Ville->setText(ville);
@@ -302,25 +303,25 @@ QTreeWidgetItem* C_Dlg_personnes::getSelectedMedecinById(const QString &start_ID
 //--------------------------------- Slot_pushButton_NouvelleFiche_clicked ------------------------------------------------------------
 void C_Dlg_personnes::Slot_pushButton_NouvelleFiche_clicked()
 {//.......... si Mode = Creation d'une fiche en cours ............................
- //           (listBoxChoixNom est alors cachée) et que ce
- //           bouton est appuyé --> ANNULER CREATION EN COURS (tout remettre en visible)
+ //           (listBoxChoixNom est alors cachÃ©e) et que ce
+ //           bouton est appuyÃ© --> ANNULER CREATION EN COURS (tout remettre en visible)
  if (m_pUI->frame_Liste->isHidden ())
     {m_pUI->frame_Liste->show();
-     m_pUI->pushButton_Enregistrer->setText(tr("&Enregistrer les modifications"));
-     m_pUI->pushButton_NouvelleFiche->setText(tr("&Cr�er une nouvelle fiche"));
+     m_pUI->pushButton_Enregistrer->setText(tr("&Save modifications"));
+     m_pUI->pushButton_NouvelleFiche->setText(tr("&Create new file"));
      m_pUI->pushButton_Effacer->show();
      m_pUI->pushButtonOK->show();
      ItemToForm( m_LastPk );
     }
  //.......... si Mode = Consultation des fiches en cours ............................
  //           (listBoxChoixNom est alors visible) et que ce
- //           bouton est appuyé --> SE PLACER EN MODE CREATION (cacher les outils de consultation)
+ //           bouton est appuyÃ© --> SE PLACER EN MODE CREATION (cacher les outils de consultation)
  else
     {m_pUI->frame_Liste->hide();
      //........ "Enregistrer les modifications" ....................
-     m_pUI->pushButton_Enregistrer->setText(tr("Cr�er et a&jouter cette fiche"));
-     //........ "Créer une nouvelle Fiche" ....................
-     m_pUI->pushButton_NouvelleFiche->setText(tr("Annu&ler la cr�ation de fiche"));
+     m_pUI->pushButton_Enregistrer->setText(tr("Create and add this file"));
+     //........ "CrÃ©er une nouvelle Fiche" ....................
+     m_pUI->pushButton_NouvelleFiche->setText(tr("Cance&l file creation"));
      m_pUI->pushButton_Effacer->hide();
      m_pUI->pushButtonOK->hide();
      ClearSaisie();
@@ -341,15 +342,15 @@ void C_Dlg_personnes::Slot_pushButton_NouvelleFiche_clicked()
 //--------------------------------- Slot_pushButton_Enregistrer_clicked ------------------------------------------------------------
 void C_Dlg_personnes::Slot_pushButton_Enregistrer_clicked()
 {//.......... si Mode = Creation d'une fiche en cours ............................
- //           (listBoxChoixNom est alors cachée) et que ce
- //           bouton est appuyé --> confirmer la creation en cours
+ //           (listBoxChoixNom est alors cachÃ©e) et que ce
+ //           bouton est appuyÃ© --> confirmer la creation en cours
  if (m_pUI->frame_Liste->isHidden ())
-    {QString newPk = FormToDisk("-1");                 // creer la fiche dans la base de données
+    {QString newPk = FormToDisk("-1");                 // creer la fiche dans la base de donnÃ©es
      if (newPk != "-1") m_LastPk = newPk;              // le nouveau n'est retenu que si pas d'erreur de creation
      //........... replacer les outils de consultation en visible ..........................
      m_pUI->frame_Liste->show();
-     m_pUI->pushButton_Enregistrer->setText(tr("&Enregistrer les modifications"));
-     m_pUI->pushButton_NouvelleFiche->setText(tr("&Cr�er une nouvelle fiche"));
+     m_pUI->pushButton_Enregistrer->setText(tr("&Save modifications"));
+     m_pUI->pushButton_NouvelleFiche->setText(tr("&Create new file"));
      m_pUI->pushButton_Effacer->show();
      m_pUI->pushButtonOK->show();
      //........... reinitialiser les combo-box ..................
@@ -360,7 +361,7 @@ void C_Dlg_personnes::Slot_pushButton_Enregistrer_clicked()
     }
  //.......... si Mode = Consultation des fiches en cours ............................
  //           (listBoxChoixNom est alors visible) et que ce
- //           bouton est appuyé --> mettre �  jour la fiche en cours
+ //           bouton est appuyÃ© --> mettre ï¿œ  jour la fiche en cours
  else if (m_LastPk.length())
     { FormToDisk(m_LastPk);
       InitAllComboTelType();
@@ -402,20 +403,20 @@ void C_Dlg_personnes::Slot_pushButton_Effacer_clicked()
      int ret = 0;
      if (G_pCApp->getDroits().indexOf("med")!= -1)
         {QMessageBox::warning (this,"Annuaire",
-                                 tr("<u><b>ATTENTION  </b></u> les utilisateurs de <b> MedinTux </b><br>"
-                                 " ne peuvent �tre effac�s qu'�  partir du gestionnaire d'utilisateurs <br>"
-                                 " <b>\"gest_user\"</b> et que si vous disposez des droits "
-                                 " <b> administrateur </b> ."),
+                                 tr("<u><b>WARNING  </b></u> <b> MedinTux </b> users <br>"
+                                 " can be deleted only from user manager <br>"
+                                 " <b>\"gest_user\"</b> and only if you are"
+                                 " <b> administrator </b> ."),
                                  0,0,0,1);
          ret = 1;
         }
      if (ret==1)   return;
      ret = QMessageBox::warning (this,"Annuaire",
-                                 tr("ATTENTION ! L'effacement de cette fiche : <br><b>%1"
-                                 "</b><br>est d�finitif.<br> Soyez s�r de cette action.").arg(pQTreeWidgetItem->text(0)+" "+pQTreeWidgetItem->text(1)),
-                                 tr("&Effacer"),tr("&Ne Rien Faire"),0,1);
+                                 tr("WARNING ! Deleting this file: <br><b>%1"
+                                 "</b><br>is definitive.<br> Please confirm this action.").arg(pQTreeWidgetItem->text(0)+" "+pQTreeWidgetItem->text(1)),
+                                 tr("&Delete"),tr("Do &nothing"),0,1);
      if (ret==1)   return;
-     EraseRecord(m_LastPk); // m_LastPk y est initialise � ""
+     EraseRecord(m_LastPk); // m_LastPk y est initialise ï¿œ ""
      QString pk = "";
      if (m_pUI->treeWidget_ListeMedecins->topLevelItemCount()>1)
         {QTreeWidgetItem *                 pQTreeWidgetItemToSelect = m_pUI->treeWidget_ListeMedecins->itemBelow( pQTreeWidgetItem );
@@ -584,7 +585,7 @@ QTreeWidgetItem *C_Dlg_personnes::initListesMedecin(QString spec, QString q_nom)
      } //end if (pSqlQuery && sqlQuery.isActive())
   G_pCApp->OutSQL_error( sqlQuery, 0, requete.toAscii());
   G_pCApp->CloseBase() ;
-  m_pUI->label_trouves->setText(tr("Trouv�s %1 sur %2").arg(QString::number(i), GetNbRecord(G_pCApp->m_INTERVENANTS_TBL_NAME)));
+  m_pUI->label_trouves->setText(tr("Displayed %1 on %2").arg(QString::number(i), GetNbRecord(G_pCApp->m_INTERVENANTS_TBL_NAME)));
   if (i==1) return pQTreeWidgetItem;  // on ne retourne l'item selectionne que si il y en a un pour le slectionner dans
   return 0;
 }
@@ -607,7 +608,7 @@ QStringList C_Dlg_personnes::initListesTypesTel()
         QString val_1, val_2, val_3;
         //.................. fabriquer la requete ........................
         //                   de selection de l'enregistrement
-        //                   correspondant �  la cle
+        //                   correspondant ï¿œ  la cle
         QString requete ("SELECT ");
         requete      +=  G_pCApp->m_INTERVENANTS_TEL_TYPE_1      + ","
                      +   G_pCApp->m_INTERVENANTS_TEL_TYPE_2      + ","
@@ -632,9 +633,9 @@ QStringList C_Dlg_personnes::initListesTypesTel()
 }
 
 //--------------------------------- InitComboSpec ------------------------------------------------------------
-//  ACTION: parcoure la liste d'index et initialise le combobox avec toutes les valeurs trouvées de specialités
+//  ACTION: parcoure la liste d'index et initialise le combobox avec toutes les valeurs trouvÃ©es de specialitÃ©s
 //          Il ne faut pas utiliser cette fonction si la liste n'est pas complete donc l'utiliser apres
-//          appel �  la fonction: InitAllList("Toutes Spécialités");
+//          appel ï¿œ  la fonction: InitAllList("Toutes SpÃ©cialitÃ©s");
 
 void C_Dlg_personnes::InitComboSpec()
 { if (G_pCApp->OpenBase()==0)   return ;
@@ -660,7 +661,7 @@ void C_Dlg_personnes::InitComboSpec()
   itemsList.sort();
   m_pUI->comboBox_Specialite->clear();
   m_pUI->comboBox_Specialite->insertItems(0, itemsList);
-  itemsList.prepend(tr("Toutes sp�cialit�s"));
+  itemsList.prepend(tr("All specialities"));
   m_pUI->comboBox_FiltreListe->clear();
   m_pUI->comboBox_FiltreListe->insertItems(0, itemsList);
   G_pCApp->CloseBase();
@@ -683,7 +684,7 @@ QString  C_Dlg_personnes::GetNbRecord(const QString &table)
 { QString result = "";
   if (G_pCApp->OpenBase()==0) return QString::null;
 
-  //................. SI un nom ou prenom est donné en entrée alors filtrer selon ...................
+  //................. SI un nom ou prenom est donnÃ© en entrÃ©e alors filtrer selon ...................
   QString   requete = QString("SELECT COUNT(*) FROM ") + table;
   QSqlQuery query(requete , G_pCApp->getDatabase() );
   if (query.isActive() && query.next())
@@ -726,7 +727,7 @@ void C_Dlg_personnes::ItemToForm( const QString& pk )
        {
         //.................. fabriquer la requete ........................
         //                   de selection de l'enregistrement
-        //                   correspondant �  la cle
+        //                   correspondant ï¿œ  la cle
 
         QString requete ("SELECT ");
         requete      += G_pCApp->m_INTERVENANTS_NOM             + ","     // 0
@@ -798,11 +799,11 @@ QString C_Dlg_personnes::FormToDisk(QString pk )
 {   QString requete;
 
     //................ si le champ obligatoire nom est vide .................................
-    //                 cassos après avertissement
+    //                 cassos aprÃšs avertissement
     if (m_pUI->lineEdit_Nom->text().trimmed()=="")
         {QMessageBox::critical(this,"Annuaire",
-                               tr("Le champ <b>� Nom �</b> ne peut pas �tre  vide <br>"
-                                  "Veuillez le compl�ter avant de cr�er une nouvelle fiche."));
+                               tr("The field <b>Family name</b> cannot be empty <br>"
+                                  "Please fill it before creating a new file."));
          return 0;
         }
      //................ si le champ specialite est vide .....................................
@@ -856,7 +857,7 @@ QString C_Dlg_personnes::FormToDisk(QString pk )
         requete +=         m_pUI->comboBoxTelTyp_1->lineEdit()->text().replace("'","\\'")     + "', '";       //    15
         requete +=         m_pUI->comboBoxTelTyp_2->lineEdit()->text().replace("'","\\'")     + "', '";       //    16
         requete +=         m_pUI->comboBoxTelTyp_3->lineEdit()->text().replace("'","\\'")     + "', '";       //    17
-        QString sex = "M"; if (m_pUI->comboBoxSexe->currentText()!=tr("Masculin"))  sex = "F";
+        QString sex = "M"; if (m_pUI->comboBoxSexe->currentText()!=tr("Male"))  sex = "F";
         requete +=         sex                                                                + "', '";       //    18
         requete +=         guid                                                               + "', '";       //    19
         requete +=         m_pUI->lineEdit_NumOrd->text()                                     + "', '";       //    20
@@ -885,7 +886,7 @@ QString C_Dlg_personnes::FormToDisk(QString pk )
         requete += G_pCApp->m_INTERVENANTS_TEL_TYPE_1    + " = '"    + m_pUI->comboBoxTelTyp_1->lineEdit()->text().replace("'","\\'")  + "', ";
         requete += G_pCApp->m_INTERVENANTS_TEL_TYPE_2    + " = '"    + m_pUI->comboBoxTelTyp_2->lineEdit()->text().replace("'","\\'")  + "', ";
         requete += G_pCApp->m_INTERVENANTS_TEL_TYPE_3    + " = '"    + m_pUI->comboBoxTelTyp_3->lineEdit()->text().replace("'","\\'")  + "', ";
-        QString sex = "M"; if (m_pUI->comboBoxSexe->currentText()!=tr("Masculin"))  sex = "F";
+        QString sex = "M"; if (m_pUI->comboBoxSexe->currentText()!=tr("Male"))  sex = "F";
         requete += G_pCApp->m_INTERVENANTS_SEXE          + " = '"    + sex                                                             + "', ";
         requete += G_pCApp->m_INTERVENANTS_NUM_ORDRE     + " = '"    + m_pUI->lineEdit_NumOrd->text()                                  + "', ";
         requete += G_pCApp->m_INTERVENANTS_CHER          + " = '"    + m_pUI->lineEdit_politesse->text()                               + "'  ";

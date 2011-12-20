@@ -95,7 +95,7 @@ C_App::C_App( int & argc, char ** argv)
                                        "PERSONNES_BD");
      if (m_IsValid ==0)
        {    QMessageBox::critical (0,   "Personnes" ,
-                                         QObject::tr("La base de données ne peut s'instancier \r\n ") + errMess ,
+                                         QObject::tr("Database cannot instanciate")+ "\r\n " + errMess ,
                                          QMessageBox::Abort, QMessageBox::NoButton, QMessageBox::NoButton );
             return;
        }
@@ -106,7 +106,7 @@ C_App::C_App( int & argc, char ** argv)
      m_IsValid = initValues( ba, &errMess);
      if (m_IsValid ==0)
        {    QMessageBox::critical (0,   "Personnes" ,
-                                         QObject::tr("Erreur dans le fichier de configuration 'DataBase.cfg'\r\n ") + errMess ,
+                                         QObject::tr("Error in configuration file 'DataBase.cfg'")+"\r\n " + errMess ,
                                          QMessageBox::Abort, QMessageBox::NoButton, QMessageBox::NoButton );
             return;
        }
@@ -205,14 +205,14 @@ void   C_App::CloseBase()
 }
 
 //--------------------------------------------- IsThisDroitExist ----------------------------------------------
-/*! \brief VÃ©rifie si le droit : droitToFind  (trois caractÃ¨res style med adm sgn ....) existe dans la chaine de droits : listDroits 6 fois plus rapide que : listDroits.find(droitToFind) != -1
+/*! \brief Verifie si le droit : droitToFind  (trois caracteres style med adm sgn ....) existe dans la chaine de droits : listDroits 6 fois plus rapide que : listDroits.find(droitToFind) != -1
 */
 bool C_App::IsThisDroitExist(const char *droitToFind)
 {return IsThisDroitExist(m_Droits.toAscii(), droitToFind);
 }
 
 //--------------------------------------------- IsThisDroitExist ----------------------------------------------
-/*! \brief VÃ©rifie si le droit : droitToFind  (trois caractÃ¨res style med adm sgn ....) existe dans la chaine de droits : listDroits 6 fois plus rapide que : listDroits.find(droitToFind) != -1
+/*! \brief Verifie si le droit : droitToFind  (trois caracteres style med adm sgn ....) existe dans la chaine de droits : listDroits 6 fois plus rapide que : listDroits.find(droitToFind) != -1
 */
 bool C_App::IsThisDroitExist(const char *listDroits, const char *droitToFind)
 {char *pt  = (char*)listDroits;
@@ -224,7 +224,7 @@ bool C_App::IsThisDroitExist(const char *listDroits, const char *droitToFind)
 }
 //-----------------------------------------------------  initValues -------------------------------------------
 int C_App::initValues(QString &data, QString *errMess)
-{ if (data.length()==0) {if (errMess) (*errMess) +=  TR("\r\n Fichier de configuration des bases absent ou vide "); return 0;}
+{ if (data.length()==0) {if (errMess) (*errMess) +=  TR("\r\n Database configuration file not found or empty "); return 0;}
   return initValues(data.toAscii(),errMess);
 }
  //-----------------------------------------------------  initValues -------------------------------------------
@@ -308,14 +308,14 @@ char  *C_App::SetConfBase_SetProperties(char *pt, QString &propertie, const char
                   return end +1;
                  }
               else
-                {err  = TR("Syntax Error: SetConfBaseGetValue()\r\n End delimiter \"'\"  not find at line N°: ");
+                {err  = TR("Syntax Error: SetConfBaseGetValue()\r\n End delimiter \"'\"  not found at line #: ");
                  err += QString::number(nLine);
                  if (line) *line = nLine;
                  return 0;
                 }
              }
            else
-             {err  = TR("Syntax Error: SetConfBaseGetValue()\r\n Start delimiter \"'\"  not find at line N°: ");
+             {err  = TR("Syntax Error: SetConfBaseGetValue()\r\n Start delimiter \"'\"  not found at line #: ");
               err += QString::number(nLine);
               if (line) *line = nLine;
               return 0;
@@ -325,10 +325,10 @@ char  *C_App::SetConfBase_SetProperties(char *pt, QString &propertie, const char
      NEXT_LINE(pt);
      ++nLine;
     }
- err  = TR("\r\nErreur de syntaxe : C_DBVarDrTux::SetConfBase()"
-           "\r\nle fichier de configuration des bases 'DataBase.cfg'"
-           "\r\ncomporte les erreurs suivantes : \r\n");
- err += TR("      ==> la mention %1 est non trouvée à  la ligne N°: %2").arg(token, QString::number(nLine));
+ err  = TR("\r\nSyntax error : C_DBVarDrTux::SetConfBase()"
+           "\r\ndatabase configuration file 'DataBase.cfg'"
+           "\r\nhas following errors: \r\n");
+ err += TR("      ==> mention %1 is not found at line # N°: %2").arg(token, QString::number(nLine));
  if (line) *line = nLine;
  return pt;
 }
