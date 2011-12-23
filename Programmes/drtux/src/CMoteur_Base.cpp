@@ -90,7 +90,6 @@ CMoteurBase::CMoteurBase(const QString & driver,        // nom du driver: "QODBC
                confFile,
                baseLabel,
                errMess);
-
 }
 
 //-----------------------------------------------------  ~CMoteurBase -------------------------------------------
@@ -133,15 +132,19 @@ int CMoteurBase::GetMedinTuxNormalisedVersion(QString &version, const QString &s
     if (sqlQuery.isActive())
        {while (sqlQuery.next())
               {tmp     = sqlQuery.value(0).toString();
-               if (tmp[1]=='.') tmp = tmp.prepend('0'); // cas du 1.20.001  --> 01.20.001     1.20 -->01.20
+               if (tmp[1]=='.')     tmp = tmp.prepend('0'); // cas du 1.20.001  --> 01.20.001     1.20 -->01.20
                tmp  = tmp.remove('.');
+               if (sep.length())
+                  {if (tmp.mid(1,1)==sep) tmp = tmp.prepend('0'); // cas du 1.20.001  --> 01.20.001     1.20 -->01.20
+                   tmp  = tmp.remove(sep);
+                  }
                if ( tmp.length() <= 5 ) tmp +="000";
-               if (tmp.toInt() > version.toInt())  version = tmp;  // attention  .toFloat() bug sous VC++
+               if ( tmp.toInt() > version.toInt() )  version = tmp;  // attention  .toFloat() bug sous VC++
               }
        }
     CloseBase();
     ret     = version.toInt();
-    if (sep.length()) version = version.left(2)+"."+version.mid(2,2)+"."+version.mid(4,3);
+    if (sep.length()) version = version.left(2)+sep+version.mid(2,2)+sep+version.mid(4,3);
     return ret;
 }
 //-------------------------------------- normaliseVersion ---------------------------------------------------
@@ -151,11 +154,15 @@ int CMoteurBase::normaliseVersion(const QString &version, const QString &sep /*=
 }
 //-------------------------------------- normaliseVersion ---------------------------------------------------
 int CMoteurBase::normaliseVersion(QString &version, const QString &sep /*=""*/ )
-{if (version[1]=='.') version = version.prepend('0');   // cas du 1.20.001  --> 01.20.001     1.20 -->01.20
+{if (version[1]=='.') version = version.prepend('0');     // cas du 1.20.001  --> 01.20.001     1.20 -->01.20
  version = version.remove('.');
+ if (sep.length())
+    {if (version.mid(1,1)==sep) version = version.prepend('0'); // cas du 1.20.001  --> 01.20.001     1.20 -->01.20
+     version = version.remove(sep);
+    }
  if (version.length() <= 5 ) version +="000";
  int ret = version.toInt();
- if (sep.length()) version = version.left(2)+"."+version.mid(2,2)+"."+version.mid(4,3);
+ if (sep.length()) version = version.left(2)+sep+version.mid(2,2)+sep+version.mid(4,3);
  return ret;
 }
 //-----------------------------------------------------  SetMedinTuxVersion -------------------------------------------
@@ -220,7 +227,7 @@ void CMoteurBase::initBase   (const QString & driver,        // nom du driver: "
   if (ret && baseLabel[0] != '*')
      {  if ( versionWhish   != normaliseVersion(m_VERSION_NUMBER, ".") )  // m_VERSION_NUMBER est normalise (vient du fichier de configuration des bases)
            {mess +=  TR("\r\n Configuration du fichier 'DataBase.cfg' incorrecte :");
-            mess +=  TR("\r\n       Version exigée   du fichier 'DataBase.cfg' : %1").arg(VERSION_BASE);
+            mess +=  TR("\r\n       Version exigée par drtux  du fichier 'DataBase.cfg' : %1").arg(VERSION_BASE);
             mess +=  TR("\r\n       Version actuelle du fichier 'DataBase.cfg' : %1").arg(m_VERSION_NUMBER);
             ret   = 0;
            }

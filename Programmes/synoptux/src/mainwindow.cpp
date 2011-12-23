@@ -1480,12 +1480,16 @@ QString MainWindow::lectureBlobDrtux(int primKeyBlob)
 
 //--------------------------------------Annule_Tache------------------------------------------------
 void MainWindow::Annule_Tache(QWidget *UnWidget)
-{  if (QMessageBox::question ( this,
+{   setTimerActionOff();
+    if (QMessageBox::question ( this,
                                tr("Delete a task"),
                                tr("Are you sure that this task must be delete"),
                                QMessageBox::Ok|QMessageBox::Cancel,
                                QMessageBox::Cancel
-                             ) ==QMessageBox::Cancel) return;
+                             ) ==QMessageBox::Cancel)
+       {setTimerActionOn();
+        return;
+       }
 
 
 
@@ -1510,6 +1514,7 @@ void MainWindow::Annule_Tache(QWidget *UnWidget)
                   tr("Error = (") +  noerr + ") " + query.lastError().text() + "<br />" + zlastquery );
        } // fin if erreur exec Annulation
     Actualiser("PARTIEL");
+    setTimerActionOn();
 }
 
 //--------------------------------------modif_Etat------------------------------------------------

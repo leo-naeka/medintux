@@ -209,7 +209,7 @@ void C_DlgListFieldMngr::pushButtonImportMenu_clicked()
     if (m_pQListViewItem==0) return;
     m_OldpQlistViewItem = m_pQListViewItem;
     if ( (m_PathMenuLib.length()==0) || (!QFile::exists( m_PathMenuLib )) )
-    {m_PathMenuLib  = m_PathDrTux.remove("drtux/bin/");
+    {         m_PathMenuLib  = m_PathDrTux.remove("drtux/bin/");
               m_PathMenuLib += "Librairie de menus";  // astuce du *;;;* pour forcer l'entree dans la boucle meme si repertoire valide
               m_PathMenuLib = Slot_ImportMenuModulesLocalize(m_PathMenuLib+"*;;;*");
               if( (m_PathMenuLib.length()==0) || (!QFile::exists( m_PathMenuLib )) ) return;
@@ -224,7 +224,7 @@ void C_DlgListFieldMngr::pushButtonImportMenu_clicked()
     delete dlg;
     //.................. reperer les modules .........................................
     if (itemName  !="")
-    {QDir dir (m_PathMenuLib + "/" + itemName );;
+    {         QDir dir (m_PathMenuLib + "/" + itemName );;
               dir.setFilter( QDir::Files | QDir::NoSymLinks );
               //............ exploration de la liste ......................
               const QFileInfoList * pQFileInfoList = dir.entryInfoList();
@@ -247,19 +247,32 @@ void C_DlgListFieldMngr::pushButtonImportMenu_clicked()
                   ++it;
               }
               if (menuName.length()==0)
-              {if (QFileInfo(itemName).extension(FALSE) != "pqt") ActionCreateNewRef(itemName);
-                  CHtmlTools::Copy_Dir(m_PathMenuLib + "/" + itemName ,                          m_PathGlossaire + "Champs d'insertions", CHtmlTools::copyDir,"","_ex");   // copier les elements lies � ce menu
-                  CHtmlTools::Copy_Dir(m_PathMenuLib + "/" + itemName ,                          m_PathGlossaire + "ImagesFolder"       , CHtmlTools::copyFiles, "png;jpg;gif;bnp"); // copier les eventuelles images
-                  CHtmlTools::Copy_Dir(m_PathMenuLib + "/" + itemName + "/ToPutInGlossaire._ex", m_PathGlossaire                        , CHtmlTools::copyDir);
-                  CHtmlTools::Copy_Dir(m_PathMenuLib + "/" + itemName + "/ToPutInMenus._ex",     m_PathDrTux+"Ressources/Menus"         , CHtmlTools::copyDir);
-                  CHtmlTools::Copy_Dir(m_PathMenuLib + "/" + itemName + "/ToPutInMedinTux._ex",  QDir::cleanDirPath(m_PathDrTux+"../../"), CHtmlTools::copyDir);
+              {   if (QFileInfo(itemName).extension(FALSE) != "pqt") ActionCreateNewRef(itemName);
+                  CHtmlTools::Copy_Dir(m_PathMenuLib + "/" + itemName ,                          m_PathGlossaire + "Champs d'insertions"  , CHtmlTools::copyDir,"","_ex");   // copier les elements lies � ce menu
+                  CHtmlTools::Copy_Dir(m_PathMenuLib + "/" + itemName ,                          m_PathGlossaire + "ImagesFolder"         , CHtmlTools::copyFiles, "png;jpg;gif;bnp"); // copier les eventuelles images
+                  CHtmlTools::Copy_Dir(m_PathMenuLib + "/" + itemName + "/ToPutInGlossaire._ex", m_PathGlossaire                          , CHtmlTools::copyDir);
+                  CHtmlTools::Copy_Dir(m_PathMenuLib + "/" + itemName + "/ToPutInMenus._ex",     m_PathDrTux+"Ressources/Menus"           , CHtmlTools::copyDir);
+                  CHtmlTools::Copy_Dir(m_PathMenuLib + "/" + itemName + "/ToPutInMedinTux._ex",  QDir::cleanDirPath(m_PathDrTux+"../../") , CHtmlTools::copyDir);
+                  if ( QFile::exists(  m_PathMenuLib + "/" + itemName + "/base_update.sql"))
+                     { //................... mise à jour SQL ...............................................................
+                       QSqlQuery query(QString::null, G_pCApp->m_pCMoteurBase->m_DataBase);
+                       qDebug(query.lastError().text());
+                       QString sql_txt;
+                       CGestIni::Param_UpdateFromDisk( m_PathMenuLib + "/" + itemName + "/base_update.sql", sql_txt );
+                       QStringList queryList = QStringList::split(";",sql_txt);
+                       for (int i=0; i< (int)queryList.size(); ++i)
+                           { sql_txt = queryList[i];
+                             query.exec(sql_txt);
+                             qDebug(query.lastError().text());
+                           }
+                     }
               }
               else
               {if (MenuActionCreateNewSimple(menuName, m_PathMenuLib + "/" + itemName ))                                                   // creer le menu
-                  {CHtmlTools::Copy_Dir(m_PathMenuLib + "/" + itemName ,                          m_PathGlossaire + "Champs d'insertions", CHtmlTools::copyDir,"","_ex");   // copier les elements lies � ce menu
-                      CHtmlTools::Copy_Dir(m_PathMenuLib + "/" + itemName ,                          m_PathGlossaire + "ImagesFolder"       , CHtmlTools::copyFiles, "png;jpg;gif;bnp"); // copier les eventuelles images
-                      CHtmlTools::Copy_Dir(m_PathMenuLib + "/" + itemName + "/ToPutInGlossaire._ex", m_PathGlossaire                        , CHtmlTools::copyDir);
-                      CHtmlTools::Copy_Dir(m_PathMenuLib + "/" + itemName + "/ToPutInMenus._ex",     m_PathDrTux+"Ressources/Menus"         , CHtmlTools::copyDir);
+                  {   CHtmlTools::Copy_Dir(m_PathMenuLib + "/" + itemName ,                          m_PathGlossaire + "Champs d'insertions" , CHtmlTools::copyDir,"","_ex");   // copier les elements lies � ce menu
+                      CHtmlTools::Copy_Dir(m_PathMenuLib + "/" + itemName ,                          m_PathGlossaire + "ImagesFolder"        , CHtmlTools::copyFiles, "png;jpg;gif;bnp"); // copier les eventuelles images
+                      CHtmlTools::Copy_Dir(m_PathMenuLib + "/" + itemName + "/ToPutInGlossaire._ex", m_PathGlossaire                         , CHtmlTools::copyDir);
+                      CHtmlTools::Copy_Dir(m_PathMenuLib + "/" + itemName + "/ToPutInMenus._ex",     m_PathDrTux+"Ressources/Menus"          , CHtmlTools::copyDir);
                       CHtmlTools::Copy_Dir(m_PathMenuLib + "/" + itemName + "/ToPutInMedinTux._ex",  QDir::cleanDirPath(m_PathDrTux+"../../"), CHtmlTools::copyDir);
                       QString text = "";
                       CGestIni::Param_UpdateFromDisk(m_PathListes + "/" + GetPathItem (m_OldpQlistViewItem), text);
@@ -333,13 +346,13 @@ void C_DlgListFieldMngr::initDialog(const QString &drTuxParam, const QString &pa
     QFileInfo     *fi;
     QListViewItem *element;
     while ( (fi = it.current()) != 0 )
-    {element = 0;
+    {         element = 0;
               QString fname = fi->fileName();//.latin1()
               if      (fname == "..")
               {
               }
               else if (fi->isDir() && fname[0] != '.' )
-              {element = new QListViewItem( listViewList, fname, "D"    );
+              {   element = new QListViewItem( listViewList, fname, "D"    );
                   element->setPixmap ( 0, Theme::getIcon( "16x16/folder.png"));
                   ++nb ;
               }
@@ -348,13 +361,13 @@ void C_DlgListFieldMngr::initDialog(const QString &drTuxParam, const QString &pa
                   QString ext = QFileInfo(fname).extension().lower();
                   if ( ext.length() )
                   {   if (ext=="html"||ext=="htm"||ext=="txt"||ext=="xml"||ext=="rtf")
-                      {element    = new QListViewItem( listViewList, fname, "T"   );
+                      {   element    = new QListViewItem( listViewList, fname, "T"   );
                           element->setPixmap ( 0, Theme::getIcon( "22x22/file_text.png"));
                           ++nb ;
                       }
                   }
                   else
-                  {element    = new QListViewItem( listViewList, fname, "F"   );
+                  {   element    = new QListViewItem( listViewList, fname, "F"   );
                       element->setPixmap ( 0, Theme::getIcon( "22x22/file_simple.png") );
                       ++nb ;
                   }
