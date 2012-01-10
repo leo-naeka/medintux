@@ -169,7 +169,8 @@ private:
     QString     lectureBlobDrtux(int PrimKeyBlob);
     QString     RecupStyle(QString TypeObjet);
 
-    QMap <QString, C_Wdg_Box *> m_pC_Wdg_Box;
+    QMap <QString, C_Wdg_Box *> m_Map_C_Wdg_Box;
+    QMap <QString, QString> m_Map_Action;
     //C_Wdg_Box     *m_pC_Wdg_Box[NB_BOX_MAX];
 
     QDir           m_DirDossierEntree;

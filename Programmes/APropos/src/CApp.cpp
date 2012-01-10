@@ -88,7 +88,9 @@ CApp::CApp(QString mui_name, int & argc, char ** argv)
     m_PathApropos     = "";
     m_PathHelp        = "";
     m_BaseVersion     = tr("sans objet");
-    if (argc==1) m_PathIcone       = Theme::getPath(TRUE) + "22x22/help.png";
+    if (argc==1)              // si un seul parametre alors c'est un D&D sur l'icone ou autre demande de visualisatiojn de fichier
+       { m_PathIcone       = Theme::getPath(TRUE) + "22x22/help.png";
+       }
     //.............. recuperer si il le faut les valeurs des parametres d'appel ....................
     if (argc>1)  m_ModuleName      = CGestIni::fromMyUTF8(argv[1]);
     if (argc>2)  m_Description     = CGestIni::fromMyUTF8(argv[2]);

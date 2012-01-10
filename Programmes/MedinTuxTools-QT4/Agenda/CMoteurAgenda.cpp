@@ -73,12 +73,17 @@ CMoteurAgenda::CMoteurAgenda(const QString &driver,        // nom du driver: "QO
   m_Rafraichissement   = 120;
   m_Representation     = 1;       // 0/sur 1 ligne 1/sur deux lignes
   m_WeekDeploymentMode = 1;
+  m_baseDayHeightSimpleLine      = 43;
+  m_baseDayHeightDoubleLine      = 73;
   m_AnimationAuthorisation       = 0;
   m_HeightDaysHeaderInExpandMode = 25;
   m_isDayOfMonthToBeDisplay      = 0;
   m_WeekOrDay                    = "DAY";            // Vide ou DAY = affichage journee, WEEK= Affichage Semaine // CZA
   m_TitleTemplate                = "<font color=\"#FFFFFF\"><b>{{TITLE}}</b></font>";
   m_HtmlTemplateTitleMonth       = "<h2><b><font color=\"#FF0000\">{{MONTH_NAME}}</font></b></h2>";
+  m_FontDateInResume             = QFont("sans",7,600,0);
+  m_ColorDateInResume            = "#000000";
+  m_VerticalAdjust               = -3;
   m_FormatDateInResumeD          = "ddd dd MMMM yyyy";
   m_FormatDateInResumeW          = "ddd dd MMMM yyyy";
   m_FormatDateInResumeM          = "ddd dd MMMM";
@@ -357,6 +362,76 @@ void  CMoteurAgenda::SetHtmlTemplateTitleMonth(const QString &value)
 QString CMoteurAgenda::GetHtmlTemplateTitleMonth()
 {return m_HtmlTemplateTitleMonth;
 }
+//-------------------------------------- GetFontDateInResume ----------------------------------------------------------------------------
+QFont CMoteurAgenda::GetFontDateInResume(QString &color, int &verticalAdjust)
+{color          = m_ColorDateInResume;
+ verticalAdjust = m_VerticalAdjust;
+ return m_FontDateInResume;
+}
+
+//-------------------------------------- SetFontDateInResume ----------------------------------------------------------------------------
+void   CMoteurAgenda::SetFontDateInResume(const QString &value)
+{// family = sans; pixelSize = 10; italic = 1 ; bold=1 ; color = #15686f ; vertical adjust = -2
+ QString    family    = m_FontDateInResume.family();
+ int     pixelSize    = m_FontDateInResume.pixelSize();
+ int        weight    = m_FontDateInResume.weight();
+ bool       italic    = m_FontDateInResume.italic();
+ bool         bold    = m_FontDateInResume.bold();
+
+ QStringList paramLst = value.split(";");
+ for (int i=0 ;i<paramLst.count();++i)
+     { QString prm = paramLst[i].trimmed();
+       if (prm.length())
+          { char attribut = prm.latin1()[0];
+            switch((int)attribut)
+              { case 'f': { family                  = prm.remove("family").remove("=").trimmed();                        break; }
+                case 'c': { m_ColorDateInResume     = prm.remove("color" ).remove("=").trimmed();                        break; }
+                case 'i': { italic                  = (bool)prm.remove("italic").remove("=").trimmed().toInt();          break; }
+                case 'p': { pixelSize               = prm.remove("pixelSize" ).remove("=").trimmed().toInt();            break; }
+                case 'w': { weight                  = prm.remove("weight").remove("=").trimmed().toInt();                break; }
+                case 'b': { bold                    = (bool)prm.remove("bold"  ).remove("=").trimmed().toInt();          break; }
+                case 'v': { m_VerticalAdjust        = prm.remove("vertical adjust"  ).remove("=").trimmed().toInt();     break; }
+              }
+          }
+     } // endfor (int i=0 ;i<paramLst.count();++i)
+ m_FontDateInResume.setFamily(family);
+ m_FontDateInResume.setItalic(italic);
+ m_FontDateInResume.setPixelSize(pixelSize);
+ m_FontDateInResume.setWeight(weight);
+ m_FontDateInResume.setBold(bold);
+}
+
+//-------------------------------------- SetBaseDayHeight ----------------------------------------------------------------------------
+void  CMoteurAgenda::SetBaseDayHeight(const QString &value)
+{   QStringList paramLst = value.split(";");
+    for (int i=0 ;i<paramLst.count();++i)
+        { QString prm = paramLst[i].trimmed();
+          if (prm.length())
+             { char attribut = prm.latin1()[0];
+               switch((int)attribut)
+                 { case 's': { m_baseDayHeightSimpleLine     = prm.remove("simple").remove("=").trimmed().toInt();   break; }
+                   case 'd': { m_baseDayHeightDoubleLine     = prm.remove("double" ).remove("=").trimmed().toInt();  break; }
+                 }
+             }
+        } // endfor (int i=0 ;i<paramLst.count();++i)
+}
+
+//-------------------------------------- GetBaseDaySimpleHeight ----------------------------------------------------------------------------
+int  CMoteurAgenda::GetBaseDaySimpleHeight()
+{return m_baseDayHeightSimpleLine;
+}
+
+//-------------------------------------- GetBaseDayDoubleHeight ----------------------------------------------------------------------------
+int  CMoteurAgenda::GetBaseDayDoubleHeight()
+{ return m_baseDayHeightDoubleLine;
+}
+
+//-------------------------------------- SetMinDaysHeight ----------------------------------------------------------------------------
+void CMoteurAgenda::GetBaseDayHeight(int &simpleLine, int &doubleLine)
+{simpleLine = m_baseDayHeightSimpleLine;
+ doubleLine = m_baseDayHeightDoubleLine;
+}
+
 //-------------------------------------- SetMinDaysHeight ----------------------------------------------------------------------------
 void  CMoteurAgenda::SetMinDaysHeight(int val  /* = 15*/)
 {m_MinDaysHeight = val;
@@ -957,7 +1032,7 @@ QString CMoteurAgenda::OutSQL_error(const QSqlError &error, const char *messFunc
  *  \param errMess : Message d'erreur.
  *  \return nombre d'enregistrements inseres dans la QListView passee en paramètre
 */
-long CMoteurAgenda::GetPatientList(       QTreeWidget     *pQlistView,
+long CMoteurAgenda::GetPatientList(     QTreeWidget     * pQlistView,
                                   const QString           &qstr_nom,
                                   const QString           &qstr_prenom,
                                         QLabel            * /* statutMess,  = 0  */,
@@ -972,7 +1047,7 @@ long CMoteurAgenda::GetPatientList(       QTreeWidget     *pQlistView,
      {if (errMess) *errMess = TR("CMoteurBase::GetPatientList(): data base can't be open");
       return 0;
      }
-  QString requete, requete_ident;
+  QString requete;
   if (qstr_nom != ""||qstr_prenom!="")
      {q_nom    = qstr_nom;
       q_prenom = qstr_prenom;
@@ -986,7 +1061,7 @@ long CMoteurAgenda::GetPatientList(       QTreeWidget     *pQlistView,
                    DOSS_IDENT_NSS       ", "  DOSS_IDENT_TEL1       ", "        // 4 - 5
                    DOSS_IDENT_SEXE
                    " FROM "                   DOSS_INDEX_TBL_NAME
-                   " JOIN "             DOSS_IDENT_TBL_NAME
+                   " JOIN "                   DOSS_IDENT_TBL_NAME
                    " ON "                     DOSS_INDEX_PRIM_KEY " = " DOSS_IDENT_REF_PK
                    " WHERE "
                    DOSS_INDEX_NOM       " LIKE '"   + q_nom      +  "%' AND "
@@ -1006,7 +1081,7 @@ long CMoteurAgenda::GetPatientList(       QTreeWidget     *pQlistView,
   {pQlistView->clear();
    while (query.next())
    { //if (i < 200)
-     { QTreeWidgetItem *pQTreeWidgetItem = new QTreeWidgetItem();
+     { QTreeWidgetItem *pQTreeWidgetItem = new QTreeWidgetItem(pQlistView);
        if (pQTreeWidgetItem)
           {
            //CPrtQListViewItem* line = 0;
@@ -1076,14 +1151,8 @@ long CMoteurAgenda::GetPatientList(       QTreeWidget     *pQlistView,
             pQTreeWidgetItem->setTextAlignment(4,Qt::AlignCenter);
             pQTreeWidgetItem->setText(5,query.value(5).toString());     // Tel 1
             pQTreeWidgetItem->setTextAlignment(5,Qt::AlignCenter);
-
-
-
-
-
-
-           pQlistView->addTopLevelItem(pQTreeWidgetItem);
-           if (i == 0) pQTreeWidgetItem->setSelected(true);
+            pQlistView->addTopLevelItem(pQTreeWidgetItem);
+            if (i == 0) pQTreeWidgetItem->setSelected(true);
           } //endif (pQTreeWidgetItem)
        //else if (line) pQlistView->insertItem ( line );
        ++i;

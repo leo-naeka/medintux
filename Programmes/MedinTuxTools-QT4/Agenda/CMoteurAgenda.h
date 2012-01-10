@@ -156,6 +156,12 @@ class CMoteurAgenda : public QObject
   QString         GetAgendaMode_WeekOrDayOrMonth(){return m_WeekOrDay;}
   QString         GetHtmlTemplateTitleMonth();
   void            SetHtmlTemplateTitleMonth(const QString &value);
+  QFont           GetFontDateInResume(QString &color,  int &verticalAdjust);
+  void            SetBaseDayHeight(const QString &value);
+  void            GetBaseDayHeight(int &simpleLine, int &doubleLine);
+  int             GetBaseDaySimpleHeight();
+  int             GetBaseDayDoubleHeight();
+  void            SetFontDateInResume(const QString &value);
   void            SetAnimationAuthorisation(const QString &value);
   int             GetAnimationAuthorisation();
   void            SetWeekDeploymentMode(const QString &value);
@@ -188,6 +194,8 @@ class CMoteurAgenda : public QObject
 //............................... DATA .............................................................................
  public:
   bool          m_isDayOfMonthToBeDisplay;
+  int           m_baseDayHeightSimpleLine;
+  int           m_baseDayHeightDoubleLine;
   int           m_buttonDeleteOnRdv;
   int           m_EditNoteMode;
   int           m_nbWeeksToSee;
@@ -207,6 +215,9 @@ class CMoteurAgenda : public QObject
   int           m_WeekDeploymentMode;
   QString       m_TitleTemplate;
   QString       m_HtmlTemplateTitleMonth;
+  QFont         m_FontDateInResume;
+  QString       m_ColorDateInResume;
+  int           m_VerticalAdjust;
   QString       m_FormatDateInResumeD;
   QString       m_FormatDateInResumeW;
   QString       m_FormatDateInResumeM;

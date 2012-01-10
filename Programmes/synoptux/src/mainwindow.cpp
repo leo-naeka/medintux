@@ -77,9 +77,15 @@ MainWindow::MainWindow()
     m_Apropos_Proc    = 0;
     m_notAction       = 0;
     m_popupTache      = 0;
-    m_ResponsableSelectionne = "Tous";
-
-    //for (int i = 0; i < NB_BOX_MAX; i++) m_pC_Wdg_Box[i] = 0;
+    m_ResponsableSelectionne    = "Tous";
+    //......... mapper ces chaine pour la trauction ..................
+    m_Map_Action["PATIENT_OUT"] = tr("Final exit");
+    m_Map_Action["PATIENT_IN"]  = tr("Patient entrance");
+    m_Map_Action["TASK_STATE"]  = tr("Task");
+    m_Map_Action["SET_OWNER"]   = tr("Person in charge");
+    m_Map_Action["SET_PLACE"]   = tr("Moving patient");
+    m_Map_Action["COMMENT"]     = tr("Comment");
+    //for (int i = 0; i < NB_BOX_MAX; i++) m_Map_C_Wdg_Box[i] = 0;
 
     //.................... indicateur d'action des timers ...........................................
     m_TimerStateIndicator = new C_ClickableLed(this);
@@ -294,14 +300,14 @@ int MainWindow::Afficher_Les_Box()
     int nbBox = 0;
     while (query.isActive() &&  query.next())
         { // au premier affichage, on cree les box et on stocke les pointeurs
-          nubox  = query.value(0).toString();
-          it     = m_pC_Wdg_Box.find(nubox);         // chercher si cette box existe deja
-          if (it == m_pC_Wdg_Box.end())              // SI non trouvee la creer
-             { m_pC_Wdg_Box[nubox] = newBox(nubox,query.value(1).toString(), query.value(2).toString(), query.value(3).toString(), query.value(4).toString(), query.value(5).toString());
-               RemplirLeBox(m_pC_Wdg_Box[nubox], nubox);
+          nubox   = query.value(0).toString();
+          it      = m_Map_C_Wdg_Box.find(nubox);        // chercher si cette box existe deja
+          if (it == m_Map_C_Wdg_Box.end())              // SI non trouvee la creer
+             { m_Map_C_Wdg_Box[nubox] = newBox(nubox,query.value(1).toString(), query.value(2).toString(), query.value(3).toString(), query.value(4).toString(), query.value(5).toString());
+               RemplirLeBox(m_Map_C_Wdg_Box[nubox], nubox);
              }
           else                                       // SI trouvee on la reactualise
-             {ActualiserUnBox(m_pC_Wdg_Box[nubox]);
+             { ActualiserUnBox(m_Map_C_Wdg_Box[nubox]);
              }
           ++nbBox;
         } // fin while table box
@@ -309,9 +315,12 @@ int MainWindow::Afficher_Les_Box()
 }
 
 //-----------------------------------Slot_byebyeBox------------------------------------------------------
-// Cree une subWindow par box
+// Message recu lorsque une Box se detruit
+/*! \brief Slot actived when Box destructor to autoremove this box from Box list m_Map_C_Wdg_Box,
+ *  \param pC_Wdg_Box C_Wdg_Box* in destruction way
+ */
 void MainWindow::Slot_byebyeBox(C_Wdg_Box *pC_Wdg_Box)
-{ m_pC_Wdg_Box.remove ( pC_Wdg_Box->getKey() );
+{ m_Map_C_Wdg_Box.remove ( pC_Wdg_Box->getKey() );
 }
 
 
@@ -391,16 +400,16 @@ void MainWindow::RemplirLeBox(C_Wdg_Box *dlgBox, QString BoxEnCours)
     Ui_Box *pUi_Box = dlgBox->ui;
 
     // Recherche des patients occupants les box dans la table encours
-    QString requeteEnCours = " SELECT EC_PK, EC_CodeBox, EC_NomPatient, EC_HeureEntree,"     // 0-1-2-3
-                             " EC_Medecin, EC_Replier, EC_HeureSortie, EC_PrenomPatient, "  // 4-5-6-7
-                             " EC_Commentaire, EC_Destination, EC_Anonyme "                 // 8-9-10
-                             " FROM "ENCOURS" WHERE EC_CodeBox = '" + BoxEnCours + "'";
+    QString requeteEnCours = QString(" SELECT EC_PK, EC_CodeBox, EC_NomPatient, EC_HeureEntree,"     // 0-1-2-3
+                                     " EC_Medecin, EC_Replier, EC_HeureSortie, EC_PrenomPatient, "   // 4-5-6-7
+                                     " EC_Commentaire, EC_Destination, EC_Anonyme "                  // 8-9-10
+                                     " FROM %1 WHERE EC_CodeBox = '%2'").arg(BASE_SYNOPTUX->m_CUR_TBL_NAME, BoxEnCours);
     if (m_ResponsableSelectionne != "Tous")
         requeteEnCours.append(" AND EC_Medecin = '" + m_ResponsableSelectionne + "'");
 
     QSqlQuery queryb(requeteEnCours, DATA_BASE_SYNOPTUX);
     while (queryb.isActive() &&  queryb.next())
-        {
+      {
         QString numEnCours      = queryb.value(0).toString();
         QString nomPatient      = queryb.value(2).toString() + " " + queryb.value(7).toString();
         QString heureEntree     = queryb.value(3).toString();
@@ -424,19 +433,19 @@ void MainWindow::RemplirLeBox(C_Wdg_Box *dlgBox, QString BoxEnCours)
         if (m_DernierPkencours < numEnCours.toInt())
             m_DernierPkencours = numEnCours.toInt();
 
-    // stockage des infos de base pour gestion
-    pUi_Box->label_Nb_Patients_dans_Box->setText(QString::number(pUi_Box->label_Nb_Patients_dans_Box->text().toInt() + 1));
+        // stockage des infos de base pour gestion
+        pUi_Box->label_Nb_Patients_dans_Box->setText(QString::number(pUi_Box->label_Nb_Patients_dans_Box->text().toInt() + 1));
 
-    // Nom Patient
-    afficheNomPatient(dlgBox, pUi_Box, nomPatient, BoxEnCours, numEnCours, heureEntree, heureSortie, commentairePat, anonyme, statusReplier);
+        // Nom Patient
+        afficheNomPatient(dlgBox, pUi_Box, nomPatient, BoxEnCours, numEnCours, heureEntree, heureSortie, commentairePat, anonyme, statusReplier);
 
-    // Nom Medecin
-    afficheNomMedecin(dlgBox, BoxEnCours, numEnCours, statusReplier, medecin );
+        // Nom Medecin
+        afficheNomMedecin(dlgBox, BoxEnCours, numEnCours, statusReplier, medecin );
 
-    // Affichage des taches en cours dans ce Box
-    AfficherLesTaches(dlgBox, BoxEnCours, numEnCours, statusReplier );
+        // Affichage des taches en cours dans ce Box
+        AfficherLesTaches(dlgBox, BoxEnCours, numEnCours, statusReplier );
 
-    } // fin while table Encours
+      } // fin while table Encours
     setTimerActionOn();
 }
 void MainWindow::tilerLesW()
@@ -457,29 +466,37 @@ void MainWindow::AfficherLesTaches(C_Wdg_Box *dlgBox, QString /*codeBox*/, QStri
  bool    premierEtat = false;
  QColor  qCouleurTache;
 
-//  On affiche en priorite les taches non terminees, par ordre de priorite, par heure de debut prevue
-    requete  = " SELECT EN_Num_tache, EN_Code_tache, EN_Comment, EN_Etat_en_cours, "         // 0-1-2-3
-               " TA_Libelle_tache, TA_Couleur_tache, TA_Duree_maxi, TA_Couleur_alarme, "     // 4-5-6-7
-               " TA_BoutonMenu, EN_HeureDebPrevue, EN_HeureFinPrevue, "                      // 8-9-10
-               " EN_HeureDebut, EN_HeureFin, EN_Priorite, EN_Note_tache, "                   // 11-12-13-14
-               " EN_PrimKey_blob, EN_NomFicNote "
-               " FROM "ENCOURS_TACHES
-               " INNER JOIN "TACHES" ON EN_Code_tache = TA_Code_tache "
-               " WHERE EN_PK_encours = " + numEnCours +
-               " ORDER BY  EN_HeureFin, EN_Priorite, EN_HeureDebPrevue";
+    //  On affiche en priorite les taches non terminees, par ordre de priorite, par heure de debut prevue
+    requete  = QString (" SELECT EN_Num_tache, EN_Code_tache, EN_Comment, EN_Etat_en_cours, "         // 0-1-2-3
+                        " TA_Libelle_tache, TA_Couleur_tache, TA_Duree_maxi, TA_Couleur_alarme, "     // 4-5-6-7
+                        " TA_BoutonMenu, EN_HeureDebPrevue, EN_HeureFinPrevue, "                      // 8-9-10
+                        " EN_HeureDebut, EN_HeureFin, EN_Priorite, EN_Note_tache, "                   // 11-12-13-14
+                        " EN_PrimKey_blob, EN_NomFicNote "
+                        " FROM %1"                                                                    // %1 'synopt_encours_taches'
+                        " INNER JOIN %2 ON EN_Code_tache = TA_Code_tache "                            // %2 'synopt_taches'
+                        " WHERE EN_PK_encours = %3"                                                   // %3  numEnCours
+                        " ORDER BY  EN_HeureFin, EN_Priorite, EN_HeureDebPrevue").arg(BASE_SYNOPTUX->m_CUR_TASK_TBL_NAME, BASE_SYNOPTUX->m_TASK_TBL_NAME, numEnCours);
     QSqlQuery query(requete, DATA_BASE_SYNOPTUX);
     while (query.isActive() &&  query.next())
-        {
+      {
         QString codeTache   = query.value(1).toString();
         QString numTache    = query.value(0).toString();
         QString boutonMenu  = query.value(8).toString();
         QString etatEnCours = query.value(3).toString();
         if (m_DernierPkencours_taches < numTache.toInt())
             m_DernierPkencours_taches = numTache.toInt();
+        // Tips for Using Layouts
+        //    When you use a layout, you do not need to pass a parent when constructing the child widgets.
+        //    The layout will automatically reparent the widgets (using QWidget::setParent())
+        //    so that they are children of the widget on which the layout is installed.
+        // Note: Widgets in a layout are children of the widget on which the layout is installed,
+        //    not of the layout itself. Widgets can only have other widgets as parent, not layouts.
+        // You can nest layouts using addLayout() on a layout;
+        // the inner layout then becomes a child of the layout it is inserted into.
+
 
         QHBoxLayout *horizonLayoutTache   = new QHBoxLayout();   // pour le nom de la tache + les etats
-        // QHBoxLayout *horizonLayoutTache   = new QHBoxLayout(dlgBox);  // BUGBUG // pour le nom de la tache + les etats
-        horizonLayoutTache->setObjectName(dlgBox->objectName()+"-"+"horizonLayoutTache");
+        horizonLayoutTache->setObjectName(dlgBox->objectName()+"-horizonLayoutTache");
         // bouton annulation de tach
         QPushButton *bouttonAnnuleTache   = new QPushButton(dlgBox);    // annule-tache
 
@@ -527,11 +544,11 @@ void MainWindow::AfficherLesTaches(C_Wdg_Box *dlgBox, QString /*codeBox*/, QStri
         dernierEtat  = "N";
         premierEtat  = false;
         QString couleurDefaut = "#FFFFFF";
-        requeteEtat  = " SELECT ET_Libelle_etat, ET_Couleur_etat , ET_Tache_terminee"    // 0-1-2
-                       " FROM " ETATS
-                       " INNER JOIN "ETATS_TACHES" ON ST_Code_etat = ET_Code_etat "
-                       " WHERE ST_Code_tache = '" + codeTache + "'"
-                       " ORDER BY ST_Code_Etat";
+        requeteEtat  = QString (" SELECT ET_Libelle_etat, ET_Couleur_etat , ET_Tache_terminee"    // 0-1-2
+                                " FROM %1"                                                        // %1 'synopt_etats'
+                                " INNER JOIN %2 ON ST_Code_etat = ET_Code_etat "                  // %2 'synopt_etats_taches'
+                                " WHERE ST_Code_tache = '%3'"                                     // %3  codeTache
+                                " ORDER BY ST_Code_Etat").arg(BASE_SYNOPTUX->m_STATUS_TBL_NAME, BASE_SYNOPTUX->m_TASK_STATUS_TBL_NAME , codeTache);
         QSqlQuery queryb(requeteEtat, DATA_BASE_SYNOPTUX);
         boolTache =  queryb.isActive() &&  queryb.next();
 
@@ -596,9 +613,13 @@ void MainWindow::AfficherLesTaches(C_Wdg_Box *dlgBox, QString /*codeBox*/, QStri
                 } // fin else menu
             boolTache =  queryb.isActive() &&  queryb.next();
             } // fin while y'a des etats
+        //............. un peu de doc pour qui est le pere de qui ..............
         // ajout de la tache et de ses boutons etats dans le box
+        //  Qt Tips for Using Layouts
+        //     You can nest layouts using addLayout() on a layout;
+        //      the inner layout then becomes a child of the layout it is inserted into.
         dlgBox->ui->verticalLayout_patients->addLayout(horizonLayoutTache);
-        } // fin while table Encours_taches
+      } // fin while table Encours_taches
     setTimerActionOn();
 }
 //-------------------------------AppliquerUnStyle-------------------------------------------------------
@@ -821,9 +842,9 @@ void MainWindow::Actualiser(QString partielOUtotal)             // BUGBUG
     qDebug() << "PASSE ACTUALISER";
     if (partielOUtotal == "TOTAL")
        {
-         //for (int i = 0; i < NB_BOX_MAX; i++) m_pC_Wdg_Box[i] = 0;
+         //for (int i = 0; i < NB_BOX_MAX; i++) m_Map_C_Wdg_Box[i] = 0;
          m_mdiArea->closeAllSubWindows();
-         m_pC_Wdg_Box.clear();
+         m_Map_C_Wdg_Box.clear();
          delete(m_mdiArea);
          m_mdiArea = new QMdiArea(this);
          m_mdiArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
@@ -1033,7 +1054,6 @@ void MainWindow::afficheNomPatient(C_Wdg_Box *dlgBox, Ui_Box *Box_ui, QString No
 
     // Creation Layout pour commentaire
     QHBoxLayout *horizonLayoutComm       = new QHBoxLayout(); // BUGBUG??????????????????
-    // QHBoxLayout *horizonLayoutComm       = new QHBoxLayout(dlgBox); // BUGBUG??????????????????
     horizonLayoutComm->setObjectName(dlgBox->objectName()+"-horizonLayoutComm");
 
     // Creation eventuel du bouton d'appel de drtux
@@ -1144,7 +1164,7 @@ void MainWindow::rentrerUnPatient(QWidget *UnWidget)
         if (lebox->accessibleDescription() == "Sortie" || lebox->accessibleDescription() == "Absence")
             miseAjourChamps.append("', EC_Replier       = '1");
 
-        majTableEncours(m_PK_encours, miseAjourChamps ,  tr("Moving patient"));
+        majTableEncours(m_PK_encours, miseAjourChamps ,  "SET_PLACE");
 
         // saisie de la destination en cas de sortie ou absence du patient du patient.
         if (lebox->accessibleDescription() == "Sortie" || lebox->accessibleDescription() == "Absence")
@@ -1197,7 +1217,8 @@ void MainWindow::saisieDestinationDuPatient(QString typeDeSortie, QString typeSa
 //------------------------------------SortirLePatient--------------------------------------------------
 void MainWindow::SortirLePatient(QString NumEnCours)
 {
-    majHistorique(NumEnCours, "", tr("Final exit"),""  );
+
+    majHistorique(NumEnCours, "", "PATIENT_OUT",""  );
 
     QString requete = "DELETE from "ENCOURS"  WHERE  EC_PK = " + NumEnCours ;
     QSqlQuery query (requete, DATA_BASE_SYNOPTUX);
@@ -1290,8 +1311,6 @@ void MainWindow::Lancer_DrTux(QWidget *UnWidget)
 #ifdef Q_WS_WIN
     nomProg += ".exe" ;  // BUGBUG
 #endif
-
-
     QProcess::startDetached (nomProg, listArgs);
 }
 
@@ -1315,6 +1334,15 @@ void MainWindow::masquerNomPatient(QWidget *UnWidget)
 }
 
 //--------------------------------------Recap_Tache------------------------------------------------
+//m_Map_Action["PATIENT_OUT"] = tr("Final exit");
+//m_Map_Action["PATIENT_IN"]  = tr("Patient entrance");
+//m_Map_Action["TASK_STATE"]  = tr("Task");
+//m_Map_Action["SET_OWNER"]   = tr("Person in charge");
+//m_Map_Action["SET_PLACE"]   = tr("Set placement");
+//m_Map_Action["COMMENT"]     = tr("Comment");
+
+
+
 void MainWindow::Recap_Tache(QWidget *UnWidget)
 {
     QString     message, zz;
@@ -1342,30 +1370,30 @@ void MainWindow::Recap_Tache(QWidget *UnWidget)
         message.append( zz.mid(11,2) + "h" + zz.mid(14,2));             // heure
         message.append(" : ");
         zz = query.value(7).toString();
-        if (zz.indexOf("Entr") >= 0)
-            {message.append(zz + " - ");
+        if (zz== "PATIENT_IN")
+            {message.append(m_Map_Action["PATIENT_IN"] + " - ");
              message.append(query.value(12).toString() + " " + query.value(2).toString());    //  Prenom + nom patient
              message.append("\n              - suivi par "   + query.value(8).toString());
              message.append(" (" + query.value(9).toString() + ")");   // libelle box
              if (query.value(11).toString().length() > 0)
                 message.append("\n              - pour : " + query.value(11).toString());
             }
-        if (zz.indexOf("responsable") > 0)
-           {message.append(zz + " - ");
+        else if (zz=="SET_OWNER")
+           {message.append(m_Map_Action["SET_OWNER"] + " - ");
             message.append(query.value(8).toString());}
-        if (zz.indexOf("T\303\242che") >= 0)
+        else if (zz== "TASK_STATE")
            {message.append(query.value(6).toString());                 // libelle tache
             message.append(" - ");
             message.append(query.value(10).toString());                 // libelle etat
             message.append(" - " + query.value(11).toString());         // commenatire etat
            }
-        if (zz.indexOf("placement") > 0)
-              {message.append(zz + " - ");
+        else if (zz=="SET_PLACE")
+              {message.append(m_Map_Action["SET_PLACE"] + " - ");
                message.append(query.value(9).toString());                  // libelle box
               }
            // MODIF_COM
-           if (zz.indexOf("Commentaire") > 0)
-              {message.append(zz + " - ");
+        else if (zz=="COMMENT")
+              {message.append(m_Map_Action["COMMENT"] + " - ");
                message.append(query.value(11).toString());                  // nouveau commentaire
               }
            message.append("\n");
@@ -1558,7 +1586,7 @@ void MainWindow::modif_Etat(QWidget *UnWidget)
             majDateFinTache(numEnCours, numTache, "O");
         else
             majDateFinTache(numEnCours, numTache, "N");
-         majHistorique(numEnCours, numTache, tr("Task"),m_BoutonEtat->text()  );
+         majHistorique(numEnCours, numTache, "TASK_STATE", m_BoutonEtat->text()  );
         }
     else
         {   // on a un bouton etat en cours et on cree un menu pour choisir l'etat.
@@ -1606,7 +1634,7 @@ void MainWindow::modif_Etat_menu(QString StrEtat)
         majDateFinTache(numEnCours, numTache, "O");
     else
         majDateFinTache(numEnCours, numTache, "N");
-    majHistorique(numEnCours, numTache, tr("Task"), libelleEtat);
+    majHistorique(numEnCours, numTache,"TASK_STATE", libelleEtat);
     setTimerActionOn();
 }
 //------------------------------afficheNomMedecin--------------------------------------------
@@ -1711,6 +1739,7 @@ void MainWindow::modif_Resp_menu(QString StrResp)
 
     // mise a jour nom du responsable dans la base.
     majTableEncours(m_PK_encours, "EC_Medecin = '" + codeResp , tr("Modifying person in charge"));
+    majHistorique(m_PK_encours, "", "SET_OWNER", nomResp);
     setTimerActionOn();
 }
 //--------------------------------------selectionDunResponsable------------------------------------------------
@@ -1821,7 +1850,7 @@ void MainWindow::majDateFinTache(QString numEnCours, QString numTache, QString d
 //------------------------------majHistorique--------------------------------------------
 void MainWindow::majHistorique(QString NumEnCours, QString NumTache, QString Action, QString LibelleEtat)
 {
-    QString requete;
+    QString  requete;
     QString  CodeBox , NomPatient, CodeResp, CodeTache, LibelleTache, PrenomPatient, CommEncOuTache;
     QSqlQuery queryh (DATA_BASE_SYNOPTUX);
 
@@ -1838,7 +1867,7 @@ void MainWindow::majHistorique(QString NumEnCours, QString NumTache, QString Act
         CodeResp      = query.value(3).toString();
         CommEncOuTache= query.value(7).toString();
        }
-    if (NumTache > 0)
+    if (NumTache.length())
        {
         requete = " SELECT EN_Code_tache, EN_Comment, EN_Etat_en_cours, EN_HeureDebPrevue, "     // 0-1-2-3
                   " EN_HeureFinPrevue, EN_HeureDebut, EN_HeureFin, EN_Priorite, "                // 4-5-6-7
@@ -2046,18 +2075,18 @@ void MainWindow::FaireClignoterLaTache()
 //  et cree un nouvel encours
 void MainWindow::Controle_Entrees()
 {
-    if (m_notAction) return;
+ if (m_notAction) return;
  QString    nomFicEntree, requete, DateDeb, DateFin, CodeBox, NomPatient, PrenomPatient, GuidPatient, CodeResp;
  QString    CodeTache, Priorite, Commentaire, HeureDeb, HeureFin, ProgAnnexe, ArgsAnnexe;
  QString    PrimKey_blob, NomFicNote, NomProgNote;
  QSqlQuery  queryEnc( DATA_BASE_SYNOPTUX);
  QSqlQuery  queryTac( DATA_BASE_SYNOPTUX);
- bool       IlFautActualiser = false;
+ bool       ilFautActualiser = false;
  int        EC_PK ;
 
-    QFileInfoList listeEntrees = m_DirDossierEntree.entryInfoList();
-    for (int i=0; i < listeEntrees.size(); i++ )          // il y a au moins un fichier en attente.
-        {
+ QFileInfoList listeEntrees = m_DirDossierEntree.entryInfoList();
+ for (int i=0; i < listeEntrees.size(); i++ )          // il y a au moins un fichier en attente.
+     {
         QFileInfo   ficInfo = listeEntrees.at(i);
         nomFicEntree = ficInfo.absoluteFilePath();
         if (ficInfo.suffix().toUpper() != "TXT" || ficInfo.isHidden())
@@ -2167,14 +2196,14 @@ void MainWindow::Controle_Entrees()
             } // fin for Taches
         // suppression du fichier integre.
         QFile::remove(nomFicEntree);
-        IlFautActualiser = true;
+        ilFautActualiser = true;
 
         // creation d'une trace dans l'historique
         majHistorique(QString::number(EC_PK), "", tr("Patient entrance"),""  );
         } // fin for fichier
 
     // controle si un autre prog a fait une entree directe dans la base
-    if (!IlFautActualiser)
+    if (!ilFautActualiser)
        {
         requete = "SELECT MAX(EC_PK) FROM " ENCOURS ;
         QSqlQuery query1(requete, DATA_BASE_SYNOPTUX);
@@ -2183,9 +2212,9 @@ void MainWindow::Controle_Entrees()
              return;
            }
         if (m_DernierPkencours != query1.value(0).toInt())
-            IlFautActualiser = true;
+            ilFautActualiser = true;
        }
-    if (!IlFautActualiser)
+    if (!ilFautActualiser)
        {
         requete = "SELECT MAX(EN_Num_tache) FROM " ENCOURS_TACHES ; // BUGBUG
         QSqlQuery query2(requete, DATA_BASE_SYNOPTUX);
@@ -2196,12 +2225,15 @@ void MainWindow::Controle_Entrees()
 /* BUGBUG POUR TESTER ACTUALISATION FREQUENTE - TEST A REMETTRE
         if (m_DernierPkencours_taches != query2.value(0).toInt())
 BUGBUG */
-            IlFautActualiser = true;
+            ilFautActualiser = true;
        }
-    if (IlFautActualiser)
+    if (ilFautActualiser)
+       {// TODO ......................................
+        //
         Actualiser("PARTIEL");
+       }
 }
-//------------------------------------PopUp_Tache-------------------------------------------------
+//------------------------------------onSqlError-------------------------------------------------
 void MainWindow::onSqlError()
 {   if (m_timerEntrees) m_timerEntrees->stop();
     if (m_timerAlarme)  m_timerAlarme->stop();

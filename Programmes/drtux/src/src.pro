@@ -17,8 +17,7 @@ OBJECTS_DIR = obj
 DEFINES = _DR_TUX
 CONFIG += x11 \
  exceptions \
- thread \
- debug
+ thread
 exists( ../../SesamVitale-QT3/qtsingleapplication.pri ){
     DEFINES += SESAMVITALE_VERSION
     message(         "================== SesamVitale version ======================" )
@@ -195,5 +194,4 @@ SOURCES += drtux.cpp \
            C_RubObservation.cpp
 
 
-CONFIG -= release
 

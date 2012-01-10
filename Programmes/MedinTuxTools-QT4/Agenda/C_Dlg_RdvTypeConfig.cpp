@@ -111,6 +111,7 @@ C_Dlg_RdvTypeConfig::C_Dlg_RdvTypeConfig(MAP_COLOR* pColorProfils, CMoteurAgenda
     connect( m_ui.treeWidget_RdvTypeList,   SIGNAL(itemClicked ( QTreeWidgetItem * ,       int  )), this, SLOT(Slot_treeWidget_RdvTypeList_Clicked( QTreeWidgetItem * , int)) );
     connect( m_ui.treeWidget_RdvTypeList,   SIGNAL(itemDoubleClicked ( QTreeWidgetItem * , int  )), this, SLOT(Slot_treeWidget_RdvTypeList_DoubleClicked( QTreeWidgetItem * , int)) );
     connect( m_ui.lineEdit_Nom,             SIGNAL(textChanged(const QString &)),          this, SLOT(Slot_lineEdit_Nom_textChanged(const QString &)) );       //CZA
+    connect( m_ui.lineEdit_Prenom,          SIGNAL(textChanged(const QString &)),          this, SLOT(Slot_lineEdit_Prenom_textChanged(const QString &)) );       //CZA
 
     m_ui.pushButton_Moins->setIcon ( Theme::getIcon("Agenda/Moins.png") );
     m_ui.pushButton_Plus->setIcon  ( Theme::getIcon("Agenda/Plus.png") );
@@ -399,8 +400,8 @@ void C_Dlg_RdvTypeConfig::changeEvent(QEvent *e)
 //---------------------------------Slot_createTreeViewPatients-------------------------------------------------
 void C_Dlg_RdvTypeConfig::Slot_createTreeViewPatients()
 {
-    QStringList TitreColonne;
-    TitreColonne << tr("Name") << tr("First name") << "Ident" << "GUID" << tr("Birth") << tr("Phone");
+    QStringList titreColonne;
+    titreColonne << tr("Name") << tr("First name") << "Ident" << "GUID" << tr("Birth") << tr("Phone");
     int widthListP      = 575;
     int heightListP     = 305;
     int nbColonneMax    = 6;
@@ -414,13 +415,13 @@ void C_Dlg_RdvTypeConfig::Slot_createTreeViewPatients()
     m_pTreeWidgetPatients->move(0,0);
     m_pTreeWidgetPatients->resize(widthListP,heightListP);
     m_pTreeWidgetPatients->setColumnCount(nbColonneMax);
-    m_pTreeWidgetPatients->setColumnHidden(2,true);
-    m_pTreeWidgetPatients->setColumnHidden(3,true);
+    //m_pTreeWidgetPatients->setColumnHidden(2,true);
+    //m_pTreeWidgetPatients->setColumnHidden(3,true);
     m_pTreeWidgetPatients->setAlternatingRowColors(true);
     m_pTreeWidgetPatients->setColumnWidth(0,150);
     m_pTreeWidgetPatients->setColumnWidth(1,120);
     m_pTreeWidgetPatients->setColumnWidth(4,100);
-    m_pTreeWidgetPatients->setHeaderLabels(TitreColonne);
+    m_pTreeWidgetPatients->setHeaderLabels(titreColonne);
     m_pTreeWidgetPatients->header()->setDefaultAlignment(Qt::AlignHCenter);
 
     connect( m_pTreeWidgetPatients,   SIGNAL(itemDoubleClicked ( QTreeWidgetItem * , int  )), this, SLOT(Slot_TreeWidgetPatients_DoubleClicked( QTreeWidgetItem * , int)) );
@@ -441,15 +442,22 @@ void C_Dlg_RdvTypeConfig::initListePatient( const QString & qstr_nom, const QStr
 
    //m_pLastQListViewItem = 0;
 }
-//--------------------------------- Slot_lineEdit_Nom_textChanged -------------------------------------------------------------
-void C_Dlg_RdvTypeConfig::Slot_lineEdit_Nom_textChanged(const QString &texte)
-{   if (texte.length()<3) return;
-    QStringList lst = m_ui.lineEdit_Nom->text().split(';',QString::KeepEmptyParts);
-   //.................. rechercher le separateur de nom ; prenom .......................
-   if (lst.count()==1) initListePatient( lst[0], "");
-   else                initListePatient( lst[0], lst[1]);
+//--------------------------------- Slot_lineEdit_Prenom_textChanged -------------------------------------------------------------
+void C_Dlg_RdvTypeConfig::Slot_lineEdit_Prenom_textChanged(const QString &)
+{   getListePatient();
 }
-
+//--------------------------------- Slot_lineEdit_Nom_textChanged -------------------------------------------------------------
+void C_Dlg_RdvTypeConfig::Slot_lineEdit_Nom_textChanged(const QString &)
+{   getListePatient();
+}
+//--------------------------------- getListePatient -------------------------------------------------------------
+void C_Dlg_RdvTypeConfig::getListePatient()
+{   QString nom    = m_ui.lineEdit_Nom->text().trimmed();
+    QString prenom = m_ui.lineEdit_Prenom->text().trimmed();
+    if ((nom.length()+prenom.length())<3) return;
+   //.................. rechercher le separateur de nom ; prenom .......................
+   initListePatient( nom, prenom);
+}
 //-------------------------------------- keyPressEvent --------------------------------------------------------------
 void C_Dlg_RdvTypeConfig::keyPressEvent ( QKeyEvent * event )
 {
@@ -457,29 +465,29 @@ void C_Dlg_RdvTypeConfig::keyPressEvent ( QKeyEvent * event )
 
     switch (event->key()) {
     case Qt::Key_Down:
-            if (m_ui.lineEdit_Nom->hasFocus())              // Que pour la gestion de la liste patient
-            {m_pTreeWidgetPatients->setFocus();
-            pQTreeWidgetItem = m_pTreeWidgetPatients->currentItem();
-            pQTreeWidgetItem->setSelected(true);
-            }
+            if (m_ui.lineEdit_Nom->hasFocus()||m_ui.lineEdit_Prenom->hasFocus())              // Que pour la gestion de la liste patient
+               {m_pTreeWidgetPatients->setFocus();
+                pQTreeWidgetItem = m_pTreeWidgetPatients->currentItem();
+                pQTreeWidgetItem->setSelected(true);
+               }
             return;
 
     case Qt::Key_Return:
-            if (m_ui.lineEdit_Nom->hasFocus())          // si Return sur le nom on ferme la liste
-                { if (m_pQFrameListPatients)
+            if (m_ui.lineEdit_Nom->hasFocus()||m_ui.lineEdit_Prenom->hasFocus())          // si Return sur le nom on ferme la liste
+               { if (m_pQFrameListPatients)
                     {m_pQFrameListPatients->hide();
-                    m_ui.lineEdit_Prenom->setFocus();
+                     m_ui.lineEdit_Prenom->setFocus();
                     }
-                return;
-                }
+                 return;
+               }
             if (m_pTreeWidgetPatients->hasFocus())      // Que pour la gestion de la liste patient
                 Valid_Patient_Selected(m_pTreeWidgetPatients->currentItem());
             return;
     case Qt::Key_Escape:
-            if (m_pTreeWidgetPatients->hasFocus())
-                {m_pQFrameListPatients->hide();
+           if (m_pTreeWidgetPatients->hasFocus())
+              { m_pQFrameListPatients->hide();
                 m_ui.lineEdit_Nom->setFocus();
-                }
+              }
     default:
         break;
     }
@@ -491,12 +499,28 @@ void C_Dlg_RdvTypeConfig::Slot_TreeWidgetPatients_DoubleClicked( QTreeWidgetItem
 }
 //--------------------------------- getSelectedListViewItem -------------------------------------------------------------
 void C_Dlg_RdvTypeConfig::Valid_Patient_Selected(QTreeWidgetItem *pQTreeWidgetPatientItem)
-{
-    m_ui.lineEdit_Prenom->setText   (pQTreeWidgetPatientItem->text(1));
-    m_ui.lineEdit_GUID->setText     (pQTreeWidgetPatientItem->text(3));
-    m_ui.lineEdit_Tel->setText      (pQTreeWidgetPatientItem->text(5));
-    m_ui.lineEdit_Nom->setText      (pQTreeWidgetPatientItem->text(0));
-    // ????? //
+{   if (pQTreeWidgetPatientItem==0) return;
+
+    //.......... recuperer les valeurs de pQTreeWidgetPatientItem........................................
+    //           avant qu'il ne devienne  invalide
+    QString nom    = pQTreeWidgetPatientItem->text(0);
+    QString prenom = pQTreeWidgetPatientItem->text(1);
+    // QString pk     = pQTreeWidgetPatientItem->text(2);
+    QString guid   = pQTreeWidgetPatientItem->text(3);
+    // QString dnss   = pQTreeWidgetPatientItem->text(4);
+    QString tel    = pQTreeWidgetPatientItem->text(5);
+
+    //......... ne pas affecter directement le resultat ....................
+    //          de pQTreeWidgetPatientItem->text() car cela
+    //          change lineEdit_Nom et lineEdit_Prenom
+    //          ce qui entraine une reconstruction de la list view de par
+    //          leur slot Slot_lineEdit_Nom_textChanged et Slot_lineEdit_Prenom_textChanged
+    //          avec le pointeur pQTreeWidgetPatientItem qui devient invalide
+    //
+    m_ui.lineEdit_Nom->setText      (nom);        // apres ca Slot_lineEdit_Nom_textChanged     => pQTreeWidgetPatientItem devient invalide
+    m_ui.lineEdit_Prenom->setText   (prenom);     // apres ca Slot_lineEdit_Prenom_textChanged  => pQTreeWidgetPatientItem devient invalide
+    m_ui.lineEdit_GUID->setText     (guid);
+    m_ui.lineEdit_Tel->setText      (tel);
 
     m_pQFrameListPatients->hide();
     m_ui.textEdit_note->setFocus();

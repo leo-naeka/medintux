@@ -4031,16 +4031,16 @@ int DrTux::SauverDossierAvantNouvelleAction(SAVE_Mode mode /*= DrTux::Inquire*/)
              else                                  actionQuit = 2;   // quitter sans enregistrer
             }
        }
-    else
+    if (actionQuit==0)          // n'a pas ete modifiee par le script de sortie donc procedure de sortie classique
        {
         actionQuit = 1;         // quitter et enregistrer
         if (nb && mode==DrTux::Inquire)
            {actionQuit = QMessageBox::question( this, tr("Fermeture du dossier actif"),
-                                                                            tr( "Ce dossier en cours a été modifié, faut-il :\r\n"
-                                                                                "enregistrer les modifications ?"),
-                                                                            tr("&Ne pas fermer"),                            // 0
-                                                                            tr("&Enregistrer et fermer") ,                   // 1
-                                                                            tr("&Fermer sans enregistrer") , 0, 0 );         // 2
+                                                      tr( "Ce dossier en cours a été modifié, faut-il :\r\n"
+                                                          "enregistrer les modifications ?"),
+                                                      tr("&Ne pas fermer"),                            // 0
+                                                      tr("&Enregistrer et fermer") ,                   // 1
+                                                      tr("&Fermer sans enregistrer") , 0, 0 );         // 2
            }  // important : bouton par defaut lorsque abandon par escape ou case fermeture fenetre ____________^
         }
      if (actionQuit==1 && nb) OnDrTuxSaveRubList();

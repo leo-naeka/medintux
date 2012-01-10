@@ -80,6 +80,8 @@ private slots:
     void Slot_menuHeure_hovered (QAction *pQAction);
     void Slot_createTreeViewPatients ();                                    // CZA
     void Slot_lineEdit_Nom_textChanged(const QString &);                    // CZA
+    void Slot_lineEdit_Prenom_textChanged(const QString &);
+    void getListePatient();
     //void Slot_lineEdit_Nom_keyPressEvent(QKeyEvent *, int &);
     void Slot_TreeWidgetPatients_DoubleClicked( QTreeWidgetItem * , int);   // CZA
     void Valid_Patient_Selected(QTreeWidgetItem *pQTreeWidgetPatientItem);  // CZA

@@ -83,8 +83,10 @@
 #define DAY_OFS_X                 20         // ofset affichage dans le jour replie
 #define W_OFSET                    0         // ofset lateral affichage du jour
 #define W_RDV_OFSET                35        // ofset lateral affichage du rendez vous
-#define DAY_HEIGHT                 45        // 45 hauteur totale d'un jour
-#define DOUBLE_DAY_HEIGHT          75
+
+#define DAY_HEIGHT                 m_pCMoteurAgenda->GetBaseDaySimpleHeight() //45        // 45 hauteur totale d'un jour
+#define DOUBLE_DAY_HEIGHT          m_pCMoteurAgenda->GetBaseDayDoubleHeight() // 90 //75
+
 #define LINE_RESUME_HEIGHT         24        // 20 hauteur totale d'une ligne de resume
 #define LINE_RESUME_XMARG          10         // marge d'affichage afin d'eviter que les rectangles debordent
 
