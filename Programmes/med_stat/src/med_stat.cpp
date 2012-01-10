@@ -75,6 +75,7 @@ med_stat::~med_stat()
 med_stat::med_stat()
     : QMainWindow( 0, "med_stat", WDestructiveClose )
 {
+    m_Apropos_Proc = 0;
 
     //.............................. OK la base est initialisée on peut continuer ...............................
     setCaption("");   // si appelé avec chaine vide, cela affiche les infos complêtes de connexion
@@ -96,6 +97,8 @@ med_stat::med_stat()
     connect( m_pWdg_User, SIGNAL( Sign_UserSelected ( QListViewItem *, QListViewItem * )),  this,   SLOT(   OnUserSelected(QListViewItem *, QListViewItem * ))  );
     connect( m_pWdg_User, SIGNAL( Sign_UserMustBeEdited (  )),                              this,   SLOT(   Slot_EditUser())   );
     connect( m_pWdg_User, SIGNAL( Sign_ComboUserTypClicked (const QString&  )),             this,   SLOT(   Slot_ComboUserTypClicked(const QString &))   );
+    connect( G_pCApp,     SIGNAL(Sign_QuitterRequired()),                                   this, SLOT(Slot_SauverLesMeubles()));
+
     /*
     //......................... Docker dialogue du monitor ......................................
     pDock = new QDockWindow (this, "DockFormMonitor");
@@ -152,6 +155,53 @@ med_stat::med_stat()
        {//..................... tant que pas identificaion tout inactiver ................................................................
         SetNoUserState();
        }
+}
+//----------------------------------- Slot_actionApropos -----------------------------------------------------------------------
+void med_stat::Slot_actionApropos()
+{QTimer::singleShot ( 100, this,SLOT(Slot_actionAproposDisplay()) );
+}
+//--------------------------------- Slot_SauverLesMeubles --------------------------------------------------------------------------------
+void med_stat::Slot_SauverLesMeubles()
+{tryToStopAPropos();
+}
+//--------------------------------------- tryToStopAPropos ----------------------------------------------------------
+void med_stat::tryToStopAPropos()
+{if (m_Apropos_Proc==0) return;
+ m_Apropos_Proc->kill();   // terminate() ne fonctionne pas
+}
+//----------------------------------- Slot_actionAproposDisplay -----------------------------------------------------------------------
+void med_stat::Slot_actionAproposDisplay()
+{        //CGestIni::Param_UpdateToDisk(G_pCApp->m_PathAppli+"SqlCreateTable/Changements.html",textEdit_Changements->text());
+         QString pathExeAPropos     = CGestIni::Construct_Name_Exe("APropos", QFileInfo (qApp->argv()[0]).dirPath (true));
+         QString pathBinRessources  = CGestIni::Construct_PathBin_Module("APropos", QFileInfo (qApp->argv()[0]).dirPath (true))+"Ressources/";
+         QStringList argList;
+
+         //......................... completer les autres arguments .........................................
+
+         if (m_Apropos_Proc==0)
+            {//m_action_A_Propos->setDisabled(TRUE);
+             m_Apropos_Proc = new QProcess(this);
+             m_Apropos_Proc->addArgument( pathExeAPropos);                                               // 1  nom du module
+             m_Apropos_Proc->addArgument("med_stat");                                                    // 1  nom du module
+             m_Apropos_Proc->addArgument(tr("Module de gestion des statistiques"));                      // 2  description courte
+             m_Apropos_Proc->addArgument(G_pCApp->m_NUM_VERSION.remove("@").remove("#").remove("=") + " Qt : "+QT_VERSION_STR);    // 3  numero de version
+             m_Apropos_Proc->addArgument(G_pCApp->m_PathAppli+"Images/Changements.html");            // 4  fichiers decrivant les changements
+             m_Apropos_Proc->addArgument(G_pCApp->m_PathAppli+"Images/med_stat.png");                // 5  Icone du programme
+             m_Apropos_Proc->addArgument("");                                                            // 6  aide en ligne (vide pour prendre celle par defaut)
+             m_Apropos_Proc->addArgument("");                                                            // 7  apropos (on met une chaine vide pour qu'il prenne celui par d�faut)
+             m_Apropos_Proc->addArgument("");                                                            // 8  version de la base de donnee
+
+             m_Apropos_Proc->start();
+             SLEEP(1);
+             G_pCApp->processEvents ();
+             while ( m_Apropos_Proc->isRunning () /* && QFile::exists(pathBinRessources+"~A_propos.html")*/)
+                   { G_pCApp->processEvents ( QEventLoop::WaitForMore );
+                   }
+             if (m_Apropos_Proc) delete m_Apropos_Proc;
+             m_Apropos_Proc = 0;
+             QFile::remove(pathBinRessources+"~A_propos.html");
+             //m_action_A_Propos->setDisabled(FALSE);
+            }
 }
 //---------------------------------------------- StartWithUser -----------------------------------------------------------------------
 void med_stat::StartWithUser(const QString &user, const QString &sign_user)
@@ -614,6 +664,9 @@ void med_stat::setupFileActions()
     //    a->addTo( menu );
     a = new QAction( tr( "Enregistrer les positions" ), QPixmap(), tr( "&Enregistrer positions" ), 0, this, "Enregistrerpositions" );
     connect( a, SIGNAL( activated() ), this, SLOT( Slot_RecordPos() ) );
+    a->addTo( menu );
+    a = new QAction( tr( "A propos de med_stat" ), QPixmap(), tr( "&A propos de med_stat" ), 0, this, "Apropos" );
+    connect( a, SIGNAL( activated() ), this, SLOT( Slot_actionApropos() ) );
     a->addTo( menu );
     a = new QAction( tr( "Quitter MedStat" ), QPixmap(), tr( "&Quitter MedStat" ), 0, this, "fileClose" );
     connect( a, SIGNAL( activated() ), qApp, SLOT( quit() ) );

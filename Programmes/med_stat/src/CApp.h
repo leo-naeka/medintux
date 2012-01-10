@@ -25,6 +25,9 @@ class med_stat;
 //================================================= CApp ==============================================================
 class CApp : public C_MUI_App
 {
+
+   Q_OBJECT
+
  public:
 
      CApp(QString mui_name, int & argc, char ** argv);
@@ -34,6 +37,7 @@ class CApp : public C_MUI_App
      bool IsAppStartWithUser();
      void PositionneBonDroits();
      bool IsThisDroitExist(const char *listDroits, const char *droitToFind);
+
 public:
 
 
@@ -47,7 +51,7 @@ QString             m_PathAppli;                // chemin de l'Applicatif
 
 //.................. les deux  objets suivants sont INDISPENSABLES à l'application ....................................................
 //                   et seule une instance de ces objets doit exister par application
-
+QString              m_NUM_VERSION;
 CMoteurBase         *m_pCMoteurBase;                // classe d'outils de gestion des données en base de donnée
 CMedicaBase         *m_pCMedicaBase;                // moteur de la base de donnée medicaments
 med_stat            *m_pMed_stat;                   // classe widget principal et parentes de toutes != 0 si constructeur OK
@@ -75,6 +79,14 @@ QString              m_PathTheme;
 #ifdef SESAMVITALE_VERSION
   C_Cps  *m_pCps;
 #endif
+public slots:
+     //--------------------------------------------- quit -------------------------------------------------------------------
+     /*! \brief surcharge du Slot quit afin d'envoyer le message Sign_QuitterRequired permettant a ceux qui s'y connectent de sauver les meubles \
+     */
+     void  quit();
+
+signals:
+ void  Sign_QuitterRequired();
 };
 
 extern CApp* G_pCApp;

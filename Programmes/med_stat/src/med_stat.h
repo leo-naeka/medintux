@@ -5,6 +5,7 @@
 #include <qvbox.h>
 #include <qaction.h>
 #include <qworkspace.h>
+#include <qprocess.h>
 #include <qdir.h>
 #include "../../drtux/src/CMoteur_Base.h"
 
@@ -68,9 +69,13 @@ private slots:
     void OnOngletRubriquesChanged(QWidget * pCMDI_Qwidget);
     void OnActiverRubrique(const char* rubName);
     void OnDeleteRubrique(const char* rubName);
-
+    void Slot_actionAproposDisplay();
+    void Slot_actionApropos();
+    void Slot_SauverLesMeubles();
+    void tryToStopAPropos();
 private:
-   QString m_PluginRun;
+   QString   m_PluginRun;
+   QProcess *m_Apropos_Proc;
 signals:
     void  Sign_ActiverRubrique(const char*);
 

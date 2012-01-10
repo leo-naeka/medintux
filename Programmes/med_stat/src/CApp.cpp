@@ -45,6 +45,7 @@
 #include "../../MedinTuxTools/cdlg_passwordget.h"
 #include "../../MedinTuxTools/Theme.h"
 CApp* G_pCApp = 0;  // contiendra l'instance globale de l'application
+static char NUM_VERSION[]     = "==##@@==2.15.000==@@##==";
 
 //--------------------------------------------- CApp -------------------------------------------------------------------
 CApp::~CApp()
@@ -56,13 +57,22 @@ CApp::~CApp()
  #endif
 }
 
+//--------------------------------------------- quit -------------------------------------------------------------------
+/*! \brief surcharge du Slot quit afin d'envoyer le message Sign_QuitterRequired permettant a ceux qui s'y connectent de sauver les meubles \
+*/
+void CApp::quit()
+{emit Sign_QuitterRequired();    // se connecter a tous ceux connectes a ce signal pour qu'il puissent Sauver le meubles.
+ QApplication::quit();
+}
+
 //--------------------------------------------- CApp -------------------------------------------------------------------
 CApp::CApp(QString mui_name, int & argc, char ** argv)
     : C_MUI_App(mui_name,  argc, argv )
 {   QTextCodec::setCodecForTr( QTextCodec::codecForName("utf8") );
 
-
- //............................ pointeurs sur les objets principaux generaux Uniques ...................................................
+m_NUM_VERSION           = NUM_VERSION;
+   
+//............................ pointeurs sur les objets principaux generaux Uniques ...................................................
 //                             l'interdependance de ces differentes classes rend
 //                             plus simple de les rendre accesible par un pointeur global
 //                             Initialisé lors de la creation de ces classes qui doivent être

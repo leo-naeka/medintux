@@ -31,6 +31,7 @@ Pour QT4 Placer au debut de la variable d'environnement PATH :
 qmake -t vcapp -o set_bases.dsp src.pro
 
 set QMAKE=C:\Qt3\3.3.4\bin\qmake
+set QMAKESPEC=win32-msvc
 
 set MODULE=get_ip
 cd ../../%MODULE%/src
@@ -57,7 +58,7 @@ set MODULE=comptabilite
 cd ../../comptabilite/compta
 erase %MODULE%.dsw
 erase %MODULE%.dsp
-%QMAKE% -t vcapp -o %MODULE%.dsp comptabilite.pro
+%QMAKE% -t vcapp -o %MODULE%.dsp compta.pro
 cd ../../mise_a_jour/bin
 mise_a_jour.exe MSDEV  ../../comptabilite/compta/comptabilite.dsp comptabilite.exe
 cd ../../comptabilite/compta
@@ -67,7 +68,7 @@ set MODULE=compta-plugins
 cd ../../comptabilite/compta-plugins
 erase %MODULE%.dsw
 erase %MODULE%.dsp
-%QMAKE% -t vcapp -o %MODULE%.dsp comptabilite.pro
+%QMAKE% -t vcapp -o %MODULE%.dsp compta-plugins.pro
 cd ../../mise_a_jour/bin
 mise_a_jour.exe MSDEV  ../../comptabilite/compta-plugins/compta-plugins.dsp compta-plugins.exe
 cd ../../comptabilite/compta-plugins
