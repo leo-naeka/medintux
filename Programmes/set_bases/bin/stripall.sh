@@ -2,7 +2,7 @@
 
 File_Err=./Err.Mt
 Projet=Medintux
-
+MYSQL_LIB=libmysqlclient.18.dylib
 Os=`uname`
 
 # Routine d'affichage Erreur

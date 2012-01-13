@@ -104,7 +104,7 @@
     <run>
       <directoryradio>executable</directoryradio>
       <customdirectory>/</customdirectory>
-      <mainprogram>/home/ro/medintux/Programmes/set_bases/bin/set_bases</mainprogram>
+      <mainprogram>/mnt/hgfs/Documents/medintux/Programmes/set_bases/bin/set_bases</mainprogram>
       <programargs/>
       <terminal>false</terminal>
       <autocompile>true</autocompile>
@@ -113,13 +113,13 @@
         <set_bases/>
       </runarguments>
       <cwd>
-        <set_bases>/home/ro/MedinTux-V2.14-Mac-Intel-105-src/Programmes-QT3/set_bases</set_bases>
+        <set_bases>/mnt/hgfs/Documents/medintux/Programmes/set_bases/bin</set_bases>
       </cwd>
       <debugarguments>
         <set_bases/>
       </debugarguments>
       <globaldebugarguments/>
-      <globalcwd>/home/ro/medintux/Programmes/set_bases</globalcwd>
+      <globalcwd>/mnt/hgfs/Documents/medintux/Programmes/set_bases</globalcwd>
       <useglobalprogram>true</useglobalprogram>
       <autoinstall>false</autoinstall>
       <autokdesu>false</autokdesu>

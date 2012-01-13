@@ -1,2 +1,2 @@
 #! /bin/sh
- ./MakeAllMac.sh 'drtux' '/usr/lib/qt3'
+ ./MakeAllMac.sh 'qfselib' '/usr/lib/qt3'

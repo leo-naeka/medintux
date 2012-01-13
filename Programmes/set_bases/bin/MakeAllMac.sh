@@ -2,8 +2,11 @@
 
 File_Err=./Err.Mt
 Projet=Medintux
-
+MYSQL_LIB=libmysqlclient.18.dylib
 Os=`uname`
+
+echo -e "Compilation en cours sur : $Os \n"
+echo -e " Arg 1 : $1\n Arg 2 : $2 " 
 
 # Routine d'affichage Erreur
 # Sign : String --> nil
@@ -11,7 +14,7 @@ Os=`uname`
 error()
 {
 	
-	echo "		$1"
+	echo "		$1 "
 	if [ -f $File_Err ];then
 		cat $File_Err
 	fi
@@ -19,7 +22,7 @@ error()
 	exit 1
 }
 #
- if [ $2 == ];then
+ if [[ -z "$2" ]];then
    export QTDIR
    QMAKE=$QTDIR/bin/qmake
  else
@@ -35,8 +38,9 @@ error()
  echo -e "\n-------------------------------------------------"
  echo -e "\nDebut commande MakeAllMac pour projet $Projet"
  echo -e "\n-------------------------------------------------"
- if [ $1 ==  ];then
- 	LISTE="ccamview drtux gest_user personnes QLightPad QLaboFTP Manager guinch mise_a_jour set_bases comptabilite check_dus compta-plugins qgetdatasemp qmedicabase manu med_stat cal_obst calendrier param_view MrPropre"
+
+ if [[ -z "$1" ]];then
+ 	LISTE="ccamview drtux gest_user personnes QLightPad QLaboFTP Manager guinch mise_a_jour set_bases comptabilite check_dus compta-plugins qgetdatasemp qmedicabase med_stat calendrier param_view MrPropre qgetdatasemp"
  else
  	LISTE=$1
  fi
@@ -46,20 +50,20 @@ error()
          # echo -en "      - Patch executable Mac lib QT pour $module"
          echo -e " "
          echo -e "\n========================== compilation en cours de  $module  =======================" 
+         rep_Module=$module
          if [ $module == 'compta-plugins' ]; then
-             cd comptabilite
+             rep_Module=comptabilite
          else
               if [ $module == 'check_dus' ]; then
-                  cd comptabilite
+                  rep_Module=comptabilite
               else
                   if [ $module == 'guinch' ]; then
-                       cd Manager
-                  else
-                       cd $module
+                       rep_Module=Manager
                   fi
               fi
          fi
-         #......................... QUE POUR MAC repertoires sources pour compilation ...................
+         cd "$rep_Module"
+         #......................... repertoires sources pour compilation ...................
          src_rep=./src
          if [ $module == 'compta-plugins' ]; then
               src_rep=./compta-plugins
@@ -78,21 +82,28 @@ error()
                   fi
             fi
          fi
-         cd $src_rep
+         cd "$src_rep"
          $QMAKE
-         make clean
+	 make clean
          make
-         echo -e "\n on stripe un peu : ../bin/$module"
-         strip -s ../bin/$module
+         
+         if [ $Os == 'Darwin' ]; then   
+            echo -e "\n on stripe un peu : ../bin/$module.app/Contents/MacOS/$module" 
+            strip ../bin/$module.app/Contents/MacOS/$module    # pas d'option -s sous mac 
+         else
+            echo -e "\n on stripe un peu : ../bin/$module"
+            strip -s ../bin/$module
+            make install
+         fi
          cd ..
          # ......................... QUE POUR MAC  patcher pour les infos sur les libs ...................
 	 if [ $Os == 'Darwin' ]; then
              filestrip=./bin/$module.app/Contents/MacOS/$module
              # QTlib
-             # install_name_tool -change libqt-mt.3.dylib @executable_path/../../../../../QT/lib/libqt-mt.3.dylib $filestrip
-             install_name_tool -change @executable_path/../../../../QT/lib/libqt-mt.3.3.8.dylib @executable_path/../../../../../QT/lib/libqt-mt.3.3.8.dylib $filestrip
+             # install_name_tool -change libqt-mt.3.dylib @executable_path/../../../../../Qt/lib/libqt-mt.3.dylib $filestrip
+             install_name_tool -change @executable_path/../../../../Qt/lib/libqt-mt.3.3.8.dylib @executable_path/../../../../../Qt/lib/libqt-mt.3.3.8.dylib $filestrip
 	     # Mysqllib
-             # install_name_tool -change /usr/local/mysql/lib/libmysqlclient.15.dylib @executable_path/../../../../../QT/lib/libmysqlclient.15.dylib $filestrip
+             # install_name_tool -change /usr/local/mysql/lib/$MYSQL_LIB @executable_path/../../../../../Qt/lib/$MYSQL_LIB $filestrip
 	 fi
          if [ $? == 0 ];then
                  echo -e "\n OK"
