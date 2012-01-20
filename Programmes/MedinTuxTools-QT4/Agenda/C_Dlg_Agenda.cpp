@@ -2235,7 +2235,7 @@ void C_Frm_Day::On_Day_mousePressEvent ( QMouseEvent * event )
                       {Chercher_les_RDV_dun_patient();
                       }
                    else if (ret.startsWith("AppointmentsListFor"))
-                      {Chercher_les_RDV_dun_patient(ret.mid(20));
+                      {Chercher_les_RDV_dun_patient(ret.mid(19));
                       }
 
                   }
@@ -3404,7 +3404,7 @@ void C_Frm_Rdv::mousePressEvent(QMouseEvent *event)
                   {((C_Frm_Day*)parent())->Chercher_les_RDV_dun_patient();
                   }
                else if (ret.startsWith("AppointmentsListFor"))
-                  {((C_Frm_Day*)parent())->Chercher_les_RDV_dun_patient(ret.mid(20));
+                  {((C_Frm_Day*)parent())->Chercher_les_RDV_dun_patient(ret.mid(19));
                   }
               }
          event->accept();
