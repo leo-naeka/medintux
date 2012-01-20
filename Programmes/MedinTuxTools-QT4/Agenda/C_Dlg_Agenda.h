@@ -78,6 +78,8 @@
 
 #include "c_dlg_plagesdispo.h"                  // CZA
 #include "ui_c_dlg_plagesdispo.h"               // CZA
+#include "C_Dlg_ChercheRDV.h"                   // CZE 2
+#include "ui_C_Dlg_ChercheRDV.h"                // CZE 2
 
 #define SIZE_BORDER_DAY            5         // largeur de la zone sensible au niveau des bordure pour etirement rendez-vous
 #define DAY_OFS_X                 20         // ofset affichage dans le jour replie
@@ -108,6 +110,7 @@ class C_BitMapCollection
       m_HeadCloseDay_Pixmap       = QPixmap(pathImage + "HeadCloseDay.png").scaled(dayWidth,dayHeight);
       m_HeadSatDay_Pixmap         = QPixmap(pathImage + "HeadSatDay.png").scaled(dayWidth,  dayHeight);
       m_HeadSunDay_Pixmap         = QPixmap(pathImage + "HeadSunDay.png").scaled(dayWidth,  dayHeight);
+      m_HeadUnWorkDay             = QPixmap(pathImage + "HeadUnWorkDay.png").scaled(dayWidth,  dayHeight);
       m_HeadResume_Pixmap         = QPixmap(pathImage + "Head_Resume.png").scaled(dayWidth-21, LINE_RESUME_HEIGHT);
 
       m_ButtonExpand_Pixmap       = QPixmap(pathImage + "Left.png");
@@ -131,6 +134,7 @@ class C_BitMapCollection
       m_MenuRendezvousDel         = QPixmap(pathImage + "RendezvousDel.png");
       m_ButtonGoogle_Pixmap       = QPixmap(pathImage + "Google.png");
       m_ButtonGotoWeek_Pixmap     = QPixmap(pathImage + "gotoWeek.png");
+      m_GetPatientRdv             = QPixmap(pathImage + "GetPatientRdv.png");
       QStringList list  = CGestIni::listDirectory(pathImage + "Statuts", ".png");
       for (int i = 0; i < list.size(); ++i)
           {QString file   = pathImage + "Statuts/" + list[i];
@@ -143,6 +147,7 @@ class C_BitMapCollection
          m_HeadCloseDay_Pixmap       = m_HeadCloseDay_Pixmap.scaled(dayWidth,  dayHeight);
          m_HeadSatDay_Pixmap         = m_HeadSatDay_Pixmap.scaled(dayWidth,    dayHeight);
          m_HeadSunDay_Pixmap         = m_HeadSunDay_Pixmap.scaled(dayWidth,    dayHeight);
+         m_HeadUnWorkDay             = m_HeadUnWorkDay.scaled(dayWidth,        dayHeight);
          m_HeadResume_Pixmap         = m_HeadResume_Pixmap.scaled(dayWidth-21, LINE_RESUME_HEIGHT);
      }
 
@@ -152,6 +157,8 @@ class C_BitMapCollection
      QPixmap m_HeadSatDay_Pixmap;
      QPixmap m_HeadSunDay_Pixmap;
      QPixmap m_HeadResume_Pixmap;
+     QPixmap m_HeadUnWorkDay;
+
      QPixmap m_ButtonExpand_Pixmap;
      QPixmap m_ButtonNewRDV_Pixmap;
      QPixmap m_ButtonSave_Pixmap;
@@ -174,6 +181,8 @@ class C_BitMapCollection
      QPixmap m_MenuRendezvousDel;
      QPixmap m_ButtonGoogle_Pixmap;
      QPixmap m_ButtonGotoWeek_Pixmap;
+     QPixmap m_GetPatientRdv;
+
  };
 
 //====================================== C_QMenuRdv =======================================================
@@ -637,7 +646,7 @@ public:
     void            replaceRdvByRdv(C_Frm_Rdv *pC_Frm_Rdv_Dst, const C_RendezVous &rdvSrc);
     int             XYToMinutesInResume ( int x, int y, int *retNbMnToEnd  = 0 );
     C_RendezVous   *getRdvUnderMouseInResume ( int x, int y , int *index  = 0 );
-
+    void            Chercher_les_RDV_dun_patient(QString nom_prenom  = ""   );
     void            ExpandDialog();
     int             getStateLook(){return m_DontRecreateWidget;}
 
@@ -800,6 +809,7 @@ public:
     void     reinitAgendaOnUser(const QString& user, const QString &droits);
     CMoteurAgenda *GetCMoteurAgenda(){return m_pCMoteurAgenda;}
     void     creerRDVFactices(const QString &user);
+    void     Chercher_les_RDV_dun_patient (QString nom_prenom  =""   );
     //............ animation .......................
     void     createAnimations();
     void     animateBottom();

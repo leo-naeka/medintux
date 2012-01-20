@@ -45,7 +45,9 @@
 #define TYP_COUL 2
 #define TYP_TIME 3
 
-
+namespace Ui {
+    class C_Dlg_RdvTypeConfig;
+}
 class C_RendezVous;
 class C_RendezVousList;
 //====================================== C_Dlg_RdvTypeConfig ==========================================================
@@ -88,15 +90,15 @@ private slots:
     void keyPressEvent ( QKeyEvent * event );                               // CZA
 
 private:
-    CMoteurAgenda          *m_pCMoteurAgenda;
-    MAP_COLOR              *m_pColorProfils;
-    C_RendezVous           *m_pC_RendezVous;
-    QAction                *m_pLastQActionHovered;
+    CMoteurAgenda           *m_pCMoteurAgenda;
+    MAP_COLOR               *m_pColorProfils;
+    C_RendezVous            *m_pC_RendezVous;
+    QAction                 *m_pLastQActionHovered;
 
-    QFrame                 *m_pQFrameListPatients;              //CZA
-    QTreeWidget            *m_pTreeWidgetPatients;              //CZA
-    QLabel                 *m_pQLabelStatus;
-    Ui::C_Dlg_RdvTypeConfig m_ui;
+    QFrame                  *m_pQFrameListPatients;              //CZA
+    QTreeWidget             *m_pTreeWidgetPatients;              //CZA
+    QLabel                  *m_pQLabelStatus;
+    Ui::C_Dlg_RdvTypeConfig *m_ui;
 };
 
 #endif // C_DLG_RDVTYPECONFIG_H

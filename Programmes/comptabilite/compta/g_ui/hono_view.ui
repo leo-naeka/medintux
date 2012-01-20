@@ -8,210 +8,285 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>600</width>
-            <height>480</height>
+            <width>652</width>
+            <height>616</height>
         </rect>
     </property>
     <property name="caption">
         <string>Gestion des honoraires</string>
     </property>
-    <grid>
+    <widget class="QLabel">
         <property name="name">
-            <cstring>unnamed</cstring>
+            <cstring>textLabel1</cstring>
         </property>
-        <widget class="QLabel" row="0" column="0" rowspan="1" colspan="3">
-            <property name="name">
-                <cstring>textLabel1</cstring>
-            </property>
+        <property name="geometry">
+            <rect>
+                <x>11</x>
+                <y>11</y>
+                <width>578</width>
+                <height>17</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>&lt;p align="center"&gt;&lt;b&gt;Gestion des honoraires&lt;/b&gt;&lt;/p&gt;</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>but_Validation</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>372</x>
+                <y>226</y>
+                <width>108</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Valider les honoraires</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>but_Ajouter</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>486</x>
+                <y>226</y>
+                <width>103</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Ajouter un honoraire</string>
+        </property>
+    </widget>
+    <spacer>
+        <property name="name">
+            <cstring>spacer3</cstring>
+        </property>
+        <property name="orientation">
+            <enum>Horizontal</enum>
+        </property>
+        <property name="sizeType">
+            <enum>Expanding</enum>
+        </property>
+        <property name="sizeHint">
+            <size>
+                <width>355</width>
+                <height>20</height>
+            </size>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>11</x>
+                <y>227</y>
+                <width>355</width>
+                <height>20</height>
+            </rect>
+        </property>
+    </spacer>
+    <spacer>
+        <property name="name">
+            <cstring>spacer1</cstring>
+        </property>
+        <property name="orientation">
+            <enum>Horizontal</enum>
+        </property>
+        <property name="sizeType">
+            <enum>Expanding</enum>
+        </property>
+        <property name="sizeHint">
+            <size>
+                <width>23</width>
+                <height>20</height>
+            </size>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>12</x>
+                <y>117</y>
+                <width>23</width>
+                <height>20</height>
+            </rect>
+        </property>
+    </spacer>
+    <spacer>
+        <property name="name">
+            <cstring>spacer2</cstring>
+        </property>
+        <property name="orientation">
+            <enum>Horizontal</enum>
+        </property>
+        <property name="sizeType">
+            <enum>Expanding</enum>
+        </property>
+        <property name="sizeHint">
+            <size>
+                <width>23</width>
+                <height>20</height>
+            </size>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>565</x>
+                <y>117</y>
+                <width>23</width>
+                <height>20</height>
+            </rect>
+        </property>
+    </spacer>
+    <widget class="QTable">
+        <column>
             <property name="text">
-                <string>&lt;p align="center"&gt;&lt;b&gt;Gestion des honoraires&lt;/b&gt;&lt;/p&gt;</string>
+                <string>Patient</string>
             </property>
-        </widget>
-        <widget class="QPushButton" row="2" column="1">
-            <property name="name">
-                <cstring>but_Validation</cstring>
-            </property>
+        </column>
+        <column>
             <property name="text">
-                <string>Valider les honoraires</string>
+                <string>Actes</string>
             </property>
-        </widget>
-        <widget class="QPushButton" row="2" column="2">
-            <property name="name">
-                <cstring>but_Ajouter</cstring>
-            </property>
+        </column>
+        <column>
             <property name="text">
-                <string>Ajouter un honoraire</string>
+                <string>Date</string>
             </property>
-        </widget>
-        <widget class="QPushButton" row="4" column="2">
-            <property name="name">
-                <cstring>but_ImprimeSynthese</cstring>
-            </property>
+        </column>
+        <column>
             <property name="text">
-                <string>Imprimer la synthèse</string>
+                <string>Esp</string>
             </property>
-        </widget>
-        <widget class="QTextEdit" row="3" column="0" rowspan="1" colspan="3">
-            <property name="name">
-                <cstring>m_QText_Synthese</cstring>
+        </column>
+        <column>
+            <property name="text">
+                <string>Chq</string>
             </property>
-        </widget>
-        <spacer row="2" column="0">
-            <property name="name">
-                <cstring>spacer3</cstring>
+        </column>
+        <column>
+            <property name="text">
+                <string>CB</string>
             </property>
-            <property name="orientation">
-                <enum>Horizontal</enum>
+        </column>
+        <column>
+            <property name="text">
+                <string>Autre</string>
             </property>
-            <property name="sizeType">
-                <enum>Expanding</enum>
+        </column>
+        <column>
+            <property name="text">
+                <string>DAF</string>
             </property>
-            <property name="sizeHint">
-                <size>
-                    <width>40</width>
-                    <height>20</height>
-                </size>
+        </column>
+        <column>
+            <property name="text">
+                <string>CMU</string>
             </property>
-        </spacer>
-        <widget class="QLayoutWidget" row="1" column="0" rowspan="1" colspan="3">
-            <property name="name">
-                <cstring>layout1</cstring>
+        </column>
+        <column>
+            <property name="text">
+                <string>Vir</string>
             </property>
-            <hbox>
-                <property name="name">
-                    <cstring>unnamed</cstring>
-                </property>
-                <spacer>
-                    <property name="name">
-                        <cstring>spacer1</cstring>
-                    </property>
-                    <property name="orientation">
-                        <enum>Horizontal</enum>
-                    </property>
-                    <property name="sizeType">
-                        <enum>Expanding</enum>
-                    </property>
-                    <property name="sizeHint">
-                        <size>
-                            <width>40</width>
-                            <height>20</height>
-                        </size>
-                    </property>
-                </spacer>
-                <widget class="QTable">
-                    <column>
-                        <property name="text">
-                            <string>Patient</string>
-                        </property>
-                    </column>
-                    <column>
-                        <property name="text">
-                            <string>Actes</string>
-                        </property>
-                    </column>
-                    <column>
-                        <property name="text">
-                            <string>Date</string>
-                        </property>
-                    </column>
-                    <column>
-                        <property name="text">
-                            <string>Esp</string>
-                        </property>
-                    </column>
-                    <column>
-                        <property name="text">
-                            <string>Chq</string>
-                        </property>
-                    </column>
-                    <column>
-                        <property name="text">
-                            <string>CB</string>
-                        </property>
-                    </column>
-                    <column>
-                        <property name="text">
-                            <string>Autre</string>
-                        </property>
-                    </column>
-                    <column>
-                        <property name="text">
-                            <string>DAF</string>
-                        </property>
-                    </column>
-                    <column>
-                        <property name="text">
-                            <string>Dû</string>
-                        </property>
-                    </column>
-                    <property name="name">
-                        <cstring>m_QTable_Hono</cstring>
-                    </property>
-                    <property name="maximumSize">
-                        <size>
-                            <width>600</width>
-                            <height>32767</height>
-                        </size>
-                    </property>
-                    <property name="resizePolicy">
-                        <enum>Default</enum>
-                    </property>
-                    <property name="vScrollBarMode">
-                        <enum>Auto</enum>
-                    </property>
-                    <property name="dragAutoScroll">
-                        <bool>false</bool>
-                    </property>
-                    <property name="numRows">
-                        <number>0</number>
-                    </property>
-                    <property name="numCols">
-                        <number>10</number>
-                    </property>
-                    <property name="readOnly">
-                        <bool>true</bool>
-                    </property>
-                    <property name="selectionMode">
-                        <enum>SingleRow</enum>
-                    </property>
-                </widget>
-                <spacer>
-                    <property name="name">
-                        <cstring>spacer2</cstring>
-                    </property>
-                    <property name="orientation">
-                        <enum>Horizontal</enum>
-                    </property>
-                    <property name="sizeType">
-                        <enum>Expanding</enum>
-                    </property>
-                    <property name="sizeHint">
-                        <size>
-                            <width>40</width>
-                            <height>20</height>
-                        </size>
-                    </property>
-                </spacer>
-            </hbox>
-        </widget>
-        <spacer row="4" column="0" rowspan="1" colspan="2">
-            <property name="name">
-                <cstring>spacer4</cstring>
+        </column>
+        <column>
+            <property name="text">
+                <string>10</string>
             </property>
-            <property name="orientation">
-                <enum>Horizontal</enum>
-            </property>
-            <property name="sizeType">
-                <enum>Expanding</enum>
-            </property>
-            <property name="sizeHint">
-                <size>
-                    <width>360</width>
-                    <height>20</height>
-                </size>
-            </property>
-        </spacer>
-    </grid>
+        </column>
+        <property name="name">
+            <cstring>m_QTable_Hono</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>11</x>
+                <y>35</y>
+                <width>600</width>
+                <height>184</height>
+            </rect>
+        </property>
+        <property name="maximumSize">
+            <size>
+                <width>600</width>
+                <height>32767</height>
+            </size>
+        </property>
+        <property name="resizePolicy">
+            <enum>Default</enum>
+        </property>
+        <property name="vScrollBarMode">
+            <enum>Auto</enum>
+        </property>
+        <property name="dragAutoScroll">
+            <bool>false</bool>
+        </property>
+        <property name="numRows">
+            <number>0</number>
+        </property>
+        <property name="numCols">
+            <number>11</number>
+        </property>
+        <property name="readOnly">
+            <bool>true</bool>
+        </property>
+        <property name="selectionMode">
+            <enum>SingleRow</enum>
+        </property>
+    </widget>
+    <spacer>
+        <property name="name">
+            <cstring>spacer4</cstring>
+        </property>
+        <property name="orientation">
+            <enum>Horizontal</enum>
+        </property>
+        <property name="sizeType">
+            <enum>Expanding</enum>
+        </property>
+        <property name="sizeHint">
+            <size>
+                <width>469</width>
+                <height>20</height>
+            </size>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>11</x>
+                <y>587</y>
+                <width>469</width>
+                <height>20</height>
+            </rect>
+        </property>
+    </spacer>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>but_ImprimeSynthese</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>486</x>
+                <y>586</y>
+                <width>103</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Imprimer la synthèse</string>
+        </property>
+    </widget>
+    <widget class="QTextEdit">
+        <property name="name">
+            <cstring>m_QText_Synthese</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>11</x>
+                <y>255</y>
+                <width>600</width>
+                <height>320</height>
+            </rect>
+        </property>
+    </widget>
 </widget>
 <connections>
     <connection>

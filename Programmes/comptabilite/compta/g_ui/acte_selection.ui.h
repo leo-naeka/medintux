@@ -17,15 +17,16 @@
 */
 void Acte_Selection::init()
 { // Crée la table des honoraires en bas de la fenêtre
-  t = new QTable(1, 6, grPaye);
-  t->setGeometry( QRect( 20, 30, 350, 50 ) );
+  t = new QTable(1, 7, grPaye);
+  t->setGeometry( QRect( 20, 30, 350, 60 ) );
   t->horizontalHeader()->setLabel( 0, tr( "Esp" ) );
   t->horizontalHeader()->setLabel( 1, tr( "Chq" ) );
   t->horizontalHeader()->setLabel( 2, tr( "CB" ) );
   t->horizontalHeader()->setLabel( 3, tr( "DAF" ) );
-  t->horizontalHeader()->setLabel( 4, tr( "Du" ) );
-  t->horizontalHeader()->setLabel( 5, tr( "Autre" ) );
-  for (int i = 0; i < 6; i++)
+  t->horizontalHeader()->setLabel( 4, tr( "CMU" ) );
+    t->horizontalHeader()->setLabel( 5, tr( "Vir" ) );
+  t->horizontalHeader()->setLabel( 6, tr( "Autre" ) );
+  for (int i = 0; i < 7; i++)
      { t->setColumnWidth ( i, 51 ); }
   // Connecte les signaux de la table avec les slots adéquats
   connect ( t ,     SIGNAL ( clicked(int,int,int,const QPoint&) ) , 
@@ -91,7 +92,7 @@ void Acte_Selection::putActeParams (int id )
 void Acte_Selection::paiement(int r ,int c, int but)
 { if (but == Qt::RightButton)
   { // Mets toutes la ligne à zéro
-    for (int i=0; i < 6; i++)
+    for (int i=0; i < 7; i++)
      { t->setText(r,i,QString::null); }
 
      // Récupère les données inhérentes à l'acte sélectionné
@@ -108,7 +109,18 @@ void Acte_Selection::paiement(int r ,int c, int but)
         else // tout mettre en DAF
         { t->setText (r, 3, QString::number(total) );
         }
+        
+		if (c != 4) // S'assurer que l'utilisateur ne clique pas sur DAF...
+        { t->setText(r, c, QString::number(tiers + (montantTotal->text().toDouble() - total) ) );  // A Payer
+          t->setText(r, 4, QString::number(total-tiers) );  // DAF
+        }
+		else // tout mettre en DAF
+        { t->setText (r, 4, QString::number(total) );
+        }
+
      }  // Fin tiers cliqué
+
+
     else 
      { t->setText(r, c, montantTotal->text() );  }
   } // fin Qt::LeftButton
@@ -131,8 +143,9 @@ void Acte_Selection::OK_clicked()
     p->setCheque	( t->text (0, 1 ).toDouble() );
     p->setCB		( t->text (0, 2 ).toDouble() );
     p->setDAF		( t->text (0, 3 ).toDouble() );
-    p->setAutre		( t->text (0, 5 ).toDouble() );
-    p->setDu		( t->text (0, 4 ).toDouble() );
+    p->setAutre		( t->text (0, 6 ).toDouble() );
+    p->setCMU		( t->text (0, 4 ).toDouble() );
+    p->setVirement	( t->text (0, 5 ).toDouble() );
     if ( p->total() == 0 ) 
      { if ( QMessageBox::question(
             this,
@@ -200,8 +213,9 @@ void Acte_Selection::setPaiement(Paiements &p)
   if (p.m_Chq > 0)   t->setText(0,1, QString::number ( p.m_Chq) );
   if (p.m_CB > 0)    t->setText(0,2, QString::number ( p.m_CB) );
   if (p.m_DAF > 0)   t->setText(0,3, QString::number ( p.m_DAF) );
-  if (p.m_Autre > 0) t->setText(0,4, QString::number ( p.m_Autre) );
-  if (p.m_Du > 0)    t->setText(0,5, QString::number ( p.m_Du) );
+  if (p.m_Autre > 0) t->setText(0,6, QString::number ( p.m_Autre) );
+  if (p.m_CMU > 0)   t->setText(0,4, QString::number ( p.m_CMU) );
+  if (p.m_Virement > 0)   t->setText(0,5, QString::number ( p.m_Virement) );
   if (p.m_Tiers)     chkTiersPayant->setChecked(TRUE);
 }
 

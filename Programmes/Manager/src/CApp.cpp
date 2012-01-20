@@ -55,7 +55,7 @@
 #include "../../MedinTuxTools-QT4/GetPassword/CDlg_PasswordGet.h"
 CApp* G_pCApp = 0;  // contiendra l'instance globale de l'application
 
-static char NUM_VERSION[]     = "==##@@==2.15.001==@@##==";
+static char NUM_VERSION[]     = "==##@@==2.15.002==@@##==";
 
 //--------------------------------------------- C_App -------------------------------------------------------------------
 CApp::~CApp()

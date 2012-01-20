@@ -280,11 +280,17 @@
                 </property>
                 <property name="geometry">
                     <rect>
-                        <x>169</x>
-                        <y>123</y>
+                        <x>160</x>
+                        <y>120</y>
                         <width>200</width>
                         <height>22</height>
                     </rect>
+                </property>
+                <property name="frameShape">
+                    <enum>LineEditPanel</enum>
+                </property>
+                <property name="frameShadow">
+                    <enum>Sunken</enum>
                 </property>
             </widget>
         </widget>

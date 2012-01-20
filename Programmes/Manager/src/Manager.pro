@@ -13,7 +13,7 @@ MOC_DIR = ../src/moc
 UI_DIR = ../src/ui
 DESTDIR = ../bin
 DEFINES += QT3_SUPPORT
-exists( ../../SesamVitale-QT4/CSesam_API.h ) { 
+exists( ../../SesamVitale-QT4/CSesam_API.h ) {
     DEFINES += SESAM_VERSION
     DEFINES += AGENDA_IN_GUI
     message( "================== Support de Sesam Vitale ==============" )
@@ -45,6 +45,7 @@ SOURCES += main.cpp \
     ../../MedinTuxTools-QT4/GetPassword/CDlg_PasswordGet.cpp \
     ../../MedinTuxTools-QT4/UserList/C_Frm_UserList.cpp \
     ../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.cpp \
+    ../../MedinTuxTools-QT4/Agenda/C_Dlg_ChercheRDV.cpp \
     ../../MedinTuxTools-QT4/C_Dlg_DoList/C_KeyPressEater.cpp \
     ../../MedinTuxTools-QT4/C_Dlg_DoList/C_Dlg_DoList.cpp \
     ../../MedinTuxTools-QT4/uuid/C_MyUuid.cpp \
@@ -72,6 +73,7 @@ HEADERS += CApp.h \
     ../../MedinTuxTools-QT4/GetPassword/CDlg_PasswordGet.h \
     ../../MedinTuxTools-QT4/UserList/C_Frm_UserList.h \
     ../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.h \
+    ../../MedinTuxTools-QT4/Agenda/C_Dlg_ChercheRDV.h \
     ../../MedinTuxTools-QT4/C_Dlg_DoList/C_KeyPressEater.h \
     ../../MedinTuxTools-QT4/C_Dlg_DoList/C_Dlg_DoList.h \
     ../../MedinTuxTools-QT4/uuid/C_MyUuid.h \
@@ -83,6 +85,7 @@ HEADERS += CApp.h \
 FORMS += C_Manager.ui \
          C_Dlg_Assure.ui \
     ../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.ui \
+    ../../MedinTuxTools-QT4/Agenda/C_Dlg_ChercheRDV.ui \
     ../../MedinTuxTools-QT4/GetPassword/CDlg_PasswordGet.ui \
     ../../MedinTuxTools-QT4/UserList/C_Frm_UserList.ui \
     ../../MedinTuxTools-QT4/C_Dlg_DoList/C_Dlg_DoList.ui \

@@ -103,6 +103,10 @@ Compta::Compta(ComptaMoteurBase* pComptaMoteurBase)
 		  this,            SLOT  ( DAFView()     )
 		);
 
+	connect	( m_pFormListMenu, SIGNAL( gestionCMUSelected() ),
+		  this,            SLOT  ( CMUView()     )
+		);
+
     connect	( m_pFormListMenu, SIGNAL( mouvementsSelected() ),
 		  this,            SLOT  ( mouvementsView()     )
 		);
@@ -460,6 +464,33 @@ CMDI_DAF* Compta::CMDI_DAFCreate ()
  return pCMDI_HV;
 }
 
+//-----------------------------------------------------------------
+//---------------------- CMDI_CMUCreate -------------------------
+//-----------------------------------------------------------------
+/*! \brief Crée et Affiche la fenêtre de gestion des DAF dans le WorkSpace global de l'application.
+ *  La fonction retourne le pointeur vers la fenêtre CMDI_DAF ainsi créée.
+ * \sa CMDI_DAF 
+*/
+CMDI_CMU* Compta::CMDI_CMUCreate ()
+{//................... creer la 4 eme fenetre MDI (fenetres Identité) ...........................
+ CMDI_CMU* pCMDI_HV = new CMDI_CMU(m_pQWorkSpaceRub,"CMDI_CMU", WDestructiveClose, m_pComptaMoteurBase);
+ pCMDI_HV->setCaption(tr("CMU"));
+
+ //.................. connecter les fenêtres filles: Sign_ActiverRubrique ......................................
+ //                   elles pourront recevoir le message d'activation
+ connect( this,     SIGNAL( Sign_ActiverRubrique(const char*)),
+             pCMDI_HV, SLOT( ActiverRubrique(const char*))
+           );
+
+ connect (	m_pFiltreHono, SIGNAL( sign_Filtre_Changed( ) ),
+		pCMDI_HV,	SLOT ( filtreChanged( )  )
+	  );
+
+
+ pCMDI_HV->setGeometry ( QRect( 0, 0, 600, 390 ) );
+ pCMDI_HV->showMaximized();
+ return pCMDI_HV;
+}
 
 //-----------------------------------------------------------------
 //---------------------- CMDI_LivresCreate -------------------------
@@ -596,6 +627,15 @@ void Compta::DAFView()
 { emit Sign_ActiverRubrique(TR("DAF") ); 
   CMDI_DAF*      pCMDI_A = (CMDI_DAF*) IsExistRubrique( TYP_DAF );
   if (pCMDI_A==0)   pCMDI_A = CMDI_DAFCreate ();
+  if (pCMDI_A==0)   return;
+  pCMDI_A->m_IsModified = FALSE;
+  GlobalActiverWidget(pCMDI_A);
+}
+
+void Compta::CMUView()
+{ emit Sign_ActiverRubrique(TR("CMU") ); 
+  CMDI_CMU*      pCMDI_A = (CMDI_CMU*) IsExistRubrique( TYP_CMU );
+  if (pCMDI_A==0)   pCMDI_A = CMDI_CMUCreate ();
   if (pCMDI_A==0)   return;
   pCMDI_A->m_IsModified = FALSE;
   GlobalActiverWidget(pCMDI_A);

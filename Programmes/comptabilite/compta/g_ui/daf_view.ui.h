@@ -237,12 +237,13 @@ void Daf_View::setTableTo( )
 	 )
       {
 	// Récupère le nom de tous les actes
-	m_QTable_DAF->setText( r,1, (*it).getActesToString() );
+	//m_QTable_DAF->setText( r,1, (*it).getActesToString() );
 	// Récupère les données de l'honoraire
 	m_QTable_DAF->setText( r,0, (*it).getPatient() );
-	m_QTable_DAF->setText( r,2, (*it).getDate().toString("dd-MM-yyyy") );
+	m_QTable_DAF->setText( r,2, (*it).getActesToString() );
+	m_QTable_DAF->setText( r,1, (*it).getDate().toString("dd-MM-yyyy") );
 	m_QTable_DAF->setText( r,3, QString::number( (*it).getDAF() ) );
-	m_QTable_DAF->setItem( r,4, new QCheckTableItem( m_QTable_DAF, TR("Encaisser") ) );
+    m_QTable_DAF->setItem( r,4, new QCheckTableItem( m_QTable_DAF, TR("Encaisser") ) );
 	if ((*it).getRemarque().find(DAF_OK) != -1)
 	{ QCheckTableItem* item = dynamic_cast<QCheckTableItem*>(m_QTable_DAF->item(r,4));
 	  item->setChecked(TRUE);
@@ -250,7 +251,7 @@ void Daf_View::setTableTo( )
 	m_QTable_DAF->setText( r,5, " "  );
 
 	daf += (*it).getDAF();
-	r++;
+    r++;
       } // Fin if 
     } // Fin for
    if (r == 0)  // Aucun DAF selon filtre combobox
@@ -292,7 +293,7 @@ void Daf_View::m_Combo_Voir_activated( int )
 
 
 void Daf_View::m_QTable_DAF_clicked( int r, int, int, const QPoint & )
-{ QCheckTableItem* item = dynamic_cast<QCheckTableItem*>(m_QTable_DAF->item(r,4));
+{ QCheckTableItem* item = dynamic_cast<QCheckTableItem*>(m_QTable_DAF->item(r,4)); 
   if (item->isChecked()) item->setChecked(FALSE); else item->setChecked(TRUE); 
   m_Modified = TRUE;
 }

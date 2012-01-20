@@ -38,6 +38,7 @@ void FormListMenu::ListView_Doc_currentChanged( QListBoxItem *pItem )
   else if ( pItem->text() == TR("Mouvements") ) emit mouvementsSelected();
   else if ( pItem->text() == TR("Actes") ) emit actesSelected();
   else if ( pItem->text() == TR("Gestion DAF") ) emit gestionDAFSelected();
+  else if ( pItem->text() == TR("Gestion CMU") ) emit gestionCMUSelected();
   else if ( pItem->text() == TR("Relevés de comptes") ) emit releveSelected();
   else if ( pItem->text() == TR("Livre et Bilan") ) emit livresSelected();
   else if ( pItem->text() == TR("Paramètres") ) emit paramSelected();
