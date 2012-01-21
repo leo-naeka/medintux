@@ -80,7 +80,7 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>Recherche des rendez-vous d'un patient</string>
+   <string>Patient appointents research</string>
   </property>
   <property name="styleSheet">
    <string notr="true"/>
@@ -210,7 +210,7 @@ p, li { white-space: pre-wrap; }
      </column>
      <column>
       <property name="text">
-       <string>Raison</string>
+       <string>Reason</string>
       </property>
       <property name="textAlignment">
        <set>AlignHCenter|AlignVCenter|AlignCenter</set>
