@@ -2053,6 +2053,71 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
+    <name>C_Dlg_ChercheRDV</name>
+    <message>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:13pt; font-weight:600; font-style:normal;&quot;&gt;
+&lt;table style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
+&lt;tr&gt;
+&lt;td style=&quot;border: none;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:12pt;&quot;&gt;Find Appointements for a patient&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:13pt; font-weight:600; font-style:normal;&quot;&gt;
+&lt;table style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
+&lt;tr&gt;
+&lt;td style=&quot;border: none;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:12pt;&quot;&gt;Recherche des rendez-vous d&apos;un patient&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <source>Patient name</source>
+        <translation>Nom du patient</translation>
+    </message>
+    <message>
+        <source>only next appointments</source>
+        <translation>Seulement les rendez-vous à venir</translation>
+    </message>
+    <message>
+        <source>Patient first name</source>
+        <translation>Prénom du patient</translation>
+    </message>
+    <message>
+        <source>All appointments</source>
+        <translation>Tous les rendez-vous</translation>
+    </message>
+    <message>
+        <source>Time</source>
+        <translation>Heure</translation>
+    </message>
+    <message>
+        <source>with</source>
+        <translation>Avec</translation>
+    </message>
+    <message>
+        <source>Reason</source>
+        <translation>Raison</translation>
+    </message>
+    <message>
+        <source>Duration</source>
+        <translation>Durée</translation>
+    </message>
+    <message>
+        <source>Note</source>
+        <translation>Note</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Fermer</translation>
+    </message>
+    <message>
+        <source>Patient appointents research</source>
+        <translation>Recherche des rendez-vous d&apos;un patient</translation>
+    </message>
+</context>
+<context>
     <name>C_Dlg_DoList</name>
     <message>
         <source>Confirmer</source>
@@ -2674,7 +2739,7 @@ durée maximum possible :</translation>
     </message>
     <message>
         <source>=11=#Agenda/NewDoc.png#Afficher aujourd&apos;hui</source>
-        <translation>=11=#Agenda/NewDoc.png#Afficher aujourd&apos;hui</translation>
+        <translation type="obsolete">=11=#Agenda/NewDoc.png#Afficher aujourd&apos;hui</translation>
     </message>
     <message>
         <source>Set new appointment for %1 at %2</source>
@@ -2781,6 +2846,22 @@ durée maximum possible :</translation>
     <message>
         <source>Make an appointment for the %2 at %3 with the patient &apos;%1&apos; selected in the list.</source>
         <translation>Créer pour l&apos;emplacement actuel le %2 à %3 un rendez-vous avec le patient : &apos;%1&apos; sélectionné dans la liste.</translation>
+    </message>
+    <message>
+        <source>=12=#Agenda/GetPatientRdv.png#Find appointments for a patient</source>
+        <translation>=12=#Agenda/GetPatientRdv.png#Recherche des rendez-vous pour un patient</translation>
+    </message>
+    <message>
+        <source>List of all Appointments for: %1</source>
+        <translation>Liste de tous les rendez-vous pour: %1</translation>
+    </message>
+    <message>
+        <source>Find Appointments</source>
+        <translation>Recherche de rendez-vous</translation>
+    </message>
+    <message>
+        <source>Create new file with: %1</source>
+        <translation>Créer un nouveau dossier avec: %1</translation>
     </message>
 </context>
 <context>
@@ -3149,7 +3230,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Annu&amp;ler</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Cancel</translation>
     </message>
     <message>
         <source>Itinerant mode activated
@@ -4183,7 +4264,7 @@ pas de dossier valide sélectionné.</translation>
     </message>
     <message>
         <source>&lt;br /&gt; numéro de SS : </source>
-        <translation type="unfinished">Date de naissance </translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>&lt;br /&gt;&lt;hr&gt; of a person already in the files list</source>
@@ -4506,6 +4587,14 @@ pas de dossier valide sélectionné.</translation>
     <message>
         <source>=5=Lancer Pyxvital</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The process &apos;personnes&apos; is still running</source>
+        <translation>Le processus &apos;Personnes&apos; est encore en fonctionnement</translation>
+    </message>
+    <message>
+        <source>Find appointments list for a patient</source>
+        <translation>Trouver les rendez-vous d&apos;un patient</translation>
     </message>
 </context>
 <context>
@@ -4893,7 +4982,7 @@ dossier</translation>
     </message>
     <message>
         <source>Help</source>
-        <translation>Aide</translation>
+        <translation type="obsolete">Aide</translation>
     </message>
     <message>
         <source>Access to medical folder by MedWebTux</source>
@@ -4941,7 +5030,7 @@ dossier</translation>
     </message>
     <message>
         <source>About Manager</source>
-        <translation>À propos de Manager</translation>
+        <translation type="obsolete">À propos de Manager</translation>
     </message>
     <message>
         <source>MedinTux Documentation</source>
@@ -5017,7 +5106,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>.                                                   Files</source>
-        <translation>.                                                   Fichier</translation>
+        <translation type="obsolete">.                                                   Fichier</translation>
     </message>
     <message>
         <source>New file</source>
@@ -5056,6 +5145,14 @@ p, li { white-space: pre-wrap; }
         <translation>Code postal</translation>
     </message>
     <message>
+        <source>&amp;About Manager</source>
+        <translation>À &amp;propos de Manager</translation>
+    </message>
+    <message>
+        <source>&amp;Help</source>
+        <translation>&amp;Aide</translation>
+    </message>
+    <message>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -5063,6 +5160,33 @@ p, li { white-space: pre-wrap; }
 &lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
 &lt;tr&gt;
 &lt;td style=&quot;border: none;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;========================================================================================================== &lt;br /&gt;Modif RS Manager du 20-01-2012  Version 2.15.002&lt;br /&gt;---------------------------------------------------------------------------------------------------------- &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;- &lt;/span&gt;&lt;span style=&quot; font-family:&apos;courier&apos;; text-decoration: underline;&quot;&gt;FONCTIONNALITES&lt;/span&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt; : &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;    ° Amélioration de l&apos;affichage de la liste des patients &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;        dans dialogue parametrage rendez-vous et recherche rendez-vous&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;    ° Affichage de la liste des RDV d&apos;un patient.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;    ° Gestion des jours fériés.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;    ° Gestion d&apos;une liste de disponibilités des medecins.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;        [Agenda]&lt;/span&gt;  &lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;        &lt;/span&gt;Disponibilite_Lucette  = 123456:08h30-12h30-14h00-19h00 &lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;        &lt;/span&gt;Disponibilite_Paulette = 12345:08h30-12h00-14h00-19h00_6:08h30-12h00 &lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;        &lt;/span&gt;Disponibilite = 123456:08h00-12h30-14h00-19h00_7:08h30-10h30&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;courier&apos;;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;========================================================================================================== &lt;br /&gt;Modif RS Manager du 09-01-2012  Version 2.15.001&lt;br /&gt;---------------------------------------------------------------------------------------------------------- &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;- &lt;/span&gt;&lt;span style=&quot; font-family:&apos;courier&apos;; text-decoration: underline;&quot;&gt;FONCTIONNALITES&lt;/span&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt; : &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;    ° Restauration de l&apos;option lancement dans menu même si rendez-vous anonyme&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;    ° Paramétrages de la hauteur du bandeau d&apos;un jour&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;        [Agenda]&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;           Hauteurs de base du bandeau des jours = simple=60; double=90&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;    ° Paramétrages des attributs du texte de la date, nb rdv et heure&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;        [Agenda]&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;           Attributs de la date dans le resume = family = sans; pixelSize = 14; italic = 0 ; bold=1 ; color = #15686f ; vertical adjust = -6&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;courier&apos;;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;========================================================================================================== &lt;br /&gt;Modif RS Manager du 15-12-2011  Version 2.15.000 &lt;br /&gt;---------------------------------------------------------------------------------------------------------- &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;- &lt;/span&gt;&lt;span style=&quot; font-family:&apos;courier&apos;; text-decoration: underline;&quot;&gt;FONCTIONNALITES&lt;/span&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt; : &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;    ° Version de la distribution 2.15.000 &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;========================================================================================================== &lt;br /&gt;Modif du ZAB et RS Manager du 13-12-2011  Version 2.14.021 &lt;br /&gt;---------------------------------------------------------------------------------------------------------- &lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;- &lt;/span&gt;&lt;span style=&quot; font-family:&apos;courier&apos;; text-decoration: underline;&quot;&gt;FONCTIONNALITES&lt;/span&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt; : &lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;    ° Agenda mode WEEK  : Ajout d&apos;un bandeau persistant affichant les jours de la semaine.&lt;/span&gt;&lt;/p&gt;
@@ -5525,32 +5649,32 @@ ne peut être ouvert</translation>
         <translation>Erreur : le fichier de destination PluginExe() ne peut être ouvert</translation>
     </message>
     <message>
-        <source>Erreur : pas de section dans l&apos;appel de la fonction CGestIni::Param_ReadParam()</source>
-        <translation type="unfinished"></translation>
+        <source>Syntax error: empty parameter file</source>
+        <translation>Erreur de syntaxe : paramètre fichier vide</translation>
     </message>
     <message>
-        <source>Pas de variable : </source>
-        <translation type="unfinished"></translation>
+        <source>Error : no section in the call of function CGestIni::Param_ReadParam()</source>
+        <translation>Erreur : pas de section dans l&apos;appel de fonction CGestIni::Param_ReadParam()</translation>
     </message>
     <message>
-        <source>  pour la section : </source>
-        <translation type="unfinished"></translation>
+        <source>Sign = not found in section: </source>
+        <translation>Signe = introuvable dans la section : </translation>
     </message>
     <message>
-        <source>Erreur de syntaxe : Pas de section dans ce fichier</source>
-        <translation type="unfinished"></translation>
+        <source>, requested variable: </source>
+        <translation>, variable recherchée : </translation>
     </message>
     <message>
-        <source>Erreur de syntaxe: Fichier de paramètres vide</source>
-        <translation type="unfinished"></translation>
+        <source>No variable: </source>
+        <translation>pas de variable : </translation>
     </message>
     <message>
-        <source>Signe = non trouvé dans la section : </source>
-        <translation type="unfinished"></translation>
+        <source>  for section : </source>
+        <translation> pour la section : </translation>
     </message>
     <message>
-        <source>, variable recherchée : </source>
-        <translation type="unfinished"></translation>
+        <source>Syntax error: no section in this file</source>
+        <translation>Erreur de syntaxe : pas de section dans ce fichier</translation>
     </message>
 </context>
 </TS>
