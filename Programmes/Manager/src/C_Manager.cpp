@@ -106,13 +106,16 @@ C_Manager::C_Manager(CMoteurBase *pCMoteurBase,  QWidget *parent, const QString 
    m_List_GUI_Mode[2]  = "MODE_MULTICRITERE";
    m_pGUI->setupUi(this);
    m_pGUI->textEdit_Changements->hide(); // juste present pour contenir le texte des changements
-   m_pC_Frm_UserList   = 0;
-   m_Ident_IsModified  = 0;
-   m_Contacts_Run      = FALSE;
-   m_NomadismeToolBar  = 0;
-   m_FSEenCours        = FALSE;            //Cz_Pyxvital
-   m_timerFSE          = 0;                //Cz_Pyxvital
-   m_Facture_Seule     = "non";
+   m_pC_Frm_UserList    = 0;
+   m_Ident_IsModified   = 0;
+   m_Contacts_Run       = FALSE;
+   m_NomadismeToolBar   = 0;
+   m_FSEenCours         = FALSE;            //Cz_Pyxvital
+   m_timerFSE           = 0;                //Cz_Pyxvital
+   m_Facture_Seule      = "non";
+   m_strGotoAgenda      = tr("  >> Goto Schedule              ");
+   m_strGotoPatientList = tr("  >> Goto Patient list          ");
+
    CGestIni::Param_ReadParam(G_pCApp->m_LocalParam, "Sesam-Vitale", "Facture_Seule", &m_Facture_Seule); //Cz_Pyxvital
    // ................ listview patient (pomotion de C_DragQTreeWidget)  .................................
    m_pGUI->listView_Patient->setSortingEnabled(true);
@@ -806,7 +809,15 @@ m_actionQuitter->setShortcut(QApplication::translate("C_ManagerClass", "Ctrl+Q",
 #ifdef  Q_WS_MAC
     m_menuFichiers->setTitle(QApplication::translate("C_ManagerClass", "Files", 0, QApplication::UnicodeUTF8));
 #else
-    m_menuFichiers->setTitle(QApplication::translate("C_ManagerClass", ".                                                   Files", 0, QApplication::UnicodeUTF8));
+    {QFontMetrics fntMetric = QFontMetrics(this->font());
+     int               wbut = qMax(fntMetric.boundingRect(m_strGotoAgenda).width(),fntMetric.boundingRect(m_strGotoPatientList).width())+20;
+     QString   spacesToAdd  = ".";
+     while (fntMetric.boundingRect(spacesToAdd).width() < wbut)
+           {spacesToAdd +="  ";
+           }
+
+     m_menuFichiers->setTitle(spacesToAdd + QApplication::translate("C_ManagerClass", "Files", 0, QApplication::UnicodeUTF8));
+    }
 #endif
 m_menuFenetre->setTitle(QApplication::translate("C_ManagerClass", "Display and Windows", 0, QApplication::UnicodeUTF8));
 m_action_A_Propos->setText(QApplication::translate("C_ManagerClass", "&About Manager", 0, QApplication::UnicodeUTF8));
@@ -5312,15 +5323,21 @@ if (pC_Frm_Agenda->getPaintMode() >= C_Frm_Agenda::NORMAL)
     pC_Frm_Agenda->reinitAgendaOnDate(dateIn);
    }
 }
+//---------------------------------------------- Slot_pQPushButtonPatientRdvList_Clicked -----------------------------------------------------------------------
+void C_Manager::Slot_pQPushButtonPatientRdvList_Clicked(Wdg_ButtonPtr* pWdg_ButtonPtr)
+{C_Frm_Agenda  *pC_Frm_Agenda  = (C_Frm_Agenda*) pWdg_ButtonPtr->getPtr_1();
+ pC_Frm_Agenda->Chercher_les_RDV_dun_patient ();
+}
+
 //---------------------------------------------- Slot_pQPushButtonThisDay_Clicked -----------------------------------------------------------------------
 // Afficher le jour Suivant CZA
 void C_Manager::Slot_pQPushButtonThisDay_Clicked (Wdg_ButtonPtr* pWdg_ButtonPtr)
 {
  C_Frm_Agenda  *pC_Frm_Agenda  = (C_Frm_Agenda*) pWdg_ButtonPtr->getPtr_1();
-if (pC_Frm_Agenda->getPaintMode() >= C_Frm_Agenda::NORMAL)
-   {pC_Frm_Agenda->animateBottom();
-    pC_Frm_Agenda->reinitAgendaOnDate(QDate::currentDate());
-   }
+ if (pC_Frm_Agenda->getPaintMode() >= C_Frm_Agenda::NORMAL)
+    {pC_Frm_Agenda->animateBottom();
+     pC_Frm_Agenda->reinitAgendaOnDate(QDate::currentDate());
+    }
 }
 //---------------------------------------------- Slot_pQPushButtonWeekDay_Clicked -----------------------------------------------------------------------
 void C_Manager::Slot_ReinitModeWeekDayMonth_OnDate(const QDate &date , const QString & mode , C_Frm_Agenda *pC_Frm_Agenda)
@@ -5622,6 +5639,13 @@ C_Frm_Agenda *C_Manager::addUserAgenda(const QString &signUser, QDate date, QFra
              #ifdef  Q_WS_MAC
                 pQPushButtonAgendaSelect->setFlat(true);
              #endif
+                // changement de couleur du bouton par user si existe dans manager.ini
+                QString colorUser = CGestIni::Param_ReadUniqueParam(G_pCApp->m_LocalParam, "Agenda", "CouleurBouton_" + signUser);
+                if (colorUser.length() > 1)
+                   { colorUser.replace("_",",");
+                     pQPushButtonAgendaSelect->setStyleSheet(colorUser);
+                   }
+
                 m_pGUI->buttonBox_agendas->addButton (pQPushButtonAgendaSelect, QDialogButtonBox::ActionRole );
                }
            }
@@ -5676,6 +5700,10 @@ C_Frm_Agenda *C_Manager::addUserAgenda(const QString &signUser, QDate date, QFra
    Wdg_ButtonPtr *pQPushButtonFreeSpace        = new Wdg_ButtonPtr( frameButtonAndTitle , "ButtonFreeSpace_" + signUser);
    pQPushButtonFreeSpace->setPtr_1(pC_Frm_Agenda);
    pQPushButtonFreeSpace->setToolTip ( "<font color=\"#000000\">"+tr("Choose free space for new appointment")+"</font>" );
+
+   Wdg_ButtonPtr *pQPushButtonPatientRdvList        = new Wdg_ButtonPtr( frameButtonAndTitle , "ButtonPatientRdvList_" + signUser);
+   pQPushButtonPatientRdvList->setPtr_1(pC_Frm_Agenda);
+   pQPushButtonPatientRdvList->setToolTip ( "<font color=\"#000000\">"+tr("Find appointments list for a patient")+"</font>" );
 
    QScrollBar    *pQScrollBar                = scrollArea_Days->verticalScrollBar();   // juste pour la largeur
    int            wScroll                    = 14;
@@ -5880,9 +5908,15 @@ C_Frm_Agenda *C_Manager::addUserAgenda(const QString &signUser, QDate date, QFra
    pQPushButtonFreeSpace->setIcon    ( Theme::getIcon("Agenda/getFreeSpace.png"));
    pos_Obj_X += pQPushButtonFreeSpace->width();
 
+   // bouton recherche rendez vous d'un patient
+   pQPushButtonPatientRdvList->resize( agendaButtonHeight , agendaButtonHeight);
+   pQPushButtonPatientRdvList->move  ( pos_Obj_X ,          agendaTitleHeight);
+   pQPushButtonPatientRdvList->setIcon    ( Theme::getIcon("Agenda/GetPatientRdv.png"));
+   pos_Obj_X += pQPushButtonPatientRdvList->width();
+
    // bouton menu parametres
    pQPushButtonMenu->resize( agendaButtonHeight , agendaButtonHeight);
-   pQPushButtonMenu->move  ( pos_Obj_X ,          agendaTitleHeight);                        // CZA
+   pQPushButtonMenu->move  ( pos_Obj_X ,          agendaTitleHeight);
    pQPushButtonMenu->setIcon(Theme::getIcon("Agenda/AgendaMenu.png"));
    pQPushButtonMenu->setToolTip ( "<font color=\"#000000\">"+tr("Various options for schedule")+"</font>" );
    pos_Obj_X += pQPushButtonMenu->width();                          // CZA
@@ -5904,13 +5938,14 @@ C_Frm_Agenda *C_Manager::addUserAgenda(const QString &signUser, QDate date, QFra
    connect( pQPushButtonDate , SIGNAL(clicked (Wdg_ButtonPtr*)), this, SLOT(Slot_pQPushButtonAgendaDate_Clicked (Wdg_ButtonPtr*)) );
    connect( pQPushButtonMenu , SIGNAL(clicked (Wdg_ButtonPtr*)), this, SLOT(Slot_pQPushButtonMenuAgenda_Clicked (Wdg_ButtonPtr*)) );
 
-   connect( pQPushButtonPreviusDay , SIGNAL(clicked (Wdg_ButtonPtr*)), this, SLOT(Slot_pQPushButtonPreviusDay_Clicked (Wdg_ButtonPtr*)) );
-   connect( pQPushButtonNextDay    , SIGNAL(clicked (Wdg_ButtonPtr*)), this, SLOT(Slot_pQPushButtonNextDay_Clicked (Wdg_ButtonPtr*)) );
-   connect( pQPushButtonThisDay    , SIGNAL(clicked (Wdg_ButtonPtr*)), this, SLOT(Slot_pQPushButtonThisDay_Clicked (Wdg_ButtonPtr*)) );
-   connect( pQPushButtonDay        , SIGNAL(clicked (Wdg_ButtonPtr*)), this, SLOT(Slot_pQPushButtonWeekDay_Clicked (Wdg_ButtonPtr*)) );
-   connect( pQPushButtonWeek       , SIGNAL(clicked (Wdg_ButtonPtr*)), this, SLOT(Slot_pQPushButtonWeekDay_Clicked (Wdg_ButtonPtr*)) );
-   connect( pQPushButtonMonth      , SIGNAL(clicked (Wdg_ButtonPtr*)), this, SLOT(Slot_pQPushButtonWeekDay_Clicked (Wdg_ButtonPtr*)) );
-   connect( pQPushButtonFreeSpace  , SIGNAL(clicked (Wdg_ButtonPtr*)), this, SLOT(Slot_pQPushButtonFreeSpace_Clicked (Wdg_ButtonPtr*)) );
+   connect( pQPushButtonPreviusDay      , SIGNAL(clicked (Wdg_ButtonPtr*)), this, SLOT(Slot_pQPushButtonPreviusDay_Clicked (Wdg_ButtonPtr*)) );
+   connect( pQPushButtonNextDay         , SIGNAL(clicked (Wdg_ButtonPtr*)), this, SLOT(Slot_pQPushButtonNextDay_Clicked (Wdg_ButtonPtr*)) );
+   connect( pQPushButtonThisDay         , SIGNAL(clicked (Wdg_ButtonPtr*)), this, SLOT(Slot_pQPushButtonThisDay_Clicked (Wdg_ButtonPtr*)) );
+   connect( pQPushButtonDay             , SIGNAL(clicked (Wdg_ButtonPtr*)), this, SLOT(Slot_pQPushButtonWeekDay_Clicked (Wdg_ButtonPtr*)) );
+   connect( pQPushButtonWeek            , SIGNAL(clicked (Wdg_ButtonPtr*)), this, SLOT(Slot_pQPushButtonWeekDay_Clicked (Wdg_ButtonPtr*)) );
+   connect( pQPushButtonMonth           , SIGNAL(clicked (Wdg_ButtonPtr*)), this, SLOT(Slot_pQPushButtonWeekDay_Clicked (Wdg_ButtonPtr*)) );
+   connect( pQPushButtonFreeSpace       , SIGNAL(clicked (Wdg_ButtonPtr*)), this, SLOT(Slot_pQPushButtonFreeSpace_Clicked (Wdg_ButtonPtr*)) );
+   connect( pQPushButtonPatientRdvList  , SIGNAL(clicked (Wdg_ButtonPtr*)), this, SLOT(Slot_pQPushButtonPatientRdvList_Clicked (Wdg_ButtonPtr*)) );
    // ------------- CZA
 
    connect( pC_Frm_Agenda,     SIGNAL(Sign_LauchPatient(const QString &, C_RendezVous *)),   this, SLOT( Slot_LauchPatient(const QString &, C_RendezVous *)));
@@ -6258,11 +6293,11 @@ void C_Manager::Slot_actionHideShowLogo_triggered (bool)
 { QString AfficheLogo;
   if (m_pGUI->textLabelPixMap->isShown())
     {m_pGUI->textLabelPixMap->hide();
-     AfficheLogo = "NON";                    // CZA
+     AfficheLogo = "NON";
     }
  else
     {m_pGUI->textLabelPixMap->show();
-     AfficheLogo = "OUI";                 // CZA
+     AfficheLogo = "OUI";
     }
  CGestIni::Param_WriteParam(&G_pCApp->m_LocalParam, "Agenda" , "Affichage logo Data Medical Design" , AfficheLogo);  // CZA
  CGestIni::Param_UpdateToDisk(G_pCApp->m_PathAppli+"Manager.ini", G_pCApp->m_LocalParam); // CZA
@@ -6319,18 +6354,18 @@ void C_Manager::get_RecordDispos(const QString & mode /* = "FICHE" */)
     QString nomFicDPS     = "";
     if (mode!="AGENDA")
        {m_Type_Affichage_EnCours = "FICHE";
-        textToDisplay            = tr("  >> Goto Schedule              ");
+        textToDisplay            = m_strGotoAgenda;
         nomFicDPS                = "Manager.dps";
        }
     else
        {m_Type_Affichage_EnCours = mode;
-        textToDisplay            = tr("  >> Goto Patient list          ");
+        textToDisplay            = m_strGotoPatientList;
         nomFicDPS                = "Manager_Agenda.dps";
        }
     //...... charge la config de presentation .................
     QRect rect = QFontMetrics ( this->font() ).boundingRect ( textToDisplay );
     m_Button_Affichage_EnCours->setText(textToDisplay);
-    m_Button_Affichage_EnCours->setGeometry(m_Button_Affichage_EnCours->x(),m_Button_Affichage_EnCours->y(),rect.width(),m_Button_Affichage_EnCours->height());
+    m_Button_Affichage_EnCours->setGeometry(m_Button_Affichage_EnCours->x(),m_Button_Affichage_EnCours->y(),rect.width()+10, m_Button_Affichage_EnCours->height());
     //................... charger la config ..................
     if ( !QFile::exists(G_pCApp->m_PathAppli + nomFicDPS) )  return;
     QFile file( G_pCApp->m_PathAppli + nomFicDPS );
@@ -6720,21 +6755,21 @@ void C_Manager::Slot_pushButton_FSE()
          //--- d�but CZ_Cpta
 
          QString numPS = G_pCApp->m_pCps->m_NIR.length() > 6 ? G_pCApp->m_pCps->m_NIR : "PasLu";
-         QString listParam =  "p_actionPyx =" + m_typFact                              + "\r\n"
-                              "p_logUser ="   + G_pCApp->m_User                        + "\r\n"
-                              "m_typFact ="   + m_typFact                              + "\r\n"
-                              "p_numSecu ="   + zcvnss                                 + "\r\n"
-                              "p_qualite ="   + zcvqual                                + "\r\n"
-                              "p_rangGem ="   + zcvrang                                + "\r\n"
-                              "p_nom ="       + zcvnom                                 + "\r\n"
-                              "p_prenom ="    + zcvprn                                 + "\r\n"
-                              "p_datnss ="    + m_pGUI->lineEdit_DtNss->text()         + "\r\n"
-                            //"p_datnss ="    + m_pGUI->lineEdit_DtNss_Assure->text()  + "\r\n"
-                              "p_GUIDPat ="   + G_pCApp->identitePatientGUID()         + "\r\n"
-                              "p_PKPat ="     + G_pCApp->identitePatientPk()           + "\r\n"
-                              "p_NumPS ="     + numPS                                  + "\r\n"
-                              "p_NomAssu ="   + m_pGUI->lineEdit_NomAssure->text()     + "\r\n"
-                              "p_PreAssu ="   + m_pGUI->lineEdit_PrenomAssure->text()  + "\r\n";
+         QString listParam =  "p_actionPyx =" + m_typFact                                               + "\r\n"
+                              "p_logUser ="   + G_pCApp->m_User                                         + "\r\n"
+                              "m_typFact ="   + m_typFact                                               + "\r\n"
+                              "p_numSecu ="   + zcvnss                                                  + "\r\n"
+                              "p_qualite ="   + zcvqual                                                 + "\r\n"
+                              "p_rangGem ="   + zcvrang                                                 + "\r\n"
+                              "p_nom ="       + zcvnom.replace("'"," ")                                 + "\r\n"
+                              "p_prenom ="    + zcvprn.replace("'"," ")                                 + "\r\n"
+                              "p_datnss ="    + m_pGUI->lineEdit_DtNss->text()                          + "\r\n"
+                            //"p_datnss ="    + m_pGUI->lineEdit_DtNss_Assure->text()                   + "\r\n"
+                              "p_GUIDPat ="   + G_pCApp->identitePatientGUID()                          + "\r\n"
+                              "p_PKPat ="     + G_pCApp->identitePatientPk()                            + "\r\n"
+                              "p_NumPS ="     + numPS                                                   + "\r\n"
+                              "p_NomAssu ="   + m_pGUI->lineEdit_NomAssure->text().replace("'"," ")     + "\r\n"
+                              "p_PreAssu ="   + m_pGUI->lineEdit_PrenomAssure->text().replace("'"," ")  + "\r\n";
          //--- fin CZ_Cpta
          m_ficFacturePar = appelPyxvital ( listParam);
         if (m_ficFacturePar.length())

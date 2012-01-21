@@ -255,6 +255,7 @@ void C_DlgListFieldMngr::pushButtonImportMenu_clicked()
                   CHtmlTools::Copy_Dir(m_PathMenuLib + "/" + itemName + "/ToPutInMedinTux._ex",  QDir::cleanDirPath(m_PathDrTux+"../../") , CHtmlTools::copyDir);
                   if ( QFile::exists(  m_PathMenuLib + "/" + itemName + "/base_update.sql"))
                      { //................... mise à jour SQL ...............................................................
+#ifndef QLIGHTPAD
                        QSqlQuery query(QString::null, G_pCApp->m_pCMoteurBase->m_DataBase);
                        qDebug(query.lastError().text());
                        QString sql_txt;
@@ -265,6 +266,7 @@ void C_DlgListFieldMngr::pushButtonImportMenu_clicked()
                              query.exec(sql_txt);
                              qDebug(query.lastError().text());
                            }
+#endif
                      }
               }
               else

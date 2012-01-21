@@ -28,6 +28,7 @@ FORMS += g_ui/FormListMenu.ui \
          g_ui/param_view.ui \
          g_ui/a_propos.ui \
          g_ui/daf_view.ui \
+         g_ui/cmu_view.ui \
          g_ui/hono_view.ui \
          g_ui/hono_visualisation.ui \
          g_ui/mvts_visualisation.ui \
@@ -58,6 +59,7 @@ HEADERS += CApp.h \
            CMDI_Depots.h \
            Actes_ui.h \
            CMDI_Daf.h \
+           CMDI_Cmu.h \
            g_ui/FormPlugins.ui.h \
            g_ui/acte_selection.ui.h \
            g_ui/FormLinkTux.ui.h \
@@ -72,6 +74,7 @@ HEADERS += CApp.h \
            icones.h \
            g_ui/mvts_ui.ui.h \
            g_ui/daf_view.ui.h \
+           g_ui/cmu_view.ui.h \
            g_ui/hono_view.ui.h \
            g_ui/hono_visualisation.ui.h \
            g_ui/mvts_visualisation.ui.h \
@@ -91,6 +94,7 @@ SOURCES += CApp.cpp \
            CMDI_Depots.cpp \
            Actes_ui.cpp \
            CMDI_Daf.cpp \
+           CMDI_Cmu.cpp \
            CMDI_Mouvements.cpp \
            CMDI_Releve.cpp \
            Tools.cpp \

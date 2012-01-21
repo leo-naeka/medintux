@@ -156,6 +156,7 @@ Paiements FormPlugins::getActeFromName(const char* nom)
  if (tiersPayant)
   {  total = m_pActes_Param->m_Tiers;
      p.setDAF( m_pActes_Param->m_Total - m_pActes_Param->m_Tiers );
+	 p.setCMU( m_pActes_Param->m_Total - m_pActes_Param->m_Tiers );
   }
  else { total = m_pActes_Param->m_Total;  }
 
@@ -172,7 +173,8 @@ Paiements FormPlugins::getActeFromName(const char* nom)
   else if	(modePaiement == "diff")	p.setDAF(m_pActes_Param->m_Total);
   else if	(modePaiement == "différé")	p.setDAF(m_pActes_Param->m_Total);
   else if	(modePaiement == "autre")	p.setAutre(total);
-  else if	(modePaiement == "du")		p.setDu(total);
+  else if	(modePaiement == "cmu")		p.setCMU(m_pActes_Param->m_Total);
+  else if	(modePaiement == "virement") p.setVirement(total);
  }
  // Récupère le tiers et calcul montants
 /* if (tiersPayant)
@@ -269,6 +271,7 @@ bool FormPlugins::setHonoraire(Honoraires* hono)
 { m_pHonoraires_Sauvegarde = hono;
   if (hono->getRemarque().find(CHEQUE_DEPOSE) != -1) return FALSE;
   if (hono->getRemarque().find(DAF_OK) != -1) return FALSE;
+  if (hono->getRemarque().find(CMU_OK) != -1) return FALSE;
   nomPatient->setText(hono->getPatient());
   nomPraticien->setText(hono->getPraticien());
 //  dateObserv->setText( hono->getDate().toString("dd-MM-yyyy"));
@@ -309,7 +312,8 @@ void FormPlugins::affichePaiements()
 	totalHonoraire.m_CB    += (*it).m_CB;
 	totalHonoraire.m_DAF   += (*it).m_DAF;
 	totalHonoraire.m_Autre += (*it).m_Autre;
-	totalHonoraire.m_Du    += (*it).m_Du;
+	totalHonoraire.m_CMU    += (*it).m_CMU;
+    totalHonoraire.m_Virement    += (*it).m_Virement;
 	if (!forUpdateOnly) totalHonoraire.setEmetteur( nomPatient->text() );
 	else totalHonoraire.setEmetteur(m_pHonoraires->getEmetteur() );
 
@@ -348,7 +352,8 @@ void FormPlugins::getHonoraire()
   m_pHonoraires->setCB		(totalHonoraire.getCB() );
   m_pHonoraires->setDAF		(totalHonoraire.getDAF() );
   m_pHonoraires->setAutre	(totalHonoraire.getAutre() );
-  m_pHonoraires->setDu		(totalHonoraire.getDu() );
+  m_pHonoraires->setCMU		(totalHonoraire.getCMU() );
+  m_pHonoraires->setVirement		(totalHonoraire.getVirement() );
   m_pHonoraires->setIdUsr       (usrComptaId);
   m_pHonoraires->setGUID	(patientGUID);
   m_pHonoraires->setDrTuxUsr	(drtux_usrPk);
@@ -356,6 +361,7 @@ void FormPlugins::getHonoraire()
   // Si paiement par chèque mettre dans le champs remarque CHEQUE_PAS_DEPOSE  (cf ComptaMoteurBase.h)
   if (totalHonoraire.getChq() > 0) { tmp  = CHEQUE_PAS_DEPOSE;}
   if (totalHonoraire.getDAF() > 0) { tmp += DAF_PAS_OK;       }
+  if (totalHonoraire.getCMU() > 0) { tmp += CMU_PAS_OK;       }
   m_pHonoraires->setRemarque(tmp);
   if (emetteur->isVisible() )   { m_pHonoraires->setEmetteur( emetteur->text() ); }
 }

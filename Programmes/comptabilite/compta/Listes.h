@@ -93,11 +93,11 @@ typedef QValueList<Utilisateurs> UTILISATEURS_LISTE;
  * \brief Classe pour la création de la liste des actes disponibles dans le logiciel.
  * Cette classe ne sert que pour la définition des caractéristiques des actes :
 - nom,
-- description (courte description de l'acte), 
-- type (texte définissant le type de l'acte : Consultation, Visite... utilisé pour les recherches), 
-- montant total, 
+- description (courte description de l'acte),
+- type (texte définissant le type de l'acte : Consultation, Visite... utilisé pour les recherches),
+- montant total,
 - montant du tiers (à préciser),
-- id (identifiant dans la base, non obligatoire sera calculé par la base de données). 
+- id (identifiant dans la base, non obligatoire sera calculé par la base de données).
 
  * Un alias vers une QValueList d'Actes est créé : ACTES_LISTE.
 
@@ -139,7 +139,7 @@ public:
 	void		setTotal	(double n )	  { m_Total = n; }
 	void		setTiers	(double n)	  { m_Tiers = n; }
 
- 
+
 	QString		getNom		()  { return m_Nom; }
 	int		getId		()  { return m_Id; }
 	QString		getType		()  { return m_Type; }
@@ -176,8 +176,8 @@ typedef QValueList<Actes> ACTES_LISTE;
 class Paiements
 {
 public:
-	Paiements() { 	m_Nom=""; m_Type=""; m_Tiers=FALSE; 
-			m_Esp=0; m_Chq=0; m_CB=0; m_DAF=0; m_Autre=0; m_Du=0; }
+	Paiements() { 	m_Nom=""; m_Type=""; m_Tiers=FALSE;
+			m_Esp=0; m_Chq=0; m_CB=0; m_DAF=0; m_Autre=0; m_CMU=0; m_Virement=0;}
 
 	Paiements (const char*	acte,
 		  const char*	type,
@@ -187,7 +187,8 @@ public:
 		  double	cb,
 		  double	daf,
 		  double	autre,
-		  double	du
+		  double	cmu,
+          double	vir
 	      )
 
 	{
@@ -199,7 +200,8 @@ public:
 		m_CB	     = cb;
 		m_DAF        = daf;
 		m_Autre      = autre;
-		m_Du	     = du;
+		m_CMU	     = cmu;
+		m_Virement   = vir;
 	}
 
 	~Paiements()  {}
@@ -217,8 +219,9 @@ public:
 	void		setCB		(double n)  	 { m_CB       = n; }
 	void		setDAF		(double n)  	 { m_DAF      = n; }
 	void		setAutre	(double n)  	 { m_Autre    = n; }
-	void		setDu		(double n)  	 { m_Du       = n; }
-	void		setEmetteur	(const char* n)	 { m_Emetteur = n; } 
+	void		setCMU		(double n)  	 { m_CMU       = n; }
+    void		setVirement	(double n)  	 { m_Virement  = n; }
+	void		setEmetteur	(const char* n)	 { m_Emetteur = n; }
 
 	QString		getNom		()  { return m_Nom; }
 	QString		getType		()  { return m_Type; }
@@ -228,14 +231,15 @@ public:
 	double		getCB		()  { return m_CB; }
 	double		getDAF		()  { return m_DAF; }
 	double		getAutre	()  { return m_Autre; }
-	double		getDu		()  { return m_Du; }
+	double		getCMU		()  { return m_CMU; }
+    double		getVirement	()  { return m_Virement; }
 	QString		getEmetteur	()  { return m_Emetteur; }
 
-	void		remiseAZero	()    { m_Nom=""; m_Type=""; m_Tiers=FALSE; 
-						m_Esp=0; m_Chq=0; m_CB=0; m_DAF=0; 
-						m_Autre=0; m_Du=0;
+	void		remiseAZero	()    { m_Nom=""; m_Type=""; m_Tiers=FALSE;
+						m_Esp=0; m_Chq=0; m_CB=0; m_DAF=0;
+						m_Autre=0; m_CMU=0; m_Virement=0;
 					      }
-	double		total		()    { return m_Esp+m_Chq+m_CB+m_DAF+m_Autre+m_Du; }
+	double		total		()    { return m_Esp+m_Chq+m_CB+m_DAF+m_Autre+m_CMU+m_Virement; }
 	QString		toString	();
 
 		//////////////////////////////////////////
@@ -254,7 +258,8 @@ public:
 	double	m_CB;		/*!< Montant de la CB */
 	double	m_DAF;		/*!< Montant du DAF */
 	double	m_Autre;	/*!< Montant des autres types de paiements */
-	double	m_Du;		/*!< Montant restant du */
+	double	m_CMU;		/*!< Montant restant du */
+    double	m_Virement;
 };
 
 // Définition d'un alias vers une liste de paiements
@@ -263,7 +268,7 @@ typedef QValueList<Paiements> PAIEMENTS_LISTE;
 
 /** \class Honoraires
  * \brief Classe pour la création de la liste des honoraires.
- * Cette classe ne sert que pour la définition des caractéristiques des honoraires (nom patient et praticien, date, acte effectué, especes, chèques, cb, daf, autre....). Un alias vers une QValueList d'honoraires est créé : HONO_LISTE. \n \n 
+ * Cette classe ne sert que pour la définition des caractéristiques des honoraires (nom patient et praticien, date, acte effectué, especes, chèques, cb, daf, autre....). Un alias vers une QValueList d'honoraires est créé : HONO_LISTE. \n \n
  ATTENTION les dates doivent passées sous le format : "dd-MM-yyyy". Pour une meilleure compatibilité, la fonction setDate(QDate) gère les dates des honoraires.
 
 * Pour le codage du champs m_Remarque cf le Macros de Defines.h .
@@ -275,7 +280,7 @@ class Honoraires
 public:
 	/*! \brief Crée et initialise une classe Honoraires */
 	Honoraires() {	m_Patient=""; m_GUID = ""; m_Praticien=""; m_Date=""; m_Actes=""; m_Remarque="";
-			m_IdUsr=0; m_Cheque=0; m_CB=0; m_Especes=0; m_DAF=0; m_Autre=0; m_Du=0; m_Id=0; 
+			m_IdUsr=0; m_Cheque=0; m_CB=0; m_Especes=0; m_DAF=0; m_Autre=0; m_CMU=0; m_Virement=0; m_Id=0;
 			m_Validite=0; m_Tracabilite=""; }
 
 	~Honoraires() {}
@@ -284,19 +289,19 @@ public:
 	//		METHODES		//
 	//////////////////////////////////////////
 
-	void		setPatient	(const char* n)  
-					{ m_Patient   = n; 
+	void		setPatient	(const char* n)
+					{ m_Patient   = n;
 					  m_Patient = m_Patient.stripWhiteSpace(); }
 
 	void		setPraticien	(const char* n)
-					 { m_Praticien = n; 
+					 { m_Praticien = n;
 					   m_Praticien = m_Praticien.stripWhiteSpace(); }
 
 	void		setActes	(PAIEMENTS_LISTE &pay);
 	void		setActes	(const char* recup_depuis_la_base);
 
-	void		setDate		(const char* n)	 
-					{ m_Date = n; 
+	void		setDate		(const char* n)
+					{ m_Date = n;
 					  m_Date = m_Date.stripWhiteSpace(); }
 
 	void		setDate		(QDate d)	 { m_Date = d.toString("dd-MM-yyyy"); }
@@ -305,7 +310,8 @@ public:
 	void		setCB		(double n)  	 { m_CB    = n; }
 	void		setDAF		(double n)  	 { m_DAF   = n; }
 	void		setAutre	(double n)  	 { m_Autre = n; }
-	void		setDu		(double n)  	 { m_Du    = n; }
+	void		setCMU		(double n)  	 { m_CMU   = n; }
+    void		setVirement	(double n)  	 { m_Virement    = n; }
 	void		setRemarque	(const char* n)	 { m_Remarque = n; }
 	void		setGUID		(const char* n)
 					{ m_GUID = n;   m_GUID = m_GUID.stripWhiteSpace();}
@@ -319,7 +325,7 @@ public:
 
 	QString		getPatient	()  { return m_Patient; }
 	QString		getPraticien	()  { return m_Praticien; }
-	void		getActes	(PAIEMENTS_LISTE &pay); 
+	void		getActes	(PAIEMENTS_LISTE &pay);
 	QString		getActesForBase	()  { return m_Actes; }
 	QString		getActesToString();
 	QString		getTypesActes	();
@@ -328,7 +334,8 @@ public:
 	double		getCB		()  { return m_CB; }
 	double		getDAF		()  { return m_DAF; }
 	double		getAutre	()  { return m_Autre; }
-	double		getDu		()  { return m_Du; }
+	double		getCMU		()  { return m_CMU; }
+    double		getVirement		()  { return m_Virement; }
 	int		getId		()  { return m_Id; }
 	int		getIdUsr	()  { return m_IdUsr; }
 	QDate		getDate		();
@@ -343,7 +350,7 @@ public:
 	void		traceModifications	(Honoraires* anterieur, Utilisateurs* user);
 
 	QString		dateForSQL	(const QString &date);
-	double		total		() { return m_Especes+m_Cheque+m_CB+m_DAF+m_Autre+m_Du; }
+	double		total		() { return m_Especes+m_Cheque+m_CB+m_DAF+m_Autre+m_CMU+m_Virement; }
 	QString		toString	();
 
 	//////////////////////////////////////////
@@ -364,7 +371,8 @@ public:
 	double	m_CB;		/*!< Montant des CB. */
 	int	m_Id;		/*!< Identifiant de l'honoraire dans le base. */
 	double	m_Autre;	/*!< Montant de Autre (tribunal, salaire...). */
-	double	m_Du;		/*!< Montant restant dû. */
+	double	m_CMU;		/*!< Montant restant dû. */
+	double  m_Virement;
 	int	m_Validite;	/*!< Validité de l'honoraire (en fait devrait être un bool) */
 	int	m_DrTuxUsr;	/*!< identifiant de l'utilisateur dans la base de DrTux */
 	QString	m_Tracabilite;	/*!< Tracabilité des modifications, sous forme tableau HTML. */
@@ -380,7 +388,7 @@ typedef QValueList<Honoraires> HONO_LISTE;
 
 /** \class Depots
  * \brief Classe pour la création de la liste des Depots.
- * Cette classe ne sert que pour la définition des caractéristiques des Depots . Un alias vers une QValueList de Depots est créé : DEPOTS_LISTE. \n \n 
+ * Cette classe ne sert que pour la définition des caractéristiques des Depots . Un alias vers une QValueList de Depots est créé : DEPOTS_LISTE. \n \n
 	@author Eric Maeker <eric.maeker@free.fr>
 */
 class Depots
@@ -395,10 +403,10 @@ public:
 	//		METHODES		//
 	//////////////////////////////////////////
 
-	void		setNom		(const char* n)  
-					{ m_Nom = n; 
+	void		setNom		(const char* n)
+					{ m_Nom = n;
 					  m_Nom = m_Nom.stripWhiteSpace(); }
-	void		setDateValidation	(const char* n) 
+	void		setDateValidation	(const char* n)
 						{ m_DateValidation = QDate::fromString(n,Qt::ISODate); }
 	void		setDateDebut		(const char* n)
 						{ m_DateDebut = QDate::fromString(n, Qt::ISODate); }
@@ -480,7 +488,7 @@ public:
 	QString		getRib		(const char* type);
 	QString		getRibForBase	();
 	int		getId		()  { return m_Id; }
-	bool		isDefaut	()  { if (m_Remarque.find(CPT_PAR_DEFAUT) == -1) 
+	bool		isDefaut	()  { if (m_Remarque.find(CPT_PAR_DEFAUT) == -1)
 						return FALSE; else return TRUE; }
 	int		getIdUsr	()  { return m_IdUsr; }
 	QString		getTitulaire	()  { return m_Titulaire; }
@@ -557,8 +565,8 @@ public:
 	bool		isParent	()  { if (m_IdParent > 0) return FALSE; else return TRUE; }
 	QString		getTotalDepot	(QString& rmq);
 
-	void 		traceModifications(Mouvements* anterieur, Utilisateurs* user, 
-					   Mouvements* pMvts_Dispo_Ant, Mouvements* pMvts_Dispo_Actuel, 
+	void 		traceModifications(Mouvements* anterieur, Utilisateurs* user,
+					   Mouvements* pMvts_Dispo_Ant, Mouvements* pMvts_Dispo_Actuel,
 					   COMPTES_LISTE& pComptes_Liste );
 
 
@@ -637,7 +645,7 @@ public:
 
 
 	void		prepareResultat	();
- 
+
 		//////////////////////////////////////////
 		//		DONNEES			//
 		//////////////////////////////////////////

@@ -282,7 +282,12 @@
             </item>
             <item>
                 <property name="text">
-                    <string>Dus</string>
+                    <string>CMU</string>
+                </property>
+            </item>
+            <item>
+                <property name="text">
+                    <string>Virements</string>
                 </property>
             </item>
             <item>

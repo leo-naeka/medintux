@@ -135,6 +135,12 @@ class CMoteurAgenda : public QObject
   void            SetEndDay(const QString &end){m_TimeEnd = end;}
   QString         GetDebDay(){return m_TimeDeb;}
   QString         GetEndDay(){return m_TimeEnd;}
+  void            SetDebPM(const QString &deb);                     // CZE
+  void            SetEndAM(const QString &end);                     // CZE
+  void            SetDispo(const QString &end);                     // CZE
+  QString         GetDebPM(){return m_TimeDebPM;}                   // CZE
+  QString         GetEndAM(){return m_TimeEndAM;}                   // CZE
+  QString         GetDispo();                                       // CZE
   void            SetModifConfirm(int modifConfirm= 0){m_ModifConfirm = modifConfirm;}
   int             isModifToConfirm(){return m_ModifConfirm;}
   void            SetRepresentation(int rep= 0){m_Representation = rep;}
@@ -190,7 +196,18 @@ class CMoteurAgenda : public QObject
                                         QString   *errMess=0       // pointeur sur Qlabel de sortie message
                                  );
 
-  // --- CZA
+  long            GetPatientAgendaList(     QTreeWidget *pQlistView,     // pointeur sur une QListView ?  3 colonnes
+                                  const QString   &qstr_nom,       // nom d'entr?e
+                                  const QString   &qstr_prenom,    // prenom d'entr?
+                                        QLabel    *statutMess=0,   // pointeur sur Qlabel de sortie message
+                                        QString   *errMess=0       // pointeur sur Qlabel de sortie message
+                                 );
+  long          AfficherLesRdvDuPatient(QTreeWidget *pQlistView,
+                                              QString nomP, QString prenomP, QString typeRDV);
+
+  void creer_Liste_Jours_Feries(QDate deb);
+  bool Cest_Un_Jour_Ferie(QDate jourf);
+  bool isFreeDay(QDate jourf);
 //............................... DATA .............................................................................
  public:
   bool          m_isDayOfMonthToBeDisplay;
@@ -224,6 +241,11 @@ class CMoteurAgenda : public QObject
   QString       m_WeekOrDay;              // Vide ou DAY = affichage journee, WEEK= Affichage Semaine // CZA
   QString       m_TimeDeb;
   QString       m_TimeEnd;
+  QString       m_TimeDebPM;            // CZE
+  QString       m_TimeEndAM;            // CZE
+  QString       m_DispoUser;            // CZE
+  QList<QDate>  m_ListeJoursFeries;     // CZE2
+
   //QString       m_log;
   //......................... configuration des tables ...............................................................
   QString      m_AGENDA_TBL_NAME;         // non de la table DU FICHIER GENERAL D'INDEX DES DOSSIERS

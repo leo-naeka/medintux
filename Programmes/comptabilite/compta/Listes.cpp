@@ -236,7 +236,8 @@ void Honoraires::setActes(PAIEMENTS_LISTE &pay)
      m_Actes += "//" + QString::number(  (*it).m_CB	);
      m_Actes += "//" + QString::number(  (*it).m_DAF	);
      m_Actes += "//" + QString::number(  (*it).m_Autre	);
-     m_Actes += "//" + QString::number(  (*it).m_Du	);
+     m_Actes += "//" + QString::number(  (*it).m_CMU	);
+	 m_Actes += "//" + QString::number(  (*it).m_Virement	);
      m_Actes += "|";
    }
 }
@@ -264,7 +265,7 @@ void Honoraires::getActes(PAIEMENTS_LISTE &pay)
 	for ( uint i = 0  ;  i < act.count()   ; ++i)
 	  {  QStringList p = QStringList::split ( "//" , act[i]);
 	     if (p[3] == "O") boolTiers = TRUE; else boolTiers = FALSE;
-	     pay.append( Paiements ( p[0],p[1], boolTiers, p[3].toDouble(), p[4].toDouble(), p[5].toDouble(), p[6].toDouble(), p[7].toDouble(), p[8].toDouble() ) );
+	     pay.append( Paiements ( p[0],p[1], boolTiers, p[3].toDouble(), p[4].toDouble(), p[5].toDouble(), p[6].toDouble(), p[7].toDouble(), p[8].toDouble(), p[8].toDouble() ) );
 	  }
    }
   else pay.clear();
@@ -316,6 +317,8 @@ QString Honoraires::getRemarqueLisible()
   if (m_Remarque.find( CHEQUE_PAS_DEPOSE ) != -1 )  tmp += TR("Chèque non déposé en banque \n");
   if (m_Remarque.find( DAF_OK ) != -1 )  tmp += TR("Paiement différé validé. \n");
   if (m_Remarque.find( DAF_PAS_OK ) != -1 )  tmp += TR("Paiement différé non validé. \n");
+  if (m_Remarque.find( CMU_OK ) != -1 )  tmp += TR("Paiement différé validé. \n");
+  if (m_Remarque.find( CMU_PAS_OK ) != -1 )  tmp += TR("Paiement différé non validé. \n");
   return tmp;
 }
 
@@ -358,7 +361,8 @@ QString Honoraires::toString()
  if (m_CB > 0)       str += "CB = "    + QString::number( m_CB ) + "  ";
  if (m_Autre > 0)    str += "Autre = " + QString::number( m_Autre ) + "  ";
  if (m_DAF > 0)      str += "DAF = "   + QString::number( m_DAF ) + "  ";
- if (m_Du > 0)       str += "Du = "    + QString::number( m_Du ) + "  ";
+ if (m_CMU > 0)       str += "Du = "    + QString::number( m_CMU ) + "  ";
+ if (m_Virement > 0)       str += "Virement = "    + QString::number( m_Virement ) + "  ";
  //if (m_Remarque != " ")  str += "Remarque : "+m_Remarque;
  return str;
 }
@@ -373,7 +377,8 @@ QString Paiements::toString()
  if (m_CB > 0)    str += "CB = "    + QString::number( m_CB ) + "  ";
  if (m_Autre > 0) str += "Autre = " + QString::number( m_Autre ) + "  ";
  if (m_DAF > 0)   str += "DAF = "   + QString::number( m_DAF ) + "  ";
- if (m_Du > 0)    str += "Du = "    + QString::number( m_Du ) + "  ";
+ if (m_CMU > 0)    str += "CMU = "    + QString::number( m_CMU ) + "  ";
+ if (m_Virement > 0)    str += "Virement = "    + QString::number( m_Virement ) + "  ";
  return str;
 }
 

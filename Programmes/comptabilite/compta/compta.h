@@ -81,6 +81,7 @@
 #include "CMDI_Mouvements.h"
 #include "CMDI_Depots.h"
 #include "CMDI_Daf.h"
+#include "CMDI_Cmu.h"
 #include "CMDI_Param.h"
 #include "CMDI_Livres.h"
 
@@ -102,6 +103,7 @@ class CMDI_Mouvements;
 class CMDI_Honoraires;
 class CMDI_Depots;
 class CMDI_DAF;
+class CMDI_CMU;
 class CMDI_Actes;
 class CMDI_Param;
 class CMDI_Livres;
@@ -133,6 +135,7 @@ protected:
     CMDI_Mouvements*	CMDI_MouvementsCreate ();
     CMDI_Actes* 	CMDI_ActesCreate ();
     CMDI_DAF*	 	CMDI_DAFCreate ();
+	CMDI_CMU*	 	CMDI_CMUCreate ();
     CMDI_Param*		CMDI_ParamCreate ();
     CMDI_Depots*	CMDI_DepotsCreate ();
     CMDI_Releve*	CMDI_ReleveCreate ();
@@ -148,6 +151,7 @@ protected slots:
     void banqueView();
     void mouvementsView();
     void DAFView();
+    void CMUView();
     void paramView();
     void releveView();
     void livresView();

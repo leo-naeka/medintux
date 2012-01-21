@@ -30,7 +30,8 @@ void Hono_View::init()
    m_QTable_Hono->setColumnWidth ( 6, 45 );
    m_QTable_Hono->setColumnWidth ( 7, 45 );
    m_QTable_Hono->setColumnWidth ( 8, 45 );
-   m_QTable_Hono->setColumnWidth ( 9, 20 );
+   m_QTable_Hono->setColumnWidth ( 9, 45 );
+   m_QTable_Hono->setColumnWidth ( 10, 20 );
 
 }
 
@@ -72,11 +73,13 @@ void Hono_View::m_QTable_Hono_contextMenuRequested( int, int, const QPoint & p)
  HONO_LISTE::iterator it = m_Hono_Liste->at( m_QTable_Hono->currentRow() );
  if (((*it).getRemarque().find(DAF_OK) != -1) ||
      ((*it).getRemarque().find(CHEQUE_DEPOSE) != -1) ||
+	 ((*it).getRemarque().find(CMU_OK) != -1) ||
      ((*it).getValidite() != 0))
  	{ valide = TRUE; }
 
  if (((*it).getRemarque().find(DAF_PAS_OK) != -1) ||
      ((*it).getRemarque().find(CHEQUE_PAS_DEPOSE) != -1) ||
+	 ((*it).getRemarque().find(CMU_PAS_OK) != -1) ||
      ((*it).getValidite() != 1))
  	{ canBeValidate = TRUE; }
 
@@ -149,8 +152,8 @@ void Hono_View::setTableDesHonorairesTo( HONO_LISTE* hl )
    }
   else
    { int r = 0;
-     double cb,autre,du,daf;
-     cb=0;  autre=0;  du=0;  daf=0;
+     double cb,autre,cmu,vir,daf;
+     cb=0;  autre=0;  cmu=0; vir=0;  daf=0;
      HONO_LISTE::iterator it;
      m_QTable_Hono->setNumRows( hl->count() );
      for (it = hl->begin(); it !=  hl->end(); ++it )
@@ -164,10 +167,12 @@ void Hono_View::setTableDesHonorairesTo( HONO_LISTE* hl )
 	m_QTable_Hono->setText( r,5, QString::number( (*it).getCB() ) );
 	m_QTable_Hono->setText( r,6, QString::number( (*it).getAutre() ) );
 	m_QTable_Hono->setText( r,7, QString::number( (*it).getDAF() ) );
-	m_QTable_Hono->setText( r,8, QString::number( (*it).getDu() ) );
+	m_QTable_Hono->setText( r,8, QString::number( (*it).getCMU() ) );
+	m_QTable_Hono->setText( r,9, QString::number( (*it).getVirement() ) );
 	cb += (*it).getCB();
 	autre += (*it).getAutre();
-	du += (*it).getDu();
+	cmu += (*it).getCMU();
+	vir += (*it).getVirement();
 	daf += (*it).getDAF();
 	r++;
       }
@@ -177,8 +182,10 @@ void Hono_View::setTableDesHonorairesTo( HONO_LISTE* hl )
     else m_QTable_Hono->showColumn(7);
     if (autre == 0) m_QTable_Hono->hideColumn(6);
     else m_QTable_Hono->showColumn(6);
-    if (du == 0) m_QTable_Hono->hideColumn(8);
+    if (cmu == 0) m_QTable_Hono->hideColumn(8);
     else m_QTable_Hono->showColumn(8);
+     if (vir == 0) m_QTable_Hono->hideColumn(9);
+    else m_QTable_Hono->showColumn(9);
     //m_QTable_Hono->adjustSize();
    }
 }
@@ -198,6 +205,8 @@ bool Hono_View::afficheSynthese( )
   int nbActesTotal = 0;
   int nbDAF = 0;
   int nbDAFOK = 0;
+  int nbCMU = 0;
+  int nbCMUOK = 0;
   int nbCheques = 0;
   int nbChequesDeposes = 0;
   int i, j, nbA = 0;
@@ -256,7 +265,9 @@ bool Hono_View::afficheSynthese( )
     paie->m_DAF  += (*ithono).getDAF();
     if ((*ithono).getDAF() > 0) nbDAF++;
     paie->m_CB   += (*ithono).getCB();
-    paie->m_Du   += (*ithono).getDu();
+    paie->m_CMU   += (*ithono).getCMU();
+	if ((*ithono).getCMU() > 0) nbCMU++;
+    paie->m_Virement   += (*ithono).getVirement();
     paie->m_Autre   += (*ithono).getAutre();
     nbActesTotal = (*ithono).m_Actes.contains("|");
     nbActes += nbActesTotal;
@@ -265,6 +276,7 @@ bool Hono_View::afficheSynthese( )
     if ((*ithono).m_Remarque.find("|") != -1) // alors il y a des infos à prendre en compte
     { if ( (*ithono).m_Remarque.find(CHEQUE_DEPOSE) != -1) nbChequesDeposes++;
       if ( (*ithono).m_Remarque.find(DAF_OK) != -1) nbDAFOK++;
+	  if ( (*ithono).m_Remarque.find(CMU_OK) != -1) nbCMUOK++;
     }
 
     // Calcul le nombre et le montant des actes de chaque honoraires
@@ -292,7 +304,8 @@ bool Hono_View::afficheSynthese( )
   if (paie->getCB() > 0) 	tabRecap += debutLigne + TR("CB") +		finLigne;
   if (paie->getDAF() > 0)	tabRecap += debutLigne + TR("DAF") +		finLigne;
   if (paie->getAutre() > 0)	tabRecap += debutLigne + TR("Autre") +		finLigne;
-  if (paie->getDu() > 0)	tabRecap += debutLigne + TR("Du") +		finLigne;
+  if (paie->getCMU() > 0)	tabRecap += debutLigne + TR("CMU") +		finLigne;
+  if (paie->getVirement() > 0)	tabRecap += debutLigne + TR("Virement") +		finLigne;
   				tabRecap += debutLigne + TR("TOTAL") +		finLigne;
   tabRecap += "</tr>";
 
@@ -305,7 +318,8 @@ bool Hono_View::afficheSynthese( )
   tabRecap.replace( TR("CB"), QString::number(paie->getCB()) );
   tabRecap.replace( TR("DAF"), QString::number(paie->getDAF()) );
   tabRecap.replace( TR("Autre"), QString::number(paie->getAutre()) );
-  tabRecap.replace( TR("Du"), QString::number(paie->getDu()) );
+  tabRecap.replace( TR("CMU"), QString::number(paie->getCMU()) );
+  tabRecap.replace( TR("Virement"), QString::number(paie->getVirement()) );
   tabRecap.replace( TR("Actes"), QString::number(nbActes) );
   tabRecap.replace( TR("TOTAL"), QString::number(paie->total()) );
   msg += tabRecap;
@@ -316,6 +330,7 @@ bool Hono_View::afficheSynthese( )
   tabRecap = "<tr>" + debutLigne + TR("Mode de paiement") + finLigne;
   if (nbCheques > 0)	tabRecap += debutLigne + TR("Nb Chèques") +	finLigne;
   if (nbDAF > 0)	tabRecap += debutLigne + TR("Nb DAF") +		finLigne;
+  if (nbCMU > 0)	tabRecap += debutLigne + TR("Nb CMU") +		finLigne;
   if (nbActes > 0 )	tabRecap += debutLigne + TR("Actes") +		finLigne;
   msg += tabRecap;
 
@@ -324,6 +339,7 @@ bool Hono_View::afficheSynthese( )
   tabRecap.replace( TR("Mode de paiement"), "<b>"+TR("Quantité")+"</b>" );
   tabRecap.replace( TR("Nb Chèques"), QString::number(nbCheques) );
   tabRecap.replace( TR("Nb DAF"), QString::number(nbDAF) );
+  tabRecap.replace( TR("Nb CMU"), QString::number(nbCMU) );
   tabRecap.replace( TR("Actes"), QString::number(nbActes) );
   msg += tabRecap + "</table>";
   msg += lineBreak + "</p>";
@@ -495,6 +511,12 @@ void Hono_View::honoDelete()
 		1 , 2 );
 	}
     else if ((*it).getRemarque().find(DAF_OK) != -1)
+	{ msg += TR("Attention, vous ne pouvez pas supprimer un honoraire contenant un paiement différé validé.<br />");
+	  QMessageBox::information( this, TR("ERREUR : Suppression d'honoraire."),
+        	msg, TR("&Annuler"), QString::null, QString::null,
+		1 , 2 );
+	}
+	else if ((*it).getRemarque().find(CMU_OK) != -1)
 	{ msg += TR("Attention, vous ne pouvez pas supprimer un honoraire contenant un paiement différé validé.<br />");
 	  QMessageBox::information( this, TR("ERREUR : Suppression d'honoraire."),
         	msg, TR("&Annuler"), QString::null, QString::null,

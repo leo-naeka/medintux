@@ -62,7 +62,8 @@
 /*! \brief Définitions pour la base de données de compta : champs DAF de la table honoraires */
 #define DAF	"daf"
 /*! \brief Définitions pour la base de données de compta : champs du de la table honoraires */
-#define DU	"du"
+#define CMU	"cmu"
+#define Virement	"vir"
 /*! \brief Définitions pour la base de données de compta : champs Autres de la table honoraires */
 #define AUTRES	"autre"
 /*! \brief Définitions pour la base de données de compta : champs Validé de la table honoraires */
@@ -77,6 +78,10 @@
 #define DAF_OK			"|dok"
 /*! \brief Champ 'Remarque' des honoraires : Identifiant pour les DAF à valider. Attention toutes les références du champs 'Remarque' des honoraires doivent commencer par '|' et faire quatre caractères de long au total. */
 #define DAF_PAS_OK		"|daf"
+/*! \brief Champ 'Remarque' des honoraires : Identifiant pour les CMU validés. Attention toutes les références du champs 'Remarque' des honoraires doivent commencer par '|' et faire quatre caractères de long au total. */
+#define CMU_OK			"|cok"
+/*! \brief Champ 'Remarque' des honoraires : Identifiant pour les CMU à valider. Attention toutes les références du champs 'Remarque' des honoraires doivent commencer par '|' et faire quatre caractères de long au total. */
+#define CMU_PAS_OK		"|cmu"
 /*! \brief Champ 'Remarque' des honoraires : Identifiant pour l'émetteur d'un chèque. Le nom est juste après. Attention toutes les références du champs 'Remarque' des honoraires doivent commencer par '|' et faire quatre caractères de long au total.*/
 #define EMETTEUR		"|em="
 /*! \brief Champ 'Remarque' des honoraires : Identifiant précédent la date de validation comptable de l'honoraire. Le nom est juste après. Attention toutes les références du champs 'Remarque' des honoraires doivent commencer par '|' et faire quatre caractères de long au total.
@@ -127,6 +132,7 @@
 #define TYP_RELEVE	7
 #define TYP_LIVRES	8
 #define TYP_PARAM	10
+#define TYP_CMU		11
 
 /*! \brief Pour la fonction de création du filtre dans ComptaMoteurBase. Ne renvoie que les dates. */
 #define DATES_ONLY	1

@@ -46,6 +46,16 @@ void Hono_Visualisation::setHonoraire( Honoraires* pHonoraires )
      { lines << TR("Non encaissé.");
      }
     }
+ 
+	if (pHonoraires->getCMU() > 0)
+    {lines << TR("Paiement Différé") ;
+     if (tmp.find(CMU_OK) != -1) 
+     { lines << TR("Encaissé.");
+     }
+     else
+     { lines << TR("Non encaissé.");
+     }
+    }
 
     if (pHonoraires->getValidite() == 0)
     {lines << TR("Validé") << TR("Non");

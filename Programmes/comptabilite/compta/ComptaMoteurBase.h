@@ -142,7 +142,8 @@ public:
 	bool		getHonorairesForDepot		(HONO_LISTE* hl);
 	bool		getHonorairesFromBlobDepot	( const char* listeHono , HONO_LISTE& lHono );
 	bool		getHonoraires_DAF_ForGestion	(HONO_LISTE* hl);
-	bool		getHonoraires_MontantTotal	(double& total, double& dus, double& esp,
+	bool		getHonoraires_CMU_ForGestion	(HONO_LISTE* hl);
+	bool		getHonoraires_MontantTotal	(double& total, double& esp,
 							 bool& tousHonoValide, bool pourBilanAnnuel=FALSE,
 							 int annee=0);
 
@@ -187,6 +188,10 @@ public:
 							 int idCpt, int & nbUpdated);
 
 	bool	encaisseDAF				(HONO_LISTE* pHono_Liste,
+							 Utilisateurs* pUtilisateurActuel,
+							 int & nbUpdated);
+	
+	bool	encaisseCMU				(HONO_LISTE* pHono_Liste,
 							 Utilisateurs* pUtilisateurActuel,
 							 int & nbUpdated);
 

@@ -323,7 +323,8 @@ void ComptaMoteurBase::readHonoraire(QSqlCursor & SQL_Curseur, Honoraires* hono)
   hono->setCB 		(SQL_Curseur.value( "cb" ).toDouble() ) ;
   hono->setDAF 		(SQL_Curseur.value( "daf" ).toDouble() ) ;
   hono->setAutre 	(SQL_Curseur.value( "autre" ).toDouble() ) ;
-  hono->setDu 		(SQL_Curseur.value( "du" ).toDouble() ) ;
+  hono->setCMU 		(SQL_Curseur.value( "CMU" ).toDouble() ) ;
+  hono->setVirement	(SQL_Curseur.value( "vir" ).toDouble() ) ;
   hono->setValidite 	(SQL_Curseur.value( "valide" ).toInt() ) ;
   hono->setTracabilite 	(SQL_Curseur.value( "tracabilite" ).toString() ) ;
 }
@@ -490,7 +491,21 @@ bool ComptaMoteurBase::encaisseDAF(HONO_LISTE* pHono_Liste, Utilisateurs* pUtili
  return TRUE;
 }
 
-
+bool ComptaMoteurBase::encaisseCMU(HONO_LISTE* pHono_Liste, Utilisateurs* pUtilisateurActuel, int & nbUpdated)
+{ QString nom = pUtilisateurActuel->getNom();
+  QString remarque = "";
+  nbUpdated = 0;
+  HONO_LISTE::iterator it;
+  for (it = pHono_Liste->begin(); it != pHono_Liste->end(); ++it)
+  { remarque = (*it).getRemarque();
+    if (remarque.find(CMU_PAS_OK) != -1)		// Vérifie que l'honoraire et un DAF non encaissé
+    { remarque.replace(CMU_PAS_OK, CMU_OK);		// Encaisse le cmu
+      (*it).setRemarque( remarque );
+      if (updateHonoraires( &(*it) )) nbUpdated++;	// Mise à jour de la base de données
+    } // Fin if contient CMU_PAS_OK
+   } // Fin For
+ return TRUE;
+}
 /*! \brief Récupère en un passage les honoraires pour la période définie par le filtre.
   * \param table = table de la base à filtrer (honoraires, depots...)
   * ATTENTION, les dates du filtre doivent être \em préalablement remplies.
@@ -536,6 +551,44 @@ bool ComptaMoteurBase::getHonoraires_DAF_ForGestion(HONO_LISTE* hl)
   return TRUE;
 }
 
+bool ComptaMoteurBase::getHonoraires_CMU_ForGestion(HONO_LISTE* hl)
+{ // Teste et Ouvre la base de données
+  if (!connexion()) return FALSE;
+  hl->clear();
+
+  // Prépare le Curseur
+  QSqlCursor cur("honoraires", TRUE, m_DataBase);
+  // Trie et Filtre
+  cur.setSort( cur.index( "date" ) );
+  QString filtre = getFiltre("",DATES_ONLY) + " AND cmu>0 AND remarque LIKE '%";
+  filtre += CMU_PAS_OK;
+  filtre += "%'";
+  cur.setFilter( filtre );
+
+  if ( !cur.select() )
+   {	m_DataBase->close();
+	m_messageErreur = TR("ComptaMoteurBase::getHonoraires_CMU_ForGestion() : Impossible de récupérer les honoraires : select \n");
+	m_messageErreur += "\n\n" + cur.lastError().driverText() + "\n\n" + cur.lastError().databaseText() + ".";
+	return FALSE;
+   }
+   else
+   { QDate dt;
+     while ( cur.next() )
+      {	dt = QDate::fromString(cur.value( "date" ).toString(), Qt::ISODate);
+	// Construit l'honoraire pour chaque résultat de la requête
+	Honoraires *hono = new Honoraires();
+	if (hono)
+	{ readHonoraire(cur, hono);
+	  hl->append( *hono );
+	  delete hono;
+	}
+      } // Fin while (requête finie)
+    }
+
+  // Fermer la base
+  m_DataBase->close();
+  return TRUE;
+}
 
 /*! \brief Récupère en un passage les honoraires pour la période définie par le filtre.
   * \param table = table de la base à filtrer (honoraires, depots...)
@@ -585,10 +638,9 @@ bool ComptaMoteurBase::getHonorairesForTable(HONO_LISTE* hl)
  * \return La fonction renvoie un booléen : TRUE si aucun problème à l'exécution de la fonction, FALSE cas contraire.
  *  \todo Faut-il prendre en compte les DAF selon validation, chèques selon dépôts ?
 */
-bool ComptaMoteurBase::getHonoraires_MontantTotal(double& total, double& dus, double& esp,
+bool ComptaMoteurBase::getHonoraires_MontantTotal(double& total, double& esp,
 						  bool& tousHonoValide, bool pourBilanAnnuel, int annee)
 { total = 0;
-  dus = 0;
   esp = 0;
   tousHonoValide = TRUE;
   // Teste et Ouvre la base de données
@@ -619,7 +671,8 @@ bool ComptaMoteurBase::getHonoraires_MontantTotal(double& total, double& dus, do
 	  total += (cur.value( "cb" ).toDouble() ) ;
 	  total += (cur.value( "daf" ).toDouble() ) ;
 	  total += (cur.value( "autre" ).toDouble() ) ;
-	  dus   += (cur.value( "du" ).toDouble() ) ;
+	  total += (cur.value( "cmu" ).toDouble() ) ;
+	  total += (cur.value( "vir" ).toDouble() ) ;
 	  if (cur.value("valide").toInt() == 0) tousHonoValide = FALSE;
       } // Fin while (requête finie)
     }
@@ -892,9 +945,10 @@ QString ComptaMoteurBase::getFiltre(const char* table, int moreParams /*= 0*/)
 	  if (m_Filtre_Type_Paiement == TR("Espèces") ) filtre += "esp>0 ";
 	  if (m_Filtre_Type_Paiement == TR("Chèques") ) filtre += "chq>0 ";
 	  if (m_Filtre_Type_Paiement == TR("DAF") ) filtre += "daf>0 ";
-	  if (m_Filtre_Type_Paiement == TR("Dus") ) filtre += "du>0 ";
+	  if (m_Filtre_Type_Paiement == TR("CMU") ) filtre += "cmu>0 ";
 	  if (m_Filtre_Type_Paiement == TR("Autres") ) filtre += "autre>0 ";
 	  if (m_Filtre_Type_Paiement == TR("CB") ) filtre += "cb>0 ";
+	  if (m_Filtre_Type_Paiement == TR("Virements") ) filtre += "vir>0 ";
         } // Fin if type paiement
         else return filtre; // erreur
 
@@ -931,7 +985,7 @@ bool ComptaMoteurBase::integrationEspecesRestantes(const char* annee)
   bool tousHonosValide = TRUE;
  // Réintégration des espèces dans le bilan comptable
  double especes, hono_esp, mvts_esp, depots_esp, tmp1, tmp2;
- getHonoraires_MontantTotal(tmp1, tmp2, hono_esp, tousHonosValide, TRUE, an.toInt() );
+ getHonoraires_MontantTotal(tmp1, hono_esp, tousHonosValide, TRUE, an.toInt() );
  especes = hono_esp;
  getMvts_MontantTotal(tmp1, tmp2, mvts_esp, TRUE, an.toInt() );
  especes += mvts_esp;
@@ -980,11 +1034,11 @@ bool ComptaMoteurBase::integrationEspecesRestantes(const char* annee)
 */
 bool ComptaMoteurBase::getBilanAnnuel(const char* annee, QString& retour, bool pourGrandLivre)
 { if (m_Verbose) qWarning("ComptaMoteurBase :: getBilanAnnuel");
-  double honoraires, dus, recettes, depenses;
+  double honoraires, recettes, depenses;
   bool   tousMvtsValide = TRUE;
   bool   tousHonosValide = TRUE;
   honoraires = 0;
-  dus = 0;
+  //dus = 0;
   recettes = 0;
   depenses = 0;
   QString an = annee;
@@ -1017,7 +1071,7 @@ bool ComptaMoteurBase::getBilanAnnuel(const char* annee, QString& retour, bool p
 
   // Réintégration des espèces dans le bilan comptable
   double especes, hono_esp, mvts_esp, depots_esp, double_tmp;
-  getHonoraires_MontantTotal(honoraires, dus, hono_esp, tousHonosValide, TRUE, an.toInt() );
+  getHonoraires_MontantTotal(honoraires, hono_esp, tousHonosValide, TRUE, an.toInt() );
   especes = hono_esp;
   getMvts_MontantTotal(recettes, depenses, mvts_esp, TRUE, an.toInt() );
   especes += mvts_esp;
@@ -1088,7 +1142,7 @@ bool ComptaMoteurBase::getBilanAnnuel(const char* annee, QString& retour, bool p
 
    //.......... Prépare le premier tableau récapitulatif des Recettes / Dépenses
     hd << TR("Honoraires") << TR("Recettes supplémentaires") << TR("Dépenses engagées") << TR("Total");
-    lines << QString::number(honoraires, 'f', 2)+" + "+QString::number(dus, 'f', 2)+" = " +  QString::number(dus+honoraires, 'f', 2) << QString::number(recettes, 'f', 2) << QString::number(depenses, 'f', 2) << QString::number( recettes+honoraires+dus-depenses , 'f', 2);
+    lines << QString::number(honoraires, 'f', 2)+" = " +  QString::number(honoraires, 'f', 2) << QString::number(recettes, 'f', 2) << QString::number(depenses, 'f', 2) << QString::number( recettes+honoraires-depenses , 'f', 2);
     createHTMLTable(hd, lines, retour, 4,0);
     retour += "<br /><br />";
    hd.clear();
@@ -1098,7 +1152,7 @@ bool ComptaMoteurBase::getBilanAnnuel(const char* annee, QString& retour, bool p
    hd << TR("Catégorie") << TR("Libellé") << TR("Débit") << TR("Crédit");
    lines << "<b>"+TR("Honoraires")+"</b>" << "&nbsp;" << "&nbsp;" << "&nbsp;" ;
    lines << "&nbsp;" << TR("Perçus") << "&nbsp;" << QString::number(honoraires, 'f', 2);
-   lines << "&nbsp;" << TR("Restant dus (non comptabilisés)") << "&nbsp;" << QString::number(dus, 'f', 2);
+   //lines << "&nbsp;" << TR("Restant dus (non comptabilisés)");
    recettes = honoraires;
 
    for (it = mvtsDispo->begin(); it !=  mvtsDispo->end(); ++it )
@@ -1160,11 +1214,11 @@ bool ComptaMoteurBase::getBilanAnnuel(const char* annee, QString& retour, bool p
    // Récapitulatif
    hd << TR("Totaux") << TR("Débit") << TR("Crédit") << TR("Total");
    lines << TR("Pour l'année ")+an << QString::number(depenses, 'f', 2) <<  QString::number((recettes), 'f', 2) <<  QString::number((recettes-depenses), 'f', 2);
-   if (dus > 0)   lines << TR("Dont restant dus") << "&nbsp;" <<  QString::number(dus, 'f', 2) << "&nbsp;";
-   retour += "<br />";
-   retour += "<br /><p align=\"center\"><b>"+TR("RÉCAPITULATIF")+"</b></p>";
-   createHTMLTable(hd, lines, retour, 4,0);
-   retour += "<br /><br />";
+   //if (dus > 0)   lines << TR("Dont restant dus") << "&nbsp;" <<  QString::number(dus, 'f', 2) << "&nbsp;";
+   ///retour += "<br />";
+   //retour += "<br /><p align=\"center\"><b>"+TR("RÉCAPITULATIF")+"</b></p>";
+   //createHTMLTable(hd, lines, retour, 4,0);
+   //retour += "<br /><br />";
 
   } // Fin if (!grandLivre)
   else
@@ -1374,7 +1428,7 @@ qWarning("4");
   QString str_Recettes, str_Depenses;
 
   // Insère le montant des honoraires dans les recettes
-  lines << "<b>"+TR("Honoraires (hors dus)")+"</b>"<< TR("Pour l'année") << an << "&nbsp;";
+  lines << "<b>"+TR("Honoraires")+"</b>"<< TR("Pour l'année") << an << "&nbsp;";
   lines << QString::number(honoraires);
   uint n;
   for ( n=0; n<lst.count();++n)
@@ -2165,7 +2219,8 @@ bool ComptaMoteurBase::updateHonoraires(Honoraires *pHono)
 	  buffer->setValue( "cb", pHono->getCB() );
 	  buffer->setValue( "daf", pHono->getDAF() );
 	  buffer->setValue( "autre", pHono->getAutre() );
-	  buffer->setValue( "du", pHono->getDu() );
+	  buffer->setValue( "cmu", pHono->getCMU() );
+      buffer->setValue( "vir", pHono->getVirement() );
 	  buffer->setValue( "id_usr", pHono->getIdUsr() );
 	  buffer->setValue( "GUID", pHono->getGUID() );
 	  buffer->setValue( "id_drtux_usr", pHono->getDrTuxUsr() );
@@ -2485,7 +2540,8 @@ bool ComptaMoteurBase::saveHonorairesToBase(Honoraires* pHono)
     buffer->setValue( "cb", pHono->getCB() );
     buffer->setValue( "daf", pHono->getDAF() );
     buffer->setValue( "autre", pHono->getAutre() );
-    buffer->setValue( "du", pHono->getDu() );
+    buffer->setValue( "cmu", pHono->getCMU() );
+	buffer->setValue( "vir", pHono->getVirement() );
     buffer->setValue( "id_usr", pHono->getIdUsr() );
     buffer->setValue( "GUID", pHono->getGUID() );
     buffer->setValue( "id_drtux_usr", pHono->getDrTuxUsr() );

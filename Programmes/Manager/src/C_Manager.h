@@ -257,6 +257,7 @@ private slots:
    void Slot_pQPushButtonThisDay_Clicked (Wdg_ButtonPtr* pWdg_ButtonPtr);
    void Slot_pQPushButtonWeekDay_Clicked (Wdg_ButtonPtr* pWdg_ButtonPtr); // CZA
    void Slot_pQPushButtonFreeSpace_Clicked (Wdg_ButtonPtr*);
+   void Slot_pQPushButtonPatientRdvList_Clicked(Wdg_ButtonPtr* pWdg_ButtonPtr);
    void Slot_setUserAgendaVisible();
    void Slot_ReinitModeWeekDayMonth_OnDate(const QDate &date , const QString &mode, C_Frm_Agenda *pC_Frm_Agenda);
    void Slot_OnFastAccesAgendaButtonClicked(QAbstractButton *);
@@ -362,6 +363,9 @@ private:
    QMenuBar           *m_menuBar;
    QToolBar           *m_WebToolBar;
    QToolBar           *m_NomadismeToolBar;
+   //............ bouton bascule agenda .......
+   QString             m_strGotoAgenda;
+   QString             m_strGotoPatientList;
    //............ menu fichiers .......
    QMenu              *m_menuFichiers;
    QAction            *m_action_ModeNomade;

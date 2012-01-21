@@ -68,6 +68,8 @@
 #define LOOKREFRESH          if (m_RefreshTimer) Slot_StopTimer(1)    // bloquer le raffraississement
 #define UNLOOKREFRESH        if (m_RefreshTimer) Slot_StopTimer(0)
 #include "C_Dlg_RdvTypeConfig.h"
+#include "C_Dlg_ChercheRDV.h"                   // CZE 2
+
 /*
 #ifndef AGENDA_IN_GUI
 //====================================== C_Dlg_MainWindow ==========================================================
@@ -267,6 +269,14 @@ C_Frm_Agenda::C_Frm_Agenda(const QDate &date,
     m_pCMoteurAgenda->SetAnimationAuthorisation(CGestIni::Param_ReadUniqueParam(m_LocalParam.toAscii(),                      "Agenda", "Animation active"));
     m_pCMoteurAgenda->SetWeekDeploymentMode(CGestIni::Param_ReadUniqueParam(m_LocalParam.toAscii(),                          "Agenda", "Deployer semaine toujours sur une ligne"));
     m_pCMoteurAgenda->SetBaseDayHeight(CGestIni::Param_ReadUniqueParam(m_LocalParam.toAscii(),                               "Agenda", "Hauteurs de base du bandeau des jours"));
+    // CZE debut
+    m_pCMoteurAgenda->SetDebPM (CGestIni::Param_ReadUniqueParam(m_LocalParam.toAscii(),                                     "Agenda", "Heure debut PM"));
+    m_pCMoteurAgenda->SetEndAM (CGestIni::Param_ReadUniqueParam(m_LocalParam.toAscii(),                                     "Agenda", "Heure fin AM"));
+    m_pCMoteurAgenda->SetDispo (CGestIni::Param_ReadUniqueParam(m_LocalParam.toAscii(),                                     "Agenda", QString("Disponibilite_") + signUser));
+    if (m_pCMoteurAgenda->GetDispo().length() < 1)   // si pas de dispo definie pour cet utilisateur particulier, voir si pas une par defaut pour le cabinet de groupe
+        m_pCMoteurAgenda->SetDispo (CGestIni::Param_ReadUniqueParam(m_LocalParam.toAscii(),                                 "Agenda", "Disponibilite"));
+    // CZE fin
+
     m_pCMoteurAgenda->COL_Get_List(m_ColorProfils);
     //..................... positionner la largeur des bit map selon semaine ou jour .........................
     int dayWitdth;
@@ -485,7 +495,13 @@ void C_Frm_Agenda::doAnimation(QPropertyAnimation *pQPropertyAnimation /*=0 */, 
             }
        }
 }
-
+//--------------------------------------Chercher_les_RDV_dun_patient-----------------------------------------
+void C_Frm_Agenda::Chercher_les_RDV_dun_patient (QString nom_prenom /* ="" */  )
+{   C_Dlg_ChercheRDV *Dlg_ChercheRDV = new C_Dlg_ChercheRDV (m_pCMoteurAgenda, nom_prenom, this);
+    if (Dlg_ChercheRDV->exec() != QDialog::Accepted)
+        {delete Dlg_ChercheRDV;
+        }
+}
 //------------------------ creerRDVFactices ---------------------------------------
 void C_Frm_Agenda::creerRDVFactices(const QString &user)
 {m_pCMoteurAgenda->creerRDVFactices(user, getStartDate());
@@ -603,6 +619,7 @@ void C_Frm_Agenda::reinitAgendaOnUser(const QString &signUser, const QString &dr
 void C_Frm_Agenda::reinitAgendaOnDate(QDate dateDeb)
 {clear();         // effacer les jours
  //............ effacer les labels des mois ......................
+ m_pCMoteurAgenda->creer_Liste_Jours_Feries(dateDeb);
  QMapIterator<int, QLabel*> it(m_MonthLabelList);
  while (it.hasNext())
        { it.next();
@@ -1443,14 +1460,20 @@ void C_Frm_Day::paintEvent ( QPaintEvent * /*event*/)
   //////////////////////////////////////////////////// JOUR EXPANSE ////////////////////////////////////////////////////////
   if (isDayExpand())    // si jour expand
      {
-      nbRdv          = C_Frm_RdvList::size();
+       nbRdv          = C_Frm_RdvList::size();
        QTime tps      = getStartTime();
        int y_der      = tps.secsTo(getStopTime())/60*getResoPixByMinutes();
        tmpStr         = getDate().toString(m_pCMoteurAgenda->GetFormatDateInResume(mdw));  // date du jour en cours d'affichage
 
        //............................ titre du jour (date courante)..............
-       p.drawPixmap (0, y_deb-m_BaseDayHeight-3, m_pBMC->m_HeadOpenDay_Pixmap );
-
+       if (m_pCMoteurAgenda->isFreeDay(m_Date))
+          {p.drawPixmap (0, y_deb-m_BaseDayHeight-3, m_pBMC->m_HeadUnWorkDay);
+          }
+       else
+          {if      (m_Date.dayOfWeek() == Qt::Saturday)  p.drawPixmap (0, y_deb-m_BaseDayHeight-3, m_pBMC->m_HeadSatDay_Pixmap );
+           else if (m_Date.dayOfWeek() == Qt::Sunday)    p.drawPixmap (0, y_deb-m_BaseDayHeight-3, m_pBMC->m_HeadSunDay_Pixmap );
+           else                                          p.drawPixmap (0, y_deb-m_BaseDayHeight-3, m_pBMC->m_HeadOpenDay_Pixmap );
+          }
        p.setFont(fntDate); p.setPen (colorDate);
        br  = fntMetric.boundingRect (tmpStr+"_");
        p.drawText ( QPoint(nextTmpPosX, ofsTxtY ), tmpStr );
@@ -1499,10 +1522,15 @@ void C_Frm_Day::paintEvent ( QPaintEvent * /*event*/)
       int secondResumeY =  HEAD_RESUME_OFY + FIRST_DAY_POS_Y + LINE_RESUME_HEIGHT + 5;    //HEAD_RESUME_OFY+FIRST_DAY_POS_Y +  LINE_RESUME_HEIGHT + 5
       C_RendezVous *rdv = 0;
       //..................... bitmap de deco ........................
-      if      (m_Date.dayOfWeek() == Qt::Saturday)  p.drawPixmap (0, y_deb-m_BaseDayHeight-3, m_pBMC->m_HeadSatDay_Pixmap );
-      else if (m_Date.dayOfWeek() == Qt::Sunday)    p.drawPixmap (0, y_deb-m_BaseDayHeight-3, m_pBMC->m_HeadSunDay_Pixmap );
-      else                                          p.drawPixmap (0, y_deb-m_BaseDayHeight-3, m_pBMC->m_HeadCloseDay_Pixmap);
-
+      if (m_pCMoteurAgenda->isFreeDay(m_Date))
+         {p.drawPixmap (0, y_deb-m_BaseDayHeight-3, m_pBMC->m_HeadUnWorkDay);
+         }
+      else
+         {
+          if      (m_Date.dayOfWeek() == Qt::Saturday)  p.drawPixmap (0, y_deb-m_BaseDayHeight-3, m_pBMC->m_HeadSatDay_Pixmap );
+          else if (m_Date.dayOfWeek() == Qt::Sunday)    p.drawPixmap (0, y_deb-m_BaseDayHeight-3, m_pBMC->m_HeadSunDay_Pixmap );
+          else                                          p.drawPixmap (0, y_deb-m_BaseDayHeight-3, m_pBMC->m_HeadCloseDay_Pixmap);
+         }
 
       //if (nbRdv)   // ....... bitmap du resume (deux si double ligne) ..........
          {
@@ -2203,6 +2231,13 @@ void C_Frm_Day::On_Day_mousePressEvent ( QMouseEvent * event )
                    else if (ret.indexOf("Create") != -1)
                       {emit Sign_LauchPatient(pRdv->m_GUID, pRdv);
                       }
+                   else if (ret.indexOf("Find Appointments") != -1)
+                      {Chercher_les_RDV_dun_patient();
+                      }
+                   else if (ret.startsWith("AppointmentsListFor"))
+                      {Chercher_les_RDV_dun_patient(ret.mid(19));
+                      }
+
                   }
                QString errMess; if ( ! m_pCMoteurAgenda->RDV_Update(*pRdv, &errMess) ) qDebug() << errMess;
                update();
@@ -2239,8 +2274,8 @@ void C_Frm_Day::On_Day_mousePressEvent ( QMouseEvent * event )
   optionList<<"=6=#Agenda/NewDoc.png#"+tr("Make an appointment for the %1 at  %2").arg(dt.date().toString("dd-MM-yyyy"),dt.time().toString("hh|mm").replace('|','h'));
   optionList<<"=1=#Agenda/NewDoc.png#"+tr("Create for the %1 at %2 an empty appointment with no identity").arg(dt.date().toString("dd-MM-yyyy"),dt.time().toString("hh|mm").replace('|','h'));
 
-  optionList<<tr("=11=#Agenda/NewDoc.png#Afficher aujourd'hui");   // CZA
-
+  //optionList<<tr("=11=#Agenda/NewDoc.png#Display this day");    // CZA inutile car en bouton
+  optionList<<tr("=12=#Agenda/GetPatientRdv.png#Find appointments for a patient");   // CZE
   optionList<<"-----------";
 
   //.......................... menu coller si rendez-vous en buffer de copie existe ...............
@@ -2291,6 +2326,9 @@ void C_Frm_Day::On_Day_mousePressEvent ( QMouseEvent * event )
      case 11: { emit (QDate::currentDate());
                 return;
               } break;
+     case 12: { Chercher_les_RDV_dun_patient();         // CZE 2
+                return;                                 // CZE 2
+              } break;
      default: {UNLOOKREFRESH;
                return;
               }
@@ -2328,6 +2366,16 @@ QString C_Frm_Day::doRdvMenu(C_RendezVous *pRdvDst, int isOptionDetruire  /* = 0
     }
     menu.addAction (m_pBMC->m_Cut_Pixmap, tr("Cut the current appointment and put into the copy memory")
                    )->setData ("Cut");
+    //.............. option recherche de tous les RDV d'un patient ....................
+    menu.addSeparator ();
+    if (pRdvDst->m_Nom.length()||pRdvDst->m_Prenom.length())
+       { menu.addAction (m_pBMC->m_GetPatientRdv, tr("List of all Appointments for: %1").arg(pRdvDst->m_Nom+" "+pRdvDst->m_Prenom)
+                   )->setData (QString("AppointmentsListFor%1").arg(pRdvDst->m_Nom+";"+pRdvDst->m_Prenom));
+       }
+    else
+       { menu.addAction (m_pBMC->m_GetPatientRdv, tr("Find Appointments")
+                )->setData ("FindAppointments");
+       }
     menu.addSeparator ();
     //............. creer le menu des types avec les types couleurs .....................
     QLabel grabLabel;
@@ -2381,7 +2429,7 @@ QString C_Frm_Day::doRdvMenu(C_RendezVous *pRdvDst, int isOptionDetruire  /* = 0
                           C_RendezVous::getRdvColor(*pRdvDst, m_pColorProfils)
                          );
     }
-    //.......... si on est sur un rendez libre vous afficher disponible .........................
+    //.......... si on est sur un rendez vous libre afficher disponible .........................
     else
     {menu.setLabelRdvText(QString("<b><font color=\"#ff0000\">%1</font>/<font color=\"#ff0000\">%2</font> <font color=\"#000000\">%3</font></b>").arg(pRdvDst->m_date.time().toString("hh:mm"), QString::number(pRdvDst->m_Duree), tr(" Appointment available ")),
                           pRdvDst->m_Type,
@@ -2745,6 +2793,17 @@ int   C_Frm_Day::posY_toMinutes(int posY)
  return mn + mnST;
 }
 
+//--------------------------------------Chercher_les_RDV_dun_patient-----------------------------------------
+void C_Frm_Day::Chercher_les_RDV_dun_patient (QString nom_prenom /* ="" */  )
+{   C_Frm_Agenda* pC_Frm_Agenda = (C_Frm_Agenda*) this->parent();
+    pC_Frm_Agenda->Chercher_les_RDV_dun_patient (nom_prenom );
+    /*
+    C_Dlg_ChercheRDV *Dlg_ChercheRDV = new C_Dlg_ChercheRDV (m_pCMoteurAgenda, nom_prenom, this);
+    if (Dlg_ChercheRDV->exec() != QDialog::Accepted)
+        {delete Dlg_ChercheRDV;
+        }
+    */
+}
 //====================================================== C_Frm_Rdv ======================================================================
 //------------------------------------------------------ pC_RendezVous ----------------------------------------------------------------------
 C_Frm_Rdv::C_Frm_Rdv (  C_RendezVous *pC_RendezVous,       // data
@@ -3341,6 +3400,12 @@ void C_Frm_Rdv::mousePressEvent(QMouseEvent *event)
                else if (ret.indexOf("Create") != -1)
                   {((C_Frm_Day*)parent())->Slot_ButtonAccederClicked(0, this);
                   }
+               else if (ret.indexOf("Find Appointments") != -1)
+                  {((C_Frm_Day*)parent())->Chercher_les_RDV_dun_patient();
+                  }
+               else if (ret.startsWith("AppointmentsListFor"))
+                  {((C_Frm_Day*)parent())->Chercher_les_RDV_dun_patient(ret.mid(19));
+                  }
               }
          event->accept();
          ((C_Frm_Day*)parent())->Slot_StopTimer(0);
@@ -3421,6 +3486,7 @@ int C_Frm_Rdv::getHeight()
 {int height  = m_Duree * m_PixByMinute; // height = qMax( m_Duree * m_PixByMinute,  (long)m_MinHeight);
  return qMax(height, m_MinHeight);   // il faut un minimum de visibilite
 }
+
 
 /*
 //====================================== C_LabelDrag =======================================================

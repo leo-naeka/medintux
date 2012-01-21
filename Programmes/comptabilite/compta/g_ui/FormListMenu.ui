@@ -37,6 +37,11 @@
             </item>
             <item>
                 <property name="text">
+                    <string>Gestion CMU</string>
+                </property>
+            </item>
+            <item>
+                <property name="text">
                     <string>Mouvements</string>
                 </property>
             </item>
@@ -102,6 +107,7 @@
     <signal>banqueSelected()</signal>
     <signal>paramSelected()</signal>
     <signal>gestionDAFSelected()</signal>
+	<signal>gestionCMUSelected()</signal>
     <signal>aboutSelected()</signal>
     <signal>mouvementsSelected()</signal>
     <signal>releveSelected()</signal>

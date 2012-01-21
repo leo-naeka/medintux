@@ -177,6 +177,9 @@ void Filtre_Hono::cmbTypeHono2_activated( int id )
 	  m_pComptaMoteurBase->m_Filtre_Autre   += " \nOR remarque LIKE \'%";
 	  m_pComptaMoteurBase->m_Filtre_Autre   += DAF_OK;
 	  m_pComptaMoteurBase->m_Filtre_Autre   +=  "%\' )";
+	  m_pComptaMoteurBase->m_Filtre_Autre   += " \nOR remarque LIKE \'%";
+	  m_pComptaMoteurBase->m_Filtre_Autre   += CMU_OK;
+	  m_pComptaMoteurBase->m_Filtre_Autre   +=  "%\' )";
 	  break;
 	}
       case 2 : // non encaissés
@@ -185,6 +188,9 @@ void Filtre_Hono::cmbTypeHono2_activated( int id )
 	  m_pComptaMoteurBase->m_Filtre_Autre   +=  "%\'";
 	  m_pComptaMoteurBase->m_Filtre_Autre   += " \nOR remarque LIKE \'%";
 	  m_pComptaMoteurBase->m_Filtre_Autre   += DAF_PAS_OK;
+	  m_pComptaMoteurBase->m_Filtre_Autre   +=  "%\' )";
+	  m_pComptaMoteurBase->m_Filtre_Autre   += " \nOR remarque LIKE \'%";
+	  m_pComptaMoteurBase->m_Filtre_Autre   += CMU_PAS_OK;
 	  m_pComptaMoteurBase->m_Filtre_Autre   +=  "%\' )";
 	  break;
 	}
