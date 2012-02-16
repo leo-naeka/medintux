@@ -1437,7 +1437,7 @@ long CMoteurAgenda::GetPatientAgendaList(       QTreeWidget     *pQlistView,
 
 //---------------------------------------AfficherLesRdvDuPatient---------------------------------
 long CMoteurAgenda::AfficherLesRdvDuPatient(QTreeWidget *pQlistView,
-                                            QString nomP, QString prenomP, QString typeRDV, QString &guid  /* = ""*/ )
+                                            QString nomP, QString prenomP, QString typeRDV, QString guid  /* = ""*/ )
 
 {
 
