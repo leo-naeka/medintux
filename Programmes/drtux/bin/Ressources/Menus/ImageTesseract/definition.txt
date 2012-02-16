@@ -23,7 +23,7 @@
 {{::delete_file (../../tmp/medintux2tess.log)}}\
 {{::exe_process (WaitEnd ,/usr/bin/xsane,--save,-N$ToAbsPath../../tmp/LastScanned.tif)}}\
 {{::exe_process (WaitEnd,../../Plug/ocr/medintux2tess.sh,LastScanned.tif,LastScanned,-l fra,$ToAbsPath../../tmp$EndToAbsPath/,nodebug)}}\
-{{::import (../../tmp/LastScanned.txt , crlf2html new)}}</string>
+{{::import (../../tmp/LastScanned.txt , crlf2html insert)}}</string>
         </property>
     </action>
 </actions>

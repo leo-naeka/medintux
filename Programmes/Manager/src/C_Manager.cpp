@@ -309,7 +309,7 @@ C_Manager::C_Manager(CMoteurBase *pCMoteurBase,  QWidget *parent, const QString 
    //............. on place notre bouton a gauche ................
    m_Button_Affichage_EnCours = new Wdg_ButtonPtr(this, "Button_affichageEnCours");
    m_Button_Affichage_EnCours->move(0 /*m_menuBar->width()*/ ,0);
-   m_Button_Affichage_EnCours->setMaximumHeight(m_menuBar->height());
+   //m_Button_Affichage_EnCours->setMaximumHeight(m_menuBar->height());
    //........ on  place la vraie barre de menu la ou l'on veut .........................
    // m_menuBar->move(m_Button_Affichage_EnCours->width(),0);
    setMenuBar(m_menuBar);
@@ -697,6 +697,8 @@ void C_Manager::setAllWidgetsOnFont(const QFont &font)
  for (int i=0; i<buttonsList.size(); ++i)
      {buttonsList[i]->setFont(font);
      }
+ //............ mention speciale pour le bouton de bascule agenda .................................
+ SetModeOn_Button_Affichage_EnCours(m_Type_Affichage_EnCours);
 }
 //------------------------ initWidgetsList ---------------------------------------
 void C_Manager::initWidgetsList()
@@ -809,7 +811,7 @@ m_actionQuitter->setShortcut(QApplication::translate("C_ManagerClass", "Ctrl+Q",
 #ifdef  Q_WS_MAC
     m_menuFichiers->setTitle(QApplication::translate("C_ManagerClass", "Files", 0, QApplication::UnicodeUTF8));
 #else
-    {QFontMetrics fntMetric = QFontMetrics(this->font());
+    {QFontMetrics fntMetric = QFontMetrics(G_pCApp->m_GuiFont);
      int               wbut = qMax(fntMetric.boundingRect(m_strGotoAgenda).width(),fntMetric.boundingRect(m_strGotoPatientList).width())+20;
      QString   spacesToAdd  = ".";
      while (fntMetric.boundingRect(spacesToAdd).width() < wbut)
@@ -6329,8 +6331,8 @@ void C_Manager::Slot_actionSetGlobalFont_triggered (bool)
        CGestIni::Param_WriteParam(&G_pCApp->m_LocalParam, "Font", "Italic",     QString::number(font.italic()) );
        CGestIni::Param_WriteParam(&G_pCApp->m_LocalParam, "Font", "Underline",  QString::number(font.underline()) );
        CGestIni::Param_WriteParam(&G_pCApp->m_LocalParam, "Font", "Weight",     QString::number(font.weight()) );
-       setAllWidgetsOnFont(font);
        G_pCApp->m_GuiFont = font;
+       setAllWidgetsOnFont(font);
        QApplication::setFont(font);
        CGestIni::Param_UpdateToDisk(G_pCApp->m_PathAppli + "Manager.ini", G_pCApp->m_LocalParam);
       }
@@ -6350,28 +6352,41 @@ void C_Manager::Slot_Type_Affichage_Change()
 //CZA
 //---------------------------------------------- get_RecordDispos ------------------------------------------------------------
 void C_Manager::get_RecordDispos(const QString & mode /* = "FICHE" */)
-{   QString textToDisplay = "";
-    QString nomFicDPS     = "";
+{   QString nomFicDPS     = "";
     if (mode!="AGENDA")
        {m_Type_Affichage_EnCours = "FICHE";
-        textToDisplay            = m_strGotoAgenda;
         nomFicDPS                = "Manager.dps";
        }
     else
        {m_Type_Affichage_EnCours = mode;
-        textToDisplay            = m_strGotoPatientList;
         nomFicDPS                = "Manager_Agenda.dps";
        }
+    SetModeOn_Button_Affichage_EnCours(m_Type_Affichage_EnCours);
     //...... charge la config de presentation .................
-    QRect rect = QFontMetrics ( this->font() ).boundingRect ( textToDisplay );
-    m_Button_Affichage_EnCours->setText(textToDisplay);
-    m_Button_Affichage_EnCours->setGeometry(m_Button_Affichage_EnCours->x(),m_Button_Affichage_EnCours->y(),rect.width()+10, m_Button_Affichage_EnCours->height());
-    //................... charger la config ..................
     if ( !QFile::exists(G_pCApp->m_PathAppli + nomFicDPS) )  return;
     QFile file( G_pCApp->m_PathAppli + nomFicDPS );
     if ( !file.open( QIODevice::ReadOnly ) )                 return;
     restoreState (file.readAll());
     file.close();
+}
+//---------------------------------------------- SetModeOn_Button_Affichage_EnCours ------------------------------------------------------------
+void C_Manager::SetModeOn_Button_Affichage_EnCours(const QString &mode)
+{   QString textToDisplay = "";
+    if (mode=="FICHE")
+       {textToDisplay            = m_strGotoAgenda;
+       }
+    else
+       {textToDisplay            = m_strGotoPatientList;
+       }
+    //...... charge la config de presentation .................
+    //QRect rect = QFontMetrics ( this->font() ).boundingRect ( textToDisplay );
+    QFontMetrics fntMetric( G_pCApp->m_GuiFont );
+    QRect r1 = fntMetric.boundingRect(m_strGotoAgenda);
+    QRect r2 = fntMetric.boundingRect(m_strGotoPatientList);
+    int               wbut = qMax( r1.width(),  r2.width() )   + 20;
+    int               hbut = qMax( r1.height(), r2.height() )  + 6;
+    m_Button_Affichage_EnCours->setText(textToDisplay);
+    m_Button_Affichage_EnCours->setGeometry(m_Button_Affichage_EnCours->x(),m_Button_Affichage_EnCours->y(),wbut, hbut);
 }
 
 //---------------------------------------------- Slot_RecordDispos ------------------------------------------------------------

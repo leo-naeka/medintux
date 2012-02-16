@@ -133,6 +133,7 @@ public:
     void    action_fullSynchroReplication_triggered();
     QString extractVarFromMysqlStatus(const QString &repliSatus, QString var, int &pos);
     int     setComboBoxOnValue(QComboBox *pQComboBox, const QString& value);
+    void    SetModeOn_Button_Affichage_EnCours(const QString &mode);
     //.................. accessoires ...........................
     void demarrerAccessoires();
     void demarrerUnAccessoire(QString accessoire_path);

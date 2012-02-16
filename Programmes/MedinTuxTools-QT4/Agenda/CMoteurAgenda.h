@@ -188,7 +188,6 @@ class CMoteurAgenda : public QObject
   int             OpenBase();
   void            CloseBase(); //m_CloseAfterQuery
   QString         GetDataBaseLabel(){return m_BaseLabel;}
-  // CZA ----
   long            GetPatientList(     QTreeWidget *pQlistView,     // pointeur sur une QListView ?  3 colonnes
                                   const QString   &qstr_nom,       // nom d'entrée
                                   const QString   &qstr_prenom,    // prenom d'entré
@@ -202,11 +201,9 @@ class CMoteurAgenda : public QObject
                                         QLabel    *statutMess=0,   // pointeur sur Qlabel de sortie message
                                         QString   *errMess=0       // pointeur sur Qlabel de sortie message
                                  );
-  long          AfficherLesRdvDuPatient(QTreeWidget *pQlistView,
-                                              QString nomP, QString prenomP, QString typeRDV);
+  long          AfficherLesRdvDuPatient(QTreeWidget *pQlistView, QString nomP, QString prenomP, QString typeRDV, QString &guid   = "");
 
   void creer_Liste_Jours_Feries(QDate deb);
-  bool Cest_Un_Jour_Ferie(QDate jourf);
   bool isFreeDay(QDate jourf);
 //............................... DATA .............................................................................
  public:

@@ -352,7 +352,7 @@ bool ComptaMoteurBase::saveHonorairesToBase(Honoraires* pHono)
   buffer->setValue( "cb", pHono->getCB() );
   buffer->setValue( "daf", pHono->getDAF() );
   buffer->setValue( "autre", pHono->getAutre() );
-  buffer->setValue( "du", pHono->getDu() );
+  buffer->setValue( "cmu", pHono->getCMU() );
   buffer->setValue( "id_usr", pHono->getIdUsr() );
   buffer->setValue( "GUID", pHono->getGUID() );
   buffer->setValue( "id_drtux_usr", pHono->getDrTuxUsr() );

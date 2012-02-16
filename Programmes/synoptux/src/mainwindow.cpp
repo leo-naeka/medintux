@@ -78,13 +78,17 @@ MainWindow::MainWindow()
     m_notAction       = 0;
     m_popupTache      = 0;
     m_ResponsableSelectionne    = "Tous";
-    //......... mapper ces chaine pour la trauction ..................
-    m_Map_Action["PATIENT_OUT"] = tr("Final exit");
-    m_Map_Action["PATIENT_IN"]  = tr("Patient entrance");
-    m_Map_Action["TASK_STATE"]  = tr("Task");
-    m_Map_Action["SET_OWNER"]   = tr("Person in charge");
-    m_Map_Action["SET_PLACE"]   = tr("Moving patient");
-    m_Map_Action["COMMENT"]     = tr("Comment");
+    //......... mapper ces chaines pour la traduction ..................
+    m_Map_Action["PATIENT_OUT"]    = tr("Final exit");
+    m_Map_Action["PATIENT_EXIT"]   = tr("Exit");
+    m_Map_Action["PATIENT_IN"]     = tr("Patient entrance");
+    m_Map_Action["TASK_STATE"]     = tr("Task");
+    m_Map_Action["SET_OWNER"]      = tr("Person in charge");
+    m_Map_Action["SET_PLACE"]      = tr("Moving patient");
+    m_Map_Action["COMMENT"]        = tr("Comment");
+    m_Map_Action["TRACE"]          = tr("Trace");
+
+
     //for (int i = 0; i < NB_BOX_MAX; i++) m_Map_C_Wdg_Box[i] = 0;
 
     //.................... indicateur d'action des timers ...........................................
@@ -448,6 +452,7 @@ void MainWindow::RemplirLeBox(C_Wdg_Box *dlgBox, QString BoxEnCours)
       } // fin while table Encours
     setTimerActionOn();
 }
+//---------------------------------------tilerLesW-------------------------------------------------
 void MainWindow::tilerLesW()
 {
     m_mdiArea->setActivationOrder(QMdiArea::CreationOrder);
@@ -522,7 +527,7 @@ void MainWindow::AfficherLesTaches(C_Wdg_Box *dlgBox, QString /*codeBox*/, QStri
         //s'il y a une note disponible on ajoute un icone.
        if ( query.value(14).toString().length() > 0 ||       // il y a une note dans l'encours
             query.value(15).toInt() > 0             ||       // il y a une cle de blob
-            query.value(16).toString().length() > 0 )       // il y a un fichier PDF a lire
+            query.value(16).toString().length() > 0 )        // il y a un fichier PDF a lire
             bouttonNomTache->setIcon(QIcon(":/images/oeil.png"));
         qCouleurTache = QColor(query.value(5).toString());
         bouttonNomTache->setMinimumHeight(m_Hauteur_Taches);
@@ -544,10 +549,10 @@ void MainWindow::AfficherLesTaches(C_Wdg_Box *dlgBox, QString /*codeBox*/, QStri
         dernierEtat  = "N";
         premierEtat  = false;
         QString couleurDefaut = "#FFFFFF";
-        requeteEtat  = QString (" SELECT ET_Libelle_etat, ET_Couleur_etat , ET_Tache_terminee"    // 0-1-2
-                                " FROM %1"                                                        // %1 'synopt_etats'
-                                " INNER JOIN %2 ON ST_Code_etat = ET_Code_etat "                  // %2 'synopt_etats_taches'
-                                " WHERE ST_Code_tache = '%3'"                                     // %3  codeTache
+        requeteEtat  = QString (" SELECT ET_Libelle_etat, ET_Couleur_etat , ET_Tache_terminee, ET_Code_etat"    // 0-1-2-3
+                                " FROM %1"                                                                      // %1 'synopt_etats'
+                                " INNER JOIN %2 ON ST_Code_etat = ET_Code_etat "                                // %2 'synopt_etats_taches'
+                                " WHERE ST_Code_tache = '%3'"                                                   // %3  codeTache
                                 " ORDER BY ST_Code_Etat").arg(BASE_SYNOPTUX->m_STATUS_TBL_NAME, BASE_SYNOPTUX->m_TASK_STATUS_TBL_NAME , codeTache);
         QSqlQuery queryb(requeteEtat, DATA_BASE_SYNOPTUX);
         boolTache =  queryb.isActive() &&  queryb.next();
@@ -594,9 +599,11 @@ void MainWindow::AfficherLesTaches(C_Wdg_Box *dlgBox, QString /*codeBox*/, QStri
                      etatEnCours = queryb.value(0).toString();
                      style = "Menu_Etat_Tache";
                     }
-                if (etatEnCours == queryb.value(0).toString())
+                QString truc = queryb.value(0).toString();
+                if (etatEnCours == queryb.value(0).toString() ||           // on  teste le libelle (cas ou c'est le libelle enregistre dans EN_Etat_en_cours)
+                    etatEnCours == queryb.value(3).toString())             // on  teste le code etat (cas ou c'est le code etat enregistre dans EN_Etat_en_cours)
                     {
-                    QPushButton *bouttonEtatTache      = new QPushButton(etatEnCours,dlgBox);
+                    QPushButton *bouttonEtatTache      = new QPushButton(queryb.value(0).toString(),dlgBox);
                     bouttonEtatTache->setObjectName(dlgBox->objectName()+"-bouttonEtatTache"); // BUGBUG
 
                     bouttonEtatTache->setAccessibleName(numEnCours + "/" + codeTache + "/" + numTache + "/" + boutonMenu + "/" + dernierEtat + "/" + queryb.value(1).toString());
@@ -842,7 +849,6 @@ void MainWindow::Actualiser(QString partielOUtotal)             // BUGBUG
     qDebug() << "PASSE ACTUALISER";
     if (partielOUtotal == "TOTAL")
        {
-         //for (int i = 0; i < NB_BOX_MAX; i++) m_Map_C_Wdg_Box[i] = 0;
          m_mdiArea->closeAllSubWindows();
          m_Map_C_Wdg_Box.clear();
          delete(m_mdiArea);
@@ -1382,10 +1388,11 @@ void MainWindow::Recap_Tache(QWidget *UnWidget)
            {message.append(m_Map_Action["SET_OWNER"] + " - ");
             message.append(query.value(8).toString());}
         else if (zz== "TASK_STATE")
-           {message.append(query.value(6).toString());                 // libelle tache
+            {message.append(tr("Task: "));                 // libelle tache
+            message.append(query.value(6).toString());                 // libelle tache
             message.append(" - ");
             message.append(query.value(10).toString());                 // libelle etat
-            message.append(" - " + query.value(11).toString());         // commenatire etat
+            message.append("\n              - " + query.value(11).toString());         // commentaire etat
            }
         else if (zz=="SET_PLACE")
               {message.append(m_Map_Action["SET_PLACE"] + " - ");
@@ -1394,6 +1401,14 @@ void MainWindow::Recap_Tache(QWidget *UnWidget)
            // MODIF_COM
         else if (zz=="COMMENT")
               {message.append(m_Map_Action["COMMENT"] + " - ");
+               message.append(query.value(11).toString());                  // nouveau commentaire
+              }
+        else if (zz=="TRACE")
+              {message.append(m_Map_Action["TRACE"] + " - ");
+               message.append(query.value(11).toString());                  // nouveau commentaire
+              }
+        else if (zz=="PATIENT_EXIT")
+              {message.append(m_Map_Action["PATIENT_EXIT"] + " - ");
                message.append(query.value(11).toString());                  // nouveau commentaire
               }
            message.append("\n");
@@ -1820,7 +1835,7 @@ void MainWindow::majDeLaTache(QString NumEnCours, QString NumTache)
 //------------------------------majDateFinTache--------------------------------------------
 void MainWindow::majDateFinTache(QString numEnCours, QString numTache, QString dernierEtat)
 // S'il s'agit d'un etat "termine" on inscrit la date de fin
-// sino on efface une eventuelle date fin deja inscrite
+// sinon on efface une eventuelle date fin deja inscrite
 {
     QString strMAJ, dateMAJ, libMAJ;
     // controle si la date de debut n'a pas deja ete maj

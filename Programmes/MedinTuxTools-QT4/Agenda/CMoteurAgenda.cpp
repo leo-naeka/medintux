@@ -361,6 +361,8 @@ QString CMoteurAgenda::GetFormatDateInResume(char mode)
 void  CMoteurAgenda::SetDispo(const QString &value)
 {if (value.length())
     { m_DispoUser=value;
+      m_DispoUser = m_DispoUser.replace('_',';');
+      m_DispoUser = m_DispoUser.replace(';','|');
     }
 }  // CZE
 //-------------------------------------- GetDispo ----------------------------------------------------------------------------
@@ -1219,7 +1221,7 @@ void CMoteurAgenda::chargeListePlagesDisponibles(QTreeWidget  *pQlistViewPlage, 
     // il faut arriver a ca ....
     // heureDebJour << "08:00" << "08:00" << "08:00" << "08:00" << "08:00" << "08:00" << "00:00";
 
-    QStringList zDispo = m_DispoUser.split("_"); // on s?pare par groupe de jours
+    QStringList zDispo = m_DispoUser.split("|"); // on s?pare par groupe de jours
     for (int day=1; day < 8; day++)
         {QString  sdaytraite = QString::number(day);
         QString sheureDJ, sheureFJ, sheureDP, sheureFA;
@@ -1324,7 +1326,7 @@ void CMoteurAgenda::chargeListePlagesDisponibles(QTreeWidget  *pQlistViewPlage, 
                     qDatePlageDeb = qDatePlageDeb.addDays(1);
 
                     // on saute les jours feries
-                    if (Cest_Un_Jour_Ferie(qDatePlageDeb.date()))
+                    if (isFreeDay(qDatePlageDeb.date()))
                         qDatePlageDeb = qDatePlageDeb.addDays(1);
 
                     // on saute les jours ou on bosse pas
@@ -1332,7 +1334,7 @@ void CMoteurAgenda::chargeListePlagesDisponibles(QTreeWidget  *pQlistViewPlage, 
                         heureFinJour.at(qDatePlageDeb.date().dayOfWeek()-1))
                         qDatePlageDeb = qDatePlageDeb.addDays(1);
 
-                    if (Cest_Un_Jour_Ferie(qDatePlageDeb.date()))
+                    if (isFreeDay(qDatePlageDeb.date()))
                         qDatePlageDeb = qDatePlageDeb.addDays(1);
 
                     qDatePlageDeb.setTime(QTime::fromString(heureDebJour.at(qDatePlageDeb.date().dayOfWeek()-1),"hh:mm"));
@@ -1364,109 +1366,7 @@ void CMoteurAgenda::chargeListePlagesDisponibles(QTreeWidget  *pQlistViewPlage, 
     ajouterPlageDispo(pQlistViewPlage, qDatePlageDeb, qDatePlageDeb, 1);
     CloseBase();
 }
-// --- fin CZE
-/*
-// Debut CZE 2
-//-------------------------------------chargeListePlagesDisponibles----------------------------------------------
-// Lecture des Rdv ? venir dans Agenda pour recherche des plages disponibles.
-void CMoteurAgenda::chargeListePlagesDisponibles(QTreeWidget  *pQlistViewPlage, QString user) // CZA
-{
-    QDateTime qDatePlageDeb = QDateTime::currentDateTime();   // ? partir de maintenant seulement.
-    QString  sDatePlageDeb  = qDatePlageDeb.toString("yyyy-MM-dd hh:mm");
-    QDateTime qDateFinJourn = QDateTime::currentDateTime();
-    qDateFinJourn.setTime(QTime::fromString(m_TimeEnd,"hh:mm"));
 
-    if (OpenBase()==0) { return ; }
-    pQlistViewPlage->clear();
-    //................. Preparer la requete ..................................................
-    QString requete("");
-    requete  += "SELECT " + m_AGENDA_DATETIME   +  ","         // 0
-                          + m_AGENDA_DUREE                     // 1
-                          + " FROM  " + m_AGENDA_TBL_NAME
-                          +  " WHERE "
-                          +  m_AGENDA_DATETIME   +  " >= '" + sDatePlageDeb
-                          + "' AND "
-                          + m_AGENDA_PRIS_AVEC  +  "  = '" + user
-                          + "' ORDER BY " + m_AGENDA_DATETIME;
-
-    QSqlQuery query(requete , QSqlDatabase::database(m_BaseLabel) );
-    if (query.isActive())
-       { while (query.next())
-            { // tant qu'on a pas d?pass? la date du prochain rdv
-            while ( qDatePlageDeb.operator <=(query.value( 0 ).toDateTime()))
-                {
-                // test si changement de journ?e avant prochain RDV
-                // La date du prochain RDV est sup?rieure ? la fin de journ?e en cours
-                if (query.value(0).toDateTime().operator >=(qDateFinJourn))
-                    {
-                    // on charge la plage jusqu'? la fin de journ?e.
-                    ajouterPlageDispo(pQlistViewPlage, qDatePlageDeb, qDateFinJourn, 0);
-                    // on change de jour.
-                    qDatePlageDeb = qDatePlageDeb.addDays(1);
-                    if (qDatePlageDeb.date().dayOfWeek() == 7) // on bosse pas le dimanche
-                        qDatePlageDeb = qDatePlageDeb.addDays(1);
-
-                    qDatePlageDeb.setTime(QTime::fromString(m_TimeDeb,"hh:mm"));
-                    qDateFinJourn = qDatePlageDeb;
-                    qDateFinJourn.setTime(QTime::fromString(m_TimeEnd,"hh:mm"));
-                    continue;
-                    } // fin chgt de jour
-
-                // on charge la plage jusqu'au prochain RDV
-                ajouterPlageDispo(pQlistViewPlage, qDatePlageDeb, query.value(0).toDateTime(), 0);
-
-                // la nouvelle plage debut devient la fin du RDV
-                qDatePlageDeb = query.value(0).toDateTime().addSecs(query.value( 1 ).toInt() * 60);
-                } // fin while datedeb < date rdv
-
-            } //end while (pSqlQuery->next())
-       } //endif (query.isActive())
-    ajouterPlageDispo(pQlistViewPlage, qDatePlageDeb, qDatePlageDeb, 1);
-    CloseBase();
-}
-//------------------------------------ ajouterPlageDispo ---------------------------------------------------
-// ALimente une ligne du treeview des plages dispo.
-void CMoteurAgenda::ajouterPlageDispo(QTreeWidget  *pQlistViewPlage, QDateTime DatePlageDeb, QDateTime DatePlageFin, int fini)
-{   QString zdat, zDuree;
-    int dureePlage=60;
-    QTreeWidgetItem *pQTreeWidgetItem = new QTreeWidgetItem();
-
-    if (!fini)
-        {dureePlage =   (DatePlageFin.time().hour() * 60 + DatePlageFin.time().minute())
-                         - (DatePlageDeb.time().hour() * 60 + DatePlageDeb.time().minute());
-        int h = dureePlage / 60;
-        zdat  = QString::number(dureePlage - ( h * 60));
-        if (zdat.length() == 1) zdat = "0" + zdat;
-        zDuree = QString::number(h) + "h" + zdat;
-        }
-
-    if (pQTreeWidgetItem && dureePlage > 5)             // que les plages > ? 5 mn
-        {
-        zdat = DatePlageDeb.toString("dd-MM-yyyy hh:mm");
-        DatePlageDeb.date().day();
-
-        pQTreeWidgetItem->setText(0, DatePlageDeb.toString("ddd  dd-MM-yyyy"));                       // date
-        pQTreeWidgetItem->setText(5, zdat.mid(0,10));                           // date
-        pQTreeWidgetItem->setText(1, zdat.mid(11,2)+"h"+zdat.mid(14,2));        // heure d?but
-        zdat = DatePlageFin.toString("dd-MM-yyyy hh:mm");
-        if (!fini)
-            {pQTreeWidgetItem->setText(2, zdat.mid(11,2)+"h"+zdat.mid(14,2));   // heure fin
-            pQTreeWidgetItem->setText(3, zDuree);                               // duree
-            }
-        else
-            pQTreeWidgetItem->setText(2, "Fin RDV");                            // heure fin
-        pQTreeWidgetItem->setText(4, QString::number(DatePlageDeb.date().weekNumber())); // n? semaine
-
-        pQTreeWidgetItem->setTextAlignment(0,Qt::AlignHCenter);
-        pQTreeWidgetItem->setTextAlignment(1,Qt::AlignHCenter);
-        pQTreeWidgetItem->setTextAlignment(2,Qt::AlignHCenter);
-        pQTreeWidgetItem->setTextAlignment(3,Qt::AlignHCenter);
-        pQTreeWidgetItem->setTextAlignment(4,Qt::AlignLeft);
-        pQTreeWidgetItem->setIcon(4,Theme::getIcon("Agenda/Calendrier.png"));
-        pQlistViewPlage->addTopLevelItem(pQTreeWidgetItem);
-        }
-}
-*/
 //-----------------------------------------------------  GetPatientAgendaList -------------------------------------------
 /*! \brief Remplit la QListView avec les patients retrouves dans la base de donnees.
  *  \param pQlistView : ListView qui recevra les patients recherches
@@ -1513,7 +1413,6 @@ long CMoteurAgenda::GetPatientAgendaList(       QTreeWidget     *pQlistView,
 
   //................ scanner les enregistrements ................................................
   //                 pour remplir la listview
-
   int i  = 0;
   //.................. si la requète a un resultat ..............................................
   if (query.isActive())
@@ -1535,9 +1434,10 @@ long CMoteurAgenda::GetPatientAgendaList(       QTreeWidget     *pQlistView,
   CloseBase();
   return i;
 }
+
 //---------------------------------------AfficherLesRdvDuPatient---------------------------------
 long CMoteurAgenda::AfficherLesRdvDuPatient(QTreeWidget *pQlistView,
-                                            QString nomP, QString prenomP, QString typeRDV)
+                                            QString nomP, QString prenomP, QString typeRDV, QString &guid  /* = ""*/ )
 
 {
 
@@ -1559,8 +1459,8 @@ long CMoteurAgenda::AfficherLesRdvDuPatient(QTreeWidget *pQlistView,
                           + m_AGENDA_WHERE      +  ","         // 11
                           + m_AGENDA_PRIM_KEY   +              // 12
                 " FROM  " + m_AGENDA_TBL_NAME   +
-                " WHERE " + m_AGENDA_NOM        +    " = '"   + nomP +
-                "' AND "  + m_AGENDA_PRENOM     +    " = '"   + prenomP   +  "' ";
+                " WHERE " + m_AGENDA_NOM        +    " = '"   + nomP      +  "' "
+                " AND "   + m_AGENDA_PRENOM     +    " = '"   + prenomP   +  "' ";
     if (typeRDV != "TOUS")
         {requete += " AND " + m_AGENDA_DATETIME + " >= '" + QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss") + "'";
         }
@@ -1568,7 +1468,6 @@ long CMoteurAgenda::AfficherLesRdvDuPatient(QTreeWidget *pQlistView,
     requete += " ORDER BY "     +    m_AGENDA_NOM + "," +   m_AGENDA_NOM ;
 
     QSqlQuery query(requete , QSqlDatabase::database(m_BaseLabel) );
-
     if (query.isActive())
         {pQlistView->clear();
          while (query.next())
@@ -1595,10 +1494,11 @@ long CMoteurAgenda::AfficherLesRdvDuPatient(QTreeWidget *pQlistView,
     } // fin if
     return pQlistView->topLevelItemCount();
 }
+
 //--------------------------------- creer_Liste_Jours_Feries --------------------------------------------------------------------------------
 void CMoteurAgenda::creer_Liste_Jours_Feries(QDate deb)
 {
-   for (int i=0; i<3; i++)     // on calcule les dates pour 3 ans
+   for (int i=0; i<2; i++)     // on calcule les dates pour 3 ans
        {int     an  = deb.year() + i;
         QString san = QString::number(an);
         m_ListeJoursFeries << QDate::fromString(san + "-01-01","yyyy-MM-dd");   // 1er an
@@ -1635,16 +1535,6 @@ void CMoteurAgenda::creer_Liste_Jours_Feries(QDate deb)
 //----------------------------------isFreeDay--------------------------------------
 bool CMoteurAgenda::isFreeDay(QDate jourf)
 {   for (int i=0;i<m_ListeJoursFeries.size(); i++)
-        {if (m_ListeJoursFeries.at(i) == jourf )
-            return(true);
-        }
-    return false;
-}
-
-//----------------------------------Cest_Un_Jour_Ferie--------------------------------------
-bool CMoteurAgenda::Cest_Un_Jour_Ferie(QDate jourf)
-{
-    for (int i=0;i<m_ListeJoursFeries.size(); i++)
         {if (m_ListeJoursFeries.at(i) == jourf )
             return(true);
         }
