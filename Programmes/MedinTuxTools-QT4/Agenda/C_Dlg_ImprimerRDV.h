@@ -54,9 +54,9 @@ public:
 protected:
     void changeEvent(QEvent *e);
      CMoteurAgenda *m_pCMoteurAgenda;
+
 private slots:
     void Slot_preview();
-    void Slot_print();
     void Slot_printPreview(QPrinter *printer);
 };
 

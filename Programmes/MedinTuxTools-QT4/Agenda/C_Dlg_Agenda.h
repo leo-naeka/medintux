@@ -813,6 +813,7 @@ public:
     CMoteurAgenda *GetCMoteurAgenda(){return m_pCMoteurAgenda;}
     void     creerRDVFactices(const QString &user);
     void     Chercher_les_RDV_dun_patient (QString nom_prenom_guid  ="" );
+    void     Imprimer_les_RDV_dun_medecin(QDateTime date_rdv, QString code_user );
     //............ animation .......................
     void     createAnimations();
     void     animateBottom();
@@ -821,6 +822,7 @@ public:
     void     doAnimation(QPropertyAnimation *pQPropertyAnimation, int vaitForEnd=1);
     QDate                m_tmpDateToStart;
     QMap<int, int>       m_WeekExpandMapState;
+
 public slots:
     void   OnButtonGoogleClickedPtr (const char*, void *);
     void   On_AgendaMustDisplayFromThisDate(const QDate & newDate);        // CZA

@@ -5330,6 +5330,11 @@ void C_Manager::Slot_pQPushButtonPatientRdvList_Clicked(Wdg_ButtonPtr* pWdg_Butt
 {C_Frm_Agenda  *pC_Frm_Agenda  = (C_Frm_Agenda*) pWdg_ButtonPtr->getPtr_1();
  pC_Frm_Agenda->Chercher_les_RDV_dun_patient ();
 }
+//---------------------------------------------- Slot_pQPushButtonUserRdvList_Clicked -----------------------------------------------------------------------
+void C_Manager::Slot_pQPushButtonUserRdvList_Clicked (Wdg_ButtonPtr* pWdg_ButtonPtr)
+{C_Frm_Agenda  *pC_Frm_Agenda  = (C_Frm_Agenda*) pWdg_ButtonPtr->getPtr_1();
+    pC_Frm_Agenda->Imprimer_les_RDV_dun_medecin(QDateTime::currentDateTime(), pC_Frm_Agenda->getSignUser());
+}
 
 //---------------------------------------------- Slot_pQPushButtonThisDay_Clicked -----------------------------------------------------------------------
 // Afficher le jour Suivant CZA
@@ -5707,6 +5712,10 @@ C_Frm_Agenda *C_Manager::addUserAgenda(const QString &signUser, QDate date, QFra
    pQPushButtonPatientRdvList->setPtr_1(pC_Frm_Agenda);
    pQPushButtonPatientRdvList->setToolTip ( "<font color=\"#000000\">"+tr("Find appointments list for a patient")+"</font>" );
 
+   Wdg_ButtonPtr *pQPushButtonUserRdvList        = new Wdg_ButtonPtr( frameButtonAndTitle , "ButtonUserRdvList_" + signUser);
+   pQPushButtonUserRdvList->setPtr_1(pC_Frm_Agenda);
+   pQPushButtonUserRdvList->setToolTip ( "<font color=\"#000000\">"+tr("Find appointments list for a user")+"</font>" );
+
    QScrollBar    *pQScrollBar                = scrollArea_Days->verticalScrollBar();   // juste pour la largeur
    int            wScroll                    = 14;
    int                  w                    = pC_Frm_Agenda->width() + wScroll+5;
@@ -5916,6 +5925,12 @@ C_Frm_Agenda *C_Manager::addUserAgenda(const QString &signUser, QDate date, QFra
    pQPushButtonPatientRdvList->setIcon    ( Theme::getIcon("Agenda/GetPatientRdv.png"));
    pos_Obj_X += pQPushButtonPatientRdvList->width();
 
+   // bouton recherche rendez vous d'un patient
+   pQPushButtonUserRdvList->resize( agendaButtonHeight , agendaButtonHeight);
+   pQPushButtonUserRdvList->move  ( pos_Obj_X ,          agendaTitleHeight);
+   pQPushButtonUserRdvList->setIcon    ( Theme::getIcon("Agenda/PrintListRdv.png"));
+   pos_Obj_X += pQPushButtonUserRdvList->width();
+
    // bouton menu parametres
    pQPushButtonMenu->resize( agendaButtonHeight , agendaButtonHeight);
    pQPushButtonMenu->move  ( pos_Obj_X ,          agendaTitleHeight);
@@ -5948,6 +5963,7 @@ C_Frm_Agenda *C_Manager::addUserAgenda(const QString &signUser, QDate date, QFra
    connect( pQPushButtonMonth           , SIGNAL(clicked (Wdg_ButtonPtr*)), this, SLOT(Slot_pQPushButtonWeekDay_Clicked (Wdg_ButtonPtr*)) );
    connect( pQPushButtonFreeSpace       , SIGNAL(clicked (Wdg_ButtonPtr*)), this, SLOT(Slot_pQPushButtonFreeSpace_Clicked (Wdg_ButtonPtr*)) );
    connect( pQPushButtonPatientRdvList  , SIGNAL(clicked (Wdg_ButtonPtr*)), this, SLOT(Slot_pQPushButtonPatientRdvList_Clicked (Wdg_ButtonPtr*)) );
+   connect( pQPushButtonUserRdvList     , SIGNAL(clicked (Wdg_ButtonPtr*)), this, SLOT(Slot_pQPushButtonUserRdvList_Clicked (Wdg_ButtonPtr*)) );
    // ------------- CZA
 
    connect( pC_Frm_Agenda,     SIGNAL(Sign_LauchPatient(const QString &, C_RendezVous *)),   this, SLOT( Slot_LauchPatient(const QString &, C_RendezVous *)));

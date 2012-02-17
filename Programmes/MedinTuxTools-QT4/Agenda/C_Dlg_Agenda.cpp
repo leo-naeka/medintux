@@ -232,6 +232,7 @@ C_Frm_Agenda::C_Frm_Agenda(const QDate &date,
                                          QString("BASE_AGENDA_%1").arg(signUser),   // important car lors fermeture l'utilisateur ne detruit que sa base
                                          &errMess,
                                          this);         // passer le parent afin que le moteur de base soit detruit avec l'agenda
+    m_pCMoteurAgenda->SetPathAppli(m_PathAppli);
     //....................... positionner le nombre de jours visible et l'ofset de jour de  depart  ............................................................
     QString val;
     m_StartBefore   = BEFORE_DAYS;          // valeurs par defaut
@@ -501,6 +502,15 @@ void C_Frm_Agenda::Chercher_les_RDV_dun_patient (QString nom_prenom_guid /* ="" 
 {   C_Dlg_ChercheRDV *Dlg_ChercheRDV = new C_Dlg_ChercheRDV (m_pCMoteurAgenda, nom_prenom_guid, this);
     if (Dlg_ChercheRDV->exec() != QDialog::Accepted)
         {delete Dlg_ChercheRDV;
+        }
+}
+//--------------------------------------Imprimer_les_RDV_dun_medecin-----------------------------------------
+void C_Frm_Agenda::Imprimer_les_RDV_dun_medecin(QDateTime date_rdv, QString code_user )
+{
+    C_Dlg_ImprimerRDV *Dlg_ImprimerRDV = new C_Dlg_ImprimerRDV (m_pCMoteurAgenda, date_rdv, code_user, this);
+    if (Dlg_ImprimerRDV->exec() != QDialog::Accepted)
+        {delete Dlg_ImprimerRDV;
+         return;
         }
 }
 //------------------------ creerRDVFactices ---------------------------------------
@@ -2806,21 +2816,13 @@ void C_Frm_Day::Chercher_les_RDV_dun_patient (QString nom_prenom_guid /* ="" */)
 {   C_Frm_Agenda* pC_Frm_Agenda = (C_Frm_Agenda*) this->parent();
     pC_Frm_Agenda->Chercher_les_RDV_dun_patient (nom_prenom_guid);
 }
-// CZF deb
+
 //--------------------------------------Imprimer_les_RDV_dun_medecin-----------------------------------------
 void C_Frm_Day::Imprimer_les_RDV_dun_medecin(QDateTime date_rdv, QString code_user )
-{
-    C_Dlg_ImprimerRDV *Dlg_ImprimerRDV = new C_Dlg_ImprimerRDV (m_pCMoteurAgenda, date_rdv, code_user, this);
-    if (Dlg_ImprimerRDV->exec() != QDialog::Accepted)
-        {delete Dlg_ImprimerRDV;
-         return;
-        }
-    //QString loginMed = Dlg_ImprimerRDV->ui->comboBox_Users->itemData(Dlg_ImprimerRDV->ui->comboBox_Users->currentIndex()).toString();
-    //QDate   dateDEB  = Dlg_ImprimerRDV->ui->dateEdit_dateDeb->date();
-    //QDate   dateFIN  = Dlg_ImprimerRDV->ui->dateEdit_dateFin->date();
-    //m_pCMoteurAgenda->imprimer_les_RDV(loginMed,dateDEB,dateFIN);
+{   C_Frm_Agenda* pC_Frm_Agenda = (C_Frm_Agenda*) this->parent();
+    pC_Frm_Agenda->Imprimer_les_RDV_dun_medecin(date_rdv, code_user );
 }
-// CZF fin
+
 //====================================================== C_Frm_Rdv ======================================================================
 //------------------------------------------------------ pC_RendezVous ----------------------------------------------------------------------
 C_Frm_Rdv::C_Frm_Rdv (  C_RendezVous *pC_RendezVous,       // data

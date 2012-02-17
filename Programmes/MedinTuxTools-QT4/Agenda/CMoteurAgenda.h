@@ -143,6 +143,8 @@ class CMoteurAgenda : public QObject
   QString         GetDebPM(){return m_TimeDebPM;}                   // CZE
   QString         GetEndAM(){return m_TimeEndAM;}                   // CZE
   QString         GetDispo();                                       // CZE
+  void            SetPathAppli(QString value = ""){m_PathAppli = value;}
+  QString         GetPathAppli(){return m_PathAppli;}
   void            SetModifConfirm(int modifConfirm= 0){m_ModifConfirm = modifConfirm;}
   int             isModifToConfirm(){return m_ModifConfirm;}
   void            SetRepresentation(int rep= 0){m_Representation = rep;}
@@ -215,6 +217,7 @@ class CMoteurAgenda : public QObject
 
 //............................... DATA .............................................................................
  public:
+  QString       m_PathAppli;
   bool          m_isDayOfMonthToBeDisplay;
   int           m_baseDayHeightSimpleLine;
   int           m_baseDayHeightDoubleLine;

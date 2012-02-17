@@ -59,7 +59,8 @@ CMoteurAgenda::CMoteurAgenda(const QString &driver,        // nom du driver: "QO
                              QObject*    parent
                             )
  : QObject(parent)
-{ m_IsValid                      = 0;
+{ m_PathAppli                    = "";
+  m_IsValid                      = 0;
   m_pReconnectTimer              = 0;
   m_ModifConfirm                 = 0;
   m_Representation               = 0;
@@ -1620,14 +1621,14 @@ void CMoteurAgenda::ajouterPlageDispo(QTreeWidget  *pQlistViewPlage, QDateTime D
 void CMoteurAgenda::initComboMedecins(QComboBox  *pQcomboUsers, QString code_user )
 {
 
-int     curUser  = 0;
-QString requete  = "SELECT "  +  m_USER_IDENT_LOGIN      +  ","  +       // 0
-                                 m_USER_IDENT_NOM        +  ","  +       // 1
-                                 m_USER_IDENT_PRENOM     +  ","  +       // 2
-                                 m_USER_IDENT_NUM_ORDRE  +  " "  +       // 3
-                " FROM  "     +  m_USER_IDENT_TBL_NAME   +  " "  +
-                " WHERE "     +  m_USER_IDENT_LOGIN      +  " != '' "
-                " ORDER BY "  +  m_USER_IDENT_LOGIN ;
+ int     curUser  = 0;
+ QString requete  = "SELECT "  +  m_USER_IDENT_LOGIN      +  ","  +       // 0
+                                  m_USER_IDENT_NOM        +  ","  +       // 1
+                                  m_USER_IDENT_PRENOM     +  ","  +       // 2
+                                  m_USER_IDENT_NUM_ORDRE  +  " "  +       // 3
+                 " FROM  "     +  m_USER_IDENT_TBL_NAME   +  " "  +
+                 " WHERE "     +  m_USER_IDENT_LOGIN      +  " != '' "
+                 " ORDER BY "  +  m_USER_IDENT_LOGIN ;
 
     QSqlQuery query(requete , QSqlDatabase::database(m_BaseLabel) );
     if (query.isActive())
@@ -1643,12 +1644,12 @@ QString requete  = "SELECT "  +  m_USER_IDENT_LOGIN      +  ","  +       // 0
 }
 //---------------------------------paginer_les_RDV-------------------------------------------
 int CMoteurAgenda::paginer_les_RDV(QString  loginMed, QDate dateDEB, QDate dateFIN, QPlainTextEdit *pQPlainTextEdit)
-{   QString nomFicHtml, ficModele, entetePage1, enteteDate, enteteRDV, ligneRDV, piedFin;
-    QString dateDebStr, dateFinStr;
-    dateDebStr = dateDEB.toString("yyyy-MM-dd") + " 00:00:00";
-    dateFinStr = dateFIN.toString("yyyy-MM-dd") + " 23:59:59";
+{       QString nomFicHtml, ficModele, entetePage1, enteteDate, enteteRDV, ligneRDV, piedFin;
+        QString dateDebStr, dateFinStr;
+        dateDebStr = dateDEB.toString("yyyy-MM-dd") + " 00:00:00";
+        dateFinStr = dateFIN.toString("yyyy-MM-dd") + " 23:59:59";
 
-        nomFicHtml = QApplication::applicationDirPath() + "/Ressources/Liste_RDV.html";
+        nomFicHtml = GetPathAppli() + "Ressources/Liste_RDV.html";
         QFile qFile(nomFicHtml );
         if (qFile.open( QIODevice::ReadOnly )==FALSE)
             { QMessageBox::warning(0, tr("Print appointments"), tr("Error access ") + nomFicHtml ); return 0; }
@@ -1698,8 +1699,8 @@ int CMoteurAgenda::paginer_les_RDV(QString  loginMed, QDate dateDEB, QDate dateF
                                 + m_AGENDA_PRIM_KEY   +  " FROM  "   // 12
                                 + m_AGENDA_TBL_NAME   +  " WHERE "
                                 + m_AGENDA_DATETIME   +  " BETWEEN '" + dateDebStr + "' AND '" + dateFinStr + "' AND "
-                            + m_AGENDA_PRIS_AVEC  +  "  = '" + loginMed + "' ORDER BY " + m_AGENDA_DATETIME;
-          int       nbRDV = 0;
+                                + m_AGENDA_PRIS_AVEC  +  "  = '" + loginMed + "' ORDER BY " + m_AGENDA_DATETIME;
+          int       nbRDV         = 0;
           QString   dateCourante  = "";
           QSqlQuery query(requete , QSqlDatabase::database(m_BaseLabel) );
           //.................. si la requète a un resultat ..............................................

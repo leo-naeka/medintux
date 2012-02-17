@@ -37,6 +37,7 @@
 #include <QPrintPreviewDialog>
 #include <QPlainTextEdit>
 #include <QPrinter>
+#include <QApplication>
 
 #include "C_Dlg_ImprimerRDV.h"
 #include "ui_C_Dlg_ImprimerRDV.h"
@@ -56,7 +57,6 @@ C_Dlg_ImprimerRDV::C_Dlg_ImprimerRDV(CMoteurAgenda* pCMoteurAgenda, QDateTime da
     m_pQPlainTextEdit = new QPlainTextEdit(this); //ui->plainTextEdit_view;
     m_pQPlainTextEdit->hide();
     ui->pushButton_Imprimer->hide();
-    connect (ui->pushButton_Imprimer,       SIGNAL(clicked()),                       this, SLOT(Slot_print()));
     connect (ui->pushButton_preview,        SIGNAL(clicked()),                       this, SLOT(Slot_preview()));
 }
 
@@ -78,31 +78,15 @@ void C_Dlg_ImprimerRDV::changeEvent(QEvent *e)
         break;
     }
 }
-//------------------------------------------------- Slot_print --------------------------
-void C_Dlg_ImprimerRDV::Slot_print()
-{   QString loginMed = ui->comboBox_Users->itemData(ui->comboBox_Users->currentIndex()).toString();
-    QDate   dateDEB  = ui->dateEdit_dateDeb->date();
-    QDate   dateFIN  = ui->dateEdit_dateFin->date();
-    m_pCMoteurAgenda->paginer_les_RDV(loginMed, dateDEB, dateFIN, m_pQPlainTextEdit);
-
-    QPrinter printer(QPrinter::HighResolution);
-    QPrintDialog *dlg = new QPrintDialog(&printer);
-#ifndef QT_NO_PRINTER
-    dlg->setWindowTitle(tr("Appointments print for: %1").arg(ui->comboBox_Users->text(ui->comboBox_Users->currentIndex())));
-    if (dlg->exec() == QDialog::Accepted)
-       {
-        m_pQPlainTextEdit->print(&printer);
-       }
-    delete dlg;
-#endif
-}
 
 //------------------------------------------------- Slot_preview --------------------------
 void C_Dlg_ImprimerRDV::Slot_preview()
-{   QString loginMed = ui->comboBox_Users->itemData(ui->comboBox_Users->currentIndex()).toString();
+{   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+    QString loginMed = ui->comboBox_Users->itemData(ui->comboBox_Users->currentIndex()).toString();
     QDate   dateDEB  = ui->dateEdit_dateDeb->date();
     QDate   dateFIN  = ui->dateEdit_dateFin->date();
     m_pCMoteurAgenda->paginer_les_RDV(loginMed, dateDEB, dateFIN, m_pQPlainTextEdit);
+    QApplication::restoreOverrideCursor ();
 #ifndef QT_NO_PRINTER
     QPrinter printer(QPrinter::HighResolution);
     QPrintPreviewDialog preview(&printer, this);
@@ -111,7 +95,9 @@ void C_Dlg_ImprimerRDV::Slot_preview()
     preview.setMinimumSize(800,600);
     preview.setBaseSize(800,600);
     preview.exec();
+
 #endif
+
 }
 
 //----------------------------------------Slot_printPreview-------------------------------------------------
