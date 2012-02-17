@@ -34,6 +34,7 @@
 #include <QTimer>
 #include <QTreeWidget>
 #include <QLabel>
+#include <QComboBox>
 
 #define BASE_AGENDA            "BaseAgenda"
 #define SKIP_BLANK_CAR(a)       while( *(a) && (*(a)==' ' || *(a)=='\t' || *(a)== 96) ) (a)++
@@ -46,6 +47,7 @@
 #define TYP_COUL 2
 #define TYP_TIME 3
 
+class QPlainTextEdit;
 
 //===================================== CMoteurAgenda ========================================================================
 class CMoteurAgenda : public QObject
@@ -198,6 +200,7 @@ class CMoteurAgenda : public QObject
   long            GetPatientAgendaList(     QTreeWidget *pQlistView,     // pointeur sur une QListView ?  3 colonnes
                                   const QString   &qstr_nom,       // nom d'entr?e
                                   const QString   &qstr_prenom,    // prenom d'entr?
+                                  const QString           &guid,   // guid du patient
                                         QLabel    *statutMess=0,   // pointeur sur Qlabel de sortie message
                                         QString   *errMess=0       // pointeur sur Qlabel de sortie message
                                  );
@@ -205,6 +208,11 @@ class CMoteurAgenda : public QObject
 
   void creer_Liste_Jours_Feries(QDate deb);
   bool isFreeDay(QDate jourf);
+  void initComboMedecins(QComboBox  *pQcomboUsers, QString code_user );     // CZF
+  int  paginer_les_RDV(QString  loginMed, QDate dateDEB, QDate DateFIN, QPlainTextEdit *pQPlainTextEdit);   // CZF
+  QString RecupPartie(const QString &ficModele, const QString &partie);                   // CZF
+  QString ChargePartie(const QSqlQuery &query, const QSqlQuery &querym, QString partie);  // CZF
+
 //............................... DATA .............................................................................
  public:
   bool          m_isDayOfMonthToBeDisplay;
@@ -273,14 +281,21 @@ class CMoteurAgenda : public QObject
   QString      m_MASK_USER;
   QString      m_MASK_DAYOFWEEK;
 
+  QString      m_USER_IDENT_TBL_NAME;
+  QString      m_USER_IDENT_NOM;
+  QString      m_USER_IDENT_PRENOM;
+  QString      m_USER_IDENT_LOGIN;
+  QString      m_USER_IDENT_NUM_ORDRE;
+  QString      m_USER_IDENT_TITRE;
 private:
   //......................... parametres de connexion ...............................................................
-  QString       m_BaseLabel;
-  int           m_IsValid;
-  QTimer       *m_pReconnectTimer;
+  QString          m_BaseLabel;
+  int              m_IsValid;
+  QTimer          *m_pReconnectTimer;
 
-public slots:
+private slots:
   void On_ReconnectTimerDone();
+
 signals:
   void Sign_ReconnectTimerDone();
 

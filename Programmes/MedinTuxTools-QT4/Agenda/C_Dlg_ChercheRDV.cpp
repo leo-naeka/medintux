@@ -29,7 +29,7 @@
 
 
 //-------------------------------------------- C_Dlg_ChercheRDV -----------------------------
-C_Dlg_ChercheRDV::C_Dlg_ChercheRDV(CMoteurAgenda* pCMoteurAgenda, QString nom_prenom /* ="" */, QWidget *parent /* = 0 */) :
+C_Dlg_ChercheRDV::C_Dlg_ChercheRDV(CMoteurAgenda* pCMoteurAgenda, QString nom_prenom_guid /* ="" */, QWidget *parent /* = 0 */) :
     QDialog(parent),
     m_ui(new Ui::C_Dlg_ChercheRDV)
 {   m_pTreeWidgetPatients = 0;
@@ -49,15 +49,24 @@ C_Dlg_ChercheRDV::C_Dlg_ChercheRDV(CMoteurAgenda* pCMoteurAgenda, QString nom_pr
     m_ui->treeWidget_RDV->setColumnWidth(3,100);
     m_ui->treeWidget_RDV->setColumnWidth(4,50);
     m_ui->treeWidget_RDV->setColumnWidth(5,150);
-    if (nom_prenom.length())
-       {QStringList lst = nom_prenom.split(';');
+    if (nom_prenom_guid.length())
+       {QStringList lst = nom_prenom_guid.split(';');
         if (lst[0].length()) m_ui->lineEdit_Nom->setText(lst[0]);
         if (lst[1].length()) m_ui->lineEdit_Prenom->setText(lst[1]);
+        if (lst[2].length()) m_ui->lineEdit_GUID->setText(lst[2]);
        }
-
+    if (m_ui->lineEdit_GUID->text().length())
+       { m_ui->lineEdit_Nom->setReadOnly ( true );
+         m_ui->lineEdit_Prenom->setReadOnly ( true );
+         m_ui->lineEdit_GUID->setReadOnly ( true );
+       }
+    else
+       {m_ui->lineEdit_GUID->hide();
+        m_ui->label_guid->hide();
+       }
     Slot_actualiserListe();
     connect( m_ui->lineEdit_Nom,             SIGNAL(textChanged(const QString &)),          this, SLOT(Slot_lineEdit_Nom_textChanged(const QString &)) );       //CZA
-    connect( m_ui->lineEdit_Prenom,          SIGNAL(textChanged(const QString &)),          this, SLOT(Slot_lineEdit_Prenom_textChanged(const QString &)) );       //CZA
+    connect( m_ui->lineEdit_Prenom,          SIGNAL(textChanged(const QString &)),          this, SLOT(Slot_lineEdit_Prenom_textChanged(const QString &)) );    //CZA
 }
 
 //-------------------------------------------- ~C_Dlg_ChercheRDV -----------------------------
@@ -106,13 +115,13 @@ void C_Dlg_ChercheRDV::Slot_createTreeViewPatients()
 // ------------- A METTRE DANS UNE CLASSE COMMUNE AVEC MANAGER ......
 
 //--------------------------------- initListePatient ---------------------------------------------------------------------------
-void C_Dlg_ChercheRDV::initListePatient( const QString & qstr_nom, const QString & qstr_prenom)
+void C_Dlg_ChercheRDV::initListePatient( const QString & qstr_nom, const QString & qstr_prenom, const QString & guid)
 {
     // Creation du Treeview si existe pas
     if (!m_pTreeWidgetPatients)
         Slot_createTreeViewPatients();
     m_pQFrameListPatients->show();
-    m_pCMoteurAgenda->GetPatientAgendaList(m_pTreeWidgetPatients, qstr_nom, qstr_prenom, m_pQLabelStatus );
+    m_pCMoteurAgenda->GetPatientAgendaList(m_pTreeWidgetPatients, qstr_nom, qstr_prenom, guid, m_pQLabelStatus );
     m_pTreeWidgetPatients->sortItems (0, Qt::AscendingOrder );
    // effacement du treeview s'il est vide ...
    if (m_pTreeWidgetPatients->topLevelItemCount() == 0)
@@ -131,7 +140,7 @@ void C_Dlg_ChercheRDV::getListePatient()
 {   QString nom    = m_ui->lineEdit_Nom->text().trimmed();
     QString prenom = m_ui->lineEdit_Prenom->text().trimmed();
    //.................. rechercher le separateur de nom ; prenom .......................
-   initListePatient( nom, prenom);
+   initListePatient( nom, prenom, m_ui->lineEdit_GUID->text());
 }
 
 //-------------------------------------- keyPressEvent --------------------------------------------------------------
@@ -197,7 +206,8 @@ void C_Dlg_ChercheRDV::Valid_Patient_Selected(QTreeWidgetItem *pQTreeWidgetPatie
     m_pCMoteurAgenda->AfficherLesRdvDuPatient(m_ui->treeWidget_RDV,
                                               nom,
                                               prenom ,
-                                              m_ui->radioButton_futursRDV->isChecked()?"FUTURS":"TOUS" );
+                                              m_ui->radioButton_futursRDV->isChecked()?"FUTURS":"TOUS",
+                                              m_ui->lineEdit_GUID->text());
 }
 
 //--------------------------------- Slot_actualiserListe -------------------------------------------------------------
@@ -207,7 +217,8 @@ void C_Dlg_ChercheRDV::Slot_actualiserListe()
     {   m_pCMoteurAgenda->AfficherLesRdvDuPatient(m_ui->treeWidget_RDV,
                                                   m_ui->lineEdit_Nom->text(),
                                                   m_ui->lineEdit_Prenom->text(),
-                                                  m_ui->radioButton_futursRDV->isChecked()?"FUTURS":"TOUS" );
+                                                  m_ui->radioButton_futursRDV->isChecked()?"FUTURS":"TOUS",
+                                                  m_ui->lineEdit_GUID->text());
     }
 
 }

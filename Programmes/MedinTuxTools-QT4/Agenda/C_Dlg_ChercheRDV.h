@@ -12,12 +12,12 @@ namespace Ui {
 class C_Dlg_ChercheRDV : public QDialog {
     Q_OBJECT
 public:
-     C_Dlg_ChercheRDV(CMoteurAgenda* pCMoteurAgenda, QString nom_prenom  = "" , QWidget *parent = 0);
+     C_Dlg_ChercheRDV(CMoteurAgenda* pCMoteurAgenda, QString nom_prenom_guid  = "" , QWidget *parent = 0);
     ~C_Dlg_ChercheRDV();
 
     //void changeEvent(QEvent *e);
     void Slot_createTreeViewPatients();
-    void initListePatient( const QString & qstr_nom, const QString & qstr_prenom);
+    void initListePatient( const QString & qstr_nom, const QString & qstr_prenom, const QString & guid);
     void getListePatient();
     void keyPressEvent ( QKeyEvent * event );
     void Valid_Patient_Selected(QTreeWidgetItem *pQTreeWidgetPatientItem);

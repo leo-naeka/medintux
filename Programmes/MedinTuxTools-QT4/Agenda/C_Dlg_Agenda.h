@@ -135,6 +135,7 @@ class C_BitMapCollection
       m_ButtonGoogle_Pixmap       = QPixmap(pathImage + "Google.png");
       m_ButtonGotoWeek_Pixmap     = QPixmap(pathImage + "gotoWeek.png");
       m_GetPatientRdv             = QPixmap(pathImage + "GetPatientRdv.png");
+      m_PrintListRdv              = QPixmap(pathImage + "PrintListRdv.png");
       QStringList list  = CGestIni::listDirectory(pathImage + "Statuts", ".png");
       for (int i = 0; i < list.size(); ++i)
           {QString file   = pathImage + "Statuts/" + list[i];
@@ -182,6 +183,7 @@ class C_BitMapCollection
      QPixmap m_ButtonGoogle_Pixmap;
      QPixmap m_ButtonGotoWeek_Pixmap;
      QPixmap m_GetPatientRdv;
+     QPixmap m_PrintListRdv;
 
  };
 
@@ -646,8 +648,9 @@ public:
     void            replaceRdvByRdv(C_Frm_Rdv *pC_Frm_Rdv_Dst, const C_RendezVous &rdvSrc);
     int             XYToMinutesInResume ( int x, int y, int *retNbMnToEnd  = 0 );
     C_RendezVous   *getRdvUnderMouseInResume ( int x, int y , int *index  = 0 );
-    void            Chercher_les_RDV_dun_patient(QString nom_prenom  = ""   );
+    void            Chercher_les_RDV_dun_patient(QString nom_prenom_guid  = ""  );
     void            ExpandDialog();
+    void            Imprimer_les_RDV_dun_medecin(QDateTime date_rdv, QString code_user);
     int             getStateLook(){return m_DontRecreateWidget;}
 
     //.......... DATA  public ........
@@ -809,7 +812,7 @@ public:
     void     reinitAgendaOnUser(const QString& user, const QString &droits);
     CMoteurAgenda *GetCMoteurAgenda(){return m_pCMoteurAgenda;}
     void     creerRDVFactices(const QString &user);
-    void     Chercher_les_RDV_dun_patient (QString nom_prenom  =""   );
+    void     Chercher_les_RDV_dun_patient (QString nom_prenom_guid  ="" );
     //............ animation .......................
     void     createAnimations();
     void     animateBottom();

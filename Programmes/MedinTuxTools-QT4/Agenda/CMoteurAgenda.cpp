@@ -27,6 +27,10 @@
 #include "CMoteurAgenda.h"
 #include "../../MedinTuxTools-QT4/CGestIni.h"
 #include "C_Dlg_Agenda.h"
+// CZF deb
+#include <QPlainTextEdit>
+#include <QPrinter>
+#include <QPrintDialog>
 
 #include <QSqlQuery>
 #include <QSqlRecord>
@@ -37,6 +41,7 @@
 #include <QDebug>
 #include <QMessageBox>
 #include <QtCore/qmath.h>       // CZE 2
+
 //#define TR QObject::tr
 
 //=============================================== INCLUDES ===================================================================
@@ -244,6 +249,13 @@ int CMoteurAgenda::SetConfBase(const char* confFile, QString *errMess)
   pt = SetConfBase_SetProperties(pt,  m_MASK_DUREE,        "m_MASK_DUREE",        &line , err); if (err.length())     goto SetConfBase_Error;
   pt = SetConfBase_SetProperties(pt,  m_MASK_USER,         "m_MASK_USER",         &line , err); if (err.length())     goto SetConfBase_Error;
   pt = SetConfBase_SetProperties(pt,  m_MASK_DAYOFWEEK,    "m_MASK_DAYOFWEEK",    &line , err); if (err.length())     goto SetConfBase_Error;
+
+  pt = SetConfBase_SetProperties(pt,  m_USER_IDENT_TBL_NAME,  "m_USER_IDENT_TBL_NAME",      &line , err); if (err.length())     goto SetConfBase_Error;
+  pt = SetConfBase_SetProperties(pt,  m_USER_IDENT_NOM,       "m_USER_IDENT_NOM",           &line , err); if (err.length())     goto SetConfBase_Error;
+  pt = SetConfBase_SetProperties(pt,  m_USER_IDENT_PRENOM,    "m_USER_IDENT_PRENOM",        &line , err); if (err.length())     goto SetConfBase_Error;
+  pt = SetConfBase_SetProperties(pt,  m_USER_IDENT_LOGIN,     "m_USER_IDENT_LOGIN",         &line , err); if (err.length())     goto SetConfBase_Error;
+  pt = SetConfBase_SetProperties(pt,  m_USER_IDENT_NUM_ORDRE, "m_USER_IDENT_NUM_ORDRE",     &line , err); if (err.length())     goto SetConfBase_Error;
+  pt = SetConfBase_SetProperties(pt,  m_USER_IDENT_TITRE,     "m_USER_IDENT_TITRE",         &line , err); if (err.length())     goto SetConfBase_Error;
 
   return 1;
 
@@ -1379,37 +1391,53 @@ void CMoteurAgenda::chargeListePlagesDisponibles(QTreeWidget  *pQlistViewPlage, 
 long CMoteurAgenda::GetPatientAgendaList(       QTreeWidget     *pQlistView,
                                   const QString           &qstr_nom,
                                   const QString           &qstr_prenom,
+                                  const QString           &guid,
                                         QLabel            * /* statutMess,  = 0  */,
                                         QString           *errMess     /* = 0  */
                                 )
 
-{QString   q_nom    = "";
- QString   q_prenom = "";
- QString   tmp      = "";
+{if (qstr_nom.length()==0&&qstr_prenom.length()==0)
+    {pQlistView->clear();
+     return 0;
+    }
+ QString   q_nom    = qstr_nom;
+ QString   q_prenom = qstr_prenom;
  //................. Preparer la requete .....................................
   if (OpenBase()==0)
      {if (errMess) *errMess = TR("CMoteurBase::GetPatientList(): data base can't be open");
       return 0;
      }
-  QString requete, requete_ident;
-  if (qstr_nom != ""||qstr_prenom!="")
-     {q_nom    = qstr_nom;
-      q_prenom = qstr_prenom;
-     }
+  QString requete;
   q_nom.replace("\'","\\\'");
   q_prenom.replace("\'","\\\'");
+  if (guid.length())
+     {requete        = "SELECT DISTINCT (";
+      requete       += m_AGENDA_NOM     +    "), " + m_AGENDA_PRENOM +
+                       " FROM "         +            m_AGENDA_TBL_NAME +
+                       " WHERE "        +
+                       m_AGENDA_GUID    +    " = '"   + guid      +  "'"
+                       " ORDER BY "     +    m_AGENDA_NOM + ","   +   m_AGENDA_NOM;
+     }
+  else
+     {
+      requete        = "SELECT DISTINCT (";
+      requete       += m_AGENDA_NOM     +    "), " + m_AGENDA_PRENOM +
+                       " FROM "         +    m_AGENDA_TBL_NAME       +
+                       " WHERE " ;
+      if (q_nom.length())
+         { requete   +=   m_AGENDA_NOM     +    " LIKE '"   + q_nom      +  "%'";
+           if (q_prenom.length())  requete +=   " AND ";
+         }
+      if (q_prenom.length())
+         {
+          requete   +=   m_AGENDA_PRENOM   +    " LIKE '"   + q_prenom   +  "%'";
+         }
 
-  requete        = "SELECT DISTINCT (";
-  requete       += m_AGENDA_NOM     +    "), " + m_AGENDA_PRENOM +
-                   " FROM "         +    m_AGENDA_TBL_NAME +
-                   " WHERE "        +
-                   m_AGENDA_NOM     +    " LIKE '"   + q_nom      +  "%' AND " +
-                   m_AGENDA_PRENOM  +    " LIKE '"   + q_prenom   +   "%' "
-                   " ORDER BY "     +    m_AGENDA_NOM + "," +   m_AGENDA_NOM +
-                   " LIMIT "        ST_LIST_PATIENT_MAX;
+                       " ORDER BY "     +    m_AGENDA_NOM + "," +   m_AGENDA_PRENOM +
+                       " LIMIT "        ST_LIST_PATIENT_MAX;
+     }
 
   QSqlQuery query(requete , QSqlDatabase::database(m_BaseLabel) );
-  //QSqlQuery query_ident;
 
   //................ scanner les enregistrements ................................................
   //                 pour remplir la listview
@@ -1461,9 +1489,12 @@ long CMoteurAgenda::AfficherLesRdvDuPatient(QTreeWidget *pQlistView,
                 " FROM  " + m_AGENDA_TBL_NAME   +
                 " WHERE " + m_AGENDA_NOM        +    " = '"   + nomP      +  "' "
                 " AND "   + m_AGENDA_PRENOM     +    " = '"   + prenomP   +  "' ";
+    if (guid.length())
+       {requete += " AND " + m_AGENDA_GUID + " = '" + guid + "'";
+       }
     if (typeRDV != "TOUS")
-        {requete += " AND " + m_AGENDA_DATETIME + " >= '" + QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss") + "'";
-        }
+       {requete += " AND " + m_AGENDA_DATETIME + " >= '" + QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss") + "'";
+       }
 
     requete += " ORDER BY "     +    m_AGENDA_NOM + "," +   m_AGENDA_NOM ;
 
@@ -1583,7 +1614,168 @@ void CMoteurAgenda::ajouterPlageDispo(QTreeWidget  *pQlistViewPlage, QDateTime D
         pQlistViewPlage->addTopLevelItem(pQTreeWidgetItem);
         }
 }
+// CZF deb
+//------------------------------------ initComboMedecins ---------------------------------------------------
+// remplit le combo avec la liste des medecins et se positionne sur celui en cours.
+void CMoteurAgenda::initComboMedecins(QComboBox  *pQcomboUsers, QString code_user )
+{
 
+int     curUser  = 0;
+QString requete  = "SELECT "  +  m_USER_IDENT_LOGIN      +  ","  +       // 0
+                                 m_USER_IDENT_NOM        +  ","  +       // 1
+                                 m_USER_IDENT_PRENOM     +  ","  +       // 2
+                                 m_USER_IDENT_NUM_ORDRE  +  " "  +       // 3
+                " FROM  "     +  m_USER_IDENT_TBL_NAME   +  " "  +
+                " WHERE "     +  m_USER_IDENT_LOGIN      +  " != '' "
+                " ORDER BY "  +  m_USER_IDENT_LOGIN ;
+
+    QSqlQuery query(requete , QSqlDatabase::database(m_BaseLabel) );
+    if (query.isActive())
+        {pQcomboUsers->clear();
+         while (query.next())
+            {pQcomboUsers->addItem(query.value(2).toString() + " " + query.value(1).toString(),query.value(0).toString() );
+             if (query.value(0).toString() == code_user)
+                 pQcomboUsers->setCurrentIndex(curUser);
+             curUser++;
+            }
+
+        }
+}
+//---------------------------------paginer_les_RDV-------------------------------------------
+int CMoteurAgenda::paginer_les_RDV(QString  loginMed, QDate dateDEB, QDate dateFIN, QPlainTextEdit *pQPlainTextEdit)
+{   QString nomFicHtml, ficModele, entetePage1, enteteDate, enteteRDV, ligneRDV, piedFin;
+    QString dateDebStr, dateFinStr;
+    dateDebStr = dateDEB.toString("yyyy-MM-dd") + " 00:00:00";
+    dateFinStr = dateFIN.toString("yyyy-MM-dd") + " 23:59:59";
+
+        nomFicHtml = QApplication::applicationDirPath() + "/Ressources/Liste_RDV.html";
+        QFile qFile(nomFicHtml );
+        if (qFile.open( QIODevice::ReadOnly )==FALSE)
+            { QMessageBox::warning(0, tr("Print appointments"), tr("Error access ") + nomFicHtml ); return 0; }
+        long file_len = qFile.size();
+        QByteArray ba = qFile.readAll(); ba.resize(file_len+1); ba.data()[file_len]=0;
+        qFile.close ();
+        ficModele = ba;
+        if (ficModele.length() == 0)
+            {QMessageBox::warning(0, tr("Print appointments"), tr("Error access  ") + nomFicHtml );
+             return 0;
+            }
+        // Recuperation des differentes parties du modele.
+        entetePage1 = RecupPartie(ficModele, "EntetePage1");
+        enteteDate  = RecupPartie(ficModele, "EnteteDate");
+        enteteRDV   = RecupPartie(ficModele, "EnteteRDV");
+        ligneRDV    = RecupPartie(ficModele, "LigneRDV");
+        piedFin     = RecupPartie(ficModele, "PiedFin");
+
+        // lecture des infos medecin
+        QString requete  = "SELECT " +  m_USER_IDENT_LOGIN     + ","       // 0
+                                     +  m_USER_IDENT_NOM       + ","       // 1
+                                     +  m_USER_IDENT_PRENOM    + ","       // 2
+                                     +  m_USER_IDENT_NUM_ORDRE + ","       // 3
+                                     +  m_USER_IDENT_TITRE     +           // 4
+                    " FROM  "        +  m_USER_IDENT_TBL_NAME  +
+                    " WHERE "        +  m_USER_IDENT_LOGIN     + " = '" + loginMed + "'";
+
+        QSqlQuery querym(requete , QSqlDatabase::database(m_BaseLabel) );
+        if (!querym.isActive() || !querym.next())
+           {return 0;
+           }
+        // lecture des rdv dans l'agenda.
+        //................. ouvrir la base  ......................................................
+        if (OpenBase()==0) {QMessageBox::warning(0, tr("Print appointments"), tr("DataBase can't be opened' "));              return 0; }
+        requete  = "SELECT "    + m_AGENDA_DATETIME   +  ","         // 0
+                                + m_AGENDA_DUREE      +  ","         // 1
+                                + m_AGENDA_GUID       +  ","         // 2
+                                + m_AGENDA_NOM        +  ","         // 3
+                                + m_AGENDA_PRENOM     +  ","         // 4
+                                + m_AGENDA_TEL        +  ","         // 5
+                                + m_AGENDA_PRIS_AVEC  +  ","         // 6
+                                + m_AGENDA_PRIS_PAR   +  ","         // 7
+                                + m_AGENDA_TYPE       +  ","         // 8
+                                + m_AGENDA_STATUS     +  ","         // 9
+                                + m_AGENDA_NOTE       +  ","         // 10
+                                + m_AGENDA_WHERE      +  ","         // 11
+                                + m_AGENDA_PRIM_KEY   +  " FROM  "   // 12
+                                + m_AGENDA_TBL_NAME   +  " WHERE "
+                                + m_AGENDA_DATETIME   +  " BETWEEN '" + dateDebStr + "' AND '" + dateFinStr + "' AND "
+                            + m_AGENDA_PRIS_AVEC  +  "  = '" + loginMed + "' ORDER BY " + m_AGENDA_DATETIME;
+          int       nbRDV = 0;
+          QString   dateCourante  = "";
+          QSqlQuery query(requete , QSqlDatabase::database(m_BaseLabel) );
+          //.................. si la requète a un resultat ..............................................
+          if (query.isActive())
+             {while (query.next())
+                {if (nbRDV == 0)
+                    {// Entete premiere page
+                     pQPlainTextEdit->appendHtml(ChargePartie(query, querym, entetePage1));
+                    }
+                // si changement de date on change de page ??? MAIS COMMENT
+                if (dateCourante != "" && dateCourante != query.value(0).toString().mid(0,10))
+                    {pQPlainTextEdit->appendHtml(ChargePartie(query, querym, piedFin));
+                     dateCourante = "";
+                    }
+                // si 1ere date on affiche l'entete
+                if (dateCourante == "")
+                    {dateCourante = query.value(0).toString().mid(0,10);
+                     pQPlainTextEdit->appendHtml(ChargePartie(query, querym, enteteDate));
+                     pQPlainTextEdit->appendHtml(ChargePartie(query, querym, enteteRDV));
+                    }
+                pQPlainTextEdit->appendHtml(ChargePartie(query, querym, ligneRDV));
+                ++ nbRDV;
+                } //end while (pSqlQuery->next())
+             } //endif (query.isActive())
+          //if (nbRDV)
+          //    pQPlainTextEdit->appendHtml(ChargePartie(query, PiedFin));
+          CGestIni::Param_UpdateToDisk("/home/ro/test.html",pQPlainTextEdit->toPlainText () );
+        CloseBase();
+        // s'il n'y a rien a imprimer , on s'en va
+        return nbRDV;
+}
+
+// changement de page ?????
+/*
+div.page {
+page-break-after: always;
+}
+*/
+
+
+//----------------------------------------RecupPartie-------------------------------------------------
+QString CMoteurAgenda::RecupPartie(const QString &ficModele, const QString &partie)
+{
+    int pos1 = -1;
+    int pos2 = -1;
+        pos1 = ficModele.indexOf("<!--"+partie+"-->") + partie.length()+ 8;
+        pos2 = ficModele.indexOf("<!--Fin"+partie+"-->") ;
+        if (pos2 > pos1)
+            return(ficModele.mid(pos1 , pos2 - pos1));
+        else return "";
+}
+    //----------------------------------------ChargePartie-------------------------------------------------
+QString CMoteurAgenda::ChargePartie(const QSqlQuery &query, const QSqlQuery &querym, QString partie)
+{
+        QString zbid = query.value(0).toString();
+        QDate   dateRDV;
+        dateRDV = QDate::fromString(zbid.mid(0,10),"yyyy-MM-dd");
+        partie.replace("{{DATE RDV}}"                   ,dateRDV.toString("dddd dd MMMM yyyy"));
+        partie.replace("{{HEURE RDV}}"                  ,zbid.mid(11,2) + "h" + zbid.mid(14,2));
+        partie.replace("{{NOM PATIENT}}"                ,query.value(3).toString());
+        partie.replace("{{PRENOM PATIENT}}"             ,query.value(4).toString());
+        partie.replace("{{ADR PATIENT}}"                ,query.value(11).toString());
+        partie.replace("{{NUM. TEL1 PATIENT}}"          ,query.value(5).toString());
+        partie.replace("{{TYPE RDV}}"                   ,query.value(8).toString());
+        partie.replace("{{NOTE RDV}}"                   ,query.value(10).toString());
+        partie.replace("{{DUREE RDV}}"                  ,query.value(1).toString());
+
+        partie.replace("{{USER LOGIN MEDECIN}}"         ,querym.value(0).toString());
+        partie.replace("{{USER NOM MEDECIN}}"           ,querym.value(1).toString());
+        partie.replace("{{USER PRENOM MEDECIN}}"        ,querym.value(2).toString());
+        partie.replace("{{USER IDENTIFICATION MEDECIN}}",querym.value(3).toString());
+        partie.replace("{{USER TITRE PS}}"              ,querym.value(4).toString());
+
+        return(partie);
+}
+// CZF fin
 //--------------------------------- creerRDVFactices --------------------------------------------------------------------------------
 void CMoteurAgenda::creerRDVFactices (QString user, QDate date_in)
 {

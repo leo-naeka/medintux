@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>560</width>
-    <height>374</height>
+    <width>651</width>
+    <height>378</height>
    </rect>
   </property>
   <property name="palette">
@@ -93,7 +93,7 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="1" colspan="3">
+   <item row="0" column="1" colspan="2">
     <widget class="QLabel" name="label_titre">
      <property name="font">
       <font>
@@ -171,7 +171,22 @@ p, li { white-space: pre-wrap; }
      </property>
     </widget>
    </item>
-   <item row="3" column="0" colspan="4">
+   <item row="3" column="0" colspan="2">
+    <widget class="QLabel" name="label_guid">
+     <property name="font">
+      <font>
+       <pointsize>9</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Patient guid</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="2">
+    <widget class="QLineEdit" name="lineEdit_GUID"/>
+   </item>
+   <item row="4" column="0" colspan="4">
     <widget class="QTreeWidget" name="treeWidget_RDV">
      <property name="font">
       <font>
@@ -234,7 +249,7 @@ p, li { white-space: pre-wrap; }
      </column>
     </widget>
    </item>
-   <item row="4" column="2">
+   <item row="5" column="2">
     <widget class="QPushButton" name="pushButton_fermer">
      <property name="text">
       <string>Close</string>

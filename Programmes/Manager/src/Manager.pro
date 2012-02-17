@@ -38,6 +38,7 @@ SOURCES += main.cpp \
     ../../MedinTuxTools-QT4/CMoteur_Base.cpp \
     ../../MedinTuxTools-QT4/C_DBVarDrTux.cpp \
     ../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.cpp \
+    ../../MedinTuxTools-QT4/Agenda/C_Dlg_ImprimerRDV.cpp \
     ../../MedinTuxTools-QT4/CGestIni.cpp \
     ../../MedinTuxTools-QT4/Theme/ThemePopup.cpp \
     ../../MedinTuxTools-QT4/Theme/Theme.cpp \
@@ -65,6 +66,7 @@ HEADERS += CApp.h \
     ../../MedinTuxTools-QT4/CMoteur_Base.h \
     ../../MedinTuxTools-QT4/C_DBVarDrTux.h \
     ../../MedinTuxTools-QT4/Agenda/C_Dlg_Agenda.h \
+    ../../MedinTuxTools-QT4/Agenda/C_Dlg_ImprimerRDV.h \
     ../../MedinTuxTools-QT4/Agenda/C_RendezVous.h \
     ../../MedinTuxTools-QT4/CGestIni.h \
     ../../MedinTuxTools-QT4/Theme/ThemePopup.h \
@@ -86,6 +88,7 @@ FORMS += C_Manager.ui \
          C_Dlg_Assure.ui \
     ../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.ui \
     ../../MedinTuxTools-QT4/Agenda/C_Dlg_ChercheRDV.ui \
+    ../../MedinTuxTools-QT4/Agenda/C_Dlg_ImprimerRDV.ui \
     ../../MedinTuxTools-QT4/GetPassword/CDlg_PasswordGet.ui \
     ../../MedinTuxTools-QT4/UserList/C_Frm_UserList.ui \
     ../../MedinTuxTools-QT4/C_Dlg_DoList/C_Dlg_DoList.ui \
@@ -96,4 +99,6 @@ CODECFORTR = UTF8
 OTHER_FILES += ../bin/Ressources/Changements.html \
     Manager_fr.ts \
     ../bin/lang/Manager_fr.qm \
-    ../bin/Manager.ini
+    ../bin/Manager.ini \
+    ../bin/DataBase.cfg \
+    ../bin/DataBaseAgenda.cfg

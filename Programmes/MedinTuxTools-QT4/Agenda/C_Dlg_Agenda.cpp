@@ -69,6 +69,7 @@
 #define UNLOOKREFRESH        if (m_RefreshTimer) Slot_StopTimer(0)
 #include "C_Dlg_RdvTypeConfig.h"
 #include "C_Dlg_ChercheRDV.h"                   // CZE 2
+#include "C_Dlg_ImprimerRDV.h"                  // CZF
 
 /*
 #ifndef AGENDA_IN_GUI
@@ -496,8 +497,8 @@ void C_Frm_Agenda::doAnimation(QPropertyAnimation *pQPropertyAnimation /*=0 */, 
        }
 }
 //--------------------------------------Chercher_les_RDV_dun_patient-----------------------------------------
-void C_Frm_Agenda::Chercher_les_RDV_dun_patient (QString nom_prenom /* ="" */  )
-{   C_Dlg_ChercheRDV *Dlg_ChercheRDV = new C_Dlg_ChercheRDV (m_pCMoteurAgenda, nom_prenom, this);
+void C_Frm_Agenda::Chercher_les_RDV_dun_patient (QString nom_prenom_guid /* ="" */ )
+{   C_Dlg_ChercheRDV *Dlg_ChercheRDV = new C_Dlg_ChercheRDV (m_pCMoteurAgenda, nom_prenom_guid, this);
     if (Dlg_ChercheRDV->exec() != QDialog::Accepted)
         {delete Dlg_ChercheRDV;
         }
@@ -2276,6 +2277,8 @@ void C_Frm_Day::On_Day_mousePressEvent ( QMouseEvent * event )
 
   //optionList<<tr("=11=#Agenda/NewDoc.png#Display this day");    // CZA inutile car en bouton
   optionList<<tr("=12=#Agenda/GetPatientRdv.png#Find appointments for a patient");   // CZE
+  optionList<<tr("=13=#Agenda/PrintListRdv.png#Print appointments for a user");          // CZF
+
   optionList<<"-----------";
 
   //.......................... menu coller si rendez-vous en buffer de copie existe ...............
@@ -2329,6 +2332,9 @@ void C_Frm_Day::On_Day_mousePressEvent ( QMouseEvent * event )
      case 12: { Chercher_les_RDV_dun_patient();         // CZE 2
                 return;                                 // CZE 2
               } break;
+     case 13: { Imprimer_les_RDV_dun_medecin(dt ,m_SignUser);         // CZF
+                return;                                 // CZF
+              } break;
      default: {UNLOOKREFRESH;
                return;
               }
@@ -2370,12 +2376,14 @@ QString C_Frm_Day::doRdvMenu(C_RendezVous *pRdvDst, int isOptionDetruire  /* = 0
     menu.addSeparator ();
     if (pRdvDst->m_Nom.length()||pRdvDst->m_Prenom.length())
        { menu.addAction (m_pBMC->m_GetPatientRdv, tr("List of all Appointments for: %1").arg(pRdvDst->m_Nom+" "+pRdvDst->m_Prenom)
-                   )->setData (QString("AppointmentsListFor%1").arg(pRdvDst->m_Nom+";"+pRdvDst->m_Prenom));
+                   )->setData (QString("AppointmentsListFor%1").arg(pRdvDst->m_Nom+";"+pRdvDst->m_Prenom+";"+pRdvDst->m_GUID));
        }
     else
        { menu.addAction (m_pBMC->m_GetPatientRdv, tr("Find Appointments")
                 )->setData ("FindAppointments");
        }
+    menu.addAction (m_pBMC->m_PrintListRdv, tr("Print Appointments")
+                    )->setData (QString("PrintAppointments%1").arg(pRdvDst->m_date.toString("yyyy-MM-dd")+";"+pRdvDst->m_PrisAvec));
     menu.addSeparator ();
     //............. creer le menu des types avec les types couleurs .....................
     QLabel grabLabel;
@@ -2794,16 +2802,25 @@ int   C_Frm_Day::posY_toMinutes(int posY)
 }
 
 //--------------------------------------Chercher_les_RDV_dun_patient-----------------------------------------
-void C_Frm_Day::Chercher_les_RDV_dun_patient (QString nom_prenom /* ="" */  )
+void C_Frm_Day::Chercher_les_RDV_dun_patient (QString nom_prenom_guid /* ="" */)
 {   C_Frm_Agenda* pC_Frm_Agenda = (C_Frm_Agenda*) this->parent();
-    pC_Frm_Agenda->Chercher_les_RDV_dun_patient (nom_prenom );
-    /*
-    C_Dlg_ChercheRDV *Dlg_ChercheRDV = new C_Dlg_ChercheRDV (m_pCMoteurAgenda, nom_prenom, this);
-    if (Dlg_ChercheRDV->exec() != QDialog::Accepted)
-        {delete Dlg_ChercheRDV;
-        }
-    */
+    pC_Frm_Agenda->Chercher_les_RDV_dun_patient (nom_prenom_guid);
 }
+// CZF deb
+//--------------------------------------Imprimer_les_RDV_dun_medecin-----------------------------------------
+void C_Frm_Day::Imprimer_les_RDV_dun_medecin(QDateTime date_rdv, QString code_user )
+{
+    C_Dlg_ImprimerRDV *Dlg_ImprimerRDV = new C_Dlg_ImprimerRDV (m_pCMoteurAgenda, date_rdv, code_user, this);
+    if (Dlg_ImprimerRDV->exec() != QDialog::Accepted)
+        {delete Dlg_ImprimerRDV;
+         return;
+        }
+    //QString loginMed = Dlg_ImprimerRDV->ui->comboBox_Users->itemData(Dlg_ImprimerRDV->ui->comboBox_Users->currentIndex()).toString();
+    //QDate   dateDEB  = Dlg_ImprimerRDV->ui->dateEdit_dateDeb->date();
+    //QDate   dateFIN  = Dlg_ImprimerRDV->ui->dateEdit_dateFin->date();
+    //m_pCMoteurAgenda->imprimer_les_RDV(loginMed,dateDEB,dateFIN);
+}
+// CZF fin
 //====================================================== C_Frm_Rdv ======================================================================
 //------------------------------------------------------ pC_RendezVous ----------------------------------------------------------------------
 C_Frm_Rdv::C_Frm_Rdv (  C_RendezVous *pC_RendezVous,       // data
@@ -3406,6 +3423,12 @@ void C_Frm_Rdv::mousePressEvent(QMouseEvent *event)
                else if (ret.startsWith("AppointmentsListFor"))
                   {((C_Frm_Day*)parent())->Chercher_les_RDV_dun_patient(ret.mid(19));
                   }
+               // CZF deb
+               else if (ret.startsWith("PrintAppointments"))
+                  {QDateTime Dtrdv = QDateTime::fromString(ret.mid(17,10) + " 00:00:00","yyyy-MM-dd hh:mm:ss");
+                   ((C_Frm_Day*)parent())->Imprimer_les_RDV_dun_medecin(Dtrdv, ret.mid(28));
+                  }
+               // CZF fin
               }
          event->accept();
          ((C_Frm_Day*)parent())->Slot_StopTimer(0);
