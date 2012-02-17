@@ -2290,7 +2290,7 @@ void C_Frm_Day::On_Day_mousePressEvent ( QMouseEvent * event )
 
   //optionList<<tr("=11=#Agenda/NewDoc.png#Display this day");    // CZA inutile car en bouton
   optionList<<tr("=12=#Agenda/GetPatientRdv.png#Find appointments for a patient");   // CZE
-  optionList<<tr("=13=#Agenda/PrintListRdv.png#Print appointments for a user");          // CZF
+  optionList<<tr("=13=#Agenda/PrintListRdv.png#Print appointments for the user:%1").arg(m_UserNomPrenom);          // CZF
 
   optionList<<"-----------";
 
@@ -2395,7 +2395,7 @@ QString C_Frm_Day::doRdvMenu(C_RendezVous *pRdvDst, int isOptionDetruire  /* = 0
        { menu.addAction (m_pBMC->m_GetPatientRdv, tr("Find Appointments")
                 )->setData ("FindAppointments");
        }
-    menu.addAction (m_pBMC->m_PrintListRdv, tr("Print Appointments for: %1").arg(m_UserNomPrenom)
+    menu.addAction (m_pBMC->m_PrintListRdv, tr("Print appointments for the user:%1").arg(m_UserNomPrenom)
                     )->setData (QString("PrintAppointments%1").arg(pRdvDst->m_date.toString("yyyy-MM-dd")+";"+pRdvDst->m_PrisAvec));
     menu.addSeparator ();
     //............. creer le menu des types avec les types couleurs .....................
