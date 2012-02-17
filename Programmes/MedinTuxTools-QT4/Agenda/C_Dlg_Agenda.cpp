@@ -2248,7 +2248,10 @@ void C_Frm_Day::On_Day_mousePressEvent ( QMouseEvent * event )
                    else if (ret.startsWith("AppointmentsListFor"))
                       {Chercher_les_RDV_dun_patient(ret.mid(19));
                       }
-
+                   else if (ret.startsWith("PrintAppointments"))
+                      {QDateTime Dtrdv = QDateTime::fromString(ret.mid(17,10) + " 00:00:00","yyyy-MM-dd hh:mm:ss");
+                       Imprimer_les_RDV_dun_medecin(Dtrdv, ret.mid(28));
+                      }
                   }
                QString errMess; if ( ! m_pCMoteurAgenda->RDV_Update(*pRdv, &errMess) ) qDebug() << errMess;
                update();
@@ -2392,7 +2395,7 @@ QString C_Frm_Day::doRdvMenu(C_RendezVous *pRdvDst, int isOptionDetruire  /* = 0
        { menu.addAction (m_pBMC->m_GetPatientRdv, tr("Find Appointments")
                 )->setData ("FindAppointments");
        }
-    menu.addAction (m_pBMC->m_PrintListRdv, tr("Print Appointments")
+    menu.addAction (m_pBMC->m_PrintListRdv, tr("Print Appointments for: %1").arg(m_UserNomPrenom)
                     )->setData (QString("PrintAppointments%1").arg(pRdvDst->m_date.toString("yyyy-MM-dd")+";"+pRdvDst->m_PrisAvec));
     menu.addSeparator ();
     //............. creer le menu des types avec les types couleurs .....................
