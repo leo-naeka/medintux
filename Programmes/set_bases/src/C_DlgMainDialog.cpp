@@ -895,7 +895,7 @@ void C_DlgMainDialog::Compilation(const QString &path, const QString & target)
     m_CurrentCompil    = target;
     if (isQT3)
        {    QApplication::setOverrideCursor( QCursor( Qt::WaitCursor ) );
-            toLog( tr ("<br>============= Compilation <font color=#ff0000><b>QT3</b></font> de<font color=#ffa800><b> %1 </b></font>en cours ... =============").arg(target));
+            toLog( tr ("<br>============= Compilation de <font color=#ffa800><b> '%1' </b></font><font color=#ff0000><b>(librairie QT3)</b></font> en cours ... =============").arg(target));
          #ifdef  Q_WS_MAC
             QString qtdir = lineEdit_Qt3->text().stripWhiteSpace();
             script  =  "#! /bin/sh\n"
@@ -926,7 +926,7 @@ void C_DlgMainDialog::Compilation(const QString &path, const QString & target)
        }
    else if (QFile::exists(modulePath + "src/"+target+".pro"))
        {if (isQT4Here)
-           {toLog( tr ("<br>============= Compilation <font color=#ff0000><b>QT4</b></font> de<font color=#ffa800><b> %1 </b></font>en cours ... =============").arg(target));
+           {toLog( tr ("<br>============= Compilation de <font color=#ffa800><b> '%1' </b></font><font color=#ff0000><b>(librairie QT4)</b></font> en cours ... =============").arg(target));
             QFile::remove ( modulePath+"src/makeQT4Module.sh" );
             QFile::remove ( modulePath+"src/Makefile" );
             //toLog( tr ("<br> Remove <font color=#ff0000><b>QT4</b></font> de<font color=#ffa800><b> %1 </b></font>en cours ...").arg(modulePath+"src/makeQT4Module.sh"));
@@ -1135,7 +1135,13 @@ void C_DlgMainDialog::updateExit()
         pushButton_LancerDrTux->show();
         progressBar_Load->show();
         pushButton_compilation->setText(tr( "&Compilation des exécutables" ));
-        CGestIni::Param_UpdateToDisk(G_pCApp->m_PathAppli+"Compilation_"+m_CurrentCompil+".log", textEdit_Message->text());
+        //.................. couper le log au module concerne ........................
+        QString toWriteOnDisk = textEdit_Message->text();
+        QString toFind        = "========== Compilation de '";
+                toFind        = toFind + m_CurrentCompil + "'";
+        int pos               = toWriteOnDisk.find(toFind);
+        if (pos != -1) toWriteOnDisk = toWriteOnDisk.mid(pos);
+        CGestIni::Param_UpdateToDisk(G_pCApp->m_PathAppli+"Compilation_"+m_CurrentCompil+".log", toWriteOnDisk);
         m_MakeExeRun = MAKE_EXE_NOTRUN;
         //............. strip de l'executable ....................
         QDir::setCurrent ( G_pCApp->m_PathAppli );
