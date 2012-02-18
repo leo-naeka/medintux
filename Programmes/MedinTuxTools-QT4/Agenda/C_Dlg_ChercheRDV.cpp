@@ -43,7 +43,7 @@ C_Dlg_ChercheRDV::C_Dlg_ChercheRDV(CMoteurAgenda* pCMoteurAgenda, QString nom_pr
     connect (m_ui->radioButton_futursRDV,   SIGNAL(clicked()),                      this, SLOT(Slot_actualiserListe()));
     connect (m_ui->radioButton_TousLesRDV,  SIGNAL(clicked()),                      this, SLOT(Slot_actualiserListe()));
 
-    m_ui->treeWidget_RDV->setColumnWidth(0,100);
+    m_ui->treeWidget_RDV->setColumnWidth(0,150);
     m_ui->treeWidget_RDV->setColumnWidth(1,50);
     m_ui->treeWidget_RDV->setColumnWidth(2,80);
     m_ui->treeWidget_RDV->setColumnWidth(3,100);
