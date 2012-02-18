@@ -467,7 +467,9 @@ void C_DlgMainDialog::checkBox_Nomadisme_stateChanged(int state )
 
 //----------------------------------------- saveFavoris ---------------------------------------------
 void C_DlgMainDialog::SetTitle(QString n_Version)
-{setCaption( tr("DATA MEDICAL DESIGN   ( Installation et configuration de MedinTux )") + " V : " + n_Version);
+{QString numVers = G_pCApp->m_NUM_VERSION;
+         numVers = numVers.remove("==").remove("@@").remove("##");
+ setCaption( tr("DATA MEDICAL DESIGN (Configuration de MedinTux) V : %1").arg(numVers) + " BD : " + n_Version);
 }
 
 //----------------------------------------- saveFavoris ---------------------------------------------
