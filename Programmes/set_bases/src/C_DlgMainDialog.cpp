@@ -313,7 +313,8 @@ C_DlgMainDialog::C_DlgMainDialog(QWidget* parent, const char* name, bool modal, 
     textLabel_AdminLinux->setText(m_SousLinuxSeMettreEnModeAdmin);
     textLabel_AdminLinux->show();
 #endif
-#ifdef Q_OS_MACX
+                         //md/pr/sb/bn/
+#ifdef Q_OS_MACX        //../../../../.MedinTuxLogoFondBleu.png
     if (QFile::exists(QDir::homeDirPath ()+"/MedinTuxRo.txt")) pushButtonMakeSQL->show();
     textLabel_WindPathField->setText(tr("Répertoire système Sesam  "));
     lineEdit_SesamPath->hide();
@@ -369,6 +370,16 @@ C_DlgMainDialog::C_DlgMainDialog(QWidget* parent, const char* name, bool modal, 
     tabWidget_Nomadisme->removePage(m_pTabQWidgetNomade);
     tabWidget_Nomadisme->removePage(m_pTabQWidgetReverse);
     setIcon( Theme::getIcon( "32x32/set_bases.png") );
+
+#ifdef Q_OS_MACX        //../../../../.MedinTuxLogoFondBleu.png
+    //............... si on demarre d'un .dmg d'installation max .......................................
+    if (QFile::exists(G_pCApp->m_PathAppli+"../../../../.MedinTuxLogoFondBleu.png"))
+       {pushButton_SetBases->show();
+        tabWidget_Instal->setTabEnabled ( m_pTabQWidgetBases,  TRUE );
+        tabWidget_Instal->setCurrentPage(tabWidget_Instal->indexOf(m_pTabQWidgetBases));
+        QTimer::singleShot( 100, this, SLOT(Slot_TimedSetBase()) );
+       }
+#endif
 }
 
 C_DlgMainDialog::~C_DlgMainDialog()
@@ -376,6 +387,11 @@ C_DlgMainDialog::~C_DlgMainDialog()
 }
 
 /*$SPECIALIZATION$*/
+//----------------------------------------- TimedSetBase --------------------------------------------------------------------
+void C_DlgMainDialog::Slot_TimedSetBase()
+{setBase();
+ Slot_close();
+}
 
 //--------------------------------- Slot_close --------------------------------------------------------------------------------
 void C_DlgMainDialog::Slot_close()

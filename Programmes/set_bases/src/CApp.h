@@ -90,7 +90,7 @@ class CApp :  public QApplication ,  public CSetupBase
                                       QProgressBar *pQProgressBar, // progress_barr
                                       long enr_tot = 340535        // = 340535
                                );
-    
+
     QSqlDatabase*  SetBase( QString driver,        // nom du driver: "QODBC3" "QMYSQL3" "QPSQL7"
                             QString dataBaseName,    // nom de la base: si QODBC3 -> nom de la source de données (userDSN)
                             QString user,            // = "root"
@@ -101,7 +101,7 @@ class CApp :  public QApplication ,  public CSetupBase
                             QProgressBar *pQProgressBar,
                             long enr_tot = 340535
                           );
-    
+
     QStringList    GetBasesListToSet();
     int  GotoDebug();
     QString getBaseNameToSetFromSQLFile(const QString &fname);
@@ -157,7 +157,6 @@ public slots:
      /*! \brief surcharge du Slot quit afin d'envoyer le message Sign_QuitterRequired permettant a ceux qui s'y connectent de sauver les meubles \
      */
      void  quit();
-
 private:
      unsigned long    m_position;
      QString          m_LastError;

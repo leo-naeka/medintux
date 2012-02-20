@@ -107,7 +107,7 @@ public:
   QString               tryToFindSdkQt4();
   QString               tryToFindQt3();
   QStringList           GetListBasesInMySql(QString *err = 0);
-  
+
   QString               m_SousAppleSeMettreEnModeAdmin;
   QString               m_SousLinuxSeMettreEnModeAdmin;
   QString               m_PluginRun;
@@ -127,6 +127,7 @@ public:
 
 public slots:
   /*$PUBLIC_SLOTS$*/
+  virtual void          Slot_TimedSetBase();
   virtual void          Slot_close();
   virtual void          Slot_SauverLesMeubles();
   virtual void          Slot_actionApropos();
