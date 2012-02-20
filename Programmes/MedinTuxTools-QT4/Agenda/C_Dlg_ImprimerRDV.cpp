@@ -42,7 +42,7 @@
 #include "C_Dlg_ImprimerRDV.h"
 #include "ui_C_Dlg_ImprimerRDV.h"
 #include "C_Dlg_Agenda.h"
-#include "CApp.h"
+#include "../../Manager/src/CApp.h"
 
 //------------------------------------------------- C_Dlg_ImprimerRDV --------------------------
 C_Dlg_ImprimerRDV::C_Dlg_ImprimerRDV(CMoteurAgenda* pCMoteurAgenda, QDateTime date_rdv, QString code_user, QWidget *parent) :

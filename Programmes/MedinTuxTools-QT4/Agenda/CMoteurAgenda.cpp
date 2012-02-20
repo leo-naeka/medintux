@@ -1644,7 +1644,8 @@ void CMoteurAgenda::initComboMedecins(QComboBox  *pQcomboUsers, QString code_use
 }
 //---------------------------------paginer_les_RDV-------------------------------------------
 int CMoteurAgenda::paginer_les_RDV(QString  loginMed, QDate dateDEB, QDate dateFIN, QPlainTextEdit *pQPlainTextEdit)
-{       QString nomFicHtml, ficModele, entetePage1, enteteDate, enteteRDV, ligneRDV, piedFin;
+{       pQPlainTextEdit->clear();
+        QString nomFicHtml, ficModele, entetePage1, enteteDate, enteteRDV, ligneRDV, piedFin;
         QString dateDebStr, dateFinStr;
         dateDebStr = dateDEB.toString("yyyy-MM-dd") + " 00:00:00";
         dateFinStr = dateFIN.toString("yyyy-MM-dd") + " 23:59:59";
