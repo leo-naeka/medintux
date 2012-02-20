@@ -428,7 +428,7 @@ bool CApp::IsAppStartWithUser()
 int CApp::AuthentifyAndSelectUser(QWidget * parent, const QString &newUser, const QString &newSignUser, bool /*passwordMustBeRecorded  = 1 */)
 {int                          ok = 0;
  QString        cripted_password = "";
- QString        userPk           = m_pCMoteurBase->GetUserPrimKey( newUser, &cripted_password );
+ /*QString        userPk           = */m_pCMoteurBase->GetUserPrimKey( newUser, &cripted_password );
  //........................ verifier si des fois que sans mot de passe ..................................
  if (m_pCMoteurBase->VerifyUserPassWord(newUser, ""))
     { m_User            = newUser;
@@ -454,6 +454,7 @@ int CApp::AuthentifyAndSelectUser(QWidget * parent, const QString &newUser, cons
  lireDroitsUtilisateurs();
  return ok;
 }
+
 //--------------------------------- DoPopupList -----------------------------------------------------
 /*! \brief cree et active un popup menu apartir d'une liste d'items
  *  \param list : QStringList qui contient tous les item si icone associee du theme commence par #iconefile#reste du texte
@@ -610,6 +611,31 @@ void CApp::launchSpecificJob(QString nameOfJob) // CZB
 #endif
     QProcess::startDetached (pathJob, listParam);
 }
+//---------------------------------------------- execCalendrier -----------------------------------------------------------------------
+QString CApp::execCalendrier(const QDate &dateIn)
+{     //............... lancer le calendrier .................................................
+    QString pathPlugin;
+    CGestIni::Param_ReadParam(m_LocalParam, "Gestion du calendrier", "pathPlugin",       &pathPlugin);
+    //..................................... ne pas rajouter "/" car c'est un nom de fichier ..........................
+    if ( QDir::isRelativePath ( pathPlugin ) )  pathPlugin = QDir::cleanDirPath (pathPlugin.prepend(m_PathAppli));
+    QString date   = dateIn.toString("ddMMyyyy");
+    QString presel = Theme::getPath(TRUE)+"Agenda/MenuPreselDate.txt";
+    QString pluginScript  = "[Execute]\r\n";
+            pluginScript += "pathPlugin="      + pathPlugin                                           + "\r\n" +
+                            "pathIni=****\r\n" +                //**** car indique d'utiliser le pathIni du plugin
+                            "maskExch= non utilise\r\n"
+                            "[Parametres]\r\n"
+                            "m_StartDate        = " + date      + "\r\n"     +
+                            "m_ReturnFormat    = ddMMyyyy\r\n" +
+                            "m_InfDate         = " + date      + "\r\n"     +     // date lim inf
+                            "m_SupDate         = " + date      + "\r\n"     +     // date lim sup
+                            "m_PreselMenu      = " + presel    + "\r\n"     +
+                            "m_modeToShow      = days" //debDate endDate hours
+                            ;
+
+   return PluginExe(this, pluginScript, CApp::endWait);
+}
+
 //------------------------------------------------------- PluginExe --------------------------------------------------
 QString CApp::PluginExe(        QObject         * pQObject,
                                 const char      * pluginScript,

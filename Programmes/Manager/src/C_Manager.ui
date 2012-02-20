@@ -52,7 +52,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -71,7 +71,7 @@
            <enum>Qt::Horizontal</enum>
           </property>
           <widget class="QWidget" name="layoutWidget_1">
-           <layout class="QGridLayout">
+           <layout class="QGridLayout" name="layoutNumDoss">
             <item row="1" column="0">
              <layout class="QGridLayout" name="_2">
               <item row="1" column="0">
@@ -739,7 +739,7 @@ folder</string>
                 <number>0</number>
                </property>
                <item row="0" column="0">
-                <layout class="QGridLayout">
+                <layout class="QGridLayout" name="layoutyogourt_1">
                  <item row="0" column="0">
                   <widget class="QLabel" name="label_nom">
                    <property name="font">
@@ -779,7 +779,7 @@ folder</string>
                 </layout>
                </item>
                <item row="2" column="0">
-                <layout class="QGridLayout">
+                <layout class="QGridLayout" name="layoutyogourt_0">
                  <item row="0" column="4">
                   <widget class="QLabel" name="label_rangem">
                    <property name="font">
@@ -857,11 +857,11 @@ folder</string>
                 </layout>
                </item>
                <item row="3" column="0">
-                <layout class="QGridLayout">
+                <layout class="QGridLayout" name="layoutyogourt_9">
                  <item row="0" column="1">
-                  <layout class="QGridLayout">
+                  <layout class="QGridLayout" name="layoutyogourt_8">
                    <item row="0" column="0">
-                    <layout class="QGridLayout">
+                    <layout class="QGridLayout" name="layoutyogourt_7">
                      <item row="0" column="0">
                       <widget class="QLabel" name="label_adresse">
                        <property name="font">
@@ -943,12 +943,12 @@ folder</string>
                     </layout>
                    </item>
                    <item row="0" column="1">
-                    <layout class="QGridLayout">
+                    <layout class="QGridLayout" name="layoutyogourt_6">
                      <property name="spacing">
                       <number>0</number>
                      </property>
                      <item row="0" column="0">
-                      <layout class="QGridLayout">
+                      <layout class="QGridLayout" name="layoutyogourt_3">
                        <item row="0" column="0">
                         <widget class="QLabel" name="label_tel1">
                          <property name="font">
@@ -983,7 +983,7 @@ folder</string>
                       </layout>
                      </item>
                      <item row="1" column="0">
-                      <layout class="QGridLayout">
+                      <layout class="QGridLayout" name="layoutyogourt_4">
                        <item row="0" column="0">
                         <widget class="QLabel" name="label_tel2">
                          <property name="font">
@@ -1018,7 +1018,7 @@ folder</string>
                       </layout>
                      </item>
                      <item row="2" column="0">
-                      <layout class="QGridLayout">
+                      <layout class="QGridLayout" name="layoutyogourt_5">
                        <item row="0" column="0">
                         <widget class="QLabel" name="label_tel3">
                          <property name="font">
@@ -1101,12 +1101,12 @@ folder</string>
                   </layout>
                  </item>
                  <item row="4" column="1">
-                  <layout class="QGridLayout"/>
+                  <layout class="QGridLayout" name="layoutyogourt_2"/>
                  </item>
                 </layout>
                </item>
                <item row="4" column="0">
-                <layout class="QGridLayout">
+                <layout class="QGridLayout" name="layoutyogourt_11">
                  <item row="0" column="0">
                   <widget class="QLabel" name="label_email">
                    <property name="font">
@@ -1128,7 +1128,7 @@ folder</string>
                 </layout>
                </item>
                <item row="1" column="0">
-                <layout class="QGridLayout">
+                <layout class="QGridLayout" name="layoutyogourt_10">
                  <item row="0" column="0">
                   <widget class="QLabel" name="label_nomnss">
                    <property name="font">
@@ -1221,7 +1221,7 @@ folder</string>
                 <number>0</number>
                </property>
                <item row="0" column="0">
-                <layout class="QGridLayout">
+                <layout class="QGridLayout" name="layoutyogourt_13">
                  <item row="0" column="0">
                   <widget class="QLabel" name="label_nss">
                    <property name="font">
@@ -1306,7 +1306,7 @@ folder</string>
                 </layout>
                </item>
                <item row="1" column="0">
-                <layout class="QGridLayout">
+                <layout class="QGridLayout" name="layoutyogourt_12">
                  <property name="spacing">
                   <number>0</number>
                  </property>
@@ -1388,7 +1388,7 @@ folder</string>
              </widget>
             </item>
             <item row="3" column="0">
-             <layout class="QGridLayout">
+             <layout class="QGridLayout" name="layoutyogourt_14">
               <property name="spacing">
                <number>0</number>
               </property>
@@ -1607,7 +1607,7 @@ folder</string>
                <attribute name="title">
                 <string>Contributors</string>
                </attribute>
-               <layout class="QGridLayout" name="gridLayout">
+               <layout class="QGridLayout" name="gridLayout_yo">
                 <property name="margin">
                  <number>5</number>
                 </property>
@@ -1615,7 +1615,7 @@ folder</string>
                  <number>0</number>
                 </property>
                 <item row="0" column="0">
-                 <layout class="QGridLayout">
+                 <layout class="QGridLayout" name="layoutIntervenant_0">
                   <item row="2" column="0">
                    <widget class="QPushButton" name="pushButton_DelMedTTT">
                     <property name="font">
@@ -2249,7 +2249,7 @@ p, li { white-space: pre-wrap; }
          <number>0</number>
         </property>
         <item row="0" column="0" colspan="2">
-         <layout class="QGridLayout">
+         <layout class="QGridLayout" name="layoutdockagenda">
           <item row="0" column="2" colspan="2">
            <widget class="QComboBox" name="comboBoxAgendaUser">
             <property name="toolTip">

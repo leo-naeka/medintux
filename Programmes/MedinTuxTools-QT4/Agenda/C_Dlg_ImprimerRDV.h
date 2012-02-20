@@ -53,9 +53,12 @@ public:
      QPlainTextEdit *m_pQPlainTextEdit;
 protected:
     void changeEvent(QEvent *e);
+    void execCalendrier(QDateEdit *pQDateEdit);
      CMoteurAgenda *m_pCMoteurAgenda;
 
 private slots:
+    void Slot_pushButton_DateDeb_clicked();
+    void Slot_pushButton_DateEnd_clicked();
     void Slot_preview();
     void Slot_printPreview(QPrinter *printer);
 };

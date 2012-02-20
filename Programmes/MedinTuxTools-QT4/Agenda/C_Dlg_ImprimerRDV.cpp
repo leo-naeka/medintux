@@ -42,15 +42,23 @@
 #include "C_Dlg_ImprimerRDV.h"
 #include "ui_C_Dlg_ImprimerRDV.h"
 #include "C_Dlg_Agenda.h"
-
+#include "CApp.h"
 
 //------------------------------------------------- C_Dlg_ImprimerRDV --------------------------
 C_Dlg_ImprimerRDV::C_Dlg_ImprimerRDV(CMoteurAgenda* pCMoteurAgenda, QDateTime date_rdv, QString code_user, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::C_Dlg_ImprimerRDV)
 {   m_pCMoteurAgenda = pCMoteurAgenda;
+    QPixmap pm_deb = Theme::getIcon("Agenda/agendaDebut.png");
+    QPixmap pm_end = Theme::getIcon("Agenda/agendaFin.png");
     ui->setupUi(this);
     ui->label_Icone->setPixmap(Theme::getIcon("Agenda/PrintListRdv.png"));
+    ui->pushButton_DateDeb->setPixmap(pm_deb);
+    ui->pushButton_DateEnd->setPixmap(pm_end);
+    ui->pushButton_DateDeb->setMaximumWidth(pm_deb.width()+4);
+    ui->pushButton_DateEnd->setMaximumWidth(pm_end.width()+4);
+    ui->pushButton_DateDeb->setMaximumHeight(pm_deb.height()+4);
+    ui->pushButton_DateEnd->setMaximumHeight(pm_end.height()+4);
     ui->dateEdit_dateDeb->setDate(date_rdv.date());
     ui->dateEdit_dateFin->setDate(date_rdv.date());
     m_pCMoteurAgenda->initComboMedecins(ui->comboBox_Users, code_user);
@@ -58,6 +66,8 @@ C_Dlg_ImprimerRDV::C_Dlg_ImprimerRDV(CMoteurAgenda* pCMoteurAgenda, QDateTime da
     m_pQPlainTextEdit->hide();
     ui->pushButton_Imprimer->hide();
     connect (ui->pushButton_preview,        SIGNAL(clicked()),                       this, SLOT(Slot_preview()));
+    connect (ui->pushButton_DateDeb,        SIGNAL(clicked()),                       this, SLOT(Slot_pushButton_DateDeb_clicked()));
+    connect (ui->pushButton_DateEnd,        SIGNAL(clicked()),                       this, SLOT(Slot_pushButton_DateEnd_clicked()));
 }
 
 //------------------------------------------------- ~C_Dlg_ImprimerRDV --------------------------
@@ -77,6 +87,27 @@ void C_Dlg_ImprimerRDV::changeEvent(QEvent *e)
     default:
         break;
     }
+}
+
+//------------------------------------------------- Slot_pushButton_DateDeb_clicked --------------------------
+void C_Dlg_ImprimerRDV::Slot_pushButton_DateDeb_clicked()
+{execCalendrier(ui->dateEdit_dateDeb);
+}
+//------------------------------------------------- Slot_pushButton_DateEnd_clicked --------------------------
+void C_Dlg_ImprimerRDV::Slot_pushButton_DateEnd_clicked()
+{execCalendrier(ui->dateEdit_dateFin);
+}
+
+//------------------------------------------------- execCalendrier --------------------------
+void C_Dlg_ImprimerRDV::execCalendrier(QDateEdit *pQDateEdit)
+{//............... lancer le calendrier .................................................
+    QDate dateIn  = pQDateEdit->date();
+    QString date  = G_pCApp->execCalendrier(dateIn); date = date.remove('-');
+    QDate dateNew = QDate::fromString(date, "ddMMyyyy");
+    //....................... analyse du retour ..........................................................................
+    if (dateNew.isValid () && dateNew != dateIn )
+       {pQDateEdit->setDate(dateNew);
+       }
 }
 
 //------------------------------------------------- Slot_preview --------------------------

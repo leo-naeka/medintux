@@ -5262,7 +5262,7 @@ if (pC_Frm_Agenda->getPaintMode() >= C_Frm_Agenda::NORMAL)
    {//............... recuperer la date de ce calendrier .................................................
     QDate   dateIn = pC_Frm_Agenda->getStartDate();
     //............... lancer le calendrier .................................................
-    QString date  = execCalendrier(dateIn); date = date.remove('-');
+    QString date  = G_pCApp->execCalendrier(dateIn); date = date.remove('-');
     QDate dateNew = QDate::fromString(date, "ddMMyyyy");
     //....................... analyse du retour ..........................................................................
     if (dateNew.isValid () && dateNew != dateIn )
@@ -5559,31 +5559,6 @@ void C_Manager::Slot_pQPushButtonMenuAgenda_Clicked(Wdg_ButtonPtr* pWdg_ButtonPt
    else if (opt==179)
       {pC_Frm_Agenda->creerRDVFactices(pC_Frm_Agenda->getSignUser());
       }
-}
-
-//---------------------------------------------- execCalendrier -----------------------------------------------------------------------
-QString C_Manager::execCalendrier(const QDate &dateIn)
-{     //............... lancer le calendrier .................................................
-    QString pathPlugin;
-    CGestIni::Param_ReadParam(G_pCApp->m_LocalParam, "Gestion du calendrier", "pathPlugin",       &pathPlugin);
-    //..................................... ne pas rajouter "/" car c'est un nom de fichier ..........................
-    if ( QDir::isRelativePath ( pathPlugin ) )  pathPlugin = QDir::cleanDirPath (pathPlugin.prepend(G_pCApp->m_PathAppli));
-    QString date   = dateIn.toString("ddMMyyyy");
-    QString presel = Theme::getPath(TRUE)+"Agenda/MenuPreselDate.txt";
-    QString pluginScript  = "[Execute]\r\n";
-            pluginScript += "pathPlugin="      + pathPlugin                                           + "\r\n" +
-                            "pathIni=****\r\n" +                //**** car indique d'utiliser le pathIni du plugin
-                            "maskExch= non utilise\r\n"
-                            "[Parametres]\r\n"
-                            "m_StartDate        = " + date      + "\r\n"     +
-                            "m_ReturnFormat    = ddMMyyyy\r\n" +
-                            "m_InfDate         = " + date      + "\r\n"     +     // date lim inf
-                            "m_SupDate         = " + date      + "\r\n"     +     // date lim sup
-                            "m_PreselMenu      = " + presel    + "\r\n"     +
-                            "m_modeToShow      = days" //debDate endDate hours
-                            ;
-
-   return G_pCApp->PluginExe(this, pluginScript, CApp::endWait);
 }
 
 //---------------------------------------------- addUserAgenda -----------------------------------------------------------------------
