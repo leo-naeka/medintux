@@ -657,7 +657,7 @@ void  CApp::ParseSQL_Dump(QSqlDatabase *dataBase, const QString &fname, QProgres
                 if (pQProgressBar)  {pQProgressBar->setProgress(m_position/1000); qApp->processEvents();qApp->processEvents();}
                 if (line[0]==')' && (line[2]=='T' || line[2]=='E' || line[1]==';'))
                    {   if (line.left(7) == ") TYPE=" || line.left(9) == ") ENGINE=" )  // ne surtout pas inclure ';' dans la comparaison
-                          {requete += ");";    // TYPE=MyISAM;";  pour passer sur mac
+                          {requete += ") ENGINE=MyISAM;";    // TYPE=MyISAM;";  pour passer sur mac
                            line.remove ("collate utf8_unicode_ci");
                            line.remove ("collate utf8_bin");
                            line.remove ("character set utf8");
