@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Liste des rendez-vous</string>
+   <string>Appointments List</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
@@ -23,7 +23,7 @@
       </sizepolicy>
      </property>
      <property name="text">
-      <string>PrintList</string>
+      <string>Print List</string>
      </property>
     </widget>
    </item>
@@ -75,7 +75,7 @@ p, li { white-space: pre-wrap; }
    <item row="3" column="0" colspan="2">
     <widget class="QLabel" name="label_Datedeb">
      <property name="text">
-      <string>Date start appointements</string>
+      <string>Appointements Start Date </string>
      </property>
     </widget>
    </item>
@@ -99,7 +99,7 @@ p, li { white-space: pre-wrap; }
    <item row="4" column="0" colspan="2">
     <widget class="QLabel" name="label_datfin">
      <property name="text">
-      <string>Date end appointements</string>
+      <string>Appointements End Date </string>
      </property>
     </widget>
    </item>
@@ -130,7 +130,7 @@ p, li { white-space: pre-wrap; }
    <item row="5" column="1">
     <widget class="QPushButton" name="pushButton_preview">
      <property name="text">
-      <string>preview and print</string>
+      <string>Preview and print</string>
      </property>
     </widget>
    </item>
