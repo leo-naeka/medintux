@@ -223,6 +223,22 @@ p, li { white-space: pre-wrap; }
         <source>CMoteurBase::GetPatientList(): data base can&apos;t be open</source>
         <translation>CMoteurBase::GetPatientList(): impossible d&apos;ouvrir la base de données</translation>
     </message>
+    <message>
+        <source>Print appointments</source>
+        <translation>Imprimer les rendez-vous</translation>
+    </message>
+    <message>
+        <source>Error access </source>
+        <translation>Erreur d&apos;accès</translation>
+    </message>
+    <message>
+        <source>Error access  </source>
+        <translation>Erreur d&apos;accès</translation>
+    </message>
+    <message>
+        <source>DataBase can&apos;t be opened&apos; </source>
+        <translation>Impossible d&apos;ouvrir la base de données</translation>
+    </message>
 </context>
 <context>
     <name>CMoteurBase</name>
@@ -2116,6 +2132,10 @@ p, li { white-space: pre-wrap; }
         <source>Patient appointents research</source>
         <translation>Recherche des rendez-vous d&apos;un patient</translation>
     </message>
+    <message>
+        <source>Patient guid</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>C_Dlg_DoList</name>
@@ -2146,6 +2166,57 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>Cancel</source>
         <translation>Annuler</translation>
+    </message>
+</context>
+<context>
+    <name>C_Dlg_ImprimerRDV</name>
+    <message>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Print appointments for a user&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Imprimer les rendez-vous pour un utilisateur&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <source>Select the user </source>
+        <translation>Choisir l&apos;utilisateur</translation>
+    </message>
+    <message>
+        <source>dd/MM/yyyy</source>
+        <translation>dd/MM/yyyy</translation>
+    </message>
+    <message>
+        <source>Print</source>
+        <translation>Imprimer</translation>
+    </message>
+    <message>
+        <source>Appointments List</source>
+        <translation>Liste des rendez-vous</translation>
+    </message>
+    <message>
+        <source>Print List</source>
+        <translation>Imprimer la liste</translation>
+    </message>
+    <message>
+        <source>Appointements Start Date </source>
+        <translation>Date de début des rendez-vous</translation>
+    </message>
+    <message>
+        <source>Appointements End Date </source>
+        <translation>Date de fin des rendez-vous</translation>
+    </message>
+    <message>
+        <source>Preview and print</source>
+        <translation>Aperçu et impression</translation>
+    </message>
+    <message>
+        <source>Appointments printing for: %1</source>
+        <translation>Impression des rendez-vous pour : %1</translation>
     </message>
 </context>
 <context>
@@ -2809,7 +2880,7 @@ durée maximum possible :</translation>
     </message>
     <message>
         <source>Make an appointment for the %2 at %3 after the previous existing one</source>
-        <translation>Créer.un rendez-vous à la suite du dernier pour le  %1 à %2 </translation>
+        <translation>Créer.un rendez-vous à la suite du dernier pour le %2 à %3</translation>
     </message>
     <message>
         <source>Make an appointment for the %1 at  %2</source>
@@ -2821,11 +2892,11 @@ durée maximum possible :</translation>
     </message>
     <message>
         <source>Paste after the previous existing one the appointment with the patient &apos;%1&apos; </source>
-        <translation>Créer.un rendez-vous à la suite du dernier pour le  %1 à %2 </translation>
+        <translation>Créer.un rendez-vous à la suite du dernier  avec le patient &apos;%1&apos; </translation>
     </message>
     <message>
         <source>Paste after the previous existing one the appointment from the copy memory.</source>
-        <translation>Créer.un rendez-vous à la suite du dernier pour le  %1 à %2 </translation>
+        <translation>Créer.un rendez-vous à la suite du dernier à partir de la mémoire de copie.</translation>
     </message>
     <message>
         <source>Copy the current appointment to the copy memory</source>
@@ -2862,6 +2933,14 @@ durée maximum possible :</translation>
     <message>
         <source>Create new file with: %1</source>
         <translation>Créer un nouveau dossier avec: %1</translation>
+    </message>
+    <message>
+        <source>=13=#Agenda/PrintListRdv.png#Print appointments for the user:%1</source>
+        <translation>=13=#Agenda/PrintListRdv.png#Imprimer les rendez-vous pour l&apos;utilisateur :%1</translation>
+    </message>
+    <message>
+        <source>Print appointments for the user:%1</source>
+        <translation>Imprimer les rendez-vous pour l&apos;utilisateur :%1</translation>
     </message>
 </context>
 <context>
@@ -3504,7 +3583,7 @@ Mode nomade conservé.</translation>
     </message>
     <message>
         <source>Its acces is impossible on this terminal.&lt;br /&gt;Please, get it closed on its terminal before opening it on this terminal.</source>
-        <translation>Son accès est impossible sur le poste actuel.&lt;br /&gt;Veuillez le faire fermer sur le poste qui l&apos;utilise actuellement avant d&apos;y accéder sur ce poste.&lt;br /&gt;</translation>
+        <translation>Son accès est impossible sur le poste actuel.&lt;br /&gt;Veuillez le faire fermer sur le poste qui l&apos;utilise actuellement avant d&apos;y accéder sur ce poste.</translation>
     </message>
     <message>
         <source> &lt;b&gt;&lt;u&gt;WARNING&lt;/b&gt;&lt;/u&gt; ! This folder </source>
@@ -3626,7 +3705,7 @@ pas de dossier valide sélectionné.</translation>
     </message>
     <message>
         <source>?TES-VOUS CERTAIN DE CETTE OP?RATION ? &lt;/font&gt;&lt;/b&gt;</source>
-        <translation type="unfinished">ÊTES-VOUS CERTAIN DE CETTE OPÊRATION ? &lt;/font&gt;&lt;/b&gt;</translation>
+        <translation type="obsolete">ÊTES-VOUS CERTAIN DE CETTE OPÊRATION ? &lt;/font&gt;&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Manager-V %1 used by: </source>
@@ -3830,10 +3909,6 @@ pas de dossier valide sélectionné.</translation>
     </message>
     <message>
         <source>&lt;hr&gt;&lt;br&gt;semble être la même que celle de la carte Vitale&lt;br&gt;nom, prénom, numéro de SS, date de naissance identiques.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;br&gt;&lt;hr&gt;confirmez-vous tout de même cette opération ? </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4596,6 +4671,18 @@ pas de dossier valide sélectionné.</translation>
         <source>Find appointments list for a patient</source>
         <translation>Trouver les rendez-vous d&apos;un patient</translation>
     </message>
+    <message>
+        <source>Find appointments list for a user</source>
+        <translation type="unfinished">Trouver la liste des rendez-vous pour un utilisateur</translation>
+    </message>
+    <message>
+        <source>&lt;br&gt;&lt;hr&gt;Confirmez-vous tout de même cette opération ? </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DO YOU CONFIRM THIS OPERATION ? &lt;/font&gt;&lt;/b&gt;</source>
+        <translation>CONFIRMEZ-VOUS CETTE OPÉRATION ? &lt;/font&gt;&lt;/b&gt;</translation>
+    </message>
 </context>
 <context>
     <name>C_ManagerClass</name>
@@ -5160,6 +5247,11 @@ p, li { white-space: pre-wrap; }
 &lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
 &lt;tr&gt;
 &lt;td style=&quot;border: none;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;========================================================================================================== &lt;br /&gt;Modif RS Manager du 16-02-2012  Version 2.15.003&lt;br /&gt;---------------------------------------------------------------------------------------------------------- &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;- &lt;/span&gt;&lt;span style=&quot; font-family:&apos;courier&apos;; text-decoration: underline;&quot;&gt;FONCTIONNALITES&lt;/span&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt; : &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;    ° Impression des rendez-vous pour un médecin&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;        dans dialogue parametrage rendez-vous et recherche rendez-vous&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;- &lt;/span&gt;&lt;span style=&quot; font-family:&apos;courier&apos;; text-decoration: underline;&quot;&gt;FICHIERS&lt;/span&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt; : &lt;br /&gt;    ° Fichiers en plus (modele d&apos;impression) : Ressources/Liste_RDV.html&lt;br /&gt;    ° Icônes en plus : Theme/Default/Agenda/PrintListRdv.png&lt;br /&gt;&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;========================================================================================================== &lt;br /&gt;Modif RS Manager du 20-01-2012  Version 2.15.002&lt;br /&gt;---------------------------------------------------------------------------------------------------------- &lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;- &lt;/span&gt;&lt;span style=&quot; font-family:&apos;courier&apos;; text-decoration: underline;&quot;&gt;FONCTIONNALITES&lt;/span&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt; : &lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;courier&apos;;&quot;&gt;    ° Amélioration de l&apos;affichage de la liste des patients &lt;/span&gt;&lt;/p&gt;
