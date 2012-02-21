@@ -2712,7 +2712,7 @@ void C_Manager::setCVonPatient (C_Vitale *pcVitale, int occurence)
    else
       {message += tr(  "<hr><br>semble \303\252tre la m\303\252me que celle de la carte Vitale<br>nom, pr\303\251nom, num\303\251ro de SS, date de naissance identiques.");
       }
-   message += tr("<br><hr>confirmez-vous tout de m\303\252me cette op\303\251ration ? ");
+   message += tr("<br><hr>Confirmez-vous tout de m\303\252me cette op\303\251ration ? ");
    if (m_pGUI->lineEdit_RangGeme->text().length())
        message += tr("<br>&nbsp;&nbsp;&nbsp;&nbsp;=> en sachant que <b>ce patient a d\303\251j\303\240 probablement \303\251t\303\251 cr\303\251\303\251 par une carte vitale</b>. ");
    if (tmp    != p_nom)
@@ -2727,7 +2727,7 @@ void C_Manager::setCVonPatient (C_Vitale *pcVitale, int occurence)
                                       tr("&Cancel"), tr("Confirm"), 0 /*tr("Annuler")*/,
                                       0, 0 );
    if (sel != 1) return;
-   message  = "<b><font color=\"#e80d0d\">"+tr("?TES-VOUS CERTAIN DE CETTE OP?RATION ? </font></b>") +
+   message  = "<b><font color=\"#e80d0d\">"+tr("DO YOU CONFIRM THIS OPERATION ? </font></b>") +
               tr(  "<hr><br> il est encore temps d'annuler cette op\303\251ration.") +
               tr(  "<br> qui sera non r\303\251versible apr\303\250s confirmation." ) +
               tr(  "<br><hr>confirmez vous de nouveau cette op\303\251ration ? ");
