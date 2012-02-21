@@ -121,7 +121,7 @@ void C_Dlg_ImprimerRDV::Slot_preview()
 #ifndef QT_NO_PRINTER
     QPrinter printer(QPrinter::HighResolution);
     QPrintPreviewDialog preview(&printer, this);
-    preview.setWindowTitle(tr("Appointments print for: %1").arg(ui->comboBox_Users->text(ui->comboBox_Users->currentIndex())));
+    preview.setWindowTitle(tr("Appointments printing for: %1").arg(ui->comboBox_Users->text(ui->comboBox_Users->currentIndex())));
     connect(&preview, SIGNAL(paintRequested(QPrinter *)), SLOT(Slot_printPreview(QPrinter *)));
     preview.setMinimumSize(800,600);
     preview.setBaseSize(800,600);
