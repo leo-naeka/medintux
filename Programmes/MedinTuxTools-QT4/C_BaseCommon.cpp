@@ -54,7 +54,7 @@ bool C_BaseCommon::EncodePassword_InConnectionParam(QString &param, const QStrin
  QString hostname;           // = "localhost"
  QString port;               // = "3306"
  if (CGestIni::Param_ReadParam(  param.toAscii(), section.toAscii(), "Parametres", &driver, &dataBaseToConnect, &user, &password, &hostname, &port) !=0 )  // zero = pas d'erreur
-    { if (errMess) *errMess  = QObject::tr("C_BaseCommon::EncodePassword_InConnectionParam() : error in parameters : CGestIni::Param_ReadParam() may be : key 'Parametres' omited in section 'Connexion'");
+    { if (errMess) *errMess  = QObject::tr("C_BaseCommon::EncodePassword_InConnectionParam() : error in parameters : CGestIni::Param_ReadParam() may be : key 'Parametres' omitted in section 'Connexion'");
       return 0;
     }
  if (password.startsWith('#'))   password = CGestIni::PassWordDecode(password.mid(1));
@@ -78,7 +78,7 @@ bool C_BaseCommon::BaseConnect(const QString &param, const QString &baseLabel, c
  m_LastError     = "";
  m_BaseLabel     = "";
  if (CGestIni::Param_ReadParam(  param.toAscii(), section.toAscii(), "Parametres", &driver, &dataBaseToConnect, &user, &password, &hostname, &port) !=0 )  // zero = pas d'erreur
-    { m_LastError = tr("C_BaseCommon::BaseConnect() : error in parameters : CGestIni::Param_ReadParam() may be : key 'Parametres' omited in section 'Connexion'");
+    { m_LastError = tr("C_BaseCommon::BaseConnect() : error in parameters : CGestIni::Param_ReadParam() may be : key 'Parametres' omitted in section 'Connexion'");
       if (errMess) *errMess = m_LastError;
       outMessage( m_LastError);
       return 0;
@@ -175,7 +175,7 @@ QString C_BaseCommon::getLastPrimaryKey( const QString &table, const QString &pk
        {requete = QString("SELECT %1 FROM %2 WHERE %3  = `%4`").arg(pk_field_name, table, fieldWhereIsUniqueValue, uniqueValue);
        }
     if ( !query.exec(requete) )
-       {m_LastError = tr("\nERREUR  : C_BaseCommon::getLastPrimaryKey() \n%1\nREQUETE : %2").arg(query.lastError().text(),requete).toAscii();
+       {m_LastError = tr("\nERROR  : C_BaseCommon::getLastPrimaryKey() \n%1\nREQUEST : %2").arg(query.lastError().text(),requete).toAscii();
         outMessage(m_LastError);
         return QString::null;
        }
@@ -188,7 +188,7 @@ int C_BaseCommon::dropTable(const QString &tableName)
 {QString requete = QString("DROP TABLE IF EXISTS `%1`"  ).arg(tableName);
  QSqlQuery query(QString::null , database() );
  if (!query.exec(requete))
-    {m_LastError = tr("\nERREUR  : C_BaseCommon::dropTable() \n%1\nREQUETE : %2").arg(query.lastError().text(),requete).toAscii();
+    {m_LastError = tr("\nERROR  : C_BaseCommon::dropTable() \n%1\nREQUEST : %2").arg(query.lastError().text(),requete).toAscii();
      outMessage(m_LastError);
      return 0;
     }
@@ -199,7 +199,7 @@ int C_BaseCommon::dropTable(const QString &tableName)
 int C_BaseCommon::createTable(const QString &schema)
 {QSqlQuery query(QString::null , database() );
  if (!query.exec(schema))
-    {m_LastError = tr("\nERREUR  : C_BaseCommon::createTable() \n%1\nREQUETE : %2").arg(query.lastError().text(),schema).toAscii();
+    {m_LastError = tr("\nERROR  : C_BaseCommon::createTable() \n%1\nREQUEST : %2").arg(query.lastError().text(),schema).toAscii();
      outMessage(m_LastError);
      return 0;
     }
@@ -248,8 +248,8 @@ void  C_BaseCommon::executeSQL( const QString &fname, QProgressBar *pQProgressBa
                {table   = line.mid(pos_deb, pos-pos_deb).trimmed();
                 requete = QString("DROP TABLE IF EXISTS %1;").arg(table);
                 query.exec( requete );
-                outSQL_error(query, tr("<font color=#ff0000><b>ERREUR : ParseSQL_Dump() </b></font>"), requete, __FILE__, __LINE__  );
-                outMessage(tr("Cr\303\251ation de la table '<font color=#01eaff><b>%1</b></font>' en cours....").arg( table)) ;
+                outSQL_error(query, ("<font color=#ff0000><b>"+tr("ERROR:")+ "ParseSQL_Dump() </b></font>"), requete, __FILE__, __LINE__  );
+                outMessage((tr("Creating table")+ "'<font color=#01eaff><b>%1</b></font>'....").arg( table)) ;
                }
             requete = line;
             while (!file.atEnd())
@@ -263,7 +263,7 @@ void  C_BaseCommon::executeSQL( const QString &fname, QProgressBar *pQProgressBa
                            line.remove ("collate utf8_bin");
                            line.remove ("character set utf8");
                            query.exec(requete);
-                           outSQL_error(query, tr("<font color=#ff0000><b> ERREUR : parseSQL_Dump()</b></font>"), requete ,__FILE__, __LINE__);
+                           outSQL_error(query, "<font color=#ff0000><b> "+tr("ERROR:")+" parseSQL_Dump()</b></font>", requete ,__FILE__, __LINE__);
                            break;
                           }
                    }
@@ -320,8 +320,10 @@ void  C_BaseCommon::parseSQL_InsertInto(QString &text, QTextEdit */* logWidget  
     int pos           = text.indexOf("VALUES");
     QSqlQuery query(QString::null, database());
     if (pos ==-1 || deb==-1)
-       { outMessage(QObject::tr("    <font color=#ff0000><b>Syntax Error  line : %1 INSERT INTO VALUES : ParseSQL_InsertInto() INSERT INTO or VALUES not found </b></font>").arg(QString::number(m_LineNum)));
-         return;
+//       { outMessage(QObject::tr("    <font color=#ff0000><b>Syntax Error  line : %1 INSERT INTO VALUES : ParseSQL_InsertInto() INSERT INTO or VALUES not found </b></font>").arg(QString::number(m_LineNum)));
+//       { outMessage(QObject::("    <font color=#ff0000><b>"+tr("Syntax Error  line : ")+"%1 INSERT INTO VALUES : ParseSQL_InsertInto() INSERT INTO or VALUES"+tr(" not found")+ "</b></font>").arg(QString::number(m_LineNum)));
+      { outMessage(QObject::tr("    <font color=#ff0000><b>Syntax Error  line : %1 INSERT INTO VALUES : ParseSQL_InsertInto() INSERT INTO or VALUES not found</b></font>").arg(QString::number(m_LineNum)));
+          return;
        }
     //............ isoler le verbe .................................................................
     pos         += 6;
@@ -332,7 +334,8 @@ void  C_BaseCommon::parseSQL_InsertInto(QString &text, QTextEdit */* logWidget  
     //...................... se mettre sur premiere parenthese de donnees ........................................
     deb      = text.indexOf("(", pos);
     if ( deb==-1)
-       { outMessage(QObject::tr("    <font color=#ff0000><b>Syntax Error  line : %1 INSERT INTO VALUES : start ')'  non found  </b></font>").arg(QString::number(m_LineNum)));
+//       { outMessage(QObject::("    <font color=#ff0000><b>"+tr("Syntax Error  line: ")+"%1 INSERT INTO VALUES : start ')'  "+tr("not found")+"</b></font>").arg(QString::number(m_LineNum)));
+       { outMessage(QObject::tr("    <font color=#ff0000><b>Syntax Error  line: %1 INSERT INTO VALUES : start ')'  not found</b></font>").arg(QString::number(m_LineNum)));
          return;
        }
     //....................... parser ................................................
@@ -345,7 +348,8 @@ void  C_BaseCommon::parseSQL_InsertInto(QString &text, QTextEdit */* logWidget  
             textLen = text.length();
             while (i<textLen && ( text[i]==' '||text[i]=='\r'||text[i]=='\n'||text[i]=='\t') )++i;
             if (i>=textLen || text[i]!='(')              //  '),' trouve sans rencontrer le "("
-               { outMessage( QObject::tr("    <font color=#ff0000><b>Syntax Error  line : %1 INSERT INTO VALUES : start '),' present but end '(' not found </b></font>").arg(QString::number(m_LineNum)));
+//               { outMessage( QObject::"    <font color=#ff0000><b>"+tr("Syntax Error  line: ")+"%1 INSERT INTO VALUES : "+tr("start '),' present but end '(' not found")+ "</b></font>".arg(QString::number(m_LineNum)));
+               { outMessage( QObject::tr("    <font color=#ff0000><b>Syntax Error  line: %1 INSERT INTO VALUES : start '),' present but end '(' not found</b></font>").arg(QString::number(m_LineNum)));
                  return;
                }
             else
@@ -355,7 +359,8 @@ void  C_BaseCommon::parseSQL_InsertInto(QString &text, QTextEdit */* logWidget  
         if (end==-1)                                      //==> si pas trouve chercher derniere insertion ");"
            {   end = C_Utils_Log::findNextSep(text, deb, ");");
                if (end==-1)
-                  { outMessage( tr("    <font color=#ff0000><b>Syntax Error  line : %1 INSERT INTO VALUES : start  '),' and end ');' not found</b></font>").arg(QString::number(m_LineNum)));
+//                  { outMessage( "    <font color=#ff0000><b>"+tr("Syntax Error  line: ")+"%1 INSERT INTO VALUES : "+tr("start  '),' and end ');' not found")+"</b></font>".arg(QString::number(m_LineNum)));
+                  { outMessage(tr( "    <font color=#ff0000><b>Syntax Error  line: %1 INSERT INTO VALUES : start  '),' and end ');' not found</b></font>").arg(QString::number(m_LineNum)));
                     return;
                   }
                else
@@ -392,7 +397,7 @@ QString  C_BaseCommon::isThisValueLikeInTable(const QString &tableName, const QS
                     requete += ownersSelectMention(tableName);
 
  if (!query.exec(requete))
-    {m_LastError = tr("\nERREUR  : C_BaseCommon::isThisValueLikeInTable_ToPk( \n%1\nREQUETE : %2").arg(query.lastError().text(),requete).toAscii();
+    {m_LastError = tr("\nERROR: C_BaseCommon::isThisValueLikeInTable_ToPk( \n%1\nREQUEST: %2").arg(query.lastError().text(),requete).toAscii();
      outMessage(m_LastError);
      return QString::null;
     }
@@ -409,7 +414,7 @@ QStringList  C_BaseCommon::isThisValueLikeInTable_ToList(const QString &tableNam
                     requete += ownersSelectMention(tableName);
  QStringList list;
  if (!query.exec(requete))
-    {m_LastError = tr("\nERREUR  : C_BaseCommon::isThisValueLikeInTable_ToPkList() \n%1\nREQUETE : %2").arg(query.lastError().text(),requete).toAscii();
+    {m_LastError = tr("\nERROR: C_BaseCommon::isThisValueLikeInTable_ToPkList() \n%1\nREQUEST: %2").arg(query.lastError().text(),requete).toAscii();
      outMessage(m_LastError);
      return list;
     }
@@ -428,7 +433,7 @@ QString C_BaseCommon::isThisValueInTable(const QString &tableName, const QString
                     requete += ownersSelectMention(tableName);
 
  if (!query.exec(requete))
-    {m_LastError = tr("\nERREUR  : C_BaseCommon::isThisValueInTable( \n%1\nREQUETE : %2").arg(query.lastError().text(),requete).toAscii();
+    {m_LastError = tr("\nERROR: C_BaseCommon::isThisValueInTable( \n%1\nREQUEST: %2").arg(query.lastError().text(),requete).toAscii();
      outMessage(m_LastError);
      return QString::null;
     }
@@ -445,7 +450,7 @@ QStringList C_BaseCommon::isThisValueInTable_ToList(const QString &tableName, co
                     requete += ownersSelectMention(tableName);
  QStringList list;
  if (!query.exec(requete))
-    {m_LastError = tr("\nERREUR  : C_BaseCommon::isThisValueLikeInTable_ToPkList() \n%1\nREQUETE : %2").arg(query.lastError().text(),requete).toAscii();
+    {m_LastError = tr("\nERROR: C_BaseCommon::isThisValueLikeInTable_ToPkList() \n%1\nREQUEST: %2").arg(query.lastError().text(),requete).toAscii();
      outMessage(m_LastError);
      return list;
     }
@@ -472,12 +477,12 @@ bool C_BaseCommon::updateValueInTable(const QString &tableName, const QString &f
  prepare         += " WHERE "   + field_test  + " ='"  + valueToTest  + "'";
 
  if (!query.prepare(prepare))
-    {outSQL_error( query, "ERREUR  : C_BaseCommon::updateValueInTable() prepare", prepare, __FILE__, __LINE__);
+    {outSQL_error( query, tr("ERROR: C_BaseCommon::updateValueInTable() prepare"), prepare, __FILE__, __LINE__);
      return FALSE;
     }
  query.bindValue(0, value);
  if (!query.exec())
-    {outSQL_error( query, "ERREUR  :C_BaseCommon::updateValueInTable() exec", prepare, __FILE__, __LINE__);
+    {outSQL_error( query, tr("ERROR: C_BaseCommon::updateValueInTable() exec"), prepare, __FILE__, __LINE__);
      return FALSE;
     }
  return TRUE;
@@ -490,7 +495,7 @@ bool C_BaseCommon::deleteRecordInTable(const QString &tableName, const QString &
  QString requete    = QString("DELETE FROM %1 WHERE %2='%3' ").arg(tableName, field_test, valueToTest);
 
  if (!query.exec(requete))
-    {outSQL_error( query, "ERREUR  : C_BaseCommon::deleteRecordInTable() ", requete, __FILE__, __LINE__);
+    {outSQL_error( query, tr("ERROR: C_BaseCommon::deleteRecordInTable() "), requete, __FILE__, __LINE__);
      return FALSE;
     }
  return TRUE;
@@ -513,7 +518,7 @@ QString C_BaseCommon::ownersSelectMention( const QString &tableName, C_BaseCommo
 long C_BaseCommon::countRecords(const QString & tableName, const QString &whereMention /* = "" */)
 {QString requete = QString("SELECT COUNT(*) FROM %1 %2").arg(tableName, whereMention);
  QSqlQuery query(requete , database() );
- outSQL_error(query, tr("<font color=#ff0000><b>ERREUR : C_BaseCommon::countRecords() </b></font>"), requete, __FILE__, __LINE__  );
+ outSQL_error(query, tr("<font color=#ff0000><b>ERROR: C_BaseCommon::countRecords() </b></font>"), requete, __FILE__, __LINE__  );
    if (query.isActive() && query.next())
       {return (long) query.value(0).toDouble();
       }
@@ -525,7 +530,7 @@ int C_BaseCommon::eraseTable(const QString &tableName)
 {QString requete = QString("DELETE FROM %1").arg(tableName);
  QSqlQuery query(QString::null , database() );
  if (!query.exec(requete))
-    {m_LastError = tr("\nERREUR  : C_BaseCommon::eraseTable() \n%1\nREQUETE : %2").arg(query.lastError().text(),requete).toAscii();
+    {m_LastError = tr("\nERROR: C_BaseCommon::eraseTable() \n%1\nREQUEST: %2").arg(query.lastError().text(),requete).toAscii();
      outMessage(m_LastError);
      return 0;
     }
