@@ -28,11 +28,11 @@
     <name>CApp</name>
     <message>
         <source>new m_pC_BaseSynoptux failed</source>
-        <translation>echec de new m_pC_BaseSynoptux</translation>
+        <translation>échec de new m_pC_BaseSynoptux</translation>
     </message>
     <message>
         <source>Opening datbase failed&lt;br /&gt;%1</source>
-        <translation>Échec de l&apos;ouverture de la base : &lt;br /&gt;%1.</translation>
+        <translation>Échec de l&apos;ouverture de la base : &lt;br /&gt;%1</translation>
     </message>
 </context>
 <context>
@@ -42,81 +42,110 @@
         <translation>C_BaseCommon::BaseConnect() :Impossible d&apos;ouvrir la base de données : </translation>
     </message>
     <message>
+        <source>&lt;font color=#ff0000&gt;&lt;b&gt;ERROR : parseSQL_Dump() line %1 &lt;/b&gt;&lt;/font&gt;</source>
+        <translation>&lt;font color=#ff0000&gt;&lt;b&gt;ERREUR : parseSQL_Dump() ligne %1 &lt;/b&gt;&lt;/font&gt;</translation>
+    </message>
+    <message>
+        <source>C_BaseCommon::BaseConnect() : error in parameters : CGestIni::Param_ReadParam() may be : key &apos;Parametres&apos; omitted in section &apos;Connexion&apos;</source>
+        <translation>C_BaseCommon::BaseConnect() : erreur dans les paramètres : CGestIni::Param_ReadParam() peut être : clé &apos;Parametres&apos; omise dans la section &apos;Connexion&apos;</translation>
+    </message>
+    <message>
         <source>
+ERROR  : C_BaseCommon::getLastPrimaryKey() 
+%1
+REQUEST : %2</source>
+        <translation>
 ERREUR  : C_BaseCommon::getLastPrimaryKey() 
 %1
-REQUETE : %2</source>
-        <translation type="unfinished"></translation>
+REQUÊTE : %2</translation>
     </message>
     <message>
         <source>
-ERREUR  : C_BaseCommon::dropTable() 
+ERROR  : C_BaseCommon::dropTable() 
 %1
-REQUETE : %2</source>
-        <translation type="unfinished"></translation>
+REQUEST : %2</source>
+        <translation>
+ERREUR : C_BaseCommon::dropTable() 
+%1
+REQUÊTE : %2</translation>
     </message>
     <message>
         <source>
-ERREUR  : C_BaseCommon::createTable() 
+ERROR  : C_BaseCommon::createTable() 
 %1
-REQUETE : %2</source>
-        <translation type="unfinished"></translation>
+REQUEST : %2</source>
+        <translation>
+ERREUR : C_BaseCommon::createTable() 
+%1
+REQUÊTE : %2</translation>
     </message>
     <message>
-        <source>&lt;font color=#ff0000&gt;&lt;b&gt;ERREUR : ParseSQL_Dump() &lt;/b&gt;&lt;/font&gt;</source>
-        <translation type="unfinished"></translation>
+        <source>ERROR:</source>
+        <translation>ERREUR :</translation>
     </message>
     <message>
-        <source>CrÃ©ation de la table &apos;&lt;font color=#01eaff&gt;&lt;b&gt;%1&lt;/b&gt;&lt;/font&gt;&apos; en cours....</source>
-        <translation type="unfinished"></translation>
+        <source>Creating table</source>
+        <translation>Création de la table</translation>
     </message>
     <message>
-        <source>&lt;font color=#ff0000&gt;&lt;b&gt; ERREUR : parseSQL_Dump()&lt;/b&gt;&lt;/font&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>    &lt;font color=#ff0000&gt;&lt;b&gt;Syntax Error  line : %1 INSERT INTO VALUES : start  &apos;),&apos; and end &apos;);&apos; not found&lt;/b&gt;&lt;/font&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;font color=#ff0000&gt;&lt;b&gt;ERROR : parseSQL_Dump() line %1 &lt;/b&gt;&lt;/font&gt;</source>
-        <translation type="unfinished"></translation>
+        <source>    &lt;font color=#ff0000&gt;&lt;b&gt;Syntax Error  line: %1 INSERT INTO VALUES : start  &apos;),&apos; and end &apos;);&apos; not found&lt;/b&gt;&lt;/font&gt;</source>
+        <translation>    &lt;font color=#ff0000&gt;&lt;b&gt;Erreur de syntaxe ligne: %1 INSERT INTO VALUES : début  &apos;),&apos; et fin &apos;);&apos; introuvables&lt;/b&gt;&lt;/font&gt;</translation>
     </message>
     <message>
         <source>
-ERREUR  : C_BaseCommon::isThisValueLikeInTable_ToPk( 
+ERROR: C_BaseCommon::isThisValueLikeInTable_ToPk( 
 %1
-REQUETE : %2</source>
-        <translation type="unfinished"></translation>
+REQUEST: %2</source>
+        <translation>
+ERREUR : C_BaseCommon::isThisValueLikeInTable_ToPk( 
+%1
+REQUÊTE: %2</translation>
     </message>
     <message>
         <source>
-ERREUR  : C_BaseCommon::isThisValueLikeInTable_ToPkList() 
+ERROR: C_BaseCommon::isThisValueLikeInTable_ToPkList() 
 %1
-REQUETE : %2</source>
-        <translation type="unfinished"></translation>
+REQUEST: %2</source>
+        <translation>
+ERREUR : C_BaseCommon::isThisValueLikeInTable_ToPkList() 
+%1
+REQUÊTE: %2</translation>
     </message>
     <message>
         <source>
-ERREUR  : C_BaseCommon::isThisValueInTable( 
+ERROR: C_BaseCommon::isThisValueInTable( 
 %1
-REQUETE : %2</source>
-        <translation type="unfinished"></translation>
+REQUEST: %2</source>
+        <translation>
+ERREUR : C_BaseCommon::isThisValueInTable( 
+%1
+REQUÊTE: %2</translation>
     </message>
     <message>
-        <source>&lt;font color=#ff0000&gt;&lt;b&gt;ERREUR : countRecords() &lt;/b&gt;&lt;/font&gt;</source>
-        <translation type="unfinished"></translation>
+        <source>ERROR: C_BaseCommon::updateValueInTable() prepare</source>
+        <translation>ERREUR : C_BaseCommon::updateValueInTable() prepare</translation>
+    </message>
+    <message>
+        <source>ERROR: C_BaseCommon::updateValueInTable() exec</source>
+        <translation>ERREUR : C_BaseCommon::updateValueInTable() exec</translation>
+    </message>
+    <message>
+        <source>ERROR: C_BaseCommon::deleteRecordInTable() </source>
+        <translation>ERREUR : C_BaseCommon::deleteRecordInTable() </translation>
+    </message>
+    <message>
+        <source>&lt;font color=#ff0000&gt;&lt;b&gt;ERROR: C_BaseCommon::countRecords() &lt;/b&gt;&lt;/font&gt;</source>
+        <translation>&lt;font color=#ff0000&gt;&lt;b&gt;ERREUR : C_BaseCommon::countRecords() &lt;/b&gt;&lt;/font&gt;</translation>
     </message>
     <message>
         <source>
-ERREUR  : C_BaseCommon::eraseTable() 
+ERROR: C_BaseCommon::eraseTable() 
 %1
-REQUETE : %2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>C_BaseCommon::BaseConnect() : error in parameters : CGestIni::Param_ReadParam() may be : key &apos;Parametres&apos; omited in section &apos;Connexion&apos;</source>
-        <translation type="unfinished"></translation>
+REQUEST: %2</source>
+        <translation>
+ERREUR : C_BaseCommon::eraseTable() 
+%1
+REQUÊTE: %2</translation>
     </message>
 </context>
 <context>
@@ -171,7 +200,7 @@ p, li { white-space: pre-wrap; }
 &lt;td&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;========================================================================================================== &lt;br /&gt;Modified RS personnes on 14-06-2011  Version 1.00.000&lt;br /&gt;--------------------------------------------------------------------------------------------------------- &lt;br /&gt;First version&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+        <translation type="obsolete">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
@@ -184,6 +213,36 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;========================================================================================================== &lt;br /&gt;Modif RS personnes du  14-06-2011  Version 1.00.000&lt;br /&gt;--------------------------------------------------------------------------------------------------------- &lt;br /&gt;Première version&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
+    <message utf8="true">
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
+&lt;tr&gt;
+&lt;td style=&quot;border: none;&quot;&gt;
+&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;
+&lt;tr&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;========================================================================================================== &lt;br /&gt;Modified RS personnes on 16-12-2011  Version 2.15.001&lt;br /&gt;--------------------------------------------------------------------------------------------------------- &lt;br /&gt;- Détection de la présence des bases de données et si non présentes&lt;br /&gt;il demandé à l&apos;utilisateur de les installer.&lt;br /&gt;- aprés installation ou restauration des bases, mise à jour de l&apos;interface&lt;br /&gt;correcte il n&apos;est plus utile de relancer synoptux.&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;========================================================================================================== &lt;br /&gt;Modified RS personnes on 15-12-2011  Version 2.15.000&lt;br /&gt;--------------------------------------------------------------------------------------------------------- &lt;br /&gt;Compatible Mac&lt;br /&gt;Ajout d&apos;une confirmation pour la fermeture d&apos;une tache&lt;br /&gt;Correction du bug fatal lors effacement d&apos;une fenetre en mode fenetres.&lt;br /&gt;Ajout d&apos;une possibilité de générer des ébauches de Macros pour toutes les taches définies&lt;br /&gt;Liaison avec MedinTux pour la liste des utilisateurs.&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;========================================================================================================== &lt;br /&gt;Modified RS personnes on 14-06-2011  Version 1.00.000&lt;br /&gt;--------------------------------------------------------------------------------------------------------- &lt;br /&gt;First version&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
+&lt;tr&gt;
+&lt;td style=&quot;border: none;&quot;&gt;
+&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;
+&lt;tr&gt;
+&lt;td&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;========================================================================================================== &lt;br /&gt;Modified RS personnes on 16-12-2011  Version 2.15.001&lt;br /&gt;--------------------------------------------------------------------------------------------------------- &lt;br /&gt;- Détection de la présence des bases de données et si non présentes&lt;br /&gt;il demandé à l&apos;utilisateur de les installer.&lt;br /&gt;- aprés installation ou restauration des bases, mise à jour de l&apos;interface&lt;br /&gt;correcte il n&apos;est plus utile de relancer synoptux.&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;========================================================================================================== &lt;br /&gt;Modified RS personnes on 15-12-2011  Version 2.15.000&lt;br /&gt;--------------------------------------------------------------------------------------------------------- &lt;br /&gt;Compatible Mac&lt;br /&gt;Ajout d&apos;une confirmation pour la fermeture d&apos;une tache&lt;br /&gt;Correction du bug fatal lors effacement d&apos;une fenetre en mode fenetres.&lt;br /&gt;Ajout d&apos;une possibilité de générer des ébauches de Macros pour toutes les taches définies&lt;br /&gt;Liaison avec MedinTux pour la liste des utilisateurs.&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;========================================================================================================== &lt;br /&gt;Modified RS personnes on 14-06-2011  Version 1.00.000&lt;br /&gt;--------------------------------------------------------------------------------------------------------- &lt;br /&gt;First version&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
 </context>
 <context>
     <name>C_Utils_Log</name>
@@ -193,15 +252,15 @@ p, li { white-space: pre-wrap; }
         <translation>------- %1	 à la ligne : %2 	 dans le fichier : %3 ---------</translation>
     </message>
     <message>
-        <source>ERREUR</source>
-        <translation type="unfinished"></translation>
+        <source>ERROR</source>
+        <translation>ERREUR</translation>
     </message>
 </context>
 <context>
     <name>DlgBox</name>
     <message>
         <source>Code</source>
-        <translation>Code</translation>
+        <translation type="obsolete">Code</translation>
     </message>
     <message>
         <source>Type </source>
@@ -292,7 +351,7 @@ p, li { white-space: pre-wrap; }
     <name>DlgDesti</name>
     <message>
         <source>1</source>
-        <translation>1</translation>
+        <translation type="obsolete">1</translation>
     </message>
     <message>
         <source>dd/MM/yyyy    HH:mm</source>
@@ -367,7 +426,7 @@ destination</translation>
     <name>DlgEtat</name>
     <message>
         <source>Code</source>
-        <translation>Code</translation>
+        <translation type="obsolete">Code</translation>
     </message>
     <message>
         <source>Status management</source>
@@ -457,7 +516,7 @@ destination</translation>
     <name>DlgResp</name>
     <message>
         <source>Code</source>
-        <translation>Code</translation>
+        <translation type="obsolete">Code</translation>
     </message>
     <message>
         <source>Code </source>
@@ -504,7 +563,7 @@ destination</translation>
     <name>DlgTache</name>
     <message>
         <source>Code</source>
-        <translation>Code</translation>
+        <translation type="obsolete">Code</translation>
     </message>
     <message>
         <source>Menu</source>
@@ -791,7 +850,7 @@ destination</translation>
     </message>
     <message>
         <source>Ressources</source>
-        <translation>Ressources</translation>
+        <translation type="obsolete">Ressources</translation>
     </message>
     <message>
         <source>YES</source>
@@ -928,7 +987,7 @@ Please choose another place.</source>
     </message>
     <message>
         <source>Entries control. Error when looking for last key</source>
-        <translation>Controle des entrées. Erreur recherche dernière clef</translation>
+        <translation type="obsolete">Controle des entrées. Erreur recherche dernière clef</translation>
     </message>
     <message>
         <source>File %1 cannot be open!</source>
@@ -952,7 +1011,7 @@ Please choose another place.</source>
     </message>
     <message>
         <source>Creating entrance. Error when looking for last key!</source>
-        <translation>Création d&apos;une entrée. Erreur lors de la recherche de la dernière clé !</translation>
+        <translation type="obsolete">Création d&apos;une entrée. Erreur lors de la recherche de la dernière clé !</translation>
     </message>
     <message>
         <source>Creating encours tasks</source>
@@ -966,56 +1025,112 @@ Please choose another place.</source>
         <source>CSS settings for %1 are incorrect.&lt;br /&gt; Please verify CSS file</source>
         <translation>Le paramétrage css pour %1 est incorrect.&lt;br /&gt;Veuillez vérifier le fichier CSS</translation>
     </message>
+    <message>
+        <source>Exit</source>
+        <translation>Sortie</translation>
+    </message>
+    <message>
+        <source>Person in charge</source>
+        <translation>Personne en charge</translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation>Commentaire</translation>
+    </message>
+    <message>
+        <source>Trace</source>
+        <translation>Trace</translation>
+    </message>
+    <message>
+        <source>Do you want really quit synoptux ?</source>
+        <translation>Voulez-vous vraiment quitter synoptux ?</translation>
+    </message>
+    <message>
+        <source>Task: </source>
+        <translation>Tâche : </translation>
+    </message>
+    <message>
+        <source>Delete a task</source>
+        <translation>Supprimer une tâche</translation>
+    </message>
+    <message>
+        <source>Are you sure that this task must be delete</source>
+        <translation>Êtes-vous certain que cette tâche doit être détruite</translation>
+    </message>
+    <message>
+        <source>Creating entrance. Error when looking for last key!&lt;br&gt;may be no data bases present, do menu &apos;Restore database&apos;</source>
+        <translation type="obsolete">Création d&apos;entrée : Erreur lors de la recherche de la dernière clé.&lt;br&gt;Peut-être pas de base de données présente. Faites Menu &apos;Restaurer la base de données&apos;</translation>
+    </message>
+    <message>
+        <source>Databases for synoptux are not installed!&lt;br&gt; Do you want to proceed to installation.</source>
+        <translation type="obsolete">Les bases de données pour synoptux ne sont pas installées ! &lt;br&gt;Voulez-vous procéder à leur installation ?</translation>
+    </message>
+    <message>
+        <source>Driver not started&lt;br&gt;may be bad SQL installation</source>
+        <translation type="obsolete">Pilote non démarré&lt;br&gt;Peut-être une mauvaise installation SQL.</translation>
+    </message>
+    <message>
+        <source>Creating entrance. Error when looking for last key !&lt;br&gt;Maybe no data bases present. Do menu &apos;Restore database&apos;</source>
+        <translation>Création d&apos;entrée : Erreur lors de la recherche de la dernière clé.&lt;br&gt;Peut-être pas de base de données présente. Faites Menu &apos;Restaurer la base de données&apos;</translation>
+    </message>
+    <message>
+        <source>Databases for synoptux are not installed !&lt;br&gt; Do you want to proceed to installation?</source>
+        <translation>Les bases de données pour synoptux ne sont pas installées ! &lt;br&gt;Voulez-vous procéder à leur installation ?</translation>
+    </message>
+    <message>
+        <source>Driver not started.&lt;br&gt;Maybe bad SQL installation</source>
+        <translation>Pilote non démarré&lt;br&gt;Peut-être une mauvaise installation SQL</translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
-    <message>
-        <source>Erreur de syntaxe: Fichier de paramÃ¨tres vide</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Erreur : pas de section dans l&apos;appel de la fonction CGestIni::Param_ReadParam()</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Signe = non trouvÃ© dans la section : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>, variable recherchÃ©e : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Pas de variable : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>  pour la section : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Erreur de syntaxe : Pas de section dans ce fichier</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>    &lt;font color=#ff0000&gt;&lt;b&gt;Syntax Error  line : %1 INSERT INTO VALUES : ParseSQL_InsertInto() INSERT INTO or VALUES not found &lt;/b&gt;&lt;/font&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>    &lt;font color=#ff0000&gt;&lt;b&gt;Syntax Error  line : %1 INSERT INTO VALUES : start &apos;)&apos;  non found  &lt;/b&gt;&lt;/font&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>    &lt;font color=#ff0000&gt;&lt;b&gt;Syntax Error  line : %1 INSERT INTO VALUES : start &apos;),&apos; present but end &apos;(&apos; not found &lt;/b&gt;&lt;/font&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>echec de CApp app(NAME_APPLI, argc, argv);</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>C_BaseCommon::EncodePassword_InConnectionParam() : error in parameters : CGestIni::Param_ReadParam() may be : key &apos;Parametres&apos; omited in section &apos;Connexion&apos;</source>
-        <translation type="unfinished"></translation>
+        <source>Syntax error: empty parameter file</source>
+        <translation>Erreur de syntaxe : fichier de paramètres vide</translation>
+    </message>
+    <message>
+        <source>Error : no section in the call of function CGestIni::Param_ReadParam()</source>
+        <translation>Erreur : pas de section dans l&apos;appel de la fonction CGestIni::Param_ReadParam()</translation>
+    </message>
+    <message>
+        <source>Sign = not found in section: </source>
+        <translation>Signe = introuvable dans la section : </translation>
+    </message>
+    <message>
+        <source>, requested variable: </source>
+        <translation>, variable requise : </translation>
+    </message>
+    <message>
+        <source>No variable: </source>
+        <translation>Pas de variable : </translation>
+    </message>
+    <message>
+        <source>  for section : </source>
+        <translation>  pour la section : </translation>
+    </message>
+    <message>
+        <source>Syntax error: no section in this file</source>
+        <translation>Erreur de syntaxe : pas de section dans ce fichier</translation>
+    </message>
+    <message>
+        <source>C_BaseCommon::EncodePassword_InConnectionParam() : error in parameters : CGestIni::Param_ReadParam() may be : key &apos;Parametres&apos; omitted in section &apos;Connexion&apos;</source>
+        <translation>C_BaseCommon::EncodePassword_InConnectionParam() : erreur dans les paramètres : CGestIni::Param_ReadParam() peut-être que la clé &apos;Parametres&apos; a été omise dans la section &apos;Connexion&apos;</translation>
+    </message>
+    <message>
+        <source>    &lt;font color=#ff0000&gt;&lt;b&gt;Syntax Error  line : %1 INSERT INTO VALUES : ParseSQL_InsertInto() INSERT INTO or VALUES not found&lt;/b&gt;&lt;/font&gt;</source>
+        <translation>    &lt;font color=#ff0000&gt;&lt;b&gt;Erreur de syntaxe à la ligne : %1 INSERT INTO VALUES : ParseSQL_InsertInto() INSERT INTO ou VALUES introuvable&lt;/b&gt;&lt;/font&gt;</translation>
+    </message>
+    <message>
+        <source>    &lt;font color=#ff0000&gt;&lt;b&gt;Syntax Error  line: %1 INSERT INTO VALUES : start &apos;)&apos;  not found&lt;/b&gt;&lt;/font&gt;</source>
+        <translation>    &lt;font color=#ff0000&gt;&lt;b&gt;Erreur de syntaxe à la ligne : %1 INSERT INTO VALUES : début &apos;)&apos; introuvable&lt;/b&gt;&lt;/font&gt;</translation>
+    </message>
+    <message>
+        <source>    &lt;font color=#ff0000&gt;&lt;b&gt;Syntax Error  line: %1 INSERT INTO VALUES : start &apos;),&apos; present but end &apos;(&apos; not found&lt;/b&gt;&lt;/font&gt;</source>
+        <translation>    &lt;font color=#ff0000&gt;&lt;b&gt;Erreur de syntaxe à la ligne: %1 INSERT INTO VALUES : début &apos;),&apos; présent mais fin &apos;(&apos; introuvable&lt;/b&gt;&lt;/font&gt;</translation>
     </message>
 </context>
 </TS>
