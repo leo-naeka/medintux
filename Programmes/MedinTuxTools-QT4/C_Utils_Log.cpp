@@ -112,7 +112,7 @@ void  C_Utils_Log::outMessage(QTextEdit *logWidget, const QString &mess, const Q
        {str = QDateTime::currentDateTime().toString("dd-MM-yyyy hh:mm:ss:ms")+ "\t ";
        }
  str += mess;
- if (mess.startsWith(TR("ERREUR")))
+ if (mess.startsWith(TR("ERROR")))
     {str = str.prepend("<font color=#ffd270>")+"</font>";
     }
  //qDebug(removeHtmlTag(str).toLatin1());
