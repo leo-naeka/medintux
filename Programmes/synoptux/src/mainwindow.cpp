@@ -2254,12 +2254,12 @@ void MainWindow::onSqlError()
     if (m_timerAlarme)  m_timerAlarme->stop();
     setTimerActionEnabled(false);
     if (areBasesInstalled())
-       { QMessageBox::warning(0, NAME_APPLI, tr("Creating entrance. Error when looking for last key!<br>"
-                                                "may be no data bases present, do menu 'Restore database'"));
+       { QMessageBox::warning(0, NAME_APPLI, tr("Creating entrance. Error when looking for last key !<br>"
+                                                "Maybe no data bases present. Do menu 'Restore database'"));
         return;
        }
-    int ret = QMessageBox::question(0,NAME_APPLI,tr("Databases for synoptux are not installed!<br> "
-                                                    "Do you want to proceed to installation."),tr("YES"),tr("NO"),0,1,1);
+    int ret = QMessageBox::question(0,NAME_APPLI,tr("Databases for synoptux are not installed !<br> "
+                                                    "Do you want to proceed to installation?"),tr("YES"),tr("NO"),0,1,1);
     if (ret==0)
        {
         QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -2299,8 +2299,8 @@ int MainWindow::areBasesInstalled()
   int ret = 0;
   QSqlDriver *pQSqlDriver =  DATA_BASE_SYNOPTUX.driver();
   if ( ! pQSqlDriver)
-     { QMessageBox::warning(0, NAME_APPLI, tr("Driver not started<br>"
-                                              "may be bad SQL installation"));
+     { QMessageBox::warning(0, NAME_APPLI, tr("Driver not started.<br>"
+                                              "Maybe bad SQL installation"));
      }
   else
      {
