@@ -92,10 +92,10 @@
 #define LINE_RESUME_HEIGHT         24        // 20 hauteur totale d'une ligne de resume
 #define LINE_RESUME_XMARG          10         // marge d'affichage afin d'eviter que les rectangles debordent
 
-#define FIRST_DAY_POS_Y            2         // ofset vertical d'affichage de la zone des widgets de rendez vous
+#define FIRST_DAY_POS_Y            m_pCMoteurAgenda->GetOfsetGraduation()         // ofset vertical d'affichage de la zone des widgets de rendez vous
 #define NB_DAYS_TO_SEE             31        // nombre de jours par defaut a afficher
 #define BEFORE_DAYS                8         // nombre de jours par defaut a afficher avant
-#define HEAD_RESUME_OFY            4         // ofset de debut d'affichage de la zone de resume
+#define HEAD_RESUME_OFY            5         // ofset de debut d'affichage de la zone de resume
 namespace Ui
 {
     class MainWindowClass;

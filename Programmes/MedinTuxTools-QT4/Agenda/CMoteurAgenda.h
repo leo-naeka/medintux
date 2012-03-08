@@ -123,6 +123,10 @@ class CMoteurAgenda : public QObject
   void            creerRDVFactices (QString user, QDate date);
   void            SetDeleteMode(int value){m_buttonDeleteOnRdv=value;}
   int             GetDeleteMode(){return m_buttonDeleteOnRdv;}
+  int             GetTimeGradHeight(){return m_TimeGradHeight;}
+  void            SetTimeGradHeight(const QString &value){if (value.length())m_TimeGradHeight=value.toInt();}
+  void            SetOfsetGraduation(const QString &value){if (value.length())m_OfsetGraduation=value.toInt();}
+  int             GetOfsetGraduation(){return m_OfsetGraduation;}
   void            SetMinDaysHeight(int = 15);
   int             GetMinDaysHeight();
   void            SetVerboseMode(int mode) {m_isVerbose = mode;}
@@ -229,6 +233,8 @@ class CMoteurAgenda : public QObject
   int           m_AgendaWeekWidth;
   int           m_NbDayInModeWeek;
   int           m_NbDayInModeDay;
+  int           m_TimeGradHeight;
+  int           m_OfsetGraduation;
   int           m_TitleHeight;
   int           m_AgendaButtonHeight;
   int           m_MinDaysHeight;

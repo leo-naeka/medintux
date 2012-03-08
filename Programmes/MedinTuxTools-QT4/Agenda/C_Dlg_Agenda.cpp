@@ -271,6 +271,8 @@ C_Frm_Agenda::C_Frm_Agenda(const QDate &date,
     m_pCMoteurAgenda->SetAnimationAuthorisation(CGestIni::Param_ReadUniqueParam(m_LocalParam.toAscii(),                      "Agenda", "Animation active"));
     m_pCMoteurAgenda->SetWeekDeploymentMode(CGestIni::Param_ReadUniqueParam(m_LocalParam.toAscii(),                          "Agenda", "Deployer semaine toujours sur une ligne"));
     m_pCMoteurAgenda->SetBaseDayHeight(CGestIni::Param_ReadUniqueParam(m_LocalParam.toAscii(),                               "Agenda", "Hauteurs de base du bandeau des jours"));
+    m_pCMoteurAgenda->SetTimeGradHeight(CGestIni::Param_ReadUniqueParam(m_LocalParam.toAscii(),                              "Agenda", "Hauteur police graduation"));
+    m_pCMoteurAgenda->SetOfsetGraduation(CGestIni::Param_ReadUniqueParam(m_LocalParam.toAscii(),                             "Agenda", "Ofset graduation"));
     // CZE debut
     m_pCMoteurAgenda->SetDebPM (CGestIni::Param_ReadUniqueParam(m_LocalParam.toAscii(),                                     "Agenda", "Heure debut PM"));
     m_pCMoteurAgenda->SetEndAM (CGestIni::Param_ReadUniqueParam(m_LocalParam.toAscii(),                                     "Agenda", "Heure fin AM"));
@@ -628,7 +630,8 @@ void C_Frm_Agenda::reinitAgendaOnUser(const QString &signUser, const QString &dr
 
 //------------------------ reinitAgendaOnDate ---------------------------------------
 void C_Frm_Agenda::reinitAgendaOnDate(QDate dateDeb)
-{clear();         // effacer les jours
+{int        y    = 0;     // ofset de demarrage en haut de la fenetre agenda
+ clear();         // effacer les jours
  //............ effacer les labels des mois ......................
  m_pCMoteurAgenda->creer_Liste_Jours_Feries(dateDeb);
  QMapIterator<int, QLabel*> it(m_MonthLabelList);
@@ -645,7 +648,6 @@ void C_Frm_Agenda::reinitAgendaOnDate(QDate dateDeb)
           int nbDayToSee  = m_pCMoteurAgenda->GetNbDayInModeDay();
           m_StartDate     = dateDeb;
           dateDeb         = dateDeb.addDays (-m_StartBefore );
-          int        y    = FIRST_DAY_POS_Y;     // ofset de demarrage en haut de la fenetre agenda
           int lastMonth   = 0;
           QLabel *pQLabel = 0;
           for (int i=0;  i<nbDayToSee; ++i)
@@ -671,7 +673,7 @@ void C_Frm_Agenda::reinitAgendaOnDate(QDate dateDeb)
                      y += h_label;
                    }
                 day_expand = 0; // CZA
-                if (dateDeb==QDate::currentDate() || y == FIRST_DAY_POS_Y) day_expand = 1;  // CZA
+                if (dateDeb==QDate::currentDate() || y == 0) day_expand = 1;  // CZA
                 C_Frm_Day* pC_Frm_Day = new C_Frm_Day(
                                                         m_pCMoteurAgenda,
                                                         &m_ColorProfils,
@@ -707,7 +709,6 @@ void C_Frm_Agenda::reinitAgendaOnDate(QDate dateDeb)
              int widthDay           = m_pCMoteurAgenda->GetAgendaWeekWidth() / nbDayToSee;  // CZA
              m_StartDate            = dateDeb;
              dateDeb                = dateDeb.addDays (- m_StartDate.dayOfWeek() +1 );
-             int      y             = FIRST_DAY_POS_Y;     // ofset de demarrage en haut de la fenetre agenda
              int maxHeightDayOfWeek = 0;                   // CZA
              int      x             = W_OFSET;             // CZA position du jour
 
@@ -724,7 +725,7 @@ void C_Frm_Agenda::reinitAgendaOnDate(QDate dateDeb)
                                            this,
                                            getMagnetisme(),
                                            x,
-                                           FIRST_DAY_POS_Y,        // CZA
+                                           0,        // CZA en mode semaine les jours commencent a zero
                                            getResoPixByMinutes(),
                                            1              // jour toujours deploye pour mode semaine
                                           );
@@ -751,7 +752,6 @@ void C_Frm_Agenda::reinitAgendaOnDate(QDate dateDeb)
           int widthDay            = m_pCMoteurAgenda->GetAgendaWeekWidth() / nbDayInWeek;  // CZA
           m_StartDate             = dateDeb;
           dateDeb                 = dateDeb.addDays (- m_StartDate.dayOfWeek()+1 );
-          int      y              = FIRST_DAY_POS_Y;     // ofset de demarrage en haut de la fenetre agenda
           int      x              = W_OFSET;             // CZA position du jour
           int      h              = 0;
           int      h_weekMax      = 0;
@@ -974,15 +974,13 @@ void C_Frm_Agenda::Slot_ExpandWeek()
 //----------------------------------- On_AgendaMustBeReArange -------------------------------------------
 void C_Frm_Agenda::On_AgendaMustBeReArange()
 {   if  (m_PaintMode < C_Frm_Agenda::NORMAL) return;
-    int         y  = FIRST_DAY_POS_Y;        // ofset de demarrage en haut de la fenetre agenda
+    int         y  = 0;        // ofset de demarrage en haut de la fenetre agenda
 
     if (m_pCMoteurAgenda->m_WeekOrDay == "DAY")           // CZA
        { QLabel  *pQLabel       = 0;
          int      lastMonth     = 0;
          QDate dateDeb          = m_StartDate ;
          dateDeb                = dateDeb.addDays (-m_StartBefore );
-         int               y    = FIRST_DAY_POS_Y;     // ofset de demarrage en haut de la fenetre agenda
-
          for (int i = 0; i < C_Frm_DayList::size(); ++i)
            { //........... afficher le label des mois ......................
              if ( lastMonth==0 || (dateDeb.month() != lastMonth && dateDeb.day()==1) )
@@ -1025,7 +1023,6 @@ void C_Frm_Agenda::On_AgendaMustBeReArange()
        int widthDay           = m_pCMoteurAgenda->GetAgendaWeekWidth() / nbDayInWeek;  // CZA
        m_StartDate            = dateDeb;
        dateDeb                = dateDeb.addDays (- m_StartDate.dayOfWeek()+1 );
-       int      y             = FIRST_DAY_POS_Y;     // ofset de demarrage en haut de la fenetre agenda
        int      x             = W_OFSET;             // CZA position du jour
        int      h             = 0;
        int      h_weekMax     = 0;
@@ -1376,7 +1373,7 @@ void  C_Frm_Day::Slot_RefreshView()
 
 //---------------------------------------- computeDayHeight --------------------------------------------
 int  C_Frm_Day::computeDayHeight()
-{if (isDayExpand())  return (getStartTime().secsTo(getStopTime())/60*getResoPixByMinutes()) + 10 + m_BaseDayHeight +  FIRST_DAY_POS_Y;
+{if (isDayExpand())  return (getStartTime().secsTo(getStopTime())/60*getResoPixByMinutes()) + m_BaseDayHeight +  FIRST_DAY_POS_Y*2+10;
  else                return m_BaseDayHeight;
 }
 
@@ -1454,67 +1451,63 @@ void C_Frm_Day::paintEvent ( QPaintEvent * /*event*/)
   QPainter p(this);
   QFont    f             = font();
   int nbRdv              = 0;
-  int  y_deb             = FIRST_DAY_POS_Y + m_BaseDayHeight;
   QDate curDt            = QDate::currentDate();
   int timePosPixmapX     = 0;
   int timePosPixmapY     = 0;
   char  mdw              = m_pCMoteurAgenda->GetAgendaMode_WeekOrDayOrMonth().toAscii()[0];
-  QString tmpStr         = "";
   int nextTmpPosX        = DAY_OFS_X-15;
   QString colorDate      = "#000000";
   int    verticalAdjust  = -2;
   QFont   fntDate        = m_pCMoteurAgenda->GetFontDateInResume(colorDate, verticalAdjust);
   QFontMetrics fntMetric = QFontMetrics(fntDate);
   int           ofsTxtY  = m_BaseDayHeight - fntMetric.descent() + verticalAdjust;
+  QString tmpStr         = getDate().toString(m_pCMoteurAgenda->GetFormatDateInResume(mdw));  // date du jour en cours d'affichage
   QRect             br;
 
   //////////////////////////////////////////////////// JOUR EXPANSE ////////////////////////////////////////////////////////
   if (isDayExpand())    // si jour expand
-     {
-       nbRdv          = C_Frm_RdvList::size();
-       QTime tps      = getStartTime();
-       int y_der      = tps.secsTo(getStopTime())/60*getResoPixByMinutes();
-       tmpStr         = getDate().toString(m_pCMoteurAgenda->GetFormatDateInResume(mdw));  // date du jour en cours d'affichage
+     { QFont            fGrd  = font(); fGrd.setPixelSize(m_pCMoteurAgenda->GetTimeGradHeight()); fGrd.setBold(true);
+       QFontMetrics fntMetGrd = QFontMetrics(fGrd);
+       nbRdv                  = C_Frm_RdvList::size();
+       QTime tps              = getStartTime();
+       int y_der              = tps.secsTo(getStopTime())/60*getResoPixByMinutes();
 
-       //............................ titre du jour (date courante)..............
+       //............................ pixmap du jour (date courante)..............
        if (m_pCMoteurAgenda->isFreeDay(m_Date))
-          {p.drawPixmap (0, y_deb-m_BaseDayHeight-3, m_pBMC->m_HeadUnWorkDay);
+          {p.drawPixmap (0, 0, m_pBMC->m_HeadUnWorkDay);
           }
        else
-          {if      (m_Date.dayOfWeek() == Qt::Saturday)  p.drawPixmap (0, y_deb-m_BaseDayHeight-3, m_pBMC->m_HeadSatDay_Pixmap );
-           else if (m_Date.dayOfWeek() == Qt::Sunday)    p.drawPixmap (0, y_deb-m_BaseDayHeight-3, m_pBMC->m_HeadSunDay_Pixmap );
-           else                                          p.drawPixmap (0, y_deb-m_BaseDayHeight-3, m_pBMC->m_HeadOpenDay_Pixmap );
+          {if      (m_Date.dayOfWeek() == Qt::Saturday)  p.drawPixmap (0, 0 , m_pBMC->m_HeadSatDay_Pixmap );
+           else if (m_Date.dayOfWeek() == Qt::Sunday)    p.drawPixmap (0, 0 , m_pBMC->m_HeadSunDay_Pixmap );
+           else                                          p.drawPixmap (0, 0 , m_pBMC->m_HeadOpenDay_Pixmap );
           }
-       p.setFont(fntDate); p.setPen (colorDate);
-       br  = fntMetric.boundingRect (tmpStr+"_");
-       p.drawText ( QPoint(nextTmpPosX, ofsTxtY ), tmpStr );
-       nextTmpPosX += br.width();
-       p.setPen (Qt::black);
-
        if (m_Date==curDt && m_rafraich>=4)
-          {//........ heure courante indicateur graphique.........
-           int    mnDeb      = tps.hour()*60 + tps.minute();   // initialise au debut de  if (isDayExpand())
-           QTime     tm      = QTime::currentTime();
-           int    mnCur      = tm.hour()*60+tm.minute(); mnCur -= mnDeb;
-           int     posY      = mnCur*getResoPixByMinutes();
-           p.drawPixmap (0, posY+y_deb-m_pBMC->m_AgendaHourIndic_Pixmap.height()/2, m_pBMC->m_AgendaHourIndic_Pixmap);
+          {//........ indicateur graphique de l'heure courante bitmap horizontal.........
+           QTime       tm        = QTime::currentTime();
+           if (tm>tps && tm<getStopTime())
+              {int    mnDeb      = tps.hour()*60 + tps.minute();   // initialise au debut de  if (isDayExpand())
+               int    mnCur      = tm.hour()*60+tm.minute(); mnCur -= mnDeb;
+               int     posY      = mnCur*getResoPixByMinutes();
+               p.drawPixmap (0, posY+m_BaseDayHeight+FIRST_DAY_POS_Y - (m_pBMC->m_AgendaHourIndic_Pixmap.height()>>1), m_pBMC->m_AgendaHourIndic_Pixmap);
+              }
           }
-       //.................. graduations ........................
-       f.setPointSize(6); f.setBold(TRUE); p.setFont ( f );
-       for (int y = 0; y <= y_der; y += 15*getResoPixByMinutes())
-           { int    posY  = y+y_deb;
+       //.................. graduations verticales ........................
+       QSize grd_size = fntMetGrd.size ( Qt::TextSingleLine, "==:==");
+       int posGrdX    = grd_size.width(); //fntMetGrd.width("44:44"); //fntMetGrd.maxWidth();
+       for (int y     = 0; y <= y_der; y += 15*getResoPixByMinutes())
+           { int    posY  = y+FIRST_DAY_POS_Y+m_BaseDayHeight;
              QString txt  = tps.toString("hh:mm");
-             if (txt==m_HeureDeb)       {p.setPen (Qt::darkRed);   f.setBold(TRUE);   p.setFont ( f );}
-             else if (txt==m_HeureFin)  {p.setPen (Qt::darkRed);   f.setBold(TRUE);   p.setFont ( f );}
-             else if (txt.mid(3)=="00") {p.setPen (Qt::darkGray);  f.setBold(TRUE);   p.setFont ( f );}
-             else                       {p.setPen (Qt::lightGray); f.setBold(FALSE);  p.setFont ( f );}
-             p.drawLine (30 , posY, m_Width,posY);
-             p.drawText ( QPoint(0,posY+5), tps.toString(txt) );
+             if (txt==m_HeureDeb)       {p.setPen (Qt::darkRed);   fGrd.setBold(TRUE);   p.setFont ( fGrd );}
+             else if (txt==m_HeureFin)  {p.setPen (Qt::darkRed);   fGrd.setBold(TRUE);   p.setFont ( fGrd );}
+             else if (txt.mid(3)=="00") {p.setPen (Qt::darkGray);  fGrd.setBold(TRUE);   p.setFont ( fGrd );}
+             else                       {p.setPen (Qt::lightGray); fGrd.setBold(FALSE);  p.setFont ( fGrd );}
+             p.drawLine (posGrdX, posY, m_Width,posY);
+             p.drawText ( QPoint(0,posY + (grd_size.height()>>1)), tps.toString(txt) );
              tps=tps.addSecs(60*15);
            }  //endfor (int y = 0; y < y_der; y += 15)
+       //........... trait vertical à droite ...............
        p.setPen (Qt::lightGray);
-       p.drawLine (m_Width-1 , 0, m_Width-1,y_der+50);
-       p.setFont(fntDate);
+       p.drawLine (m_Width-1 , 0, m_Width-1,y_der+m_BaseDayHeight+10);
      } // endif (pC_Frm_Day->isDayExpand())
   //////////////////////////////////////////////////// JOUR REPLIE ////////////////////////////////////////////////////////
   else
@@ -1529,80 +1522,70 @@ void C_Frm_Day::paintEvent ( QPaintEvent * /*event*/)
       int    mnCur      = 0;
       int        h      = 0;
       int        w      = 0;
-      QRect     rp;
-      int secondResumeY =  HEAD_RESUME_OFY + FIRST_DAY_POS_Y + LINE_RESUME_HEIGHT + 5;    //HEAD_RESUME_OFY+FIRST_DAY_POS_Y +  LINE_RESUME_HEIGHT + 5
+      QRect     rp      = m_pBMC->m_HeadResume_Pixmap.rect();
       C_RendezVous *rdv = 0;
       //..................... bitmap de deco ........................
-      if (m_pCMoteurAgenda->isFreeDay(m_Date))
-         {p.drawPixmap (0, y_deb-m_BaseDayHeight-3, m_pBMC->m_HeadUnWorkDay);
+      if (m_pCMoteurAgenda->isFreeDay(m_Date))                  // si jours feries
+         {p.drawPixmap (0, 0 , m_pBMC->m_HeadUnWorkDay);
          }
       else
-         {
-          if      (m_Date.dayOfWeek() == Qt::Saturday)  p.drawPixmap (0, y_deb-m_BaseDayHeight-3, m_pBMC->m_HeadSatDay_Pixmap );
-          else if (m_Date.dayOfWeek() == Qt::Sunday)    p.drawPixmap (0, y_deb-m_BaseDayHeight-3, m_pBMC->m_HeadSunDay_Pixmap );
-          else                                          p.drawPixmap (0, y_deb-m_BaseDayHeight-3, m_pBMC->m_HeadCloseDay_Pixmap);
+         {if      (m_Date.dayOfWeek() == Qt::Saturday)  p.drawPixmap (0, 0 , m_pBMC->m_HeadSatDay_Pixmap );
+          else if (m_Date.dayOfWeek() == Qt::Sunday)    p.drawPixmap (0, 0 , m_pBMC->m_HeadSunDay_Pixmap );
+          else                                          p.drawPixmap (0, 0 , m_pBMC->m_HeadCloseDay_Pixmap);
          }
-
-      //if (nbRdv)   // ....... bitmap du resume (deux si double ligne) ..........
-         {
-          if (nbRdv) p.drawPixmap (ofsetX-5, HEAD_RESUME_OFY+y_deb-m_BaseDayHeight, m_pBMC->m_HeadResume_Pixmap );
-          p.setPen ("#6b6a6a");
-          rp = m_pBMC->m_HeadResume_Pixmap.rect();
-          rp.setX(ofsetX-5);
-          rp.setY(HEAD_RESUME_OFY+y_deb-m_BaseDayHeight);
-          rp.setHeight(m_pBMC->m_HeadResume_Pixmap.height());
-          rp.setWidth(m_pBMC->m_HeadResume_Pixmap.width());
-          p.drawRoundedRect (rp, 4, 4);
-          if  (m_DayLF>0)
-              {rp.setY(secondResumeY);
-               rp.setWidth(m_pBMC->m_HeadResume_Pixmap.width());
-               rp.setHeight(m_pBMC->m_HeadResume_Pixmap.height());
-               if (nbRdv) p.drawPixmap (ofsetX-5, secondResumeY, m_pBMC->m_HeadResume_Pixmap );
-               p.drawRoundedRect (rp, 4, 4);
-              }
-         }
-      if (m_Date==curDt && m_rafraich>=4 )                        //....... heure courante indicateur graphique trait vertical ..........
+      // ....... bitmap du resume et cadres du resume (deux si double ligne) ..........
+      if (nbRdv) p.drawPixmap (ofsetX-5, HEAD_RESUME_OFY, m_pBMC->m_HeadResume_Pixmap );
+      p.setPen ("#6b6a6a");
+      rp.translate(ofsetX-5, HEAD_RESUME_OFY);                      // positionner le rectangle du haut
+      p.drawRoundedRect (rp, 4, 4);
+      if  (m_DayLF>0)
+          {if (nbRdv) p.drawPixmap (ofsetX-5, LINE_RESUME_HEIGHT + (HEAD_RESUME_OFY << 1) , m_pBMC->m_HeadResume_Pixmap );
+           rp.translate(0, LINE_RESUME_HEIGHT + HEAD_RESUME_OFY);   // positionner le rectangle du bas
+           p.drawRoundedRect (rp, 4, 4);
+          }
+      //....... heure courante indicateur graphique trait vertical ..........
+      if (m_Date==curDt && m_rafraich>=4 )
          {QTime tm           = QTime::currentTime();
-          mnCur              = tm.hour()*60+tm.minute();
           if ( tm>tpsDeb &&  tm<tpsEnd )  // on calcule maintenant et on affiche le curseur des heures en dernier pour ne pas se faire recouvrir
-             {QPoint point   = computeResumePosXYFromTimeInMinute(mnCur, mnDeb, nbMnToSee, m_pBMC->m_HeadResume_Pixmap.width()-LINE_RESUME_XMARG, LINE_RESUME_HEIGHT + 5, m_DayLF?2:1);
+             {mnCur          = tm.hour()*60+tm.minute();
+              QPoint point   = computeResumePosXYFromTimeInMinute(mnCur, mnDeb, nbMnToSee, m_pBMC->m_HeadResume_Pixmap.width()-LINE_RESUME_XMARG, LINE_RESUME_HEIGHT+HEAD_RESUME_OFY, m_DayLF?2:1);
               timePosPixmapX = point.x() + ofsetX;
-              timePosPixmapY = point.y() + 2;
+              timePosPixmapY = point.y() - m_pBMC->m_AgendaTimeArrow_Pixmap.height();
              }
          }
-      f.setPointSize(6); p.setFont ( f );
-      //..................... graduations horaires ........................
+      //..................... graduations horaires horizontales........................
+      f.setPointSize(6); f.setBold(FALSE); p.setFont ( f );
       for (int i = 0; nbRdv && i <= nbMnToSee; i += 15)
           {mnCur        = mnDeb + i;
            h            = mnCur/60;
-           QPoint point = computeResumePosXYFromTimeInMinute(mnCur, mnDeb, nbMnToSee, m_pBMC->m_HeadResume_Pixmap.width()-LINE_RESUME_XMARG, LINE_RESUME_HEIGHT + 5, m_DayLF?2:1);
+           QPoint point = computeResumePosXYFromTimeInMinute(mnCur, mnDeb, nbMnToSee, m_pBMC->m_HeadResume_Pixmap.width()-LINE_RESUME_XMARG, LINE_RESUME_HEIGHT+HEAD_RESUME_OFY, m_DayLF?2:1);
            posX         = point.x() + ofsetX;
-           posY         = point.y() + 20;
+           posY         = point.y()-8;
            if (h*60==mnCur)
               {p.setPen (QColor ( "#ff0000" ));
-               p.drawLine (posX , posY, posX, posY+2);
+               p.drawLine (posX , posY, posX, posY-2);
                p.setPen (QColor ( Qt::darkGray ));
-               if (h==0)         p.drawText ( QPoint(posX+2, posY+9), QString::number(h) );
-               else if (h>9)     p.drawText ( QPoint(posX-5, posY+9), QString::number(h) );
-               else              p.drawText ( QPoint(posX-2, posY+9), QString::number(h) );
+               if (h==0)         p.drawText ( QPoint(posX+2, posY+7), QString::number(h) );
+               else if (h>9)     p.drawText ( QPoint(posX-5, posY+7), QString::number(h) );
+               else              p.drawText ( QPoint(posX-2, posY+7), QString::number(h) );
               }
            else
               {p.setPen (QColor ( Qt::white ));
-               p.drawLine (posX , posY, posX, posY+2);
+               p.drawLine (posX , posY, posX, posY-2);
               }
           }
       //................... lire la liste des rendez-vous et afficher le resume colore .....................
       for (int i = 0; i < nbRdv; ++i)
-          {//.......... creer et ajouter le widget du rendez vous .................................
+          {//.......... creer et ajouter les rectangles de couleurs des rendez vous .................................
            rdv         = m_cacheRDV_List[i];
            QRect rect2 = QRect(-1,-1,-1,-1);     // est initialise si un rectangle s'etend sur deux lignes (un bout a la ligne d'avant, l'autre sur l'autre ligne)
-           QRect rect  = computeResumeRdvGeometry(rdv, mnDeb, nbMnToSee, m_pBMC->m_HeadResume_Pixmap.width()-LINE_RESUME_XMARG, LINE_RESUME_HEIGHT + 5, m_DayLF?2:1,rect2);
+           QRect rect  = computeResumeRdvGeometry(rdv, mnDeb, nbMnToSee, m_pBMC->m_HeadResume_Pixmap.width()-LINE_RESUME_XMARG, LINE_RESUME_HEIGHT+HEAD_RESUME_OFY, m_DayLF?2:1,rect2);
            w           = rect.width();
            h           = rect.height();
            posX        = rect.x() + ofsetX;
-           posY        = rect.y() + 8;
+           posY        = rect.y();
 
-           //............ tracer le rectangle normal (ou du haut) ............
+           //............ tracer le rectangle normal du rdv (ou du haut) ............
            QColor color(getRdvColor(*rdv));                  // couleur rdv
            p.fillRect ( posX, posY, w, 11, color);           // tracer rectangle plein
            p.setPen (color.darker(120));                     // tracer le contour en le foncant
@@ -1625,7 +1608,7 @@ void C_Frm_Day::paintEvent ( QPaintEvent * /*event*/)
                //............ tracer le rectangle du bas ............
                w           = rect2.width();
                posX        = rect2.x() + ofsetX;
-               posY        = rect2.y() + 8;
+               posY        = rect2.y();
                p.fillRect ( posX, posY, w, 11, color);           // tracer rectangle plein
                p.setPen (color.darker(120));                     // tracer le contour en le foncant
                p.drawRoundedRect ( posX, posY, w, h, 0, 0);      // radius 0 ->rectangle
@@ -1640,35 +1623,45 @@ void C_Frm_Day::paintEvent ( QPaintEvent * /*event*/)
                p.drawLine (posX , posY+4, posX, posY + h -4);
                --posX;
                p.drawLine (posX , posY+5, posX, posY + h -5);
-               //........ retablir valeurs pour tracage du point ...................
-               w     = rect.width();
-               posX  = rect.x() + ofsetX;
+               //........ retablir valeurs pour tracage du comedon ...................
+               //         on trace le point rouge dans le plus grand des rectangles)
+               if (rect2.width()>rect.width())
+                  {w     = rect2.width();
+                   posX  = rect2.x() + ofsetX;
+                   posY  = rect2.y() + 4;
+                  }
+               else
+                  {w     = rect.width();
+                   posX  = rect.x() + ofsetX;
+                   posY  = rect.y() + 4;
+                  }
               }
-           //........... si occupe le signaler avec un point noir heu! rouge............
-           //            (pas le comedon)
+           else // if (rect2.x()!=-1)
+              {posY  = rect.y() + 4;             // positionner valeur de l'eventuel tracage du comedon
+              }
+           //........... si occupe le signaler avec un point noir un comedon quoi heu! rouge............
+           //            il est un peu plus gros si double ligne
            if (rdv->m_GUID.length()||rdv->m_Nom.length()||rdv->m_Prenom.length())
-              {posY  = rect.y() + 12;
-               if (m_DayLF)
+              {if (m_DayLF)
                   {p.fillRect ( posX+w/2-1, posY, 4, 4, QColor(Qt::red)); // tracer rectangle plein
                    p.fillRect ( posX+w/2-1, posY, 2, 2, QColor(Qt::red).lighter(160));
                   }
                else
-                   {
-                    p.fillRect ( posX+w/2, posY, 2, 2, QColor(Qt::red)); // tracer rectangle plein
-                    p.fillRect ( posX+w/2, posY, 1, 1, QColor(Qt::red).lighter(160));
-                   }
-              }
-         }
-
-      //............................ titre du jour ................................................
-      tmpStr     = getDate().toString(m_pCMoteurAgenda->GetFormatDateInResume(mdw));   // mdw = 'D' or 'W' or 'M'
-      p.setFont(fntDate); p.setPen (colorDate);
-      br  = fntMetric.boundingRect (tmpStr+"_");
-      p.drawText ( QPoint(nextTmpPosX, ofsTxtY), tmpStr );
-      nextTmpPosX += br.width();
-      p.setPen (Qt::black);
+                  {p.fillRect ( posX+w/2, posY, 2, 2, QColor(Qt::red)); // tracer rectangle plein
+                   p.fillRect ( posX+w/2, posY, 1, 1, QColor(Qt::red).lighter(160));
+                  }
+              } // endif commedon a dessiner if (rdv->m_GUID.length()||rdv->m_Nom.length()||rdv->m_Prenom.length())
+         }// endif affichage du resume color
      }  // end else if (isDayExpand())
+
   ////////////////////////////////// COMMON /////////////////////////////////
+  //............................ date du jour ................................................
+  tmpStr     = getDate().toString(m_pCMoteurAgenda->GetFormatDateInResume(mdw));   // mdw = 'D' or 'W' or 'M'
+  p.setFont(fntDate); p.setPen (colorDate);
+  br  = fntMetric.boundingRect (tmpStr+"_");
+  p.drawText ( QPoint(nextTmpPosX, ofsTxtY ), tmpStr );
+  nextTmpPosX += br.width();
+  p.setPen (Qt::black);
   //..................... nb rdv........................
   if (nbRdv)
      {tmpStr = QString::number(nbRdv);
@@ -1680,6 +1673,7 @@ void C_Frm_Day::paintEvent ( QPaintEvent * /*event*/)
       p.drawText ( QPoint(nextTmpPosX, ofsTxtY), tmpStr );
       nextTmpPosX += fntMetric.boundingRect (tmpStr).width();
      }
+  // .........si jour courant le signaler par le cadre rouge et l'heure ................
   //  a ce stade nextTmpPosX est la position la plus a droite de la date affichee en bas
   if (m_Date==curDt)       // tracer les rectangles interieurs rouges du jour courant
      { QColor color("#d22f2f");
@@ -1830,7 +1824,7 @@ C_RendezVous *C_Frm_Day::getRdvUnderMouseInResume ( int x, int y , int *index /*
         {//.......... creer et ajouter le widget du rendez vous .................................
          rdv         = m_cacheRDV_List[i];
          QRect rect2 = QRect(-1,-1,-1,-1);  // est initialise si un rectangle s'etend sur deux lignes (un bout a la ligne d'avant, l'autre sur l'autre ligne)
-         QRect rect  = computeResumeRdvGeometry(rdv, mnDeb, nbMnToSee, m_pBMC->m_HeadResume_Pixmap.width()-LINE_RESUME_XMARG, LINE_RESUME_HEIGHT + 5, m_DayLF?2:1, rect2, LINE_RESUME_HEIGHT + 10);
+         QRect rect  = computeResumeRdvGeometry(rdv, mnDeb, nbMnToSee, m_pBMC->m_HeadResume_Pixmap.width()-LINE_RESUME_XMARG, LINE_RESUME_HEIGHT+HEAD_RESUME_OFY, m_DayLF?2:1, rect2, LINE_RESUME_HEIGHT + 10);
          rect.setX(rect.x()-1);rect.setWidth(rect.width()+2);   // on agrandi un peu
          if (rect.contains(x - ofsetX , y , TRUE)) {if (index) *index = i; return  rdv;}
          if (rect2.x() != -1)               // si le rectangle est coupe en deux (un bout a la ligne d'avant, l'autre sur l'autre ligne) on verifie aussi si souris dedans l'autre bout
@@ -1861,14 +1855,14 @@ QRect C_Frm_Day::computeResumeRdvGeometry(C_RendezVous *pRdv, int startTimeInMin
  int line              = (posInMinutes)     / segmentInMinutes;    // + pRdv->m_Duree pour passer a la ligne si deborde a droite
  int debSegmentInMn    = posInMinutes - line * segmentInMinutes;
  rect.setX (     (widthSegment * debSegmentInMn)  / segmentInMinutes );
- rect.setY(       lineH        * line);
+ rect.setY(       lineH        * (line+1)-LINE_RESUME_HEIGHT+2);
  //........... verifier si deborde pas a droite ..........................
  //            auquel cas generer le deuxieme rectangle
  reliquat =  (debSegmentInMn + pRdv->m_Duree)-segmentInMinutes;
  if (reliquat>0)
     {rect.setWidth(  ((widthSegment * (pRdv->m_Duree - reliquat) )  / segmentInMinutes) );
      rect2.setWidth( ((widthSegment * (reliquat) )                  / segmentInMinutes) );
-     rect2.setY(       lineH        * (line + 1) );
+     rect2.setY(       lineH        * (line + 2)-LINE_RESUME_HEIGHT+2);
      rect2.setX (0);
      rect2.setHeight(rectH);
     }
@@ -1879,7 +1873,7 @@ QRect C_Frm_Day::computeResumeRdvGeometry(C_RendezVous *pRdv, int startTimeInMin
  return rect;
 }
 
-//---------------------------------------- computeResumeRdvGeometry ---------------------------------------------------------------
+//---------------------------------------- computeResumePosXYFromTimeInMinute ---------------------------------------------------------------
 //....startTimeInMinutes........>|......[1]..........[2].....................[3].............[4]..................|             line 0  <|
 //                               |............[5]............[6]............[ 7 ]..............................[ 8|             line 1  <|-- lineH (in pixels)
 //                               |  ]............[9]....[10]............[11]......................................|<...EndTime  line 2
@@ -1897,7 +1891,7 @@ QPoint C_Frm_Day::computeResumePosXYFromTimeInMinute(int timeInMinutes, int star
  int line              = posInMinutes   / segmentInMinutes;
  int debSegmentInMn    = posInMinutes - line * segmentInMinutes;
  point.setX (    (widthSegment * debSegmentInMn)  / segmentInMinutes );
- point.setY(      lineH        * line);
+ point.setY(      lineH        * (line+1));
  return point;
 }
 
@@ -1908,10 +1902,10 @@ int C_Frm_Day::XYToMinutesInResume ( int x, int y, int *retNbMnToEnd /* = 0 */)
  int nbTotalMinutesToSee     = getNbMinutesToseeInResume(tpsDeb, tpsEnd);
  int    nbLine               = m_DayLF?2:1;
  int segmentInMinutes        = nbTotalMinutesToSee / nbLine;
- int lineH                   = LINE_RESUME_HEIGHT + 5;
+ int lineH                   = LINE_RESUME_HEIGHT + HEAD_RESUME_OFY;
 
  int   ofsetX      = DAY_OFS_X;
- int   posY        = y - FIRST_DAY_POS_Y - HEAD_RESUME_OFY;
+ int   posY        = y - HEAD_RESUME_OFY;
  int   posX        = x - ofsetX;         // relativier au pixel signifiant
  //........... determiner la ligne pointee .............................
  int   curY        = 0;

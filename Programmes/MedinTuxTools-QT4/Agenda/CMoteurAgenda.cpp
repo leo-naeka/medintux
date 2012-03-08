@@ -76,6 +76,8 @@ CMoteurAgenda::CMoteurAgenda(const QString &driver,        // nom du driver: "QO
   m_TitleHeight                  = 20;
   m_AgendaButtonHeight           = 30;
   m_MinDaysHeight                = 5;
+  m_TimeGradHeight               = 6;
+  m_OfsetGraduation              = 8;
   m_ModifConfirm                 = 0;
   m_Rafraichissement             = 120;
   m_Representation               = 1;       // 0/sur 1 ligne 1/sur deux lignes
