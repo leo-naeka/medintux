@@ -28,6 +28,7 @@
 #include <QFile>
 #include <QTextStream>
 #include <QSqlQuery>
+#include <QDebug>
 #include <QDir>
 #include <QFileInfo>
 #include <QByteArray>
@@ -47,20 +48,52 @@
 
 /*! \class CGestIni
  *  \brief Gestion des fichiers INI de la suite Medintux.
- * Gére le chargement des paramètres, leur recherche et l'écriture des fichiers paramètres.
- * Les paramètres sont sauvegardés de la sorte :
+ * Gere le chargement des paramètres, leur recherche et l'ecriture des fichiers paramètres.
+ * Les paramètres sont sauvegardes de la sorte :
  * [SECTION]\\r\\n
  * Parametre = val1, val2, val3, val4, val5, val6, val7, val7, val8, val9, val10\\r\\n
- * Plusieurs sections peuvent cohabiter dans un même fichier et plusieurs paramètres peuvent être défini par section.
- * Cette classe gère la compatibilté Windows, Mac, Linux pour les fichiers INI
- * \todo Un seul fichier INI pour toute la suite dans le QDir::home() qui ne contient que les données de connexion �  la base de données. Les autres paramètres sont dans la base de données.
+ * Plusieurs sections peuvent cohabiter dans un même fichier et plusieurs paramètres peuvent être defini par section.
+ * Cette classe gère la compatibilte Windows, Mac, Linux pour les fichiers INI
+ * \todo Un seul fichier INI pour toute la suite dans le QDir::home() qui ne contient que les donnees de connexion �  la base de donnees. Les autres paramètres sont dans la base de donnees.
 */
 
 //-----------------------------------------------------  CGestIni --------------------------------
 /*! \brief constructeur de la classe. Initialise les variables m_ParamData et m_ParamPath.
 */
-CGestIni::CGestIni()
+CGestIni::CGestIni(const QString & fileName, QObject * parent /* = 0 */ ,  QString *pParamData /* = 0 */)
+    : QSettings(fileName, QSettings::IniFormat,  parent )
+{m_pParamData = pParamData;
+ // QSettings::Format myIniFormat = QSettings::registerFormat("ini", readMyIniFile, writeMyIniFile);
+}
+//-----------------------------------------------------  ~CGestIni --------------------------------
+/*! \brief constructeur de la classe. Initialise les variables m_ParamData et m_ParamPath.
+*/
+CGestIni::~CGestIni()
 {
+}
+
+//-----------------------------------------------------  readMyIniFile --------------------------------
+/*! \brief lit un fichier ini
+*/
+bool  CGestIni::readMyIniFile(QIODevice & /*device*/, QSettings::SettingsMap &/*map*/)
+{
+ return true;
+}
+
+//-----------------------------------------------------  writeMyIniFile --------------------------------
+/*! \brief sauvegarde un fichier ini
+*/
+bool CGestIni::writeMyIniFile(QIODevice &/*device*/, const QSettings::SettingsMap &/*map*/)
+{
+ return true;
+}
+
+//-----------------------------------------------------  ~CGestIni --------------------------------
+/*! \brief constructeur de la classe. Initialise les variables m_ParamData et m_ParamPath.
+*/
+void CGestIni::sync()
+{   if (m_pParamData) Param_UpdateToDisk(fileName(), *m_pParamData);
+    QSettings::sync();
 }
 
 //-----------------------------------------------------  Param_UpdateToDisk --------------------------
@@ -73,10 +106,162 @@ void  CGestIni::Param_UpdateToDisk(const QString &file_ini, const QByteArray &ba
  file.write( ba );
  file.close();
 }
+//---------------------------- addXmlData ------------------------------------------------
+/*! \brief ajoute dans un fichier XML une valeur situee entre un tag de debut <tag> et de fin </tag>
+ *   dans cet exemple la valeur serait ' et de fin' (sans les apostrophes)
+ *  \param _tagXml : String indiquant le nom du tag
+ *  \param valeur :  valeur a encadrer par les tags xml
+ *  \param modeleXML :  QString XML dans laquelle on va ajouter la valeur
+ *  \param ofset :  QString ofset de decalage vers la droite par defaut vide
+ *  \param mustBeB64Protected :  si true la valeur sera convertie et inscrite en base 64.
+*/
+
+void CGestIni::addXmlData(const QString& _tagXml, QByteArray valeur, QString &modeleXML, bool mustBeB64Protected /* =FALSE */, const QString &ofset /* ="" */)
+{QString tagXml      = _tagXml;
+ QString dataToPlace = "";
+ valeur.replace('&',"&amp;");
+ valeur.replace('>',"&gt;");
+ valeur.replace('<',"&lt;");
+ if (mustBeB64Protected)
+    {tagXml        = tagXml.prepend('_');
+     valeur        = valeur.toBase64();
+     dataToPlace   = valeur;
+    }
+ else
+    {dataToPlace = valeur;
+    }
+ modeleXML += QString("%4   <%1>%2</%3>\n").arg(tagXml, dataToPlace, tagXml,ofset);
+}
+
+//---------------------------- getXmlData ------------------------------------------------
+/*! \brief retourne dans un fichier XML une valeur situee entre un tag de debut <tag> et de fin </tag>
+ *   dans cet exemple la valeur serait 'et de fin' (sans les apostrophes)
+ *  \param dataName : String indiquant le nom du tag
+ *  \param dataXml :  String XML dans laquelle on va lire la valeur
+ *  \param nextPos :  pointeur sur un int qui si il n'est pas egal a zero indique
+ *                    la position a partir de laquelle chercher. Sera positionne apres le tag recherche.
+ *  \return QString qui est la valeur a rechercher.
+*/
+
+QString CGestIni::getXmlData(const QString& dataName, const QString& dataXml, int *nextPos)
+{bool mustBeB64Protected = FALSE;
+ int posEnd  = -1;
+ int posDeb  =  0;
+
+ QString tag =  dataName+'>';
+ if (nextPos) {posDeb  = dataXml.indexOf(tag, *nextPos);*nextPos=0;}  // on  remet a zero au cas ou tag pas trouve (recommencer a zero)
+ else         {posDeb  = dataXml.indexOf(tag);}
+ if (posDeb==-1)         return QString::null;
+ if (dataXml.at(posDeb-1)=='_') {posDeb += tag.length(); mustBeB64Protected = TRUE; tag = tag.prepend("</_");}
+ else                           {posDeb += tag.length(); tag = tag.prepend("</");}
+ posEnd  = dataXml.indexOf(tag, posDeb);
+ if (posEnd==-1)         return QString::null;
+ if (nextPos) *nextPos = posEnd + tag.length();
+ QString retour = "";
+ if (mustBeB64Protected) retour = QString( QByteArray::fromBase64( dataXml.mid(posDeb,posEnd-posDeb).toAscii() ) );
+ else                    retour = dataXml.mid(posDeb,posEnd-posDeb);
+ retour.replace("&gt;",">");
+ retour.replace("&lt;","<");
+ retour.replace("&amp;","&");
+ return retour;
+}
+//---------------------------- setXmlData static ------------------------------------------------
+/*! \brief place dans un fichier XML une valeur situee entre un tag de debut <tag> et de fin </tag>
+ *   dans cet exemple la valeur serait 'et de fin' (sans les apostrophes)
+ *  \param dataName : String indiquant le nom du tag
+ *  \param valeur :    QString valeur a ecrire
+ *  \param dataXml :  String XML dans laquelle on va ecrire la valeur
+ *                    la position a partir de laquelle chercher. Sera positionne apres le tag recherche.
+ *  \param noConvertCharToHtml  if zero (default value) '>' '<' '&' are  converted in '&gt;' '&lt;' '&amp;'
+ *  \return true si tout est ok false sinon (en general le tag n'a pas ete trouve)
+*/
+bool CGestIni::setXmlData(const QString& dataName, const QString &valeur, QString& dataXml, int noConvertCharToHtml /* =0 */)
+{return setXmlData( dataName, QByteArray(valeur.toLatin1()) , dataXml, noConvertCharToHtml);
+}
+//---------------------------- setXmlData static ------------------------------------------------
+/*! \brief place dans un fichier XML une valeur situee entre un tag de debut <tag> et de fin </tag>
+ *   dans cet exemple la valeur serait 'et de fin' (sans les apostrophes)
+ *  \param dataName : String indiquant le nom du tag
+ *  \param valeur :    QByteArray valeur a ecrire
+ *  \param dataXml :  String XML dans laquelle on va ecrire la valeur
+ *                    la position a partir de laquelle chercher. Sera positionne apres le tag recherche.
+ *  \param noConvertCharToHtml  if zero (default value) '>' '<' '&' are  converted in '&gt;' '&lt;' '&amp;'
+ *  \return true si tout est ok false sinon (en general le tag n'a pas ete trouve)
+*/
+
+bool CGestIni::setXmlData(const QString& dataName, QByteArray valeur, QString& dataXml, int noConvertCharToHtml /* =0 */)
+{bool mustBeB64Protected = FALSE;
+ int posEnd  = -1;
+ int posDeb  =  0;
+ if (noConvertCharToHtml == 0)
+    { valeur.replace('&',"&amp;");
+      valeur.replace('>',"&gt;");
+      valeur.replace('<',"&lt;");
+    }
+ QString tag =  dataName+'>';
+ /*if (nextPos) {posDeb  = dataXml.indexOf(tag, *nextPos);*nextPos=0;}  // on  remet a zero au cas ou tag pas trouve (recommencer a zero)
+ else        */ {posDeb  = dataXml.indexOf(tag);}
+ if (posDeb==-1)         return false;
+ if (dataXml.at(posDeb-1)=='_') {posDeb += tag.length(); mustBeB64Protected = TRUE; tag = tag.prepend("</_");}
+ else                           {posDeb += tag.length(); tag = tag.prepend("</");}
+ posEnd  = dataXml.indexOf(tag, posDeb);
+ if (posEnd==-1)         return false;
+ //if (nextPos) *nextPos = posEnd + tag.length();
+ dataXml = dataXml.remove(posDeb,posEnd-posDeb);
+
+ if (mustBeB64Protected) dataXml = dataXml.insert(posDeb,valeur.toBase64());
+ else                    dataXml = dataXml.insert(posDeb,valeur);
+
+ return true;
+}
+//---------------------------- getXmlDataList static --------------------------------------------------------------------
+/*! \brief retourne une QStringList de valeurs � partir d'un fichier XML et d'un tag
+ *   dans cet exemple la valeur serait 'et de fin' (sans les apostrophes)
+ *  \param tagName :  String indiquant le nom du tag sans les </ ou < ou >
+ *  \param dataXml :  String XML dans laquelle on va lire la valeur
+ *  \param nextPos :  pointeur sur un int qui si il n'est pas egal a zero indique
+ *                    la position a partir de laquelle chercher. Sera positionne apres le tag recherche.
+ *  \return QStringList qui est la liste de valeurs a rechercher.
+*/
+QStringList CGestIni::getXmlDataList(const QString& tagName, const QString& dataXml, int *nextPos /* =0 */)
+{bool mustBeB64Protected = FALSE;
+ int posEnd    = -1;
+ int posDeb    =  0;
+ QString tag   =  tagName+'>';
+ QString toAdd = "";
+ QStringList retList;
+
+ if (nextPos) {posDeb  = dataXml.indexOf(tag, *nextPos);*nextPos=0;}  // on  remet a zero au cas ou tag pas trouve (recommencer a zero)
+ else         {posDeb  = dataXml.indexOf(tag);}
+
+ while (posDeb != -1)
+       {if (dataXml.at(posDeb-1)=='_') {posDeb += tag.length(); mustBeB64Protected = TRUE; tag = tag.prepend("</_");}
+        else                           {posDeb += tag.length(); tag = tag.prepend("</");}
+        posEnd  = dataXml.indexOf(tag, posDeb);
+        if (posEnd==-1)         return retList;
+
+
+        if (mustBeB64Protected) toAdd = QString( QByteArray::fromBase64( dataXml.mid(posDeb,posEnd-posDeb).toAscii() ) );
+        else                    toAdd = dataXml.mid(posDeb,posEnd-posDeb);
+
+        posDeb = posEnd + tag.length();      // on se place apres le tag de fin donc a la prochaine position
+        if (nextPos) *nextPos = posDeb;      // on retourne si besoin cette prochaine position
+
+        toAdd.replace("&gt;",">");
+        toAdd.replace("&lt;","<");
+        toAdd.replace("&amp;","&");
+        retList.append(toAdd);
+        tag    =  tagName+'>';              // reinitialiser le tag car a ete modifie avant par tag = tag.prepend("</");
+        posDeb = dataXml.indexOf(tag, posDeb);
+       }
+ return retList;
+}
 
 //-----------------------------------------------------  Param_UpdateToDisk --------------------------
-/*! \brief sauvegarde les paramètres iniParam dans un fichier dont le chemin est spécifié.
- *  \todo Attention le fichier n'est pas ferme ???...
+/*! \brief ecrit et sauvegarde les parametres iniParam dans un fichier dont le chemin est specifie.
+ *  \param const QString &file_ini   chemin ou doit etre ecrit le fichier
+ *  \param const QString &inParam     donnees a ecrire
+ *  \todo Attention le fichier n'est pas ferme corrrectement ???...
 */
 void  CGestIni::Param_UpdateToDisk(const QString &file_ini, const QString &inParam)
 {QFile file( file_ini);
@@ -94,12 +279,12 @@ void  CGestIni::Param_UpdateToDisk(const QString &file_ini, const QString &inPar
  *  \param const QString &fermant       motif fermant
  *  \return position sur le motif fermant.
 */
-int  CGestIni::findFermant(const QString *ptext, int pos, int pos_max, const QString &ouvrant, const QString &fermant)
+int  CGestIni::findFermant(const QString &ptext, int pos, int pos_max, const QString &ouvrant, const QString &fermant)
 {int isWithToken;
  return findFermant(ptext, pos, pos_max, ouvrant, fermant, isWithToken);
 }
 
-//-----------------------------------------------------  indexOfFermant -----------------------------
+//-----------------------------------------------------  findFermant -----------------------------
 /*! \brief Trouve le motif fermant correspondant au motif ouvrant
  *  \param QString &text   texte ou doit se faire la recherche
  *  \param int pos_deb     position dans le texte ou commence la recherche doit etre apres l'ouvrant dont on cherche le fermant
@@ -107,18 +292,18 @@ int  CGestIni::findFermant(const QString *ptext, int pos, int pos_max, const QSt
  *  \param const QString &fermant       motif fermant
  *  \return position sur le motif fermant.
 */
-int  CGestIni::findFermant(const QString *ptext, int pos, int pos_max, const QString &ouvrant, const QString &fermant, int &isWithToken)
+int  CGestIni::findFermant(const QString &ptext, int pos, int pos_max, const QString &ouvrant, const QString &fermant, int &isWithToken)
 { int stack        = 1;
   int ouvrant_len  = ouvrant.length();
   int fermant_len  = fermant.length();
   isWithToken      = 0;
   while (stack && pos < pos_max)
-    {if (ptext->at(pos)==ouvrant.at(0) && ptext->mid(pos, ouvrant_len) == ouvrant)
+    {if (ptext.at(pos)==ouvrant.at(0) && ptext.mid(pos, ouvrant_len) == ouvrant)
         {++   stack;
          pos += ouvrant_len;
          ++   isWithToken;
         }
-     else if (ptext->at(pos)==fermant.at(0) && ptext->mid(pos, fermant_len) == fermant)
+     else if (ptext.at(pos)==fermant.at(0) && ptext.mid(pos, fermant_len) == fermant)
         {--   stack;
          pos += fermant_len;
         }
@@ -129,7 +314,7 @@ int  CGestIni::findFermant(const QString *ptext, int pos, int pos_max, const QSt
  return pos-fermant_len;    // - fermant_len pour pointer avant le fermant
 }
 //-----------------------------------------------------  Param_UpdateFromDisk ------------------------------
-/*! \brief Lit le fichier file_ini et renvoie son contenu dans outParam. L'encodage est géré.
+/*! \brief Lit le fichier file_ini et renvoie son contenu dans outParam. L'encodage est gere.
 */
 QString  CGestIni::Param_UpdateFromDisk(const QString &file_ini,  int *isUtf8_ret /* =0 */)
 {QString ret="";
@@ -137,7 +322,7 @@ QString  CGestIni::Param_UpdateFromDisk(const QString &file_ini,  int *isUtf8_re
  return ret;
 }
 //-----------------------------------------------------  Param_UpdateFromDisk ------------------------------
-/*! \brief Lit le fichier file_ini et renvoie son contenu dans outParam. L'encodage est géré.
+/*! \brief Lit le fichier file_ini et renvoie son contenu dans outParam. L'encodage est gere.
 */
 QByteArray& CGestIni::Param_UpdateFromDisk(const QString &file_ini, QByteArray &ba, int *isUtf8_ret /* =0 */)
 {        if (ba.size()>0) ba.data()[0]=0;
@@ -152,7 +337,7 @@ QByteArray& CGestIni::Param_UpdateFromDisk(const QString &file_ini, QByteArray &
              ba          =  tmp.toUtf8 ();
              QString ext =  QFileInfo(qFile).suffix ();
              if (ext.toLower().left(3) == "htm")
-                {ba.replace("meta name=\"qrichtext\" content=\"charset=utf-8\"",   // obligé d'etre en content=\"1\" pour que les tabulations fonctionnent !!
+                {ba.replace("meta name=\"qrichtext\" content=\"charset=utf-8\"",   // oblige d'etre en content=\"1\" pour que les tabulations fonctionnent !!
                             "meta name=\"qrichtext\" content=\"1\"");
                 }
              ba.replace("&nbsp;", " ");
@@ -161,7 +346,7 @@ QByteArray& CGestIni::Param_UpdateFromDisk(const QString &file_ini, QByteArray &
 }
 
 //-----------------------------------------------------  Param_UpdateFromDisk ------------------------------
-/*! \brief Lit le fichier file_ini et renvoie son contenu dans outParam. L'encodage est géré.
+/*! \brief Lit le fichier file_ini et renvoie son contenu dans outParam. L'encodage est gere.
 */
 long  CGestIni::Param_UpdateFromDisk(const QString &file_ini, QString &outParam, int *isUtf8_ret /* =0 */)
 {        //............ charger le fichier .ini ..........
@@ -176,7 +361,7 @@ long  CGestIni::Param_UpdateFromDisk(const QString &file_ini, QString &outParam,
             {outParam    =  QString::fromUtf8(ba.data(), ba.size());
              QString ext =  QFileInfo(qFile).suffix ();
              if (ext.toLower().left(3) == "htm")
-                {outParam.replace("meta name=\"qrichtext\" content=\"charset=utf-8\"",   // obligé d'etre en content=\"1\" pour que les tabulations fonctionnent !!
+                {outParam.replace("meta name=\"qrichtext\" content=\"charset=utf-8\"",   // oblige d'etre en content=\"1\" pour que les tabulations fonctionnent !!
                                   "meta name=\"qrichtext\" content=\"1\"");
                 }
              outParam.replace("&nbsp;", " ");
@@ -299,13 +484,13 @@ QString CGestIni::Utf8_Query(QSqlQuery &cur, int field)
  */
 }
 //---------------------------------------------- fromMyUTF8 ------------------------------------------------
-/*! \brief converti l'UTF8 explosé venant des SqlQuery, avec une methode qui fonctionne �  peu près en attendant de resoudre le PB par un moyen plus propre
- *  \param ptr : const char* chaine codée en UTF8
+/*! \brief converti l'UTF8 explosee venant des SqlQuery, avec une methode qui fonctionne a  peu pres en attendant de resoudre le PB par un moyen plus propre
+ *  \param ptr : const char* chaine codee en UTF8
  *  \return QString convertie
- * RAPPEL : 0xxx xxxx                                    // poids fort �  zéro --> US-ASCII
- *          110x xxxx   10xx xxxx                        // code UTF8 sur deux octets    de  8 �  11 bits
- *          1110 xxxx   10xx xxxx  10xx xxxx             // code UTF8 sur trois octets   de 12 �  16 bits
- *          1110 xxxx   10xx xxxx  10xx xxxx  10xx xxxx  // code UTF8 sur quatre octets  de 17 �  21 bits
+ * RAPPEL : 0xxx xxxx                                    // poids fort a  zero --> US-ASCII
+ *          110x xxxx   10xx xxxx                        // code UTF8 sur deux octets    de  8 a  11 bits
+ *          1110 xxxx   10xx xxxx  10xx xxxx             // code UTF8 sur trois octets   de 12 a  16 bits
+ *          1110 xxxx   10xx xxxx  10xx xxxx  10xx xxxx  // code UTF8 sur quatre octets  de 17 a  21 bits
 */
 
 QString CGestIni::fromMyUTF8(const char* ptr)
@@ -371,15 +556,15 @@ QString CGestIni::fromMyUTF8(const char* ptr)
 }
 
 //-----------------------------------------------------  Param_WriteParam -----------------------------------
-/*! \brief Ecrit dans la string des paramètres passée �  la fonction.
- *  \param param : String paramètres dans laquelle on va écrire. Elle sera modifiée.
- *  \param section : section dans laquelle on écrit
- *  \param variable : variable concernée
- *  \param val1 -> val10 : valeurs �  écrire.
+/*! \brief Ecrit dans la string des paramètres passee �  la fonction.
+ *  \param param : String paramètres dans laquelle on va ecrire. Elle sera modifiee.
+ *  \param section : section dans laquelle on ecrit
+ *  \param variable : variable concernee
+ *  \param val1 -> val10 : valeurs �  ecrire.
  *  \return QString::null en cas d'erreur, sinon le String de paramètre au complet.
- * Si la variable n'est pas trouvée dans la section elle est ajoutée. Si la section n'existe pas elle est ajoutée en fin de fichier.
+ * Si la variable n'est pas trouvee dans la section elle est ajoutee. Si la section n'existe pas elle est ajoutee en fin de fichier.
 */
-QString CGestIni::Param_WriteParam(QString *pQstr, const char *section, const char  *variable,
+QString CGestIni::Param_WriteParam( QString *pQstr, const char *section, const char  *variable,
                                       const char *val1, const char *val2, const char *val3, const char *val4, const char *val5,
                                       const char *val6, const char *val7, const char *val8, const char *val9, const char *val10)
 {if (pQstr == 0        )    return QString::null;
@@ -418,7 +603,7 @@ QString CGestIni::Param_WriteParam(QString *pQstr, const char *section, const ch
              }
           break;
      */
-     case '[': //....................debut de section: tester si c'est celle recherchée ...................
+     case '[': //....................debut de section: tester si c'est celle recherchee ...................
           ++pt;
           while (*pt && (*pt==' '||*pt=='\t'))  ++pt;                // enlever espaces de debut
           deb = pt;
@@ -426,7 +611,7 @@ QString CGestIni::Param_WriteParam(QString *pQstr, const char *section, const ch
           end = pt;
           while (end>deb && (end[-1]==' '||end[-1]=='\t')) end--;    // enlever espaces de fin
           len_section = end - deb;
-          if ((long)strlen(section)==len_section && strncmp(section, deb, len_section)==0)   // SI c'est la section recherchée
+          if ((long)strlen(section)==len_section && strncmp(section, deb, len_section)==0)   // SI c'est la section recherchee
              {pt = GotoNextDebLigne(pt);                                               // aller ligne suivante
 
               while (*pt && *pt != '[')                                                // tant que pas fin de zone de section (debut d'une autre)
@@ -436,13 +621,13 @@ QString CGestIni::Param_WriteParam(QString *pQstr, const char *section, const ch
                   deb = pt;                       // on devrait etre au debut du nom d'une variable
                   while (*pt && *pt!='=' && *pt !='\n' && *pt!='\r' && *pt!='[') ++pt;      // le signe '=' marque la fin de zone du nom de la variable
 
-                  //................... fin de nom de variable trouvé ( signe egal) ...........................
+                  //................... fin de nom de variable trouve ( signe egal) ...........................
                   if (*pt=='=')
                      {end = pt;
                       while (end>deb && (end[-1]==' '||end[-1]=='\t')) end-- ;   // enlever espaces de fin du nom de la variable
                       len_variable = end - deb;
-                      //.......................... Est ce celle recherchée ...................................
-                      if ((long)strlen(variable)==len_variable && strncmp(variable, deb, len_variable)==0)   // SI c'est la variable recherchée
+                      //.......................... Est ce celle recherchee ...................................
+                      if ((long)strlen(variable)==len_variable && strncmp(variable, deb, len_variable)==0)   // SI c'est la variable recherchee
                          {deb_lgn = deb;
                           end_lgn = end;
                           while (*end_lgn && *end_lgn !=';' && *end_lgn !='\n' && *end_lgn!='\r')      // aller jusqu'au prochain marqueur de fin des valeurs
@@ -470,11 +655,11 @@ QString CGestIni::Param_WriteParam(QString *pQstr, const char *section, const ch
                       pt = GotoNextDebLigne(pt);                                               // aller ligne suivante
                      } // end if (*pt=='=')
                  } // end while (*pt && *pt != '[')
-               //.......................... fin de section atteinte sans avoir trouvé la variable .........
-               //                           la section est trouvée mais pas la variable on la rajoute
+               //.......................... fin de section atteinte sans avoir trouve la variable .........
+               //                           la section est trouvee mais pas la variable on la rajoute
                tmp = "";
                while (pt>txt && (pt[-1]=='\r'||pt[-1]=='\n' ||pt[-1]=='\t'||pt[-1]==' ')) pt--;  // nettoyer avant eliminer espaces et  CR/LF avant
-               tmp = tmp + "\r\n";
+               tmp = tmp + "\n";
                tmp = tmp + "  " + variable + " = ";
                if (val1)     tmp  = tmp +         val1;
                if (val2)     tmp  = tmp + " , " + val2;
@@ -486,7 +671,7 @@ QString CGestIni::Param_WriteParam(QString *pQstr, const char *section, const ch
                if (val8)     tmp  = tmp + " , " + val8;
                if (val9)     tmp  = tmp + " , " + val9;
                if (val10)    tmp  = tmp + " , " + val10;
-               tmp     = tmp + "\r\n\r\n";
+               tmp     = tmp + "\n";
                pos     = pt-txt;
                result  = pQstr->left(pos) + tmp ;
                while (*pt && (*pt=='\r' || *pt=='\n' || *pt=='\t' || *pt==' ')) ++pt;           // nettoyer apres eliminer espaces et  CR/LF apres
@@ -494,16 +679,16 @@ QString CGestIni::Param_WriteParam(QString *pQstr, const char *section, const ch
                result += pQstr->mid(pos);
                *pQstr  = result;
                return result;
-              } // end if (strlen(section)==len_section && strncmp(section, deb, len_section)==0)   // SI c'est la section recherchée
+              } // end if (strlen(section)==len_section && strncmp(section, deb, len_section)==0)   // SI c'est la section recherchee
           break;
       default:
           ++pt;
      } // end switch (pt[0])
   } // end while (*pt)
 
- //................pas de section trouvée on la rajoute ...........................................
- tmp = "\r\n[";
- tmp = tmp + section + "]\r\n  " + variable + " = ";
+ //................pas de section trouvee on la rajoute ...........................................
+ tmp = "\n[";
+ tmp = tmp + section + "]\n  " + variable + " = ";
  if (val1)     tmp  = tmp +         val1;
  if (val2)     tmp  = tmp + " , " + val2;
  if (val3)     tmp  = tmp + " , " + val3;
@@ -514,7 +699,7 @@ QString CGestIni::Param_WriteParam(QString *pQstr, const char *section, const ch
  if (val8)     tmp  = tmp + " , " + val8;
  if (val9)     tmp  = tmp + " , " + val9;
  if (val10)    tmp  = tmp + " , " + val10;
- tmp     =  tmp  + "\r\n";
+ tmp     =  tmp  + "\n";
  result  = *pQstr + tmp;
  *pQstr  = result;
  return result;
@@ -523,7 +708,7 @@ QString CGestIni::Param_WriteParam(QString *pQstr, const char *section, const ch
 /*! \brief lit une valeur dans un fichier de configuration.
  *  \param txt : String paramètres dans laquelle on va lire
  *  \param section : section dans laquelle on va lire
- *  \param variable : variable concernée
+ *  \param variable : variable concernee
  *  \return QString::null la variable n'existe pas. sinon retourne la valeur
 */
 QString CGestIni::Param_ReadUniqueParam(const char* txt, const char *section, const char  *variable)
@@ -531,13 +716,101 @@ QString CGestIni::Param_ReadUniqueParam(const char* txt, const char *section, co
  if (Param_ReadParam( txt, section, variable, &val)==QString::null) return val;
  else return QString::null;
 }
+//-----------------------------------------------------  Param_ReadLine --------------------------------
+/*! \brief recupere les donnees situees apres le signe egal de la variable d'une section donnee
+ *  \param txt : String parametres dans laquelle on va lire
+ *  \param section : section dans laquelle on va lire
+ *  \param variable : variable concernee
+ *  \return QString las donnees
+*/
+QString CGestIni::Param_ReadLine(  const char* txt, const char *section, const char  *variable)
+
+{if (txt==0)   return QObject::tr("Syntax error: empty parameter file");
+ char *pt          = (char*) txt;
+ char *endl        = 0;
+ char *deb         = 0;
+ char *end         = 0;
+ long len_section  = 0;
+ long len_variable = 0;
+ if (section==0)
+    {QString str(QObject::tr("Error : no section in the call of function CGestIni::Param_ReadParam()"));
+     //qDebug(str);
+     return str;
+    }
+ while (*pt)
+ {switch (pt[0])
+    {case '\r':
+     case '\n':
+     case ';':
+          pt = GotoNextDebLigne(pt);
+          break;
+     case '/':
+          if      ( pt[1] =='/')  pt = GotoNextDebLigne(pt);
+          else if ( pt[1] !=0 )   pt +=2;
+          break;
+     /*
+     case '\"':
+          while (*pt && *pt != '\"')
+             { if (*pt=='\\' && pt[1] !=0 ) ++pt;
+               ++pt;
+             }
+          break;
+     */
+     case '[': //....................debut de section: tester si c'est celle recherchee ...................
+          ++pt;
+          while (*pt && (*pt==' '||*pt=='\t'||*pt=='\a'))  ++pt;                // enlever espaces de debut
+          deb = pt;
+          while (*pt && *pt != ']') ++pt;                            // chercher delimiteur de fin de nom de section
+          end = pt;
+          while (end>deb && (end[-1]==' '||end[-1]=='\t'|| end[-1]=='\a')) end--;    // enlever espaces de fin
+          len_section = end - deb;
+          if ((long)strlen(section)==len_section && strncmp(section, deb, len_section)==0)   // SI c'est la section recherchee
+             {pt = GotoNextDebLigne(pt);
+              while (*pt && (*pt==' '||*pt=='\t'||*pt=='\r'||*pt=='\n'||*pt=='\a'))  ++pt ;                                                 // aller ligne suivante (zone des variables de section)
+              while (*pt && *pt != '[')                                                      // tant que pas fin de zone de section (debut d'une autre ou fin)
+                 {
+                  while (*pt && (*pt==' '||*pt=='\t'||*pt=='\a'))  ++pt ;                                             // sauter espaces de debut de ligne
+                  if  (*pt==';' || *pt=='\n'|| *pt =='\r'||*pt=='\a') { pt = GotoNextDebLigne(pt) ;                   // sauter les commentaires et retour ligne en allant ligne suivante
+                                                             while (*pt && (*pt==' '||*pt=='\t'||*pt=='\a'))  ++pt ;  // ressauter espaces de debut de ligne
+                                                           }
+                  else if (*pt=='/'&& pt[1] =='/')         { pt = GotoNextDebLigne(pt);
+                                                             while (*pt && (*pt==' '||*pt=='\t'||*pt=='\a'))  ++pt ;  // ressauter espaces de debut de ligne
+                                                           }
+                  deb = pt;                       // on devrait etre au debut du nom d'une variable
+                  //while (*pt && *pt!='=')  ++pt;  // le signe '=' marque la fin de zone du nom de la variable
+                  while (*pt && *pt!='=' && *pt!='[')
+                        {if (*pt=='\\' && pt[1] !=0 ) pt += 2;
+                         else ++pt;
+                        }
+                  if (*pt==0||*pt=='[') return QObject::tr("Sign = not found in section: ") + section + QObject::tr(", requested variable: ") + variable ;
+                  end = pt;
+                  while (end>deb && (end[-1]==' '||end[-1]=='\t'|| end[-1]=='\a')) end-- ;   // enlever espaces de fin du nom de la vaiable
+                  len_variable = end - deb;
+                  if ((long)strlen(variable)==len_variable && strncmp(variable, deb, len_variable)==0)   // SI c'est la variable recherchee
+                     {++pt;   // passer le signe egal
+                      //Param_ExtraireValeurs(pt, val1, val2, val3, val4, val5, val6, val7, val8, val9, val10);
+                      endl = GotoEndOfLigne(pt);
+                      return utf8Conv(pt,endl-pt).trimmed();
+                     }
+                  pt = GotoNextDebLigne(pt);                                               // aller ligne suivante
+                 }
+               //......... si on arrive ici c'est que ok pour la section mais pas de variable ..........................
+               return QObject::tr("No variable: ") + variable + QObject::tr("  for section : ") + section;
+              } // end if (strlen(section)==len_section && strncmp(section, deb, len_section)==0)   // SI c'est la section recherchee
+          break;
+      default:
+          ++pt;
+     } // end switch (pt[0])
+  } // end while (*pt)
+ return QObject::tr("Syntax error: no section in this file");
+}
 
 //-----------------------------------------------------  Param_ReadParam --------------------------------
-/*! \brief récupère les valeurs au sein du String paramètre passé �   la fonction.
- *  \param txt : String paramètres dans laquelle on va lire
+/*! \brief recupere les valeurs au sein du String parametre passe a la fonction.
+ *  \param txt : String parametres dans laquelle on va lire
  *  \param section : section dans laquelle on va lire
- *  \param variable : variable concernée
- *  \param val1 -> val10 : valeurs �  lire
+ *  \param variable : variable concernee
+ *  \param val1 -> val10 : valeurs a lire
  *  \return QString::null si tout OK. sinon retourne le message d'erreur
 */
 QString CGestIni::Param_ReadParam(  const char* txt, const char *section, const char  *variable,
@@ -574,7 +847,7 @@ QString CGestIni::Param_ReadParam(  const char* txt, const char *section, const 
              }
           break;
      */
-     case '[': //....................debut de section: tester si c'est celle recherchée ...................
+     case '[': //....................debut de section: tester si c'est celle recherchee ...................
           ++pt;
           while (*pt && (*pt==' '||*pt=='\t'||*pt=='\a'))  ++pt;                // enlever espaces de debut
           deb = pt;
@@ -582,7 +855,7 @@ QString CGestIni::Param_ReadParam(  const char* txt, const char *section, const 
           end = pt;
           while (end>deb && (end[-1]==' '||end[-1]=='\t'|| end[-1]=='\a')) end--;    // enlever espaces de fin
           len_section = end - deb;
-          if ((long)strlen(section)==len_section && strncmp(section, deb, len_section)==0)   // SI c'est la section recherchée
+          if ((long)strlen(section)==len_section && strncmp(section, deb, len_section)==0)   // SI c'est la section recherchee
              {pt = GotoNextDebLigne(pt);
               while (*pt && (*pt==' '||*pt=='\t'||*pt=='\r'||*pt=='\n'||*pt=='\a'))  ++pt ;                                                 // aller ligne suivante (zone des variables de section)
               while (*pt && *pt != '[')                                                      // tant que pas fin de zone de section (debut d'une autre ou fin)
@@ -604,7 +877,7 @@ QString CGestIni::Param_ReadParam(  const char* txt, const char *section, const 
                   end = pt;
                   while (end>deb && (end[-1]==' '||end[-1]=='\t'|| end[-1]=='\a')) end-- ;   // enlever espaces de fin du nom de la vaiable
                   len_variable = end - deb;
-                  if ((long)strlen(variable)==len_variable && strncmp(variable, deb, len_variable)==0)   // SI c'est la variable recherchée
+                  if ((long)strlen(variable)==len_variable && strncmp(variable, deb, len_variable)==0)   // SI c'est la variable recherchee
                      {++pt;   // passer le signe egal
                       Param_ExtraireValeurs(pt, val1, val2, val3, val4, val5, val6, val7, val8, val9, val10);
                       return QString::null;
@@ -613,7 +886,7 @@ QString CGestIni::Param_ReadParam(  const char* txt, const char *section, const 
                  }
                //......... si on arrive ici c'est que ok pour la section mais pas de variable ..........................
                return QObject::tr("No variable: ") + variable + QObject::tr("  for section : ") + section;
-              } // end if (strlen(section)==len_section && strncmp(section, deb, len_section)==0)   // SI c'est la section recherchée
+              } // end if (strlen(section)==len_section && strncmp(section, deb, len_section)==0)   // SI c'est la section recherchee
           break;
       default:
           ++pt;
@@ -622,8 +895,9 @@ QString CGestIni::Param_ReadParam(  const char* txt, const char *section, const 
  return QObject::tr("Syntax error: no section in this file");
 }
 
+
 //-----------------------------------------------------  ExtraireValeurs -----------------------------------
-/*! \brief txt pointe sur un texte contenant differentes valeurs terminées par \r\n ou zero de fin, et separées par des virgules. Une valeur peut etre une chaine de caractères et si elle doit comporter une virgule ou point virgule ceux ci doivent etre annoncés par le caractere d'echapement qui est l'anti slash
+/*! \brief txt pointe sur un texte contenant differentes valeurs terminees par \r\n ou zero de fin, et separees par des virgules. Une valeur peut etre une chaine de caractères et si elle doit comporter une virgule ou point virgule ceux ci doivent etre annonces par le caractere d'echapement qui est l'anti slash
 */
 char *CGestIni::Param_ExtraireValeurs(  const char* txt,
                                         QString *val1, QString *val2, QString *val3, QString *val4, QString *val5,
@@ -673,9 +947,52 @@ char *CGestIni::Param_ExtraireValeurs(  const char* txt,
    }
  return pt;
 }
+//-----------------------------------------------------  Param_SplitValeurs -----------------------------------
+/*! \brief txt pointe sur un texte contenant differentes valeurs separees par un separateur, tout ce qui precede le signe = +1  sera coupe.
+ *  \param txt :               String parametres dans laquelle on va lire les valeurs
+ *  \param sep :               const QString &sep separateur de valeurs
+ *  \param mustBeTrimmed :     false/values are not trimmed, true/values are trimmed
+ *  \param QString *val1 -> QString *val10 : valeurs a remplir avec les donnees situees entre le separateur
+ *  \return int nombre de valeur trouvees
+*/
+int  CGestIni::Param_SplitValeurs(  const QString &str,const QString &sep, bool mustBeTrimmed,
+                                          QString *val1, QString *val2, QString *val3, QString *val4, QString *val5,
+                                          QString *val6, QString *val7, QString *val8, QString *val9, QString *val10)
+{   QString varName;
+    return Param_SplitValeurs( str, sep, varName, mustBeTrimmed, val1, val2, val3, val4, val5,val6,val7,val8, val9, val10);
+}
+//-----------------------------------------------------  Param_SplitValeurs -----------------------------------
+/*! \brief txt pointe sur un texte contenant differentes valeurs separees par un separateur, tout ce qui precede le signe = +1  sera coupe.
+ *  \param txt :              String parametres dans laquelle on va lire les valeurs
+ *  \param sep :              const QString &sep separateur de valeurs
+ *  \param mustBeTrimmed :    false/values are not trimmed, true/values are trimmed
+ *  \param varName : const QString &varName nom de ce qui precede le signe = (si il existe)
+ *  \param QString *val1 -> QString *val10 : valeurs a remplir avec les donnees situees entre le separateur
+ *  \return int nombre de valeur trouvees
+*/
+int  CGestIni::Param_SplitValeurs(  const QString &str,const QString &sep, QString &varName, bool mustBeTrimmed,
+                                          QString *val1, QString *val2, QString *val3, QString *val4, QString *val5,
+                                          QString *val6, QString *val7, QString *val8, QString *val9, QString *val10)
+{   QString line = str;
+    line               = line.remove('\r').remove('\n').remove('\t');
+    varName            = CutStrLeft(line,"=").trimmed();
+    QStringList   lst  = CutStrRight(line,"=").split(sep);
+    int             i  = lst.count();
+    if (val1)  {*val1  = ""; if (i>=1)  *val1=lst[0];   if (mustBeTrimmed) *val1  = val1->trimmed(); }
+    if (val2)  {*val2  = ""; if (i>=2)  *val2=lst[1];   if (mustBeTrimmed) *val2  = val2->trimmed(); }
+    if (val3)  {*val3  = ""; if (i>=3)  *val3=lst[2];   if (mustBeTrimmed) *val3  = val3->trimmed(); }
+    if (val4)  {*val4  = ""; if (i>=4)  *val4=lst[3];   if (mustBeTrimmed) *val4  = val4->trimmed(); }
+    if (val5)  {*val5  = ""; if (i>=5)  *val5=lst[4];   if (mustBeTrimmed) *val5  = val5->trimmed(); }
+    if (val6)  {*val6  = ""; if (i>=6)  *val6=lst[5];   if (mustBeTrimmed) *val6  = val6->trimmed(); }
+    if (val7)  {*val7  = ""; if (i>=7)  *val7=lst[6];   if (mustBeTrimmed) *val7  = val7->trimmed(); }
+    if (val8)  {*val8  = ""; if (i>=8)  *val8=lst[7];   if (mustBeTrimmed) *val8  = val8->trimmed(); }
+    if (val9)  {*val9  = ""; if (i>=9)  *val9=lst[8];   if (mustBeTrimmed) *val9  = val9->trimmed(); }
+    if (val10) {*val10 = ""; if (i>=10) *val10=lst[9];  if (mustBeTrimmed) *val10 = val10->trimmed();}
+    return i;
+}
 
 //----------------------------------------- utf8Conv ---------------------------------------------
-/*! \brief Récupère les valeurs d'une variables (varToRetrieve) d'une section (sectionToRetrieve) du string paramètre (outParam) dans une QStringList lst.
+/*! \brief Recupere les valeurs d'une variables (varToRetrieve) d'une section (sectionToRetrieve) du string paramètre (outParam) dans une QStringList lst.
 */
 QString CGestIni::utf8Conv(const char* deb, long len)
 {if (IsUtf8( deb))
@@ -687,7 +1004,7 @@ QString CGestIni::utf8Conv(const char* deb, long len)
 }
 
 //------------------------------ Param_RemoveSection -----------------------------------------
-/*! \brief enlève une section.
+/*! \brief enleve une section.
  *  \param param   : String parametres dans laquelle supprimer une section
  *  \param section : section a supprimer
 */
@@ -713,36 +1030,163 @@ QString CGestIni::Param_RemoveSection(QString &param, QString section)
         }
     return param;
 }
+//----------------------------------------- Param_GetListFromPath ---------------------------------------------
+/*! \brief Recupere les valeurs d'une variables (varToRetrieve) d'une section (sectionToRetrieve) du string parametre (outParam) dans une QStringList lst.
+ *  \param file_ini : nom d'un fichier de parametrage ou l'on va extraire une liste.
+ *  \param sectionToRetrieve : section contenant les variables dont il faut faire une liste
+ *  \param varToRetrieve     : variable dont il faut faire une liste (si vide alors toutes les donnees de la section apres le signe = seront retenues)
+ *                             si terminee par * alors on prend toutes les variables commen�ant par ce qui est avant le * de varToRetrieve
+ *                             si commence par * alors on prend toutes les variables terminees  par ce qui est apr�s le * de varToRetrieve
+ *                             si vide alors toutes les lignes de la section seront retenues, alors entireDataLine est un ou deux  (ne s'arrete pas � la premiere valeur entre = et ,)
+ *  \param isToStrip :  isToStrip a zero par defaut si a un, chaque element de la liste sera nettoye des espaces de debut et fin
+ *  \param isUtf8 : pointeur sur un int (par defaut a  zero) qui si different de zero sera initialise a un si le fichier est en UTF8
+ *  \param entireDataLine :  entireDataLine a zero par defaut seule la premi�re valeur apres le signe egal et avant la premiere virgule sera retenue.
+ *                           si a un,   toutes les donnees apres le signe = seront retenues
+ *                           si a deux, toutes les donnees de la ligne seront retenues y compris ce qui est avant le signe =
+ *  \return QStringList lst la liste des variables
+*/
+
+QStringList CGestIni::Param_GetListFromPath(const QString &file_ini, const QString &sectionToRetrieve, const QString &varToRetrieve/*=""*/,  int isToStrip /*=0*/, int *isUtf8 /*=0*/, int entireDataLine /*=0*/)
+{QString     outParam;
+ QStringList lst;
+ Param_UpdateFromDisk( file_ini,  outParam,  isUtf8 );
+ Param_GetList( outParam, sectionToRetrieve, varToRetrieve, lst, isToStrip, entireDataLine);
+ return lst;
+}
+
+//----------------------------------------- Param_GetListFromPath ---------------------------------------------
+/*! \brief Recupere les valeurs d'une variables (varToRetrieve) d'une section (sectionToRetrieve) du string parametre (outParam) dans une QStringList lst.
+ *  \param file_ini : nom du fichier ou l'on va extraire une liste.
+ *  \param sectionToRetrieve : section contenant les variables dont il faut faire une liste
+ *  \param varToRetrieve     : variable dont il faut faire une liste (si vide alors toutes les donnees de la section apres le signe = seront retenues)
+ *                             si terminee par * alors on prend toutes les variables commen�ant par ce qui est avant le * de varToRetrieve
+ *                             si commence par * alors on prend toutes les variables terminees  par ce qui est apr�s le * de varToRetrieve
+ *                             si vide alors toutes les lignes de la section seront retenues, alors entireDataLine est un ou deux  (ne s'arrete pas � la premiere valeur entre = et ,)
+ *  \param lst :        liste a initialiser et construire
+ *  \param isToStrip :  isToStrip a zero par defaut si a un, chaque element de la liste sera nettoye des espaces de debut et fin
+ *  \param isUtf8 : pointeur sur un int (par defaut a  zero) qui si different de zero sera initialise a un si le fichier est en UTF8
+ *  \param entireDataLine :  entireDataLine a zero par defaut seule la premi�re valeur apres le signe egal et avant la premiere virgule sera retenue.
+ *                           si a un,   toutes les donnees apres le signe = seront retenues
+ *                           si a deux, toutes les donnees de la ligne seront retenues y compris ce qui est avant le signe =
+*/
+void CGestIni::Param_GetListFromPath(const QString &file_ini, const QString &sectionToRetrieve, QStringList &lst, const QString &varToRetrieve/*=""*/,  int isToStrip /*=0*/, int *isUtf8 /*=0*/, int entireDataLine /*=0*/)
+{Param_GetList(file_ini, sectionToRetrieve, lst, varToRetrieve, isToStrip , isUtf8 , entireDataLine );
+}
 
 //----------------------------------------- Param_GetList ---------------------------------------------
-/*! \brief Récupère les valeurs d'une variables (varToRetrieve) d'une section (sectionToRetrieve) du string paramètre (outParam) dans une QStringList lst.
+/*! \brief Recupere les valeurs d'une variables (varToRetrieve) d'une section (sectionToRetrieve) du string parametre (outParam) dans une QStringList lst.
+ *  \param file_ini : nom du fichier ou l'on va extraire une liste.
+ *  \param sectionToRetrieve : section contenant les variables dont il faut faire une liste
+ *  \param varToRetrieve     : variable dont il faut faire une liste (si vide alors toutes les donnees de la section apres le signe = seront retenues)
+ *                             si terminee par * alors on prend toutes les variables commen�ant par ce qui est avant le * de varToRetrieve
+ *                             si commence par * alors on prend toutes les variables terminees  par ce qui est apr�s le * de varToRetrieve
+ *                             si vide alors toutes les lignes de la section seront retenues, alors entireDataLine est un ou deux  (ne s'arrete pas � la premiere valeur entre = et ,)
+ *  \param lst :        liste a initialiser et construire
+ *  \param isToStrip :  isToStrip a zero par defaut si a un, chaque element de la liste sera nettoye des espaces de debut et fin
+ *  \param isUtf8 : pointeur sur un int (par defaut a  zero) qui si different de zero sera initialise a un si le fichier est en UTF8
+ *  \param entireDataLine :  entireDataLine a zero par defaut seule la premi�re valeur apres le signe egal et avant la premiere virgule sera retenue.
+ *                           si a un,   toutes les donnees apres le signe = seront retenues
+ *                           si a deux, toutes les donnees de la ligne seront retenues y compris ce qui est avant le signe =
+*/
+
+void CGestIni::Param_GetList(const QString &file_ini, const QString &sectionToRetrieve, QStringList &lst, const QString &varToRetrieve/*=""*/,  int isToStrip /*=0*/, int *isUtf8 /*=0*/, int entireDataLine /*=0*/)
+{QString outParam;
+ Param_UpdateFromDisk( file_ini,  outParam,  isUtf8 );
+ Param_GetList( outParam, sectionToRetrieve, varToRetrieve, lst, isToStrip, entireDataLine);
+}
+
+//----------------------------------------- Param_GetList ---------------------------------------------
+/*! \brief Recupere les valeurs d'une variables (varToRetrieve) d'une section (sectionToRetrieve) du string parametre (outParam) dans une QStringList lst.
+ *  \param QString &outParam : contenu d'un fichier de parametrage a annalyse ou l'on va extraire une lister.
+ *  \param sectionToRetrieve : section contenant les variables dont il faut faire une liste
+ *  \param varToRetrieve     : variable dont il faut faire une liste (si vide alors toutes les donnees de la section apres le signe = seront retenues)
+ *                             si terminee par * alors on prend toutes les variables commen�ant par ce qui est avant le * de varToRetrieve
+ *                             si commence par * alors on prend toutes les variables terminees  par ce qui est apr�s le * de varToRetrieve
+ *                             si vide alors toutes les lignes de la section seront retenues, alors entireDataLine est un ou deux  (ne s'arrete pas � la premiere valeur entre = et ,)
+ *  \param isToStrip :  isToStrip a zero par defaut si a un, chaque element de la liste sera nettoye des espaces de debut et fin
+ *  \param isUtf8 : pointeur sur un int (par defaut a  zero) qui si different de zero sera initialise a un si le fichier est en UTF8
+ *  \param entireDataLine :  entireDataLine a zero par defaut seule la premi�re valeur apres le signe egal et avant la premiere virgule sera retenue.
+ *                           si a un,   toutes les donnees apres le signe = seront retenues
+ *                           si a deux, toutes les donnees de la ligne seront retenues y compris ce qui est avant le signe =
+ *  \return QStringList lst la liste des variables
+*/
+
+QStringList CGestIni::Param_GetList(QString &outParam, const QString &sectionToRetrieve, const QString &varToRetrieve/*=""*/,  int isToStrip /*=0*/, int entireDataLine /*=0*/)
+{QStringList lst;
+ Param_GetList( outParam, sectionToRetrieve, varToRetrieve, lst, isToStrip, entireDataLine);
+ return lst;
+}
+
+//----------------------------------------- Param_GetList ---------------------------------------------
+/*! \brief Recupere les valeurs d'une variables (varToRetrieve) d'une section (sectionToRetrieve) du string parametre (outParam) dans une QStringList lst.
  *  \param outParam : String parametres dans laquelle l'on va extraire une liste.
  *  \param sectionToRetrieve : section contenant les variables dont il faut faire une liste
- *  \param varToRetrieve     : variable dont il faut faire une liste (si vide alors toute la ligne apres le signe = sera retenue)
- *  \param lst :  liste a initialiser et construire
+ *  \param varToRetrieve     : variable dont il faut faire une liste (si vide alors toutes les donnees de la section apres le signe = seront retenues)
+ *                             si terminee par * alors on prend toutes les variables commen�ant par ce qui est avant le * de varToRetrieve
+ *                             si commence par * alors on prend toutes les variables terminees  par ce qui est apr�s le * de varToRetrieve
+ *                             si vide alors toutes les lignes de la section seront retenues, alors entireDataLine est un ou deux  (ne s'arrete pas � la premiere valeur entre = et virgule)
+ *  \param lst :        liste a initialiser et construire
  *  \param isToStrip :  isToStrip a zero par defaut si a un, chaque element de la liste sera nettoye des espaces de debut et fin
+ *  \param entireDataLine :  entireDataLine a zero par defaut seule la premi�re valeur apres le signe egal et avant la premiere virgule sera retenue.
+ *                           si a un,   toutes les donnees apres le signe = seront retenues
+ *                           si a deux, toutes les donnees de la ligne seront retenues y compris ce qui est avant le signe =
 */
-void CGestIni::Param_GetList(QString &outParam, const QString &sectionToRetrieve, const QString &varToRetrieve,  QStringList &lst , int isToStrip /*=0*/)
-{
+void CGestIni::Param_GetList(QString &outParam, const QString &sectionToRetrieve, const QString &_varToRetrieve,  QStringList &lst , int isToStrip /*=0*/, int entireDataLine /*=0*/)
+{QString  varToRetrieve = _varToRetrieve;
+ bool       beginBy     = varToRetrieve.endsWith('*');
+ bool       endBy       = varToRetrieve.startsWith('*');
  QString        data    = "";
  QString      section   = "";
  QString     var_name   = "";
  QByteArray       ba    = outParam.toAscii ();
  char             *pt   = ba.data();
- //long             len   = ba.length();
- //char            *end   = pt + len;
+ char             *pt_s = 0;
  char             *deb  = 0;
+ if (varToRetrieve.endsWith('*'))   varToRetrieve = varToRetrieve.left(varToRetrieve.length()-1); // on vire l'eventuel * de fin de la variable dont il faut faire la liste
+ if (varToRetrieve.startsWith('*')) varToRetrieve = varToRetrieve.mid(1);                         // on vire l'eventuel * de debut de la variable dont il faut faire la liste
  while((pt = Param_GotoNextSection(pt, 0, &section)) && *pt)
     {if (section == sectionToRetrieve)
         {lst.clear();
          while (*pt && *pt != '[')
                 {data    = "";
+                 //............. si nom de variable donne en entree ......................
                  if (varToRetrieve.length())
-                    {pt      = Param_ExtraireNextValeurs(pt, var_name, &data);
-                     if (data.length() && (varToRetrieve.length()==0 || varToRetrieve==var_name) )
-                        {lst.append(data.trimmed());
+                    {pt_s    = pt;
+                     pt      = Param_ExtraireNextValeurs(pt, var_name, &data);  // dans data est retourne seulement la premiere valeur trouve avant une virgule
+                     if (entireDataLine)   // la on veut toute la ligne y compris toutes les valeurs separees par des virgules
+                        { bool            ok = false;
+                          if (beginBy)    ok = var_name.startsWith(varToRetrieve);
+                          else if (endBy) ok = var_name.endsWith(varToRetrieve);
+                          else            ok = (varToRetrieve==var_name);
+                          if ( ok )
+                             { pt = pt_s;
+                               while (*pt && (*pt==' '||*pt=='\t') )      ++pt ; // sauter espaces de debut de ligne
+                               if  (*pt==';' || *pt=='\n'|| *pt =='\r')
+                                   {pt = GotoNextDebLigne(pt) ;                  // sauter les commentaires et retour ligne
+                                    while (*pt && (*pt==' '||*pt=='\t') ) ++pt ; // sauter espaces de debut de ligne
+                                   }
+                               if  (*pt=='[') return;                            // si fin de section cassos
+                               deb  = pt;                                        // on devrait etre au debut du nom d'une variable
+                               pt   = GotoEndOfLigne(pt);
+                               data = QString::fromLatin1 (deb, pt-deb).trimmed();
+                               if (data.length())
+                                  {if (entireDataLine==1)        // si un on coupe apr�s le signe =  si deux toute la ligne est retenue
+                                      {int pos = data.indexOf('=');
+                                       if (pos != -1) data = data.mid(pos+1);
+                                      }
+                                   if (isToStrip)   lst.append(data.trimmed());
+                                   else             lst.append(data);
+                                  }
+                             }
                         }
-                    }
+                     else                  // la on veut toute la ligne y compris toutes les valeurs separees par des virgules
+                        {
+                          if (data.length() && varToRetrieve==var_name )
+                             { lst.append(data.trimmed());
+                             }
+                        }
+                    } // endif (varToRetrieve.length())
+                 //............. si nom de variable absent (toutes les lignes)......................
                  else
                     {
                      while (*pt && (*pt==' '||*pt=='\t') )      ++pt ; // sauter espaces de debut de ligne
@@ -755,36 +1199,128 @@ void CGestIni::Param_GetList(QString &outParam, const QString &sectionToRetrieve
                      pt   = GotoEndOfLigne(pt);
                      data = QString::fromLatin1 (deb, pt-deb).trimmed();
                      if (data.length())
-                        {int pos = data.indexOf('=');
-                         if (pos != -1) data = data.mid(pos+1);
+                        {if (entireDataLine!=2)        // on coupe apr�s le signe = si pa egal a deux
+                            {int pos = data.indexOf('=');
+                             if (pos != -1) data = data.mid(pos+1);
+                            }
                          if (isToStrip)   lst.append(data.trimmed());
                          else             lst.append(data);
                         }
                     }
-                }
+                } // end while (*pt && *pt != '[')
          break;
         }
      }
 }
 
-//----------------------------------------- Param_GetList ---------------------------------------------
-/*! \brief Récupère les valeurs d'une variables (varToRetrieve) d'une section (sectionToRetrieve) du string paramètre (outParam) dans une QStringList lst.
- *  \param file_ini : nom du fichier ou l'on va extraire une liste.
- *  \param sectionToRetrieve : section contenant les variables dont il faut faire une liste
- *  \param lst :  liste a initialiser et construire
- *  \param varToRetrieve     :(par defaut "")  variable dont il faut faire une liste (si vide alors toute la ligne apres le signe = sera retenue)
- *  \param isToStrip :  isToStrip (a un par defaut) si a un, chaque element de la liste sera nettoye des espaces de debut et fin
- *  \param isUtf8 : pointeur sur un int (par defaut �  zero) qui si different de zero sera initialise a un si le fichier est en UTF8
-*/
+//----------------------------------------- replaceList ---------------------------------------------
+/*! \brief replace a variables list in section parameters by datas from QStringList
+ *  \param outParam : parameters data document destination.
+ *  \param QStringList &list list data sources to place.
+ *  \param const QString &sectionToSet section where to find list of variables to replace
+ *  \param const QString &varToSet  variable name of each list elements to replace
+ */
+void CGestIni::replaceList(QString &outParam, const QString &sectionToSet, const QString &varToSet,  const QStringList &list )
+{QString line        = "";
+ QString sectionName = "";
+ QString varname     = "";
+ int     pos;
+ int     end;
+ int     posNext = 0;
+ int     posDeb  = 0;
+ int     posNextSave = 0;
 
-void CGestIni::Param_GetList(const QString &file_ini, const QString &sectionToRetrieve, QStringList &lst, const QString &varToRetrieve/*=""*/,  int isToStrip /*=0*/, int *isUtf8 /*=0*/)
-{QString outParam;
- Param_UpdateFromDisk( file_ini,  outParam,  isUtf8 );
- Param_GetList( outParam, sectionToRetrieve, varToRetrieve, lst, isToStrip );
+ //.................. aller dans la section ...........................................
+ while  ( (posNext = readNextLine(outParam, posNext, line))  != outParam.length() )       // on lit une ligne de texte
+    {if ( (pos     = gotoNextNotBlank(line, 0)) == line.length() )       continue;        // on y cherche le premier caractere utile
+     if (line[pos]==';')                                                 continue;        // si commentaire on saute la ligne
+     if (line[pos]=='/' && line[pos+1]=='/')                             continue;        // si commentaire on saute la ligne
+     if (line[pos]=='[')                                                                  // si debut de section on voit si c'est la bonne section
+        {++pos;
+         if ( (end       = line.indexOf(']',pos)) ==-1)                  continue;        // si fin de section pas trouvee on continue
+         sectionName     = line.mid(pos,end-pos).trimmed();
+         if (sectionName == sectionToSet)                                break;           // si section trouvee on arrete
+         sectionName     = "";
+        }
+    }
+ if (sectionName.length()==0)                                            return;          // si section non trouvee on se casse
+
+ //.................. parcourir les variables de cette section et effacer celles concernees par la liste ...........................................
+ posDeb = posNext;
+ while  ( posNext  < outParam.length() )        // on lit une ligne de texte
+    { posNext       = readNextLine(outParam, posNext, line);
+      if ( (pos     = gotoNextNotBlank(line, 0)) == line.length() )       continue;        // on y cherche le premier caractere utile
+      if (line[pos]=='[')                                                 break;           // on arrete si debut d'une autre section
+      if (line[pos]==';')                                                 continue;        // si commentaire on saute la ligne
+      if (line[pos]=='/' && line[pos+1]=='/')                             continue;        // si commentaire on saute la ligne
+      if ( (end = line.indexOf('=',pos)) ==-1)                            continue;        // si pas de signe egal trouve on continue
+      varname = line.mid(pos,end-pos).trimmed();
+      if (varname==varToSet)
+         {outParam.remove(posDeb,posNext-posDeb); // on efface la ligne
+          posNext       = posDeb;                 // on se replace au debut de la ligne qui vient d'etre effacee
+          posNextSave   = posDeb;                 // on garde la trace du dernier point ou s'est produit l'effacement
+         }
+      posDeb = posNext;
+    }
+ //................. si rien a effacer on place posNextSave sur valeur correcte ...........
+ if (posNextSave==0) posNextSave = posNext;
+ //................. on replace la liste des variables ....................................
+ varname  = varToSet;
+ varname  = varname.prepend("  ");
+ varname += " = ";
+ for (int i=0; i<list.size(); ++i)
+    {outParam.insert(posNextSave, varname+list[i]+"\n");
+    }
+}
+
+//----------------------------------------- readNextLine ---------------------------------------------
+int CGestIni::readNextLine(const QString &outParam, int deb, QString &line)
+{if (deb >= outParam.length())
+    {line.clear();
+     return outParam.length();
+    }
+ int end = gotoEndLine(outParam, deb);
+ line    = outParam.mid(deb, end-deb);
+ return gotoNextStartLine(outParam, end);    // on sepositionne au debut de la ligne suivante
+}
+//----------------------------------------- gotoEndLine ---------------------------------------------
+int CGestIni::gotoEndLine(const QString &outParam, int pos)
+{int endLine = outParam.indexOf('\n',pos);
+ if (endLine != -1) return endLine;
+ endLine = outParam.indexOf('\r',pos);
+ if (endLine != -1) return endLine;
+ return outParam.length();
+}
+//----------------------------------------- gotoNextStartLine ---------------------------------------------
+int CGestIni::gotoNextStartLine(const QString &outParam, int pos)
+{pos = gotoEndLine(outParam, pos);
+ while (pos<outParam.length() && (outParam[pos]=='\r'||outParam[pos]=='\n')) ++pos;
+ return pos;
+}
+//----------------------------------------- gotoNextNotBlank ---------------------------------------------
+int CGestIni::gotoNextNotBlank(const QString &outParam, int pos)
+{while (pos<outParam.length() && (outParam[pos]=='\r'||outParam[pos]=='\n'||outParam[pos]==' '||outParam[pos]=='\t')) ++pos;
+ return pos;
+}
+//----------------------------------------- gotoNextBlank ---------------------------------------------
+int CGestIni::gotoNextBlank(const QString &outParam, int pos)
+{pos =  CGestIni::gotoNextNotBlank(outParam,  pos);
+ while (pos<outParam.length() && outParam[pos]!='\r' && outParam[pos]!='\n' && outParam[pos]!='\t' && outParam[pos]!=' ') ++pos;
+ return pos;
+}
+//----------------------------------------- getNextWord ---------------------------------------------
+int CGestIni::getNextWord(const QString &outParam, int pos, QString &word)
+{int deb   = -1;
+ word      = "";
+ if ( (deb =  CGestIni::gotoNextNotBlank(outParam,  pos)) >= outParam.length()) return outParam.length();
+ pos       = deb;
+ while (pos<outParam.length() && outParam[pos]!='\r' && outParam[pos]!='\n' && outParam[pos]!='\t' && outParam[pos]!=' ') ++pos;
+ word      = outParam.mid(deb, pos-deb);
+ return pos;
 }
 
 //------------------------------ Param_GotoNextSection -----------------------------------------
-/*! \brief Passe �  la section suivante en débutant au pointeur pt.
+/*! \brief Passe a  la section suivante en debutant au pointeur pt.
 */
 char *CGestIni::Param_GotoNextSection(char *pt, const char* section, QString *pQsection)
 {char *deb         = 0;
@@ -808,7 +1344,7 @@ char *CGestIni::Param_GotoNextSection(char *pt, const char* section, QString *pQ
      case '\\':
           if ( pt[1] !=0 ) pt +=2;
           break;
-     case '[': //....................debut de section: tester si c'est celle recherchée ...................
+     case '[': //....................debut de section: tester si c'est celle recherchee ...................
           ++pt;
           while (*pt && (*pt==' '||*pt=='\t'))  ++pt;                // enlever espaces de debut
           deb = pt;
@@ -820,10 +1356,10 @@ char *CGestIni::Param_GotoNextSection(char *pt, const char* section, QString *pQ
           if (len_section>0 && pQsection != 0)
              {*pQsection=QString::fromLatin1(deb, len_section);
              }
-          if ( section == 0)  return  GotoNextDebLigne(pt);   // pas de section donnée, on s'arrete �  la première trouvée
-          if ((long)strlen(section)==len_section && strncmp(section, deb, len_section)==0)             // SI c'est la section recherchée
+          if ( section == 0)  return  GotoNextDebLigne(pt);   // pas de section donnee, on s'arrete �  la première trouvee
+          if ((long)strlen(section)==len_section && strncmp(section, deb, len_section)==0)             // SI c'est la section recherchee
              {                return  GotoNextDebLigne(pt);                            // aller ligne suivante
-             } // end if (strlen(section)==len_section && strncmp(section, deb, len_section)==0)   // SI c'est la section recherchée
+             } // end if (strlen(section)==len_section && strncmp(section, deb, len_section)==0)   // SI c'est la section recherchee
           break;
       default:
           ++pt;
@@ -858,7 +1394,7 @@ QString  CGestIni::retrieveStringForParam(QString &str)
 }
 
 //------------------------------ Param_ExtraireNextValeurs ----------------------------------------
-/*! \brief Extrait les valeurs d'une variable donnée.
+/*! \brief Extrait les valeurs d'une variable donnee.
 */
 char *CGestIni::Param_ExtraireNextValeurs(char* pt, QString &var_name,
                                              QString *val1, QString *val2, QString *val3, QString *val4, QString *val5,
@@ -867,7 +1403,7 @@ char *CGestIni::Param_ExtraireNextValeurs(char* pt, QString &var_name,
 }
 
 //------------------------------ Param_ExtraireNextValeurs ----------------------------------------
-/*! \brief Extrait les valeurs d'une variable donnée dans un string paramètre donné.
+/*! \brief Extrait les valeurs d'une variable donnee dans un string paramètre donne.
 */
 char *CGestIni::Param_ExtraireNextValeurs(char* pt, QString &var_name, char**pt_lgn, long *len,
                                              QString *val1, QString *val2, QString *val3, QString *val4, QString *val5,
@@ -907,7 +1443,7 @@ char *CGestIni::Param_ExtraireNextValeurs(char* pt, QString &var_name, char**pt_
 }
 
 //------------------------------ GotoNextDebLigne -----------------------------------------
-/*! \brief déplace le pointeur jusqu'au début de la ligne suivante.
+/*! \brief deplace le pointeur jusqu'au debut de la ligne suivante.
 */
 char *CGestIni::GotoNextDebLigne(const char* txt)
 {char *pt  = (char*) txt;
@@ -922,7 +1458,7 @@ char *CGestIni::GotoNextDebLigne(const char* txt)
 }
 
 //------------------------------ GotoEndOfLigne -----------------------------------------
-/*! \brief déplace le pointeur jusqu'�  la fin de la ligne.
+/*! \brief deplace le pointeur jusqu'a  la fin de la ligne.
 */
 char *CGestIni::GotoEndOfLigne(const char* txt)
 {char *pt  = (char*) txt;
@@ -935,9 +1471,24 @@ char *CGestIni::GotoEndOfLigne(const char* txt)
     }
  return pt;
 }
-
+//------------------------------ CutStrLeft -----------------------------------------
+/*! \brief coupe une chaine avant le premier motif at trouve.
+*/
+QString CGestIni::CutStrLeft(const QString &str, const QString &at)
+{int pos = str.indexOf(at);
+ if (pos != -1 ) return str.left(pos);
+ return str;
+}
+//------------------------------ CutStrRight -----------------------------------------
+/*! \brief coupe une chaine apres le premier motif at trouve.
+*/
+QString CGestIni::CutStrRight(const QString &str, const QString &at)
+{int pos   = str.indexOf(at);
+ if (pos  != -1 ) return str.mid(pos+at.length());
+ return str;
+}
 //------------------------------ Construct_Name_Exe -----------------------------------------
-/*! \brief construit le chemin vers l'executable du module (module) de MendinTux. Gère la compatibilité Windows/Linux/Mac.
+/*! \brief construit le chemin vers l'executable du module (module) de MendinTux. Gère la compatibilite Windows/Linux/Mac.
 */
 QString CGestIni::Construct_Name_Exe(QString module, QString start_Argv, const QString &alternateExecName /*="" */)
 {
@@ -951,7 +1502,7 @@ relation avec le module correspondant
         QString exeName;
         if (alternateExecName.length()) exeName = alternateExecName;
         else                            exeName = module;
-        //Création du nom de fichier
+        //Creation du nom de fichier
        if (module=="compta-plugins" || module=="check_dus"  || module=="comptabilite" )
           { path   = start_Argv + "/" + PATH_SPEC_MAC + "../../comptabilite/bin/" + exeName + F_EXT;
             module = exeName;
@@ -969,7 +1520,7 @@ relation avec le module correspondant
 
 
 //------------------------------ Construct_Name_File_Ini -----------------------------------------
-/*! \brief construit le chemin vers le fichier ini du module (module) de MendinTux. Gère la compatibilité Windows/Linux/Mac.
+/*! \brief construit le chemin vers le fichier ini du module (module) de MendinTux. Gère la compatibilite Windows/Linux/Mac.
 */
 QString CGestIni::Construct_Name_File_Ini(QString module, QString start_Argv, QString nom_Fichier_Alternatif ){
 /*      Signature :  String         X String X String                                                   --> String
@@ -998,7 +1549,7 @@ QString CGestIni::Construct_Name_File_Ini(QString module, QString start_Argv, QS
 /*! \brief Permet la construction d'un nom complet de fichier executable en  relation avec le module correspondant
  *  \param QString  module : nom du programme dont on cherche �  construire le chemin complet si egal �  "" alors le nom du chemin sera extrait de : start_Argv
  *  \param const QString & start_Argv : Chemin complet de demarrage du programme
- *  \param QString *base_name : adresse d'une QString qui dans laquelle si elle est différente de zero sera retourné le nom du programme SANS SON EXTENSION
+ *  \param QString *base_name : adresse d'une QString qui dans laquelle si elle est differente de zero sera retourne le nom du programme SANS SON EXTENSION
  *  \return nom du module  avec le chemin complet de demarrage du proc --> nom  ini complet du module
 */
 QString CGestIni::Construct_PathBin_Module(const QString  &module, const QString & ref_dir)
@@ -1020,8 +1571,8 @@ QString CGestIni::AbsoluteToRelativePath(QString pathRef, QString pathToConvert)
  pathToConvert = pathToConvert.replace("\\","/");
  pathRef       = pathRef.replace("//","/");
  pathToConvert = pathToConvert.replace("//","/");
- //............ enlever l'�ventuel C: ...........................
- //             de facon � ce que les racines soient identiques : /xxxx/nnnnn/etc/
+ //............ enlever l'eventuel C: ...........................
+ //             de facon a ce que les racines soient identiques : /xxxx/nnnnn/etc/
  posR           = pathRef.indexOf(':');
  posC           = pathToConvert.indexOf(':');
  if (posR !=-1 && posC !=-1 && pathRef[0] != pathToConvert[0]) return pathToConvert; // si les partitions sont differentes l'on ne peut pas relativiser
@@ -1062,7 +1613,7 @@ QString CGestIni::AbsoluteToRelativePath(QString pathRef, QString pathToConvert)
 }
 
 //-------------------------- listDirectory -------------------------------------------
-/*! \brief non documenté */
+/*! \brief non documente */
 QStringList CGestIni::listDirectory(QString start_dir, const QString &filterExt_in/*=""*/, const QString &filterName/*=""*/, const QString &sep/*=";"*/, bool listWithoutExt/*=FALSE*/)
 {   QStringList    ret;
     QString        filterExt = filterExt_in;
@@ -1166,9 +1717,9 @@ QString CGestIni::PassWordDecode(QString str_to_decode)
  int len_pass        = str_to_decode.length();
  int      pos        = 0;
  while ( pos < len_pass)
-     {decoded_car  = HexToUINT( str_to_decode.mid(pos,4).toAscii());
+     {decoded_car  =  HexToUINT( str_to_decode.mid(pos,4).toAscii());
       decoded_car  =  decoded_car ^ pt_magic_key[pos/4];
-      decoded_str += decoded_car;
+      decoded_str +=  decoded_car;
       pos         += 4;
      }
  return decoded_str;
@@ -1222,3 +1773,4 @@ quint16 CGestIni::HexToUINT( const char *str)
    }
  return val;
 }
+

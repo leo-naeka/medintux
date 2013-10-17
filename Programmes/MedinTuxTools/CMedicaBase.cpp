@@ -49,7 +49,7 @@ CMedicaBase::CMedicaBase( QString path_MedicaBase_ini,  QString path_MedicaBase_
 //-----------------------------------------------------  Init_Base -------------------------------------------------
 void CMedicaBase::Init_Base( QString &path_MedicaBase_ini,  QString &path_MedicaBase_cfg)
 {
-  
+
   //.................. lire le fichier ini pour en retirer les paramêtres de connexion ...............................
   CGestIni::Param_UpdateFromDisk(path_MedicaBase_ini, m_IniParam);
   m_ModeBase = 0;
@@ -97,9 +97,9 @@ void CMedicaBase::Init_Base( QString &path_MedicaBase_ini,  QString &path_Medica
                                      m_Port,         // = "3306"
                                      GET_BASE);
   //     [Connexion]
-  //         Parametres MedicaBase = QMYSQL3 , MedicaTuxTest , root ,  , localhost , 3306          
-  //         Parametres SrceBase = QMYSQL3 , DatasempTest , root ,  , localhost , 3306              
-  //         Parametres Get_Base = QMYSQL3 , BaseGetTest , root ,  , localhost , 3306         
+  //         Parametres MedicaBase = QMYSQL3 , MedicaTuxTest , root ,  , localhost , 3306
+  //         Parametres SrceBase = QMYSQL3 , DatasempTest , root ,  , localhost , 3306
+  //         Parametres Get_Base = QMYSQL3 , BaseGetTest , root ,  , localhost , 3306
   //         InUseBase = Parametres MedicaBase , noMedicaBase
   //................................... recuperer le nom de la base courante à activer........................................
   QString mode;
@@ -119,12 +119,12 @@ void CMedicaBase::Init_Base( QString &path_MedicaBase_ini,  QString &path_Medica
      }
 
   //...............  Mode de recherche des infos CMedicaBase::MedicaBase ou CMedicaBase::Datasemp .............................
-  if (mode == "MedicaBase" || m_DataBaseSrce==0)   
+  if (mode == "MedicaBase" || m_DataBaseSrce==0)
      {Medica_SetBaseMode(CMedicaBase::MedicaBase);
       m_MedicaBase =    m_DataGet_Base;         // l'index des med est deja dans la BaseGet (dans le datasemp il est externe dans la base MedicaTuxTest)
      }
-  else                        
-     {Medica_SetBaseMode(CMedicaBase::Datasemp);      
+  else
+     {Medica_SetBaseMode(CMedicaBase::Datasemp);
       m_MedicaBase =    BaseConnect(m_DriverName,   // nom du driver: "QODBC3" "QMYSQL3" "QPSQL7"
                                     m_BaseName,     // nom de la base: si QODBC3 -> nom de la source de données (userDSN)
                                     m_UserName,     // = "root"
@@ -144,19 +144,19 @@ void CMedicaBase::Init_Base( QString &path_MedicaBase_ini,  QString &path_Medica
  QString err("");
  SetConfBase(str,  err);
  if (err.length()) {qDebug(err);                         return;}
- 
+
  /*
 ;==================== BaseGet ======================================
 [Connexion]
-    Parametres MedicaBase = QMYSQL3 , MedicaTuxTest , root ,  , 192.168.100.3 , 3306          
-    Parametres SrceBase = QMYSQL3 , DatasempTest , root ,  , 192.168.100.3 , 3306              
-    Parametres Get_Base = QMYSQL3 , BaseGetTest , root ,  , 192.168.100.3 , 3306         
+    Parametres MedicaBase = QMYSQL3 , MedicaTuxTest , root ,  , 192.168.100.3 , 3306
+    Parametres SrceBase = QMYSQL3 , DatasempTest , root ,  , 192.168.100.3 , 3306
+    Parametres Get_Base = QMYSQL3 , BaseGetTest , root ,  , 192.168.100.3 , 3306
     InUseBase = Parametres Get_Base , MedicaBase
 ;==================== BaseDatasempt =================================
 [Connexion]
-    Parametres MedicaBase = QMYSQL3 , MedicaTuxTest , root ,  , 192.168.100.3 , 3306          
-    Parametres SrceBase = QMYSQL3 , DatasempTest , root ,  , 192.168.100.3 , 3306              
-    Parametres Get_Base = QMYSQL3 , BaseGetTest , root ,  , 192.168.100.3 , 3306         
+    Parametres MedicaBase = QMYSQL3 , MedicaTuxTest , root ,  , 192.168.100.3 , 3306
+    Parametres SrceBase = QMYSQL3 , DatasempTest , root ,  , 192.168.100.3 , 3306
+    Parametres Get_Base = QMYSQL3 , BaseGetTest , root ,  , 192.168.100.3 , 3306
     InUseBase = Parametres MedicaBase , noMedicaBase
 
 
@@ -206,7 +206,7 @@ void CMedicaBase::Init_Base( QString &path_MedicaBase_ini,  QString &path_Medica
                                      m_HostName,     // = "localhost"
                                      m_Port,         // = "3306"
                                      GET_BASE);
-  if (m_DataGet_Base->isOpen()==FALSE && m_DataGet_Base->open()==FALSE) 
+  if (m_DataGet_Base->isOpen()==FALSE && m_DataGet_Base->open()==FALSE)
      {qDebug(TR("BaseGet non accessible %1").arg(QString::number((unsigned long)m_DataGet_Base)));
      }
   //................................... recuperer le nom de la base courante à activer........................................
@@ -283,8 +283,8 @@ QSqlDatabase*  CMedicaBase::BaseConnect(const char* driver,        // nom du dri
         defaultDB->setPort( port.toInt());
         if ( ! defaultDB->open() )
            {QString qstr = "";
-            qstr += QString("Failed to open database: ") + QString(driver) + "  " + QString(DataBaseName) + "\r\n" +
-                     defaultDB->lastError().driverText() + "\r\n" + defaultDB->lastError().databaseText();
+            qstr += QString("Failed to open database: ") + QString(driver) + "  " + QString(DataBaseName) + "\n" +
+                     defaultDB->lastError().driverText() + "\n" + defaultDB->lastError().databaseText();
             qWarning(qstr);
             if (errMess) *errMess = qstr;
             return 0;
@@ -405,13 +405,13 @@ char  *CMedicaBase::SetConfBase_SetProperties(char *pt, QString &propertie, cons
                   return end +1;
                  }
               else
-                {err  = "Syntax Error: SetConfBase_SetProperties()\r\n End delimiter \"'\"  not find at line N°: ";
+                {err  = "Syntax Error: SetConfBase_SetProperties()\n End delimiter \"'\"  not find at line N°: ";
                  err += QString::number(*line);
                  return 0;
                 }
              }
            else
-             {err  = "Syntax Error: SetConfBase_SetProperties()\r\n Start delimiter \"'\"  not find at line N°: ";
+             {err  = "Syntax Error: SetConfBase_SetProperties()\n Start delimiter \"'\"  not find at line N°: ";
               err += QString::number(*line);
               return 0;
              }
@@ -420,7 +420,7 @@ char  *CMedicaBase::SetConfBase_SetProperties(char *pt, QString &propertie, cons
      NEXT_LINE(pt);
      if (line) *line++;
     }
- err  = "Syntax Error: SetConfBase_SetProperties()\r\n Token : ";
+ err  = "Syntax Error: SetConfBase_SetProperties()\n Token : ";
  err += token;
  err += " not find at line N°: ";
  err += QString::number(*line);
@@ -437,7 +437,6 @@ QString CMedicaBase::Utf8_Query(QSqlQuery &cur, int field)
  else
     {return QString(ptr) ;
     }
-
 }
 //----------------------------------------------------- Medica_SetBaseMode ---------------------------------------------------------------
 void CMedicaBase::Medica_SetBaseMode(int mode)
@@ -448,7 +447,15 @@ void CMedicaBase::Medica_SetBaseMode(int mode)
 int CMedicaBase::Medica_GetBaseMode()
 {return m_ModeBase;
 }
-
+//----------------------------------------------------- save_TraitementEnCours ---------------------------------------------------------------
+int CMedicaBase::save_TraitementEnCours(QString /* pk_doss */,
+                                        QString /* numGUID */,
+                                        QString /* user */,
+                                        QString /* signUser */,
+                                        QPL_CPosologie /* ordoList */,
+                                        QSqlDatabase   */* dataBaseDst */ )
+{return 0;
+}
 //----------------------------------------------------- Medica_GetDatasempVersion ---------------------------------------------------------------
 //           VERS_MODE mode soit CMedicaBase::Data  et alors sera retourné la version des tables datasemp
 //                               CMedicaBase::Index et alors sera retourné la version de l'index MedicaBase
@@ -534,7 +541,7 @@ bool CMedicaBase::Medica_CreateTablePosologies(const QString &table_name, int dr
                "    `" +            m_MEDICA_POSO_PENDANT        + "`       float      default NULL, "
                "    `" +            m_MEDICA_POSO_SECABILITE     + "`       char(1)    BINARY  NULL, "
                "     PRIMARY KEY  ("+ m_MEDICA_POSO_PK + ") "
-               "  ) TYPE=MyISAM";
+               "  );";
  pSqlQueryDst = new QSqlQuery(requeteDst , m_MedicaBase );
  ret = OutSQL_error(*pSqlQueryDst, "Medica_CreateTablePosologies(): Error table create : " + table_name , requeteDst);
  if (pSqlQueryDst) delete  pSqlQueryDst;
@@ -565,7 +572,7 @@ bool CMedicaBase::Medica_CreateTableIndexProduit(const QString &table_name)
                "    `" +            m_MEDICA_INDEX_IS_GENE  + "`       char(1)  BINARY default NULL, "
                "    `" +            m_MEDICA_INDEX_IS_DISPO + "`       char(4)  BINARY default NULL, "
                "     PRIMARY KEY  ("+ m_MEDICA_INDEX_PK + ") "
-               "  ) TYPE=MyISAM";
+               "  );";
  pSqlQueryDst = new QSqlQuery(requeteDst , m_MedicaBase );
  ret = OutSQL_error(*pSqlQueryDst, "Medica_CreateTableIndexProduit(): Error table create : " + table_name , requeteDst);
  if (pSqlQueryDst) delete  pSqlQueryDst;
@@ -600,7 +607,7 @@ bool CMedicaBase::Medica_CreateTableSpecificationProduit(const QString &table_na
                "    `" +            m_MEDICA_SPEC_LABO            + "`       char(45) BINARY default NULL, "
                "    `" +            m_MEDICA_SPEC_ATC             + "`       char(7)  BINARY default NULL, "
                "     PRIMARY KEY  ("+ m_MEDICA_SPEC_CIP + ") "
-               "  ) TYPE=MyISAM";
+               "  );";
  pSqlQueryDst = new QSqlQuery(requeteDst , m_MedicaBase );
  ret = OutSQL_error(*pSqlQueryDst, "ConvertMysteriousBaseToMedicaTux(): Error table create : " + table_name , requeteDst);
  if (pSqlQueryDst) delete  pSqlQueryDst;
@@ -631,7 +638,7 @@ bool CMedicaBase::Medica_CreateTableFormeProduit(const QString &table_name, int 
  requeteDst += "    `" +              m_MEDICA_FORME_PK             + "`       int(11)  NOT NULL , "
                "    `" +              m_MEDICA_FORME_LIBELLE        + "`       char(40) BINARY default NULL , "        // Pk Table forme et unites: (comprimé ampoules etc ...)   UPUnit
                "     PRIMARY KEY  ("+ m_MEDICA_FORME_PK + ") "
-               "  ) TYPE=MyISAM";
+               "  );";
  pSqlQueryDst = new QSqlQuery(requeteDst , m_MedicaBase );
  ret = OutSQL_error(*pSqlQueryDst, "Medica_CreateTableFormeProduit(): Error table create : " + table_name , requeteDst);
  if (pSqlQueryDst) delete  pSqlQueryDst;
@@ -678,7 +685,7 @@ bool CMedicaBase::Medica_CreateTableATC(const QString &table_name)
  requeteDst += "` ( `" +              m_MEDICA_ATC_CODE      + "`       char(7)  NOT NULL , "
                "    `" +              m_MEDICA_ATC_LIBELLE   + "`       char(127) BINARY default NULL , "
                "     PRIMARY KEY  ("+ m_MEDICA_ATC_CODE + ") "
-               "  ) TYPE=MyISAM";
+               "  );";
  pSqlQueryDst = new QSqlQuery(requeteDst , m_MedicaBase );
  ret = OutSQL_error(*pSqlQueryDst, "Medica_CreateTableATC(): Error table create : " + table_name , requeteDst);
  if (pSqlQueryDst) delete  pSqlQueryDst;
@@ -733,10 +740,11 @@ QString CMedicaBase::Medica_GetCodeATC(QString cip,
 long CMedicaBase::Medica_PosologieListDeserialize(const QString &ordoStruct, QPL_CPosologie &list_CPosologie)
 {list_CPosologie.clear();
  long    nb = 0;
- int pos;
+ int    pos = 0;
  pos = ordoStruct.find("<PosologieList>");
- if (pos==-1) return 0;
- pos += 15;
+ if (pos==-1) { pos = ordoStruct.find("<Posologie>");
+              }
+ else           pos += 15;
  while ( (pos = ordoStruct.find("<Posologie>", pos)) != -1)
        {
         QPL_CPosologie::iterator it = list_CPosologie.append(CPosologie());
@@ -752,13 +760,13 @@ long CMedicaBase::Medica_PosologieListSerialize( QString &ordoStruct,  QPL_CPoso
  long    nb = 0;
  //................... Données posologiques ..................................
  if (list_CPosologie.count())
-    {ordoStruct += "<PosologieList>\r\n";         // entete de liste de posologie
+    {ordoStruct += "<PosologieList>\n";         // entete de liste de posologie
      QPL_CPosologie::iterator it;
      for (it = list_CPosologie.begin(); it !=  list_CPosologie.end(); ++it )   // it != m_RecSpeclist.end();
          {ordoStruct += (*it).to_XML_String();
           ++nb;
          }
-     ordoStruct += "</PosologieList>\r\n";         // entete de liste de posologie
+     ordoStruct += "</PosologieList>\n";         // entete de liste de posologie
     }
  return nb;
 }
@@ -768,21 +776,6 @@ QString CMedicaBase::Medica_PosologieListSerialize( QPL_CPosologie &list_CPosolo
 {QString ordoStruct;
  Medica_PosologieListSerialize(ordoStruct, list_CPosologie);
  return ordoStruct;
-}
-
-//-------------------------------------- Medica_PosologieListToXMLOrdoStruct --------------------------------------------------------------------------------------------
-QString  CMedicaBase::Medica_PosologieListToXMLOrdoStruct( QPL_CPosologie list_CPosologie, const QString &spoids, const QString &staille )
-{
- QString result( Medica_PosologieToHtmlOrdo(list_CPosologie, spoids, staille, CMedicaBase::PrintableForm));
- result.insert (0, "<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\" ?>\r\n<ordotext>\r\n");
- result.append ( "\r\n</ordotext>\r\n\r\n<ordoMedicaStruct>\r\n");
- result.append ( Medica_PosologieListSerialize(list_CPosologie));
- result.append ( "</ordoMedicaStruct>\r\n");
-//result.append ("<ordoMedicaPoids>\r\n");
- //result.append (spoids + "\r\n</ordoMedicaPoids>\r\n");
- //result.append ( "<ordoMedicaTaille>\r\n");
- //result.append (staille + "\r\n</ordoMedicaTaille>\r\n");
- return result;
 }
 
 //-------------------------------------- ExtractNumber ----------------------------------------------------------------
@@ -918,6 +911,33 @@ else if (text.find("se")!= -1)
  return 0;
 }
 
+//-------------------------------------- Medica_PosologieListToXMLOrdoStruct --------------------------------------------------------------------------------------------
+QString  CMedicaBase::Medica_PosologieListToXMLOrdoStruct( QPL_CPosologie list_CPosologie, const QString &spoids, const QString &staille , const QString &lap_ordo)
+{QString result = "";
+ if ( lap_ordo.length()==0 )    // vielle version 
+    { result =  Medica_PosologieToHtmlOrdo(list_CPosologie, spoids, staille, CMedicaBase::PrintableForm);
+      result.insert (0, "<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\" ?>\n<ordotext>\n");
+      result.append ( "\n</ordotext>\n\n<ordoMedicaStruct>\n");
+      result.append ( Medica_PosologieListSerialize(list_CPosologie));
+      result.append ( "</ordoMedicaStruct>\n");
+    }
+ else                           // nouvelle version
+    {int nextPos = 0;
+     //............. recuperer la partie html .........................................
+     result  =  "<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\" ?>\n"
+                "<ordotext>\n";               //....... recuperer partie html que l'on conserve telle qu'elle est .........
+     result +=   CGestIni::getXmlData("ordotext", lap_ordo, &nextPos, 1).stripWhiteSpace();      // 1 pour ne pas convertir '&gt;' en '>'  '&lt;' en '<'  '&amp;' en '&'
+     result +=  "</ordotext>\n";
+     result +=  "<ordoMedicaStruct>\n";       //....... convertir la nouvelle structure en acienne .........
+     QString lap_posoList =  CGestIni::getXmlData("Posologie_LAP_List", lap_ordo, &nextPos, 1).stripWhiteSpace();
+     result +=   Medica_Has_StructDataToOldXmlStruct( lap_posoList ); // sont inclus "<PosologieList>\n" et "</PosologieList>\n"
+     result +=   "\n<Posologie_LAP_List>\n";  //....... ajouter partie xml que l'on conserve telle qu'elle est .........
+     result +=   lap_posoList;
+     result +=   "\n</Posologie_LAP_List>\n";
+     result +=  "</ordoMedicaStruct>\n";
+    }
+ return result;
+}
 /*----------------------------------------------------- Medica_DiskDataSplitIn_HtmlData_StructData ------------------------------------------------------*/
 // ACTION: separe à partir des données brutes (XML) d'une ordonnance structurée de la base de données,
 //        les données Html directement affichables, des données structurées ayant produit cet affichage.
@@ -935,13 +955,363 @@ long CMedicaBase::Medica_DiskDataSplitIn_HtmlData_StructData(const QString &txt,
  if (stringDST_text) *stringDST_text = txt.mid(pos_deb, pos_end - pos_deb).stripWhiteSpace();;
 
  //............ analyse de la sortie .............................
+ pos_deb     = txt.find("<PosologieList>",  pos_end +11); if (pos_deb == -1)    return 0;
+ pos_deb    += 15;
+ pos_end     = txt.find("</PosologieList>", pos_deb);     if (pos_end == -1)    return 0;
 
- pos_deb     = txt.find("<ordoMedicaStruct>",  pos_end +11); if (pos_deb == -1)    return 0;
- pos_deb    += 18;
- pos_end     = txt.find("</ordoMedicaStruct>", pos_deb);     if (pos_end == -1)    return 0;
  if (stringDST_struct) *stringDST_struct = txt.mid(pos_deb, pos_end - pos_deb).stripWhiteSpace();
 
  return pos_end - pos_deb;
+}
+
+/*----------------------------------------------------- Medica_DiskDataSplitIn_HtmlData_HAS_StructData ------------------------------------------------------*/
+// ACTION: separe à partir des données brutes (XML) d'une ordonnance structurée de la base de données,
+//        les données Html directement affichables, des données structurées ayant produit cet affichage.
+// ENTREE: const char *txt : pointeur sur la zone XML de stockage des données brutes
+// SORTIE: QString *stringDST_text   : si pas egal à zero reçoit les données html affichables
+//         QString *stringDST_struct : si pas egal à zero reçoit les données structurelles calculables
+// RETOUR: long : longueur des données Html
+
+long CMedicaBase::Medica_DiskDataSplitIn_HtmlData_HAS_StructData(const QString &txt, QString *stringDST_text /*=0 */, QString *stringDST_struct /*=0 */)
+{if (txt.length()<=0 ) return 0;
+ //......................................... scan et analyse du texte ..................................
+ int pos_deb = txt.find("<ordotext>");                 if (pos_deb == -1)      return 0;
+ pos_deb    += 10;
+ int pos_end = txt.find("</ordotext>",pos_deb);        if (pos_end == -1)      return 0;
+ if (stringDST_text) *stringDST_text = txt.mid(pos_deb, pos_end - pos_deb).stripWhiteSpace();;
+
+ //............ analyse de la sortie .............................
+
+ pos_deb     = txt.find("<Posologie_LAP_List>",  pos_end +11); if (pos_deb == -1)    return 0;
+ pos_deb    += 20;
+ pos_end     = txt.find("</Posologie_LAP_List>", pos_deb);     if (pos_end == -1)    return 0;
+ if (stringDST_struct) *stringDST_struct = txt.mid(pos_deb, pos_end - pos_deb).stripWhiteSpace();
+
+ return pos_end - pos_deb;
+}
+
+/*----------------------------------------------------- Medica_Has_StructDataToOldXmlStruct ------------------------------------------------------*/
+QString   CMedicaBase::Medica_Has_StructDataToOldXmlStruct(const QString &hasXml)
+{
+   /*
+                "<gph>\n"                          // -- DEBUT du header d'une ligne prescriptive ---
+                " <gph_html></gph_html>\n"         //        contenu html (accelere l'affichage)
+                " <gph_ald></gph_ald>\n"           //        prescrit en ALD "ALD"  sans ALD ""
+                " <gph_id></gph_id>\n"             //        id (cip)
+                " <gph_it></gph_it>\n"             //        id_type
+                " <gph_dr></gph_dr>\n"             //        date et heure de la redaction de la prescription    format dd-MM-yyyy hh:mm:ss
+                " <gph_dt></gph_dt>\n"             //        date et heure du debut  de prise de la prescription format dd-MM-yyyy hh:mm:ss // la date de fin est calculee avec <gph_cy>
+                " <gph_na></gph_na>\n"             //        nom commercial et usuel du produit
+                " <gph_dcl>\n"                     //        - debut de la liste des dci composant le produit
+                "  <gph_dc>\n"                     //        -- debut du premier element de la liste des dci
+                "    <gph_dcn></gph_dcn>\n"        //        --- nom   du premier element de la liste des dci
+                "    <gph_dcp></gph_dcp>\n"        //        --- dose  du premier element de la liste des dci
+                "    <gph_dcu></gph_dcu>\n"        //        --- unite du premier element de la liste des dci
+                "  </gph_dc>\n"                    //        --fin du premier element de la liste des dci
+                " </gph_dcl>\n"                    //        - fin de la liste des dci composant le produit
+                " <gph_cy></gph_cy>\n"             //        duree totale de toutes les sequences (J15  S10 M10   M3R2) 'J' pour jours  ou 'S' pour semaines  ou 'M' pour mois  suivi du nbr et falcutatif 'R' pour renouvelable suivi du nbr
+                " <gph_sb></gph_sb>\n"             //        substituable 0 = non substituable  1 = substituable
+                " <gph_dci></gph_dci>\n"           //        affichage libelle produit : 3=que dci  2=dci+commercial 1=commercial+dci 0=que commercial (par defaut si vide c'est 3)
+                " <gph_uf></gph_uf>\n"             //        forme de l'unite de prise
+                " <gph_voie></gph_voie>\n"         //        voie d'administration
+                " <gph_fmin></gph_fmin>\n"         //        frequence minimum
+                " <gph_fmax></gph_fmax>\n"         //        frequence maximum
+                " <gph_funit></gph_funit>\n"       //        frequence unite
+                " <gph_pmint></gph_pmin>\n"        //        posologie minimum
+                " <gph_pmax></gph_pmax>\n"         //        posologie maximum
+                " <gph_punit></gph_punit>\n"       //        posologie unite
+                " <gph_pfc></gph_pfc>\n"           //        posologie facteur corporel qu de gph_punit par facteur corporel
+                " <gph_pfcunit></gph_pfcunit>\n"   //        posologie facteur corporel unite Kg cm
+                " <gph_pqbyuf></gph_pqbyuf>\n"     //        quantite d'unite posologique par unite de forme de gph_punit par gph_uf
+                " <gph_dmin></gph_dmin>\n"         //        duree minimum
+                " <gph_dmax></gph_dmax>\n"         //        duree maximum
+                " <gph_dunit></gph_dunit>\n"       //        duree unite
+                " <gph_nm></gph_nm>\n"             //        conversion mode en mode numerique UP_QUANTITE MOMENT_MEAL ALL_LITERAL (on se sert de celui-ci car plus rapide a interpreter)
+                " <gph_cm></gph_cm>\n"             //        conversion mode en mode literal pour information lisible de celui du mode numerique  UP_QUANTITE MOMENT_MEAL ALL_LITERAL on a pas peur des redondances ! (vive la memoire vive et les HD)
+                " <gph_in>\n"                      //        liste des indications
+                "  <gph_il></gph_il>\n"            //        premier element de la liste des indications
+                " </gph_in>\n"                     //        fin de la liste des indications <gph_il> </gph_il>
+                " <gph_co></gph_co>\n"             //        commentaire global en fin de prescription
+                "</gph>\n"                         // -- FIN du header d'une ligne prescriptive ---
+                "<gps>\n"                          // -- DEBUT de la liste des sequences pescriptives
+                " <gpp></gpp>\n"                   //        premiere sequence prescriptive
+                "</gps>\n"                         // -- FIN de la liste des sequences pescriptives
+                "<gpi_engine></gpi_engine>\n"      //        systeme de donnees a l'origine de cette ligne prescriptive
+                "<gpi_user></gpi_user>\n"          //        utilisateur a l'origine de cette ligne prescriptive
+*/
+
+ QString stringDST = "<PosologieList>\n";
+ QStringList  list = CGestIni::getXmlDataList("OrdoLine", hasXml);
+ int             i = 0;
+ int             s = 0;
+ for ( i = 0; i<(int)list.size();++i)
+     { QString grammar          = list[i];
+       QString schemaPrise      = "";
+       QString q_min            = "";
+       QString q_max            = "";
+       int nextPos              = 0;
+       QString    ald           = CGestIni::getXmlData(     "gph_ald",    grammar, &nextPos);
+       QString    cip           = CGestIni::getXmlData(     "gph_id",     grammar, &nextPos);
+       QString    idType        = CGestIni::getXmlData(     "gph_it",     grammar, &nextPos);
+       //QString    s_dateRed     = CGestIni::getXmlData(     "gph_dr",    grammar, &nextPos).left(10);
+       //QString    s_dateDeb     = CGestIni::getXmlData(     "gph_dt",    grammar, &nextPos).left(10);
+       QString commercialName    = CGestIni::getXmlData(     "gph_na",    grammar, &nextPos);
+       //QString compoXmlParts    = CGestIni::getXmlData(     "gph_dcl",   grammar, &nextPos);
+       QString cycle              = CGestIni::getXmlData(     "gph_cy",    grammar, &nextPos);
+       //QString substituable     = CGestIni::getXmlData(     "gph_sb",    grammar, &nextPos);
+       //int     dciMode          = CGestIni::getXmlData(     "gph_dci",   grammar, &nextPos).toInt();
+       QString up_forme         = CGestIni::getXmlData(     "gph_uf",    grammar, &nextPos);
+       //QString voie             = CGestIni::getXmlData(     "gph_voie",  grammar, &nextPos);
+       //QString conv_mod_T       = CGestIni::getXmlData(     "gph_cm",    grammar, &nextPos);
+       //QString conv_mod_N       = CGestIni::getXmlData(     "gph_nm",    grammar, &nextPos);
+       QString comment          = CGestIni::getXmlData(     "gph_co",    grammar, &nextPos);
+       QStringList seqList      = CGestIni::getXmlDataList( "gpp",       grammar, &nextPos);
+
+       QString nb_prises = "0";                  // nombre de fois par jour 
+       for ( s=0; s < 1; /* seqList.count(); */ ++s)       // < 1  car l'ancien systeme ne connait pas la crise des sequences multiples
+           { //....... reperer si la sequence comporte une forme locale ..............
+             //        et auquel cas l'utiliser
+             QString sequence        = seqList[s];
+             int     pos_deb         = sequence.find('[');
+             if (pos_deb != -1 )
+                { up_forme           = sequence.left(pos_deb);
+                  sequence           = sequence.mid(pos_deb+1);
+                }
+             schemaPrise = Medica_sequenceToOldMinMaxPoso(sequence, q_min,  q_max, nb_prises);
+           }
+       if (q_min.length()==0 && q_max.length())
+          {q_min = q_max;
+           q_max = "";
+          }
+       QString posoAdjust = "1";
+       if (schemaPrise.length()==0 && q_min.length() && q_max.length())  // si  1 a 4 par jour
+          {posoAdjust = "-1";
+           nb_prises  = "0";
+          }
+       int  posoType  = comment.length() ? CPosologie::Textuelle|CPosologie::Structuree : CPosologie::Structuree;
+       QString result = "";
+               result   += "<Posologie>\n";
+               result   += "<numVersion>"      "2"                                                          "</numVersion>\n";
+               result   += "<cip>"             + cip                                      +                 "</cip>\n";
+               result   += "<pk>"               ""                                                          "</pk>\n";
+               result   += "<libelle>"          ""                                                          "</libelle>\n";
+               result   += "<sexe>"             "M"                                                         "</sexe>\n";
+               result   += "<terrain>"          ""                                                          "</terrain>\n";
+               result   += "<doseMin>"         + q_min                                    +                 "</doseMin>\n";
+               result   += "<doseMax>"         + q_max                                    +                 "</doseMax>\n";
+               result   += "<doseUnit>"        + textTo_UP_Code( up_forme )               +                 "</doseUnit>\n";
+               result   += "<doseLimitMax>"     "0"                                                         "</doseLimitMax>\n";
+               result   += "<factCorpQU>"       "0"                                                         "</factCorpQU>\n";
+               result   += "<factCorpUnit>"     "2"                                                         "</factCorpUnit>\n";
+               result   += "<periode>"          "86400"                                                     "</periode>\n";
+               result   += "<equiCoeff>"        "0"                                                         "</equiCoeff>\n";
+               result   += "<unitCoeff>"        "101"                                                       "</unitCoeff>\n";
+               result   += "<nbPrises>"        + nb_prises                               +                  "</nbPrises>\n";
+               result   += "<schemaPrise>"     + schemaPrise                             +                  "</schemaPrise>\n";
+               result   += "<divers>"          + CPosologie::StrtoXml( commercialName )   +                 "</divers>\n";
+               result   += "<extraPk>"          ""                                                          "</extraPk>\n";
+               result   += "<note>"            + CPosologie::StrtoXml( comment )         +                  "</note>\n";
+               //................. données de réglage ......................................................................
+               result   += "<posoAdjust>"      + posoAdjust                              +                  "</posoAdjust>\n";
+               result   += "<secabilite>"       "4"                                                         "</secabilite>\n";
+               result   += "<numOrdre>"        + QString::number(i+1)                    +                  "</numOrdre>\n";
+               result   += "<posoTextuelle>"   + CPosologie::StrtoXml( comment )         +                  "</posoTextuelle>\n";
+               result   += "<ald>"             + QString::number(ald=="ALD"?1:0)         +                  "</ald>\n";
+               result   += "<posoType>"        + QString::number(posoType)               +                  "</posoType>\n";
+               result   += "<duree>"           + QString::number(Medica_dureeTotaleRenouvToSecond(cycle)) + "</duree>\n";
+               result   += "<IdTable>"         + QString((idType=="CIP")?"1":"2")        +                  "</IdTable>\n";
+               result   += "</Posologie>\n";
+               stringDST.append (result);                    // ajouter la structure calculable non modifiée
+     }
+ //CGestIni::Param_UpdateToDisk("/home/ro/poso.txt", stringDST + "</PosologieList>\n");
+ return stringDST + "</PosologieList>\n";
+}
+//---------------------------- textTo_UP_Code ------------------------------------------------
+QString  CMedicaBase::textTo_UP_Code( QString text )
+{ if (m_MedicaBase->isOpen()==FALSE && m_MedicaBase->open()==FALSE)   return "";
+  QString      result   = "";
+  QString      requete  = "";
+  text                  = text.lower();
+  if (text.endsWith("s")) text = text.left(text.length()-1);   // virer le s de fin  pas de chop en QT3
+  text.replace("-"," ");                                       // si nom compose separe par un tiret le remplacer par un espace
+  //.............. si nom compose on ne garde que la premiere partie du nom ......................
+  //               eliminer les truc genre 'comprime-effervescent' 'comprime effervescent' etc.
+  int pos = text.find(" ");
+  if (pos!=-1) text = text.left(pos);
+  //................. recherches et essais divers...................................................
+  requete  =  QString(" SELECT ") +           m_MEDICA_FORME_PK    +
+                      " FROM "    + m_MEDICA_FORME_AD_TBL_NAME     + " WHERE " + m_MEDICA_FORME_LIBELLE + " LIKE '" + text + "'";
+  QSqlQuery query (requete , m_MedicaBase );
+  if (query.isActive() && query.next()) result = Utf8_Query(query,0);
+  if (result.length())  return result;
+  requete  =  QString(" SELECT ") +           m_MEDICA_FORME_PK    +
+                      " FROM "    + m_MEDICA_FORME_AD_TBL_NAME     + " WHERE " + m_MEDICA_FORME_LIBELLE + " LIKE '" + text + "%'";
+  query.exec ( requete );
+  if (query.isActive() && query.next()) result = Utf8_Query(query,0);
+  if (result.length())  return result;
+  requete  =  QString(" SELECT ") +           m_MEDICA_FORME_PK    +
+                      " FROM "    + m_MEDICA_FORME_AD_TBL_NAME     + " WHERE " + m_MEDICA_FORME_LIBELLE + " LIKE '%" + text + "%'";
+  query.exec ( requete );
+  if (query.isActive() && query.next()) result = Utf8_Query(query,0);
+  if (result.length())  return result;
+
+  return result;
+}
+//---------------------------- Medica_dureeTotaleRenouvToSecond ------------------------------------------------
+// <gph_cy>S3R6</gph_cy>     // JSMA     exples J6 --> pour 6 jours S7 --> pour 7 semaines M3R6  pour 3 mois renouvelable 6 fois
+int CMedicaBase::Medica_dureeTotaleRenouvToSecond(QString cycle)
+{   if (cycle.length()==0) return 0;
+    QString duree        = "";
+    int            ret   = 0;
+    int            pos   = cycle.find('R');
+    if (pos != -1)
+       { duree  = cycle.left(pos);
+         cycle  = cycle.mid(pos+1);
+       }
+    else
+      { duree = cycle;
+        cycle = "";
+      }
+    if (duree.length() && duree.mid(1).toInt())   // si duree nulle ne pas mettre la mention
+      { ret  +=  Medica_dureeTotaleToSecond(duree);
+      }
+    if (pos != -1)
+       { int n = cycle.toInt();
+         if (n) ret  = ret * n;
+       }
+    return ret;
+}
+//---------------------------- Medica_dureeTotaleToSecond ------------------------------------------------
+//  J2
+int CMedicaBase::Medica_dureeTotaleToSecond(const QString &seq_days)
+{if (seq_days.length()==0) return 0;
+ int               t = seq_days[0]|32;
+ int         nb      = seq_days.mid(1).toInt();
+
+ switch(t)
+    { case 'j': return    86400      *   nb;
+      case 's': return    86400 * 7  *   nb;
+      case 'm': return    86400 * 31 *   nb;
+    }
+ return 0;
+}
+
+//---------------------------- Medica_sequenceToOldMinMaxPoso ------------------------------------------------
+// <gpp>[1;m|2;d|4;s]J8!à la phase initiale en bolus</gpp>
+// <gpp>[100-200;]U1!à la phase initiale en bolus</gpp>   // 100 à 200 mg à ne faire q'une fois à la phase initiale en bolus
+QString CMedicaBase::Medica_sequenceToOldMinMaxPoso(const QString &sequence, QString &q_min,  QString &q_max,  QString &nb_prises)
+{q_min     = "";
+ q_max     = "";
+ int pos             = sequence.find(']');
+ if (pos==-1) return QString("");
+ int pcom            = sequence.find('!');
+ int len             = -1;    // si pas de commentaire le mid prend tout
+ QString commentaire = "";
+ if (pcom != -1)
+    { commentaire = sequence.mid(pcom+1);
+      len = pcom-pos-1;   // -1 pour rester avant ]
+    }
+ QString seq_time                  = sequence.left(pos).remove("[").stripWhiteSpace();
+ return  Medica_sequence_timeToOldString(seq_time,  q_min,  q_max , nb_prises);
+}
+
+//---------------------------- Medica_sequence_timeToOldString ------------------------------------------------
+// 0.5;m|1;d15r|2;sr30|3;h10-13  -->    <schemaPrise>#rDJ;#rMI;#rSO</schemaPrise>    <schemaPrise>MA;MI;SO</schemaPrise>
+QString CMedicaBase::Medica_sequence_timeToOldString(const QString &seq_time,  QString &q_min,  QString &q_max ,  QString &nb_prises)
+{QStringList seqTList = QStringList::split("|",seq_time, true);    //  bool allowEmptyEntries
+ QString  schemaPrise = "";
+ QString  pointPrise  = "";
+ int      nb_P        = 0;
+ QString          str = "";
+ double         f_min = 1234567.0;
+ double         f_max = 0;
+ QString before       = "";
+ QString after        = "";
+ int     before_n     = 0;
+ int     after_n      = 0;
+ int              pos = 0;
+ int               p  = 0;
+ int                l = 0;
+ nb_prises             = "";
+ for (int i=0; i< (int)seqTList.count(); ++i)   // l'ancien systeme ne connait qu'une sequence
+    {str        = seqTList[i];
+     pos        = str.find(';');
+     pointPrise = "";
+     if (pos   != -1)
+        {//.......... CMedicaBase::UP_QUANTITE la quantite d'unite de prise .....................
+         //           ici est traite le mode literal ou numerique
+         q_max     = str.left   (pos);
+         p         = q_max.find ('-');
+         if (p != -1)                // cas ou 1-2   (un à deux)
+            { q_min  = q_max.left ( p );
+              q_max  = q_max.mid  ( p + 1);   
+            }
+         //.......... on releve le max et min trouve ..........................
+         f_min  = qMin( qMin(q_min.toDouble(), q_max.toDouble()),f_min);
+         f_max  = qMax( qMax(q_min.toDouble(), q_max.toDouble() +f_max),f_max);
+
+         //........... CMedicaBase::SEQUENCE_HOUR  le moment ou prendre les medocs dans la journee .......................
+         //            si specifie en heures, le mode literal
+         //            ou numerique sera traite ici
+         str    = str.mid(pos+1);   // prendre ce qu'il y a apres le point virgule
+         l      = str.length();
+         if (l==0)             // mention l apres le point virgule
+            {pointPrise   += ""; //QObject::tr(" par jour");          // sera remplacé par l'unite de temps de la periode (jour semaine mois etc...)
+            }
+         else   // // -CO (avant)   .IA (au debut)   #MA (au cours)  #r (au cours d'un repas) +r (avant un repas) -rDJ  -r||#rDJ;-r||#rSO    .rDJ  #rDJ   +rDJ
+            { char t  = str.latin1()[0]|32;    // relever le m d a s c n h
+              str     = str.mid(1);
+              switch (t)
+                 { case 'm': pointPrise = "MA";     break;
+                   case 'd': pointPrise = "MI";     break;
+                   case 'a': pointPrise = "AM";     break;
+                   case 's': pointPrise = "SO";     break;
+                   case 'c': pointPrise = "CO";     break;
+                   case 'n': pointPrise = "CO";     break;
+                   case 'h': pointPrise = "";       break;
+                  }
+              ++nb_P;
+              //............ CMedicaBase::MOMENT_MEAL le moment par rapport au repas .........................
+              //             en minutes, le mode literal numerique sera traite ici
+              pos  = str.find('r');
+              if  (pos != -1)
+                  { before   = str.left(pos);
+                    after    = str.mid(pos+1);
+                    before_n = before.toInt();
+                    after_n  = after.toInt();
+                    if ( after=="0" && before=="0")
+                       {pointPrise =  "#r" + pointPrise; // ret +=  QObject::tr(" au cours du repas");
+                       }
+                    else if ( before=="0" )
+                       {pointPrise =  "-r" + pointPrise; //ret +=  QObject::tr(" avant le repas");
+                       }
+                    else if (after=="0")
+                       {pointPrise =  "+r" + pointPrise; // ret +=  QObject::tr(" après le repas");
+                       }
+                    else if (before_n==0 && after_n==0)
+                       {pointPrise =  "#r" + pointPrise; //ret +=  QObject::tr(" au cours du repas");
+                       }
+                    else //if (before_n||after_n)
+                       {
+                        if      (before.length()) pointPrise =  "-r" + pointPrise; // ret += " " + before + QObject::tr(" minutes avant le repas");
+                        else if (after.length() ) pointPrise =  "+r" + pointPrise; // ret += " " + after  + QObject::tr(" minutes après le repas");
+                        else                      pointPrise =  "#r" + pointPrise; // ret += " " + QObject::tr("au cours du repas");
+                       }
+                  }
+            } // if (str.length())
+          schemaPrise += pointPrise + ";" ;
+        } // endif (pos   != -1)
+    }  // end for (int i=0; i<seqTList.count(); ++i)
+ //......... preparer les sorties ...............
+ if (f_min>0)          q_min  = QString::number(f_min,'f',2);
+ else                  q_min  = "";
+ if (f_max>0)          q_max  = QString::number(f_max,'f',2);
+ else                  q_max  = "";
+
+ nb_prises  = QString::number(nb_P);
+
+ if (schemaPrise.endsWith(";")) schemaPrise = schemaPrise.left(schemaPrise.length()-1);  // virer le dernier ';'
+ return schemaPrise;
 }
 
 //-------------------------------------- Medica_PosologieToHtmlOrdo --------------------------------------------------------------------------------------------
@@ -1288,21 +1658,21 @@ QString  CMedicaBase::Medica_PosologieToSimpleText( CPosologie          &poso   
                                                           const QString &staille       ,
                                                                 QString prodName       ,   // = ""  si présent évitera la recherche couteuse
                                                                 QString factCorpUnit       // = ""  si présent évitera la recherche couteuse
-
-                                                        )
+                                                  )
 {QString upUnit("");
  float fDose(0);
  float poids(  spoids.toFloat()  );
  float taille( staille.toFloat() );
  float fMin(0), fMax(0), coeff(0);
 
- //QString result ("");
- QString result ("<span style=\"font-family:Arial Narrow;color:#000000\"><b>");
+ QString result = ""; 
  //................. si prodName et factCorpUnit non donnés, les extraire ................................................
  // dans le cas d'un produit non medicamenteux l'indice de l'index de table stockée dans:  poso.m_IdTable
- if (poso.m_IdTable>1)     prodName = Medica_GetMedicamentNameByCIP(poso.m_MEDICA_POSO_CIP, poso.m_IdTable);
- else if (prodName=="")    prodName = Medica_GetMedicamentNameByCIP(poso.m_MEDICA_POSO_CIP);
- if (factCorpUnit=="") factCorpUnit = Medica_GetUnite(m_MEDICA_FORME_AD_TBL_NAME, poso.m_MEDICA_POSO_FACT_CORP_UNIT);
+ if (prodName.length()==0)   // si le nom du produit est deja renseigne ( conversion LAP --> anciennes ordos), ne pas le chercher a l'extraire de la base
+    { if (poso.m_IdTable>1)     prodName     = Medica_GetMedicamentNameByCIP(poso.m_MEDICA_POSO_CIP, poso.m_IdTable);
+      else if (prodName=="")    prodName     = Medica_GetMedicamentNameByCIP(poso.m_MEDICA_POSO_CIP);
+    }
+ if ( factCorpUnit=="" )        factCorpUnit = Medica_GetUnite(m_MEDICA_FORME_AD_TBL_NAME, poso.m_MEDICA_POSO_FACT_CORP_UNIT);
 
  //........................... SI coefficient de conversion alors convertir ..............................................
  //                            pour avoir la forme usuelle et utile (comprimés gouttes  cuillères mesures etc )
@@ -1375,9 +1745,13 @@ QString  CMedicaBase::Medica_PosologieToSimpleText( CPosologie          &poso   
          //............................. schéma de prise ..............................................................
          result += "&nbsp;"  + Medica_PosologieSpecPrisesToHtml(poso);
         }
+     else if (poso.m_Note.length())
+        {
+        }
      else
      //...................................... ACCESSOIRES ...................................................
-        {if (poso.m_MEDICA_POSO_PENDANT.toFloat() == 0)
+     {if (fDose<=0) fDose = 1;
+         if (poso.m_MEDICA_POSO_PENDANT.toFloat() == 0)
             {result += TR("Bon pour achat de ")    + QString::number(fDose) + TR(" article");
              if (fDose>1) result += "s";
             }
@@ -1390,8 +1764,9 @@ QString  CMedicaBase::Medica_PosologieToSimpleText( CPosologie          &poso   
     }
  //.............. si posologie manuelle .................................................................
  if (poso.m_PosoType & CPosologie::Textuelle)
-    {result +=  poso.m_PosoTextuelle;
+    {result +=  QString(" ")+poso.m_PosoTextuelle;
     }
+ result.prepend("<span style=\"font-family:Arial Narrow;color:#000000\"><b>");
  result += "</i></span>";
  return result;
 }
@@ -1547,7 +1922,7 @@ QString CMedicaBase::Medica_GetHtmlPosoSpecPage(QString cip,
 
  if ( (int)(Medica_GetBaseMode() & CMedicaBase::Datasemp) )
     {  page += formStruct + " <br> <b>Composition : </b>";
-       if (nbPrises.toInt()>0)     {page += nbPrises + " " + up_unit.replace("(s)","") + "(s) ";}
+       if (nbPrises.toInt()>0)     {page += nbPrises + " " + up_unit.replace("(s)","") + "(s);";}
        if (produit.length()>0)
           {if (pa_qu.toInt()>1)    {page += TR(" composé(e)(s) de : ") + produit  ;
                                     if (prixBoite.length()!=0 && nbPrises.toInt()>0)
@@ -1622,7 +1997,7 @@ void  CMedicaBase::Medica_PosologieToHtmlSpec(const long num, const long id_list
      { page += "<a href=\"#PosoNew"+ poso.m_MEDICA_POSO_CIP + "==" + QString::number(tableIndex) + "\"><img source=\"./IsStandardPk.png\"></a>";
      }
   //................... nom du medicament .................................
-  page += "&nbsp;&nbsp;<b>" + QString::number(num) + ") ";
+  page += "&nbsp;&nbsp;<b>" + QString::number(num) + ");";
   page += "<a href=\"#PosoList"+QString::number(id_list) + "==" + QString::number(num) + "\">";
   if (poso.m_MEDICA_POSO_LIBELLE.stripWhiteSpace().length()==0)
        page += TR(" Indiqué pour le terrain suivant ") + "</b>";
@@ -2184,6 +2559,7 @@ QString CMedicaBase::Medica_GetUnite(const QString &table_name, const QString &c
              " FROM "  + table_name                + " WHERE " + m_MEDICA_FORME_PK + " ='" + code + "'";
   QSqlQuery query (requete , m_MedicaBase );
   if (query.isActive() && query.next()) return Utf8_Query(query,0);
+  // if (query.isActive() && query.next()) return query.value(0).toString();
   return QString("");
 }
 
@@ -2761,7 +3137,7 @@ bool CMedicaBase::Medica_PosologieAppendToBase(const QString &libelle,
                "    `" +            m_MEDICA_POSO_REPART_PRISES  + "`       char(128)  default NULL, "
                "    `" +            m_MEDICA_POSO_DIVERS         + "`       char(32)   default NULL, "
                "     PRIMARY KEY  ("+ m_MEDICA_POSO_PK + ") "
-               "  ) TYPE=MyISAM";*/
+               "  );";*/
              QSqlRecord *buffer = cur.primeInsert();                         // recuperer le buffer d'insertion
              if (libelle.length())        buffer->setValue( m_MEDICA_POSO_LIBELLE,         libelle                );
              if (cip.length())            buffer->setValue( m_MEDICA_POSO_CIP,             cip                    );
@@ -2807,17 +3183,17 @@ bool CMedicaBase::Medica_PosologieAppendToBase( const QString &libelle,       //
                                                 const QString &doseMin,       // 8
                                                 const QString &doseMax,       // 9
                                                 const QString &doseUnit,      // 10
-                                                const QString &doseLimitMax,  // 11 
+                                                const QString &doseLimitMax,  // 11
                                                 const QString &factCorpQu,    // 12
                                                 const QString &factCorpUnit,  // 13
                                                 const QString &periode,       // 14
-                                                const QString &equiCoeff,     // 15 
+                                                const QString &equiCoeff,     // 15
                                                 const QString &equiCoeffUnit, // 16
-                                                const QString &nbPrises,      // 17 
+                                                const QString &nbPrises,      // 17
                                                 const QString &repart,        // 18
                                                 const QString &divers,        // 19
                                                 const QString &pendant,       // 20
-                                                const QString &secabilite,    // 21 
+                                                const QString &secabilite,    // 21
                                                 const QString &extraPk        // 22
                                               )
 {   int doseUnitPk;
@@ -2903,7 +3279,7 @@ bool CMedicaBase::Medica_InsertNewSpec(          const QString &cip,
              if ( cur.insert() )  return TRUE;
              else
                 {/*
-                 QString truc("\r\nCIP :  ");
+                 QString truc("\nCIP :  ");
                  truc +=        " up_unit: "           + up_unit +
                                 " pa_qu: "             + pa_qu   +
                                 " pa_unit: "           + pa_unit +
@@ -2939,48 +3315,56 @@ QString CMedicaBase::Medica_GetLibelleATC( const QString &codeATC)
 
 //----------------------------------------------------- Medica_FillQListView_ATC ---------------------------------------------------------------
 void CMedicaBase::Medica_FillQListView_ATC(QListView *pQListView )
-{ QListViewItem *curParentItem = 0;
-  long              curLen     = 0;
-  QString      requete("SELECT ");
-  if (m_MedicaBase->isOpen()==FALSE && m_MedicaBase->open()==FALSE)   return ;
-       requete +=             m_MEDICA_ATC_LIBELLE  + ","          +  m_MEDICA_ATC_CODE  +
-                  " FROM "  + m_MEDICA_ATC_TBL_NAME + " ORDER BY " +  m_MEDICA_ATC_CODE;
+{ 
 
-  QSqlQuery query (requete , m_MedicaBase );
-  if (query.isActive() )
-     {pQListView->clear();
-      while (query.next())
-            {QString atc_libelle = Utf8_Query(query,0);
-             QString   atc_code  = Utf8_Query(query,1);
-             int            len  = atc_code.length();
+ if ((int)(Medica_GetBaseMode() & CMedicaBase::Datasemp))
+    {Datasemp_FillQListView_ATC(pQListView );
+    }
+ else
+    {
+     QListViewItem *curParentItem = 0;
+     long              curLen     = 0;
+     QString      requete("SELECT ");
+     if (m_MedicaBase->isOpen()==FALSE && m_MedicaBase->open()==FALSE)   return ;
+         requete +=             m_MEDICA_ATC_LIBELLE  + ","          +  m_MEDICA_ATC_CODE  +
+                    " FROM "  + m_MEDICA_ATC_TBL_NAME + " ORDER BY " +  m_MEDICA_ATC_CODE;
 
-             if (len==1)
-                { curParentItem = new QListViewItem (pQListView,    atc_libelle, atc_code);
-                  curLen = len;
-                }
-             else if (len > curLen)
-                { if (len != 7) curParentItem = new QListViewItem (curParentItem, atc_libelle, atc_code);
-                  else                          new QListViewItem (curParentItem, atc_libelle, atc_code);
-                  curLen = len;
-                }
-             else if (len == curLen)
-                {  new QListViewItem (curParentItem, atc_libelle, atc_code);
-                   curLen = len;
-                }
-             else if (len < curLen)
-                { //......... remonter tant que le père n'a pas de partie comumune avec le fils ............
-                  while( curParentItem->depth() != 0 &&  atc_code.left(curParentItem->text(1).length()) != curParentItem->text(1))
-                       {curParentItem = curParentItem->parent();
-                       }
-                  curParentItem = new QListViewItem (curParentItem, atc_libelle, atc_code);
-                  curLen = len;
-                }
-            }    // end while (query.next())
-     }  // endif (query.isActive() )
+     QSqlQuery query (requete , m_MedicaBase );
+     if (query.isActive() )
+        {pQListView->clear();
+         while (query.next())
+               {QString atc_libelle = Utf8_Query(query,0);
+                QString   atc_code  = Utf8_Query(query,1);
+                int            len  = atc_code.length();
+
+                if (len==1)
+                   { curParentItem = new QListViewItem (pQListView,    atc_libelle, atc_code);
+                     curLen = len;
+                   }
+                else if (len > curLen)
+                   { if (len != 7) curParentItem = new QListViewItem (curParentItem, atc_libelle, atc_code);
+                     else                          new QListViewItem (curParentItem, atc_libelle, atc_code);
+                     curLen = len;
+                   }
+                else if (len == curLen)
+                   {  new QListViewItem (curParentItem, atc_libelle, atc_code);
+                      curLen = len;
+                   }
+                else if (len < curLen)
+                   { //......... remonter tant que le père n'a pas de partie comumune avec le fils ............
+                     while( curParentItem->depth() != 0 &&  atc_code.left(curParentItem->text(1).length()) != curParentItem->text(1))
+                          {curParentItem = curParentItem->parent();
+                          }
+                     curParentItem = new QListViewItem (curParentItem, atc_libelle, atc_code);
+                     curLen = len;
+                   }
+               }    // end while (query.next())
+        }  // endif (query.isActive() )
+    } // if ((int)(Medica_GetBaseMode() & CMedicaBase::Datasemp))
 }
 
 //----------------------------------------------------- Medica_SetQListViewOnATC ---------------------------------------------------------------
-QString CMedicaBase::Medica_SetQListViewOnATC(QListView *pQListView , const QString  &atc_code, int ListMustBeClosed /* = 1 */)
+QListViewItem *CMedicaBase::Medica_SetQListViewOnATC(QListView *pQListView , const QString  &atc_code, int ListMustBeClosed /* = 1 */)
 {if (ListMustBeClosed)
     {QListViewItemIterator it( pQListView );
      while ( it.current() )
@@ -2991,24 +3375,18 @@ QString CMedicaBase::Medica_SetQListViewOnATC(QListView *pQListView , const QStr
     }
   QString atc_string(TR(" DONNÉES SUR LA CLASSE ATC NON DISPONIBLES "));
   QListViewItem *pQListViewItemOri = pQListView->findItem(atc_code, 1);
-  if (pQListViewItemOri==0)
-     {//pQListView->setEnabled(FALSE);
-      return atc_string;
-     }
-  atc_string = "";
-  atc_string.prepend( QString("->") + pQListViewItemOri->text(0));
+  if (pQListViewItemOri==0)  return 0;
+
   QListViewItem *pQListViewItem = pQListViewItemOri->parent();
   while (pQListViewItem!=0)
         {pQListView->setOpen (pQListViewItem, TRUE );
          atc_string.prepend(pQListViewItem->text(0));
          if (pQListViewItem->depth()==0) break;
-         atc_string.prepend( " ->");
          pQListViewItem = pQListViewItem->parent();
         }
   pQListView->ensureItemVisible (pQListViewItemOri);
   pQListView->setSelected(pQListViewItemOri, TRUE);
-  //pQListView->setEnabled(TRUE);
-  return atc_string;
+  return pQListViewItemOri;
 }
 
 //----------------------------------------------------- Medica_InsertNewProduitInIndex ---------------------------------------------------------------------------
@@ -3065,7 +3443,7 @@ long CMedicaBase::Medica_GetMedicamentListByATC(      QListView *pQlistView ,
               " ON "    + m_MEDICA_INDEX_MED_TBL_NAME+"."+m_MEDICA_INDEX_CIP  + " = " + m_MEDICA_SPEC_TBL_NAME+"."+m_MEDICA_SPEC_CIP +
               " WHERE " + m_MEDICA_SPEC_TBL_NAME+"."+m_MEDICA_SPEC_ATC + " LIKE '" + pATC + "%'";
               " AND ("  + m_MEDICA_INDEX_MED_TBL_NAME+"."+m_MEDICA_INDEX_LIBELLE + " LIKE \"" + name          + "%\" OR "
-                        + m_MEDICA_INDEX_MED_TBL_NAME+"."+m_MEDICA_INDEX_LIBELLE + " LIKE \"" + name.upper()  + "%\" ) ";
+                        + m_MEDICA_INDEX_MED_TBL_NAME+"."+m_MEDICA_INDEX_LIBELLE + " LIKE \"" + name.upper()  + "%\" );";
   if (isGene !="" && isDispo != "")
      {requete += "  AND "  + m_MEDICA_INDEX_MED_TBL_NAME+"."+m_MEDICA_INDEX_IS_DISPO + "='" + isDispo +
                  "' AND (" + m_MEDICA_INDEX_MED_TBL_NAME+"."+m_MEDICA_INDEX_IS_GENE  + "='G' OR "+  m_MEDICA_INDEX_MED_TBL_NAME+"."+m_MEDICA_INDEX_IS_GENE + "='R')";
@@ -3282,8 +3660,8 @@ int CMedicaBase::Medica_GetProductsListFrom_SQL_String(QListView *pQlistView, co
          if (element)
             {isGene  =  query.value(6 ).toString();
              isDispo =  query.value(7 ).toString();
-             //element->setText (0, Utf8_Query(query, 0) );                            // libelle
-             element->setText (0, query.value( 0).toString());     // code produit
+             element->setText (0, Utf8_Query(query, 0) );                            // libelle
+             //element->setText (0, query.value( 0).toString());     // code produit
              element->setText (1, query.value( 1).toString());     // code produit
              element->setText (2, query.value( 2).toString());     // PrimaryKey t00  (et aussi pk de cette table)
              element->setText (3, query.value( 3).toString());     // PrimaryKey t4B
@@ -3464,6 +3842,54 @@ QString CMedicaBase::BaseGet_GetLibelleATC( const QString &codeATC, QString *tau
 ////////////////////////////////////////////////////////////// DATASEMP ///////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////// ------------- ////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//----------------------------------------------------- Datasemp_FillQListView_ATC ---------------------------------------------------------------
+void CMedicaBase::Datasemp_FillQListView_ATC(QListView *pQListView )
+{ if (m_DataBaseSrce->isOpen()==FALSE && m_DataBaseSrce->open()==FALSE) return;
+  QListViewItem *curParentItem = 0;
+  QListViewItem *item          = 0;
+  long                  curLen = 0;
+  QString              requete = " SELECT f0, f2 FROM t42 ORDER BY f0";
+  QSqlQuery query(requete, m_DataBaseSrce );
+  if ( ! query.isActive() ) return;
+
+
+  while (query.next())
+       {       QString atc_code     = Utf8_Query(query,0);
+               QString atc_libelle  = query.value(1).toString();
+               int             len  = atc_code.length();
+
+               if (len==1)
+                  { curParentItem = new QListViewItem (pQListView);
+                    curParentItem->setText(0,atc_libelle);
+                    curParentItem->setText(1,atc_code);
+                    curLen = len;
+                  }
+               else if (len > curLen)
+                  { item =   new QListViewItem (curParentItem);
+                    item->setText(0,atc_libelle);
+                    item->setText(1,atc_code);
+                    if (len != 7) curParentItem = item;
+                    curLen = len;
+                  }
+               else if (len == curLen)
+                  { item =   new QListViewItem (curParentItem);
+                    item->setText(0,atc_libelle);
+                    item->setText(1,atc_code);
+                    curLen = len;
+                  }
+               else if (len < curLen)
+                  { //......... remonter tant que le pere n'a pas de partie commune avec le fils ............
+                    while( curParentItem->parent() != 0 &&  atc_code.left(curParentItem->text(1).length()) != curParentItem->text(1))
+                         {curParentItem = curParentItem->parent();
+                         }
+                    curParentItem = new QListViewItem (curParentItem);
+                    curParentItem->setText(0,atc_libelle);
+                    curParentItem->setText(1,atc_code);
+                    curLen = len;
+                  }
+       }
+}
+
 //----------------------------------------------- Datasemp_GetComposition ---------------------------------------------------------------------
 QString CMedicaBase::Datasemp_GetComposition(const QString &codeProduit)
 {if (m_DataBaseSrce==0) return QString("");
@@ -3643,7 +4069,7 @@ QString CMedicaBase::Datasemp_UpdateInTable(char* &ptIn, char* end, const QStrin
             data_sql += str.setLatin1(deb, pt-deb) + "'";
            }
         }
- data_sql += " ) WHERE ( " + key + "='" + key_value + "' );\r\n";
+ data_sql += " ) WHERE ( " + key + "='" + key_value + "' );\n";
  if (pDataBase)
     {QSqlQuery query(data_sql, pDataBase);
     }
@@ -3691,7 +4117,7 @@ QString CMedicaBase::Datasemp_InsertInTable(char* &ptIn, char* end, const QStrin
              }
         value_list += str.setLatin1(deb, pt-deb) + "'";
       }
- data_sql += field_list + " ) VALUES ( " + value_list + " );\r\n";
+ data_sql += field_list + " ) VALUES ( " + value_list + " );\n";
  if (pDataBase)
     {QSqlQuery query(data_sql, pDataBase);
     }
@@ -3737,7 +4163,7 @@ QString CMedicaBase::Datasemp_DeleteInTable(char* &ptIn, char* end, const QStrin
               }
         data_sql += str.setLatin1(deb, pt-deb) + "'";
        }
- data_sql +=  " );\r\n";
+ data_sql +=  " );\n";
  if (pDataBase)
     {QSqlQuery query(data_sql, pDataBase);
     }
@@ -3995,7 +4421,7 @@ int CMedicaBase::Datasemp_MakeIndex(int table_type, QProgressBar *pQProgressBar,
                  buffer->setValue( m_MEDICA_INDEX_CD_UV,        query.value( 5).toString());        // y placer les données
                  buffer->setValue( m_MEDICA_INDEX_IS_GENE,      Datasemp_GetGenericStateEx(query.value( 2).toString(),       queryExt));
                  buffer->setValue( m_MEDICA_INDEX_IS_DISPO,     Datasemp_GetDisponibiliteStateEx(query.value( 5).toString(), queryExt));
-                 if (!cur.insert()) 
+                 if (!cur.insert())
                     {
                      OutSQL_error(cur, "Datasemp_MakeIndex(): Error cur.insert", requete, &err);   // ecrire le buffer
                      Datasemp_OutMessage( logWidget, err);
@@ -4476,7 +4902,7 @@ long CMedicaBase::Datasemp_GetMedicamentListByClassTheraVidal(      QListView *p
               m_MEDICA_INDEX_IS_DISPO + " " +
               " FROM "    + m_MEDICA_INDEX_MED_TBL_NAME +
               " WHERE ("  + m_MEDICA_INDEX_MED_TBL_NAME +"."+m_MEDICA_INDEX_LIBELLE + " LIKE \"" + name          + "%\" OR "
-                          + m_MEDICA_INDEX_MED_TBL_NAME +"."+m_MEDICA_INDEX_LIBELLE + " LIKE \"" + name.upper()  + "%\" ) ";
+                          + m_MEDICA_INDEX_MED_TBL_NAME +"."+m_MEDICA_INDEX_LIBELLE + " LIKE \"" + name.upper()  + "%\" );";
   if (isGene !="" && isDispo != "")
       {requete +=  "  AND  " +   m_MEDICA_INDEX_MED_TBL_NAME+"."+m_MEDICA_INDEX_IS_DISPO + "='" + isDispo +
                    "' AND (" +   m_MEDICA_INDEX_MED_TBL_NAME+"."+m_MEDICA_INDEX_IS_GENE  + "='G' OR "+  m_MEDICA_INDEX_MED_TBL_NAME+"."+m_MEDICA_INDEX_IS_GENE + "='R')";
@@ -5042,10 +5468,17 @@ QString   CMedicaBase::Datasemp_GetMonographie(const QString &code_UV, const QSt
 
   //................. chercher si existe une  monographie vidal pour ce produit...................................................
   //                              recuperer code document de la monographie
+  /*
   QSqlQuery query (QString("SELECT f1 FROM t5D WHERE f0 ='") + code_UV + "'" ,          m_DataBaseSrce );
   if (query.isActive() &&query.next()) codeMonographie    = query.value(0).toString();
 
   query.exec(QString("SELECT f3 FROM t5C WHERE f0 ='") + codeMonographie + "'");
+*/
+  QSqlQuery query (QString( " SELECT t5C.f3    "
+                            " FROM   t5D, t5C  "
+                            " WHERE  t5C.f0 = t5D.f1"
+                            " AND    t5D.f0 = '%1'").arg( code_UV ) ,          m_DataBaseSrce );
+
   if (query.isActive() &&query.next())         result     =  query.value(0).toString();
   if ( (f=result.find("<html",0,FALSE)) > 0)   result.remove (0, f );
   if (result != "") return result;

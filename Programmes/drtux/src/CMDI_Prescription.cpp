@@ -207,7 +207,7 @@ void   CMDI_Prescription::DoActionWithThisDocument(const QString &verbe, int /*t
               if (rubObs_id==-1 && pQwdgRubObserv) rubObs_id = pQwdgRubObserv->m_pC_RubObservation->Current_RubList_ID();
              }
           if (rubDoc_id==-1)
-             {if (QMessageBox::warning ( this, tr("MedinTux vous solicite"),
+             {if (QMessageBox::warning ( this, tr("MedinTux solicite votre attention"),
                                            tr ( "Il n'existe pas de document valide pour cette action.<br>"
                                                 "Faut-il en créer un avec celui :<br><b>«")
                                                 +QFileInfo(path).fileName()+tr(" »</b><br>sélectionné dans le Glossaire "),
@@ -324,7 +324,11 @@ CRubRecord*  CMDI_Prescription::AddNewDocument(const QString &strData, int typ, 
            else if (typ==TYP_ORDONNANCE)
              {rubName = tr("Ordonnance textuelle");
              }
-           else if (typ==TYP_ORDO_CALC)
+           else if (typ==TYP_ORDO_LAP)
+             {if (is_renouvellement) rubName = tr("Renouvellement d'ordonnance LAP");
+              else                   rubName = tr("Ordonnance ajustable LAP");
+             }
+            else if (typ==TYP_ORDO_CALC || typ==TYP_ORDO_LAP)
              {if (is_renouvellement) rubName = tr("Renouvellement d'ordonnance");
               else                   rubName = tr("Ordonnance ajustable");
              }
@@ -442,15 +446,12 @@ void CMDI_Prescription::Slot_ExeCommand(QString &command)
             m_pCMoteurBase->GetDataFromRubList(data, it);       // recuperer données soit dans liste cache soit sur disque
             ptr        = data.data();
             if (CGestIni::IsUtf8( ptr , data.size()))
-               {  CMedicaBase::Medica_DiskDataSplitIn_HtmlData_StructData(QString::fromUtf8 ( ptr ), 0, &stringStruct);    // y isoler et recuperer les données calculables
+               {  stringStruct = QString::fromUtf8 ( ptr );     // CMedicaBase::Medica_DiskDataSplitIn_HtmlData_StructData(QString::fromUtf8 ( ptr ), 0, &stringStruct);    // y isoler et recuperer les données calculables
                }
-            else  CMedicaBase::Medica_DiskDataSplitIn_HtmlData_StructData( ptr , 0, &stringStruct);
-            stringDST       = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\" ?>\r\n<ordotext>\r\n";
-            stringDST.append (m_pMyEditText->text());           // ajouter le texte modifé
-            stringDST.append ( "\r\n</ordotext>\r\n\r\n<ordoMedicaStruct>");
-            stringDST.append (stringStruct);                    // ajouter la structure calculable non modifiée
-            stringDST.append ( "</ordoMedicaStruct>\r\n");
-            ts << stringDST;
+            else  
+               {  stringStruct = ptr;                           // CMedicaBase::Medica_DiskDataSplitIn_HtmlData_StructData( ptr , 0, &stringStruct);
+               }
+            ts << stringStruct;
            }
         else
            {CHtmlTools::ElimineAncresRedondantes(txt);

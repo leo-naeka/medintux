@@ -41,6 +41,8 @@
 #include <QAbstractSocket>
 #include <QPushButton>
 #include <QProcess>
+#include <QNetworkInterface>
+#include <QKeyEvent>
 #include "../../MedinTuxTools-QT4/Agenda/C_RendezVous.h"
 
 namespace Ui
@@ -48,6 +50,22 @@ namespace Ui
    class C_ManagerClass;
 
 }
+/*
+//====================================== C_KeyPressControl =======================================================
+class C_KeyPressControl : public QObject
+{
+    Q_OBJECT
+public:
+    C_KeyPressControl(QObject *parent)
+        : QObject(parent)
+    {
+
+    }
+
+protected:
+    bool eventFilter(QObject *obj, QEvent *event);
+};
+*/
 
 
 //====================================== Wdg_ButtonPtr =======================================================
@@ -109,6 +127,7 @@ class C_Manager : public QMainWindow
 public:
     C_Manager(CMoteurBase *pCMoteurBase, QWidget *parent = 0, const QString & name="C_Manager for MedinTux");
    ~C_Manager();
+    void testInterface();
     //.................... nomadisme ...........................
     int     reconnectToNomade(int gestionNomadisme);
     int     reconnectToMaster(int gestionNomadisme);
@@ -180,7 +199,8 @@ public:
     int  DataToFormulaire( const QTreeWidgetItem *pQTreeWidgetItem );
     int  DataToFormulaire( const QString &refToPrimkeyDoss, const QString &nom, const QString &prenom );
     QString ToNum(QString in);
-    void setCVonPatient (C_Vitale *pcVitale, int occurence);
+    void setCVonPatient (C_Vitale *pcVitale, int occurence, QString VitaleOrSigems); // SIGEMS
+    //void setCVonPatient (C_Vitale *pcVitale, int occurence);
     //.............. mode graphique ..........................
     void setInterfaceOnProfil(int mode);
     int  getInterfaceMode(){return m_InterfaceMode;}
@@ -190,6 +210,9 @@ public:
     bool identIsModified(){return m_Ident_IsModified;}
     void setIdentiteEnabled();
     void setIdentiteDisabled();
+    bool    dateOfBirthControl();
+    bool    sexControl();
+    bool    nameControl();
     void tryToSetCodePostalFromVille();
     void tryToSetVilleFromCodePostal();
     void tryToSetTitreFromDateNss();
@@ -208,10 +231,15 @@ public:
     int  alertVerrou(const QString &userBy, const QString &dossNom, const QString &dossPrenom);
     void setMedWebTuxOnUser();
     void tryToStopAPropos();
-    QString appelPyxvital (QString listeParametres);                   // Cz_Pyxvital
+    QString appelPyxvital (QString listeParametres);                       // Cz_Pyxvital
+    long    GetEntreesSigemsList( QTreeWidget     *pQlistView  );          // SIGEMS
+    void    create_CV_with_patient_Sigems();                               // SIGEMS
+    QString DouJeViens(QTreeWidgetItem *pQListViewItem);                   // SIGEMS
+    void    changeAllAgendasGuid(const QString &old_guid, const QString &new_guid);
 private slots:
    virtual void closeEvent(QCloseEvent *event);
    void Slot_SauverLesMeubles();
+   void Slot_Apropos_Proc_finished (int,  QProcess::ExitStatus);
    void Slot_actionRecordWindowsPos_triggered (bool);
    void Slot_actionSetGlobalFont_triggered (bool);
    void Slot_actionHideShowLogo_triggered (bool);
@@ -329,8 +357,15 @@ private slots:
     void Slot_listView_Doublons_contextMenuRequested (const QPoint &);
     void Slot_listView_Doublons_MenuRequested();
     void Slot_listView_VitaleSelectionChanged ();
+    // SIGEMS DEB
+    void Slot_listView_VitaleOrSigemsSelectionChanged (QString WhatListView);
+    void Slot_listView_SigemsSelectionChanged ();
+    void Slot_listView_Sigems_Clicked( QTreeWidgetItem * item, int column );
+    void Slot_listView_Sigems_DoubleClicked( QTreeWidgetItem *pQTreeWidgetItem , int);
     void Slot_listView_Vitale_ContextMenuRequested (const QPoint &);
-    void Slot_listView_Vitale_MenuRequested ();
+    void Slot_listView_Sigems_ContextMenuRequested (const QPoint &);
+    void Slot_listView_VitaleOrSigems_MenuRequested (QString WhatTreeView);
+    // SIGEMS FIN
     void Slot_reinitManagerOnUser(QTreeWidgetItem *pUserItem , QTreeWidgetItem *pSignUserItem);
     void Slot_reinitManagerOnUser(const QString &user        , const QString &signUser);
     void Slot_UserSelected_InListUser(QTreeWidgetItem *pUserItem , QTreeWidgetItem *pSignUserItem);
@@ -353,7 +388,10 @@ private slots:
     void Controle_Solde_Patient(QString guidPatient);                  // CZ_Cpta
     void Slot_Saisie_Reglement();                                      // CZ_Cpta
     void appelCompta (QString nomProgCPta);                            // CZ_Cpta2
-
+//#ifdef ENTREES_SIGEMS
+    void Slot_OnTimerEntrants();                                       // SIGEMS
+    void Slot_OnTimerSuspendEntrants();                                // SIGEMS
+//#endif
 private:
    Ui::C_ManagerClass *m_pGUI;
    QProcess                     *m_Apropos_Proc;
@@ -412,6 +450,8 @@ private:
    QTimer             *m_pReconnectTimer;
    int                 m_AgendaInitialVisbility;
    int                 m_UserListInitialVisbility;
+   int                 m_HasLapCompatibility;       // rs has
+   int                 m_SexControl;                // rs has
    QWebView           *m_webView_MedWebTux;
    QString             m_ficFacturePar;                             // Cz_Pyxvital
    QString             m_ficPatientPar;                             // Cz_Pyxvital
@@ -421,6 +461,13 @@ private:
    QString             m_typFact;                                   // CZ_Cpta
    QString             m_Type_Affichage_EnCours;                    // CZA
    Wdg_ButtonPtr      *m_Button_Affichage_EnCours;
+
+   QString             m_Entrants_Sigems;                           // SIGEMS
+   QString             m_Nb_Heures_Derniers_Entrants;               // SIGEMS
+   QString             m_Heure_Deb_Main_Courante;                   // SIGEMS
+   QString             m_delaySuspendEntrantsTimer;                 // SIGEMS
+   QTimer             *m_pEntrantsTimer;                            // SIGEMS
+   QTimer             *m_pSuspendEntrantsTimer;                     // SIGEMS
 signals:
    void               Sign_applicationMustBeStop();
 };

@@ -5,37 +5,49 @@ Projet=Medintux
 
 Os=`uname`
 
+#-------------------------------------------- error-------------------------------------------------
 # Routine d'affichage Erreur
 # Sign : String --> nil
 #        Erreur --> nil
 error()
 {
-	
-	echo "		$1"
-	if [ -f $File_Err ];then
-		cat $File_Err
-	fi
-	rm $File_Err
-	exit 1
-}
-#
 
-# Debut  
+        echo "		$1"
+        if [ -f $File_Err ];then
+                cat $File_Err
+        fi
+        rm $File_Err
+        exit 1
+}
+
+#-------------------------------------------- main-------------------------------------------------
+#............. "1  er arguement est celui de la liste ds modules a compiler .................
+#               si il commence par TARGET=  alors le nom du module doit etre extrait du chemin
+#               devant suivre la mention TARGET=
+
+if [ `echo  $1 | cut -c1-7` == 'TARGET=' ]; then
+      CIBLE=$(echo $1 | grep -o "Programmes/.*"|cut -d/ -f2)
+else
+      CIBLE=$1
+fi
+
+# Debut
 # clear
  echo -e "------------------------------------------------"
  echo -e "Debut commande nettoyage pour projet $Projet"
  echo -e "------------------------------------------------"
- if [ $1 ==  ];then
- 	LISTE="ccamview drtux gest_user personnes guinch QLightPad QLaboFTP Manager mise_a_jour set_bases comptabilite check_dus compta-plugins qgetdatasemp qmedicabase manu med_stat cal_obst calendrier param_view MrPropre"
+
+ if [ $CIBLE ==  ];then
+        LISTE="drtux gest_user personnes QLightPad QLaboFTP mise_a_jour set_bases comptabilite check_dus compta-plugins qmedicabase med_stat calendrier MrPropre"
  else
- 	LISTE=$1
+        LISTE=$CIBLE
  fi
  cd ../..
  for module in $LISTE
  do
          # echo -en "      - Patch executable Mac lib QT pour $module"
          echo -e " "
-         echo -e " ========================== Nettoyage en cours de  $module  =======================" 
+         echo -e " ========================== Nettoyage en cours de  $module  ======================="
          if [ $module == 'compta-plugins' ]; then
              cd comptabilite
          else
@@ -122,23 +134,23 @@ error()
          cd ..
          #................. se mettre dans le rep src et nettoyer .........................
          if [ $Os == 'Darwin' ]; then
-	     filestrip=./bin/$module.app/Contents/MacOS/$module
+             filestrip=./bin/$module.app/Contents/MacOS/$module
              strip -u -r $filestrip
              if [ -f $filestrip.strip ]; then
                   rm $filestrip
-	          mv $filestrip.strip $filestrip
+                  mv $filestrip.strip $filestrip
              fi
          else
-	         filestrip=./bin/$module
-	         strip -s $filestrip
-	     fi
+                 filestrip=./bin/$module
+                 strip -s $filestrip
+             fi
 
          if [ $? == 0 ];then
                  echo -e " OK"
          else
                  error "Erreur : $? Patch sur $filestrip"
          fi
-	cd ..
+        cd ..
  done
  echo -e "------------------------------------------------"
  echo -e "Fin commande nettoyage pour projet $Projet"

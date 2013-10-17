@@ -64,7 +64,7 @@
 #include <qcheckbox.h>
 #include <qprocess.h>
 #include <qtimer.h>
-#include <qprocess.h> 
+#include <qprocess.h>
 
 #include "CApp.h"
 
@@ -334,6 +334,7 @@ QString  Gest_User::SerializeIdentite()
  CGestIni::Param_WriteParam(&serializeData, "identite", "qualification" , pCMDI_Ident->m_pFormRubIdent->lineEdit_Qualif->text());
  CGestIni::Param_WriteParam(&serializeData, "identite", "sexe" ,          pCMDI_Ident->m_pFormRubIdent->comboBoxSexe->currentText());
  CGestIni::Param_WriteParam(&serializeData, "identite", "numero ordinal" ,pCMDI_Ident->m_pFormRubIdent->lineEdit_NumOrdinal->text());
+ CGestIni::Param_WriteParam(&serializeData, "identite", "numero rpps" ,   pCMDI_Ident->m_pFormRubIdent->lineEdit_NumRpps->text());
  CGestIni::Param_WriteParam(&serializeData, "identite", "convention" ,    pCMDI_Ident->m_pFormRubIdent->lineEdit_Convention->text());
  CGestIni::Param_WriteParam(&serializeData, "identite", "droits" ,        pCMDI_Ident->m_pFormRubIdent->lineEdit_Droits->text());
  QString str = pCMDI_Ident->m_pFormRubIdent->textEdit_Adresse->text().remove("\r");
@@ -392,6 +393,7 @@ int  Gest_User::UnSerializeIdentite(const QString &serializeData_in, const QStri
  else          pCMDI_Ident->m_pFormRubIdent->comboBoxSexe->setCurrentItem (1);
 
  pCMDI_Ident->m_pFormRubIdent->lineEdit_NumOrdinal->setText(CGestIni::Param_ReadUniqueParam(serializeData, "identite", "numero ordinal"));
+ pCMDI_Ident->m_pFormRubIdent->lineEdit_NumRpps->setText(CGestIni::Param_ReadUniqueParam(serializeData, "identite", "numero rpps"));
  pCMDI_Ident->m_pFormRubIdent->lineEdit_Convention->setText(CGestIni::Param_ReadUniqueParam(serializeData, "identite", "convention"));
  pCMDI_Ident->m_pFormRubIdent->lineEdit_Droits->setText(CGestIni::Param_ReadUniqueParam(serializeData, "identite", "droits"));
 
@@ -965,6 +967,15 @@ void Gest_User::OnNewUserClicked()
      pCMDI_Ident->m_pFormRubIdent->lineEdit_Prenom->setText(G_pCApp->m_pCps->m_Prenom);
      pCMDI_Ident->m_pFormRubIdent->lineEdit_Login->setText(G_pCApp->m_pCps->m_Nom);
      pCMDI_Ident->m_pFormRubIdent->lineEdit_NumOrdinal->setText(G_pCApp->m_pCps->m_NIR);
+     G_pCApp->m_pCps->m_NumIdentStruct + " "+ G_pCApp->m_pCps->m_NumIdentStructClef;
+     /*
+     if (G_pCApp->m_pCps->m_TypIdentStruct=="4" && G_pCApp->m_pCps->m_TypeIdNat=="3")
+        {pCMDI_Ident->m_pFormRubIdent->lineEdit_NumRpps->setText(G_pCApp->m_pCps->m_NumIdentStruct + "-"+ G_pCApp->m_pCps->m_NumIdentStructClef);
+        }
+     else
+        {pCMDI_Ident->m_pFormRubIdent->lineEdit_NumRpps->setText(G_pCApp->m_pCps->m_NumIdentStruct + "-"+ G_pCApp->m_pCps->m_NumIdentStructClef);
+        }
+     */
      //m_CriptedPassWord = m_pCMoteurBase->Utf8_Query(query,4);
      pCMDI_Ident->m_pFormRubIdent->lineEdit_Qualif->setText(G_pCApp->m_pCps->codeSpecialiteToString(G_pCApp->m_pCps->m_CodeSpecialite.toInt()));
      pCMDI_Ident->m_pFormRubIdent->lineEdit_Login->setFocus();

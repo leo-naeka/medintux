@@ -121,6 +121,18 @@ class CApp : public C_MUI_App
      int            PathDocumentToType( const QString &path , QString *pRubNameToFind = 0 );
      int            ApproximativeRubNameToType( const QString &texte , QString *pRubNameToFind=0);
      QString        loadContentsIfBeginByTokenFile(QString &arg);
+     //------------------------------- delAccents-----------------------------------------------------
+     /*! \brief converti les caracteres accentues d'une chaine en caracteres non accentues
+     */
+     QString delAccents(const QString &src);
+     //--------------------------------------------- debugMode -------------------------------------------------------------------
+     /*! \brief retourne si l'application est  en mode debug. Le mode debug est determine dans la section [Connexion] par la variable DebugMode = 1
+     */
+     int debugMode();
+     //--------------------------------- GetIDCurrentDoc -----------------------------------------------------
+     /*! \brief Retourne le CRubRecord correspondant au document actuellement affiché dans la CMDI gérant le doc_type.
+     */
+     static CRubRecord    *GetIDCurrentDoc(const QString &doc_type_in, DOCUMENT_DISPLAY_MAP  *currentDocDisplayMap);
      //--------------------------------------------- get_PossiblesRubNameList --------------------------------------
      /*! \brief retourne la liste des rubriques possibles (ne sont pas forcement toutes activées selon les profils)
      *  \return Renvoie une QStringList avec le nom des rubriques possibles
@@ -333,6 +345,7 @@ public:
     QMap<int,ThemePopup* > m_PopupHeadMap;                /*!< liste des menus principaux lors des menus type [section] */
     QString               *m_pOptionHierarch_Selectionne; /*!< pointeur sur la variable de retour de l'option selectionnee a renseigner */
    //......................... contexte ......................................................
+    // QString              m_dumy;
     QString              m_NUM_VERSION;          /*!< stockera le numéro de version */
     QString              m_PathGlossaireIsLocal; /*!< determine si le Glossaire doit �tre local */
     QString              m_PathGlossaire;        /*!< Chemin vers le Glossaire */
@@ -397,6 +410,9 @@ private:
     QString              m_LastMainOption;
     int                  m_IdMenu;
     QString              m_SelectedFile;
+
+    // Map the letters which have accents and the letters which haven't.
+    QMap <ushort, char>  m_AccentDic;                    /*!< Pour la gestion des accentuees */
 
 public slots:
      void  CouCouUp(   CCoolPopup * pCCoolPopup);

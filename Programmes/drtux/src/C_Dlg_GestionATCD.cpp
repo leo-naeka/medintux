@@ -36,6 +36,8 @@
  #include <qfile.h>
  #include <qtextstream.h>
  #include <qpixmap.h>
+ #include <qradiobutton.h>
+
  #include <qstringlist.h>
  #include <qvariant.h>
  #include <qsql.h>
@@ -174,6 +176,8 @@ C_Dlg_GestionATCD::C_Dlg_GestionATCD(int tab, QString mode, QWidget* parent , co
     // signals and slots connections
     m_CispMiniPixmap  = Theme::getIcon( "16x16/CispItemTab.png");
     m_CimxMiniPixmap  = Theme::getIcon( "16x16/Cim10ItemTab.png");
+    m_CimxCodefinal   = Theme::getIcon( "16x16/codefinal.png");
+    m_CimxChapitre    = Theme::getIcon( "16x16/chapitre.png");
     pushButtonThesaurusSave->setPixmap(Theme::getIcon( "16x16/save.png"));
     pushButtonThesaurusDel->setPixmap(Theme::getIcon( "16x16/DelDoc.png"));
     pushButtonThesaurusAdd->setPixmap(Theme::getIcon( "16x16/AddToThesaurus.png"));
@@ -214,6 +218,7 @@ C_Dlg_GestionATCD::C_Dlg_GestionATCD(int tab, QString mode, QWidget* parent , co
     connect( lineEditAutolcatorLibelle_2, SIGNAL( textChanged(const QString&) ),   this, SLOT( Slot_lineEditAutolcatorLibelle_2_textChanged(const QString&) ) );
     connect( lineEditAutolcatorLibelle,   SIGNAL( textChanged(const QString&) ),   this, SLOT( Slot_lineEditAutolcatorLibelle_textChanged(const QString&) ) );
     connect( lineEditThesaurusFind1,      SIGNAL( textChanged(const QString&) ),   this, SLOT( Slot_lineEditThesaurusFind1_textChanged(const QString&) ) );
+    connect( checkBox_filter_chapitres_cimx,  SIGNAL( stateChanged ( int  ) ),     this, SLOT( Slot_checkBox_filter_chapitres_cimxChanged(int) ) );
 
     connect( lineEditAutolcator_Cisp1,   SIGNAL( textChanged(const QString&) ),   this, SLOT( Slot_lineEditAutolcator_Cisp1_textChanged(const QString&) ) );
     connect( lineEditAutolcator_Cisp2,   SIGNAL( textChanged(const QString&) ),   this, SLOT( Slot_lineEditAutolcator_Cisp2_textChanged(const QString&) ) );
@@ -240,7 +245,10 @@ C_Dlg_GestionATCD::C_Dlg_GestionATCD(int tab, QString mode, QWidget* parent , co
     //connect( listViewAllergies,           SIGNAL( contextMenuRequested( QListViewItem *, const QPoint &, int  )), this, SLOT( Slot_listViewAllergies_contextMenuRequested( QListViewItem *, const QPoint &, int  ) ) );
     connect( listViewAllergies,           SIGNAL( clicked(QListViewItem*) ),       this, SLOT( Slot_listViewAllergies_clicked(QListViewItem*) ) );
     connect( listView_Produits,           SIGNAL( clicked(QListViewItem*) ),       this, SLOT( Slot_listView_Produits_clicked(QListViewItem*) ) );
-    //connect( listView_Produits,           SIGNAL( contextMenuRequested( QListViewItem *, const QPoint &, int  )), this, SLOT( Slot_listView_Produits_contextMenuRequested( QListViewItem *, const QPoint &, int  ) ) );
+    connect( listView_ATC,                SIGNAL( clicked(QListViewItem*) ),       this, SLOT( Slot_listView_ATC_clicked(QListViewItem*) ) );
+    connect( listView_ATC,                SIGNAL( doubleClicked(QListViewItem*) ), this, SLOT( Slot_listView_ATC_doubleClicked(QListViewItem*) ) );
+    //......................... Liste ATC .............................................................................................
+    if (listView_ATC->childCount() <10 ) G_pCApp->m_pCMedicaBase->Medica_FillQListView_ATC(listView_ATC);
 
     QValueList <int> list;
     int w = (width()/10)*5;
@@ -789,6 +797,8 @@ void C_Dlg_GestionATCD::Slot_pushButtonThesaurusAdd_clicked()
           if (pQListViewItem)   {appendToThesaurus(pQListViewItem->text(0), pQListViewItem->text(1).prepend("(").append(")")); return;}
           if (pQListViewItem==0) pQListViewItem = listView_Produits->selectedItem ();
           if (pQListViewItem)    appendToThesaurus(pQListViewItem->text(0), pQListViewItem->text(4).prepend("(-").append("-)"));
+          if (pQListViewItem==0) pQListViewItem = listView_ATC->selectedItem ();
+          if (pQListViewItem)    appendToThesaurus(pQListViewItem->text(0), pQListViewItem->text(1).prepend("(.").append(".)"));
         }
      else if (tab_index==m_TAB_THESAURUS)
         {   //if (pQListViewItem==0) pQListViewItem = listViewThesaurus->currentItem ();
@@ -815,6 +825,7 @@ void C_Dlg_GestionATCD::Slot_pushButtonAddMedicament_clicked()
 //-------------------------------------- Slot_listViewAllergies_clicked -------------------------------------------------------
 void C_Dlg_GestionATCD::Slot_listViewAllergies_clicked(QListViewItem*)
 {listView_Produits->clearSelection ();
+ //listView_ATC->clearSelection ();
 }
 
 //-----------------------------------------------------  Slot_listViewCim10_rubriques_contextMenuRequested -------------------------------------------
@@ -831,9 +842,26 @@ void C_Dlg_GestionATCD::Slot_listViewAllergies_contextMenuRequested( QListViewIt
     }
 }
 
+//-------------------------------------- Slot_listView_ATC_clicked -------------------------------------------------------
+void C_Dlg_GestionATCD::Slot_listView_ATC_clicked(QListViewItem *pQListViewItem)
+{ if (pQListViewItem==0) return;
+  listViewAllergies->clearSelection ();
+  listView_Produits->clearSelection ();
+  QApplication::setOverrideCursor( QCursor( Qt::WaitCursor ) );
+  int nb = G_pCApp->m_pCMedicaBase->Medica_GetMedicamentListByATC(  listView_Produits ,
+                                                                    pQListViewItem->text(1), // 1 = code ATC de la listview ATC
+                                                                    "",           //lineEdit_Produit->text(),
+                                                                    QString(""),
+                                                                    QString("0")
+                                                             );
+  textLabelStatut->setText(QString::number(nb) + tr (" produits trouvés"));
+  QApplication::restoreOverrideCursor();
+}
+
 //-------------------------------------- Slot_listView_Produits_clicked -------------------------------------------------------
 void C_Dlg_GestionATCD::Slot_listView_Produits_clicked(QListViewItem *pQListViewItem)
 { if (pQListViewItem==0) return;
+  listView_ATC->clearSelection ();
   long nb = G_pCApp->m_pCMedicaBase->Datasemp_GetSubtancesListByCodeProd(listViewAllergies, pQListViewItem->text( LV_PROD_CODE_PROD));
   if (nb>1)
      textLabelStatut->setText(QString::number(nb) + tr(" substances trouvées"));
@@ -841,10 +869,18 @@ void C_Dlg_GestionATCD::Slot_listView_Produits_clicked(QListViewItem *pQListView
      textLabelStatut->setText(tr("Une substance trouvée"));
   else
      textLabelStatut->setText(tr("Aucune substance trouvée"));
+ if (nb)
+    {QString atc = G_pCApp->m_pCMedicaBase->Medica_GetCodeATC(pQListViewItem->text( 4),            // cip
+                                                              pQListViewItem->text( 3));           // pk_t4b
+     /*QListViewItem *pQListViewATCItem = */ G_pCApp->m_pCMedicaBase->Medica_SetQListViewOnATC( listView_ATC , atc.remove('%').remove('_') );  //setCurrentItem ( QListViewItem * i )
+     //if (pQListViewATCItem) listView_ATC->setCurrentItem( pQListViewATCItem );
+    }
+ //listView_ATC->clearSelection ();
 }
 //-------------------------------------- Slot_listView_Produits_contextMenuRequested -------------------------------------------------------
 void C_Dlg_GestionATCD::Slot_listView_Produits_contextMenuRequested( QListViewItem *pQListViewItem, const QPoint &, int  )
 {listViewAllergies->clearSelection ();
+ //listView_ATC->clearSelection ();
  if (pQListViewItem==0)    return;
  QStringList optList;
  optList.append(tr ("Ajouter cet item aux favoris."));
@@ -880,6 +916,32 @@ void C_Dlg_GestionATCD::Slot_lineEditNomAllergie_textChanged( const QString &qte
                                                          "",
                                                          "0"
                                                        );
+ //................ rechercher uccesivement dans chaque niveau ATC ..........................
+ QListViewItem*         pQListViewItem = findListViewItem(listView_ATC, 0, qtext, 0);
+ if (pQListViewItem==0) pQListViewItem = findListViewItem(listView_ATC, 1, qtext, 0);
+ if (pQListViewItem==0) pQListViewItem = findListViewItem(listView_ATC, 2, qtext, 0);
+ if (pQListViewItem==0) pQListViewItem = findListViewItem(listView_ATC, 3, qtext, 0);
+ if (pQListViewItem==0) pQListViewItem = findListViewItem(listView_ATC, 4, qtext, 0);
+ if (pQListViewItem==0) return;
+
+ pQListViewItem->setOpen (true);
+ listView_ATC->setSelected ( pQListViewItem, true );
+ listView_ATC->ensureItemVisible ( pQListViewItem  );
+
+}
+//-------------------------------------- findListViewItem -------------------------------------------------------
+QListViewItem* C_Dlg_GestionATCD::findListViewItem(QListView* pQListView, int depth, const QString &text, int pos_text_in_item /* = 0 */ )
+{
+    QListViewItemIterator it( pQListView );
+    while ( it.current() )
+          { it.current()->setOpen (false);
+            if ( it.current()->depth()== depth)
+               { QString text_item = it.current()->text(pos_text_in_item);
+                 if (text_item.contains(text,false)) return it.current();
+               }
+            ++it;
+          }
+    return 0;
 }
 
 //-------------------------------------- Slot_lineEditNomAllergie_textChanged -------------------------------------------------------
@@ -1063,45 +1125,35 @@ void C_Dlg_GestionATCD::Slot_listViewCim10_Choix_doubleClicked( QListViewItem * 
  pDlgAtcd_txt->setToUpdate(TRUE);
  pDlgAtcd_txt->m_LineEdit_Libelle_Long->hide();
 
- pDlgAtcd_txt->m_LineEdit_Libelle->setText(pQListViewItem->text(0));
- pDlgAtcd_txt->setFamilyGenre(pQListViewItem->text(1));
- pDlgAtcd_txt->checkBox_IsActif->setChecked( (pQListViewItem->text(2).stripWhiteSpace()==tr("Actif")) );
- pDlgAtcd_txt->m_LineEdit_Commentaire->setText(pQListViewItem->text(3));
- pDlgAtcd_txt->cMaskedLineDateAtcd->setText(pQListViewItem->text(4).remove('-'));
-//.. date .........
- int isInvalid = 1;
- QDate     dt  = QDate();
- if (pQListViewItem->text(4).stripWhiteSpace().length())
-    {isInvalid = 0;
-     dt        = CGenTools::setDate(pQListViewItem->text(4) , isInvalid);
-    }
- if ( isInvalid ) {pDlgAtcd_txt->chkDate->setChecked(FALSE);pDlgAtcd_txt->cMaskedLineDateAtcd->setEnabled(FALSE);  pDlgAtcd_txt->pushButtonDateDlg->setEnabled(FALSE);}
- else             {pDlgAtcd_txt->chkDate->setChecked(TRUE); pDlgAtcd_txt->cMaskedLineDateAtcd->setEnabled(TRUE);   pDlgAtcd_txt->pushButtonDateDlg->setEnabled(TRUE);}
- pDlgAtcd_txt->checkBox_IsALD->setChecked( (pQListViewItem->text(5).stripWhiteSpace()==tr("ALD")) );
+ pDlgAtcd_txt->m_LineEdit_Libelle->setText(pQListViewItem->text(LV_NAME));
+ pDlgAtcd_txt->setFamilyGenre(pQListViewItem->text(LV_TYPE));
+ pDlgAtcd_txt->m_LineEdit_Commentaire->setText(pQListViewItem->text(LV_COMM));
+ pDlgAtcd_txt->cMaskedLineDateDebAtcd->setText(pQListViewItem->text(LV_DDEB).remove('-'));
+ pDlgAtcd_txt->cMaskedLineDateFinAtcd->setText(pQListViewItem->text(LV_DFIN).remove('-'));
+
+ //....................... etat ALD Sport ................................
+ pDlgAtcd_txt->setSate_Ald_Sport(pQListViewItem->text(5));
+
  pDlgAtcd_txt->lbl_Titre->setText(tr("Modification d'un antécedent"));
  //pDlgAtcd_txt->setComboOnValue(pDlgAtcd_txt->m_Combo_Family,tr("Médicaux"));
  pDlgAtcd_txt->exec();
  if (pDlgAtcd_txt->isFamilleGenreModified()) {initComboFamilleGenre();}
  if (pDlgAtcd_txt->result() == QDialog::Accepted && pDlgAtcd_txt->m_LineEdit_Libelle->text().stripWhiteSpace().length())
-    { pQListViewItem->setText(0, pDlgAtcd_txt->m_LineEdit_Libelle->text());
-      pQListViewItem->setText(1, pDlgAtcd_txt->getFamilleGenre());
-      pQListViewItem->setText(2, (pDlgAtcd_txt->checkBox_IsActif->isChecked()?tr("Actif"):tr("Passé")) );
-      if (pDlgAtcd_txt->checkBox_IsActif->isChecked()) pQListViewItem->setPixmap(2, Theme::getIcon("16x16/warning.png") );
-      else                                             pQListViewItem->setPixmap(2, Theme::getIcon("16x16/listok.png") );
-      pQListViewItem->setText(3, pDlgAtcd_txt->m_LineEdit_Commentaire->text());
-      QString date      = "";
-      if (pDlgAtcd_txt->chkDate->isChecked())
-         { date          = pDlgAtcd_txt->cMaskedLineDateAtcd->text();
-               isInvalid = 0;
-                      dt = CGenTools::setDate(date, isInvalid);
-           if (isInvalid) date = "";
-           else           date = dt.toString("dd-MM-yyyy");
-         }
-      pQListViewItem->setText(4, date);
-      pQListViewItem->setText(5, (pDlgAtcd_txt->checkBox_IsALD->isChecked()?tr("ALD"):tr("")) );
-      if (pDlgAtcd_txt->checkBox_IsALD->isChecked())   pQListViewItem->setPixmap(1, Theme::getIcon("16x16/ald_on.png") );
-      else                                             pQListViewItem->setPixmap(1, Theme::getIcon("16x16/ald_off.png") );
-      //..................
+    { QString dateDeb = pDlgAtcd_txt->getDateDeb();
+      QString dateFin = pDlgAtcd_txt->getDateFin();
+      pQListViewItem->setText(LV_NAME, pDlgAtcd_txt->getLibelle());
+      pQListViewItem->setText(LV_TYPE, pDlgAtcd_txt->getFamilleGenre());
+      pQListViewItem->setText(LV_COMM, pDlgAtcd_txt->getComment());
+
+      //.............. dates debut fin ...........................
+      pQListViewItem->setText(LV_DDEB, dateDeb );
+      pQListViewItem->setText(LV_DFIN, dateFin );
+      pQListViewItem->setPixmap(LV_DDEB, Atcd_Code::datesDebFinToPixmap(CGenTools::dd_MM_yyyy_ToDate(dateDeb), CGenTools::dd_MM_yyyy_ToDate(dateFin)) );
+
+      //............. ald sport ....................
+      QString ald_sport = pDlgAtcd_txt->getSate_Ald_Sport();
+      pQListViewItem->setText(LV_ALSP,   ald_sport );
+      pQListViewItem->setPixmap(LV_TYPE, Atcd_Code::ald_sport_codeToPixmap(ald_sport));
     }
  delete pDlgAtcd_txt;
 }
@@ -1475,6 +1527,11 @@ QString C_Dlg_GestionATCD::DoPopupList(QStringList &list, QWidget *parent)
  delete  pThemePopup;
  return  ret;
 }
+//-----------------------------------------------------  Slot_checkBox_filter_chapitres_cimxChanged -------------------------------------------
+void C_Dlg_GestionATCD::Slot_checkBox_filter_chapitres_cimxChanged(int)
+{ CIM10GetLibellesList(listViewCim10_Libelles, lineEditAutolcatorLibelle->text(), lineEditAutolcatorLibelle_2->text(), 0, 0);
+}
+
 //-----------------------------------------------------  CIM10GetLibellesList -------------------------------------------
 long C_Dlg_GestionATCD::CIM10GetLibellesList(  QListView *pQlistView,
                                                QString    mot_cle_saisie1,
@@ -1489,7 +1546,7 @@ long C_Dlg_GestionATCD::CIM10GetLibellesList(  QListView *pQlistView,
      }
   int     nb = 200;
   int      i = 0;
-
+  QString code;
   QString requete_libelle;
   requete_libelle           = QString(" SELECT libelle.SID, FR_OMS, code  FROM  libelle"
                                       " join master on master.SID=libelle.SID WHERE ");
@@ -1511,7 +1568,8 @@ long C_Dlg_GestionATCD::CIM10GetLibellesList(  QListView *pQlistView,
    else
      {requete_libelle       +=  "FR_OMS LIKE 'a%' ";
      }
-  requete_libelle           += " AND code LIKE '%.%'";
+   if ( !checkBox_filter_chapitres_cimx->isChecked())
+        requete_libelle           += " AND code LIKE '%.%'";
   //CONVERT(_utf8 '%...%' USING utf8) COLLATE utf8_general_ci :
   //QCString cst = QString::utf8 () ;
   QSqlQuery query(requete_libelle.utf8() , m_DataBase );
@@ -1519,13 +1577,20 @@ long C_Dlg_GestionATCD::CIM10GetLibellesList(  QListView *pQlistView,
   if (query.isActive())
      {pQlistView->clear();
       while (query.next()&&i<nb)
-         {QListViewItem *element = new QListViewItem( pQlistView,
+         {code = query.value(2).toString();
+          QListViewItem *element = new QListViewItem( pQlistView,
                                                       Utf8_Query(query, 1 ),
-                                                      query.value(2).toString(),
+                                                      code,
                                                       query.value(0).toString()
                                                     );
           if (element)
              {i++;
+              if (code.contains("."))
+                 {element->setPixmap(0, m_CimxCodefinal);
+                 }
+              else
+                 {element->setPixmap(0, m_CimxChapitre);
+                 }
              }
          }
      }
@@ -1724,6 +1789,10 @@ QListViewItem *C_Dlg_GestionATCD::GetDlgListCode(int tab_index, QListViewItem *p
              {m_Libelle     = pQListViewItem->text(0);
               m_Code        = pQListViewItem->text(4).prepend("(-").append("-)");
              }
+          else if ( (pQListViewItem=listView_ATC->selectedItem()) )
+             {m_Libelle     = pQListViewItem->text(0);
+              m_Code        = pQListViewItem->text(1).prepend("(.").append(".)");
+             }
           QStringList list  = m_ATCD_FamilyList.grep (tr("allerg"), FALSE );
           if (list.size())   m_Family = list[0];
           else               m_Family = tr("Allergiques");
@@ -1757,10 +1826,15 @@ QListView *C_Dlg_GestionATCD::GetDlgListViewFromTab(int tab_index)
      else if (tab_index==m_TAB_ALLERGIE)
         { QListViewItem *pQListViewItem=listViewAllergies->selectedItem();
           if (pQListViewItem)
-             {return listViewAllergies;
+             { return listViewAllergies;
              }
-          else
+          pQListViewItem=listView_Produits->selectedItem();
+          if (pQListViewItem)
              { return listView_Produits;
+             }
+          pQListViewItem=listView_ATC->selectedItem();
+          if (pQListViewItem)
+             { return listView_ATC;
              }
         }
      else if (tab_index==m_TAB_THESAURUS)
@@ -1808,9 +1882,10 @@ void C_Dlg_GestionATCD::AddItemToListChoix(const QString &libelle_in, const QStr
       //libelle  = tr(" CIMX : ") + libelle; deja fait en amont
      }
   if (m_TAB_ALLERGIE==-1)   // a -1 si mode CIM10 seul sans gestion ATCD ou mode Cisp seul
-     {QDate dt= QDate();
+     {QDate dt_deb= QDate();
+      QDate dt_fin= QDate();
       // m_Rubrique=,m_Libelle,m_Code=,m_Etat=0,m_Commentaire=,m_Id_ATCD,m_ald
-      Atcd_Element atcd_Element ("", libelle, dt , code,0, comment,"");
+      Atcd_Element atcd_Element ("", libelle, dt_deb , code,dt_fin, comment,"");
       G_pCApp->m_pAtcd_Code->atcd_Element_To_ListViewItem(atcd_Element, listViewCim10_Choix);
       return;
      }
@@ -1857,9 +1932,10 @@ void C_Dlg_GestionATCD::Slot_pushButton_AddToChoixFast_clicked()
     {
       CPrtQListViewItem* pCPrt = (CPrtQListViewItem*)it.current();
       if (pCPrt->isSelected())
-         {QDate dt = QDate();
+         {QDate dt_deb = QDate();
+          QDate dt_fin = QDate();
           GetDlgListCode(tab_index, pCPrt);
-          Atcd_Element atcd_Element (m_Family, m_Libelle, dt , m_Code, 0,m_Comment,"");
+          Atcd_Element atcd_Element (m_Family, m_Libelle, dt_deb , m_Code,dt_fin, m_Comment,"");
           G_pCApp->m_pAtcd_Code->atcd_Element_To_ListViewItem(atcd_Element, listViewCim10_Choix);
          }
       ++it;
@@ -1889,6 +1965,10 @@ void C_Dlg_GestionATCD::Slot_pushButtonRemoveFromChoix_clicked()
 
 //-----------------------------------------------------  Slot_listViewCim10_Libelles_doubleClicked -------------------------------------------
 void C_Dlg_GestionATCD::Slot_listViewCim10_Libelles_doubleClicked( QListViewItem *pQListViewItem )
+{common_listView_doubleClicked(pQListViewItem);
+}
+//-------------------------------------- Slot_listView_ATC_doubleClicked -------------------------------------------------------
+void C_Dlg_GestionATCD::Slot_listView_ATC_doubleClicked(QListViewItem *pQListViewItem)
 {common_listView_doubleClicked(pQListViewItem);
 }
 //-----------------------------------------------------  Slot_listViewCim10_rubriques_doubleClicked -------------------------------------------
@@ -1943,8 +2023,8 @@ void C_Dlg_GestionATCD::Slot_reject()
 //-----------------------------------------------------  writeWindowPos -------------------------------------------
 void C_Dlg_GestionATCD::writeWindowPos()
 { QValueList <int> list = splitter5->sizes();
-  QString cisp_filter_cimx_checkBox_state = checkBox_Cisp_filter_cimx->isChecked()?"Actif":"Inactif";
-
+  QString cisp_filter_cimx_checkBox_state      = checkBox_Cisp_filter_cimx->isChecked()?"Actif":"Inactif";
+  QString checkBox_filter_chapitres_cimx_state = checkBox_filter_chapitres_cimx->isChecked()?"Actif":"Inactif";
   WRITE_USER_PARAM  (&USER_PARAM, "Dlg_ATCD", "WindowPos", QString::number(x()),
                                                            QString::number(y()),
                                                            QString::number(width()),
@@ -1952,11 +2032,12 @@ void C_Dlg_GestionATCD::writeWindowPos()
                                                            QString::number(list[0]),
                                                            QString::number(list[1]));
   WRITE_USER_PARAM  (&USER_PARAM, "Dlg_ATCD", "Lister codes Cim10 avec Cisp", cisp_filter_cimx_checkBox_state);
+  WRITE_USER_PARAM  (&USER_PARAM, "Dlg_ATCD", "Afficher les chapitres Cim10", checkBox_filter_chapitres_cimx_state);
   UPDATE_USER_PARAM (&USER_PARAM, G_pCApp->m_User);
 }
  //-----------------------------------------------------  readAndSetWindowPos -------------------------------------------
 void C_Dlg_GestionATCD::readAndSetWindowPos()
-{QString x,y,w,h,spliterW0,spliterW1, checkBoxCimx;    // checkBox_Cisp_filter_cimx
+{QString x,y,w,h,spliterW0,spliterW1, cisp_filter_cimx_checkBox_state, checkBox_filter_chapitres_cimx_state;    // checkBox_Cisp_filter_cimx
  QValueList <int> list;
  if (READ_USER_PARAM(USER_PARAM, "Dlg_ATCD", "WindowPos", &x,&y,&w,&h,&spliterW0,&spliterW1)==0)  // zero = pas d'erreur
     {move(x.toInt(),     y.toInt());
@@ -1965,8 +2046,11 @@ void C_Dlg_GestionATCD::readAndSetWindowPos()
      list.append( spliterW1.toInt());
      splitter5->setSizes(list);
     }
- if (READ_USER_PARAM(USER_PARAM, "Dlg_ATCD", "Lister codes Cim10 avec Cisp", &checkBoxCimx)==0)  // zero = pas d'erreur
-    {checkBox_Cisp_filter_cimx->setChecked(checkBoxCimx.upper().left(1)=="A");
+ if (READ_USER_PARAM(USER_PARAM, "Dlg_ATCD", "Lister codes Cim10 avec Cisp", &cisp_filter_cimx_checkBox_state)==0)  // zero = pas d'erreur
+    {checkBox_Cisp_filter_cimx->setChecked(cisp_filter_cimx_checkBox_state.upper().left(1)=="A");
+    }
+ if (READ_USER_PARAM(USER_PARAM, "Dlg_ATCD", "Afficher les chapitres Cim10", &checkBox_filter_chapitres_cimx_state)==0)  // zero = pas d'erreur
+    {checkBox_filter_chapitres_cimx->setChecked(checkBox_filter_chapitres_cimx_state.upper().left(1)=="A");
     }
 }
 

@@ -6,13 +6,28 @@ QT += network \
     webkit \
     xml \
     qt3support
-TARGET = ../bin/Manager
-TEMPLATE = app
+TARGET = Manager
+NUM_VERS     = 2.16.000
+NAME_DOM     = MedinTux
+NAME_ORG     = Data Medical Design
+DEFINES     += "NUM_VERSION=\"\\\"$${NUM_VERS}\\\"\""
+DEFINES     += "NAME_APPLI=\"\\\"$${TARGET}\\\"\""
+DEFINES     += "NAME_ORGANISATION=\"\\\"$${NAME_ORG}\\\"\""
+DEFINES     += "NAME_DOMAINE=\"\\\"$${NAME_DOM}\\\"\""
+DEFINES     += "SQLSYNTAX_MYSQL"
+TEMPLATE     = app
+
 OBJECTS_DIR = ../src/obj
 MOC_DIR = ../src/moc
 UI_DIR = ../src/ui
 DESTDIR = ../bin
 DEFINES += QT3_SUPPORT
+exists( ../../SigEntrees/bin/SigEntreesBases.cfg ) {
+    message( "================== Support des Entrees SIGEMS ==============" )
+    DEFINES += ENTREES_SIGEMS
+    HEADERS += ../../SigEntrees/src/C_DSigemsVar.h
+    SOURCES += ../../SigEntrees/src/C_DSigemsVar.cpp
+    }
 exists( ../../SesamVitale-QT4/CSesam_API.h ) {
     DEFINES += SESAM_VERSION
     DEFINES += AGENDA_IN_GUI
@@ -27,10 +42,18 @@ exists( ../../SesamVitale-QT4/CSesam_API.h ) {
 else:message( "============= pas de Support de Sesam Vitale ============" )
 message( "| Manager is a MedinTux software by Data Medical Design |" )
 message( "=============================================================" )
+include(../../MedinTuxTools-QT4/qtsingleapplication/src/qtsingleapplication.pri)
+mac { LIBS +=  -L/usr/X11/lib
+    }
+
 SOURCES += main.cpp \
     CApp.cpp \
     C_Manager.cpp \
     C_Dlg_Assure.cpp \
+    ../../MedinTuxTools-QT4/C_Utils_Log.cpp \
+    ../../MedinTuxTools-QT4/C_Utils_Html.cpp \
+    ../../MedinTuxTools-QT4/C_Login/C_Dlg_Login.cpp \
+    ../../MedinTuxTools-QT4/C_AppCore.cpp \
     ../../MedinTuxTools-QT4/C_QWebView/C_QWebView.cpp \
     ../../MedinTuxTools-QT4/C_QLineEdit/C_QLineEdit.cpp \
     ../../MedinTuxTools-QT4/CHtmlTools.cpp \
@@ -43,7 +66,6 @@ SOURCES += main.cpp \
     ../../MedinTuxTools-QT4/Theme/ThemePopup.cpp \
     ../../MedinTuxTools-QT4/Theme/Theme.cpp \
     ../../MedinTuxTools-QT4/CCoolPopup.cpp \
-    ../../MedinTuxTools-QT4/GetPassword/CDlg_PasswordGet.cpp \
     ../../MedinTuxTools-QT4/UserList/C_Frm_UserList.cpp \
     ../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.cpp \
     ../../MedinTuxTools-QT4/Agenda/C_Dlg_ChercheRDV.cpp \
@@ -59,6 +81,10 @@ SOURCES += main.cpp \
 HEADERS += CApp.h \
     C_Manager.h \
     C_Dlg_Assure.h \
+    ../../MedinTuxTools-QT4/C_Utils_Log.h \
+    ../../MedinTuxTools-QT4/C_Utils_Html.h \
+    ../../MedinTuxTools-QT4/C_Login/C_Dlg_Login.h \
+    ../../MedinTuxTools-QT4/C_AppCore.h \
     ../../MedinTuxTools-QT4/C_QWebView/C_QWebView.h \
     ../../MedinTuxTools-QT4/C_QLineEdit/C_QLineEdit.h \
     ../../MedinTuxTools-QT4/CHtmlTools.h \
@@ -72,7 +98,6 @@ HEADERS += CApp.h \
     ../../MedinTuxTools-QT4/Theme/ThemePopup.h \
     ../../MedinTuxTools-QT4/Theme/Theme.h \
     ../../MedinTuxTools-QT4/CCoolPopup.h \
-    ../../MedinTuxTools-QT4/GetPassword/CDlg_PasswordGet.h \
     ../../MedinTuxTools-QT4/UserList/C_Frm_UserList.h \
     ../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.h \
     ../../MedinTuxTools-QT4/Agenda/C_Dlg_ChercheRDV.h \
@@ -86,10 +111,10 @@ HEADERS += CApp.h \
     ../../MedinTuxTools-QT4/Agenda/c_dlg_plagesdispo.h
 FORMS += C_Manager.ui \
          C_Dlg_Assure.ui \
+    ../../MedinTuxTools-QT4/C_Login/C_Dlg_Login.ui \
     ../../MedinTuxTools-QT4/Agenda/C_Dlg_RdvTypeConfig.ui \
     ../../MedinTuxTools-QT4/Agenda/C_Dlg_ChercheRDV.ui \
     ../../MedinTuxTools-QT4/Agenda/C_Dlg_ImprimerRDV.ui \
-    ../../MedinTuxTools-QT4/GetPassword/CDlg_PasswordGet.ui \
     ../../MedinTuxTools-QT4/UserList/C_Frm_UserList.ui \
     ../../MedinTuxTools-QT4/C_Dlg_DoList/C_Dlg_DoList.ui \
     ../../MedinTuxTools-QT4/Agenda/c_dlg_plagesdispo.ui

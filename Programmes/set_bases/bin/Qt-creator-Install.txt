@@ -5,4 +5,5 @@ Apart from a C++ compiler, a number of development libraries need to be present 
 If you're using QtOpenGL, you'll also need OpenGL development files. You can use the following command to find out which packages to install:
 
   sudo apt-get install libgl-dev libglu-dev
-      
+
+ne pas oublier de copier : libmysqlclient.18.dylib dans /usr/lib      

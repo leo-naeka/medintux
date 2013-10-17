@@ -26,6 +26,8 @@ FORMS += DockFormUserList.ui \
          FormRubObservation.ui \
          FormRubParam.ui \
          DlgPassChange.ui \
+         ../../MedinTuxTools/DlgGetString.ui \
+         ../../MedinTuxTools/DlgMyMessageBox.ui \
          ../../MedinTuxTools/DLG_InsertList.ui \
          Dlg_PermsUserChoice.ui \
          ../../MedinTuxTools/Dlg_PasswordGet.ui \
@@ -44,6 +46,7 @@ HEADERS += gest_user.h \
            ../../MedinTuxTools/Theme.h \
            ../../drtux/src/CMoteur_Base.h \
            ../../MedinTuxTools/CHtmlTools.h \
+           ../../MedinTuxTools/CGenTools.h \
            ../../MedinTuxTools/CGestIni.h \
            ../../MedinTuxTools/CSetupBase.h \
            ../../MedinTuxTools/CMedinTuxApp.h \
@@ -63,6 +66,7 @@ SOURCES += gest_user.cpp \
            ../../MedinTuxTools/Theme.cpp \
            ../../drtux/src/CMoteur_Base.cpp \
            ../../MedinTuxTools/CHtmlTools.cpp \
+           ../../MedinTuxTools/CGenTools.cpp \
            ../../MedinTuxTools/CGestIni.cpp \
            ../../MedinTuxTools/CSetupBase.cpp \
            ../../MedinTuxTools/CMedinTuxApp.cpp \

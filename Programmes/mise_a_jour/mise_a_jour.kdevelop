@@ -9,7 +9,7 @@
     <keywords>
       <keyword>Qt</keyword>
     </keywords>
-    <projectdirectory>/home/ro/MedinTux-V2.14-Synth-src/Programmes/mise_a_jour/</projectdirectory>
+    <projectdirectory>/mnt/hgfs/Documents/medintux/Programmes/mise_a_jour/</projectdirectory>
     <absoluteprojectpath>true</absoluteprojectpath>
     <description/>
     <ignoreparts/>
@@ -104,24 +104,24 @@
     <run>
       <directoryradio>executable</directoryradio>
       <customdirectory>/</customdirectory>
-      <mainprogram>/home/ro/MedinTux-V2.14-Synth-src/Programmes/mise_a_jour/bin/mise_a_jour</mainprogram>
-      <programargs>'debugGetBasesList'</programargs>
+      <mainprogram>/mnt/hgfs/Documents/medintux/Programmes/mise_a_jour/bin/mise_a_jour</mainprogram>
+      <programargs>'debugDo Update'</programargs>
       <terminal>false</terminal>
       <autocompile>true</autocompile>
       <envvars/>
-      <globaldebugarguments>'debugGetBasesList'</globaldebugarguments>
-      <globalcwd>/home/ro/MedinTux-V2.14-Synth-src/Programmes/mise_a_jour/bin/</globalcwd>
+      <globaldebugarguments>'debugDo Update'</globaldebugarguments>
+      <globalcwd>/mnt/hgfs/Documents/medintux/Programmes/mise_a_jour</globalcwd>
       <useglobalprogram>true</useglobalprogram>
       <autoinstall>false</autoinstall>
       <autokdesu>false</autokdesu>
       <runarguments>
-        <mise_a_jour></mise_a_jour>
+        <mise_a_jour/>
       </runarguments>
       <cwd>
         <mise_a_jour>/home/ro/MedinTux-V2.14-Mac-Intel-105-src/Programmes-QT3/mise_a_jour</mise_a_jour>
       </cwd>
       <debugarguments>
-        <mise_a_jour></mise_a_jour>
+        <mise_a_jour/>
       </debugarguments>
     </run>
     <make>

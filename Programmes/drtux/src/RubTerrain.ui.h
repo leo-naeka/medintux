@@ -38,7 +38,9 @@ void FormRubTerrain::init()
  m_pAtcd_Element_Selected  = 0;
  m_IsModified              = 0;
  m_IsAllDroitsOn           = FALSE;
-
+ m_LAP_Ordo                = "";
+ m_StateModifBeforeLAP     = 0;
+ 
  if (G_pCApp->m_pAtcd_Code)
     {m_pAtcd_Code = G_pCApp->m_pAtcd_Code;
      connect(m_pAtcd_Code, SIGNAL( ATCD_Changed() ), this, SLOT( ATCD_HaveChanged() ));
@@ -69,15 +71,15 @@ void FormRubTerrain::init()
 
  #ifdef Q_OS_MACX
     pushButtonSave->setFlat (TRUE);
-	pushButtonNewVAR->setFlat (TRUE);
-	pushButtonNew->setFlat (TRUE);
+    pushButtonNewVAR->setFlat (TRUE);
+    pushButtonNew->setFlat (TRUE);
     pushButtonDelete->setFlat (TRUE);
     pushButtonDellAllVAR->setFlat (TRUE);
     pushButtonNewATCD->setFlat (TRUE);
     pushButtonDellAllATCD->setFlat (TRUE);
     pushButtonNewTTT->setFlat (TRUE);
     pushButtonDellAllTTT->setFlat (TRUE);
-	pushButtonRubDateChange->setFlat (TRUE);
+    pushButtonRubDateChange->setFlat (TRUE);
 #endif
 
 
@@ -259,6 +261,7 @@ void FormRubTerrain::cacher()
      m_pQScrollView->hide();
      pushButtonRubDateChange->hide();
 }
+
 //--------------------------------- montrer --------------------------------------------------
 void FormRubTerrain::montrer(int nb)
 {    if (m_IsModifiable)
@@ -549,10 +552,10 @@ void FormRubTerrain::ATCD_setInForm()
      textLabelDDR->hide();
      QPushButton_DDR->hide();  //qDebug("ATCD_setInForm() hide");
    }
-  if (m_pAtcd_Code->m_Allaitement)	checkBoxAllaitement->setChecked(TRUE);
-  else					checkBoxAllaitement->setChecked(FALSE);
+  if (m_pAtcd_Code->m_Allaitement)      checkBoxAllaitement->setChecked(TRUE);
+  else                                  checkBoxAllaitement->setChecked(FALSE);
 }
-
+/* OLD
 //--------------------------------- FormToData --------------------------------------------------
 void FormRubTerrain::FormToData(QString &strDST)
 {//.................... contenu des ATCD ............................................................
@@ -577,6 +580,33 @@ void FormRubTerrain::FormToData(QString &strDST)
  // IMPORTANT: doit toujours etre a la fin
  strDST += tr("[Traitement]\r\n");
  strDST.append (G_pCApp->m_pCMedicaBase->Medica_PosologieListToXMLOrdoStruct( m_OrdoList, GetPoids(), GetTaille() ));
+// CGestIni::Param_UpdateToDisk( "C:/terrain.txt", strDST);
+}
+*/
+//--------------------------------- FormToData --------------------------------------------------
+void FormRubTerrain::FormToData(QString &strDST)
+{//.................... contenu des ATCD ............................................................
+ if (!m_pAtcd_Code) return;
+ strDST = "";
+ strDST = m_pAtcd_Code->toOldIni();
+
+ //.................... contenu Variables ...............................................................
+ //QDateTime    qdt       =   QDateTime::currentDateTime();
+ //QString     date       =   qdt.toString ("yyyy-MM-ddThh:mm:ss");
+ VAR_GetModeleList(strDST, 1);
+
+ //.................... Etat Renouvelable/Intercurent ...................................................
+ {strDST += tr("[Propri\303\251t\303\251 Ordonnance]\r\n");
+  QListViewItemIterator it( listView_TTT );
+  while ( it.current() )
+        { strDST += "    " + it.current()->text (0) + " = " + it.current()->text (1) + " , " + it.current()->text (2) + "\r\n";
+         ++it;
+        }
+ }
+ //.................... contenu des TTT .................................................................
+ // IMPORTANT: doit toujours etre a la fin
+ strDST += tr("[Traitement]\r\n");
+ strDST.append (G_pCApp->m_pCMedicaBase->Medica_PosologieListToXMLOrdoStruct( m_OrdoList, GetPoids(), GetTaille(), m_LAP_Ordo));
 // CGestIni::Param_UpdateToDisk( "C:/terrain.txt", strDST);
 }
 
@@ -612,6 +642,7 @@ void FormRubTerrain::DataToForm()   // texte de configuration avec zero de fin
   const char* data;
   long        len         = 0;
   QString     stringDST   = "";
+  m_LAP_Ordo              = "";
   //.............................. effacer la vue .......................................................
   clearForm();
   //........................... recuperer les donnees de la base de donnees..............................
@@ -767,25 +798,25 @@ void FormRubTerrain::DataToForm()   // texte de configuration avec zero de fin
      //.................................. TTT ........................................................
      // IMPORTANT: cette section doit tjrs etre en dernier dans le fichier pour des raisons de fin !!!
      if (section==tr("Traitement"))                  // a ce stade pt pointe au debut de la nouvelle ligne
-        {QString stringStruct;
-         CMedicaBase::Medica_DiskDataSplitIn_HtmlData_StructData(pt, 0, &stringStruct); // y isoler et recuperer les donn\303\251es calculables
-         CMedicaBase::Medica_PosologieListDeserialize(stringStruct, m_OrdoList);
-         TTT_OrdoListToListView(listView_TTT, m_OrdoList);
+        {TTT_PutBlobPrescriptionInTerrain(pt);
          break;
         }
     } // end while((pt=CGestIni::Param_GotoNextSection(pt, 0, &section)) && *pt)
  //................... mettre a jour propriete renouvelable/intercurent des produits ....................
  //                    ne peut se faire qu'apres avoir construit la liste des medicaments
  if (prop_section && listView_TTT->childCount()>0)
-    {pt =   prop_section;
+    {pt        =   prop_section;
+     int nbMax =   listView_TTT->childCount();
+     int     i = 0;
      QListViewItemIterator it( listView_TTT );
-     while (*pt && *pt != '[')
+     while (*pt && *pt != '[' && i<nbMax)
            {var_name = "";
             pt   = CGestIni::Param_ExtraireNextValeurs(pt, var_name, &strTab[0], &strTab[1] );
             it.current()->setText (0, var_name);
             it.current()->setText (1, strTab[0]);
             it.current()->setText (2, strTab[1]);
             ++it;
+            ++i;
            }
     }
  //............ reactualiser affichage des listes de tables ..........................
@@ -837,7 +868,7 @@ QString            qtext = comboBox_RubName->currentText ();
 // [VAR Constantes de Base]
 //      Modele = Date, Pouls, 31536000, 130, 40, pps, Tachycardie, Bradycardie
 //      Modele = Date, SAO2, 31536000, 0, 92, %, , Hypoxie
-//      Mod�ele = Date, Temp, 31536000, 40.5, 35, ?, Hyporthermie, Hyperthermie
+//      Modele = Date, Temp, 31536000, 40.5, 35, ?, Hyporthermie, Hyperthermie
 // [VAR Poids]
 //      Modele = Date, Poids, 31536000, 100, 50, Kg(s), Obesite, Amaigrissement
 //      Modele = Date, Taille, 31536000, 0, 0, cm(s), ,
@@ -871,7 +902,7 @@ void FormRubTerrain::VAR_SetPoids(QString poids)
 }
 //--------------------------------- VAR_SetTaille --------------------------------------------------
 // [VAR Constantes de Base]
-//      Mod�ele = Date, Pouls, 31536000, 130, 40, pps, Tachycardie, Bradycardie
+//      Modele = Date, Pouls, 31536000, 130, 40, pps, Tachycardie, Bradycardie
 //      Modele = Date, SAO2, 31536000, 0, 92, %, , Hypoxie
 //      Modele = Date, Temp, 31536000, 40.5, 35, ?, Hyporthermie, Hyperthermie
 // [VAR Poids]
@@ -1422,6 +1453,92 @@ void FormRubTerrain::OnCMyQTableClicked(CMyQTable *pCMyQTable, const char* name,
  Slot_TableNewDateClicked(name, pCMyQTable);
 }
 
+//--------------------------------- getAtcdList  --------------------------------------------------
+/*
+   <m_allergies>
+     3007528|CIP|ASPIRINE|ALD|Allergie(Allergie)|choc anaphylactique grâve |06-06-1956|
+     3515495|CIP|LAMALINE|Sport|Allergie(Allergie)|urticaire généralisé |06-06-1956|
+     3507745|CIP|AMOXICILINE ET INHIBITEUR D'ENZYME|ALD|Allergie(Allergie)|bronchospasme allergique sévère|06-06-1956|
+   </m_allergies>
+   <m_antecedents>
+     K27|CIM|ulcère gastro duodénal|ALD|Médical(Gastro)|pas de commentaire|06-06-1956|
+     N19|CIM|Insuf renale|ALD|Médical(uro néphro)|pas de commentaire|06-06-1956|
+     W78|CISP|Grossesse||Médical(Obstétrique)|pas de commentaire|10-10-2012|
+     Z32|CIM|Grossesse||Médical(Obstétrique)|pas de commentaire|10-10-2012|
+     Z39.1|CIM|Allaitement||Médical(Puerpéralité)|pas de commentaire|10-10-2012|
+     |MD|Pratique du judo à haut niveau|Sport|Habitudes(Activité Sportive)|Attention aux produits dopants|10-10-2012|
+     |MD|chauffeur de bus scolaire|Vigilance|Habitudes(Profession)|Attention aux produits altérant la vigilance|10-10-2012|
+ */
+QStringList FormRubTerrain::getAtcdList( const QString &tableName )
+{  QListViewItemIterator it( listView_ATCD );
+   QStringList retList;
+   QString     element;
+   m_pCMoteurBase->GotoDebug();
+   while ( it.current() )
+       { CPrtQListViewItem* pCPrt = (CPrtQListViewItem*)it.current();
+         QString code = pCPrt->text(6);
+         if ( tableName=="allergies")
+            { if (!code.startsWith("(")) {++it;continue;}
+            }
+         else
+            { if ( code.startsWith("(")) {++it;continue;}
+            }
+         /*
+         QString str_0 = pCPrt->text(0); qDebug(str_0);
+         QString str_1 = pCPrt->text(1); qDebug(str_1);
+         QString str_2 = pCPrt->text(2); qDebug(str_2);
+         QString str_3 = pCPrt->text(3); qDebug(str_3);
+         QString str_4 = pCPrt->text(4); qDebug(str_4);
+         QString str_5 = pCPrt->text(5); qDebug(str_5);
+         */
+         QDate   dateDeb;
+         QDate   dateEnd;
+         QString s_dateDeb = CGenTools::NormaliseDate(pCPrt->text(2));
+         QString s_dateEnd = CGenTools::NormaliseDate(pCPrt->text(3));
+
+         dateDeb  = QDate::fromString(s_dateDeb,Qt::ISODate);
+         if (! dateDeb.isValid ())  dateDeb = QDate::currentDate().addDays (-2);
+         s_dateDeb = dateDeb.toString("dd-MM-yyyy");
+
+         dateEnd   = QDate::fromString(s_dateEnd,Qt::ISODate);
+         if (! dateEnd.isValid ()) s_dateEnd = "";
+         else                      s_dateEnd = dateEnd.toString("dd-MM-yyyy");
+
+
+         //.................. code de l'atcd ou allergie ........................................
+         // N19|CIM|Insuf renale|ALD|Médical(uro néphro)|pas de commentaire|06-06-1956|
+         element = "";
+
+         if (code.startsWith("-("))
+            { element += code.remove('-').remove('(').remove(')') + "|CISP|";
+            }
+         else if (code.startsWith("(-"))
+            { element += code.remove("(-").remove("-)")           + "|CIP|";
+            }
+         else if (code.startsWith("~"))
+            { element += code.remove('~')                         + "|CIM|";
+            }
+         else if (code.startsWith("(."))
+            { element += code.remove("(.").remove(".)")           + "|ATC|";
+            }
+         else if (code.startsWith("("))
+            { element += code.remove('(').remove(')')             + "|VID_ALRG|";
+            }
+         else
+            { element += code                                     + "|MD|";
+            }
+         element += pCPrt->text(0)                 + "|";                              // libelle
+         element += pCPrt->text(5)                 + "|";                              // statut ALD / SPORT / VIGILANCE
+         element += pCPrt->text(1)                 + "|";                              // classse medintux
+         element += pCPrt->text(4).remove('|')     + "|";                              // commentaire
+         element += s_dateDeb                      + "|";                              // date debut
+         element += s_dateEnd                           ;                              // date fin
+         retList.append(element);
+        ++it;
+       }
+    return retList;
+}
+
 //--------------------------------- pushButtonSave_clicked --------------------------------------------------
 void FormRubTerrain::pushButtonSave_clicked()
 {if (m_IsModifiable==0) return;
@@ -1429,6 +1546,10 @@ void FormRubTerrain::pushButtonSave_clicked()
  //FormToData(strDST);
  //m_IsModified = 0;
  //disconnect(m_pAtcd_Code, SIGNAL( ATCD_Changed() ), this, SLOT( ATCD_HaveChanged() ));
+ //.......... on sauvegarde les antecedents et le traitemment en cours dans les tables ..........................
+ m_pCMoteurBase->save_ListAtcd(G_pCApp->m_ID_Doss, G_pCApp->m_NumGUID, G_pCApp->m_User, G_pCApp->m_SignUser,"antecedents", listView_ATCD );
+ m_pCMoteurBase->save_ListAtcd(G_pCApp->m_ID_Doss, G_pCApp->m_NumGUID, G_pCApp->m_User, G_pCApp->m_SignUser,"allergies"  , listView_ATCD );
+ G_pCApp->m_pCMedicaBase->save_TraitementEnCours(G_pCApp->m_ID_Doss, G_pCApp->m_NumGUID, G_pCApp->m_User, G_pCApp->m_SignUser, m_OrdoList, G_pCApp->m_pCMoteurBase->m_DataBase );
  emit Sign_SaveButtonClicked();
  //connect(m_pAtcd_Code, SIGNAL( ATCD_Changed() ), this, SLOT( ATCD_HaveChanged() ));
  //sexeAndParturienteDisplay();  qDebug ("pushButtonSave_clicked() sexeAndParturienteDisplay()");
@@ -1479,12 +1600,12 @@ void FormRubTerrain::listView_TTT_contextMenuRequested( QListViewItem *qlistView
 
  m_pQListViewItem = qlistViewItem;
 
-pQPopupMenu->insertItem( Theme::getIconListEdit(),  tr("Modifier le traitement en cours"),                            this, SLOT( TTT_SlotMenuActionModifier()),      CTRL+Key_M );
-pQPopupMenu->insertItem( Theme::getIcon("16x16/listview_renouv.png"), tr("Renouveler le traitement de fond"),         this, SLOT( TTT_MenuActionRenouveler()),        CTRL+Key_R );
-pQPopupMenu->insertItem( Theme::getIcon("16x16/list_all_ttt.png"), tr("Prescrire le traitement en cours"),            this, SLOT( TTT_MenuActionPrescrire()),         CTRL+Key_L );
+pQPopupMenu->insertItem( Theme::getIconListEdit(),  tr("Modifier le traitement de fond"),                             this, SLOT( TTT_SlotMenuActionModifier()),      CTRL+Key_M );
+pQPopupMenu->insertItem( Theme::getIcon("16x16/listview_renouv.png"), tr("Renouveler le traitement de fond"),         this, SLOT( TTT_SlotMenuActionRenouveler()),        CTRL+Key_R );
+// pQPopupMenu->insertItem( Theme::getIcon("16x16/list_all_ttt.png"), tr("Prescrire le traitement en cours"),            this, SLOT( TTT_MenuActionPrescrire()),         CTRL+Key_L );
 pQPopupMenu->insertSeparator ();
-pQPopupMenu->insertItem( tr("Traitement \303\240 renouveler"),                      this, SLOT( TTT_MenuActionSetRenouveler()),     CTRL+Key_H );
-pQPopupMenu->insertItem( tr("Traitement intercurrent"),                             this, SLOT( TTT_MenuActionSetIntercurent()),    CTRL+Key_I );
+pQPopupMenu->insertItem( tr("Traitement \303\240 renouveler"),                      this, SLOT( TTT_SlotMenuActionSetRenouveler()),     CTRL+Key_H );
+pQPopupMenu->insertItem( tr("Traitement intercurrent"),                             this, SLOT( TTT_SlotMenuActionSetIntercurent()),    CTRL+Key_I );
 
 if (qlistViewItem!=0)
     {// pQPopupMenu->insertSeparator ();
@@ -1497,12 +1618,6 @@ if (qlistViewItem!=0)
  delete pQPopupMenu;
  m_pQListViewItem = 0;
 }
-
-//------------------------------------ TTT_SlotMenuActionModifier --------------------------------------------------
-void FormRubTerrain::TTT_SlotMenuActionModifier()
-{ TTT_MenuActionModifier();
-}
-//------------------------------------ Alert_WriteOnly --------------------------------------------------
 void FormRubTerrain::Alert_WriteOnly()
 {QMessageBox::warning ( this, tr(PROG_NAME" Modification d'un document"),
                               tr ( "La modification de ce document n'est pas\r\n"
@@ -1517,27 +1632,58 @@ void FormRubTerrain::TTT_PutPrescriptionInTerrain(RUBREC_LIST::iterator it)
     {Alert_WriteOnly();
      return;
     }
-
+ 
  if (((*it).m_Type).toInt()!=TYP_ORDO_CALC) return;
- QByteArray            data;
- m_pCMoteurBase->GetDataFromRubList(data, it);       // recuperer donn\303\251es soit dans liste cache soit sur disque
- char *ptr        = data.data();
- //long  len        = data.size();
- QString  stringStruct;
- CMedicaBase::Medica_DiskDataSplitIn_HtmlData_StructData(ptr, 0, &stringStruct);    // y isoler et recuperer les donn\303\251es calculables
- if (stringStruct.length()==0)          return;      // anciennes format de donn\303\251es structur\303\251es cassos
- CMedicaBase::Medica_PosologieListDeserialize(stringStruct, m_OrdoList);
- TTT_OrdoListToListView(listView_TTT, m_OrdoList);
+ //........ recuperer le BLOB et convertir UTF8 .............
+ QString stringDST;
+ QByteArray         ba_data;
+ m_pCMoteurBase->GetDataFromRubList(ba_data, it);       // recuperer donn\303\251es soit dans liste cache soit sur disque
+ char *ptr        = ba_data.data();
+ long len         = ba_data.size();
+ if  (ptr && len>0)
+     {if ( CGestIni::IsUtf8( ptr, len ) ) stringDST = QString::fromUtf8 ( ptr );
+      else                                stringDST = ba_data.data();
+     }
+ //.............. le placer ...................................
+ TTT_PutBlobPrescriptionInTerrain(stringDST);
  m_IsModified |= 1;
  ButtonSaveDisplay(G_pCApp->m_Droits);
 }
-
-//------------------------------------ TTT_MenuActionModifier --------------------------------------------------
-int FormRubTerrain::TTT_MenuActionModifier()
+//------------------------------------ TTT_PutBlobPrescriptionInTerrain --------------------------------------------------
+void FormRubTerrain::TTT_PutBlobPrescriptionInTerrain(const QString &datas)
+{        m_LAP_Ordo               = "";
+         QString stringStruct     = "";
+         QString stringHasStruct  = "";
+         CMedicaBase::Medica_DiskDataSplitIn_HtmlData_StructData     (datas, 0, &stringStruct);       // y isoler et recuperer les données calculables
+         CMedicaBase::Medica_DiskDataSplitIn_HtmlData_HAS_StructData (datas, 0, &stringHasStruct);    // y isoler et recuperer les données calculables
+         if (stringHasStruct.length())
+            { m_LAP_Ordo = datas;
+              TTT_LapXmlToListView(listView_TTT, m_LAP_Ordo );
+	      CMedicaBase::Medica_PosologieListDeserialize(G_pCApp->m_pCMedicaBase->Medica_Has_StructDataToOldXmlStruct(m_LAP_Ordo), m_OrdoList);
+            }
+         else
+            { CMedicaBase::Medica_PosologieListDeserialize(stringStruct, m_OrdoList);
+              TTT_OrdoListToListView(listView_TTT, m_OrdoList);
+            }
+}
+//------------------------------------ TTT_SlotMenuActionModifier() --------------------------------------------------
+void FormRubTerrain::TTT_SlotMenuActionModifier()
+{ TTT_Modifier("MODIF_TERRAIN");
+}
+//------------------------------------ TTT_Modifier --------------------------------------------------
+int FormRubTerrain::TTT_Modifier(const QString &mode)
 {if (m_IsModifiable==0)
     {Alert_WriteOnly();
      return 0;
     }
+  QString ordo = "";
+  if (m_LAP_Ordo.length()!=0 ||  m_OrdoList.size()!=0)
+     { ordo = G_pCApp->m_pCMedicaBase->Medica_PosologieListToXMLOrdoStruct( m_OrdoList, GetPoids(), GetTaille() , m_LAP_Ordo);  // recuperer l'ordo (soit ancien format soit nouveau)
+     } 
+  int retLap  =  G_pCApp->m_pDrTux->Lap_Lauch(ordo, mode);        // si ordo ancienne forme       retLap != DrTux::IS_ALREADY_LAUCH  ==> on va ds mode degrade
+  if (retLap == DrTux::IS_ALREADY_LAUCH) {  return 1;}            // Ok tout s'est bien passe et le LAP repondra dans le Slot_LapExited()
+
+ //................ forme degradee du LAP avec ancien assistant ............................
  int ret = 0;
  Dlg_MedicaTux *dlg = new Dlg_MedicaTux(this,"Therapeutique_Dial",TRUE);
  if (dlg ==0)                                                          return 0;
@@ -1553,15 +1699,24 @@ int FormRubTerrain::TTT_MenuActionModifier()
  delete dlg;
  return ret;
 }
+//------------------------------------ Slot_LapExited --------------------------------------------------
+void FormRubTerrain::TTT_Slot_LapExited()
+{ G_pCApp->m_pDrTux->Lap_StopProcess();
+  QString ordoBlob     = G_pCApp->m_pDrTux->Lap_ExchangesFilesToDataBlob();
+  if ( ordoBlob.length() )  
+     { TTT_PutBlobPrescriptionInTerrain(ordoBlob);
+       m_IsModified |= 1;
+       ButtonSaveDisplay(G_pCApp->m_Droits);
+     }
+}
 
 //------------------------------------ TTT_MenuActionRenouveler --------------------------------------------------
-void FormRubTerrain::TTT_MenuActionRenouveler()
+void FormRubTerrain::TTT_SlotMenuActionRenouveler()
 {if (m_IsModifiable==0)
     {Alert_WriteOnly();
      return;
     }
  //............... creer la liste de medicaments uniquement renouvelables ....................
- int sav = m_IsModified;
  QPL_CPosologie ordo_list;
  QListViewItemIterator ut( listView_TTT );
  while ( ut.current() )
@@ -1572,29 +1727,46 @@ void FormRubTerrain::TTT_MenuActionRenouveler()
            }
         ++ut;
        }
-
+ //.............. methode directe qui ne passe pas par le LAP .................
  // TYP_ORDO_CALC_CURENT pour que date ordo soit la date courante lors appel DrTux::AddNewRecordToRubrique()
+ //  int sav = m_IsModified;
  //  #define TYP_ORDO_CALC_CURENT    CMDI_Prescription::S_GetType()+999     dans CApp.h
- QString ordo = G_pCApp->m_pCMedicaBase->Medica_PosologieListToXMLOrdoStruct(ordo_list, GetPoids(), GetTaille() );
- emit Sign_Renouveler(ordo, TYP_ORDO_CALC_CURENT, 0 );
- m_IsModified = sav;
+ //  QString ordo = G_pCApp->m_pCMedicaBase->Medica_PosologieListToXMLOrdoStruct(ordo_list, GetPoids(), GetTaille() , m_LAP_Ordo);
+ //  emit Sign_Renouveler(ordo , TYP_ORDO_CALC_CURENT, 0 );
+ //  m_IsModified = sav;
+ //................. methode qui passe par le LAP ..............................
+ m_StateModifBeforeLAP = m_IsModified;
+ TTT_Modifier("RENOUV_TERRAIN");
+ //  La sortie,  recuperation et fin  de cette action se fera dans  Slot_LapExitedRenouv()
 }
-
+//------------------------------------ Slot_LapExitedRenouv --------------------------------------------------
+void FormRubTerrain::TTT_Slot_LapExitedRenouv()
+{ G_pCApp->m_pDrTux->Lap_StopProcess();
+  QString ordoBlob     = G_pCApp->m_pDrTux->Lap_ExchangesFilesToDataBlob();
+  if ( ordoBlob.length() )  
+     { TTT_PutBlobPrescriptionInTerrain(ordoBlob);
+       m_IsModified |= 1;
+       ButtonSaveDisplay(G_pCApp->m_Droits);
+       // TYP_ORDO_CALC_CURENT pour que date ordo soit la date courante lors appel DrTux::AddNewRecordToRubrique()
+       emit Sign_Renouveler(ordoBlob, TYP_ORDO_CALC_CURENT, 0 );
+     }
+  m_IsModified = m_StateModifBeforeLAP;
+}
 //------------------------------------ TTT_MenuActionPrescrire --------------------------------------------------
-void FormRubTerrain::TTT_MenuActionPrescrire()
+void FormRubTerrain::TTT_SlotMenuActionPrescrire()
 {if (m_IsModifiable==0)
     {Alert_WriteOnly();
      return;
     }
  int sav = m_IsModified;
  // TYP_ORDO_CALC_CURENT pour que date ordo soit la date courante lors appel DrTux::AddNewRecordToRubrique()
- QString ordo = G_pCApp->m_pCMedicaBase->Medica_PosologieListToXMLOrdoStruct( m_OrdoList, GetPoids(), GetTaille() );
+ QString ordo = G_pCApp->m_pCMedicaBase->Medica_PosologieListToXMLOrdoStruct( m_OrdoList, GetPoids(), GetTaille() , m_LAP_Ordo);
  emit Sign_Renouveler(ordo , TYP_ORDO_CALC_CURENT, 0 );
  m_IsModified = sav;
 }
 
 //------------------------------------ TTT_MenuActionSetRenouveler --------------------------------------------------
-void FormRubTerrain::TTT_MenuActionSetRenouveler()
+void FormRubTerrain::TTT_SlotMenuActionSetRenouveler()
 {if (m_IsModifiable==0)
     {Alert_WriteOnly();
      return;
@@ -1612,7 +1784,7 @@ void FormRubTerrain::TTT_MenuActionSetRenouveler()
 }
 
 //------------------------------------ TTT_MenuActionSetIntercurent --------------------------------------------------
-void FormRubTerrain::TTT_MenuActionSetIntercurent()
+void FormRubTerrain::TTT_SlotMenuActionSetIntercurent()
 {if (m_IsModifiable==0)
     {Alert_WriteOnly();
      return;
@@ -1628,7 +1800,24 @@ void FormRubTerrain::TTT_MenuActionSetIntercurent()
  m_IsModified |= 1;
  ButtonSaveDisplay(G_pCApp->m_Droits);
 }
-
+//--------------------------------- TTT_LapXmlToListView --------------------------------------------------
+void FormRubTerrain::TTT_LapXmlToListView(QListView *pQListView, const QString &lap_Ordo )
+{ QStringList ordoLinesList = CGestIni::getXmlDataList("OrdoLine", lap_Ordo);
+  QString ordoLine          = "";
+  QString product_name      = "";
+  int                    id = 0;
+  pQListView->clear();
+  for (int i=0; i < (int) ordoLinesList.size();++i)
+      {ordoLine         = ordoLinesList[i].stripWhiteSpace();;
+       product_name     = CGestIni::getXmlData("gph_na", ordoLine);               // recuperer la date de fin de la ligne prescriptive
+       new QListViewItem( pQListView,
+                          product_name.replace('[','(').replace(']',')'),
+                          tr("Renouvelable"),
+                          QString::number(id)
+                        );
+       id++;
+      }  
+}
 //--------------------------------- TTT_OrdoListToListView --------------------------------------------------
 void FormRubTerrain::TTT_OrdoListToListView(QListView *pQListView, QPL_CPosologie &ordo_list)
 {QPL_CPosologie::iterator it;
@@ -1636,7 +1825,7 @@ void FormRubTerrain::TTT_OrdoListToListView(QListView *pQListView, QPL_CPosologi
  pQListView->clear();
  for (it = ordo_list.begin(); it != ordo_list.end(); ++it )
      {new QListViewItem( pQListView,
-                         G_pCApp->m_pCMedicaBase->Medica_GetMedicamentNameByCIP((*it).m_MEDICA_POSO_CIP),
+                         G_pCApp->m_pCMedicaBase->Medica_GetMedicamentNameByCIP((*it).m_MEDICA_POSO_CIP).replace('[','(').replace(']',')'),
                          tr("Renouvelable"),
                          QString::number(id)
                        );
@@ -1646,12 +1835,14 @@ void FormRubTerrain::TTT_OrdoListToListView(QListView *pQListView, QPL_CPosologi
 
 //--------------------------------- listView_TTT_doubleClicked --------------------------------------------------
 void FormRubTerrain::listView_TTT_doubleClicked( QListViewItem * )
-{TTT_MenuActionModifier();
+{TTT_Modifier("MODIF_TERRAIN");
+ //  La sortie,  recuperation et fin  de cette action se fera dans  Slot_LapExited()
 }
 
 //--------------------------------- pushButtonNewTTT_clicked --------------------------------------------------
 void FormRubTerrain::pushButtonNewTTT_clicked()
-{TTT_MenuActionModifier();
+{TTT_Modifier("MODIF_TERRAIN");
+ //  La sortie,  recuperation et fin  de cette action se fera dans  Slot_LapExited()
 }
 
 //--------------------------------- pushButtonDellAllTTT_clicked --------------------------------------------------
@@ -1666,6 +1857,7 @@ void FormRubTerrain::pushButtonDellAllTTT_clicked()
  if (ret >=1 ) return;
  listView_TTT->clear();
  m_OrdoList.clear();
+ m_LAP_Ordo    = "";
  m_IsModified |= 2;
  ButtonSaveDisplay(G_pCApp->m_Droits);
 }
@@ -1704,7 +1896,7 @@ void FormRubTerrain::listView_ATCD_contextMenuRequested( QListViewItem *qlistVie
  QString ret                         = "";
  QStringList optionList;
  switch(c)
- {case 0:  // libelle
+ {case LV_NAME:  // libelle
      {
       ThemePopup *pThemePopup   = new ThemePopup(this, "MyPopupMenu" );
       pThemePopup->insertItem(Theme::getIcon( "Cim10All_Icon.png"),     tr("Ajouter un  Ant\303\251c\303\251dent CIM10"),                  this, SLOT( ATCD_MenuActionNewCIM10()),       CTRL+Key_Dollar );
@@ -1717,14 +1909,10 @@ void FormRubTerrain::listView_ATCD_contextMenuRequested( QListViewItem *qlistVie
          pThemePopup->insertSeparator ();
          pThemePopup->insertItem( Theme::getIconListDelete() , tr("Effacer les ant\303\251c\303\251dents s\303\251lectionn\303\251s"),                 this, SLOT( ATCD_MenuActionMultiDel()),       CTRL+Key_F );
          pThemePopup->insertSeparator ();
-         pThemePopup->insertItem( Theme::getIconListDateTime(),        tr("Modifier la date de cet Ant\303\251c\303\251dent"),             this, SLOT( ATCD_MenuActionSetDate()),        CTRL+Key_D );
-         pThemePopup->insertItem( Theme::getIcon("16x16/timeDel.png"), tr("Effacer la date de cet Ant\303\251c\303\251dent"),              this, SLOT( ATCD_MenuActionDelDate()),        SHIFT+Key_D );
-         if (m_pAtcd_Element_Selected->m_Etat==0) // Pass\303\251
-            {   pThemePopup->insertItem( Theme::getIcon("16x16/listok.png"),  tr("Gu\303\251ri (passer en Actif)"),                  this, SLOT( ATCD_MenuActionChangeEtatActif()),CTRL+Key_H );
-            }
-         else
-            {  pThemePopup->insertItem( Theme::getIconListWarning(),  tr("Actif (passer en Gu\303\251ri)"),                          this, SLOT( ATCD_MenuActionChangeEtatGueri()),CTRL+Key_L );
-            }
+         pThemePopup->insertItem( Theme::getIconListDateTime(),        tr("Modifier la date de d\303\251but de cet Ant\303\251c\303\251dent"),             this, SLOT( ATCD_MenuActionSetDateDeb()),        CTRL+Key_D );
+         pThemePopup->insertItem( Theme::getIcon("16x16/timeDel.png"), tr("Effacer la date de d\303\251but  de cet Ant\303\251c\303\251dent"),             this, SLOT( ATCD_MenuActionDelDateDeb()),        SHIFT+Key_D );
+         pThemePopup->insertItem( Theme::getIconListDateTime(),        tr("Modifier la date de fin de cet Ant\303\251c\303\251dent"),             this, SLOT( ATCD_MenuActionSetDateFin()),        CTRL+Key_D );
+         pThemePopup->insertItem( Theme::getIcon("16x16/timeDel.png"), tr("Effacer la date de fin  de cet Ant\303\251c\303\251dent"),             this, SLOT( ATCD_MenuActionDelDateFin()),        SHIFT+Key_D );
          pThemePopup->insertSeparator ();
          Add_popMenu_ATCD_Type(pThemePopup);
          pThemePopup->insertSeparator ();
@@ -1732,45 +1920,57 @@ void FormRubTerrain::listView_ATCD_contextMenuRequested( QListViewItem *qlistVie
             { pThemePopup->insertItem( Theme::getIcon("16x16/commentaire.png"),  m_pAtcd_Element_Selected->m_Commentaire,      this, SLOT( ATCD_MenuActionSetCommentaire()), CTRL+Key_K );
             }
          else
-            { pThemePopup->insertItem( Theme::getIcon("16x16/commentaire.png"),  tr("D\303\251finir un commentaire"),                this, SLOT( ATCD_MenuActionSetCommentaire()), CTRL+Key_T );
+            { pThemePopup->insertItem( Theme::getIcon("16x16/commentaire.png"),  tr("D\303\251finir un commentaire"),          this, SLOT( ATCD_MenuActionSetCommentaire()), CTRL+Key_T );
             }
         pThemePopup->insertSeparator ();
-        pThemePopup->insertItem( Theme::getIcon("16x16/ald_on.png"),  tr("En rapport avec une pathologie ALD"),                this, SLOT( ATCD_setAldOn()),         CTRL+Key_I );
-        pThemePopup->insertItem( Theme::getIcon("16x16/ald_off.png"), tr("Sans rapport avec une pathologie ALD"),              this, SLOT( ATCD_setAldOff()),        CTRL+Key_O );
+        pThemePopup->insertItem( Theme::getIcon("16x16/ald_on.png"),       tr("En rapport avec une pathologie ALD"),       this, SLOT( ATCD_setAldOn()),         CTRL+Key_I );
+        pThemePopup->insertItem( Theme::getIcon("16x16/sport_on.png"),     tr("En rapport avec une activité sportive"),    this, SLOT( ATCD_setSportOn()),       ALT+Key_S );
+        pThemePopup->insertItem( Theme::getIcon("16x16/vigilance_on.png"), tr("En rapport avec une vigilance intacte"),    this, SLOT( ATCD_setVigilanceOn()),   ALT+Key_V );
+        pThemePopup->insertItem( Theme::getIcon("16x16/ald_off.png"),      tr("Sans rapport ALD ou activité sportive"),    this, SLOT( ATCD_setAldOff()),        CTRL+Key_O );
         }
       pThemePopup->exec(pos);
       delete pThemePopup;
       m_pQListViewItem = 0;
      }
      break;
-  case 1:         // med/chir
-     pQPopupMenu   = new ThemePopup(this, "MyPopupMenu" );
-     Add_popMenu_ATCD_Type(pQPopupMenu);
-     pQPopupMenu->exec(QCursor::pos());
-     delete pQPopupMenu;
-     break;
-  case 2:         // etat passe transitoire
-        pQPopupMenu   = new ThemePopup(this, "MyPopupMenu" );
-        pQPopupMenu->insertItem( G_pCApp->m_Theme.getIcon("16x16/listok.png"),   tr("Gu\303\251ri (passer en Actif)"),  this, SLOT( ATCD_MenuActionChangeEtatActif()),    CTRL+Key_Y );
-        pQPopupMenu->insertItem( G_pCApp->m_Theme.getIconListWarning(),  tr("Actif (passer en Gu\303\251ri)"),          this, SLOT( ATCD_MenuActionChangeEtatGueri()),    SHIFT+Key_Y );
-        pQPopupMenu->exec(QCursor::pos());
-     delete pQPopupMenu;
-     break;
-  case 3:         // commentaire
-     ATCD_MenuActionSetCommentaire();
-     break;
-  case 4:         // date
-     ATCD_MenuActionSetDate();
-     break;
-  case 5:         // ALD
-     {ThemePopup *pThemePopup   = new ThemePopup(this, "MyPopupMenu" );
-      pThemePopup->insertItem( Theme::getIcon("16x16/ald_on.png"),  tr("En rapport avec une pathologie ALD"),      this, SLOT( ATCD_setAldOn()),         CTRL+Key_A );
-      pThemePopup->insertItem( Theme::getIcon("16x16/ald_off.png"), tr("Sans rapport avec une pathologie ALD"),    this, SLOT( ATCD_setAldOff()),        SHIFT+Key_A );
-      pThemePopup->exec(QCursor::pos());
-      delete pThemePopup;
+  case LV_TYPE:         // med/chir
+     { pQPopupMenu   = new ThemePopup(this, "MyPopupMenu" );
+       Add_popMenu_ATCD_Type(pQPopupMenu);
+       pQPopupMenu->exec(QCursor::pos());
+       delete pQPopupMenu;
      }
      break;
-  case 6:          // code de l'antecedent
+  case LV_DFIN:         // etat passe transitoire
+     { ThemePopup *pThemePopup   = new ThemePopup((QWidget*)this->parent(), "MyPopupMenu" );
+       pThemePopup->insertItem( Theme::getIconListDateTime(),        tr("Modifier la date de fin de cet Ant\303\251c\303\251dent"),       this, SLOT( ATCD_MenuActionSetDateFin()),        CTRL+Key_G );
+       pThemePopup->insertItem( Theme::getIcon("16x16/timeDel.png"), tr("Effacer la date de fin de cet Ant\303\251c\303\251dent"),        this, SLOT( ATCD_MenuActionDelDateFin()),        CTRL+Key_G );
+       pThemePopup->exec(QCursor::pos());
+       delete pThemePopup;
+     }
+     break;
+  case LV_COMM:         // commentaire
+     { ATCD_MenuActionSetCommentaire();
+     }
+     break;
+  case LV_DDEB:         // date
+     { ThemePopup *pThemePopup   = new ThemePopup((QWidget*)this->parent(), "MyPopupMenu" );
+       pThemePopup->insertItem( Theme::getIconListDateTime(),        tr("Modifier la date de d\303\251but de cet Ant\303\251c\303\251dent"),       this, SLOT( ATCD_MenuActionSetDateDeb()),        CTRL+Key_G );
+       pThemePopup->insertItem( Theme::getIcon("16x16/timeDel.png"), tr("Effacer la date de d\303\251but de cet Ant\303\251c\303\251dent"),        this, SLOT( ATCD_MenuActionDelDateDeb()),        CTRL+Key_G );
+       pThemePopup->exec(QCursor::pos());
+       delete pThemePopup;
+     }
+     break;
+  case LV_ALSP:         // ALD
+     { ThemePopup *pThemePopup   = new ThemePopup(this, "MyPopupMenu" );
+       pThemePopup->insertItem( Theme::getIcon("16x16/ald_on.png"),       tr("En rapport avec une pathologie ALD"),      this, SLOT( ATCD_setAldOn()),         CTRL+Key_A );
+       pThemePopup->insertItem( Theme::getIcon("16x16/sport_on.png"),     tr("En rapport avec une activité sportive"),   this, SLOT( ATCD_setSportOn()),       ALT+Key_S );
+       pThemePopup->insertItem( Theme::getIcon("16x16/vigilance_on.png"), tr("En rapport avec une vigilance intacte"),   this, SLOT( ATCD_setVigilanceOn()),   ALT+Key_V );
+       pThemePopup->insertItem( Theme::getIcon("16x16/ald_off.png"),      tr("Sans rapport avec une pathologie ALD"),    this, SLOT( ATCD_setAldOff()),        SHIFT+Key_A );
+       pThemePopup->exec(QCursor::pos());
+       delete pThemePopup;
+     }
+     break;
+  case LV_CODE:          // code de l'antecedent
      {listView_ATCD_doubleClicked( qlistViewItem);
      }
      break;
@@ -1782,6 +1982,18 @@ void FormRubTerrain::listView_ATCD_contextMenuRequested( QListViewItem *qlistVie
 */
 void FormRubTerrain::ATCD_setAldOn()
 {ATCD_setAldOnOff(tr("ALD"));
+}
+//------------------------------------ ATCD_setSportOn --------------------------------------------------
+/*! \brief positionne les ATCD selectionnes dans la listview des ATCD sur sans rapport avec les ALD
+*/
+void FormRubTerrain::ATCD_setSportOn()
+{ATCD_setAldOnOff(tr("Sport"));
+}
+//------------------------------------ ATCD_setVigilanceOn() --------------------------------------------------
+/*! \brief positionne les ATCD selectionnes dans la listview des ATCD sur en rapport avec une vigilaance non altérée
+*/
+void FormRubTerrain::ATCD_setVigilanceOn()
+{ATCD_setAldOnOff(tr("Vigilance"));
 }
 //------------------------------------ ATCD_setAldOff --------------------------------------------------
 /*! \brief positionne les ATCD selectionnes dans la listview des ATCD sur sans rapport avec les ALD
@@ -1886,29 +2098,39 @@ void FormRubTerrain::ATCD_MenuActionNewCISP()
     }
 }
 
-//------------------------------------ ATCD_MenuActionSetDate --------------------------------------------------
+//------------------------------------ ATCD_MenuActionSetDateDeb --------------------------------------------------
 /*! \brief Modifie la date de l'ATCD s\303\251lectionn\303\251 par le biais de la classe Atcd_Code
 */
-void FormRubTerrain::ATCD_MenuActionSetDate()
+void FormRubTerrain::ATCD_MenuActionSetDateDeb()
 { if (m_pQListViewItem == 0)       return;
   if (m_IsModifiable==0)           return;
   if (!m_pAtcd_Code)               return;
   if (!m_pAtcd_Element_Selected)   return;
-  m_pAtcd_Code->modifyDate((QWidget*)this, m_pAtcd_Element_Selected);
+  m_pAtcd_Code->modifyDateDeb((QWidget*)this, m_pAtcd_Element_Selected);
   // L'affichage se remet a jour grace au signal de Atcd_Code.
 }
-
-//------------------------------------ ATCD_MenuActionDelDate --------------------------------------------------
+//------------------------------------ ATCD_MenuActionSetDateFin --------------------------------------------------
+/*! \brief Modifie la date de l'ATCD s\303\251lectionn\303\251 par le biais de la classe Atcd_Code
+*/
+void FormRubTerrain::ATCD_MenuActionSetDateFin()
+{ if (m_pQListViewItem == 0)       return;
+  if (m_IsModifiable==0)           return;
+  if (!m_pAtcd_Code)               return;
+  if (!m_pAtcd_Element_Selected)   return;
+  m_pAtcd_Code->modifyDateFin((QWidget*)this, m_pAtcd_Element_Selected);
+  // L'affichage se remet a jour grace au signal de Atcd_Code.
+}
+//------------------------------------ ATCD_MenuActionDelDateDeb --------------------------------------------------
 /*! \brief Efface la date de l'ATCD s\303\251lectionn\303\251 par le biais de la classe Atcd_Code
 */
-void FormRubTerrain::ATCD_MenuActionDelDate()
+void FormRubTerrain::ATCD_MenuActionDelDateDeb()
 {
   if (m_IsModifiable==0)     return;
   if (!m_pAtcd_Code)         return;
   if (m_pQListViewItem==0)   return;
 
  m_pQListViewItem->setSelected (TRUE);   // reselectionner l'item au dessus duquel se retrouve la souris
- m_pC_ListViewATCDManager->ATCD_MenuActionDelDate();
+ m_pC_ListViewATCDManager->ATCD_MenuActionDelDateDeb();
  m_pQListViewItem         = 0;
  m_pAtcd_Element_Selected = 0;
  //................ mettre a jour les datas de la rubrique ...................
@@ -1918,7 +2140,26 @@ void FormRubTerrain::ATCD_MenuActionDelDate()
     {m_pCMoteurBase->ReplaceDataInRubList(stringDST, m_pRubList, m_LastRub );
     }
 }
+//------------------------------------ ATCD_MenuActionDelDateFin --------------------------------------------------
+/*! \brief Efface la date de l'ATCD s\303\251lectionn\303\251 par le biais de la classe Atcd_Code
+*/
+void FormRubTerrain::ATCD_MenuActionDelDateFin()
+{
+  if (m_IsModifiable==0)     return;
+  if (!m_pAtcd_Code)         return;
+  if (m_pQListViewItem==0)   return;
 
+ m_pQListViewItem->setSelected (TRUE);   // reselectionner l'item au dessus duquel se retrouve la souris
+ m_pC_ListViewATCDManager->ATCD_MenuActionDelDateFin();
+ m_pQListViewItem         = 0;
+ m_pAtcd_Element_Selected = 0;
+ //................ mettre a jour les datas de la rubrique ...................
+ QString stringDST;
+ FormToData(stringDST);
+ if (m_LastRub != -1)
+    {m_pCMoteurBase->ReplaceDataInRubList(stringDST, m_pRubList, m_LastRub );
+    }
+}
 //------------------------------------ ATCD_MenuActionNewAllergie ---------------------------------------------------
 /*! \brief Ajoute un ATCD allergique par le biais de Atcd_Code de CApp
 */
@@ -1961,36 +2202,6 @@ void FormRubTerrain::ATCD_MenuActionMultiDel()
     }
  m_pQListViewItem         = 0;
  m_pAtcd_Element_Selected = 0;
- //................ mettre a jour les datas de la rubrique ...................
- QString stringDST;
- FormToData(stringDST);
- if (m_LastRub != -1)
-    {m_pCMoteurBase->ReplaceDataInRubList(stringDST, m_pRubList, m_LastRub );
-    }
-}
-
-//------------------------------------ ATCD_MenuActionChangeEtatGueri --------------------------------------------------
-/*! \brief Connecte avec Atcd_Code la modification de l'\303\251tat de l'ant\303\251c\303\251dent s\303\251lectionn\303\251.
-*/
-void FormRubTerrain::ATCD_MenuActionChangeEtatGueri()
-{ ATCD_MenuActionChangeEtat(0);
-}
-
-//------------------------------------ ATCD_MenuActionChangeEtatActif --------------------------------------------------
-/*! \brief Connecte avec Atcd_Code la modification de l'\303\251tat de l'ant\303\251c\303\251dent s\303\251lectionn\303\251.
-*/
-void FormRubTerrain::ATCD_MenuActionChangeEtatActif()
-{ ATCD_MenuActionChangeEtat(1);
-}
-
-//------------------------------------ ATCD_MenuActionChangeEtat --------------------------------------------------
-/*! \brief Connecte avec Atcd_Code la modification de l'\303\251tat de l'ant\303\251c\303\251dent s\303\251lectionn\303\251.
-*/
-void FormRubTerrain::ATCD_MenuActionChangeEtat(int etat)
-{if (m_pQListViewItem == 0)      return;
- if (m_IsModifiable==0)          return;
- if (!m_pAtcd_Code)              return;
- m_pC_ListViewATCDManager->ATCD_MenuActionChangeEtat( etat);
  //................ mettre a jour les datas de la rubrique ...................
  QString stringDST;
  FormToData(stringDST);
@@ -2093,7 +2304,7 @@ void FormRubTerrain::checkBoxGrossesse_clicked()
  if (checkBoxGrossesse->isChecked ())
     {//QPushButton_DDR->show();
      //textLabelDDR->show();
-	 QPushButton_DDR_clicked();
+         QPushButton_DDR_clicked();
     }
  else
     {QPushButton_DDR->hide();

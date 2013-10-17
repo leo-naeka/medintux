@@ -135,7 +135,7 @@ void C_Dlg_MainWindow::On_pushButtonDateDebClicked()
 //------------------------ C_Frm_Agenda ---------------------------------------------
 C_Frm_Agenda::C_Frm_Agenda(const QDate &date,
                            QWidget *parent               /*=0*/,
-                           const QString& pathAppli      /*=""*/,
+                           const QString &pathAppli      /*=""*/,
                            const QString &localParamIn   /*=""*/ ,
                            const QString &signUser       /*="admin"*/,
                            const QString &user           /*="admin"*/,
@@ -339,6 +339,16 @@ void C_Frm_Agenda::baseReConnect(         const QString &driver,        // nom d
 {if (m_PaintMode < C_Frm_Agenda::NORMAL) return;
  m_pCMoteurAgenda->BaseConnect(driver, baseToConnect, user, pasword, hostname, port, 0, m_pCMoteurAgenda->GetDataBaseLabel());
 }
+//------------------------ changeGUID ---------------------------------------
+void C_Frm_Agenda::changeGUID (const QString &old_guid, const QString &new_guid)
+{   C_Frm_Day *pC_Frm_Day = 0;
+    int                 i = 0;
+    for (i = 0; i < C_Frm_DayList::size(); ++i)
+        { pC_Frm_Day = at(i);
+          pC_Frm_Day->changeGUID (old_guid, new_guid);
+        }
+}
+
 //------------------------ getFreeSpace ---------------------------------------
 void C_Frm_Agenda::getFreeSpace()
 {   //............. on cherche une plage libre avec le dialogue .................
@@ -373,7 +383,7 @@ void C_Frm_Agenda::getFreeSpace()
        {On_AgendaMustDisplayFromThisDate(qdatePlage.date());
         return;
        }
-    //.............. si jour affiche on le cre directement dans le jour...........
+    //.............. si jour affiche on le cree directement dans le jour...........
     if (pC_Frm_Day)
        {pC_Frm_Day->newRDVAtThisDate(qdatePlage, 15);
         return;
@@ -1240,6 +1250,32 @@ C_Frm_Day::C_Frm_Day(CMoteurAgenda       * pCMoteurAgenda ,
 //---------------------------- ~C_Frm_Day ------------------------------------------------
 C_Frm_Day::~C_Frm_Day()
 {
+}
+//------------------------ changeGUID ---------------------------------------
+void C_Frm_Day::changeGUID (const QString &old_guid, const QString &new_guid)
+{LOOKREFRESH;
+ for (int i  = 0; i < m_cacheRDV_List.count(); ++i)
+    { C_RendezVous *pRdv = dynamic_cast<C_RendezVous*>(m_cacheRDV_List[i]);
+      if (pRdv && pRdv->m_GUID==old_guid)
+         {  pRdv->m_GUID = new_guid;
+            QString errMess;
+            if ( ! m_pCMoteurAgenda->RDV_Update(*pRdv, &errMess) )
+               { qDebug()<< errMess;
+               }
+         }
+    }
+  C_Frm_Rdv *pC_Frm_Rdv  = 0;
+  for (int i = 0; i < C_Frm_RdvList::count(); ++i)
+      { pC_Frm_Rdv = at(i);
+        if (pC_Frm_Rdv->m_GUID==old_guid)
+           { pC_Frm_Rdv->m_GUID==new_guid;
+             // QString errMess;
+             // if ( ! m_pCMoteurAgenda->RDV_Update(*pC_Frm_Rdv, &errMess) )
+             //   { qDebug()<< errMess;
+             //   }
+           }
+      }
+  UNLOOKREFRESH;
 }
 //---------------------------- toGoogle ------------------------------------------------
 void C_Frm_Day::toGoogle(C_GoogleAPI *pC_GoogleAPI)

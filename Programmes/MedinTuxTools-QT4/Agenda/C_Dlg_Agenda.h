@@ -652,6 +652,7 @@ public:
     void            ExpandDialog();
     void            Imprimer_les_RDV_dun_medecin(QDateTime date_rdv, QString code_user);
     int             getStateLook(){return m_DontRecreateWidget;}
+    void            changeGUID (const QString &old_guid, const QString &new_guid);
 
     //.......... DATA  public ........
     C_RendezVous    m_DropedRdv;
@@ -796,6 +797,7 @@ public:
     void     toGoogle(const QDateTime &dateDeb, const QDateTime &dateEnd);
     void     GoogleConnectionErrorDisplay();
     //...............................................
+    void     changeGUID (const QString &old_guid, const QString &new_guid);
     void     setUser(const QString &user)        { m_User     = user;}
     void     setSignUser(const QString &signUser){ m_SignUser = signUser; }
     void     changePixelParMinute ( int pixelParMinute );

@@ -1,2 +1,2 @@
 #! /bin/sh
- ./MakeAllMac.sh 'qfselib' '/usr/lib/qt3'
+ ./MakeAllMac.sh 'set_bases' '/usr/lib/qt3'

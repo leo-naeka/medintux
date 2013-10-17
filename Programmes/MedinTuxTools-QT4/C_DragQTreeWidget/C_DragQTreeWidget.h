@@ -9,14 +9,24 @@ class C_DragQTreeWidget : public QTreeWidget
 {
     Q_OBJECT
 public:
+
+    enum flags  { NOT_CALL_STD_EVENT     = 0,
+                  AFTER_CALL_STD_EVENT   = 1,
+                  BEFORE_CALL_STD_EVENT  = 2
+                };
     explicit C_DragQTreeWidget(QWidget *parent = 0);
     void             setMimeType(const QString& mimeType);
     void             setIconPathMimeType(const QString& path);
     void             mousePressEvent(QMouseEvent *event);
     void             mouseMoveEvent(QMouseEvent *event);
     QTreeWidgetItem *getFirstSelectedItem();
+protected:
+    void keyPressEvent ( QKeyEvent * event );
+
 signals:
     void Sign_giveMeDatas(QString &data, QTreeWidgetItem *item);
+    void Sign_keyPressEvent(QKeyEvent *, int &);
+    void Sign_keyPressEvent(QKeyEvent *, int &, C_DragQTreeWidget*);
 
 public slots:
 

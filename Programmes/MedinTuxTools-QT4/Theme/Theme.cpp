@@ -15,9 +15,9 @@
  *                              http://www.cecill.info/                           *
  *   as published by :                                                            *
  *                                                                                *
- *   Commissariat �  l'Energie Atomique                                            *
+ *   Commissariat a l'Energie Atomique                                            *
  *   - CEA,                                                                       *
- *                            31-33 rue de la Fédération, 75752 PARIS cedex 15.   *
+ *                            31-33 rue de la Federation, 75752 PARIS cedex 15.   *
  *                            FRANCE                                              *
  *   Centre National de la Recherche Scientifique                                 *
  *   - CNRS,                                                                      *
@@ -41,16 +41,16 @@
 #include <QPixmap>
 
 /*! \class Theme
- * Cette classe est entièrement statique. Avant d'accéder aux fonction de récupération des icones, il faut définir le chemin vers le répertoire de thème par la fonction setPath(). Celui-ci est structuré de la sorte :
- * racine : les icones de taille mal définie
- * 16x16 : répertoire pour les icones visualisables dans les Popup et les ListView
+ * Cette classe est entierement statique. Avant d'acceder aux fonction de recuperation des icones, il faut definir le chemin vers le repertoire de theme par la fonction setPath(). Celui-ci est structure de la sorte :
+ * racine : les icones de taille mal definie
+ * 16x16 : repertoire pour les icones visualisables dans les Popup et les ListView
  * 22x22 : pour les icones des bouttons
- * 32x32 : pour les listBox des fenêtres de paramètre.
- * dans le répertoire racine existe un fichier Theme.ini qui contient les informations sur les couleurs, polices...
+ * 32x32 : pour les listBox des fenetres de parametre.
+ * dans le repertoire racine existe un fichier Theme.ini qui contient les informations sur les couleurs, polices...
 
- *  Cette classe peut être utilisée par toutes les applications de MedinTux.
+ *  Cette classe peut etre utilisee par toutes les applications de MedinTux.
 
- *  Pour limiter l'utilisation massive du CPU au démarrage de l'application les icones sont chargés au moment de leur demande par les fonctions getIcon....().
+ *  Pour limiter l'utilisation massive du CPU au demarrage de l'application les icones sont charges au moment de leur demande par les fonctions getIcon....().
 */
 
 // Faut tout initialiser avant d'utiliser la classe.
@@ -74,7 +74,7 @@ QColor Theme::getFromIniFile(const char* section, const char* var, bool& finded,
 { // gagner du temps process
   if (finded) return color;
   if (m_ThemeIni=="") return color;
-  // Récupère la couleur dans le Ini
+  // Recupere la couleur dans le Ini
   QString r,g,b;
   r=""; g=""; b="";
   if (CGestIni::Param_ReadParam(m_ThemeIni.toAscii(), section, var, &r, &g, &b) != QString::null)
@@ -87,7 +87,7 @@ QColor Theme::getFromIniFile(const char* section, const char* var, bool& finded,
   }
   else
   { finded = TRUE;
-    return color; // valeur par défaut
+    return color; // valeur par defaut
   }
 }
 
@@ -95,7 +95,7 @@ int Theme::getFromIniFile(const char* section, const char* var, bool& finded, in
 { // gagner du temps process
   if (finded) return value;
   if (m_ThemeIni=="") return value;
-  // Récupère la couleur dans le Ini
+  // Recupere la couleur dans le Ini
   QString val = "";
   if (CGestIni::Param_ReadParam(m_ThemeIni.toAscii(), section, var, &val) != QString::null)
   { return value; }
@@ -107,7 +107,7 @@ int Theme::getFromIniFile(const char* section, const char* var, bool& finded, in
   }
   else
   { finded = TRUE;
-    return value; // valeur par défaut
+    return value; // valeur par defaut
   }
 }
 
@@ -127,7 +127,7 @@ int Theme::getFontSize_Menus()
                  m_FontSize_Menus_Defined, m_FontSize_Menus);
 }
 
-/*! \brief Renvoie le répertoire de thème en cours. */
+/*! \brief Renvoie le repertoire de theme en cours. */
 QString  Theme::getPath(bool withSeparator)
 {if (withSeparator==FALSE)
     {if (m_Path.endsWith("/")) return m_Path.left(m_Path.length()-1);
@@ -135,19 +135,19 @@ QString  Theme::getPath(bool withSeparator)
  return m_Path;
 }
 
-/*! \brief Définit le répertoire de thème �  utiliser. Fonction OBLIGATOIRE avant toute autre pour définir le répertoire sinon risque de plantage. */
+/*! \brief Definit le repertoire de theme a utiliser. Fonction OBLIGATOIRE avant toute autre pour definir le repertoire sinon risque de plantage. */
 void Theme::setPath(const QString p)
 { m_Path = p;
   QString pathIni = p + "/Theme.ini";
   pathIni = QDir:: cleanPath(pathIni);
-  // Récupère au passage le fichier ini du theme qui contient les codes couleur
+  // Recupere au passage le fichier ini du theme qui contient les codes couleur
   if (!QFile(pathIni).exists())
   { createDefaultIniFile();
   }
   CGestIni::Param_UpdateFromDisk(pathIni, m_ThemeIni);
 }
 
-/*! \brief Crée le fichier de toute pièce pour le thème par défaut. */
+/*! \brief Cree le fichier de toute piece pour le theme par defaut. */
 void Theme::createDefaultIniFile()
 { QString pathIni = m_Path + "/Theme.ini";
   pathIni = QDir:: cleanPath(pathIni);

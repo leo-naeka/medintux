@@ -199,8 +199,8 @@
 	/////////////////        IMAGES          ////////////////////
 	/////////////////////////////////////////////////////////
 
-    QString          GetImageNameNearCursor();
-    QString          GetLastImageName(){return m_ImageName;};
+    QString           GetImageNameNearCursor();
+    QString           GetLastImageName(){return m_ImageName;};
     void              SaveImage(QString &imageName);
     void              ImageProperty(QString &imageName);
 
@@ -268,7 +268,7 @@
         QString getText( CRubRecord* pCRubRecord = 0 );
         QString getText_IfTypeIsDocuments(int *len = 0);
         QString getText_IfTypeIsOrdoCalc(CRubRecord* pCRubRecord);
-
+        QString getText_IfTypeIsOrdoLap(CRubRecord* pCRubRecord);
   QPixmap*                    decodeStringTo_pQPixmap( const QString& in );
   QPixmap                     decodeStringTo_QPixmap( const QString& in );
   QString                     encodePixmapToBase64( const QPixmap& pixIn);

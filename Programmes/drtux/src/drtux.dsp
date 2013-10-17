@@ -4,7 +4,7 @@
 
 # TARGTYPE "Win32 (x86)  Application" 0x0101
 
-CFG= - Win32 Release
+CFG= - Win32 Debug
 !MESSAGE This is not a valid makefile. To build this project using NMAKE,
 !MESSAGE use the Export Makefile command and run
 !MESSAGE 
@@ -34,12 +34,12 @@ RSC=rc.exe
 # PROP BASE Use_MFC 0
 # PROP BASE Use_Debug_Libraries 0
 # PROP BASE Output_Dir "Release"
-# PROP BASE Intermediate_Dir "obj"
+# PROP BASE Intermediate_Dir "Release"
 # PROP BASE Target_Dir ""
 # PROP Use_MFC 0
 # PROP Use_Debug_Libraries 0
 # PROP Output_Dir "Release"
-# PROP Intermediate_Dir "obj"
+# PROP Intermediate_Dir "Release"
 # PROP Target_Dir ""
 # ADD CPP -MD /W3 /I "..\src" /I "..\..\SesamVitale-QT3" /I "$(QTDIR)\include" /I "ui" /I "." /I "..\..\gest_user\src" /I "..\..\MedinTuxTools" /I "..\..\MedinTuxTools\Calendar" /I "." /I "moc" /I "C:\Qt3\3.3.4\mkspecs\win32-msvc" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D _DR_TUX /D SESAMVITALE_VERSION /D QT_DLL /D QT_THREAD_SUPPORT /D "QT_NO_DEBUG" /FD /c -nologo -Zm200 -GX -O1 
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /win32
@@ -55,12 +55,12 @@ LINK32=link.exe
 # PROP BASE Use_MFC 0
 # PROP BASE Use_Debug_Libraries 1
 # PROP BASE Output_Dir "Debug"
-# PROP BASE Intermediate_Dir "Debug"
+# PROP BASE Intermediate_Dir "obj"
 # PROP BASE Target_Dir ""
 # PROP Use_MFC 0
 # PROP Use_Debug_Libraries 1
 # PROP Output_Dir "Debug"
-# PROP Intermediate_Dir "Debug"
+# PROP Intermediate_Dir "obj"
 # PROP Target_Dir ""
 # ADD CPP -MDd /W3 /GZ /ZI /Od /I "..\src" /I "..\..\SesamVitale-QT3" /I "$(QTDIR)\include" /I "ui" /I "." /I "..\..\gest_user\src" /I "..\..\MedinTuxTools" /I "..\..\MedinTuxTools\Calendar" /I "." /I "moc" /I "C:\Qt3\3.3.4\mkspecs\win32-msvc" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D _DR_TUX /D SESAMVITALE_VERSION /D QT_DLL /D QT_THREAD_SUPPORT /FD /c -nologo -Zm200 -GX -Zi  
 # ADD MTL /nologo /D "_DEBUG" /mktyplib203 /win32
@@ -187,10 +187,6 @@ SOURCE=..\..\MedinTuxTools\Calendar\MyDateTable.cpp
 # Begin Source File
 
 SOURCE=..\..\MedinTuxTools\Calendar\C_Horloge.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\MedinTuxTools\GestRPU.cpp
 # End Source File
 # Begin Source File
 
@@ -1149,11 +1145,6 @@ BuildCmds= \
 # End Custom Build
 
 !ENDIF 
-
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\MedinTuxTools\GestRPU.h
 
 # End Source File
 # Begin Source File

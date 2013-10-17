@@ -273,7 +273,7 @@ QString C_Cps::GetMember(int memberIndex, unsigned short  iDGroupeCourant)
 {if (iDGroupeCourant==1)
     {switch(memberIndex)
      {case 1: return m_TypePS;
-      case 2: return m_TypeIdNat;
+      case 2: return m_TypeIdNat;      // 3 == RPPS
       case 3: return m_NIR;
       case 4: return m_Clef_NIR;
       case 5: return m_CodeCivilite;
@@ -287,9 +287,9 @@ QString C_Cps::GetMember(int memberIndex, unsigned short  iDGroupeCourant)
       case 2:  return m_ModeExe;
       case 3:  return m_StatutExe;
       case 4:  return m_SectActivite;
-      case 5:  return m_TypIdentStruct;
-      case 6:  return m_NumIdentStruct;
-      case 7:  return m_NumIdentStructClef;
+      case 5:  return m_TypIdentStruct;       // 4 = RPPS
+      case 6:  return m_NumIdentStruct;       // RPPS
+      case 7:  return m_NumIdentStructClef;   // clef RPPS
       case 8:  return m_RaisonSocialeStruct;
       case 9:  return m_NumIdentFactuPs;
       case 10: return m_NumIdentFactuPsClef;

@@ -43,6 +43,7 @@
 #include "../../MedinTuxTools-QT4/CGestIni.h"
 #include "../../MedinTuxTools-QT4/Theme/Theme.h"
 #include "../../MedinTuxTools-QT4/CMoteur_Base.h"
+#include "../../MedinTuxTools-QT4/Theme/ThemePopup.h"
 
 //------------------------ C_Frm_UserList ---------------------------------------
 C_Frm_UserList::C_Frm_UserList(CMoteurBase *pCMoteurBase, QWidget *parent)
@@ -118,23 +119,15 @@ void C_Frm_UserList::pushButtonCPS_clicked()
 
 //------------------------------------ pushButtonSetDefault_clicked --------------------------------------
 void C_Frm_UserList::pushButtonSetDefault_clicked()
-{m_ui.pushButtonSetDefault->setIcon ( QIcon (Theme::getIcon( "UserList/Down.png")));
- //.................. creer liste des items du menu .......................
- QStringList popItem;
- popItem.append(tr("&Automatic start of the program with hte user: ")+ G_pCApp->m_User);
- popItem.append(tr("Cancel automatic start of the program with a user"));
- QString popRet       = CApp::DoPopupList(popItem);
-
- if (popRet==tr("Cancel automatic start of the program with a user"))
-    {CGestIni::Param_WriteParam( &G_pCApp->m_LocalParam, "Derniere Session", "Utilisateur",  "","");
-     CGestIni::Param_WriteParam( &G_pCApp->m_LocalParam, "Derniere Session", "Password",   "");
-    }
- else if (popRet.length())
-    {CGestIni::Param_WriteParam( &G_pCApp->m_LocalParam, "Derniere Session", "Utilisateur",  G_pCApp->m_User, G_pCApp->m_SignUser);
-     CGestIni::Param_WriteParam( &G_pCApp->m_LocalParam, "Derniere Session", "Password",     QString("#") + G_pCApp->m_CriptedPassWord);
-    }
- CGestIni::Param_UpdateToDisk(G_pCApp->m_PathIni, G_pCApp->m_LocalParam);
- m_ui.pushButtonSetDefault->setIcon ( QIcon (Theme::getIcon( "UserList/Left.png"))) ;
+{   m_ui.pushButtonSetDefault->setIcon ( QIcon (Theme::getIcon( "UserList/Down.png")));
+    //.................. creer liste des items du menu .......................
+    QStringList optionList;
+    optionList<<"=1="+tr("&Automatic start of the program with the user: ")+ G_pCApp->m_User;
+    optionList<<"=2="+tr("Cancel automatic start of the program with a user");
+    QString option = ThemePopup(optionList,this).DoPopupList();
+    if (option.length()==0) return;
+    G_pCApp->saveLastUserOn_Ini(option=="1");
+    m_ui.pushButtonSetDefault->setIcon ( QIcon (Theme::getIcon( "UserList/Left.png"))) ;
 }
 
 //------------------------------------ setDefaultUser --------------------------------------
@@ -269,9 +262,8 @@ QTreeWidgetItem *C_Frm_UserList::getSignUser(QTreeWidgetItem *pQListViewItem)
 
 //------------------------------------ getDefaultComboBoxUserTyp --------------------------------------
 QString C_Frm_UserList::getDefaultComboBoxUserTyp()
-{QString   data_ini, userTyp;
- CGestIni::Param_UpdateFromDisk(G_pCApp->m_PathIni , data_ini);
- if (CGestIni::Param_ReadParam(data_ini, "Utilisateurs", "type par defaut", &userTyp) == QString::null) return userTyp.trimmed();// zero = pas d'erreur
+{QString   userTyp;
+ if (G_pCApp->readParam( "Utilisateurs", "type par defaut", &userTyp) == QString::null) return userTyp.trimmed();// zero = pas d'erreur
  return QString::null;
 }
 
@@ -305,13 +297,12 @@ void C_Frm_UserList::setComboOnValue(QComboBox *pQComboBox, const QString &value
 }
 //------------------------------------ comboBoxUserTyp_activated --------------------------------------
 void C_Frm_UserList::comboBoxUserTyp_activated(const  QString &userQualite_in )
-{QString data_ini, userQualite;
- CGestIni::Param_UpdateFromDisk(G_pCApp->m_PathIni , data_ini);
- CGestIni::Param_WriteParam(&data_ini, "Utilisateurs", "type par defaut",userQualite_in);
- CGestIni::Param_UpdateToDisk(G_pCApp->m_PathIni, data_ini);
+{QString userQualite;
+ G_pCApp->writeParam( "Utilisateurs", "type par defaut",userQualite_in);
+ G_pCApp->updateIniParamToDisk();
 
  if    (userQualite_in==tr("Any user")) userQualite = "";
- else                                           userQualite = userQualite_in;
+ else                                   userQualite = userQualite_in;
  initUserListOnUserType(userQualite);
  restaureOldUser();
  emit Sign_ComboUserTypClicked(userQualite);

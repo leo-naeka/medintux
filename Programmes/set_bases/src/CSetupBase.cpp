@@ -90,11 +90,13 @@ QSqlDatabase*  CSetupBase::BaseConnect(const QString & driver,              // n
 
 //---------------------------------------------------- CreationBase -----------------------------------------------------------
 int CSetupBase::CreationBase(QSqlDatabase* mysqlbase, QString &nameBase, QString *errMess/*=0*/, int *errNum /*=0*/,
-                             const QString &driver, const QString &user, const QString &passWord, const QString &hostName, const QString &port)
+                             const QString &driver, const QString &user, const QString &passWord, const QString &hostName, const QString &port
+
+)
 {
     QString qstr = "";
     #ifdef Q_WS_X11
-
+     long dumy  = passWord.length() +  port.length() + user.length();  ++dumy; // pour ne pas avoit unused variable
     #else
         //.................... verifie si la table existe ..................................................
         //                     retourne zero si c'est le cas
@@ -111,7 +113,7 @@ int CSetupBase::CreationBase(QSqlDatabase* mysqlbase, QString &nameBase, QString
            { if (defaultDB->open())
                 {QStringList tablesList = defaultDB->tables();
                  for (int i = 0; i < (int)tablesList.size(); ++i)
-                     {defaultDB->exec (QString("DROP TABLE IF EXISTS `") + tablesList[i] + "`;" );                       
+                     {defaultDB->exec (QString("DROP TABLE IF EXISTS `") + tablesList[i] + "`;" );
                      }
                  defaultDB->close();
                  QSqlDatabase::removeDatabase(defaultDB);

@@ -36,6 +36,14 @@
 #define DATASEMP_BASE   "DATASEMP_BASE"
 #define GET_BASE        "GET_BASE"
 
+template <typename T>
+inline const T &qMin(const T &a, const T &b) { if (a < b) return a; return b; }
+template <typename T>
+inline const T &qMax(const T &a, const T &b) { if (a < b) return b; return a; }
+template <typename T>
+inline const T &qBound(const T &min, const T &val, const T &max)
+{ return qMax(min, qMin(max, val)); }
+
 #define SKIP_BLANK_CAR(a)     while( *(a) && (*(a)==' ' || *(a)=='\t' || *(a)== 96) ) (a)++
 #define NEXT_LINE(a)          while( *(a) && *(a)!='\r' && *(a)!='\n')(a)++; while( *(a) && (*(a)=='\r'|| *(a)=='\n'))(a)++
 #define TR  QObject::tr
@@ -162,8 +170,8 @@ public:
                 const QString& repart,
                 const QString& divers,
                 const QString& pendant       = "691200",        // 8 jours
-                const QString& secabilite    = "1"  ,
-                const QString& extraPk       = "",
+                const QString& secabilite    = "1",
+                const QString& extraPk       = "" ,
                 const QString& note          = "" ,
                 int         posoAdjust       = 50 ,
                 int         numOrdre         = 1  ,
@@ -307,21 +315,21 @@ public:
               result   += "</Posologie>\r\n";
               return result;
              }
-   QString StrtoXml(const QString &in)
+   static QString StrtoXml(const QString &in)
              {QString out (in);
               out.replace(TR("&"),TR("&amp;"));  // en premier
               out.replace("<",TR("&lt;"));
               out.replace(">",TR("&gt;"));
               return out;
              }
-   QString XmltoStr(const QString &in)
+   static QString XmltoStr(const QString &in)
              {QString out (in);
               out.replace(TR("&lt;") , "<");
               out.replace(TR("&gt;") , ">");
               out.replace(TR("&amp;"), TR("&")); // en dernier
               return out;
              }
-   QString extractXmlValue(const QString &xmlInput, int &curPos, const QString& s_tag)
+  static QString extractXmlValue(const QString &xmlInput, int &curPos, const QString& s_tag)
              {QString tag(s_tag); tag.prepend('<');tag.append('>');
               int deb = xmlInput.find(tag, curPos);
               int end = deb;
@@ -421,6 +429,22 @@ class CMedicaBase
         PrintableForm      = 0x0004,
         InteractiveForm    = 0x0008
     };
+      enum flags  {NOT_LITERAL        = 0,
+                   UP_QUANTITE        = 1,
+                   UP_JUST_FRACTION   = 2,
+                   DURATION           = 4,
+                   SEQUENCE_HOUR      = 8,
+                   MOMENT_MEAL        = 16,
+                   INDICATION_LIST    = 32,
+                   INDICATION_CODE    = 64,
+                   INDICATION_TYPE    = 128,
+                   ALL_LITERAL        = 31
+                  };
+      enum indicFlag  { CODE       = 0,
+                        CODE_TYPE  = 1,
+                        LIBELLE    = 2,
+                        ALL_INDIC  = 3
+                      };
 
  // Code de classification arborescente
  // Le premier caractère représente la "section" :
@@ -459,6 +483,12 @@ class CMedicaBase
   int            OutSQL_error( const QSqlQuery &cur, const char *messFunc =0, const char *requete =0,  QString *ret =0);
   QString        Utf8_Query(QSqlQuery &cur, int field);
   //............................ medica Base ........................................................
+  int            save_TraitementEnCours(QString pk_doss,
+                                        QString numGUID,
+                                        QString user,
+                                        QString signUser,
+                                        QPL_CPosologie ordoList,
+                                        QSqlDatabase *dataBaseDst );
   int            GotoDebug();
   void           Medica_SetBaseMode(int mode);          // pour mode limité (base Get)
   int            Medica_GetBaseMode();
@@ -533,8 +563,23 @@ class CMedicaBase
    char         *Medica_ExtractNumber(char *pt, QString &val);
    QString       Medica_MinutesToTime(const QString minutes);
    QString       Medica_PosologieTerrainToHtml(const CPosologie &poso);
-   static long   Medica_DiskDataSplitIn_HtmlData_StructData(const QString &txt, QString *stringDST_text /*=0 */, QString *stringDST_struct /*=0 */);
-   QString       Medica_PosologieListToXMLOrdoStruct( QPL_CPosologie list_CPosologie, const QString &spoids, const QString &staille );
+
+   QString          Medica_Has_StructDataToOldXmlStruct(const QString &hasXml);
+   QString          textTo_UP_Code( QString text );
+   static int       Medica_dureeTotaleRenouvToSecond(QString cycle);
+   static int       Medica_dureeTotaleToSecond(const QString &seq_days);
+   static QString   Medica_sequenceToOldMinMaxPoso( const QString &sequence,  QString &q_min,  QString &q_max,  QString &nb_prises);
+   static QString   Medica_sequence_timeToOldString(const QString &seq_time,  QString &q_min,  QString &q_max,  QString &nb_prises);
+   // static QString   Medica_dureeTotaleRenouvToString(QString cycle,     int must_be_literal = 0 /* = C_PosologieGrammar::NOT_LITERAL */);
+   // static QString   Medica_dureeTotaleToString(const QString &seq_days, int must_be_literal = 0 /* = C_PosologieGrammar::NOT_LITERAL */);
+   // static QString   Medica_sequenceToString(int numSeq, const QString &sequence, int must_be_literal  /* = C_PosologieGrammar::NOT_LITERAL */, const QString &up_forme);
+   // static QString   Medica_sequence_daysToString(int numSeq, const QString &seq_days, int must_be_literal /* = C_PosologieGrammar::NOT_LITERAL */);
+   // static QString   Medica_sequence_timeToString(const QString &seq_time, int must_be_literal /* = C_PosologieGrammar::NOT_LITERAL */, const QString &_up_forme /* = "" */);
+
+   static long      Medica_DiskDataSplitIn_HtmlData_StructData(const QString &txt, QString *stringDST_text /*=0 */, QString *stringDST_struct /*=0 */);
+   static long      Medica_DiskDataSplitIn_HtmlData_HAS_StructData(const QString &txt, QString *stringDST_text /*=0 */, QString *stringDST_struct /*=0 */);
+
+   QString       Medica_PosologieListToXMLOrdoStruct( QPL_CPosologie list_CPosologie, const QString &spoids, const QString &staille , const QString &lap_ordo);
    QString       Medica_PosologieToHtmlOrdo( QPL_CPosologie pQPL_CPosologie ,
                                              const QString &spoids          ,
                                              const QString &staille         ,
@@ -654,7 +699,7 @@ class CMedicaBase
   bool           Medica_IsThisFormeExist(QStringList &list, const QString &forme, int &next);
   long           Medica_GetLastPrimKey(const QString &table_name, const QString &primKeyName);
   void           Medica_FillQListView_ATC(QListView *pQListView );
-  QString        Medica_SetQListViewOnATC(QListView *pQListView ,
+  QListViewItem *Medica_SetQListViewOnATC(QListView *pQListView ,
                                           const QString &atc_code, int ListMustBeClosed  = 1 );
   long           Medica_GetMedicamentListByFamily( QListView *pQlistView          ,
                                                    const int  prodFamily     = 1  ,
@@ -696,6 +741,7 @@ class CMedicaBase
   QString        BaseGet_GetLibelleATC( const QString &codeATC, QString *tauxSS=0);
 
   //.................... Datasemp .........................................................
+  void           Datasemp_FillQListView_ATC(QListView *pQListView );
   QString        Datasemp_GetComposition(const QString &codeProduit);
   QString        Datasemp_Update(const QString &fname,
                                  long &nb_sqlLine,

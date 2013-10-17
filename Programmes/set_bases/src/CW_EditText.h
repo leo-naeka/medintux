@@ -62,12 +62,12 @@ class  CW_EditText : public QTextEdit    //  QT_WIDGET_PLUGIN_EXPORT avant CW_Ed
                 :QTextEdit(parent, name)
             {
             }
-    virtual ~CW_EditText(){//if (pCMimeSourceFactoryDoc) delete pCMimeSourceFactoryDoc;
+     ~CW_EditText(){//if (pCMimeSourceFactoryDoc) delete pCMimeSourceFactoryDoc;
                           }
   //...................  methodes ........................................
-    virtual bool         event ( QEvent * e );
-    virtual void         moveCursor ( int action, bool select =0);
-    static               QString fillWith (QString in, QString toAdd, int nb );
+     bool         event ( QEvent * e );
+     void         moveCursor ( int action, bool select =0);
+    static        QString fillWith (QString in, QString toAdd, int nb );
 public slots:
     void    setText ( const QString & txt );
 

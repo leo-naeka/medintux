@@ -58,6 +58,126 @@ CGestIni::CGestIni()
 {
 
 }
+//---------------------------- addXmlData ------------------------------------------------
+/*! \brief ajoute dans un fichier XML une valeur situee entre un tag de debut <tag> et de fin </tag>
+ *   dans cet exemple la valeur serait ' et de fin' (sans les apostrophes)
+ *  \param _tagXml : String indiquant le nom du tag  sans <  />
+ *  \param valeur :  valeur a encadrer par les tags xml
+ *  \param modeleXML :  QString XML dans laquelle on va ajouter la valeur
+ *  \param ofset :  QString ofset de decalage vers la droite par defaut vide
+ *  \param mustBeB64Protected :  si true la valeur sera convertie et inscrite en base 64.
+*/
+
+void CGestIni::addXmlData(const QString& _tagXml, QString valeur, QString &modeleXML, bool /* mustBeB64Protected  =FALSE */, const QString &ofset /* ="" */)
+{QString tagXml      = _tagXml;
+ QString dataToPlace = "";
+ valeur.replace('&',"&amp;");
+ valeur.replace('>',"&gt;");
+ valeur.replace('<',"&lt;");
+ dataToPlace = valeur;
+ modeleXML += QString("%4   <%1>%2</%3>\n").arg(tagXml, dataToPlace, tagXml,ofset);
+}
+
+//---------------------------- getXmlData ------------------------------------------------
+/*! \brief retourne dans un fichier XML une valeur situee entre un tag de debut <tag> et de fin </tag>
+ *   dans cet exemple la valeur serait 'et de fin' (sans les apostrophes)
+ *  \param tagXml : String indiquant le nom du tag  sans <  />
+ *  \param dataXml :  String XML dans laquelle on va lire la valeur
+ *  \param nextPos :  pointeur sur un int qui si il n'est pas egal a zero indique
+ *                    la position a partir de laquelle chercher. Sera positionne apres le tag recherche.
+ *  \return QString qui est la valeur a rechercher.
+*/
+
+QString CGestIni::getXmlData(const QString& tagXml, const QString& dataXml, int *nextPos, int noConvertCharToHtml /* =0 */)
+{int posEnd  = -1;
+ int posDeb  =  0;
+
+ QString tag =  tagXml+'>';
+ if (nextPos) {posDeb  = dataXml.find(tag, *nextPos);*nextPos=0;}  // on  remet a zero au cas ou tag pas trouve (recommencer a zero)
+ else         {posDeb  = dataXml.find(tag);}
+ if (posDeb==-1)         return QString::null;
+ posDeb += tag.length(); tag = tag.prepend("</");
+ posEnd  = dataXml.find(tag, posDeb);
+ if (posEnd==-1)         return QString::null;
+ if (nextPos) *nextPos = posEnd + tag.length();
+ QString retour = dataXml.mid(posDeb,posEnd-posDeb);
+ if ( noConvertCharToHtml==0 )
+    { retour.replace("&gt;",">");
+      retour.replace("&lt;","<");
+      retour.replace("&amp;","&");
+    }
+ return retour;
+}
+//---------------------------- setXmlData static ------------------------------------------------
+/*! \brief place dans un fichier XML une valeur situee entre un tag de debut <tag> et de fin </tag>
+ *   dans cet exemple la valeur serait 'et de fin' (sans les apostrophes)
+ *  \param tagXml : String indiquant le nom du tag  sans <  />
+ *  \param valeur :    QString valeur a ecrire
+ *  \param dataXml :  String XML dans laquelle on va ecrire la valeur
+ *                    la position a partir de laquelle chercher. Sera positionne apres le tag recherche.
+ *  \param noConvertCharToHtml  if zero (default value) '>' '<' '&' are  converted in '&gt;' '&lt;' '&amp;'
+ *  \return true si tout est ok false sinon (en general le tag n'a pas ete trouve)
+*/
+bool CGestIni::setXmlData(const QString& tagXml,  QString valeur, QString& dataXml, int noConvertCharToHtml /* =0 */)
+{int posEnd  = -1;
+ int posDeb  =  0;
+ if (noConvertCharToHtml == 0)
+    { valeur.replace('&',"&amp;");
+      valeur.replace('>',"&gt;");
+      valeur.replace('<',"&lt;");
+    }
+ QString tag =  tagXml+'>';
+ /*if (nextPos) {posDeb  = dataXml.find(tag, *nextPos);*nextPos=0;}  // on  remet a zero au cas ou tag pas trouve (recommencer a zero)
+ else        */ {posDeb  = dataXml.find(tag);}
+ if (posDeb==-1)         return false;
+ posDeb += tag.length(); tag = tag.prepend("</");
+ posEnd  = dataXml.find(tag, posDeb);
+ if (posEnd==-1)         return false;
+ //if (nextPos) *nextPos = posEnd + tag.length();
+ dataXml = dataXml.remove(posDeb,posEnd-posDeb);
+ dataXml = dataXml.insert(posDeb,valeur);
+ return true;
+}
+//---------------------------- getXmlDataList static --------------------------------------------------------------------
+/*! \brief retourne une QStringList de valeurs à partir d'un fichier XML et d'un tag
+ *   dans cet exemple la valeur serait 'et de fin' (sans les apostrophes)
+ *  \param tagName :  String indiquant le nom du tag sans les  <  />
+ *  \param dataXml :  String XML dans laquelle on va lire la valeur
+ *  \param nextPos :  pointeur sur un int qui si il n'est pas egal a zero indique
+ *                    la position a partir de laquelle chercher. Sera positionne apres le tag recherche.
+ *  \param noConvertCharToHtml  if zero (default value) '>' '<' '&' are  converted in '&gt;' '&lt;' '&amp;'
+ *  \return QStringList qui est la liste de valeurs a rechercher.
+*/
+QStringList CGestIni::getXmlDataList(const QString& tagName, const QString& dataXml, int *nextPos /* =0 */, int noConvertCharToHtml /* =0 */ )
+{int posEnd    = -1;
+ int posDeb    =  0;
+ QString tag   =  tagName+'>';
+ QString toAdd = "";
+ QStringList retList;
+
+ if (nextPos) {posDeb  = dataXml.find(tag, *nextPos);*nextPos=0;}  // on  remet a zero au cas ou tag pas trouve (recommencer a zero)
+ else         {posDeb  = dataXml.find(tag);}
+
+ while (posDeb != -1)
+       {posDeb += tag.length(); tag = tag.prepend("</");
+        posEnd  = dataXml.find(tag, posDeb);
+        if (posEnd==-1)         return retList;
+
+        toAdd = dataXml.mid(posDeb,posEnd-posDeb);
+
+        posDeb = posEnd + tag.length();      // on se place apres le tag de fin donc a la prochaine position
+        if (nextPos) *nextPos = posDeb;      // on retourne si besoin cette prochaine position
+        if (noConvertCharToHtml==0)
+           { toAdd.replace("&gt;",">");
+             toAdd.replace("&lt;","<");
+             toAdd.replace("&amp;","&");
+           }
+        retList.append(toAdd);
+        tag    =  tagName+'>';              // reinitialiser le tag car a ete modifie avant par tag = tag.prepend("</");
+        posDeb = dataXml.find(tag, posDeb);
+       }
+ return retList;
+}
 
 //-----------------------------------------------------  Param_UpdateToDisk --------------------------
 /*! \brief sauvegarde les paramètres iniParam dans un fichier dont le chemin est spécifié.
@@ -68,6 +188,7 @@ void  CGestIni::Param_UpdateToDisk(const QString &file_ini, const QString &inPar
  if ( !file.open( IO_WriteOnly ) )    return;
  QTextStream ts( &file );
  ts << inParam;
+ file.close();
 }
 
 //-----------------------------------------------------  findFermant -----------------------------
@@ -396,7 +517,7 @@ QString CGestIni::Param_ReadUniqueParam(const char* txt, const char *section, co
  *  \param val1 -> val10 : valeurs à lire
  *  \return QString::null si tout OK. sinon retourne le message d'erreur
 */
-QString CGestIni::Param_ReadParam(const char* txt, const char *section, const char  *variable,
+QString CGestIni::Param_ReadParam(  const char* txt, const char *section, const char  *variable,
                                     QString *val1, QString *val2, QString *val3, QString *val4, QString *val5,
                                     QString *val6, QString *val7, QString *val8, QString *val9, QString *val10)
 

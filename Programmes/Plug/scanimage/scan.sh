@@ -1,7 +1,9 @@
 #!/bin/bash
 # file : scan.sh
 DEVICE=$1
-DEV_COMMAND=$2
-FILE_OUT=$3
-scanimage --device-name="$DEVICE" $DEV_COMMAND --format=tiff>"$FILE_OUT"".tiff"
-convert "$FILE_OUT"".tiff" "$FILE_OUT"".png"
+MODE=$2
+RESO=$3
+ROTATE=$4
+FILE_OUT=$5
+scanimage  --device-name="$DEVICE" --mode="$MODE" --resolution="$RESO" > ../../tmp/test_scanimage.pnm
+convert -rotate "$ROTATE" '../../tmp/test_scanimage.pnm' "$FILE_OUT"".png"

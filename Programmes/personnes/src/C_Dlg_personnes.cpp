@@ -96,7 +96,7 @@ C_Dlg_personnes::C_Dlg_personnes(QWidget *parent)
     //........................ connecter les slot de verification ...........................................................................................
     connect( m_pUI->lineEdit_Ville,      SIGNAL( Sign_focusOutEvent(QFocusEvent*, int &)),         this,     SLOT(   Slot_OutFocusVille(QFocusEvent*, int &))  );
     connect( m_pUI->lineEdit_CodePostal, SIGNAL( Sign_focusOutEvent(QFocusEvent*, int &)),         this,     SLOT(   Slot_OutFocusCodePostal(QFocusEvent*, int &))  );
-    connect( m_pUI->lineEdit_CodePostal, SIGNAL( Sign_keyPressEvent(QKeyEvent *, int &)),          this,     SLOT(   Slot_CharEventCodePostal(QKeyEvent *, int &)) );
+    connect( m_pUI->lineEdit_CodePostal, SIGNAL( Sign_keyPressEvent(QKeyEvent *,  int &)),         this,     SLOT(   Slot_CharEventCodePostal(QKeyEvent *, int &)) );
     //................... un petit bidouillage accelerateur ...........................................................
     //                    pour relier fleche haute, basse, return de la zonne d'edition
     //                    au QTreeWidget pour faire monter et descendre la selection

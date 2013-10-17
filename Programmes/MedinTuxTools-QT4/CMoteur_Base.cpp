@@ -34,7 +34,7 @@
  **********************************************************************************/
 
 //=============================================== INCLUDES ============================================================
-#define VERSION_BASE    "02.15.000"
+#define VERSION_BASE    "02.16.000"
 #define MAX_READ        32000
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
@@ -836,6 +836,74 @@ int CMoteurBase::ResoudreDoublons(QTreeWidgetItem *pQListViewItem_Src, QTreeWidg
    return 1;
 }
 
+// SIGEMS DEB
+//------------------------------------------------------------------------------------
+// Affectation d'un ENTRANT SIGEMS a un PATIENT EXISTANT.
+// On remplace le GUID du patient par l'ID SIGEMS dans toutes les tables
+//--------------------------------------------------------------------------------------
+int CMoteurBase::Replace_GUID_Patient_By_ID_Sigems_Everywhere(QTreeWidgetItem *pQListViewItem_Src, QString ID_Sigems)
+{
+ QString guid_Pat = pQListViewItem_Src->text(3);
+ // QString prmk_Pat = pQListViewItem_Src->text(2);
+
+    if (guid_Pat == ID_Sigems)return 0;
+    if (OpenBase()==0) return 0;
+
+    QString requete;
+    QSqlQuery sqlQuery(requete , QSqlDatabase::database(m_BaseLabel) );
+
+    // ................. la table IndexNomPrenom patient ..............................
+    requete     = "UPDATE " + m_DOSS_INDEX_TBL_NAME   +
+                  " SET "   + m_DOSS_INDEX_GUID   + " ='" + ID_Sigems + "'" +
+                  " WHERE " + m_DOSS_INDEX_GUID   + " ='" + guid_Pat  + "'";
+    sqlQuery.exec (requete); if (! sqlQuery.isActive()) return 0;
+
+    // ................. la fiche patient ..............................
+    requete     = "UPDATE " + m_DOSS_IDENT_TBL_NAME   +
+                  " SET "   + m_DOSS_IDENT_GUID   + " ='" + ID_Sigems + "'" +
+                  " WHERE " + m_DOSS_IDENT_GUID   + " ='" + guid_Pat  + "'";
+    sqlQuery.exec (requete); if (! sqlQuery.isActive()) return 0;
+
+    // ................. les notes ......................................
+    requete     = "UPDATE " + m_DOSS_NOTE_TBL_NAME   +
+                  " SET "   + m_DOSS_NOTE_PAT_GUID   + " ='" + ID_Sigems + "'" +
+                  " WHERE " + m_DOSS_NOTE_PAT_GUID   + " ='" + guid_Pat  + "'";
+    sqlQuery.exec (requete); if (! sqlQuery.isActive()) return 0;
+
+    // agenda ................ mise a jour eventuelle du nom dans l'agenda
+    requete     = "UPDATE  agenda  "
+                  " SET Nom    = '" + pQListViewItem_Src->text(0) + "'" +
+                  "  , Prenom  = '" + pQListViewItem_Src->text(1) + "'" +
+                  " WHERE GUID ='"  + guid_Pat         + "'";
+    sqlQuery.exec (requete); if (! sqlQuery.isActive()) return 0;
+
+    requete     = "UPDATE  agenda  "
+                  " SET GUID  = '"  + ID_Sigems   + "'" +
+                  " WHERE GUID  ='" + guid_Pat    + "'";
+    sqlQuery.exec (requete); if (! sqlQuery.isActive()) return 0;
+
+    //....................... les intervenants ............................
+   requete      = "UPDATE " + m_DOSS_INTERVENANTS_TBL_NAME +
+                  " SET "   + m_DOSS_INTERVENANTS_PAT_GUID + " = '" + ID_Sigems  + "'" +
+                  " WHERE " + m_DOSS_INTERVENANTS_PAT_GUID + " ='"  + guid_Pat   + "'";
+   sqlQuery.exec (requete); if (! sqlQuery.isActive()) return 0;
+
+   //....................... les rubriques ............................
+   requete      = "UPDATE " + m_DOSS_RUB_HEAD_TBL_NAME  +
+                  " SET "   + m_DOSS_RUB_HEAD_GUID      + " = '" + ID_Sigems     + "'" +
+                  " WHERE " + m_DOSS_RUB_HEAD_GUID      + " ='"  + guid_Pat      + "'";
+   sqlQuery.exec (requete); if (! sqlQuery.isActive()) return 0;
+
+   //....................... les blobs ............................
+   requete      = "UPDATE " + m_DOSS_RUB_DATA_TBL_NAME  +
+                  " SET "   + m_DOSS_RUB_DATA_GUID      + " = '" + ID_Sigems     + "'" +
+                  " WHERE " + m_DOSS_RUB_DATA_GUID      + " ='"  + guid_Pat      + "'";
+   sqlQuery.exec (requete); if (! sqlQuery.isActive()) return 0;
+
+   CloseBase();
+   return 1;
+}
+// SIGEMS - FIN
 
 //************************************************************************************************************************
 //=================================== GESTION CODE POSTAL ================================================================

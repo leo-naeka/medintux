@@ -35,7 +35,7 @@ public :
         void          dellAllSelectedATCD();
         Atcd_Element*      get_Selected_Atcd_Element( CPrtQListViewItem *pCPrtQListViewItem = 0 );
         CPrtQListViewItem* get_CurrentItem();
-        void          ATCD_MenuActionChangeEtat(int etat);
+        QDate         ATCD_selectDate(const QString &date, const QString &title);
         void          ATCD_MenuActionMultiDel(int sendModifMessage);
         int           ATCD_EditListViewItem(CPrtQListViewItem* pCPrtQListViewItem);
 public:
@@ -55,12 +55,14 @@ public slots:
         void ATCD_MenuActionNewAllergie();
         void ATCD_MenuActionNewTexteLibre();
         void ATCD_MenuActionMultiDel();
-void ATCD_MenuActionSetDate();
-        void ATCD_MenuActionDelDate();
-        void ATCD_MenuActionChangeEtatActif();
-        void ATCD_MenuActionChangeEtatGueri();
+        void ATCD_MenuActionSetDateDeb();
+        void ATCD_MenuActionDelDateDeb();
+        void ATCD_MenuActionSetDateFin();
+        void ATCD_MenuActionDelDateFin();
         void ATCD_MenuActionSetCommentaire();
         void ATCD_setAldOn();
+        void ATCD_setSportOn();
+        void ATCD_setVigilanceOn();
         void ATCD_setAldOff();
         void ATCD_MenuActionSetFamilleGenre();
 

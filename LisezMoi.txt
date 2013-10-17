@@ -30,3 +30,4 @@ rajouter :
   'Lib-QT4-Linux' dans /etc/ld.so.conf et faites un ldconfig
   tout cela bien sur en mode administrateur.
  
+ 

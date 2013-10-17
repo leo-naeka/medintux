@@ -85,8 +85,8 @@ QString        CSesam_API_InfoGroupe::NumGroupeToString(int groupe, int champ)
                   case  17 : return TR("Code agrément 1");
                   case  18 : return TR("Code agrément 2");
                   case  19 : return TR("Code agrément 3");
-                  case  20 : return TR("Habilitation à signer une facture");
-                  case  21 : return TR("Habilitation à signer un lot");
+                  case  20 : return TR("Habilitation �  signer une facture");
+                  case  21 : return TR("Habilitation �  signer un lot");
                   default  : return messageChampInconnu( groupe, champ);
                  }
              }
@@ -150,7 +150,7 @@ QString        CSesam_API_InfoGroupe::NumGroupeToString(int groupe, int champ)
                  }
              }
   case 102:  {switch (champ)
-                 {case -1 :  return TR("Service AMO Famille (0 à 1 occurence)");
+                 {case -1 :  return TR("Service AMO Famille (0 �  1 occurence)");
                   case  1 :  return TR("Code service AMO Famille");
                   case  2 :  return TR("Date de début du service AMO Famille");
                   case  3 :  return TR("Date de fin du service AMO Famille");
@@ -158,7 +158,7 @@ QString        CSesam_API_InfoGroupe::NumGroupeToString(int groupe, int champ)
                  }
              }
   case 103:  {switch (champ)
-                 {case -1 :  return TR("Données Accident du Travail (0 à 1 occurence)");
+                 {case -1 :  return TR("Données Accident du Travail (0 �  1 occurence)");
                   case  1 :  return TR("Organisme gestionnaire du risque AT");                                             // AT 0
                   case  2 :  return TR("Code AT BGDH (ce champ est non renseigné pour la première occurrence)");
                   case  3 :  return TR("Identifiant AT (ce champ est non renseigné pour la première occurrence)");
@@ -172,11 +172,11 @@ QString        CSesam_API_InfoGroupe::NumGroupeToString(int groupe, int champ)
                  }
              }
   case 104:  {switch (champ)
-                 {case -1 :  return TR("Données Bénéficiaire (1 à 6 occurences)");
+                 {case -1 :  return TR("Données Bénéficiaire (1 �  6 occurences)");
                   case  1 :  return TR("Nom usuel du bénéficiaire");
                   case  2 :  return TR("Nom patronymique du bénéficiaire");
                   case  3 :  return TR("Prénom du bénéficiaire");
-                  case  4 :  return TR("Adresse ligne 1 (chez..., N° appt, ou de boîte à lettres, escalier, couloir, étage)");
+                  case  4 :  return TR("Adresse ligne 1 (chez..., N° appt, ou de boîte �  lettres, escalier, couloir, étage)");
                   case  5 :  return TR("Adresse ligne 2 (résidence, bâtiment, immeuble, tour, entrée)");
                   case  6 :  return TR("Adresse ligne 3 (N° et libellé de la voie)");
                   case  7 :  return TR("Adresse ligne 4 (Lieu-dit ou service particulier de distribution)");
@@ -195,14 +195,14 @@ QString        CSesam_API_InfoGroupe::NumGroupeToString(int groupe, int champ)
                  }
              }
   case 105:  {switch (champ)
-                 {case -1 :  return TR("Période de droits AMO (0 à 3 occurences)");
+                 {case -1 :  return TR("Période de droits AMO (0 �  3 occurences)");
                   case  1 :  return TR("Date de début droits AMO");
                   case  2 :  return TR("Date de fin droits AMO");
                   default  : return messageChampInconnu( groupe, champ);
                  }
              }
   case 106:  {switch (champ)
-                 {case -1 :  return TR("Période de code couverture (0 à 7 occurences)");
+                 {case -1 :  return TR("Période de code couverture (0 �  7 occurences)");
                   case  1 :  return TR("Date de début code couverture");
                   case  2 :  return TR("Date de fin code couverture");
                   case  3 :  return TR("Code ALD");
@@ -211,7 +211,7 @@ QString        CSesam_API_InfoGroupe::NumGroupeToString(int groupe, int champ)
                  }
              }
   case 107:  {switch (champ)
-                 {case -1 :  return TR("Données Mutuelle (0 à 1 occurence)");
+                 {case -1 :  return TR("Données Mutuelle (0 �  1 occurence)");
                   case  1 :  return TR("Identification mutuelle");
                   case  2 :  return TR("Garanties effectives");
                   case  3 :  return TR("Indicateur de traitement mutuelle");
@@ -222,14 +222,14 @@ QString        CSesam_API_InfoGroupe::NumGroupeToString(int groupe, int champ)
                  }
              }
   case 108:  {switch (champ)
-                 {case -1 :  return TR("Période de droits Mutuelle (0 à 3 occurences par bénéficiaire)");
+                 {case -1 :  return TR("Période de droits Mutuelle (0 �  3 occurences par bénéficiaire)");
                   case  1 :  return TR("Date de début droits Mutuelle");
                   case  2 :  return TR("Date de fin droits Mutuelle");
                   default  : return messageChampInconnu( groupe, champ);
                  }
              }
   case 109:  {switch (champ)
-                 {case -1 :  return TR("Données de la Complémentaire de santé (0 à 1 occurence par bénéficiaire)");
+                 {case -1 :  return TR("Données de la Complémentaire de santé (0 �  1 occurence par bénéficiaire)");
                   case  1 :  return TR("Numéro complémentaire B2");
                   case  2 :  return TR("Numéro complémentaire EDI");
                   case  3 :  return TR("Numéro d'adhérent AMC");
@@ -246,7 +246,7 @@ QString        CSesam_API_InfoGroupe::NumGroupeToString(int groupe, int champ)
                  }
              }
   case 111:  {switch (champ)
-                 {case -1 :  return TR("Zone Commune (0 à 1 occurence par bénéficiaire)");
+                 {case -1 :  return TR("Zone Commune (0 �  1 occurence par bénéficiaire)");
                   case  1 :  return TR("Zone commune complémentaire (RUF bénéficiaire)");
                   default  : return messageChampInconnu( groupe, champ);
                  }
@@ -389,7 +389,7 @@ QString        CSesam_API_InfoGroupe::NumGroupeToString(int groupe, int champ)
                  {case -1 :  return TR("Groupe Organismes AMC (complémentaire)");
                   case  1 :  return TR("Type de contrat");
                   case  2 :  return TR("N° organisme complémentaire (carte vitale ou autre support)");
-                  case  3 :  return TR("N° d'adhérent à un organisme complémentaire");
+                  case  3 :  return TR("N° d'adhérent �  un organisme complémentaire");
                   case  4 :  return TR("Donées AMC Zone 1");
                   case  5 :  return TR("Donées AMC Zone 2");
                   case  6 :  return TR("N° organisme complémentaire EDI (carte vitale ou autre support)");

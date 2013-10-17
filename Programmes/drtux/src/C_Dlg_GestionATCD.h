@@ -133,6 +133,7 @@ public:
                                                         const QString &filter_chapitre, // chaine du filtre d'entree : un ou plusieurs caracteres de "-FDABHKLNPRSTUWXYZ"
                                                         const QString &filter_class);    // chaine du filtre d'entree : un ou plusieurs caracteres de "SINTCD"
     unsigned long   readLine(QFile *pQFile, char *buffer, QString &outParam, unsigned long nbMax);
+    QListViewItem*  findListViewItem(QListView* pQListView, int depth, const QString &text, int pos_text_in_item = 0);
     int m_TAB_LIBELLE;
     int m_TAB_RUBRIQUE;
     int m_TAB_ALLERGIE;
@@ -174,10 +175,13 @@ protected:
      QStringList          m_CispClassesList;
      QPixmap              m_CispMiniPixmap;
      QPixmap              m_CimxMiniPixmap;
+     QPixmap              m_CimxCodefinal;
+     QPixmap              m_CimxChapitre;
 
 protected slots:
   /*$PROTECTED_SLOTS$*/
     void close();
+    void Slot_checkBox_filter_chapitres_cimxChanged(int);
     void Slot_lineEditAutolcator_Cisp1_textChanged(const QString&);
     void Slot_lineEditAutolcator_Cisp2_textChanged(const QString&);
     void Slot_listView_Cisp_clicked(QListViewItem*);
@@ -223,6 +227,8 @@ protected slots:
     void Slot_ThesaurusDel();
     void Slot_lineEditNomAllergie_textChanged( const QString &qtext );
     void Slot_lineEditNomMedicament_textChanged(const QString &qtext);
+    void Slot_listView_ATC_clicked(QListViewItem*);
+    void Slot_listView_ATC_doubleClicked(QListViewItem*);
     void Slot_listView_Produits_clicked(QListViewItem *pQListViewItem);
     void Slot_listView_Produits_doubleClicked( QListViewItem *pQListViewItem );
     void Slot_listViewAllergies_doubleClicked( QListViewItem *pQListViewItem );

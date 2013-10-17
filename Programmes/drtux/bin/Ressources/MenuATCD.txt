@@ -30,6 +30,11 @@
   5 = Pneumologique
   6 = Psychiatriques
 
+[Procréation puerpéralité]
+  0 = Accouchement
+  1 = Allaitement
+  2 = Grossesse
+
 [Sociaux]
   0 = RMI
   1 = SDF

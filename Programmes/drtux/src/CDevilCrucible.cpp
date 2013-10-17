@@ -120,16 +120,18 @@ CDevilCrucible::~CDevilCrucible()
  */
 void CDevilCrucible::DoMixture()
 {
- m_pDocument->replace("{{\\<br>","{{");
- m_pDocument->replace("{{\\<br />","{{");
+ m_pDocument->replace("{{\\<br>"   ,"{{");
+ m_pDocument->replace("{{\\<br/>"  ,"{{");
+ m_pDocument->replace("{{\\<br />" ,"{{");
 /*
  m_pDocument->replace("{{\\<p>","{{");
  m_pDocument->replace("{{\\<p />","{{");
  m_pDocument->replace("{{\\\n","{{");
  m_pDocument->replace("{{\\\r","{{");
 */
- m_pDocument->replace("}}\\<br>","}}");
- m_pDocument->replace("}}\\<br />","}}");
+ m_pDocument->replace("}}\\<br/>"  ,"}}");
+ m_pDocument->replace("}}\\<br>"   ,"}}");
+ m_pDocument->replace("}}\\<br />" ,"}}");
 /*
  m_pDocument->replace("}}\\<p>","}}");
  m_pDocument->replace("}}\\<p />","}}");

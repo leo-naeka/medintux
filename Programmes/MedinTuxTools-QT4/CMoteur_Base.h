@@ -351,6 +351,10 @@ class CMoteurBase: public QObject,          // classe QObject classique
   void RenameTableWhithCorrectName(const QString &correct_name_table, QSqlQuery *pQSqlQuery);
   int  ConvertToNew(QLabel* pQlabelMess  = 0 , Q3ProgressBar* pQProgressBar  = 0 );
   int  ResoudreDoublons(QTreeWidgetItem *pQListViewItem_Src, QTreeWidget *pQListView,                                     int mode /*= CMoteurBase::esclave*/);
+  // SIGEMS DEB
+  int  Replace_GUID_Patient_By_ID_Sigems_Everywhere(QTreeWidgetItem *pQListViewItem_Src, QString ID_Sigems);
+  // SIGEMS FIN
+
   //..................................................................................................................
 long              GetPatientListFromNomPrenomSecuDtNssGeme( QTreeWidget     *pQlistView,
                                                             const QString   &qstr_nom,

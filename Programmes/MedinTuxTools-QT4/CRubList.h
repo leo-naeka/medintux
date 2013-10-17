@@ -196,8 +196,8 @@ int Evnmt_Remove_StateOn_AllFils(QString pk_Pere, int state)
 { CRubEvntList::iterator it;
   for (it = begin(); it !=  end(); ++it )
       {if (pk_Pere == (*it).m_Pere)
-          {(*it).removeState(state);
-            while (Evnmt_Remove_StateOn_AllFils((*it).m_Pk, state)); // voir si la filliation n'est pas a effacer
+          { (*it).removeState(state);
+            while (Evnmt_Remove_StateOn_AllFils((*it).m_Pk, state)){}; // voir si la filliation n'est pas a effacer
           }
       }
  return 0;
@@ -295,7 +295,7 @@ bool IsThisItemInBranch( CRubEvntPair* pCRubEvntPairSrc, const QString &pk_toTes
  for (it = begin(); it !=  end(); ++it )
       {if ((*it).m_Pere == pk_pere)
           { if ( (*it).m_Pk==pk_toTest){ m_IsThisItemInBranch = TRUE; return FALSE;}
-            while (ExploreItemInBranch( (*it).m_Pk, pk_toTest ));    // voir si le fils n'a pas lui aussi des fils
+            while (ExploreItemInBranch( (*it).m_Pk, pk_toTest )){};    // voir si le fils n'a pas lui aussi des fils
           }
       }
   return FALSE;

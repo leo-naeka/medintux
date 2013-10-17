@@ -84,7 +84,7 @@
 C_Utils_Html::C_Utils_Html(QObject *parent /* =0 */, QNetworkAccessManager *pQNetworkAccessManager /* =0 */, QTextEdit *pQTextEditLog /*=0 */ )
         : QObject(parent), C_Log(pQTextEditLog)
 {m_LastError               = "";
- m_Wait_HttpProcess             = 0;
+ m_Wait_HttpProcess        = 0;
  m_position                = 0;
  m_pQProgressBar           = 0;
  //m_EndWaitHttpProcess      = 100000000;
@@ -103,7 +103,7 @@ C_Utils_Html::C_Utils_Html(QObject *parent /* =0 */, QNetworkAccessManager *pQNe
  *  \return QString result whith anchor, links, and chapiters list link
  */
 
-QString  C_Utils_Html::makeLinkList(const QString txt, const QString prefix, const QString endfix, const QString idAnchor /* = "" */)
+QString  C_Utils_Html::makeLinkList(const QString &txt, const QString prefix, const QString endfix, const QString idAnchor /* = "" */)
 {   QStringList chapSegmt;
     int   i          =  0;
     int oldPos       =  0;
@@ -114,12 +114,13 @@ QString  C_Utils_Html::makeLinkList(const QString txt, const QString prefix, con
     QString numChap  = "";
     QString linkList = "";
     QString result   = "";
+
     while ( (pos     = txt.indexOf(prefix , pos, Qt::CaseInsensitive)) != -1 )
     {i     = 0;
      pos  += prefix.length();
      if (endfix=="EOL")
         {end   = txt.indexOf('\n' , pos, Qt::CaseInsensitive);
-         if (end==-1) end = txt.indexOf('\r' , pos, Qt::CaseInsensitive);
+         if (end==-1) end = txt.indexOf('\r' ,   pos, Qt::CaseInsensitive);
          if (end==-1) end = txt.indexOf("<br>" , pos, Qt::CaseInsensitive);
         }
      else
@@ -141,8 +142,8 @@ QString  C_Utils_Html::makeLinkList(const QString txt, const QString prefix, con
      //<a href="#ancrage">Vers le point d'ancre ci-dessus</A>
      chapSegmt  = numChap.split ('.', QString::SkipEmptyParts);
      result    += txt.mid(oldPos, pos-oldPos);
-     anchor     = QString("<h%3><a name=\"%4_%1\">%2</a></h%3>\n").arg(line,line,QString::number(chapSegmt.count()),idAnchor);
-     if (chapSegmt.count()==1) anchor = anchor.prepend("<b><u>").append("</b></u>");
+     anchor     = QString("<h%3 class=titre_resume><a name=\"%4_%1\">%2</a></h%3>\n").arg(line,line,QString::number(chapSegmt.count()),idAnchor);
+     if (chapSegmt.count()==1) anchor = anchor.prepend("<b>").append("</b>");
      if (chapSegmt.count()==2) anchor = anchor.prepend("<b>").append("</b>");
      result    += anchor;
      linkList.append(QString("<a href=\"#%3_%1\">%2</a><br>").arg(line,line,idAnchor));      // <a name="smr0"></a>
@@ -611,7 +612,8 @@ long C_Utils_Html::htmlFind(const QString &text, QString patern, long pos, long 
             }
         }
     else
-        {QChar car = text.at(pos); if (car=='0xA0') {car = ' '; }
+        {QChar car = text.at(pos);
+         if (car==0xA0) {car = 0x32; }
          if (car=='\r'||car=='\n'||car=='\t')                                      // sauter caractères non significatifs || car=='\t'
             {++pos;
             }
@@ -746,20 +748,25 @@ QString C_Utils_Html::protectSymbolByAntiSlash(const QString &text, const QChar 
 //------------------------------------------ toNum -----------------------------------------
 /*! \brief ne retient d'une chaine de caracteres que les valeurs numeriques et le point (au passage les virgules seront transformees en point).
  *  \param text           const QString & texte a convertir en numerique
- *  \param cutFirstStr_in const QString & mode de conversion numerique :\
+ *  \param cutFirstStr_in const QString & mode de conversion numerique :
+ SI   contient $keepSign     la conversion tient compte du signe.
  SI   contient $stopIfNotNum la conversion s'arrete au premier caractere non numerique.
  SI   contient $allString tous les caracteres numeriques de la chaine seront retenus.
  SI   contient $toInt la conversion ne conservera que la partie entiere.
  SI   toute autre valeur, la conversion s'arretera a la premiere occurence de cette valeur.
+ *  \param int *pos si différent de zero alors la position dans la chaine après la valeur numerique
  *  \return une QString resultat du traitement
  */
-QString C_Utils_Html::toNum(const QString &text, const QString &cutFirstStr_in /* = ""*/)
-{
+QString C_Utils_Html::toNum(const QString &text, const QString &cutFirstStr_in /* = ""*/, int *next_pos /* = 0*/)
+{if (next_pos)  *next_pos  = -1;
  QString str               = text.trimmed();
  QString cutFirstStr       = cutFirstStr_in;
- bool    cutFirstNonNum    = TRUE;
- bool    toInt             = (cutFirstStr.indexOf("$toInt") != -1);
+ bool    cutFirstNonNum    = true;
+ bool    keepSign          = (cutFirstStr.indexOf("$keepSign") != -1);
+ if (keepSign) cutFirstStr =  cutFirstStr.remove("$keepSign");
+ bool    toInt             = (cutFirstStr.indexOf("$toInt")    != -1);
  if (toInt) cutFirstStr    =  cutFirstStr.remove("$toInt");
+
  if (cutFirstStr.length())
     {
      if      (cutFirstStr.indexOf("$stopIfNotNum") != -1)    cutFirstNonNum = TRUE;
@@ -772,12 +779,14 @@ QString C_Utils_Html::toNum(const QString &text, const QString &cutFirstStr_in /
  QString ret = "";
  int       i = 0;
  while (i<end)
-     {if (str.at(i)>='0' && str[i]<='9')  {ret += str.at(i);}
-      else if (str.at(i)=='.')            {ret += ".";   }
-      else if (str.at(i)==',')            {ret += ".";   }
-      else if (cutFirstNonNum)            {i    = end;   }
+     {if (str.at(i)>='0' && str[i]<='9')                      {ret += str.at(i);}
+      else if (str.at(i)=='-' || str[i]=='+')                 { if (keepSign) ret += str.at(i);}
+      else if (str.at(i)=='.')                                {ret += ".";   }
+      else if (str.at(i)==',')                                {ret += ".";   }
+      else if (cutFirstNonNum)                                {if (next_pos) *next_pos = i;   i = end;   }
       ++i;
      }
+ if (next_pos && *next_pos==-1) *next_pos = i;
  if (toInt)
     {int pos  =     ret.indexOf(".");
      if (pos != -1) ret.truncate(pos);

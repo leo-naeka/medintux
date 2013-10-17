@@ -11,9 +11,9 @@
  *                              http://www.cecill.info/                           *
  *   as published by :                                                            *
  *                                                                                *
- *   Commissariat Ã   l'Energie Atomique                                           *
+ *   Commissariat ?   l'Energie Atomique                                           *
  *   - CEA,                                                                       *
- *                            31-33 rue de la FÃ©dÃ©ration, 75752 PARIS cedex 15.   *
+ *                            31-33 rue de la Fédération, 75752 PARIS cedex 15.   *
  *                            FRANCE                                              *
  *   Centre National de la Recherche Scientifique                                 *
  *   - CNRS,                                                                      *
@@ -62,8 +62,8 @@ CApp::CApp(QString mui_name, int & argc, char ** argv)
 :QApplication(argc,argv), m_NameAppli(mui_name)
 {   QTextCodec::setCodecForTr( QTextCodec::codecForName("utf8") );
     //.............................. recuperer le numer de vesrsion du .pro ..........................................
-    //                               le mettre dans un tableau static tagué pour
-    //                               qu'il soit repérable dans le binaire
+    //                               le mettre dans un tableau static tagu? pour
+    //                               qu'il soit rep?rable dans le binaire
     static char NUMTAB_VERSION[]     = "==##@@=="NUM_VERSION"==@@##==";    // defini dans le .pro
     //.................... recuperer path de demarrage de l'appli ...........................
     QFileInfo qfi(argv[0]);
@@ -71,9 +71,9 @@ CApp::CApp(QString mui_name, int & argc, char ** argv)
     //.............................. initialiser le theme ..........................................
     m_PathTheme     =  "../../Themes/Default/";
     //if (CGestIni::Param_ReadParam( m_LocalParam.toLatin1(), "Theme", "Path", &m_PathTheme) != QString::null )  // zero = pas d'erreur
-    //   { m_PathTheme     =  "../../Themes/Default/";                                   // valeur par dÃ©faut si pas de theme explicite
+    //   { m_PathTheme     =  "../../Themes/Default/";                                   // valeur par défaut si pas de theme explicite
     //   }
-    if (!QDir(m_PathTheme).exists())     m_PathTheme     =  "../../Themes/Default/";        // valeur par dÃ©faut
+    if (!QDir(m_PathTheme).exists())     m_PathTheme     =  "../../Themes/Default/";        // valeur par défaut
     if ( QDir(m_PathTheme).isRelative()) m_PathTheme.prepend(m_PathAppli);
     m_PathTheme = QDir::cleanPath(m_PathTheme) + "/";
     Theme::setPath(m_PathTheme);
@@ -90,6 +90,7 @@ CApp::CApp(QString mui_name, int & argc, char ** argv)
     m_BaseVersion     = tr("sans objet");
     if (argc==1)              // si un seul parametre alors c'est un D&D sur l'icone ou autre demande de visualisatiojn de fichier
        { m_PathIcone       = Theme::getPath(TRUE) + "22x22/help.png";
+         m_PathHelp        = argv[0];
        }
     //.............. recuperer si il le faut les valeurs des parametres d'appel ....................
     if (argc>1)  m_ModuleName      = CGestIni::fromMyUTF8(argv[1]);

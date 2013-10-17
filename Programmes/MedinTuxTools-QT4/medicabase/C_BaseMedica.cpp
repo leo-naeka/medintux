@@ -365,7 +365,7 @@ int C_BaseMedica::Medica_CreateTableSpecificationProduit(const QString &table_na
                "    `" +            m_MEDICA_SPEC_LABO            + "`       char(45) BINARY default NULL, "
                "    `" +            m_MEDICA_SPEC_ATC             + "`       char(7)  BINARY default NULL, "
                "     PRIMARY KEY("+ m_MEDICA_SPEC_CIP             + ") "
-               "  ) TYPE=MyISAM";
+               "  )";
  return createTable(requeteDst);
 }
 
@@ -391,7 +391,7 @@ int C_BaseMedica::Medica_CreateTableIndexProduit(const QString &table_name)
                "    `" +            m_MEDICA_INDEX_RCP      + "`       char(10)    BINARY default NULL, "
                "    `" +            m_MEDICA_INDEX_CIS      + "`       char(10)    BINARY default NULL, "
                "     PRIMARY KEY("+ m_MEDICA_INDEX_PK       + ") "
-               "  ) TYPE=MyISAM";
+               "  )";
  return createTable(requeteDst);
 }
 
@@ -1222,7 +1222,7 @@ int C_BaseMedica::initInteractionDataBase(const QString &fileName,
                     "`it_compo_class`       VARCHAR(4)    ,"
                     "`it_compo_date`        DATETIME      ,"
                     "PRIMARY KEY (`it_compo_pk`)"
-                    ");")==0) return 0;
+                    ")")==0) return 0;
     if (dropTable(  "it_group")==0) return 0;
     if (createTable("CREATE TABLE `it_group` ("
                     "`it_group_pk`          BIGINT  NOT NULL AUTO_INCREMENT,"
@@ -1231,7 +1231,7 @@ int C_BaseMedica::initInteractionDataBase(const QString &fileName,
                     "`it_group_note`        TEXT         ,"
                     "`it_group_id`          CHAR(10)     ,"
                     "PRIMARY KEY (`it_group_pk`)"
-                    ");"
+                    ")"
                     )==0) return 0;
     if (dropTable(  "it_inter")==0) return 0;
     if (createTable("CREATE TABLE `it_inter` ("
@@ -1242,7 +1242,7 @@ int C_BaseMedica::initInteractionDataBase(const QString &fileName,
                     "`it_inter_cat`          VARCHAR(2000) ,"
                     "`it_inter_date`         DATETIME      ,"
                     "PRIMARY KEY (`it_inter_pk`)"
-                    ");"
+                    ")"
                     )==0) return 0;
     if (dropTable(  "it_link")==0) return 0;
     if (createTable("CREATE TABLE `it_link` ("
@@ -1254,7 +1254,7 @@ int C_BaseMedica::initInteractionDataBase(const QString &fileName,
                     "`it_link_class`         VARCHAR(4)       ,"
                     "`it_link_date`          DATETIME         ,"
                     "PRIMARY KEY (`it_link_pk`)"
-                    ");"
+                    ")"
                     )==0) return 0;
 
     //...................... REMPLIR LA TABLE DES COMPOSANTS ..............................
@@ -1413,7 +1413,6 @@ int C_BaseMedica::BDM_initDrugListFromAfssapsAndBDM(   const QString &owner, con
                     "`"+m_BDM_DRUGLIST_PK_SPEC   +"` BIGINT      ,"
                     "PRIMARY KEY (`"+m_BDM_DRUGLIST_PK+"`)"
                     ")"
-                    "ENGINE = MyISAM;"
                     )==0) return 0;
     //long nbRecordsToParse = countRecords("afs_cis", "WHERE afs_cis_amm = \"AMM active\"");
     long nbRecordsToParse = countRecords("BDM_CIP", " WHERE CODE_ATC <>'Z' AND CODE_ATC <>''");
@@ -1580,7 +1579,7 @@ void C_BaseMedica::fillQListView_ATC(QTreeWidget *pQTreeWidget )
      {pQTreeWidget->clear();
       while (query.next())
             {QString atc_libelle = CGestIni::Utf8_Query(query, 0);
-             QString   atc_code  = CGestIni::Utf8_Query(query, 1);
+             QString   atc_code  = CGestIni::Utf8_Query(query, 1).trimmed();
              int            len  = atc_code.length();
 
              if (len==1)
@@ -1630,7 +1629,7 @@ void C_BaseMedica::initAfssapsATC(const QString &path)
     "`afs_atcTmp_fr`    char(255)                       ,"
     "`afs_atcTmp_de`    char(255)                       ,"
     "PRIMARY KEY  (`afs_atcTmp_pk`)                      "
-    ") ENGINE=MyISAM AUTO_INCREMENT=0                    ");
+    ") AUTO_INCREMENT=0                    ");
     initAfssapsDataBase(path , "afs_atcTmp" , "\",\"" , "\"");
     //................. creation de la table de destination ..........................
     dropTable("afs_atc");
@@ -1642,7 +1641,7 @@ void C_BaseMedica::initAfssapsATC(const QString &path)
     "`afs_atc_libelle`    char(255)                   ,"
     "`afs_atc_lang`       char(10)                    ,"
     "PRIMARY KEY  (`afs_atc_pk`)                       "
-    ") ENGINE=MyISAM AUTO_INCREMENT=0                  ");
+    ")AUTO_INCREMENT=0                  ");
 
  //..................... conversion de table .....................................
  if (!database().isOpen() && database().open()== FALSE)
@@ -2234,7 +2233,7 @@ int C_BaseMedica::initAfssapsDataBase(const QString &fileName, const QString &ta
     }
  QSqlQuery query(QString::null, database());
  //................... verifier si table existe dans la base ...............................
- fieldsList = database().tables();    // faut pas deconner on se sert de fieldsList
+ fieldsList = tablesList();    // faut pas deconner on se sert de fieldsList
  if (fieldsList.indexOf(tableName)==0)
     {err = tr("Cette table : '%1' n'existe pas.").arg(tableName).toAscii();
      outMessage( err, __FILE__, __LINE__);

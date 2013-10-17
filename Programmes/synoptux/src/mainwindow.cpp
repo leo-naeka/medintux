@@ -468,7 +468,6 @@ void MainWindow::AfficherLesTaches(C_Wdg_Box *dlgBox, QString /*codeBox*/, QStri
  setTimerActionOff();
  QString requete, requeteEtat, style, dernierEtat;
  bool    boolTache;
- bool    premierEtat = false;
  QColor  qCouleurTache;
 
     //  On affiche en priorite les taches non terminees, par ordre de priorite, par heure de debut prevue
@@ -545,9 +544,9 @@ void MainWindow::AfficherLesTaches(C_Wdg_Box *dlgBox, QString /*codeBox*/, QStri
         horizonLayoutTache->addWidget(bouttonNomTache);
 
         // Recherche des etats possibles de la tache en cours et creation de boutons
-        int nbBouton = 0;
-        dernierEtat  = "N";
-        premierEtat  = false;
+        int        nbBouton   = 0;
+        bool    premierEtat   = false;
+        dernierEtat           = "N";
         QString couleurDefaut = "#FFFFFF";
         requeteEtat  = QString (" SELECT ET_Libelle_etat, ET_Couleur_etat , ET_Tache_terminee, ET_Code_etat"    // 0-1-2-3
                                 " FROM %1"                                                                      // %1 'synopt_etats'
@@ -874,7 +873,6 @@ void MainWindow::ActualiserUnBox(C_Wdg_Box *LeBox)
 
     // On vire d'abord les layouts
     QList<QLayout *> listeLayouts = LeBox->ui->scrollAreaWidgetContents_box->findChildren<QLayout *>(); // BUGBUG
-
     for (int i=0; i< listeLayouts.size(); i++)
         { // On vire les layout superieurs , les autres layouts  sont vires par Qt
          if (listeLayouts.at(i)->objectName().left(LeBox->objectName().length()) != LeBox->objectName())
@@ -884,14 +882,14 @@ void MainWindow::ActualiserUnBox(C_Wdg_Box *LeBox)
              listeLayouts.at(i)->objectName().contains("verticalLayoutPatCom") ||
              listeLayouts.at(i)->objectName().contains("horizonLayoutResp") )
             {
-            delete listeLayouts.at(i);
-            listeLayouts = LeBox->ui->scrollAreaWidgetContents_box->findChildren<QLayout *>();
-            i = 0;
+             delete listeLayouts.at(i);
+             listeLayouts = LeBox->ui->scrollAreaWidgetContents_box->findChildren<QLayout *>();
+             i = 0;
             }
         }
 
     QList<QObject *> listeWidgets = LeBox->ui->scrollAreaWidgetContents_box->findChildren<QObject *>(); // BUGBUG
-
+    QList<QObject *> listeWidgetsToDel;
     for (int i=0; i< listeWidgets.size(); i++)
         { // on ne garde que les objets lies au box. On vire ce qui est lie a un encours
         if (listeWidgets.at(i)->objectName().contains("label_Nb_Patients_dans_Box"))
@@ -905,9 +903,12 @@ void MainWindow::ActualiserUnBox(C_Wdg_Box *LeBox)
          if (listeWidgets.at(i)->objectName() == "label_BoxEnCours")  continue;
          if (listeWidgets.at(i)->objectName() == "label_Nb_Patients_Maxi") continue;
          BUGBUG */
+         listeWidgetsToDel.append(listeWidgets.at(i));
 
-         delete listeWidgets.at(i);
         }
+    while (!listeWidgetsToDel.isEmpty())
+         delete listeWidgetsToDel.takeFirst();
+
     RemplirLeBox(LeBox, LeBox->ui->label_BoxEnCours->text());
     m_timerAlarme->start();
     setTimerActionOn();

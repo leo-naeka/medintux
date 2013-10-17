@@ -2,18 +2,32 @@
 #include "ui_C_Dlg_Login.h"
 
 #include <QTimer>
+#include <QDebug>
+#include <QKeyEvent>
 #include "../Theme.h"
 #include "../C_AppCore.h"
 
 //---------------------------------------- C_Dlg_Login -----------------------------------------
-C_Dlg_Login::C_Dlg_Login( const QString &login, const QString &password, QWidget *parent) :
-    QDialog(parent),
+C_Dlg_Login::C_Dlg_Login( const QString &login, const QString &password, QWidget *parent /* = 0 */,
+                          C_Dlg_Login::Visibility loginState /* =C_Dlg_Login::Show*/ ,
+                          C_Dlg_Login::Visibility passState  /* =C_Dlg_Login::OnEdit|C_Dlg_Login::Hide */)
+    : QDialog(parent),
     m_pGUI(new Ui::C_Dlg_Login)
 {   m_pGUI->setupUi(this);
-
+    if (loginState & C_Dlg_Login::LoginReadOnly)
+       {m_pGUI->lineEdit_Login->setReadOnly(true);
+        m_pGUI->pushButton_LoginHideShow->hide();
+        m_stateLoginEyes = C_Dlg_Login::Show;
+        m_maskLoginState = 0;
+       }
+    else
+       {m_maskLoginState       = loginState & 3;
+       }
+    m_maskPassState        = passState;
     m_pQTimer              = new QTimer(this);
     m_TimerPasswordCount   = 0;
     m_TimerLoginCount      = 0;
+    m_TimerMajCount        = 0;
 
     if (login.length()&&login[0]=='#')        m_nonCriptedLogin    = C_AppCore::appCore()->criptedToUnCripted(login.mid(1));
     else                                      m_nonCriptedLogin    = login;
@@ -27,6 +41,7 @@ C_Dlg_Login::C_Dlg_Login( const QString &login, const QString &password, QWidget
 
     m_pGUI->lineEdit_Login->setText(m_nonCriptedLogin);
     m_pGUI->lineEdit_Password->setText(m_nonCriptedPassword);
+    setIconCapsSate();
 
     connect( m_pGUI->pushButton_LoginHideShow,       SIGNAL(clicked ( bool )),                     this, SLOT(Slot_pushButton_LoginHideShow  (bool)) );
     connect( m_pGUI->pushButton_PasswordHideShow,    SIGNAL(clicked ( bool )),                     this, SLOT(Slot_pushButton_PasswordHideShow  (bool)) );
@@ -35,6 +50,13 @@ C_Dlg_Login::C_Dlg_Login( const QString &login, const QString &password, QWidget
     connect( m_pGUI->lineEdit_Password,              SIGNAL(cursorPositionChanged ( int , int  )), this, SLOT(Slot_lineEdit_Password_cursorPositionChanged (int , int)) );
     connect( m_pGUI->lineEdit_Login,                 SIGNAL(cursorPositionChanged ( int , int  )), this, SLOT(Slot_lineEdit_Login_cursorPositionChanged (int , int)) );
     connect(m_pQTimer,                               SIGNAL(timeout()),                            this, SLOT(Slot_TimerIsTimeOut()));
+
+#ifdef Q_WS_MAC
+    m_CapsLock = 0;
+    m_pGUI->lineEdit_Password->installEventFilter(this);
+    m_pGUI->lineEdit_Login->installEventFilter(this);
+#endif
+
     m_pQTimer->start(150);
 }
 
@@ -43,6 +65,42 @@ C_Dlg_Login::~C_Dlg_Login()
 {   //if (m_pQTimer) delete m_pQTimer;
     delete m_pGUI;
 }
+//------------------------------------------------------ setFocusOnPass -------------------------------------------------------------------
+void C_Dlg_Login::setFocusOnPass()
+{m_pGUI->lineEdit_Password->setFocus();
+}
+//------------------------------------------------------ setDefaultOnOk -------------------------------------------------------------------
+void C_Dlg_Login::setDefaultOnOk()
+{   m_pGUI->pushButton_LoginOk->setDefault(true);
+}
+
+#ifdef Q_WS_MAC
+//---------------------------------------- eventFilter -----------------------------------------
+bool C_Dlg_Login::eventFilter(QObject * /*obj*/ , QEvent *event)
+ {
+
+     /* Detect Caps Lock.
+      * There is no good OS-independent way to check a key state in Qt, but we
+      * can detect Caps Lock by checking for the following condition:
+      * Shift key is down and the result is a lower case character, or
+      * Shift key is not down and the result is an upper case character.
+      */
+     if (event->type() == QEvent::KeyPress) {
+         QKeyEvent *ke = static_cast<QKeyEvent *>(event);
+         QString   str = ke->text();
+         if (str.length() != 0) {
+             const QChar *psz = str.unicode();
+             bool fShift      = (ke->modifiers() & Qt::ShiftModifier) != 0;
+             if ((fShift && psz->isLower()) || (!fShift && psz->isUpper())) {
+                 m_CapsLock = true;
+             } else if (psz->isLetter()) {
+                 m_CapsLock = false;
+             }
+         }
+     }
+     return false;
+ }
+ #endif
 
 //---------------------------------------- getModeEditState -----------------------------------------
 void C_Dlg_Login::getModeEditState ()
@@ -51,27 +109,34 @@ void C_Dlg_Login::getModeEditState ()
     m_stateLoginEyes    = C_Dlg_Login::Show ;
     state       = C_AppCore::appCore()->readUniqueParam("Login dialog","login visibility");
     if (state.length())
-       {if      (state=="show")      m_stateLoginEyes = C_Dlg_Login::Show ;
-        else if (state=="hide   ")   m_stateLoginEyes = C_Dlg_Login::Hide ;
-        else                         m_stateLoginEyes = C_Dlg_Login::OnEdit;
+       {if      (state=="show" && m_maskLoginState==0)      m_stateLoginEyes = C_Dlg_Login::Show ;
+        else if (state=="hide   ")                          m_stateLoginEyes = C_Dlg_Login::Hide ;
+        else                                                m_stateLoginEyes = C_Dlg_Login::OnEdit;
        }
 
     m_statePasswordEyes    = C_Dlg_Login::Hide ;
     state       = C_AppCore::appCore()->readUniqueParam("Login dialog","password visibility");
     if (state.length())
-       {if      (state=="show")      m_statePasswordEyes = C_Dlg_Login::Show ;
-        else if (state=="hide")      m_statePasswordEyes = C_Dlg_Login::Hide ;
-        else                         m_statePasswordEyes = C_Dlg_Login::OnEdit ;
+       {if      (state=="show" && m_maskPassState)    m_statePasswordEyes = C_Dlg_Login::Show ;
+        else if (state=="hide")                       m_statePasswordEyes = C_Dlg_Login::Hide ;
+        else                                          m_statePasswordEyes = C_Dlg_Login::OnEdit ;
        }
 }
 
-//---------------------------------------- nextModeEditState -----------------------------------------
-C_Dlg_Login::Visibility C_Dlg_Login::nextModeEditState (C_Dlg_Login::Visibility state)
+//---------------------------------------- nextModeEditStateLogin -----------------------------------------
+C_Dlg_Login::Visibility C_Dlg_Login::nextModeEditStateLogin (C_Dlg_Login::Visibility state)
 {int i = (int) state; ++i; if (i > C_Dlg_Login::Hide) i = C_Dlg_Login::Show;
+ if (m_maskLoginState != 0 && i == C_Dlg_Login::Show) i = C_Dlg_Login::OnEdit;
  state = (C_Dlg_Login::Visibility)i;
  return   state;
 }
-
+//---------------------------------------- nextModeEditStatePassword -----------------------------------------
+C_Dlg_Login::Visibility C_Dlg_Login::nextModeEditStatePassword (C_Dlg_Login::Visibility state)
+{int i = (int) state; ++i; if (i > C_Dlg_Login::Hide) i = C_Dlg_Login::Show;
+ if (m_maskPassState != 0 && i == C_Dlg_Login::Show)  i = C_Dlg_Login::OnEdit;
+ state = (C_Dlg_Login::Visibility)i;
+ return   state;
+}
 //---------------------------------------- Slot_lineEdit_Login_cursorPositionChanged -----------------------------------------
 void C_Dlg_Login::Slot_lineEdit_Login_cursorPositionChanged (int , int)
 {if (m_stateLoginEyes<=C_Dlg_Login::OnEdit)
@@ -89,10 +154,34 @@ void C_Dlg_Login::Slot_lineEdit_Password_cursorPositionChanged (int , int)
      m_TimerPasswordCount = 0;
     }
 }
+//---------------------------------------- setIconCapsSate -----------------------------------------
+void C_Dlg_Login::setIconCapsSate()
+{int state = 0;
+ C_AppCore::getAsyncModifiers(&state);
+ #ifdef Q_WS_MAC
+     if (m_CapsLock) state = 2;
+     else            state = 0;
+ #endif
+ if (state&2)
+    {if (m_TimerMajCount&1) m_pGUI->label_CapsState->setPixmap(Theme::getIcon("C_Dlg_Login/caps_up_1.png"));
+     else                   m_pGUI->label_CapsState->setPixmap(Theme::getIcon("C_Dlg_Login/caps_up_2.png"));
+     m_pGUI->label_CapsState_Mess->show();
+    }
+ else
+    {m_pGUI->label_CapsState->setPixmap(Theme::getIcon("C_Dlg_Login/caps_down.png"));
+     m_pGUI->label_CapsState_Mess->hide();
+    }
+ ++ m_TimerMajCount;
+ // qDebug() << " state : "<< QString::number(state);
+}
 
 //---------------------------------------- Slot_TimerIsTimeOut -----------------------------------------
 void C_Dlg_Login::Slot_TimerIsTimeOut()
-{//................... le login ...........................
+{
+  //................... la touche majuscule ...........................
+  setIconCapsSate();
+
+ //................... le login ...........................
  if (m_stateLoginEyes==C_Dlg_Login::OnEdit)
     { if (m_TimerLoginCount>=6)
          {m_pGUI->lineEdit_Login->setEchoMode ( QLineEdit::Password );
@@ -134,7 +223,7 @@ else
 
 //---------------------------------------- Slot_pushButton_LoginHideShow -----------------------------------------
 void C_Dlg_Login::Slot_pushButton_LoginHideShow  (bool)
-{   m_stateLoginEyes = nextModeEditState (m_stateLoginEyes);
+{   m_stateLoginEyes = nextModeEditStateLogin (m_stateLoginEyes);
     set_LoginOnState(m_stateLoginEyes);
     if      (m_stateLoginEyes==C_Dlg_Login::Show)        C_AppCore::appCore()->writeParam("Login dialog","login visibility","show");
     else if (m_stateLoginEyes==C_Dlg_Login::Hide)        C_AppCore::appCore()->writeParam("Login dialog","login visibility","hide");
@@ -143,7 +232,7 @@ void C_Dlg_Login::Slot_pushButton_LoginHideShow  (bool)
 }
 //---------------------------------------- Slot_pushButton_PasswordHideShow -----------------------------------------
 void C_Dlg_Login::Slot_pushButton_PasswordHideShow  (bool)
-{   m_statePasswordEyes = nextModeEditState (m_statePasswordEyes);
+{   m_statePasswordEyes = nextModeEditStatePassword (m_statePasswordEyes);
     set_PasswordOnState  (m_statePasswordEyes);
     if       (m_statePasswordEyes==C_Dlg_Login::Show)        C_AppCore::appCore()->writeParam("Login dialog","password visibility" ,"show");
     else  if (m_statePasswordEyes==C_Dlg_Login::Hide)        C_AppCore::appCore()->writeParam("Login dialog","password visibility" ,"hide");
@@ -193,3 +282,8 @@ QString C_Dlg_Login::get_CriptedPassword( const QString &prefix/*= "" */)
     return str;
     // return C_AppCore::appCore()->unCriptedToCripted(m_nonCriptedPassword).prepend(prefix); // plante
 }
+//------------------------------------------------------ IsPasswordMustBeRecord -------------------------------------------------------------------
+bool C_Dlg_Login::IsPasswordMustBeRecord()
+{ return m_pGUI->checkBoxMemorise->isChecked();
+}
+

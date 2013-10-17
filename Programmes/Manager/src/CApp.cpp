@@ -11,7 +11,7 @@
  *                              http://www.cecill.info/                           *
  *   as published by :                                                            *
  *                                                                                *
- *   Commissariat ?   l'Energie Atomique                                           *
+ *   Commissariat a l'Energie Atomique                                            *
  *   - CEA,                                                                       *
  *                            31-33 rue de la Federation, 75752 PARIS cedex 15.   *
  *                            FRANCE                                              *
@@ -47,15 +47,13 @@
 #include <QTextCodec>
 #include <QMessageBox>
 #include <QCoreApplication>
-
+#include "../../MedinTuxTools-QT4/C_Login/C_Dlg_Login.h"
 #include "../../MedinTuxTools-QT4/Theme/Theme.h"
 #include "../../MedinTuxTools-QT4/CGestIni.h"
 #include "../../MedinTuxTools-QT4/Theme/ThemePopup.h"                       // Gestion du theme de l'appli
 #include "../../MedinTuxTools-QT4/CCoolPopup.h"                             // Gestion des popups surgissants
-#include "../../MedinTuxTools-QT4/GetPassword/CDlg_PasswordGet.h"
-CApp* G_pCApp = 0;  // contiendra l'instance globale de l'application
 
-static char NUM_VERSION[]     = "==##@@==2.15.004==@@##==";
+CApp* G_pCApp = 0;  // contiendra l'instance globale de l'application
 
 //--------------------------------------------- C_App -------------------------------------------------------------------
 CApp::~CApp()
@@ -63,6 +61,9 @@ CApp::~CApp()
  #ifdef SESAM_VERSION
     if (m_pCps)    delete m_pCps;
     if (m_pVitale) delete m_pVitale;
+ #endif
+ #ifdef ENTREES_SIGEMS
+    if (m_pC_DSigemsVar) delete m_pC_DSigemsVar;
  #endif
 }
 //--------------------------------------------- CApp -------------------------------------------------------------------
@@ -73,47 +74,59 @@ void CApp::quit()
 
 //--------------------------------------------- CApp -------------------------------------------------------------------
 CApp::CApp(QString mui_name, int & argc, char ** argv)
-:QApplication(argc,argv), m_NameAppli(mui_name)
+    : C_AppCore(mui_name,argc,argv)
 {   QTextCodec::setCodecForTr( QTextCodec::codecForName("utf8") );
     QString driver, baseToConnect, sqlUserName, sqlPass, hostName, port, qstr;
     QString baseCfg;
     m_NUM_VERSION     = NUM_VERSION;
-
-//......................... carte PS .............................
+//......................... va le falloir ..................................
+QFileInfo qfi(argv[0]);
+//......................... carte PS .......................................
 #ifdef SESAM_VERSION
      m_pCps    = new C_Cps;
      m_pVitale = new C_Vitale;
-     qDebug (tr("Version with SesamVitale usage").toLatin1());
+     qDebug ()<< tr("Version with SesamVitale usage").toLatin1();
 #else
      qDebug() << tr("Version without SesamVitale usage").toLatin1();
 #endif
+//........................ initialisation de la base SigEntrees ............
+#ifdef ENTREES_SIGEMS
+    m_pC_DSigemsVar = 0;
+    QString sigEntreesFileCfg = CGestIni::Construct_PathBin_Module("SigEntrees", qfi.path ())+"/SigEntreesBases.cfg";
+    if (!QFile::exists(sigEntreesFileCfg))
+       {
+        QMessageBox::critical (0,  "MedinTux Manager" ,
+                               getConfigContext() + tr("<b><u>C_DSigemsVar not initialised</u> %1 line %2 </b><br/>'%3' don't exists").arg(Q_FUNC_INFO, QString::number(__LINE__), sigEntreesFileCfg) ,
+                               QMessageBox::Abort, QMessageBox::NoButton, QMessageBox::NoButton );
+                 return;  // tous les delete se feront lors destruction du parent (QT oblige !!)
+       }
+    CGestIni::Param_UpdateFromDisk(sigEntreesFileCfg , baseCfg);
+    m_pC_DSigemsVar        = new C_DSigemsVar(baseCfg);
+    if (m_pC_DSigemsVar->getLastError().length())
+       {
+        QMessageBox::critical (0,  "MedinTux Manager" ,
+                               getConfigContext() + tr("<b><u>C_DSigemsVar not initialised</u> %1 line%2 </b><br/>%3").arg(Q_FUNC_INFO, QString::number(__LINE__), m_pC_DSigemsVar->getLastError()) ,
+                               QMessageBox::Abort, QMessageBox::NoButton, QMessageBox::NoButton );
+                 return;  // tous les delete se feront lors destruction du parent (QT oblige !!)
+        }
+    qDebug ()<< tr("Version with SigEntrees usage").toLatin1();
+#else
+    qDebug ()<< tr("Version without SigEntrees usage").toLatin1();
+#endif
+
     m_PluginRun          = "";
     m_pCCoolPopup        = 0;
     m_IsNomadeActif      = 0;
     m_IsGestionNomadisme = 0;
     m_GuiFont            = QApplication::font();
     //.................... recuperer path de demarrage de l'appli ...........................
-    QFileInfo qfi(argv[0]);
-    m_PathAppli    =  CGestIni::Construct_PathBin_Module(m_NameAppli, qfi.path ());
-    m_PathIni      =  CGestIni::Construct_Name_File_Ini(m_NameAppli,  qfi.path (), "");
     m_PathSigemsPA =  CGestIni::Construct_PathBin_Module("InterfaceSigems", qfi.path ());
 
-    //.................... verifier si instance unique ........................................
-    CGestIni::Param_UpdateFromDisk(m_PathIni, m_LocalParam);
-   //....................... charger le fichier de configuration des bases .............................
-    CGestIni::Param_UpdateFromDisk(m_PathAppli + "DataBase.cfg" , baseCfg);
-
-    //.............................. initialiser le theme ..........................................
-    if (CGestIni::Param_ReadParam( m_LocalParam.toLatin1(), "Theme", "Path", &m_PathTheme) != QString::null )  // zero = pas d'erreur
-       { m_PathTheme     =  "../../Themes/Default/";                                        // valeur par defaut si pas de theme explicite
-       }
-    if (!QDir(m_PathTheme).exists())     m_PathTheme     =  "../../Themes/Default/";        // valeur par defaut
-    if ( QDir(m_PathTheme).isRelative()) m_PathTheme.prepend(m_PathAppli);
-    m_PathTheme = QDir::cleanPath(m_PathTheme) + "/";
-    Theme::setPath(m_PathTheme);
+    //....................... charger le fichier de configuration des bases .............................
+    CGestIni::Param_UpdateFromDisk(pathAppli() + "DataBase.cfg" , baseCfg);
     m_SignUser = "admin";
     //...................... nomadisme ......................................................
-    if (CGestIni::Param_ReadParam(m_LocalParam,"Connexion", "Gestion nomadisme", &qstr)==QString::null && (qstr=qstr.lower())!= "inactif")  // zero = pas d'erreur
+    if (readParam("Connexion", "Gestion nomadisme", &qstr)==QString::null && (qstr=qstr.lower())!= "inactif")  // zero = pas d'erreur
        {if (qstr=="fullreplication")
             m_IsGestionNomadisme = CMoteurBase::fullReplication;
         else if (qstr=="progmasterupdate")
@@ -122,7 +135,7 @@ CApp::CApp(QString mui_name, int & argc, char ** argv)
             m_IsGestionNomadisme = CMoteurBase::fullSynchro;
        }
     QString connexionVar = "";
-    if (m_IsGestionNomadisme && CGestIni::Param_ReadParam(m_LocalParam,"Connexion", "nomadisme", &qstr)==QString::null && qstr.lower()[0]=='a')  // zero = pas d'erreur
+    if (m_IsGestionNomadisme && readParam("Connexion", "nomadisme", &qstr)==QString::null && qstr.lower()[0]=='a')  // zero = pas d'erreur
        {m_IsNomadeActif = TRUE;
        }
     if (m_IsNomadeActif) connexionVar     = "Nomade";
@@ -130,7 +143,7 @@ CApp::CApp(QString mui_name, int & argc, char ** argv)
 
     //.......................Charger les parametres de connexion ........................................
     //                       Local au programme (pas celui de l'utilisateur medintux)
-    if (CGestIni::Param_ReadParam( m_LocalParam, "Connexion", connexionVar, &driver, &baseToConnect, &sqlUserName, &sqlPass, &hostName, &port) != QString::null )  // zero = pas d'erreur
+    if (readParam( "Connexion", connexionVar, &driver, &baseToConnect, &sqlUserName, &sqlPass, &hostName, &port) != QString::null )  // zero = pas d'erreur
        { driver            = "QMYSQL3";
          baseToConnect     = "DrTuxTest";
          sqlUserName       = "root";
@@ -143,7 +156,7 @@ CApp::CApp(QString mui_name, int & argc, char ** argv)
        }
     m_MySql_Pass  = sqlPass;  //GetMySqlPass();
      //....................... ouvrir et initialiser le moteur de base de donnees ....................................
-    CMoteurBase::verifyMode baseVerification = CGestIni::Param_ReadUniqueParam(m_LocalParam,"Connexion", "Verification Integrite Bases").lower()=="oui" ? CMoteurBase::verifyBaseStruct : CMoteurBase::withoutVerifyBaseStruct;
+    CMoteurBase::verifyMode baseVerification = readUniqueParam("Connexion", "Verification Integrite Bases").lower()=="oui" ? CMoteurBase::verifyBaseStruct : CMoteurBase::withoutVerifyBaseStruct;
     qstr = "";        // contiendra les messages d'erreurs et warnings
     m_pCMoteurBase = new CMoteurBase(driver ,                 // nom du driver: "QODBC3" "QMYSQL3" "QPSQL7"
                                      baseToConnect,           // nom de la base: si QODBC3 -> nom de la source de donnees (userDSN)
@@ -161,31 +174,32 @@ CApp::CApp(QString mui_name, int & argc, char ** argv)
     //.................. si message d'erreur construire un QLabel pour l'afficher ..........................
     m_LastError = qstr;
     if (m_pCMoteurBase==0)
-       {    QMessageBox::critical (0,   "MedinTux Manager" ,
-                                         QObject::tr("CMoteurBase cannot start \n ") + qstr ,
+       {   QMessageBox::critical (0,   "MedinTux Manager" ,
+                                         getConfigContext() + tr("<b><u>CMoteurBase cannot start</b></u><br/> ") + qstr ,
                                          QMessageBox::Abort, QMessageBox::NoButton, QMessageBox::NoButton );
             return;  // tous les delete se feront lors destruction du parent (QT oblige !!)
        }
     if (m_pCMoteurBase->m_IsValid == FALSE)
-       {   QMessageBox::critical (0,   "MedinTux Manager" ,
-                                         QObject::tr("CMoteurBase->m_DataBase cannot start \n ") + qstr ,
+       {
+            QMessageBox::critical (0,   "MedinTux Manager" ,
+                                         getConfigContext() + tr("<b><u>CMoteurBase->m_DataBase cannot start</b></u><br/> ") + qstr ,
                                          QMessageBox::Abort, QMessageBox::NoButton, QMessageBox::NoButton );
            return;   // tous les delete se feront lors destruction du parent (QT oblige !!)
        }
     //....................... Assurer le nom des bases ...........................................................................
     if (baseVerification==CMoteurBase::verifyBaseStruct) m_pCMoteurBase->RenameTableWhithCorrectName();
     //....................... mode de creation des GUID .........................................................
-    if (CGestIni::Param_ReadUniqueParam(m_LocalParam, "Gestion des dossiers", "GUID_createMode")=="myself") m_pCMoteurBase->set_GUID_CreateMode(CMoteurBase::byMyself);
-    else                                                                                                    m_pCMoteurBase->set_GUID_CreateMode(CMoteurBase::byQT);
+    if (readUniqueParam ( "Gestion des dossiers", "GUID_createMode").toLower()=="myself") m_pCMoteurBase->set_GUID_CreateMode(CMoteurBase::byMyself);
+    else                                                                                  m_pCMoteurBase->set_GUID_CreateMode(CMoteurBase::byQT);
     //..................................... user name password & cie .............................................
     m_IsAppStartWithUser = FALSE;
-    CGestIni::Param_ReadParam( m_LocalParam, "Derniere Session", "Utilisateur", &m_User, &m_SignUser);
-    CGestIni::Param_ReadParam( m_LocalParam, "Derniere Session", "Password",    &m_CriptedPassWord);
+    readParam ( "Derniere Session", "Utilisateur", &m_User, &m_SignUser);
+    readParam ( "Derniere Session", "Password",    &m_CriptedPassWord);
     m_User            = m_User.trimmed();
     m_SignUser        = m_SignUser.trimmed();
     m_CriptedPassWord = m_CriptedPassWord.trimmed();
-    if (m_CriptedPassWord.left(1)=="#") m_CriptedPassWord = m_CriptedPassWord.mid(1);                       //  si crypte (precede de #)
-    else                                CMoteurBase::PassWordEncode(m_CriptedPassWord);                     //  si non crypte (precede de rien) alors le crypter
+    if (m_CriptedPassWord.startsWith('#')) m_CriptedPassWord = m_CriptedPassWord.remove('#');                       //  si crypte (precede de #)
+    else                                   CMoteurBase::PassWordEncode(m_CriptedPassWord);                          //  si non crypte (precede de rien) alors le crypter
     if (   (m_User.length() != 0 &&  m_SignUser.length() != 0   &&              // si non verifie :  user defini avec
             m_pCMoteurBase->VerifyUserPassWord(m_User, m_CriptedPassWord)       //                   mot de passe fourni correct
            )                                                                    // alors appeler dialogue de login
@@ -206,24 +220,32 @@ CApp::CApp(QString mui_name, int & argc, char ** argv)
     PointSize = 10
     Weight = 50
     */
-    qstr      = CGestIni::Param_ReadUniqueParam( m_LocalParam, "Font", "Family");
+    qstr      = readUniqueParam ( "Font", "Family");
     if (qstr.length()) m_GuiFont.setFamily(qstr);
 
-    int value = CGestIni::Param_ReadUniqueParam( m_LocalParam, "Font", "PointSize").toInt();
+    int value = readUniqueParam ( "Font", "PointSize").toInt();
     if (value)         m_GuiFont.setPointSize(value);
 
-    value = CGestIni::Param_ReadUniqueParam( m_LocalParam, "Font", "Italic").toInt();
+    value = readUniqueParam ( "Font", "Italic").toInt();
                        m_GuiFont.setItalic(value);
 
-    value = CGestIni::Param_ReadUniqueParam( m_LocalParam, "Font", "Underline").toInt();
+    value = readUniqueParam ( "Font", "Underline").toInt();
                        m_GuiFont.setUnderline(value);
 
-    value = CGestIni::Param_ReadUniqueParam( m_LocalParam, "Font", "Weight").toInt();
+    value = readUniqueParam ( "Font", "Weight").toInt();
     if (value)         m_GuiFont.setWeight(value);
     QApplication::setFont(m_GuiFont);
     G_pCApp   =    this;
 }
-
+//------------------------ getConfigContext ---------------------------------------
+QString CApp::getConfigContext()
+{ QString macAdr;
+    QString ipAdr   = get_Current_IP_Adr(&macAdr);
+    return  tr("<b><u>Network context</b></u><br/>"
+               "&nbsp;&nbsp;&nbsp;&nbsp;<b>IP</b> : %1 <br/>"
+               "&nbsp;&nbsp;&nbsp;&nbsp;<b>HD</b> : %2 <br/>"
+               "&nbsp;&nbsp;&nbsp;&nbsp;<b>ini&nbsp;file</b>&nbsp;:&nbsp;%3<br/>").arg(ipAdr, macAdr, pathIni().replace(" ","&nbsp;"));
+}
 //------------------------ getNumVers ---------------------------------------
 QString CApp::getNumVers()
 { return m_NUM_VERSION.remove("@").remove("#").remove("=");    // ==##@@==
@@ -336,10 +358,10 @@ void CApp::changeAllModuleConnectionParam(     const QString & /*driver*/,      
          CGestIni::Param_UpdateToDisk(path, param);
        }
 
-    //..............................QLaboFTP.ini ..................................................................
-    path = CGestIni::Construct_Name_File_Ini("QLaboFTP",QFileInfo (qApp->argv()[0]).dirPath (true),"");
+    //..............................biogest.ini ..................................................................
+    path = CGestIni::Construct_Name_File_Ini("biogest",QFileInfo (qApp->argv()[0]).dirPath (true),"");
     if (  ! QFile::exists (path) )
-       { changeAllModuleConnectionParamMessage("QLaboFTP.ini",path);
+       { changeAllModuleConnectionParamMessage("biogest.ini",path);
        }
     else
        { CGestIni::Param_UpdateFromDisk(path, param);
@@ -387,7 +409,7 @@ void CApp::changeAllModuleConnectionParam(     const QString & /*driver*/,      
          CGestIni::Param_ReadParam (param, "Connexion" , "Parametres SrceBase"   , &driverName , &baseName);
          CGestIni::Param_WriteParam(&param, "Connexion" , "Parametres SrceBase"   ,  driverName ,  baseName, userName , passWord , hostName, port);
          CGestIni::Param_ReadParam (param, "Connexion" , "Parametres Get_Base"   , &driverName , &baseName);
-         CGestIni::Param_WriteParam(&param, "Connexion" , "Parametres Get_Base"   ,  driverName ,  baseName, userName , passWord , hostName, port);
+         CGestIni::Param_WriteParam(&param, "Connexion" , "Parametres Get_Base"  ,  driverName ,  baseName, userName , passWord , hostName, port);
          CGestIni::Param_UpdateToDisk(path, param);
        }
 }
@@ -428,26 +450,30 @@ bool CApp::IsAppStartWithUser()
 int CApp::AuthentifyAndSelectUser(QWidget * parent, const QString &newUser, const QString &newSignUser, bool /*passwordMustBeRecorded  = 1 */)
 {int                          ok = 0;
  QString        cripted_password = "";
- /*QString        userPk           = */m_pCMoteurBase->GetUserPrimKey( newUser, &cripted_password );
+ m_pCMoteurBase->GetUserPrimKey( newUser, &cripted_password );
  //........................ verifier si des fois que sans mot de passe ..................................
  if (m_pCMoteurBase->VerifyUserPassWord(newUser, ""))
     { m_User            = newUser;
       m_SignUser        = newSignUser;
       m_CriptedPassWord = "";
-      //saveLastUserOn_Ini(newUser, newSignUser, "", passwordMustBeRecorded);
-      ok = 1;
+      ok                = 1;
     }
  //................ sinon demander le mot de passe ..................................
  else
-    {CDlg_PasswordGet *dlg = new CDlg_PasswordGet(&cripted_password, parent);
-    if (dlg == 0)            return ok;
-
-     if (dlg->exec()==QDialog::Accepted && m_pCMoteurBase->VerifyUserPassWord(newUser, cripted_password) )
-        {m_CriptedPassWord = cripted_password;
-         m_User            = newUser;
-         m_SignUser        = newSignUser;
-         saveLastUserOn_Ini(newUser, newSignUser, cripted_password, dlg->IsPasswordMustBeRecord());
-         ok = 1;
+    {QString       login = newUser;
+     QString       passw = "";
+     C_Dlg_Login *dlg    = new C_Dlg_Login(login, passw, parent, (C_Dlg_Login::Visibility)(C_Dlg_Login::Show|C_Dlg_Login::LoginReadOnly));
+     if (!dlg)             return ok;
+     dlg->setFocusOnPass();
+     dlg->setDefaultOnOk();
+     if (dlg->exec()==QDialog::Accepted && m_pCMoteurBase->VerifyUserPassWord(newUser, dlg->get_Password()))
+        { login             = dlg->get_Login();
+          m_CriptedPassWord = dlg->get_Password();          // la il est en clair
+          CMoteurBase::PassWordEncode(m_CriptedPassWord);   // la on le code a la mode CMoteurBase (pas la meme que CGestIni)
+          m_User            = newUser;
+          m_SignUser        = newSignUser;
+          ok                = 1;
+          saveLastUserOn_Ini(dlg->IsPasswordMustBeRecord());
         }
      delete dlg;
     }
@@ -504,19 +530,23 @@ bool  CApp::IsThisDroitExistForThisUser(const QString &user, const char *droitTo
  return (droits.indexOf(droitToFind)!=-1);
 }
 
+
+//---------------------------------------------- saveLastUserOn_Ini ------------------------------------------------------------
+void CApp::saveLastUserOn_Ini( bool passwordMustBeRecorded )
+{  saveLastUserOn_Ini(m_User, m_SignUser, m_CriptedPassWord,  passwordMustBeRecorded );
+}
 //---------------------------------------------- saveLastUserOn_Ini ------------------------------------------------------------
 void CApp::saveLastUserOn_Ini(const QString &user, const QString &signUser, const QString &cripted_password, bool passwordMustBeRecorded /* = 1 */)
 {
      if ( passwordMustBeRecorded )
-        {CGestIni::Param_WriteParam( &m_LocalParam, "Derniere Session", "Password",    QString("#") + cripted_password);
-         CGestIni::Param_WriteParam( &m_LocalParam, "Derniere Session", "Utilisateur", user, signUser);
-         CGestIni::Param_UpdateToDisk(m_PathIni, m_LocalParam);
+        {writeParam( "Derniere Session", "Password",    QString("#") + cripted_password);
+         writeParam( "Derniere Session", "Utilisateur", user, signUser);
         }
      else
-        {CGestIni::Param_WriteParam( &m_LocalParam, "Derniere Session", "Password", "");
-         CGestIni::Param_WriteParam( &m_LocalParam, "Derniere Session", "Utilisateur", "", "");
-         CGestIni::Param_UpdateToDisk(m_PathIni, m_LocalParam);
+        {writeParam( "Derniere Session", "Password", "");
+         writeParam( "Derniere Session", "Utilisateur", "", "");
         }
+     updateIniParamToDisk();
 }
 
 //------------------------------------------------- CouCou ----------------------------------------------------
@@ -547,7 +577,7 @@ void CApp::CouCou(const QString &message_in, const QString &imagePath /* ="" */,
  path.replace("$Theme",Theme::getPath(Theme::WithNoSeparator));
 
  if (path.length()==0 || !QFile::exists( path ))
-    {CGestIni::Param_ReadParam( m_LocalParam, "Popup Message", "image", &path);
+    {readParam ("Popup Message", "image", &path);
      path.replace("$Theme",Theme::getPath(Theme::WithNoSeparator));
      if (!QFile::exists( path )) path  = Theme::getPath() + "MessagePop.png";
     }
@@ -556,14 +586,14 @@ void CApp::CouCou(const QString &message_in, const QString &imagePath /* ="" */,
  m_pCCoolPopup = new CCoolPopup( path , CCoolPopup::WithTransLabel, 0, 0, qpm.width(), qpm.height(), message);
  //......... regarder si pas d'autres param ...............................................
  QFont ft = font();
- if (CGestIni::Param_ReadParam( m_LocalParam, "Popup Message", "font_family", &val)==QString::null) ft.setFamily(val);
- if (CGestIni::Param_ReadParam( m_LocalParam, "Popup Message", "font_size",   &val)==QString::null) ft.setPointSizeFloat(val.toDouble());
- if (CGestIni::Param_ReadParam( m_LocalParam, "Popup Message", "font_weight", &val)==QString::null) ft.setWeight(Min(99,val.toInt()));
- if (CGestIni::Param_ReadParam( m_LocalParam, "Popup Message", "font_bold",   &val)==QString::null) ft.setBold((bool)val.toInt());
- if (CGestIni::Param_ReadParam( m_LocalParam, "Popup Message", "font_italic", &val)==QString::null) ft.setItalic((bool)val.toInt());
- if (CGestIni::Param_ReadParam( m_LocalParam, "Popup Message", "tempo",       &val)==QString::null) if (tempo==0) m_CCoolPopupTempo = val.toInt();
+ if (readParam ( "Popup Message", "font_family", &val)==QString::null) ft.setFamily(val);
+ if (readParam ( "Popup Message", "font_size",   &val)==QString::null) ft.setPointSizeFloat(val.toDouble());
+ if (readParam ( "Popup Message", "font_weight", &val)==QString::null) ft.setWeight(Min(99,val.toInt()));
+ if (readParam ( "Popup Message", "font_bold",   &val)==QString::null) ft.setBold((bool)val.toInt());
+ if (readParam ( "Popup Message", "font_italic", &val)==QString::null) ft.setItalic((bool)val.toInt());
+ if (readParam ( "Popup Message", "tempo",       &val)==QString::null) if (tempo==0) m_CCoolPopupTempo = val.toInt();
  m_pCCoolPopup->setFont(ft);
- if (CGestIni::Param_ReadParam( m_LocalParam, "Popup Message", "font_color",  &val)==QString::null)  m_pCCoolPopup->setTextColor(QColor(val));
+ if (readParam ( "Popup Message", "font_color",  &val)==QString::null)  m_pCCoolPopup->setTextColor(QColor(val));
  connect( m_pCCoolPopup,  SIGNAL( Sign_Clicked(CCoolPopup *) ),   this, SLOT(CouCouStop(CCoolPopup *))  ) ;
  connect( m_pCCoolPopup,  SIGNAL( Sign_PopupUp(CCoolPopup *) ),   this, SLOT(CouCouUp (CCoolPopup *))  ) ;
  connect( m_pCCoolPopup,  SIGNAL( Sign_PopupDown(CCoolPopup *) ), this, SLOT(CouCouStop(CCoolPopup *))  );
@@ -605,7 +635,7 @@ void CApp::launchSpecificJob(QString nameOfJob) // CZB
 #ifdef Q_WS_X11
        pathJob += "";
 #endif
-#ifdef  Q_WS_MAC
+#ifdef Q_WS_MAC
        int pos = pathJob.lastIndexOf("/");
        if (pos != -1) pathJob = pathJob+".app/Contents/MacOS/"+pathJob.mid(pos+1);
 #endif
@@ -615,7 +645,7 @@ void CApp::launchSpecificJob(QString nameOfJob) // CZB
 QString CApp::execCalendrier(const QDate &dateIn)
 {     //............... lancer le calendrier .................................................
     QString pathPlugin;
-    CGestIni::Param_ReadParam(m_LocalParam, "Gestion du calendrier", "pathPlugin",       &pathPlugin);
+    readParam ("Gestion du calendrier", "pathPlugin",       &pathPlugin);
     //..................................... ne pas rajouter "/" car c'est un nom de fichier ..........................
     if ( QDir::isRelativePath ( pathPlugin ) )  pathPlugin = QDir::cleanDirPath (pathPlugin.prepend(m_PathAppli));
     QString date   = dateIn.toString("ddMMyyyy");
@@ -736,7 +766,7 @@ QString CApp::PluginExe(        QObject         */*pQObject*/,
  QString nameExch = QFileInfo(pathExe).fileName()+"-"+ guid +".exc";
 
  QString      dst = "";
- if (CGestIni::Param_ReadParam(m_LocalParam, "Repertoire Temporaire", "Repertoire", &dst)!=QString::null)
+ if (readParam ( "Repertoire Temporaire", "Repertoire", &dst)!=QString::null)
      return QObject::tr("Error:  PluginExe()  \"Temporary Directory\", \"Directory\" can't find in ini File");         // path editeur de texte non defini
  if ( QDir::isRelativePath ( dst ) ) dst = QDir::cleanDirPath (dst.prepend(m_PathAppli) );
  dst +=  QDir::separator() + nameExch;
@@ -790,14 +820,15 @@ QString CApp::PluginExe(        QObject         */*pQObject*/,
 
       proc->start(m_PluginRun, argList);
       proc->waitForStarted  (4000);
-      //proc->waitForFinished (); //crash crash
+      proc->waitForFinished (-1); //crash crash non si -1 tralala
       //QByteArray ba = proc->readAllStandardError ();
       //qDebug(ba);
-
+      /*
       processEvents ();
       while (waitFlag==CApp::endWait && proc->state()==QProcess::Running )
            { QApplication::processEvents ( QEventLoop::ExcludeUserInput );
            }
+      */
       m_PluginRun = "";
       //............lire le fichier d'echange ..........................
       //dst  = "/home/ro/QFseVitale-53671d5a-52c0-42ff-a39c-bed207109033-New.exc";

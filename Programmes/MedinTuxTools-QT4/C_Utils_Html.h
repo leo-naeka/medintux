@@ -178,7 +178,7 @@ public:
      *  \param const QString idAnchor id prefix to distingue anchors
      *  \return QString result whith anchor, links, and chapiters list link
      */
-    static QString  makeLinkList(const QString txt, const QString prefix, const QString endfix, const QString idAnchor = "");
+    static QString  makeLinkList(const QString &txt, const QString prefix, const QString endfix, const QString idAnchor = "");
 
     //--------------------- removeHtmlTag -----------------
     /*! \brief  remove html tags from a string
@@ -271,9 +271,10 @@ public:
      SI   contient $allString tous les caracteres numeriques de la chaine seront retenus.
      SI   contient $toInt la conversion ne conservera que la partie entiere.
      SI   toute autre valeur, la conversion s'arretera a la premiere occurence de cette valeur.
+     *  \param int *pos si différent de zero alors la position dans la chaine après la valeur numerique.
      *  \return une QString resultat du traitement
      */
-    static QString toNum(const QString &text, const QString &cutFirstStr_in = "");
+    static QString toNum(const QString &text, const QString &cutFirstStr_in = "", int *pos = 0);
 
 private:
     //......... methodes .......

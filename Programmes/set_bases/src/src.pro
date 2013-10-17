@@ -14,7 +14,10 @@ CONFIG += qt \
  debug \
  exceptions
 TEMPLATE = app
-FORMS += Dlg_MainDialog.ui
+FORMS += Dlg_MainDialog.ui \
+         ../../MedinTuxTools/DlgGetString.ui \
+         ../../MedinTuxTools/DlgMyMessageBox.ui \
+
 TRANSLATIONS += set_bases_fr.ts
 HEADERS += ../../MedinTuxTools/C_Zlib/C_Zlib.h \
            ../../MedinTuxTools/C_Zlib/deflate.h \
@@ -26,6 +29,7 @@ HEADERS += ../../MedinTuxTools/C_Zlib/C_Zlib.h \
            ../../MedinTuxTools/CGestIni.h \
            ../../MedinTuxTools/CMedicaBase.h \
            ../../MedinTuxTools/CHtmlTools.h \
+          ../../MedinTuxTools/CGenTools.h \
            ../../drtux/src/CMoteur_Base.h \
            ../../MedinTuxTools/CPrtQListBoxItem.h \
            ../../MedinTuxTools/ThemePopup.h \
@@ -54,6 +58,7 @@ SOURCES += main.cpp \
            ../../MedinTuxTools/CGestIni.cpp \
            ../../MedinTuxTools/CMedicaBase.cpp \
            ../../MedinTuxTools/CHtmlTools.cpp \
+          ../../MedinTuxTools/CGenTools.cpp \
            ../../drtux/src/CMoteur_Base.cpp \
            ../../MedinTuxTools/CPrtQListBoxItem.cpp \
            ../../MedinTuxTools/CPrtQListViewItem.cpp \

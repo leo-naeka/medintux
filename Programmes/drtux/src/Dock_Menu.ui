@@ -582,16 +582,16 @@
     <slot>Prescriptions_createPopup( ThemePopup * pPopup, CPrtQListViewItem * )</slot>
     <slot>Documents_createPopup( ThemePopup * pPopup, CPrtQListViewItem * )</slot>
     <slot>Droits_createPopup( ThemePopup * pPopup )</slot>
-    <slot>ATCDRubriques_createPopup( ThemePopup * pQPopupMenu )</slot>
-    <slot>ATCD_MenuActionSetRubrique()</slot>
     <slot>Slot_FileSelected()</slot>
     <slot>OnMenuActivated( int id )</slot>
+    <slot>ATCDRubriques_createPopup( ThemePopup * pQPopupMenu )</slot>
+    <slot>ATCD_MenuActionSetRubrique()</slot>
     <slot>ATCD_createPopup( ThemePopup * pPopup, CPrtQListViewItem * pCPrt )</slot>
     <slot>ATCD_modifyDateGrossesse()</slot>
     <slot>ATCD_modifyCommentaire()</slot>
     <slot>ATCD_eraseIt()</slot>
-    <slot>ATCD_changeEtat()</slot>
-    <slot>ATCD_modifyDate()</slot>
+    <slot>ATCD_modifyDateDeb()</slot>
+    <slot>ATCD_modifyDateFin()</slot>
     <slot>ATCD_ald_on()</slot>
     <slot>ATCD_ald_off()</slot>
     <slot>ATCD_view()</slot>

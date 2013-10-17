@@ -68,7 +68,7 @@
 */
 
 CApp* G_pCApp = 0;  // contiendra l'instance globale de l'application
-static char NUM_VERSION[]     = "==##@@==2.15.001==@@##==";
+static char NUM_VERSION[]     = "==##@@==2.16.002==@@##==";
 //--------------------------------------------- CApp -------------------------------------------------------------------
 CApp::~CApp()
 {
@@ -165,8 +165,17 @@ CApp::CApp(QString mui_name, int & argc, char ** argv)
     //                       il peut etre soit donne dans les arguments soit à aller chercher en local
     if (argc >= 7 &&  argv[7])      m_PathDrTuxIni =     argv[7];
     else                            m_PathDrTuxIni =     m_PathAppli + "drtux.ini";
-    //for (int i=0; i<argc;++i) qDebug (tr("Argument Numero %1 : '%2'").arg(QString::number(i),argv[i]));
-
+    /*
+    QString mess = "";
+    for (int i=0; i<argc;++i)
+        { QString arg_str = tr("Argument Numero %1 : '%2' \n").arg(QString::number(i),argv[i]);
+          mess += arg_str;
+          qDebug (tr("Argument Numero %1 : '%2'").arg(QString::number(i),argv[i]));
+        }
+    QMessageBox::warning ( 0, tr(" arguments"), mess ,
+                              tr("Ok"), 0, 0,
+                              1, 1 );
+    */
     //.......................Charger les parametres .ini de l'application .............................................
     CGestIni::Param_UpdateFromDisk(m_PathDrTuxIni, m_DrTuxParam);
     QStringList list = get_PossiblesRubNameList();
@@ -186,21 +195,16 @@ CApp::CApp(QString mui_name, int & argc, char ** argv)
     list.prepend ("Observation|ob|20030000");
     */
     // m_mapDroitPrefix[key] = prefix; // ???
-
+    //--------------------------- mapper les prefix de droit avec nom des rubriques --------------------------
+    //  nom rubrique|prefix droit|type rubrique
     for (int i=0; i< (int)list.count(); ++i)
         {QString data = list[i];
          QStringList subData = QStringList::split("|",data);
          m_ListRubName.append(subData[0]);
-         //qDebug (tr("append rubrique : '%1' type : '%2' prefixDroit : '%3'").arg(subData[0],subData[2],subData[1]));
+         // qDebug (tr("append rubrique : '%1' type : '%2' prefixDroit : '%3'").arg(subData[0],subData[2],subData[1]));
          m_mapNameRubType[subData[0]]  =  subData[2].toInt();
          m_mapNameRubInfos[subData[0]] =  subData[1];   // pour l'instant on ne place que le prefix des droits
         }
-    //............... maper les prefixes des droits rubriques non automatiques ......................
-    m_ListRubName.append(CMDI_ChoixPatient::S_GetRubName());   m_mapNameRubType[CMDI_ChoixPatient::S_GetRubName()] =  CMDI_ChoixPatient::S_GetType();
-    m_mapNameRubInfos[CMDI_Prescription::S_GetRubName()] =  "or";   // pour l'instant on ne place que le prefix des droits
-    m_mapNameRubInfos[CMDI_Terrain::S_GetRubName()]      =  "at";   // pour l'instant on ne place que le prefix des droits
-    m_mapNameRubInfos[CMDI_Ident::S_GetRubName()]        =  "ie";   // pour l'instant on ne place que le prefix des droits
-    m_mapNameRubInfos[CMDI_ChoixPatient::S_GetRubName()] =  "pl";   // pour l'instant on ne place que le prefix des droits
     //................................ initialiser les différents chemins Globaux ............................
     m_PathGlossaireIsLocal = "";
     if (CGestIni::Param_ReadParam( m_DrTuxParam, "Glossaire", "Path", &m_PathGlossaire,&m_PathGlossaireIsLocal) !=0 ) // zero = pas d'erreur
@@ -344,7 +348,66 @@ CApp::CApp(QString mui_name, int & argc, char ** argv)
     // qui sera utilisé par Dock_Menu, CMDI_Terrain et CDevilCrucible
     m_pAtcd_Code = new Atcd_Code(m_pCMoteurBase);
 }
+//------------------------------- delAccents-----------------------------------------------------
+/*! \brief converti les caracteres accentues d'une chaine en caracteres non accentues
+*/
+QString CApp::delAccents(const QString &src)
+{/*
+ //........... methode bourin mais sure ................
+ QString dst = src.latin1();
+ dst.replace(QRegExp("[ÁÀÄÂ]"), "A");
+ dst.replace(QRegExp("[áàäâ]"), "a");
+ dst.replace(QRegExp("[ÉÈËÊ]"), "E");
+ dst.replace(QRegExp("[éèëê]"), "e");
+ dst.replace(QRegExp("[ÍÌÏÎ]"), "I");
+ dst.replace(QRegExp("[íìïî]"), "i");
+ dst.replace(QRegExp("[ÓÒÖÔ]"), "O");
+ dst.replace(QRegExp("[óòöô]"), "o");
+ dst.replace(QRegExp("[ÚÙÜÛ]"), "U");
+ dst.replace(QRegExp("[úùüû]"), "u");
+ return dst;
+*/
 
+//     static const char m_accentCharacters[]  = "ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÌÍÎÏìíîïÙÚÛÜùúûüÿÑñÇç°";
+// Represents the letters which have no accents.
+//    static const char m_cleanCharacters[]   = "AAAAAAaaaaaaOOOOOOooooooEEEEeeeeIIIIiiiiUUUUuuuuyNnCc-";
+// Map the letters which have accents and the letters which haven't.
+//    static  QMap <char, char> m_AccentDic;
+typedef QMap<ushort, char> accentMap;
+int i = 0;
+if (m_AccentDic.size()==0)   // si lors de la premiere utilisation le dico est vide --> le remplir
+   { // Represents the letters which have accents.
+     QString accentCharacters  = QString::fromUtf8 ("ÉÈÊËÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøèéêëÌÍÎÏìíîïÙÚÛÜùúûüÿÑñÇç°");
+     // Represents the letters which have no accents.
+     QString cleanCharacters   = "EEEEAAAAAAaaaaaaOOOOOOooooooeeeeIIIIiiiiUUUUuuuuyNnCc-";
+
+     for (i=0; i< (int) accentCharacters.length(); ++i)
+          { ushort u         = accentCharacters.at(i).unicode();
+            char   c         = cleanCharacters.at(i).latin1();
+            m_AccentDic[u]   = c;
+          }
+   }
+QString dst = "";
+for ( i=0; i < (int)src.length() ;++i)
+    { ushort  u  = src.at(i).unicode();
+      accentMap::Iterator it = m_AccentDic.find ( u );   // on recherche si une clef de caractere accentue existe pour ce caractere
+      if (it != m_AccentDic.end())
+         { dst += it.data();
+         }
+      else
+         { dst += src.at(i);
+         }
+    }
+ return dst; 
+}
+
+//--------------------------------------------- debugMode -------------------------------------------------------------------
+/*! \brief retourne si l'application est  en mode debug. Le mode debug est determine dans la section [Connexion] par la variable DebugMode = 1
+*/
+int CApp::debugMode()
+{if (m_pCMoteurBase==0) return 0;
+ return m_pCMoteurBase->m_Debug;
+}
 //--------------------------------------------- quit -------------------------------------------------------------------
 /*! \brief surcharge du Slot quit afin d'envoyer le message Sign_QuitterRequired permettant a ceux qui s'y connectent de sauver les meubles \
 */
@@ -352,7 +415,73 @@ void CApp::quit()
 {emit Sign_QuitterRequired();    // se connecter a tous ceux connectes a ce signal pour qu'il puissent Sauver le meubles.
  QApplication::quit();
 }
+//--------------------------------- GetIDCurrentDoc -----------------------------------------------------
+/*! \brief Retourne le CRubRecord correspondant au document actuellement affiché dans la CMDI gérant le doc_type.
+*/
+CRubRecord  *CApp::GetIDCurrentDoc(const QString &doc_type_in, DOCUMENT_DISPLAY_MAP  *currentDocDisplayMap)
+{CRubRecord  *pCRubRecordRet = 0;
+ int                    pos  = -1;
+ QString            libelle  = "";
+ QString            doc_type = doc_type_in;
 
+ if (!G_pCApp->m_pDrTux) return pCRubRecordRet;
+
+ //................ si le type contient le sous type .................................
+ if (doc_type.length() && (pos=doc_type.find('|')) != -1)
+    {libelle  = doc_type.mid(pos+1).stripWhiteSpace();
+     doc_type = doc_type.left(pos).stripWhiteSpace();
+    }
+
+ //................... si non précisé retourner la rubrique courante..............................
+ if (doc_type.length()==0||doc_type==TR("*"))
+    { CMDI_Generic *pCMDI_Generic   =  G_pCApp->GetCurrentRubrique();
+      if (pCMDI_Generic)
+         {RUBREC_LIST::iterator rit = pCMDI_Generic->Current_RubList_Iterator();
+          if (rit != G_pCApp->m_pDrTux->m_RubList.end())
+             { pCRubRecordRet = &(*rit);
+               if (libelle.length())   // si libelle fourni on verifie si il correspond
+                  {if (pCRubRecordRet->m_Libelle==libelle) return pCRubRecordRet;
+                  }
+               else
+                  {                                        return pCRubRecordRet;
+                  }
+             }
+         }
+    }
+
+ //................... on cherche celui de la map (ceux en cours d'affichage)..............................
+ //                    si libelle fourni on verifie si il correspond
+ DOCUMENT_DISPLAY_MAP::Iterator it = currentDocDisplayMap->find ( doc_type );
+ if (! (it == currentDocDisplayMap->end()) )
+    {pCRubRecordRet = it.data();
+     if (libelle.length())
+        {if (pCRubRecordRet->m_Libelle==libelle)           return pCRubRecordRet;
+        }
+     else
+        {                                                  return pCRubRecordRet;
+        }
+    }
+ //...................................... si pas trouve on va rechercher le dernier .........................
+ //                                       correspondant au type numerique dans la liste generale
+ QString doc_type_num = doc_type;
+ if ( ! (doc_type[0]>='0' && doc_type[0]<='9') ) // si pas exprime sous forme numerique alors on convertit
+    {doc_type_num = G_pCApp->RubNameToStringType(doc_type);
+    }
+ //................... si pas trouve on cherche le dernier correspondant...................................
+ RUBREC_LIST::Iterator ut ;
+ CRubRecord  *pCRubRecord = 0;   // iterera sur tous les record
+ pCRubRecordRet           = 0 ;  // retiendra le dernier Ok de la liste
+ for ( ut = G_pCApp->m_pDrTux->m_RubList.begin(); ut != G_pCApp->m_pDrTux->m_RubList.end(); ++ut )
+     {pCRubRecord = &(*ut);
+      if (libelle.length())   // si libelle fourni on verifie aussi si il correspond
+         {if ( pCRubRecord->m_Type==doc_type_num && pCRubRecord->m_Libelle==libelle) pCRubRecordRet = pCRubRecord;
+         }
+      else                    // sinon on ne verifie que le type
+         {if ( pCRubRecord->m_Type==doc_type_num)                                    pCRubRecordRet = pCRubRecordRet;
+         }
+     }
+ return pCRubRecordRet;
+}
 //------------------------------------- getListNameRubriqueMenu -----------------------------------------------------
 /*! \brief retourne le nom de la liste du menu permanent affecte a une rubrique. Dans le fichier d'initialisation .ini de l'application\
      se trouve une section [MenuContextuel] dans laquelle doit etre indiquee : Nom de la rubrique = liste a activer pour cette rubrique
@@ -388,6 +517,7 @@ QStringList  CApp::get_PossiblesRubNameList()
     QStringList list;
     CGestIni::Param_GetList(m_DrTuxParam, "Rubriques Automatiques", "",  list , 1);  // 1 pour on les veut stripes
     //.......................y ajouter les rubriques automatiques obligatoires .............................................
+    list.prepend (CMDI_ChoixPatient::S_GetRubName() + "|pl|"+QString::number(CMDI_ChoixPatient::S_GetType()));
     list.prepend ("Vigie|cl|20050000");
     list.prepend ( CMDI_Ident::S_GetRubName()        +"|ie|"+QString::number(CMDI_Ident::S_GetType()));
     list.prepend ("Documents|do|20080000");
@@ -618,6 +748,7 @@ void CApp::Map_Prefix_Droits()
  CGestIni::Param_UpdateFromDisk(m_PathAppli+"Ressources/prefix_map.txt", defaut_map);       // charger le fichier de map
  if (defaut_map.length()==0)
     {defaut_map     =    "#define TYP_ORDO_CALC    |20020100|or\n"
+                         "#define TYP_ORDO_LAP     |20020150|or\n"
                          "#define TYP_ORDONNANCE   |20020200|or\n"
                          "#define TYP_CERTIFICAT   |20020300|ce\n"
                          "#define TYP_COURRIER     |20020500|co\n";
@@ -786,7 +917,7 @@ void CApp::addPopupHierarchique(const QString& path, QPopupMenu* pQPopupMenu, QS
 /*! \brief Ajoute le menu de selection du type Hierarchique a un menu quelconque a partir d'un fichier
  *  \param pQPopupMenu : QPopupMenu* est le menu auquel rajouter ce menu hierarchique
  *  \param optionsList : QStringListliste des options du menu
- *  \param pRetVar :     QString* est un pointeur sur la chaine de caractre dans laquelle retourner l'option selectionnee
+ *  \param pRetVar :     QString* est un pointeur sur la chaine de caractere dans laquelle retourner l'option selectionnee
  *  \param subName :     QString& chaine de caractre du nom du sous menu
  *  \note  avant appel de cette fonction il convient de la connecter comme suit a
  *                                un SLOT a actionner lors selection d'une option:

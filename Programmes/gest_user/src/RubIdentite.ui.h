@@ -46,12 +46,13 @@ connect( lineEdit_Login        , SIGNAL( textChanged ( const QString & ) ),  thi
 connect( comboBoxSexe          , SIGNAL( activated   ( const QString & ) ),  this,   SLOT(   OnTextChanged_comboBoxSexe( const QString &)));
 connect( lineEdit_Qualif       , SIGNAL( textChanged ( const QString & ) ),  this,   SLOT(   OnTextChanged_lineEdit_Qualif(const QString & )));
 connect( lineEdit_NumOrdinal   , SIGNAL( textChanged ( const QString & ) ),  this,   SLOT(   OnTextChanged_lineEdit_NumOrdinal(const QString & )));
+connect( lineEdit_NumRpps      , SIGNAL( textChanged ( const QString & ) ),  this,   SLOT(   OnTextChanged_lineEdit_NumRpps(const QString & )));
+connect( lineEdit_ClefRpps     , SIGNAL( textChanged ( const QString & ) ),  this,   SLOT(   OnTextChanged_lineEdit_ClefRpps(const QString & )));
 connect( lineEdit_Convention   , SIGNAL( textChanged ( const QString & ) ),  this,   SLOT(   OnTextChanged_lineEdit_Convention(const QString & )));
 connect( lineEdit_Droits       , SIGNAL( textChanged (                 ) ),  this,   SLOT(   OnTextChanged_lineEdit_Droits( )));
 connect( textEdit_Adresse      , SIGNAL( textChanged ( ) )                ,  this,   SLOT(   OnTextChanged_textEdit_Adresse( )));
 connect( lineEdit_CdPostal     , SIGNAL( textChanged ( const QString & ) ),  this,   SLOT(   OnTextChanged_lineEdit_CdPostal(const QString & )));
 connect( lineEdit_Ville        , SIGNAL( textChanged ( const QString & ) ),  this,   SLOT(   OnTextChanged_lineEdit_Ville(const QString & )));
-
 
 connect( comboBoxTelTyp_1->lineEdit()  , SIGNAL( textChanged ( const QString & ) ),  this,   SLOT(   OnTextChanged_comboBoxTelTyp_1(const QString & )));
 connect( comboBoxTelTyp_2->lineEdit()  , SIGNAL( textChanged ( const QString & ) ),  this,   SLOT(   OnTextChanged_comboBoxTelTyp_2(const QString & )));
@@ -181,13 +182,17 @@ void FormRubIdent::OnTextChanged_lineEdit_Nom(const QString & ) { NotifyIdentCha
 //--------------------------------- OnTextChanged_lineEdit_Prenom  -------------------------------------------------------------
 void FormRubIdent::OnTextChanged_lineEdit_Prenom(const QString & ) { NotifyIdentChangedToGestUser("");}
 //--------------------------------- OnTextChanged_lineEdit_Login  -------------------------------------------------------------
-void FormRubIdent::OnTextChanged_lineEdit_Login(const QString & ) { NotifyIdentChangedToGestUser("");}
+void FormRubIdent::OnTextChanged_lineEdit_Login(const QString & )     { NotifyIdentChangedToGestUser("");}
 //--------------------------------- OnTextChanged_comboBoxSexe  -------------------------------------------------------------
 void FormRubIdent::OnTextChanged_comboBoxSexe(const QString & ) { NotifyIdentChangedToGestUser("");}
 //--------------------------------- lineEdit_Qualif  -------------------------------------------------------------
 void FormRubIdent::OnTextChanged_lineEdit_Qualif(const QString & ) { NotifyIdentChangedToGestUser("");}
 //--------------------------------- lineEdit_NumOrdinal  -------------------------------------------------------------
 void FormRubIdent::OnTextChanged_lineEdit_NumOrdinal(const QString & ) { NotifyIdentChangedToGestUser("");}
+//--------------------------------- lineEdit_NumRpps -------------------------------------------------------------
+void FormRubIdent::OnTextChanged_lineEdit_NumRpps(const QString & ) { NotifyIdentChangedToGestUser("");}
+//--------------------------------- lineEdit_ClefRpps -------------------------------------------------------------
+void FormRubIdent::OnTextChanged_lineEdit_ClefRpps(const QString & ) { NotifyIdentChangedToGestUser("");}
 //--------------------------------- lineEdit_Convention  -------------------------------------------------------------
 void FormRubIdent::OnTextChanged_lineEdit_Convention(const QString & ) {NotifyIdentChangedToGestUser("");}
 //--------------------------------- lineEdit_Droits  -------------------------------------------------------------
@@ -203,6 +208,7 @@ void FormRubIdent::OnTextChanged_lineEdit_CdPostal(const QString & ) {NotifyIden
 void FormRubIdent::OnTextChanged_lineEdit_Ville(const QString & ) { NotifyIdentChangedToGestUser("");}
 //--------------------------------- NotifyIdentChangedToGestUser  -------------------------------------------------------------
 void FormRubIdent::NotifyIdentChangedToGestUser(const QString & ) { pushButtonSaveNew->setEnabled(TRUE); emit Sign_RubChanged();}
+
 
 //--------------------------------- listViewFriendUserList_contextMenuRequested  -------------------------------------------------------------
 void FormRubIdent::listViewFriendUserList_contextMenuRequested( QListViewItem *pQListViewItem, const QPoint &, int pos )
@@ -441,30 +447,31 @@ int FormRubIdent::GetUserIdentiteFromPrimKey( QString &primKey)
                m_pCMoteurBase->m_USER_IDENT_DROITS       + "," +      // 6
                m_pCMoteurBase->m_USER_IDENT_SEXE         + "," +      // 7
                m_pCMoteurBase->m_USER_IDENT_NUM_ORDRE    + "," +      // 8
-               m_pCMoteurBase->m_USER_IDENT_CONVENTION   + "," +      // 9
-               m_pCMoteurBase->m_USER_IDENT_RUE          + "," +      // 10
-               m_pCMoteurBase->m_USER_IDENT_CODE_POST    + "," +      // 11
-               m_pCMoteurBase->m_USER_IDENT_VILLE        + "," +      // 12
-               m_pCMoteurBase->m_USER_IDENT_GUID         + "," +      // 13
-
-               m_pCMoteurBase->m_USER_IDENT_TEL_1         + "," +      // 14
-               m_pCMoteurBase->m_USER_IDENT_TEL_2         + "," +      // 15
-               m_pCMoteurBase->m_USER_IDENT_TEL_3         + "," +      // 16
-               m_pCMoteurBase->m_USER_IDENT_EMAIL         + "," +      // 17
-               m_pCMoteurBase->m_USER_IDENT_NOTE          + "," +      // 18
-               m_pCMoteurBase->m_USER_IDENT_CODE_REGIME   + "," +      // 19
-               m_pCMoteurBase->m_USER_IDENT_CHER          + "," +      // 20
-               m_pCMoteurBase->m_USER_IDENT_TEL_TYPE_1    + "," +      // 21
-               m_pCMoteurBase->m_USER_IDENT_TEL_TYPE_2    + "," +      // 22
-               m_pCMoteurBase->m_USER_IDENT_TEL_TYPE_3    + "," +      // 23
-               m_pCMoteurBase->m_USER_IDENT_TEL_ABR_1     + "," +      // 24
-               m_pCMoteurBase->m_USER_IDENT_TEL_ABR_2     + "," +      // 25
-               m_pCMoteurBase->m_USER_IDENT_TEL_ABR_3     ;
+               m_pCMoteurBase->m_USER_IDENT_NUM_RPPS     + "," +      // 9
+               m_pCMoteurBase->m_USER_IDENT_CLEF_RPPS    + "," +      // 10
+               m_pCMoteurBase->m_USER_IDENT_CONVENTION   + "," +      // 11
+               m_pCMoteurBase->m_USER_IDENT_RUE          + "," +      // 12
+               m_pCMoteurBase->m_USER_IDENT_CODE_POST    + "," +      // 13
+               m_pCMoteurBase->m_USER_IDENT_VILLE        + "," +      // 14
+               m_pCMoteurBase->m_USER_IDENT_GUID         + "," +      // 15
+               m_pCMoteurBase->m_USER_IDENT_TEL_1         + "," +      // 16
+               m_pCMoteurBase->m_USER_IDENT_TEL_2         + "," +      // 17
+               m_pCMoteurBase->m_USER_IDENT_TEL_3         + "," +      // 18
+               m_pCMoteurBase->m_USER_IDENT_EMAIL         + "," +      // 19
+               m_pCMoteurBase->m_USER_IDENT_NOTE          + "," +      // 20
+               m_pCMoteurBase->m_USER_IDENT_CODE_REGIME   + "," +      // 21
+               m_pCMoteurBase->m_USER_IDENT_CHER          + "," +      // 22
+               m_pCMoteurBase->m_USER_IDENT_TEL_TYPE_1    + "," +      // 23
+               m_pCMoteurBase->m_USER_IDENT_TEL_TYPE_2    + "," +      // 24
+               m_pCMoteurBase->m_USER_IDENT_TEL_TYPE_3    + "," +      // 25
+               m_pCMoteurBase->m_USER_IDENT_TEL_ABR_1     + "," +      // 26
+               m_pCMoteurBase->m_USER_IDENT_TEL_ABR_2     + "," +      // 27
+               m_pCMoteurBase->m_USER_IDENT_TEL_ABR_3     ;            // 28
 
  //............... continuer à construire la requete ...........................
  requete  += " FROM "     + m_pCMoteurBase->m_USER_IDENT_TBL_NAME + " WHERE ";
  requete  += m_pCMoteurBase->m_USER_IDENT_PRIMKEY + " ='"         + primKey + "'";
-
+ // CGestIni::Param_UpdateToDisk("C:/requete.txt",requete);
  if (m_pCMoteurBase->OpenBase()==0)     return 0;
  QSqlQuery  query(requete , m_pCMoteurBase->m_DataBase );
  if (query.isActive() && query.next())
@@ -481,23 +488,25 @@ int FormRubIdent::GetUserIdentiteFromPrimKey( QString &primKey)
      if (sex=="M") comboBoxSexe->setCurrentItem (0);
      else          comboBoxSexe->setCurrentItem (1);
      lineEdit_NumOrdinal->setText(m_pCMoteurBase->Utf8_Query(query,8));
-     lineEdit_Convention->setText(m_pCMoteurBase->Utf8_Query(query,9));
-     textEdit_Adresse->setText(m_pCMoteurBase->Utf8_Query(query,10));
-     lineEdit_CdPostal->setText(m_pCMoteurBase->Utf8_Query(query,11));
-     lineEdit_Ville->setText(m_pCMoteurBase->Utf8_Query(query,12));
-     m_NumGUID = m_pCMoteurBase->Utf8_Query(query,13);
+     lineEdit_NumRpps->setText(m_pCMoteurBase->Utf8_Query(query,9));
+     lineEdit_ClefRpps->setText(m_pCMoteurBase->Utf8_Query(query,10));
+     lineEdit_Convention->setText(m_pCMoteurBase->Utf8_Query(query,11));
+     textEdit_Adresse->setText(m_pCMoteurBase->Utf8_Query(query,12));
+     lineEdit_CdPostal->setText(m_pCMoteurBase->Utf8_Query(query,13));
+     lineEdit_Ville->setText(m_pCMoteurBase->Utf8_Query(query,14));
+     m_NumGUID = m_pCMoteurBase->Utf8_Query(query,15);
 
-     lineEdit_Tel_1->setText(m_pCMoteurBase->Utf8_Query(query, 14));
-     lineEdit_Tel_2->setText(m_pCMoteurBase->Utf8_Query(query, 15));
-     lineEdit_Tel_3->setText(m_pCMoteurBase->Utf8_Query(query, 16));
-     lineEdit_Email->setText(m_pCMoteurBase->Utf8_Query(query, 17));
-     comboBoxTelTyp_1->lineEdit()->setText(m_pCMoteurBase->Utf8_Query(query,21));
-     comboBoxTelTyp_2->lineEdit()->setText(m_pCMoteurBase->Utf8_Query(query,22));
-     comboBoxTelTyp_3->lineEdit()->setText(m_pCMoteurBase->Utf8_Query(query,23));
+     lineEdit_Tel_1->setText(m_pCMoteurBase->Utf8_Query(query, 16));
+     lineEdit_Tel_2->setText(m_pCMoteurBase->Utf8_Query(query, 17));
+     lineEdit_Tel_3->setText(m_pCMoteurBase->Utf8_Query(query, 18));
+     lineEdit_Email->setText(m_pCMoteurBase->Utf8_Query(query, 19));
+     comboBoxTelTyp_1->lineEdit()->setText(m_pCMoteurBase->Utf8_Query(query,23));
+     comboBoxTelTyp_2->lineEdit()->setText(m_pCMoteurBase->Utf8_Query(query,24));
+     comboBoxTelTyp_3->lineEdit()->setText(m_pCMoteurBase->Utf8_Query(query,25));
 
-     lineEdit_Code_1->setText(m_pCMoteurBase->Utf8_Query(query,24));
-     lineEdit_Code_2->setText(m_pCMoteurBase->Utf8_Query(query,25));
-     lineEdit_Code_3->setText(m_pCMoteurBase->Utf8_Query(query,26));
+     lineEdit_Code_1->setText(m_pCMoteurBase->Utf8_Query(query,26));
+     lineEdit_Code_2->setText(m_pCMoteurBase->Utf8_Query(query,27));
+     lineEdit_Code_3->setText(m_pCMoteurBase->Utf8_Query(query,28));
 
      if (droits.find("sgn")!=-1 || droits.find("adm")!=-1)
         {G_pCApp->m_pCMoteurBase->PermsUserGetList( listViewFriendUserList, m_NumGUID, Theme::getPath()+"16x16/" );
@@ -522,6 +531,8 @@ void FormRubIdent::FormulaireToQSqlRecord( QSqlRecord *buffer , int keepMedUser)
   if (keepMedUser) G_pCApp->AddDroit( droits , "med");                         // placer le droit medintux de base pour etre certain qu'il y est
   buffer->setValue( m_pCMoteurBase->m_USER_IDENT_DROITS,     droits                       );  // y placer les données
   buffer->setValue( m_pCMoteurBase->m_USER_IDENT_NUM_ORDRE,  lineEdit_NumOrdinal->text()  );  // y placer les données
+  buffer->setValue( m_pCMoteurBase->m_USER_IDENT_NUM_RPPS,   lineEdit_NumRpps->text()     );  // y placer les données
+  buffer->setValue( m_pCMoteurBase->m_USER_IDENT_CLEF_RPPS,  lineEdit_ClefRpps->text()    );  // y placer les données
   buffer->setValue( m_pCMoteurBase->m_USER_IDENT_GUID,       m_NumGUID                    );  // y placer les données
   buffer->setValue( m_pCMoteurBase->m_USER_IDENT_CONVENTION, lineEdit_Convention->text()  );  // y placer les données
   buffer->setValue( m_pCMoteurBase->m_USER_IDENT_RUE,        textEdit_Adresse->text()     );  // y placer les données

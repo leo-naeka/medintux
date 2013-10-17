@@ -17,7 +17,8 @@ OBJECTS_DIR = obj
 DEFINES = _DR_TUX
 CONFIG += x11 \
  exceptions \
- thread
+ thread \
+ debug
 exists( ../../SesamVitale-QT3/qtsingleapplication.pri ){
     DEFINES += SESAMVITALE_VERSION
     message(         "================== SesamVitale version ======================" )
@@ -58,7 +59,6 @@ FORMS += RubTerrain.ui \
          DlgGetText.ui \
          DlgChoixUser.ui \
          DlgDateNom.ui \
-         Dlg_AboutDrTux.ui \
          Dlg_PosoManager.ui \
          Dlg_MedicaTux.ui \
          Dlg_MedicaAdjustPoso.ui \
@@ -98,7 +98,6 @@ HEADERS += drtux.h \
            ../../MedinTuxTools/CW_EditText.h \
            ../../MedinTuxTools/Calendar/MyDateTable.h \
            ../../MedinTuxTools/Calendar/C_Horloge.h \
-           ../../MedinTuxTools/GestRPU.h \
            ../../MedinTuxTools/CGenTools.h \
            ../../MedinTuxTools/CHtmlTools.h \
            ../../MedinTuxTools/CMaskedLineEdit.h \
@@ -160,7 +159,6 @@ SOURCES += drtux.cpp \
            ../../MedinTuxTools/CW_EditText.cpp \
            ../../MedinTuxTools/Calendar/MyDateTable.cpp \
            ../../MedinTuxTools/Calendar/C_Horloge.cpp \
-           ../../MedinTuxTools/GestRPU.cpp \
            ../../MedinTuxTools/CGenTools.cpp \
            ../../MedinTuxTools/CHtmlTools.cpp \
            ../../MedinTuxTools/CMaskedLineEdit.cpp \
@@ -194,4 +192,8 @@ SOURCES += drtux.cpp \
            C_RubObservation.cpp
 
 
+
+
+
+CONFIG -= release
 

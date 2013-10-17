@@ -79,7 +79,7 @@ int Dlg_MedicaTux::initDialog(CMedicaBase *pCMedBase, const QPL_CPosologie &poso
 
 //------------------------------------------- initDialog -------------------------------------------------------------------------------
 // ENTREE:  CMedicaBase *pCMedBase: pointeur sur l'API de gestion des bases medicamenteuses
-// RETOUR:  int √  zero si erreur d'initialisation
+// RETOUR:  int ÔøΩ  zero si erreur d'initialisation
 
 int Dlg_MedicaTux::initDialog(CMedicaBase *pCMedBase)
 {if (pCMedBase == 0) return 0;
@@ -666,7 +666,7 @@ void Dlg_MedicaTux::textBrowser_Posologies_anchorClicked( const QString &, const
      if (pos==-1)                  return;
      //page += "<br><b>1)<a href=\"#PosoText"+ cip + "==" + QString::number(tableIndex) + "\"> Pas de donn√©es sur la posologie, les pr√©ciser textuellement</b></a></span>";
      //
-     //.................. ajouter cette nouvelle posologie √  l'ordonnance .......................................
+     //.................. ajouter cette nouvelle posologie ÔøΩ  l'ordonnance .......................................
      CPosologie poso = m_QPL_CPosologie[link.mid(9,pos-9).toInt()-1];
      dlg->initDialog( poso,  G_pCApp->m_pDrTux->m_pCMDI_Terrain, &spoids, &staille);
      if (dlg->exec()== QDialog::Accepted)
@@ -984,8 +984,9 @@ QString Dlg_MedicaTux::Get_OrdoXmlStruct()
  spoids  = textLabel_Poids->text();
  staille = textLabel_Taille->text();
  return m_pCMedBase->Medica_PosologieListToXMLOrdoStruct(m_CPosologieOrdoList,
-                                                         QString::number(m_pCMedBase->Medica_ExtractNumber(spoids)) ,
-                                                         QString::number(m_pCMedBase->Medica_ExtractNumber(staille))
+                                                         QString::number(m_pCMedBase->Medica_ExtractNumber(spoids))  ,
+                                                         QString::number(m_pCMedBase->Medica_ExtractNumber(staille)) ,
+                                                         ""
                                                         );
 }
 

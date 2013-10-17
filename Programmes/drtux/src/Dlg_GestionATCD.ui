@@ -211,7 +211,7 @@
                                 <property name="spacing">
                                     <number>0</number>
                                 </property>
-                                <widget class="QListView" row="2" column="0">
+                                <widget class="QListView" row="3" column="0">
                                     <column>
                                         <property name="text">
                                             <string>Libellé                                                 </string>
@@ -334,6 +334,32 @@
                                         </widget>
                                     </grid>
                                 </widget>
+                                <widget class="QLayoutWidget" row="2" column="0">
+                                    <property name="name">
+                                        <cstring>layout_enplus</cstring>
+                                    </property>
+                                    <grid>
+                                        <property name="name">
+                                            <cstring>unnamed</cstring>
+                                        </property>
+                                        <widget class="QCheckBox" row="3" column="2">
+                                            <property name="name">
+                                                <cstring>checkBox_filter_chapitres_cimx</cstring>
+                                            </property>
+                                            <property name="sizePolicy">
+                                                <sizepolicy>
+                                                    <hsizetype>0</hsizetype>
+                                                    <vsizetype>0</vsizetype>
+                                                    <horstretch>0</horstretch>
+                                                    <verstretch>0</verstretch>
+                                                </sizepolicy>
+                                            </property>
+                                            <property name="text">
+                                                <string>Inclure les chapitres</string>
+                                            </property>
+                                        </widget>
+                                    </grid>
+                                </widget>
                             </grid>
                         </widget>
                         <widget class="QWidget">
@@ -413,7 +439,7 @@
                                 <property name="spacing">
                                     <number>0</number>
                                 </property>
-                                <widget class="QLabel" row="4" column="0" rowspan="1" colspan="2">
+                                <widget class="QLabel" row="5" column="0" rowspan="1" colspan="2">
                                     <property name="name">
                                         <cstring>textLabelStatut</cstring>
                                     </property>
@@ -422,6 +448,36 @@
                                     </property>
                                 </widget>
                                 <widget class="QListView" row="1" column="0" rowspan="1" colspan="2">
+                                  <column>
+                                    <property name="text">
+                                      <string>Classe ATC                           </string>
+                                    </property>
+                                    <property name="clickable">
+                                      <bool>true</bool>
+                                    </property>
+                                    <property name="resizable">
+                                      <bool>true</bool>
+                                    </property>
+                                  </column>
+                                  <column>
+                                    <property name="text">
+                                      <string>Code ATC</string>
+                                    </property>
+                                    <property name="clickable">
+                                      <bool>true</bool>
+                                    </property>
+                                    <property name="resizable">
+                                      <bool>true</bool>
+                                    </property>
+                                  </column>
+                                  <property name="name">
+                                    <cstring>listView_ATC</cstring>
+                                  </property>
+                                  <property name="rootIsDecorated">
+                                    <bool>true</bool>
+                                  </property>
+                                </widget>                                
+                                <widget class="QListView" row="2" column="0" rowspan="1" colspan="2">
                                     <column>
                                         <property name="text">
                                             <string>Substance allergique                           </string>
@@ -470,7 +526,7 @@
                                         <cstring>lineEditNomAllergie</cstring>
                                     </property>
                                 </widget>
-                                <widget class="QListView" row="3" column="0" rowspan="1" colspan="2">
+                                <widget class="QListView" row="4" column="0" rowspan="1" colspan="2">
                                     <column>
                                         <property name="text">
                                             <string>Produit</string>
@@ -1413,7 +1469,18 @@ Ajouter&lt;/b&gt;&lt;/font&gt;</string>
                                 </column>
                                 <column>
                                     <property name="text">
-                                        <string>État</string>
+                                        <string>Date début</string>
+                                    </property>
+                                    <property name="clickable">
+                                        <bool>true</bool>
+                                    </property>
+                                    <property name="resizable">
+                                        <bool>true</bool>
+                                    </property>
+                                </column>
+                                <column>
+                                    <property name="text">
+                                        <string>Date fin</string>
                                     </property>
                                     <property name="clickable">
                                         <bool>true</bool>
@@ -1435,18 +1502,7 @@ Ajouter&lt;/b&gt;&lt;/font&gt;</string>
                                 </column>
                                 <column>
                                     <property name="text">
-                                        <string>Date</string>
-                                    </property>
-                                    <property name="clickable">
-                                        <bool>true</bool>
-                                    </property>
-                                    <property name="resizable">
-                                        <bool>true</bool>
-                                    </property>
-                                </column>
-                                <column>
-                                    <property name="text">
-                                        <string>ALD</string>
+                                        <string>ALD/Sport</string>
                                     </property>
                                     <property name="clickable">
                                         <bool>true</bool>
@@ -1494,5 +1550,8 @@ Ajouter&lt;/b&gt;&lt;/font&gt;</string>
         </widget>
     </grid>
 </widget>
+<includes>
+    <include location="local" impldecl="in implementation">Dlg_GestionATCD.ui.h</include>
+</includes>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>

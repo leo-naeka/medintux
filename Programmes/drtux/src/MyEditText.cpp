@@ -341,7 +341,7 @@ QPopupMenu * MyEditText::createPopupMenu ( const QPoint &pos )   // CMyThemePopu
      ConnectPopup(forLists);
      id = pThemePopup->insertItem(Theme::getIcon("ToolList_Item.png"), "Gestion des listes", forLists);
     }
- //........................ créer menus spécifiques aux rubriques ...............................................................
+ //........................ créer menus spécifiques aux rubriques et codes dans la classe de la rubrique ...............................................................
  QString      iconFile;
  QString      menuStringItem;
  QKeySequence accel;
@@ -686,6 +686,10 @@ QString MyEditText::getText( CRubRecord* pCRubRecord /*=0 */)
 	return QTextEdit::text();
 	break;
 
+    case TYP_ORDO_LAP :
+	if (pCRubRecord) return getText_IfTypeIsOrdoLap(pCRubRecord);
+	break;
+
     case TYP_ORDO_CALC :
 	if (pCRubRecord) return getText_IfTypeIsOrdoCalc(pCRubRecord);
 	break;
@@ -698,6 +702,28 @@ QString MyEditText::getText( CRubRecord* pCRubRecord /*=0 */)
   return TR("Erreur");
 }
 
+QString MyEditText::getText_IfTypeIsOrdoLap(CRubRecord* pCRubRecord)
+{// Attention il faut d'abord relire le rubrecord pour récupérer la structure car elle n'apparait pas dans le QTextEdit
+// qWarning ("MyEditText::getText_IfTypeIsOrdoCalc");
+ QString              data;
+ QString              stringStruct;
+ QString              stringDST;
+
+ G_pCApp->m_pCMoteurBase->GetDataFromRubList(data, pCRubRecord);
+//  ptr        = (char*)data;
+
+ if (CGestIni::IsUtf8( data ))
+    {  CMedicaBase::Medica_DiskDataSplitIn_HtmlData_StructData(QString::fromUtf8 ( data ), 0, &stringStruct);    // y isoler et recuperer les données calculables
+    }
+ else  CMedicaBase::Medica_DiskDataSplitIn_HtmlData_StructData( data , 0, &stringStruct);
+
+ stringDST       = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\" ?>\r\n<ordotext>\r\n";
+ stringDST.append (QTextEdit::text());           // ajouter le texte modifé
+ stringDST.append ( "\r\n</ordotext>\r\n\r\n<ordoMedicaStruct>");
+ stringDST.append (stringStruct);                    // ajouter la structure calculable non modifiée
+ stringDST.append ( "</ordoMedicaStruct>\r\n");
+ return stringDST;
+}
 
 QString MyEditText::getText_IfTypeIsOrdoCalc(CRubRecord* pCRubRecord)
 {// Attention il faut d'abord relire le rubrecord pour récupérer la structure car elle n'apparait pas dans le QTextEdit
@@ -824,7 +850,7 @@ void MyEditText::CouCou()
 }
 
 //------------------------------------- GetSpecialRubList -----------------------------------------------------
-/*! \brief cree la liste affectee au rubriques celles presentes dans la section  [MenuContextuel] du fichier.ini
+/*! \brief cree la liste affectee aux rubriques celles presentes dans la section  [MenuContextuel] du fichier.ini
  */
 void MyEditText::GetSpecialRubList (   ThemePopup *pThemePopup, int rubType)
 {QString supList = G_pCApp->getListNameRubriqueMenu(rubType);

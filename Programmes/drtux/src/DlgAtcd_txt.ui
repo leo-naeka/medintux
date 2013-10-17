@@ -8,8 +8,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>587</width>
-            <height>288</height>
+            <width>623</width>
+            <height>472</height>
         </rect>
     </property>
     <property name="caption">
@@ -48,117 +48,6 @@
             </property>
             <property name="alignment">
                 <set>WordBreak|AlignCenter</set>
-            </property>
-        </widget>
-        <widget class="QLayoutWidget" row="9" column="0">
-            <property name="name">
-                <cstring>layout6</cstring>
-            </property>
-            <grid>
-                <property name="name">
-                    <cstring>unnamed</cstring>
-                </property>
-                <widget class="QPushButton" row="0" column="2">
-                    <property name="name">
-                        <cstring>but_Annuler</cstring>
-                    </property>
-                    <property name="text">
-                        <string>Annuler</string>
-                    </property>
-                </widget>
-                <spacer row="0" column="0">
-                    <property name="name">
-                        <cstring>spacer1</cstring>
-                    </property>
-                    <property name="orientation">
-                        <enum>Horizontal</enum>
-                    </property>
-                    <property name="sizeType">
-                        <enum>Expanding</enum>
-                    </property>
-                    <property name="sizeHint">
-                        <size>
-                            <width>45</width>
-                            <height>20</height>
-                        </size>
-                    </property>
-                </spacer>
-                <widget class="QPushButton" row="0" column="1">
-                    <property name="name">
-                        <cstring>but_Valider</cstring>
-                    </property>
-                    <property name="text">
-                        <string>Valider</string>
-                    </property>
-                    <property name="default">
-                        <bool>true</bool>
-                    </property>
-                </widget>
-            </grid>
-        </widget>
-        <widget class="QLayoutWidget" row="8" column="0">
-            <property name="name">
-                <cstring>layout6</cstring>
-            </property>
-            <grid>
-                <property name="name">
-                    <cstring>unnamed</cstring>
-                </property>
-                <widget class="QCheckBox" row="0" column="0">
-                    <property name="name">
-                        <cstring>checkBox_IsALD</cstring>
-                    </property>
-                    <property name="text">
-                        <string>En rapport avec une pathologie ALD</string>
-                    </property>
-                </widget>
-                <widget class="QCheckBox" row="0" column="1">
-                    <property name="name">
-                        <cstring>checkBox_IsActif</cstring>
-                    </property>
-                    <property name="text">
-                        <string>Actif (pathologie en cours, non guérie)</string>
-                    </property>
-                </widget>
-            </grid>
-        </widget>
-        <widget class="QLayoutWidget" row="7" column="0">
-            <property name="name">
-                <cstring>layout18</cstring>
-            </property>
-            <grid>
-                <property name="name">
-                    <cstring>unnamed</cstring>
-                </property>
-                <widget class="QLineEdit" row="0" column="1">
-                    <property name="name">
-                        <cstring>m_LineEdit_Commentaire</cstring>
-                    </property>
-                </widget>
-                <widget class="QLabel" row="0" column="0">
-                    <property name="name">
-                        <cstring>textLabel_Commentaire</cstring>
-                    </property>
-                    <property name="sizePolicy">
-                        <sizepolicy>
-                            <hsizetype>4</hsizetype>
-                            <vsizetype>5</vsizetype>
-                            <horstretch>0</horstretch>
-                            <verstretch>0</verstretch>
-                        </sizepolicy>
-                    </property>
-                    <property name="text">
-                        <string>Commentaire</string>
-                    </property>
-                </widget>
-            </grid>
-        </widget>
-        <widget class="QCheckBox" row="5" column="0">
-            <property name="name">
-                <cstring>chkDate</cstring>
-            </property>
-            <property name="text">
-                <string>La date est connue</string>
             </property>
         </widget>
         <widget class="QLayoutWidget" row="2" column="0">
@@ -328,17 +217,355 @@
                 </widget>
             </grid>
         </widget>
-        <widget class="QLayoutWidget" row="6" column="0">
+        <widget class="QGroupBox" row="5" column="0">
             <property name="name">
-                <cstring>layout8</cstring>
+                <cstring>groupBox_dates</cstring>
             </property>
-            <hbox>
+            <property name="enabled">
+                <bool>true</bool>
+            </property>
+            <property name="title">
+                <string>Dates de l'antécédent</string>
+            </property>
+            <property name="alignment">
+                <set>AlignHCenter</set>
+            </property>
+            <grid>
                 <property name="name">
                     <cstring>unnamed</cstring>
                 </property>
-                <widget class="QLabel">
+                <widget class="QLayoutWidget" row="0" column="0">
                     <property name="name">
-                        <cstring>textLabel_date</cstring>
+                        <cstring>layout14</cstring>
+                    </property>
+                    <grid>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <widget class="QLayoutWidget" row="0" column="2">
+                            <property name="name">
+                                <cstring>layout13</cstring>
+                            </property>
+                            <grid>
+                                <property name="name">
+                                    <cstring>unnamed</cstring>
+                                </property>
+                                <widget class="QLayoutWidget" row="0" column="0">
+                                    <property name="name">
+                                        <cstring>layout11</cstring>
+                                    </property>
+                                    <grid>
+                                        <property name="name">
+                                            <cstring>unnamed</cstring>
+                                        </property>
+                                        <widget class="QPushButton" row="0" column="0">
+                                            <property name="name">
+                                                <cstring>pushButtonDateDeb_Del</cstring>
+                                            </property>
+                                            <property name="minimumSize">
+                                                <size>
+                                                    <width>22</width>
+                                                    <height>22</height>
+                                                </size>
+                                            </property>
+                                            <property name="maximumSize">
+                                                <size>
+                                                    <width>22</width>
+                                                    <height>22</height>
+                                                </size>
+                                            </property>
+                                            <property name="text">
+                                                <string></string>
+                                            </property>
+                                            <property name="accel">
+                                                <string></string>
+                                            </property>
+                                            <property name="toolTip" stdset="0">
+                                                <string>Saisie de la date et de l'heure de la rubrique.</string>
+                                            </property>
+                                        </widget>
+                                        <widget class="QPushButton" row="0" column="1">
+                                            <property name="name">
+                                                <cstring>pushButtonDateDebDlg</cstring>
+                                            </property>
+                                            <property name="minimumSize">
+                                                <size>
+                                                    <width>22</width>
+                                                    <height>22</height>
+                                                </size>
+                                            </property>
+                                            <property name="maximumSize">
+                                                <size>
+                                                    <width>22</width>
+                                                    <height>22</height>
+                                                </size>
+                                            </property>
+                                            <property name="text">
+                                                <string></string>
+                                            </property>
+                                            <property name="accel">
+                                                <string></string>
+                                            </property>
+                                            <property name="toolTip" stdset="0">
+                                                <string>Saisie de la date et de l'heure de la rubrique.</string>
+                                            </property>
+                                        </widget>
+                                    </grid>
+                                </widget>
+                                <widget class="QLayoutWidget" row="1" column="0">
+                                    <property name="name">
+                                        <cstring>layout12</cstring>
+                                    </property>
+                                    <grid>
+                                        <property name="name">
+                                            <cstring>unnamed</cstring>
+                                        </property>
+                                        <widget class="QPushButton" row="0" column="1">
+                                            <property name="name">
+                                                <cstring>pushButtonDateFinDlg</cstring>
+                                            </property>
+                                            <property name="minimumSize">
+                                                <size>
+                                                    <width>22</width>
+                                                    <height>22</height>
+                                                </size>
+                                            </property>
+                                            <property name="maximumSize">
+                                                <size>
+                                                    <width>22</width>
+                                                    <height>22</height>
+                                                </size>
+                                            </property>
+                                            <property name="text">
+                                                <string></string>
+                                            </property>
+                                            <property name="accel">
+                                                <string></string>
+                                            </property>
+                                            <property name="toolTip" stdset="0">
+                                                <string>Saisie de la date et de l'heure de la rubrique.</string>
+                                            </property>
+                                        </widget>
+                                        <widget class="QPushButton" row="0" column="0">
+                                            <property name="name">
+                                                <cstring>pushButtonDateFin_Del</cstring>
+                                            </property>
+                                            <property name="minimumSize">
+                                                <size>
+                                                    <width>22</width>
+                                                    <height>22</height>
+                                                </size>
+                                            </property>
+                                            <property name="maximumSize">
+                                                <size>
+                                                    <width>22</width>
+                                                    <height>22</height>
+                                                </size>
+                                            </property>
+                                            <property name="text">
+                                                <string></string>
+                                            </property>
+                                            <property name="accel">
+                                                <string></string>
+                                            </property>
+                                            <property name="toolTip" stdset="0">
+                                                <string>Saisie de la date et de l'heure de la rubrique.</string>
+                                            </property>
+                                        </widget>
+                                    </grid>
+                                </widget>
+                            </grid>
+                        </widget>
+                        <widget class="QLayoutWidget" row="0" column="0">
+                            <property name="name">
+                                <cstring>layout10</cstring>
+                            </property>
+                            <grid>
+                                <property name="name">
+                                    <cstring>unnamed</cstring>
+                                </property>
+                                <widget class="QLabel" row="0" column="0">
+                                    <property name="name">
+                                        <cstring>textLabel_date</cstring>
+                                    </property>
+                                    <property name="sizePolicy">
+                                        <sizepolicy>
+                                            <hsizetype>4</hsizetype>
+                                            <vsizetype>5</vsizetype>
+                                            <horstretch>0</horstretch>
+                                            <verstretch>0</verstretch>
+                                        </sizepolicy>
+                                    </property>
+                                    <property name="minimumSize">
+                                        <size>
+                                            <width>100</width>
+                                            <height>20</height>
+                                        </size>
+                                    </property>
+                                    <property name="text">
+                                        <string>Date de début l'antécédent</string>
+                                    </property>
+                                </widget>
+                                <widget class="QLabel" row="1" column="0">
+                                    <property name="name">
+                                        <cstring>textLabel_date_fin</cstring>
+                                    </property>
+                                    <property name="sizePolicy">
+                                        <sizepolicy>
+                                            <hsizetype>4</hsizetype>
+                                            <vsizetype>5</vsizetype>
+                                            <horstretch>0</horstretch>
+                                            <verstretch>0</verstretch>
+                                        </sizepolicy>
+                                    </property>
+                                    <property name="minimumSize">
+                                        <size>
+                                            <width>100</width>
+                                            <height>20</height>
+                                        </size>
+                                    </property>
+                                    <property name="text">
+                                        <string>Date de fin l'antécédent</string>
+                                    </property>
+                                </widget>
+                            </grid>
+                        </widget>
+                        <widget class="QLayoutWidget" row="0" column="1">
+                            <property name="name">
+                                <cstring>layout9</cstring>
+                            </property>
+                            <grid>
+                                <property name="name">
+                                    <cstring>unnamed</cstring>
+                                </property>
+                                <widget class="CMaskedLineEdit" row="1" column="0">
+                                    <property name="name">
+                                        <cstring>cMaskedLineDateFinAtcd</cstring>
+                                    </property>
+                                    <property name="minimumSize">
+                                        <size>
+                                            <width>100</width>
+                                            <height>20</height>
+                                        </size>
+                                    </property>
+                                    <property name="maximumSize">
+                                        <size>
+                                            <width>32767</width>
+                                            <height>20</height>
+                                        </size>
+                                    </property>
+                                    <property name="carMask" stdset="0">
+                                        <number>95</number>
+                                    </property>
+                                    <property name="control" stdset="0">
+                                        <string>GGGGGGGG</string>
+                                    </property>
+                                    <property name="mask" stdset="0">
+                                        <string>__/__/____</string>
+                                    </property>
+                                </widget>
+                                <widget class="CMaskedLineEdit" row="0" column="0">
+                                    <property name="name">
+                                        <cstring>cMaskedLineDateDebAtcd</cstring>
+                                    </property>
+                                    <property name="sizePolicy">
+                                        <sizepolicy>
+                                            <hsizetype>7</hsizetype>
+                                            <vsizetype>5</vsizetype>
+                                            <horstretch>0</horstretch>
+                                            <verstretch>0</verstretch>
+                                        </sizepolicy>
+                                    </property>
+                                    <property name="minimumSize">
+                                        <size>
+                                            <width>100</width>
+                                            <height>20</height>
+                                        </size>
+                                    </property>
+                                    <property name="maximumSize">
+                                        <size>
+                                            <width>32767</width>
+                                            <height>20</height>
+                                        </size>
+                                    </property>
+                                    <property name="carMask" stdset="0">
+                                        <number>95</number>
+                                    </property>
+                                    <property name="control" stdset="0">
+                                        <string>GGGGGGGG</string>
+                                    </property>
+                                    <property name="mask" stdset="0">
+                                        <string>__/__/____</string>
+                                    </property>
+                                </widget>
+                            </grid>
+                        </widget>
+                    </grid>
+                </widget>
+            </grid>
+        </widget>
+        <widget class="QLayoutWidget" row="8" column="0">
+            <property name="name">
+                <cstring>layout6</cstring>
+            </property>
+            <grid>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QPushButton" row="0" column="2">
+                    <property name="name">
+                        <cstring>but_Annuler</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Annuler</string>
+                    </property>
+                </widget>
+                <spacer row="0" column="0">
+                    <property name="name">
+                        <cstring>spacer1</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>45</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+                <widget class="QPushButton" row="0" column="1">
+                    <property name="name">
+                        <cstring>but_Valider</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Valider</string>
+                    </property>
+                    <property name="default">
+                        <bool>true</bool>
+                    </property>
+                </widget>
+            </grid>
+        </widget>
+        <widget class="QLayoutWidget" row="7" column="0">
+            <property name="name">
+                <cstring>layout18</cstring>
+            </property>
+            <grid>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QLineEdit" row="0" column="1">
+                    <property name="name">
+                        <cstring>m_LineEdit_Commentaire</cstring>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="0" column="0">
+                    <property name="name">
+                        <cstring>textLabel_Commentaire</cstring>
                     </property>
                     <property name="sizePolicy">
                         <sizepolicy>
@@ -348,76 +575,75 @@
                             <verstretch>0</verstretch>
                         </sizepolicy>
                     </property>
-                    <property name="minimumSize">
-                        <size>
-                            <width>100</width>
-                            <height>20</height>
-                        </size>
+                    <property name="text">
+                        <string>Commentaire</string>
+                    </property>
+                </widget>
+            </grid>
+        </widget>
+        <widget class="QButtonGroup" row="6" column="0">
+            <property name="name">
+                <cstring>buttonGroup_Sport_ALD</cstring>
+            </property>
+            <property name="enabled">
+                <bool>true</bool>
+            </property>
+            <property name="title">
+                <string>Rapports ALD, Activité sportive, vigilance</string>
+            </property>
+            <property name="alignment">
+                <set>AlignHCenter</set>
+            </property>
+            <grid>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <property name="margin">
+                    <number>2</number>
+                </property>
+                <property name="spacing">
+                    <number>2</number>
+                </property>
+                <widget class="QRadioButton" row="2" column="0">
+                    <property name="name">
+                        <cstring>radioButton_Sport</cstring>
                     </property>
                     <property name="text">
-                        <string>Date de l'antécédent</string>
+                        <string>En rapport avec une activité sportive (détection du dopage)</string>
                     </property>
                 </widget>
-                <widget class="CMaskedLineEdit">
+                <widget class="QRadioButton" row="0" column="0">
                     <property name="name">
-                        <cstring>cMaskedLineDateAtcd</cstring>
-                    </property>
-                    <property name="minimumSize">
-                        <size>
-                            <width>100</width>
-                            <height>20</height>
-                        </size>
-                    </property>
-                    <property name="maximumSize">
-                        <size>
-                            <width>32767</width>
-                            <height>20</height>
-                        </size>
-                    </property>
-                    <property name="carMask" stdset="0">
-                        <number>95</number>
-                    </property>
-                    <property name="control" stdset="0">
-                        <string>GGGGGGGG</string>
-                    </property>
-                    <property name="mask" stdset="0">
-                        <string>__/__/____</string>
-                    </property>
-                </widget>
-                <widget class="QPushButton">
-                    <property name="name">
-                        <cstring>pushButtonDateDlg</cstring>
-                    </property>
-                    <property name="minimumSize">
-                        <size>
-                            <width>22</width>
-                            <height>22</height>
-                        </size>
-                    </property>
-                    <property name="maximumSize">
-                        <size>
-                            <width>22</width>
-                            <height>22</height>
-                        </size>
+                        <cstring>radioButton_nonDefini</cstring>
                     </property>
                     <property name="text">
-                        <string></string>
-                    </property>
-                    <property name="accel">
-                        <string></string>
-                    </property>
-                    <property name="toolTip" stdset="0">
-                        <string>Saisie de la date et de l'heure de la rubrique.</string>
+                        <string>Non défini</string>
                     </property>
                 </widget>
-            </hbox>
+                <widget class="QRadioButton" row="3" column="0">
+                    <property name="name">
+                        <cstring>radioButton_Vigilance</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Activité nécessitant l'entière vigilance (détection de l'altération de la vigilance)</string>
+                    </property>
+                </widget>
+                <widget class="QRadioButton" row="1" column="0">
+                    <property name="name">
+                        <cstring>radioButton_ALD</cstring>
+                    </property>
+                    <property name="text">
+                        <string>En rapport avec une pathologie ALD</string>
+                    </property>
+                </widget>
+            </grid>
         </widget>
     </grid>
 </widget>
 <customwidgets>
     <customwidget>
         <class>CMaskedLineEdit</class>
-        <header location="global">../../MedinTuxTools/CMaskedLineEdit.h</header>
+        <header location="global">../../../MedinTuxTools/CMaskedLineEdit.h</header>
         <sizehint>
             <width>-1</width>
             <height>-1</height>
@@ -458,12 +684,6 @@
         <receiver>DlgAtcd_txt</receiver>
         <slot>but_Annuler_clicked()</slot>
     </connection>
-    <connection>
-        <sender>chkDate</sender>
-        <signal>clicked()</signal>
-        <receiver>DlgAtcd_txt</receiver>
-        <slot>chkDate_clicked()</slot>
-    </connection>
 </connections>
 <includes>
     <include location="global" impldecl="in declaration">qdatetime.h</include>
@@ -484,35 +704,38 @@
     <variable>bool m_isFamilleGenreModified;</variable>
 </variables>
 <slots>
-    <slot>Slot_pushButtonDateDlg()</slot>
+    <slot>Slot_pushButtonDateDebDlg()</slot>
+    <slot>Slot_pushButtonDateFinDlg()</slot>
+    <slot>Slot_pushButtonDateDeb_Del()</slot>
+    <slot>Slot_pushButtonDateFin_Del()</slot>
     <slot>Slot_pushButtonFamilleGenreEdit()</slot>
-    <slot>setDialogForAddToThesaurus()</slot>
+    <slot>setSate_Ald_Sport( const QString &amp; sport_ald )</slot>
+    <slot>setDateFin( QDate dt )</slot>
+    <slot>setDateDeb( QDate dt )</slot>
+    <slot>getInfos( QString &amp; libelle, QString &amp; family, QString &amp; dateDebIso, QString &amp; dateFinIso, QString &amp; commentaire )</slot>
     <slot>setComboFamilyGenre()</slot>
-    <slot>setATCD_toView( Atcd_Code * pAtcd_Code, Atcd_Element * atcd )</slot>
     <slot>setFamilyGenre( QString familyGenre )</slot>
+    <slot>setDialogForAddToThesaurus()</slot>
+    <slot>setATCD_toView( Atcd_Code *, Atcd_Element * atcd )</slot>
     <slot>setToUpdate( bool b )</slot>
-    <slot>getInfos( QString &amp; libelle, QString &amp; family, QString &amp; date, QString &amp; commentaire )</slot>
-    <slot returnType="QString">getDate()</slot>
-    <slot>setDateObserv( QString dt_str )</slot>
-    <slot>setDateObserv( QDate dt )</slot>
+    <slot>put_Atcd_Data_in_View( Atcd_Element * atcd )</slot>
     <slot>but_Valider_clicked()</slot>
     <slot>but_Annuler_clicked()</slot>
     <slot>comboBox_Family_highlighted( const QString &amp; section )</slot>
     <slot>combo_Family_activated( int )</slot>
     <slot>combo_Genre_activated( int )</slot>
-    <slot>chkDate_clicked()</slot>
 </slots>
 <functions>
     <function access="private" specifier="non virtual">init()</function>
     <function returnType="bool">isFamilleGenreModified()</function>
     <function>setComboOnValue( QComboBox * pQComboBox, const QString &amp; value )</function>
-    <function returnType="bool">isALD()</function>
-    <function returnType="QString">GetALD()</function>
-    <function returnType="bool">isActif()</function>
-    <function returnType="QString">getEtatGueriActif()</function>
+    <function returnType="QString">setDateFin( const QString &amp; old_state )</function>
+    <function returnType="QString">getSate_Ald_Sport()</function>
+    <function returnType="QString">getDateFin()</function>
+    <function returnType="QString">getDateDeb()</function>
     <function returnType="QString">getFamilleGenre()</function>
-    <function returnType="QString">getDateObserv()</function>
-    <function returnType="QString">getDateObserv_ISODate()</function>
+    <function returnType="QString">getLibelle()</function>
+    <function returnType="QString">getComment()</function>
 </functions>
 <layoutdefaults spacing="6" margin="11"/>
  /includehints>

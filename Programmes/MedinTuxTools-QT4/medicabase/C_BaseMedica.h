@@ -69,6 +69,7 @@ class C_BiblioData
      QString m_data;
 };
 
+
 //====================================== C_BaseMedica =====================================
 class C_BaseMedica : public C_BaseCommon, C_DBVar
 {

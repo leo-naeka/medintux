@@ -59,6 +59,7 @@
 //#define TYP_ORDO_CALC_CURENT      20020999  // pour que date ordo soit la date courante lors appel DrTux::AddNewRecordToRubrique()
 
 #define TYP_ORDO_CALC             20020100
+#define TYP_ORDO_LAP              20020150
 #define TYP_ORDONNANCE            20020200
 #define TYP_CERTIFICAT            20020300
 #define TYP_COURRIER              20020500

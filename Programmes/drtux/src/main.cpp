@@ -63,7 +63,7 @@
 #define TR QObject::tr
 
 /*! \mainpage
- * MedinTux est une suite logicielle complète pour la gestion du dossier médical. Toutes les informations concernant cette suite se trouve sur le son site internet : http://www.medintux.org/.
+ * MedinTux est une suite logicielle complète pour la gestion du dossier médical. Toutes les informations concernant cette suite se trouvent sur son site internet : http://www.medintux.org/.
 
  * <center><b>Description du fonctionnement de base de l'applicatif Docteur Tux (gestionnaire des dossiers médicaux)</b></center>
  * <b>Initilisation de l'application : </b> L'application débute par l'instanciation de la classe CApp. Cette classe est la classe mère de l'application. Un pointeur global est défini afin de pouvoir accéder à toutes les fonctions de cette classe et de ses sous-classe de tout endroit du code.\n

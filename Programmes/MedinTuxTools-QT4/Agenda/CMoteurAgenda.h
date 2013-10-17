@@ -210,7 +210,7 @@ class CMoteurAgenda : public QObject
                                         QLabel    *statutMess=0,   // pointeur sur Qlabel de sortie message
                                         QString   *errMess=0       // pointeur sur Qlabel de sortie message
                                  );
-  long          AfficherLesRdvDuPatient(QTreeWidget *pQlistView, QString nomP, QString prenomP, QString typeRDV, QString guid   = "");
+  long            AfficherLesRdvDuPatient(QTreeWidget *pQlistView, QString nomP, QString prenomP, QString typeRDV, QString guid   = "");
 
   void creer_Liste_Jours_Feries(QDate deb);
   bool isFreeDay(QDate jourf);

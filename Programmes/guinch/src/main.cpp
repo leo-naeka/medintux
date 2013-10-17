@@ -22,6 +22,7 @@
 #include <QString>
 #include <QFileInfo>
 #include <QDir>
+#include <QDebug>
 
 //#include "../../MedinTuxTools-QT4/CGestIni.h"
 
@@ -43,7 +44,6 @@ QString Construct_Name_Exe(QString module, QString start_Argv, const QString &al
 //-------------------------------------------------------------------------- main -------------------------------------------------------------------------------------
 int main( int argc, char ** argv )
 {   //................ Lancer le process .................................................................
-    //QString pathExe  = CGestIni::Construct_Name_Exe("drtux", QFileInfo (argv[0]).path ());
     QString pathExe  = Construct_Name_Exe("drtux", QFileInfo (argv[0]).path ());
     int i=1 ;
     QStringList argList;
@@ -52,7 +52,8 @@ int main( int argc, char ** argv )
         { argList <<(argv[i]);
           ++i;
         }
-    QProcess::startDetached (pathExe, argList);
+    bool ret = QProcess::startDetached (pathExe, argList);
+    // if (ret == 0) qDebug() << "ok";
     return 0;
 }
 

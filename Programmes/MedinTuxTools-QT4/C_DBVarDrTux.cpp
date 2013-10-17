@@ -14,7 +14,7 @@
  *                              http://www.cecill.info/                           *
  *   as published by :                                                            *
  *                                                                                *
- *   Commissariat à l'Energie Atomique                                            *
+ *   Commissariat �  l'Energie Atomique                                            *
  *   - CEA,                                                                       *
  *                            31-33 rue de la Fédération, 75752 PARIS cedex 15.   *
  *                            FRANCE                                              *
@@ -169,6 +169,8 @@ int C_DBVarDrTux::initValues( QString& confData, QString *errMess)
   pt = SetConfBase_SetProperties(pt,   m_USER_IDENT_DROITS,        "USER_IDENT_DROITS",           &line , err); if (err.length())     goto SetConfBase_Error;
   pt = SetConfBase_SetProperties(pt,   m_USER_IDENT_SEXE,          "USER_IDENT_SEXE",             &line , err); if (err.length())     goto SetConfBase_Error;
   pt = SetConfBase_SetProperties(pt,   m_USER_IDENT_NUM_ORDRE,     "USER_IDENT_NUM_ORDRE",        &line , err); if (err.length())     goto SetConfBase_Error;
+  pt = SetConfBase_SetProperties(pt,   m_USER_IDENT_NUM_RPPS,      "USER_IDENT_NUM_RPPS",         &line , err); if (err.length())     goto SetConfBase_Error;
+  pt = SetConfBase_SetProperties(pt,   m_USER_IDENT_CLEF_RPPS,     "USER_IDENT_CLEF_RPPS",        &line , err); if (err.length())     goto SetConfBase_Error;
   pt = SetConfBase_SetProperties(pt,   m_USER_IDENT_PRIMKEY,       "USER_IDENT_PRIMKEY",          &line , err); if (err.length())     goto SetConfBase_Error;
   pt = SetConfBase_SetProperties(pt,   m_USER_IDENT_GUID,          "USER_IDENT_GUID",             &line , err); if (err.length())     goto SetConfBase_Error;
   pt = SetConfBase_SetProperties(pt,   m_USER_IDENT_CONVENTION,    "USER_IDENT_CONVENTION",       &line , err); if (err.length())     goto SetConfBase_Error;
@@ -214,7 +216,7 @@ int C_DBVarDrTux::initValues( QString& confData, QString *errMess)
   pt = SetConfBase_SetProperties(pt,   m_USER_PERMS_PK,            "USER_PERMS_PK",             &line , err); if (err.length())     goto SetConfBase_Error;       // clef primaire de cet enregistrement
   pt = SetConfBase_SetProperties(pt,   m_USER_PERMS_SIGN_GUID,     "USER_PERMS_SIGN_GUID",      &line , err); if (err.length())     goto SetConfBase_Error;       // Ref au GUID du signataire autorisant cet utilisateur
   pt = SetConfBase_SetProperties(pt,   m_USER_PERMS_FRIEND_GUID,   "USER_PERMS_FRIEND_GUID",    &line , err); if (err.length())     goto SetConfBase_Error;       // GUID de cet utilisateur
-  pt = SetConfBase_SetProperties(pt,   m_USER_PERMS_FRIEND_DROITS, "USER_PERMS_FRIEND_DROITS",  &line , err); if (err.length())     goto SetConfBase_Error;       // Droits que le signataire attribue à cet utilisateur
+  pt = SetConfBase_SetProperties(pt,   m_USER_PERMS_FRIEND_DROITS, "USER_PERMS_FRIEND_DROITS",  &line , err); if (err.length())     goto SetConfBase_Error;       // Droits que le signataire attribue �  cet utilisateur
   pt = SetConfBase_SetProperties(pt,   m_USER_PERMS_FRIEND_BLOBS,  "USER_PERMS_FRIEND_BLOBS",   &line , err); if (err.length())     goto SetConfBase_Error;       // Configuration des autorisations fines (liste des fichiers autorisés avec les droits)
 
   pt = SetConfBase_SetProperties(pt,   m_CODES_POSTAUX_TBL_NAME,        "CODES_POSTAUX_TBL_NAME",          &line , err); if (err.length())     goto SetConfBase_Error;  // nom de la table des codes postaux
@@ -275,7 +277,7 @@ char  *C_DBVarDrTux::SetConfBase_SetProperties(char *pt, QString &propertie, con
  err  = TR("\r\nErreur de syntaxe : C_DBVarDrTux::SetConfBase()"
            "\r\nle fichier de configuration des bases 'DataBase.cfg'"
            "\r\ncomporte les erreurs suivantes : \r\n");
- err += TR("      ==> la mention %1 est non trouvée à la ligne N°: %2").arg(token, QString::number(nLine));
+ err += TR("      ==> la mention %1 est non trouvée �  la ligne N°: %2").arg(token, QString::number(nLine));
  if (line) *line = nLine;
  return pt;
 }

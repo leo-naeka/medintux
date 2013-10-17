@@ -207,6 +207,7 @@ long  CUpdateThread::Datasemp_UpdateTables(QSqlDatabase *dataBase, const QString
  QString buffer("");
 
  QSqlQuery query(QString::null, dataBase);
+ query.exec("ALTER TABLE `DatasempTest`.`t00` ADD INDEX `a2prim` (`f2`)" );    // index ultra-critique sur le cip
  m_CurrentLine =  0;
  m_position++;
  while (!stream.atEnd())
@@ -214,7 +215,7 @@ long  CUpdateThread::Datasemp_UpdateTables(QSqlDatabase *dataBase, const QString
      if (buffer.left(2)=="--" || buffer.left(2)=="/*")
         {buffer = "";
         }
-     else 
+     else
         {uint len   = buffer.length();
          if ( (buffer.at(len-2) == ')')  &&  (buffer.at(len-1) == ';'))
             {query.exec(buffer);
@@ -289,3 +290,4 @@ int  CUpdateThread::Datasemp_CreationTables(QSqlDatabase *dataBase, const QStrin
      }
  return 1;
 }
+

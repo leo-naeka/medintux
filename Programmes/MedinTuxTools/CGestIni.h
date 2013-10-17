@@ -60,6 +60,54 @@ class CGestIni
 public:
      CGestIni();
     ~CGestIni(){}
+     //---------------------------- addXmlData ------------------------------------------------
+     /*! \brief ajoute dans un fichier XML une valeur situee entre un tag de debut <tag> et de fin </tag>
+      *   dans cet exemple la valeur serait ' et de fin' (sans les apostrophes)
+      *  \param _tagXml : String indiquant le nom du tag
+      *  \param valeur :  valeur a encadrer par les tags xml
+      *  \param modeleXML :  String XML dans laquelle on va ajouter la valeur
+      *  \param ofset :  QString ofset de decalage vers la droite par defaut vide
+      *  \param mustBeB64Protected :  si true la valeur sera convertie et inscrite en base 64.
+     */
+     static void addXmlData(const QString& _tagXml, QString data, QString &modeleXML, bool mustBeB64Protected=FALSE, const QString &ofset ="" );
+
+     //---------------------------- getXmlData --------------------------------------------------------------------
+     /*! \brief retourne dans un fichier XML une valeur situee entre un tag de debut <tag> et de fin </tag>
+      *   dans cet exemple la valeur serait 'et de fin' (sans les apostrophes)
+      *  \param tagXml : String indiquant le nom du tag  sans <  />
+      *  \param dataXml :  String XML dans laquelle on va lire la valeur
+      *  \param nextPos :  pointeur sur un int qui si il n'est pas egal a zero indique
+      *                    la position a partir de laquelle chercher. Sera positionne apres le tag recherché.
+      *  \param noConvertCharToHtml  if zero (default value) '>' '<' '&' are  converted in '&gt;' '&lt;' '&amp;'
+      *  \return QString qui est la valeur a rechercher.
+     */
+     static QString getXmlData(const QString& tagXml, const QString& dataXml, int *nextPos=0, int noConvertCharToHtml  =0 );
+     //---------------------------- getXmlDataList --------------------------------------------------------------------
+     /*! \brief retourne une QStringList de valeurs à partir d'un fichier XML et d'un tag
+      *   dans cet exemple la valeur serait 'et de fin' (sans les apostrophes)
+      *  \param tagName :  QString indiquant le nom du tag  sans les </ ou < ou >
+      *  \param dataXml :  QString XML dans laquelle on va lire la valeur
+      *  \param nextPos :  pointeur sur un int qui si il n'est pas egal a zero indique
+      *                    la position a partir de laquelle chercher. Sera positionne apres le tag recherché.
+      *  \param noConvertCharToHtml  if zero (default value) '>' '<' '&' are  converted in '&gt;' '&lt;' '&amp;'
+      *  \return QStringList qui est la liste de valeurs a rechercher.
+     */
+     static QStringList getXmlDataList(const QString& tagName, const QString& dataXml, int *nextPos=0, int noConvertCharToHtml = 0 );
+
+     //---------------------------- setXmlData static ------------------------------------------------
+     /*! \brief place dans un fichier XML une valeur situee entre un tag de debut <tag> et de fin </tag>
+      *   dans cet exemple la valeur serait 'et de fin' (sans les apostrophes)
+      *  \param tagXml : String indiquant le nom du tag  sans <  />
+      *  \param valeur :    QString valeur a ecrire
+      *  \param dataXml :  String XML dans laquelle on va ecrire la valeur
+      *                    la position a partir de laquelle chercher. Sera positionne apres le tag recherché.
+      *  \param noConvertCharToHtml  if zero (default value) '>' '<' '&' are  converted in '&gt;' '&lt;' '&amp;'
+      *  \return true si tout est ok false sinon (en general le tag n'a pas ete trouve)
+     */
+     static bool setXmlData(const QString& tagXml,   QString valeur, QString& dataXml, int noConvertCharToHtml  =0 );
+
+
+
   static int            findFermant(const QString *ptext, int pos_deb, int pos_max, const QString &ouvrant, const QString &fermant);
   static int            findFermant(const QString *ptext, int pos_deb, int pos_max, const QString &ouvrant, const QString &fermant, int &isWithToken);
   static void           Param_UpdateToDisk(const QString &file_ini, const QString &inParam);

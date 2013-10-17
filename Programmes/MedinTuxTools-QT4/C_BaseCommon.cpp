@@ -17,19 +17,20 @@
 
 #include "../MedinTuxTools-QT4/CGestIni.h"
 #include "../MedinTuxTools-QT4/C_Utils_Log.h"
+#include "uuid/C_MyUuid.h"
 
-#define   DB_TIME_TO_RECONNECT     3600000  //reconnexion toutes les heures
+
 #define   DUMMY_TEST_SQL_COMMAND   "SELECT 1"
 
 //---------------------------------------- C_BaseCommon -------------------------------------------------------
 C_BaseCommon::C_BaseCommon(QObject *parent)
-    : QObject(parent)
+    : QObject(parent), C_Log()
 {m_BaseLabel       = "";
  m_LastError       = "";
- m_logWidget       = 0;
  m_StatusWidget    = 0;
  m_pQProgressBar   = 0;
  m_pReconnectTimer = 0;
+ m_GUID_CreateMode = C_BaseCommon::byMyself;
  m_ownerList.clear();
 }
 
@@ -44,7 +45,7 @@ C_BaseCommon::~C_BaseCommon()
 }
 
 //---------------------------------------- EncodePassword_InConnectionParam -------------------------------------------------------
-bool C_BaseCommon::EncodePassword_InConnectionParam(QString &param, const QString &section, QString* errMess /* =0*/)
+bool C_BaseCommon::EncodePassword_InConnectionParam(const QString &param, const QString &section, QString* errMess /* =0*/)
 {
 
  QString driver;             // nom du driver: "QODBC3" "QMYSQL3" "QPSQL7"
@@ -60,12 +61,13 @@ bool C_BaseCommon::EncodePassword_InConnectionParam(QString &param, const QStrin
  if (password.startsWith('#'))   password = CGestIni::PassWordDecode(password.mid(1));
  password = CGestIni::PassWordEncode(password);
  password.prepend('#');
- CGestIni::Param_WriteParam(  &param, section.toAscii(), "Parametres", driver.toAscii(), dataBaseToConnect.toAscii(), user.toAscii(), password.toAscii(), hostname.toAscii(), port.toAscii());
+ QString tmp = param;
+ CGestIni::Param_WriteParam(  &tmp, section.toAscii(), "Parametres", driver.toAscii(), dataBaseToConnect.toAscii(), user.toAscii(), password.toAscii(), hostname.toAscii(), port.toAscii());
  return 1;
 }
 
 //---------------------------------------- BaseConnect -------------------------------------------------------
-bool C_BaseCommon::BaseConnect(const QString &param, const QString &baseLabel, const QString &dataBase, QString* errMess /* =0*/, const QString &section  /* = "Connexion" */)
+bool C_BaseCommon::BaseConnect(const QString &param, const QString &baseLabel, const QString &dataBase /* ="" */, QString* errMess /* =0*/, const QString &section  /* = "Connexion" */)
 {
 
  QString driver;             // nom du driver: "QODBC3" "QMYSQL3" "QPSQL7"
@@ -83,39 +85,93 @@ bool C_BaseCommon::BaseConnect(const QString &param, const QString &baseLabel, c
       outMessage( m_LastError);
       return 0;
     }
- if (dataBase.length()) dataBaseToConnect = dataBase;
- if (password.startsWith('#'))   password = CGestIni::PassWordDecode(password.mid(1));
- QSqlDatabase::removeDatabase (baseLabel);
- QSqlDatabase defaultDB  = QSqlDatabase::addDatabase(driver, baseLabel);
- defaultDB.setDatabaseName( dataBaseToConnect );
- defaultDB.setUserName    ( user );
- defaultDB.setPassword    ( password );
- defaultDB.setHostName    ( hostname);
- defaultDB.setPort        ( port.toInt());
-
- if ( ! defaultDB.open() )
-    {m_LastError = tr("C_BaseCommon::BaseConnect() : Failed to open database : ")    +
-                       baseLabel   + " Driver : " +  QString(driver) + "  " +
-                       QString(dataBaseToConnect) + "\n" +
-                       defaultDB.lastError().driverText() + "\n" + defaultDB.lastError().databaseText();
-     if (errMess) *errMess = m_LastError;
-     outMessage(m_LastError);
-     return 0;
+ if (dataBase.length()) dataBaseToConnect = dataBase; // si le nom de la base de donnees a laquelle se connecter est precisee, alor on le prend au lieu de celui des parametres ini
+ int timeToReconnect =  DB_TIME_TO_RECONNECT;
+ QString value       = "";
+ if (CGestIni::Param_ReadParam(  param.toAscii(), "Connexion", "TimeToReconnect", &value) ==0 )  // zero = pas d'erreur
+    { timeToReconnect = value.toInt();
     }
- m_BaseLabel       = baseLabel;
- m_pReconnectTimer = new QTimer (this);
- if (m_pReconnectTimer)
-    {int timeToReconnect =  DB_TIME_TO_RECONNECT;
-     QString value       = "";
-     if (CGestIni::Param_ReadParam(  param.toAscii(), "Connexion", "TimeToReconnect", &value) ==0 )  // zero = pas d'erreur
-        {timeToReconnect = value.toInt();
-        }
-     m_pReconnectTimer->setInterval(timeToReconnect);
-     m_pReconnectTimer->start();
-     connect( m_pReconnectTimer, SIGNAL(timeout()), this, SLOT(Slot_ReconnectTimerDone()) );
-    }
- return 1;
+ return BaseConnect(baseLabel,
+                    driver,
+                    dataBaseToConnect,
+                    user ,
+                    password ,
+                    hostname ,
+                    port.toInt(),
+                    timeToReconnect,
+                    errMess);
 }
+
+ //---------------------------------------- BaseConnect -------------------------------------------------------
+ bool C_BaseCommon::BaseConnect(const QString &baseLabel,    // 0
+                                const QString &driver,       // 1
+                                const QString &dataBase,     // 2
+                                const QString &user ,        // 3
+                                const QString &_password ,   // 4
+                                const QString &hostname ,    // 5
+                                int port,                    // 6
+                                int timeToReconnect /* = DB_TIME_TO_RECONNECT */,
+                                QString* errMess    /* = 0*/)
+ {
+  QString password = _password;
+  if (password.startsWith('#'))   password = CGestIni::PassWordDecode(password.mid(1));
+  QSqlDatabase::removeDatabase (baseLabel);
+  QSqlDatabase defaultDB  = QSqlDatabase::addDatabase(driver, baseLabel);
+  defaultDB.setDatabaseName( dataBase );
+  defaultDB.setUserName    ( user     );
+  defaultDB.setPassword    ( password );
+  defaultDB.setHostName    ( hostname );
+  defaultDB.setPort        ( port     );
+
+  if ( ! defaultDB.open() )
+     { m_LastError = tr("C_BaseCommon::BaseConnect() : Failed to open database : ")    +
+                         baseLabel   + " Driver : " +  QString(driver) + "  " +
+                         QString(dataBase) + "\n" +
+                         defaultDB.lastError().driverText() + "\n" + defaultDB.lastError().databaseText();
+       if (errMess) *errMess = m_LastError;
+       outMessage(m_LastError);
+       return 0;
+    }
+  m_BaseLabel       = baseLabel;
+  m_pReconnectTimer = new QTimer (this);
+  if (m_pReconnectTimer)
+     { m_pReconnectTimer->setInterval(timeToReconnect);
+       m_pReconnectTimer->start();
+       connect( m_pReconnectTimer, SIGNAL(timeout()), this, SLOT(Slot_ReconnectTimerDone()) );
+     }
+  return 1;
+}
+
+//-----------------------------------------------------  isThisTableExist -------------------------------------------
+ /*! \brief database().tables(QSql::Tables ); return all tables of all databases not just the tables list
+  * of our connected database. The way is to see if table selection is possible.
+  *  \param  table_name the table name
+  *  \return 1/all is ok 0/table not exists
+  */
+bool C_BaseCommon::isThisTableExist(const QString &table)
+{   QSqlQuery query( database() );
+    return query.exec( QString("SELECT 1 FROM %1  limit 0").arg(table));
+}
+
+//-----------------------------------------------------  tablesList -------------------------------------------
+ /*! \brief database().tables(QSql::Tables ); return all tables of all databases not just the tables list
+  *  of our connected database. The way is to see if table selection is possible. Its not very fast ...
+  *  \return tablesList
+  */
+QStringList C_BaseCommon::tablesList()
+{   QStringList tableList   = database().tables(QSql::Tables );
+    QString     tableToTest = "";
+    QStringList retList;
+    QSqlQuery   query( database() );
+    for (int i=0; i<tableList.size();++i)
+        { tableToTest = tableList[i];
+          if ( retList.indexOf(tableToTest) == -1 &&              // if another database has the same table name ...
+               query.exec( QString("SELECT 1 FROM %1  limit 0 ").arg(tableToTest) )
+             ) retList.append(tableToTest);
+        }
+    return retList;
+}
+
 //-----------------------------------------------------  setStatusWidget -------------------------------------------
 void C_BaseCommon::setStatusWidget(QLabel *statusWidget)
 {m_StatusWidget = statusWidget;
@@ -166,21 +222,54 @@ void        C_BaseCommon::addOwner     (const QString &owner) { if (m_ownerList.
 
 //--------------------------- getLastPrimaryKey -----------------------------------------------------------
 QString C_BaseCommon::getLastPrimaryKey( const QString &table, const QString &pk_field_name, const QString &uniqueValue /*=""*/ , const QString &fieldWhereIsUniqueValue /*=""*/)
-{   QString   requete ="";
+{   QString   ret     ="";
+    QString   requete ="";
     QSqlQuery query( database() );
     if (uniqueValue.length()==0||fieldWhereIsUniqueValue.length()==0)
        {requete = QString("SELECT LAST_INSERT_ID() FROM %1 WHERE %2  = LAST_INSERT_ID()").arg( table, pk_field_name );
        }
     else
-       {requete = QString("SELECT %1 FROM %2 WHERE %3  = `%4`").arg(pk_field_name, table, fieldWhereIsUniqueValue, uniqueValue);
+       {requete = QString("SELECT %1 FROM %2 WHERE %3  = '%4'").arg(pk_field_name, table, fieldWhereIsUniqueValue, uniqueValue);
        }
     if ( !query.exec(requete) )
        {m_LastError = tr("\nERROR  : C_BaseCommon::getLastPrimaryKey() \n%1\nREQUEST : %2").arg(query.lastError().text(),requete).toAscii();
         outMessage(m_LastError);
         return QString::null;
        }
-    if ( query.next() ) return query.value(0).toString();
-    else                return QString::null;
+    if ( query.next() ) ret = query.value(0).toString();
+    else                ret = QString::null;
+    return ret;
+}
+//--------------------------- dropBase -----------------------------------------------------------
+int C_BaseCommon::dropBase(const QString &baseName)
+{QString requete = QString("DROP DATABASE IF EXISTS %1"  ).arg(baseName);
+ QSqlQuery query(QString::null , database() );
+ if (!query.exec(requete))
+    {m_LastError = tr("\nERROR  : C_BaseCommon::dropBase() \n%1\nREQUEST : %2").arg(query.lastError().text(),requete).toAscii();
+     outMessage(m_LastError);
+     return 0;
+    }
+ return 1;
+}
+
+//--------------------------- createBase -----------------------------------------------------------
+int C_BaseCommon::createBase(const QString &baseName, int createMode /* = C_BaseCommon::OnlyIfNotExits */)
+{   QSqlQuery query(QString::null , database() );
+    QString requete = "";
+    if (createMode== C_BaseCommon::OnlyIfNotExits )
+       { requete = QString("CREATE DATABASE IF NOT EXISTS %1").arg(baseName);
+       }
+    else
+       {requete = QString("DROP DATABASE   %1\n"
+                          "CREATE DATABASE %1").arg(baseName);
+       }
+ if (!query.exec(requete))
+    {m_LastError = tr("\nERROR  : C_BaseCommon::createBase() \n%1\nREQUEST : %2").arg(query.lastError().text(), requete).toAscii();
+     outMessage(m_LastError);
+     //CGestIni::Param_UpdateToDisk("/home/ro/sql.txt",tmp_schema);
+     return 0;
+    }
+ return 1;
 }
 
 //--------------------------- dropTable -----------------------------------------------------------
@@ -198,10 +287,17 @@ int C_BaseCommon::dropTable(const QString &tableName)
 //--------------------------- createTable -----------------------------------------------------------
 int C_BaseCommon::createTable(const QString &schema)
 {QSqlQuery query(QString::null , database() );
- if (!query.exec(schema))
-    {m_LastError = tr("\nERROR  : C_BaseCommon::createTable() \n%1\nREQUEST : %2").arg(query.lastError().text(),schema).toAscii();
-     outMessage(m_LastError);
-     return 0;
+ QString tmp_schema = schema;
+
+ #ifdef SQLSYNTAX_MYSQL
+         tmp_schema += "ENGINE = MyISAM ";
+ #endif
+
+ if ( !query.exec(schema) )
+    { m_LastError = tr("\nERROR  : C_BaseCommon::createTable() \n%1\nREQUEST : %2").arg(query.lastError().text(), tmp_schema).toAscii();
+      outMessage(m_LastError);
+      //CGestIni::Param_UpdateToDisk("/home/ro/sql.txt",tmp_schema);
+      return 0;
     }
  return 1;
 }
@@ -258,10 +354,10 @@ void  C_BaseCommon::executeSQL( const QString &fname, QProgressBar *pQProgressBa
                 if (pQProgressBar)  {pQProgressBar->setValue(m_position/1000); qApp->processEvents();qApp->processEvents();}
                 if (line[0]==')' && (line[2]=='T' || line[2]=='E'))
                    {   if (line.left(7) == ") TYPE=" || line.left(9) == ") ENGINE=" )  // ne surtout pas inclure ';' dans la comparaison
-                          {requete += ")ENGINE=MyISAM;";
-                           line.remove ("collate utf8_unicode_ci");
-                           line.remove ("collate utf8_bin");
-                           line.remove ("character set utf8");
+                          {requete += ");";    // requete += ") ENGINE=MyISAM;";
+                           requete.remove ("collate utf8_unicode_ci");
+                           requete.remove ("collate utf8_bin");
+                           requete.remove ("character set utf8");
                            query.exec(requete);
                            outSQL_error(query, "<font color=#ff0000><b> "+tr("ERROR:")+" parseSQL_Dump()</b></font>", requete ,__FILE__, __LINE__);
                            break;
@@ -322,7 +418,7 @@ void  C_BaseCommon::parseSQL_InsertInto(QString &text, QTextEdit */* logWidget  
     if (pos ==-1 || deb==-1)
 //       { outMessage(QObject::tr("    <font color=#ff0000><b>Syntax Error  line : %1 INSERT INTO VALUES : ParseSQL_InsertInto() INSERT INTO or VALUES not found </b></font>").arg(QString::number(m_LineNum)));
 //       { outMessage(QObject::("    <font color=#ff0000><b>"+tr("Syntax Error  line : ")+"%1 INSERT INTO VALUES : ParseSQL_InsertInto() INSERT INTO or VALUES"+tr(" not found")+ "</b></font>").arg(QString::number(m_LineNum)));
-      { outMessage(QObject::tr("    <font color=#ff0000><b>Syntax Error  line : %1 INSERT INTO VALUES : ParseSQL_InsertInto() INSERT INTO or VALUES not found</b></font>").arg(QString::number(m_LineNum)));
+       { outMessage(QObject::tr("    <font color=#ff0000><b>Syntax Error  line : %1 INSERT INTO VALUES : ParseSQL_InsertInto() INSERT INTO or VALUES not found</b></font>").arg(QString::number(m_LineNum)));
           return;
        }
     //............ isoler le verbe .................................................................
@@ -393,8 +489,7 @@ QString  C_BaseCommon::isThisValueLikeInTable(const QString &tableName, const QS
 {QSqlQuery query(QString::null , database() );
  QString field    = fieldToRetrieve; if (field.length()==0) field = tableName+"_pk";
  QString requete  = QString("SELECT `%1` FROM `%2` WHERE `%3`  LIKE ").arg( field, tableName, fieldName)+"'%" +value+"%'";
- if (wand.length()) requete += wand;
-                    requete += ownersSelectMention(tableName);
+ addOwnerWandMention(requete, tableName, wand);
 
  if (!query.exec(requete))
     {m_LastError = tr("\nERROR: C_BaseCommon::isThisValueLikeInTable_ToPk( \n%1\nREQUEST: %2").arg(query.lastError().text(),requete).toAscii();
@@ -410,8 +505,7 @@ QStringList  C_BaseCommon::isThisValueLikeInTable_ToList(const QString &tableNam
 {QSqlQuery query(QString::null , database() );
  QString field    = fieldToRetrieve; if (field.length()==0) field = tableName + "_pk";
  QString requete  = QString("SELECT `%1` FROM `%2` WHERE `%3`  LIKE ").arg( field, tableName, fieldName)+"'%" +value+"%'";
- if (wand.length()) requete += wand;
-                    requete += ownersSelectMention(tableName);
+ addOwnerWandMention(requete, tableName, wand);
  QStringList list;
  if (!query.exec(requete))
     {m_LastError = tr("\nERROR: C_BaseCommon::isThisValueLikeInTable_ToPkList() \n%1\nREQUEST: %2").arg(query.lastError().text(),requete).toAscii();
@@ -424,14 +518,12 @@ QStringList  C_BaseCommon::isThisValueLikeInTable_ToList(const QString &tableNam
  return list;
 }
 //--------------------------- isThisValueInTable -----------------------------------------------------------
-QString C_BaseCommon::isThisValueInTable(const QString &tableName, const QString &fieldName, const QString &value, const QString fieldToRetrieve /* = "" */, const QString &wand /* = "" */)
+QString C_BaseCommon::isThisValueInTable(const QString &tableName, const QString &fieldToTest, const QString &test_value, const QString fieldToRetrieve /* = "" */, const QString &wand /* = "" */)
 {
  QSqlQuery query(QString::null , database() );
  QString field    = fieldToRetrieve; if (field.length()==0) field = tableName+"_pk";
- QString requete  = QString("SELECT `%1` FROM `%2` WHERE `%3`  = \"%4\"").arg( field, tableName, fieldName, value );
- if (wand.length()) requete += wand;
-                    requete += ownersSelectMention(tableName);
-
+ QString requete  = QString("SELECT `%1` FROM `%2` WHERE `%3`  = \"%4\"").arg( field, tableName, fieldToTest, test_value );
+ addOwnerWandMention(requete, tableName, wand);
  if (!query.exec(requete))
     {m_LastError = tr("\nERROR: C_BaseCommon::isThisValueInTable( \n%1\nREQUEST: %2").arg(query.lastError().text(),requete).toAscii();
      outMessage(m_LastError);
@@ -441,13 +533,29 @@ QString C_BaseCommon::isThisValueInTable(const QString &tableName, const QString
  else                return QString::null;
 
 }
+//--------------------------- addOwnerWandMention -----------------------------------------------------------
+QString C_BaseCommon::addOwnerWandMention(QString &requete, const QString &tableName, const QString &wand)
+{ if (wand.length())
+    {if (wand.startsWith("NO-OWNER-FILTER"))
+        {requete += wand.mid(15);
+        }
+     else
+        {requete += wand;
+         requete += ownersSelectMention(tableName);
+        }
+    }
+ else
+   { requete += ownersSelectMention(tableName);
+   }
+ return requete;
+}
+
 //--------------------------- isThisValueInTable_ToList -----------------------------------------------------------
 QStringList C_BaseCommon::isThisValueInTable_ToList(const QString &tableName, const QString &fieldName, const QString &value, const QString fieldToRetrieve /* = "" */, int keepEmpty /* = 1 */, const QString &wand /* = "" */)
 {QSqlQuery query(QString::null , database() );
  QString            field    = fieldToRetrieve; if (field.length()==0) field = tableName+"_pk";
  QString            requete  = QString("SELECT `%1` FROM `%2` WHERE `%3`  = \"%4\"").arg( field, tableName, fieldName, value );
- if (wand.length()) requete += wand;
-                    requete += ownersSelectMention(tableName);
+ addOwnerWandMention(requete, tableName, wand);
  QStringList list;
  if (!query.exec(requete))
     {m_LastError = tr("\nERROR: C_BaseCommon::isThisValueLikeInTable_ToPkList() \n%1\nREQUEST: %2").arg(query.lastError().text(),requete).toAscii();
@@ -571,3 +679,22 @@ int C_BaseCommon::posLastEnclosedSymbol(const QString &str, const QString &symbo
     } while (pos);
  return posOuvrant;
 }
+
+//-----------------------------------------------------  GUID_Create --------------------------------------------------
+QString C_BaseCommon::GUID_Create()
+{
+    if (get_GUID_CreateMode()==C_BaseCommon::byQT)
+       {QString guid ( QUuid::createUuid ().toString());
+        return  guid.mid(1, 36);
+       }
+    else
+       {
+        return C_MyUuid::create();     // version personnelle de creation du GUID car celle de QT buguee? sur certaines plateformes
+       }
+}
+
+//-----------------------------------------------------  get_GUID_CreateMode --------------------------------------------------
+C_BaseCommon::GUID_Mode C_BaseCommon::get_GUID_CreateMode()
+{return  m_GUID_CreateMode;
+}
+

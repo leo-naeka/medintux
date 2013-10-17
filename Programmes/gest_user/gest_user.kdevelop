@@ -61,6 +61,7 @@
       <configGdbScript/>
       <runShellScript/>
       <runGdbScript/>
+      <raiseGDBOnStart>false</raiseGDBOnStart>
     </general>
     <display>
       <staticmembers>true</staticmembers>
@@ -71,7 +72,7 @@
   </kdevdebugger>
   <kdevtrollproject>
     <run>
-      <mainprogram/>
+      <mainprogram>/mnt/hgfs/Documents/medintux/Programmes/gest_user/bin/gest_user</mainprogram>
       <programargs/>
       <directoryradio>executable</directoryradio>
       <customdirectory>/</customdirectory>
@@ -79,8 +80,8 @@
       <autocompile>true</autocompile>
       <envvars/>
       <globaldebugarguments/>
-      <globalcwd>/home/ro/MedinTux-V2.13-Mac-Intel-105-src/Programmes/gest_user</globalcwd>
-      <useglobalprogram>false</useglobalprogram>
+      <globalcwd>/mnt/hgfs/Documents/medintux/Programmes/gest_user/bin/</globalcwd>
+      <useglobalprogram>true</useglobalprogram>
       <autoinstall>false</autoinstall>
       <autokdesu>false</autokdesu>
       <runarguments>
@@ -113,6 +114,9 @@
       <savebehaviour>2</savebehaviour>
       <replacePaths>false</replacePaths>
       <disableDefaultOpts>true</disableDefaultOpts>
+      <enableFilenamesOnly>false</enableFilenamesOnly>
+      <showVariablesInTree>true</showVariablesInTree>
+      <showParseErrors>true</showParseErrors>
     </qmake>
   </kdevtrollproject>
   <workspace>

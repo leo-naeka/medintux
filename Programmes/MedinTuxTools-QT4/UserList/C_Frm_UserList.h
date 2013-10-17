@@ -14,7 +14,7 @@
  *                              http://www.cecill.info/                           *
  *   as published by :                                                            *
  *                                                                                *
- *   Commissariat à l'Energie Atomique                                            *
+ *   Commissariat �  l'Energie Atomique                                            *
  *   - CEA,                                                                       *
  *                            31-33 rue de la Fédération, 75752 PARIS cedex 15.   *
  *                            FRANCE                                              *
@@ -38,7 +38,7 @@
 #define C_FRM_USERLIST_H
 
 #include "ui_C_Frm_UserList.h"
-#include "../../src/CApp.h"
+#include "../../Manager/src/CApp.h"
 #include <QTimer>
 //===================================== C_Frm_UserList ========================================================================
 class CMoteur_Base;
@@ -81,7 +81,7 @@ private:
    QTimer              *m_pQtimer;
    CMoteurBase         *m_pCMoteurBase;
    QString              m_LastSelectedUser;
-   bool                 m_pStateTimer;           /*!< stocke un etat pour faire clignoter l'invitation à selectionner un utilisateur*/
+   bool                 m_pStateTimer;           /*!< stocke un etat pour faire clignoter l'invitation �  selectionner un utilisateur*/
 signals:
    void Sign_UserSelected(QTreeWidgetItem*, QTreeWidgetItem*);
    void Sign_ComboUserTypClicked(const QString &);

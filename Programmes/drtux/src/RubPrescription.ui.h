@@ -9,6 +9,9 @@
 
 //#include "Ez_edit.xpm"
 #include <qdragobject.h>
+#include <qprocess.h>
+#include <qeventloop.h> 
+#include "drtux.h"
 
 //=============================================== DEFINE =========================================================
 
@@ -59,7 +62,7 @@ void FormRubPrescription::pushButtonPlus_clicked()
  //.................. creer liste des items du menu .......................
  QStringList popItem;
  if (G_pCApp->IsThisDroitExist(G_pCApp->m_Droits,"orr") == FALSE && (*it).m_Type.toInt()!=TYP_ORDO_CALC)
-    {popItem.append(tr("Pas d'action prévue pour ce contexte (droits insuffisants)"));
+    {popItem.append(tr("Pas d'action prévue pour ce contexte (droits utilisateur insuffisants)"));
     }
  if (G_pCApp->IsThisDroitExist(G_pCApp->m_Droits,"orr"))
     {popItem.append(tr("Renouveler ce document à la date du jour"));
@@ -68,7 +71,12 @@ void FormRubPrescription::pushButtonPlus_clicked()
  if ((*it).m_Type.toInt()==TYP_ORDO_CALC)
     {popItem.append(tr("---------"));
      popItem.append(tr("Placer cette ordonnance comme traitement de fond"));
-     if (G_pCApp->IsThisDroitExist(G_pCApp->m_Droits,"orr") ) popItem.append(tr("Renouveler le traitement de fond"));
+     
+     if (G_pCApp->IsThisDroitExist(G_pCApp->m_Droits,"orr") ) 
+        { popItem.append(tr("Renouveler le traitement de fond"));
+	  popItem.append(tr("---------"));
+          popItem.append(tr("Voir la liste de tous les traitements en cours (intercurrents et de fond)"));
+        }
     }
  QString popRet       =   DoPopupList(popItem);
  QDateTime  qdt       =   QDateTime::currentDateTime();
@@ -82,6 +90,9 @@ void FormRubPrescription::pushButtonPlus_clicked()
     }
  else if (popRet.find(tr("date du jour"))!=-1)
     {emit Sign_DuplicateData(it, qdt, (*it).m_Libelle, (*it).m_SubType);
+    }
+ else if (popRet.startsWith(tr("Voir")))
+    {emit Sign_CreateAllCurrentsTTT();  
     }
  else if (popRet.find(tr("date choisie"))!=-1)
     {DlgDateNom *dlg = new DlgDateNom(this,"Therapeutique_Dial",TRUE);   // TRUE Pour modal
@@ -166,8 +177,8 @@ void  FormRubPrescription::SetModifiableState(int state)
      pushButtonDelete->show();
      if (comboBox_RubName->count())
        {RUBREC_LIST::iterator it =  Current_RubList_Iterator();
-        if (atoi((*it).m_Type) == TYP_ORDO_CALC  && m_IsBaseMedEnabled) pushButtonVidal->show();
-        else                                                            pushButtonVidal->hide();
+        if ((atoi((*it).m_Type) == TYP_ORDO_CALC) && m_IsBaseMedEnabled)  pushButtonVidal->show();
+        else                                                              pushButtonVidal->hide();
        }
     }
  else
@@ -339,8 +350,8 @@ void FormRubPrescription::comboBox_RubName_activated( int item)
  if (m_pMyEditText!=0 && f==0) m_pMyEditText->setText("");
  //.................... si ordo calculable afficher l'icone Vidal ..........................................................
  //  si l'on met TYP_ORDO_CALC selon les compils ce sera pas traduit comme une chaine
- if (doc_Type == "20020100" && m_IsModifiable && m_IsBaseMedEnabled ){ pushButtonVidal->show();}
- else                                                                { pushButtonVidal->hide();}
+ if ((doc_Type == "20020100"||doc_Type == "20020150") && m_IsModifiable && m_IsBaseMedEnabled ){ pushButtonVidal->show();}
+ else                                                                                          { pushButtonVidal->hide();}
 
 }
 
@@ -376,11 +387,11 @@ void FormRubPrescription::PutDataInRubList(RUBREC_LIST::iterator it)
             {  CMedicaBase::Medica_DiskDataSplitIn_HtmlData_StructData(QString::fromUtf8 ( ptr ), 0, &stringStruct);    // y isoler et recuperer les données calculables
             }
          else  CMedicaBase::Medica_DiskDataSplitIn_HtmlData_StructData( ptr , 0, &stringStruct);
-         stringDST       = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\" ?>\r\n<ordotext>\r\n";
+         stringDST       = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\" ?>\n<ordotext>\n";
          stringDST.append (m_pMyEditText->text());           // ajouter le texte modifé
-         stringDST.append ( "\r\n</ordotext>\r\n\r\n<ordoMedicaStruct>");
+         stringDST.append ( "\n</ordotext>\n\n<ordoMedicaStruct>");
          stringDST.append (stringStruct);                    // ajouter la structure calculable non modifiée
-         stringDST.append ( "</ordoMedicaStruct>\r\n");
+         stringDST.append ( "</ordoMedicaStruct>\n");
          m_pCMoteurBase->ReplaceDataInRubList(stringDST, m_pRubList, m_LastRub );
         }
      else
@@ -447,36 +458,54 @@ int FormRubPrescription::SetCurentDocByPrimkey(const QString &primKey)
  return -1; // pas trouvé
 }
 
+//--------------------------------- Slot_LapExited -------------------------------------------------------------
+void FormRubPrescription::Slot_LapExited()
+{ G_pCApp->m_pDrTux->Lap_StopProcess();
+  QString htm     = "";
+  QString xml     = G_pCApp->m_pDrTux->Lap_ExchangesFilesToDataBlob( &htm );
+  pushButtonVidal->setEnabled(true);
+  if (xml.length() == 0||htm.length()==0) return;
+
+  m_pCMoteurBase->ReplaceDataInRubList(xml, m_pRubList, m_LastRub );
+  if ( m_pMyEditText !=0 )
+     { m_pMyEditText->setText(htm);
+       m_pMyEditText->setModified (FALSE);
+     }
+}
 
 //--------------------------------- pushButtonVidal_clicked -------------------------------------------------------------
 void FormRubPrescription::pushButtonVidal_clicked()
-{QString  str_data      = "";
- QString  stringStruct  = "";
- //........................... si rubrique qui etait avant celle a afficher, a ete modifiée ................................................
- //                            replacer son contenu dans la liste des rubriques avant d'afficher la nouvelle
- if (m_LastRub != -1)
-    {//.................. si données composées ordonnance calculable ...........................
-     //                   alors recomposer les données avec le texte modifié et les données calculables
+{    QString  str_data         = "";
+     //........................... si rubrique qui etait avant celle a afficher, a ete modifiée ................................................
+     //                            replacer son contenu dans la liste des rubriques avant d'afficher la nouvelle
+     if (m_LastRub == -1)                                                               return;
+      //.................. si données composées ordonnance calculable ...........................
+      //                   alors recomposer les données avec le texte modifié et les données calculables
+      // m_pCMoteurBase->GotoDebug();
      if ( (*(m_pRubList->at(m_LastRub))).m_Type.toInt() == TYP_ORDO_CALC )
-        {
-         m_pCMoteurBase->GetDataFromRubList(str_data, m_pRubList, m_LastRub);       // recuperer données soit dans liste cache soit sur disque
-         CMedicaBase::Medica_DiskDataSplitIn_HtmlData_StructData(str_data, 0, &stringStruct);    // y isoler et recuperer les données calculables
-         if (stringStruct.length()==0)                                             return;       // anciennes format de données structurées cassos
-         Dlg_MedicaTux *dlg = new Dlg_MedicaTux(this,"Therapeutique_Dial",TRUE);
-         if (dlg ==0)                                                              return;
-         if (dlg->initDialog(G_pCApp->m_pCMedicaBase, &stringStruct )==0) {delete dlg; return;};     // poids du malade = 70 kgs   m_PosoList;
-         if (dlg->exec()== QDialog::Accepted && m_IsModifiable)
-            {QString ordo = dlg->Get_OrdoXmlStruct();
-             CMedicaBase::Medica_DiskDataSplitIn_HtmlData_StructData(ordo,  &stringStruct,0);
-             m_pCMoteurBase->ReplaceDataInRubList(ordo, m_pRubList, m_LastRub );
-             if (m_pMyEditText!=0)
-                {m_pMyEditText->setText(stringStruct);
-                 m_pMyEditText->setModified (FALSE);
-                }
-            }
-         delete dlg;
-        }
-    }
+        { m_pCMoteurBase->GetDataFromRubList(str_data, m_pRubList, m_LastRub);                    // recuperer données soit dans liste cache soit sur disque
+          int retLap  =  G_pCApp->m_pDrTux->Lap_Lauch(str_data, "MODIFY_PRESCRIPTION");           //  si ordo ancienne forme       retLap != DrTux::IS_ALREADY_LAUCH  ==> on va ds mode degrade
+	  if (retLap == DrTux::IS_ALREADY_LAUCH) {pushButtonVidal->setEnabled(false);   return;}  //  Ok tout s'est bien passe et le LAP repondra dans le Slot_LapExited()
+
+          //............. si le LAP n'est pas lance (cas des anciennes donnees) alors mode degrade ..................
+          QString  stringStruct     = "";
+          CMedicaBase::Medica_DiskDataSplitIn_HtmlData_StructData(str_data, 0, &stringStruct);        // y isoler et recuperer les données calculables
+          if (stringStruct.length()==0)                                                 return;       // anciennes format de données structurées cassos
+          Dlg_MedicaTux *dlg = new Dlg_MedicaTux(this,"Therapeutique_Dial",TRUE);
+          if (dlg ==0)                                                                  return;
+          if (dlg->initDialog(G_pCApp->m_pCMedicaBase, &stringStruct )==0) {delete dlg; return;};     // poids du malade = 70 kgs   m_PosoList;
+          if (dlg->exec()== QDialog::Accepted && m_IsModifiable)
+             { QString ordo = dlg->Get_OrdoXmlStruct();
+
+               CMedicaBase::Medica_DiskDataSplitIn_HtmlData_StructData(ordo,  &stringStruct,0);
+               m_pCMoteurBase->ReplaceDataInRubList(ordo, m_pRubList, m_LastRub );
+               if (m_pMyEditText!=0)
+                  { m_pMyEditText->setText(stringStruct);
+                    m_pMyEditText->setModified (FALSE);
+                  }
+             }
+          delete dlg;
+       }
 }
 
 //--------------------------------- GetCurrentOrdoList -------------------------------------------------------------

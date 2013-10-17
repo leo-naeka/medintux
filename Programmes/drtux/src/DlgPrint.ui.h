@@ -15,7 +15,7 @@ void DlgPrint::init()
     pushButtonPrevious->setPixmap(QPixmap( Theme::getIconPrevious().pixmap(QIconSet::Automatic,TRUE,QIconSet::On)));
     setIcon( Theme::getIconPrint().pixmap(QIconSet::Automatic,TRUE,QIconSet::On));
     m_pCViewPageWidget = new CViewPageWidget(this);
-    CMoteurBase::GotoDebug();
+    //CMoteurBase::GotoDebug();
     if (m_pCViewPageWidget )
     {m_pCViewPageWidget->setGeometry (QRect (10,10, m_pCViewPageWidget->GetWidgetWidth(), m_pCViewPageWidget->GetWidgetHeight()));
     }
@@ -465,35 +465,41 @@ void DlgPrint::SetDialogOnPrinterSpec()
     slider_Marg_Bottom->setValue ( (int)(m_pCViewPageWidget->GetBottomMarg()*100/m_PageH ) );
     lineEditZoom->setText(QString::number(m_pCViewPageWidget->GetPrintScale()*100));
 
-    //............................ positionner le nombre de copies ...........................
-
-    if (nameDoc.length() && CGestIni::Param_ReadParam(param, nameDoc, "NumCopies",  &val1)==0)
-    {m_pQPrinter->setNumCopies(atoi(val1));
-    }
-
-    //.................... ajuster fichier de sortie .........................................
-    if (nameDoc.length() && CGestIni::Param_ReadParam(param, docSectionName, "OutpuFileName", &val1)==0)  // zero = pas d'erreur
-    {m_pQPrinter->setOutputFileName(val1);
-    }
-
-    //.................... ajuster sortie fichier ou papier.........................................
-    //                     à executer toujours apres: setOutputFileName();  car setOutputFileName()
-    //                     replace sur TRUE !!!
-    if (nameDoc.length() && CGestIni::Param_ReadParam(param, docSectionName, "IsOutToFile", &val1)==0)  // zero = pas d'erreur
-    { m_pQPrinter->setOutputToFile(atoi(val1));
-    }
-    //.................... ajuster imprimante par defaut .........................................
-    if (nameDoc.length() && CGestIni::Param_ReadParam(param, docSectionName, "printerName", &val2)==0)  // zero = pas d'erreur
-    {m_pQPrinter->setPrinterName(val2);
-    }
-    //.................... ajuster options .........................................
-    if (nameDoc.length() && CGestIni::Param_ReadParam(param, docSectionName, "printerSelectionOption", &val1)==0)  // zero = pas d'erreur
-    {m_pQPrinter->setPrinterSelectionOption(val1);
-    }
-    //.................... ajuster options couleur.........................................
-    if (nameDoc.length() && CGestIni::Param_ReadParam(param, docSectionName, "colorMode", &val1)==0)  // zero = pas d'erreur
-    {m_pQPrinter->setColorMode((QPrinter::ColorMode)val1.toInt());
-    }
+    //........................ param lies au document .......................................
+    if (nameDoc.length())
+       {//............................ positionner le nombre de copies ...........................
+        if ( CGestIni::Param_ReadParam(param, nameDoc, "NumCopies",  &val1)==0)
+           {m_pQPrinter->setNumCopies(atoi(val1));
+           }
+        //.................... ajuster fichier de sortie .........................................
+        if ( CGestIni::Param_ReadParam(param, docSectionName, "OutpuFileName", &val1)==0)  // zero = pas d'erreur
+           {m_pQPrinter->setOutputFileName(val1);
+           }
+        //.................... ajuster sortie fichier ou papier.........................................
+        //                     à executer toujours apres: setOutputFileName();  car setOutputFileName()
+        //                     replace sur TRUE !!!
+        if ( CGestIni::Param_ReadParam(param, docSectionName, "IsOutToFile", &val1)==0)  // zero = pas d'erreur
+           { m_pQPrinter->setOutputToFile(atoi(val1));
+           }
+        //.................... ajuster imprimante par defaut .........................................
+        if ( CGestIni::Param_ReadParam(param, docSectionName, "printerName", &val1)==0)  // zero = pas d'erreur
+           {m_pQPrinter->setPrinterName(val1);
+           }
+        //.................... ajuster options .........................................
+        if ( CGestIni::Param_ReadParam(param, docSectionName, "printerSelectionOption", &val1)==0)  // zero = pas d'erreur
+           {m_pQPrinter->setPrinterSelectionOption(val1);
+           }
+        //.................... ajuster options couleur.........................................
+        if ( CGestIni::Param_ReadParam(param, docSectionName, "colorMode", &val1)==0)  // zero = pas d'erreur
+           {m_pQPrinter->setColorMode((QPrinter::ColorMode)val1.toInt());
+           }
+      }
+    //........................ param surchargeant tous les autres .......................................
+    // [Print]
+    //      OverAll = HP2420UrgChir
+    if (CGestIni::Param_ReadParam( G_pCApp->m_DrTuxParam, "Print", "OverAll", &val1) ==0 ) // zero = pas d'erreur
+       { m_pQPrinter->setPrinterName(val1);
+       }
     //.................... ajuster options couleur.........................................
     checkBox_PrintDuplicata->setChecked(TRUE);
     if (nameDoc.length() && CGestIni::Param_ReadParam(param, docSectionName, "IsDuplicataToPrint", &val1)==0)  // zero = pas d'erreur

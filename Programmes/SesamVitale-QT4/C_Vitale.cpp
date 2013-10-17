@@ -34,6 +34,7 @@
  *                                                                                *
  **********************************************************************************/
 #include"qdatetime.h"
+#include <QDebug>
 
 #include"C_Vitale.h"
 #include "CSesam_API_InfoGroupe.h"
@@ -511,9 +512,12 @@ int C_Vitale::GetNbOccurences(const QString &data, unsigned short  iDGroupeCoura
 QString C_Vitale::GetMember(int memberIndex, unsigned short  iDGroupeCourant, int occur)
 {QString section = QString("VIT_GR-") + QString::number(iDGroupeCourant) + "-OCC-" + QString::number(occur);
  QString member  = QString("m_Num-")  + QString::number(memberIndex);
- QString value   = "";
- if (CGestIni::Param_ReadParam(m_VitaleData, section, member, &value)==QString::null) return value.replace("\\,",",").replace("\\;",";");
- return QString::null;
+ QString value   = CGestIni::Param_ReadUniqueParam(m_VitaleData, section, member);
+ value = value.replace("\\,",",").replace("\\;",";");
+ //qDebug()<<"value : " << value;
+ //qDebug()<<"m_VitaleData :\n" << m_VitaleData;
+ //if (CGestIni::Param_ReadParam(m_VitaleData, section, member, &value)==QString::null) return value.replace("\\,",",").replace("\\;",";");
+ return value;
 }
 
 //-------------------------------- SetMember --------------------------------
@@ -527,6 +531,8 @@ int C_Vitale::SetMember(int memberIndex, unsigned short  iDGroupeCourant, const 
                      QString::number(iDGroupeCourant).rightJustify(4,'0') +
                      "  (" + CSesam_API_InfoGroupe::NumGroupeToString(iDGroupeCourant)+ ")\r\n";
     }
+ value.remove("\r");
+ value.replace("\n", " ");
  value.replace(",","\\,");
  value.replace(";","\\;");
  CGestIni::Param_WriteParam(&m_VitaleData, section, member, value , CSesam_API_InfoGroupe::NumGroupeToString(iDGroupeCourant, memberIndex));

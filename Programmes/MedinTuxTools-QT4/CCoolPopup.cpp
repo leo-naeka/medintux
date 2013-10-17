@@ -24,6 +24,7 @@
  ***************************************************************************/
 
 #include "CCoolPopup.h"
+#include <Qt>
 #include <QDesktopWidget>
 #include <QPixmap>
 #include <QImage>
@@ -38,27 +39,29 @@
 
 //====================================== CCoolPopup =======================================================
 //------------------------------------------ CCoolPopup ----------------------------------------------------------------------
-CCoolPopup::CCoolPopup  ( const QString pathImage    /*= ""         */ ,
+CCoolPopup::CCoolPopup  ( const QString   &pathImage       /*= ""         */ ,
                           int             mode       /*=  WithFrame */ ,
                           int             textX      /*=0           */ ,
                           int             textY      /*=0           */ ,
                           int             textW      /*=0           */ ,
                           int             textH      /*=0           */ ,
-                          const char*     text       /*=""          */ ,
+                          const QString  &text       /*=""          */ ,
                           QColor          textCol    /*=0           */ ,
                           QColor          textBack   /*=0           */ ,
                           long            tempo      /*=20          */ ,
                           int             growBy     /*=3           */ ,
-                          const char     *name       /*=0           */ ,
+                          const char     */*name       =0           */ ,
                           const QString  &styleSheet /*= ""         */ ,
-                          Qt::WFlags        f         /*= WDest ructiveClose |
+                          Qt::WindowFlags            /*f         = WDestructiveClose |
                                                       WType_TopLevel    |
                                                       WStyle_Customize  |
                                                       WStyle_StaysOnTop |
                                                       WStyle_NoBorder   */
                           )
-    : QWidget (QApplication::desktop()->screen(0), name, f)
+    : QWidget (QApplication::desktop()->screen(0),  Qt::CustomizeWindowHint | Qt::FramelessWindowHint |Qt::WindowStaysOnTopHint)
 {   //........................Defini la taille originale de la fenetre ...........................
+    setAttribute ( Qt::WA_TranslucentBackground );
+    setWindowModality ( Qt::WindowModal );
     //m_Mode           = mode|WithFrame;         //
     m_Mode           = mode;         //
     m_GrowBy         = growBy;
@@ -91,11 +94,22 @@ CCoolPopup::CCoolPopup  ( const QString pathImage    /*= ""         */ ,
         m_QLabel_InfosXY->setMidLineWidth(2);
         m_QLabel_InfosXY->show();
      }
+   else
+     {
+
+     }
    if (m_Text.length())
       {if ( !(m_Mode&WithTransLabel) || m_Mode&WithFrame)
-         {m_QLabel_Txt = new QLabel(this);
-          m_QLabel_Txt->setPaletteBackgroundColor (textBack );
-          m_QLabel_Txt->setPaletteForegroundColor (textCol  );
+         { QPalette palette;
+           m_QLabel_Txt = new QLabel(this);
+           //m_QLabel_Txt->setPaletteBackgroundColor (textBack );
+           palette.setColor(m_QLabel_Txt->backgroundRole(), textBack);
+           m_QLabel_Txt->setPalette(palette);
+
+           //m_QLabel_Txt->setPaletteForegroundColor (textCol  );
+           palette.setColor(m_QLabel_Txt->foregroundRole(), textCol);
+           m_QLabel_Txt->setPalette(palette);
+
           m_QLabel_Txt->setText(m_Text);
           m_QLabel_Txt->move(m_TextX, m_TextY);
           m_QLabel_Txt->resize(m_TextW, m_TextH);
@@ -116,7 +130,7 @@ CCoolPopup::CCoolPopup  ( const QString pathImage    /*= ""         */ ,
        // connect le signal timeout avec le slot d'affichage de la fenêtre
        connect( m_pDisplayTimer, SIGNAL(timeout()), this, SLOT(timerDisplayDone()) );
        // demarre le timer
-       m_pDisplayTimer->start(m_Tempo, FALSE);
+       m_pDisplayTimer->start(m_Tempo);
        // defini le mouvement �  "Aucun"
        m_GrowUp = 0;
        Appear();
@@ -140,7 +154,7 @@ void CCoolPopup::paintEvent( QPaintEvent *  /*e*/ )
           QRect rect(delta,delta,width()-delta*2,height()-delta*2);
           p.setFont (font());
           p.setPen( m_TextQColor );
-          p.drawText (rect, Qt::AlignJustify|Qt::WordBreak|Qt::ExpandTabs, m_Text);
+          p.drawText (rect, Qt::AlignJustify|Qt::TextWordWrap|Qt::TextExpandTabs, m_Text);
          }
     }
  p.end();
@@ -170,7 +184,9 @@ void CCoolPopup::setFont ( const QFont &ft )
 void CCoolPopup::setTextColor(const QColor &textCol)
 { m_TextQColor = textCol;
   if (m_QLabel_Txt)
-     {m_QLabel_Txt->setPaletteForegroundColor ( textCol  );
+     {QPalette palette;
+      palette.setColor(m_QLabel_Txt->foregroundRole(), textCol);
+      m_QLabel_Txt->setPalette(palette);
      }
 }
 //------------------------------------------ setText ----------------------------------------------------------------------
@@ -189,10 +205,16 @@ void CCoolPopup::setText(const QString& text,
 {if (text.length()<=0)     return;
  if ( ! (m_Mode & CCoolPopup::WithTransLabel) )
     {if (m_QLabel_Txt == 0)
-        {m_QLabel_Txt = new QLabel(this);
-         m_QLabel_Txt->setBackgroundMode ( Qt::FixedColor ) ;
-         m_QLabel_Txt->setPaletteBackgroundColor (textBack );
-         m_QLabel_Txt->setPaletteForegroundColor ( textCol  );
+        { m_QLabel_Txt = new QLabel(this);
+
+          QPalette palette;
+          palette.setBrush(m_QLabel_Txt->backgroundRole(), QColor(textBack));
+          m_QLabel_Txt->setPalette(palette);
+
+
+          palette.setColor(m_QLabel_Txt->foregroundRole(), QColor(textCol));
+          m_QLabel_Txt->setPalette(palette);
+
         }
      if (   m_QLabel_Txt == 0) return;
      m_QLabel_Txt->setText(text);
@@ -203,7 +225,7 @@ void CCoolPopup::setText(const QString& text,
 
 //------------------------------------------ setImage ----------------------------------------------------------------------
 QPixmap CCoolPopup::setImage(const QString path_image /* = "" */ , int mustAppear /*=0*/)
-{if (m_Mode&WithFrame) return    setLabelImage(path_image  , mustAppear );
+{if (m_Mode&WithFrame) return    setLabelImage(path_image  ,      mustAppear );
  else                  return    setBackgroundImage(path_image  , mustAppear );
 }
 
@@ -252,14 +274,14 @@ void CCoolPopup::Appear()
 {
     m_GrowUp = m_GrowBy;   // defini le mouvement �  "Ouvrir"
     show();                // montre la fenêtre
-    if (m_pDisplayTimer->isActive() == FALSE) m_pDisplayTimer->start(m_Tempo, FALSE); // si le timer est arrêté alors le redemarrer
+    if (m_pDisplayTimer->isActive() == FALSE) m_pDisplayTimer->start(m_Tempo); // si le timer est arrêté alors le redemarrer
 }
 
 //------------------------------------------ Disappear ----------------------------------------------------------------------
 void CCoolPopup::Disappear()
 {
     m_GrowUp = -m_GrowBy;    // defini le mouvement �  "Fermer"
-    if (m_pDisplayTimer->isActive() == FALSE) m_pDisplayTimer->start(m_Tempo, FALSE); // si le timer est arrêté alors le redemarre
+    if (m_pDisplayTimer->isActive() == FALSE) m_pDisplayTimer->start(m_Tempo); // si le timer est arrêté alors le redemarre
 }
 
 //------------------------------------------ timerDisplayDone ----------------------------------------------------------------------

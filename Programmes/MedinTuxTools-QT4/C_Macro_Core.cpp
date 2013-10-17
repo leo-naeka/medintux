@@ -119,7 +119,7 @@ int C_Macro_Core::run(int pos_deb, int pos_max)
  int pDeltaLen     =  0;
  int intialLen     =  m_pDocument->length();
  while (pos_deb   != -1 && pos_deb < pos_max)
-       {pos_end        =  CGestIni::findFermant(m_pDocument, pos_deb+2, pos_max, "{{", "}}", isWithToken);
+       {pos_end        =  CGestIni::findFermant(*m_pDocument, pos_deb+2, pos_max, "{{", "}}", isWithToken);
         //ptDeb = m_pDocument->mid(pos_deb,50);
         //ptEnd = m_pDocument->mid(pos_end,50);
         if (isWithToken)
@@ -225,11 +225,11 @@ int C_Macro_Core:: replaceTokenByValue(QString &document, int pos_deb, int len ,
 QString C_Macro_Core::getResolvTokenValue(QString &document, int pos_deb, int len )
 {//char insecSpace[2]={(char)0xa0,(char)0x00};
  QString  token = document.mid(pos_deb, len);
-          token.replace((char)0xa0," ");
-          token.replace("&gt;",">");
-          token.replace("&lt;","<");
-          token.replace("&amp;","&");
-          token.replace("&nbsp;",QChar(0xa0));
+          //token.replace((char)0xa0," ");
+          //token.replace("&gt;",">");
+          //token.replace("&lt;","<");
+          //token.replace("&amp;","&");
+          //token.replace("&nbsp;",QChar(0xa0));
 
  QString  resolvToken("");
  if (token.left(2)=="::")
@@ -252,11 +252,16 @@ QString C_Macro_Core::getResolvTokenValue(QString &document, int pos_deb, int le
 int C_Macro_Core::resolvMacroToken(QString &resolvToken, QString token)
 { //............. separer eventuels arguments du token .................
   QStringList arg_list;
+  QString   arg = "";
   int       ret = 0;
   resolvToken   = "";
   int       pos = token.indexOf('=');
   if (pos != -1)
-     {arg_list.append(token.mid(pos+1));
+     {arg     = token.mid(pos+1);
+      if (arg.startsWith("$", Qt::CaseInsensitive))
+         {arg = (*m_pVariables)[arg.mid(1).trimmed()];
+         }
+      arg_list.append(arg);
       token = token.left(pos).trimmed();
      }
   token = token.replace(' ','_').toUpper();
@@ -335,19 +340,18 @@ int C_Macro_Core::comparatorMacro (const void *a, const void *b)
 //-------------------------- extractArgList -------------------------------------------
 /*! \brief non documenté */
 long C_Macro_Core::extractArgList(QStringList &arg_list, const QString &arg_str)
-{long len_t  = 0;
- long len    = arg_str.length();
+{long len    = arg_str.length();
  long pos    = 0;
  long deb    = 0;
+ QString arg = "";
  while(pos < len)
     {if (arg_str.at(pos) == '\\') pos += 2;
      else if (arg_str.at(pos) == ',')
-        {
-         len_t =  pos-deb;
-         if (len_t==0) arg_list.append( "" );
-         else
-           {arg_list.append( arg_str.mid(deb, len_t));
-           }
+        {arg   = arg_str.mid(deb, pos-deb);
+         if (arg.startsWith("$", Qt::CaseInsensitive))
+            {arg = (*m_pVariables)[arg.mid(1).trimmed()];
+            }
+         arg_list.append( arg );
          ++pos;
          deb = pos;
         }
@@ -355,11 +359,12 @@ long C_Macro_Core::extractArgList(QStringList &arg_list, const QString &arg_str)
         {++pos;
         }
     }
- len_t =  pos-deb;
- if (len_t==0) arg_list.append( "" );
- else
-    {arg_list.append( arg_str.mid(deb,len_t));
+ //........ ne pas oublier le dernier argument ...................
+ arg   = arg_str.mid(deb, pos-deb);
+ if (arg.startsWith("$", Qt::CaseInsensitive))
+    {arg = (*m_pVariables)[arg.mid(1).trimmed()];
     }
+ arg_list.append( arg );
  return 1;
 }
 

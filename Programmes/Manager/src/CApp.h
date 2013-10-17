@@ -33,6 +33,7 @@
 #include "../../MedinTuxTools-QT4/Agenda/CMoteurAgenda.h"
 #include "../../MedinTuxTools-QT4/CMoteur_Base.h"
 #include "../../MedinTuxTools-QT4/CCoolPopup.h"     // Gestion des popups surgissants
+#include "../../MedinTuxTools-QT4/C_AppCore.h"
 
 #ifdef Q_WS_WIN
    #define F_EXE ".exe"
@@ -55,6 +56,10 @@
     #include "../../SesamVitale-QT4/C_Cps.h"
     #include "../../SesamVitale-QT4/C_Vitale.h"
 #endif
+#ifdef ENTREES_SIGEMS
+    #include "../../SigEntrees/src/C_DSigemsVar.h"
+#endif
+
 class CCoolPopup;
 
 //================================================= CApp ==============================================================
@@ -65,7 +70,7 @@ class CCoolPopup;
  *    so all publics functions will be accessibles by this pointer.
  */
 
-class CApp : public QApplication
+class CApp : public C_AppCore
 {
    Q_OBJECT
  public:
@@ -76,9 +81,10 @@ class CApp : public QApplication
      CApp(QString mui_name, int & argc, char ** argv);
     ~CApp();
      //..................... utilisateur ........................................
-     void saveLastUserOn_Ini(const QString &user, const QString &signUser, const QString &password, bool passwordMustBeRecorded  = 1 );
-     int  AuthentifyAndSelectUser(QWidget * parent, const QString &newUser, const QString &newSignUser, bool passwordMustBeRecorded  = 1 );
-     bool IsAppStartWithUser();
+     void    saveLastUserOn_Ini( bool passwordMustBeRecorded );
+     void    saveLastUserOn_Ini( const QString &user, const QString &signUser, const QString &password, bool passwordMustBeRecorded  = 1 );
+     int     AuthentifyAndSelectUser(QWidget * parent, const QString &newUser, const QString &newSignUser, bool passwordMustBeRecorded  = 1 );
+     bool    IsAppStartWithUser();
      QString getUser(){return m_User;}
      QString getSignUser(){return m_SignUser;}
      void    changeAllModuleConnectionParam(const QString &driverName,        // nom du driver: "QODBC3" "QMYSQL3" "QPSQL7"
@@ -89,9 +95,10 @@ class CApp : public QApplication
                                             const QString &port               // = "port",
                                            );
      void changeAllModuleConnectionParamMessage(const QString &place, const QString &path);
+     /*! \brief retourne le contexte de la configuration de demarrage */
+     QString getConfigContext();
      /*! \brief retourne le numero de version */
      QString getNumVers();
-
      //...................... identite patient ....................................
      QString identitePatientNom()   {return m_LastNom;}
      QString identitePatientPrenom(){return m_LastPrenom;}
@@ -113,7 +120,7 @@ class CApp : public QApplication
      bool IsThisDroitExist(const char *listDroits, QString droitToFind_in);
      void lireDroitsUtilisateurs();
 
-     QString GetMySqlPass();
+     QString        GetMySqlPass();
      static QString DoPopupList(QStringList &list, const QString& sep = "|", int posToHide = 0);
 
      /*! \brief Affiche un popup amusant */
@@ -144,12 +151,7 @@ QString              m_LastNom;          /*!< nom de l'identite en cours    */
 QString              m_LastPrenom;       /*!< prenom de l'identite en cours */
 QString              m_LastGUID;         /*!< GUID de l'identite en cours   */
 QString              m_LastPK;           /*!< Pk de l'identite en cours     */
-//................... les objets suivants sont relatifs au contexte de l'application..............................................
-QString              m_NameAppli;       /*!< Nom de l'applicatif */
-QString              m_PathAppli;       /*!< chemin du repertoire de l'applicatif (termine par /) */
-QString              m_PathIni;         /*!< chemin du fichier d'initialisation du programme (nom programme.ini) */
-QString              m_LocalParam;      /*!< chaine contenant le fichier d'initialisation du programme (charge Ã  partir de m_PathIni = nom programme.ini) */
-
+//................... les objets suivants sont relatifs au contexte de l'application..................................
 QString              m_LastError;       /*!< derniÃ¨re erreur rencontrÃ©e */
 QString              m_MySql_Pass;      /*!< mot de passe de connexion mysql */
 QString              m_PluginRun;       /*!<indique si un process bloquant est en cours */
@@ -160,19 +162,21 @@ QString              m_User;                /*!< login l'utilisateur en cours */
 QString              m_Droits;              /*!< droits l'utilisateur en cours */
 bool                 m_IsAppStartWithUser;  /*!< si TRUE l'application a demarrÃ© avec un utilisateur predefini */
 QString              m_NUM_VERSION;         /*!< num?ro de version du programme */
-//................... les objets suivants sont relatifs aux moteurs de bases..............................................
+//................... les objets suivants sont relatifs aux moteurs de bases...........................................
 CMoteurAgenda       *m_pCMoteurAgenda;      /*!< pointeur sur le gestionnaire de base de donnÃ©e de l'agenda */
 CMoteurBase         *m_pCMoteurBase;        /*!< pointeur sur le gestionnaire de base de donnÃ©e de drtux */
 int                  m_IsGestionNomadisme;  /*!< variable stockant si la gestion du nomadisme est active*/
 int                  m_IsNomadeActif;       /*!< variable stockant l'Ã©tat du nomadisme */
-//................... les objets suivants sont relatifs Ã  la gestion et outils graphiques..............................................
-QString              m_PathTheme;                /*!< chemin du repertoire de themes */
+//........................ le message popup .................................
 CCoolPopup          *m_pCCoolPopup;              /*!< Pour afficher un message en popup surgissant en bas Ã  droite */
 int                  m_CCoolPopupTempo;          /*!< temps de persistance du menu Ã  l'Ã©cran en microsecondes */
 //......................... carte PS .............................
 #ifdef SESAM_VERSION
-  C_Cps     *m_pCps;            /*!< contient les donnees de la carte cps */
-  C_Vitale  *m_pVitale;         /*!< contient les donnees de la carte sv */
+  C_Cps     *m_pCps;              /*!< contient les donnees de la carte cps */
+  C_Vitale  *m_pVitale;           /*!< contient les donnees de la carte sv */
+#endif
+#ifdef ENTREES_SIGEMS
+  C_DSigemsVar *m_pC_DSigemsVar;  /*!< contient les noms des champs des tables sigems */
 #endif
 
 public slots:

@@ -36,6 +36,19 @@ QTreeWidgetItem * C_DragQTreeWidget::getFirstSelectedItem()
  if (list.count()) return list[0];
  return 0;
 }
+//................................ keyPressEvent .................................
+enum flags  { NOT_CALL_STD_EVENT     = 0,
+              AFTER_CALL_STD_EVENT   = 1
+            };
+void C_DragQTreeWidget::keyPressEvent ( QKeyEvent * event )
+{   int call_StandardEvent_1 = C_DragQTreeWidget::AFTER_CALL_STD_EVENT;
+    int call_StandardEvent_2 = C_DragQTreeWidget::AFTER_CALL_STD_EVENT;
+    emit Sign_keyPressEvent(event, call_StandardEvent_1);
+    emit Sign_keyPressEvent(event, call_StandardEvent_2, this);
+    if ( call_StandardEvent_1==C_DragQTreeWidget::AFTER_CALL_STD_EVENT ||
+         call_StandardEvent_2==C_DragQTreeWidget::AFTER_CALL_STD_EVENT
+       ) QTreeWidget::keyPressEvent(event);
+}
 
 //................................ mouseMoveEvent .................................
 void C_DragQTreeWidget::mouseMoveEvent(QMouseEvent *event)

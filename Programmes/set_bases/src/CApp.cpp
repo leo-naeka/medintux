@@ -11,7 +11,7 @@
  *                              http://www.cecill.info/                           *
  *   as published by :                                                            *
  *                                                                                *
- *   Commissariat à l'Energie Atomique                                            *
+ *   Commissariat à l"Energie Atomique                                            *
  *   - CEA,                                                                       *
  *                            31-33 rue de la Fédération, 75752 PARIS cedex 15.   *
  *                            FRANCE                                              *
@@ -40,13 +40,14 @@
 #include <qsqlquery.h>
 #include <qsqlcursor.h>
 #include <qcursor.h>
+#include <qtimer.h>
 #include "CApp.h"
 #include "../../MedinTuxTools/CGestIni.h"
 
 #define MAX_READ 0XFFFFFFF
 
 CApp* G_pCApp = 0;  // contiendra l'instance globale de l'application
-static char NUM_VERSION[]     = "==##@@==2.15.001==@@##==";
+static char NUM_VERSION[]     = "==##@@==2.16.001==@@##==";
 
 //--------------------------------------------- CApp -------------------------------------------------------------------
 CApp::CApp(int & argc, char ** argv)
@@ -57,12 +58,16 @@ CApp::CApp(int & argc, char ** argv)
    m_PathAppli             =  CGestIni::Construct_PathBin_Module(m_NameAppli,  qfi.dirPath (true));
    m_ParamPath             = m_PathAppli + "set_bases.ini";  // utiliser le .ini local
    m_LastError             = "";
+   m_DisplayFilePosLabel   = 0;
+   m_QProgressBar          = 0;
+   m_bufferSize            = 15000000;
    //.................. recuperer parametres sesam-vitale ...............................................
    CGestIni::Param_UpdateFromDisk(m_ParamPath, m_ParamData);
-
+   m_bufferSize            = CGestIni::Param_ReadUniqueParam(m_ParamData, "Parametres", "sql_buffer").toLong();
+   if (m_bufferSize==0)    m_bufferSize = 15000000;   // on est plus sur Ataris ST 1040 hein !!!
    //....................... systheme du theme ..............................................
-   if (CGestIni::Param_ReadParam( m_PathAppli + m_NameAppli + ".ini", "Theme", "Path", &m_PathTheme) !=0 )  // zero = pas d'erreur
-       { m_PathTheme     =  "../../Themes/Default/"; 	// valeur par défaut
+   if (CGestIni::Param_ReadParam( m_ParamData, "Theme", "Path", &m_PathTheme) !=0 )  // zero = pas d'erreur
+       { m_PathTheme       =  "../../Themes/Default/"; 	// valeur par défaut
        }
    if (!QDir(m_PathTheme).exists()) m_PathTheme     =  "../../Themes/Default/"; 	// valeur par défaut
    if (QDir(m_PathTheme).isRelative()) m_PathTheme.prepend(m_PathAppli);
@@ -138,133 +143,6 @@ QStringList  CApp::GetBasesListToSet()
 
     return list;
 }
-//-----------------------------------------------------  SetOneBase -------------------------------------------
-QSqlDatabase*  CApp::SetOneBase(      QString driver,              // nom du driver: "QODBC3" "QMYSQL3" "QPSQL7"
-                                      QString dataBaseName,        // nom de la base: si QODBC3 -> nom de la source de données (userDSN)
-                                      QString user,                // = "root"
-                                      QString passWord,            // = ""
-                                      QString hostName,            // = "localhost"
-                                      QString port,
-                                      CW_EditText  *logWidget,     // QEdit pour afficher les logs
-                                      QProgressBar *pQProgressBar, // progress_barr
-                                      long enr_tot                 // = 340535
-                                      )
-{   pQProgressBar->setTotalSteps(enr_tot);
-    m_position                = 0;
-    QString        baseToSet  = dataBaseName;
-    QString          outMess  = "";
-    QString          errMess  = "";
-    int               errNum  = 0;
-    char                 *pt  = (char*)(const char*) m_ParamData;
-    int            ret_create = FALSE;
-    QString            nb_pas = "";
-    QString   dataBaseConName = "SetupTest";
-    QSqlDatabase* dataBase    = 0;
-    QSqlDatabase* mysql_base  = GetMySQL_DataBase(user, passWord, hostName, port, logWidget);       // base MySQL pour creer les bases
-    if (mysql_base ==0) return 0;
-
-    //........................ lister les bases deja presentes ...............................
-    if (!mysql_base->isOpen())
-       { if (mysql_base->open()==FALSE) {Datasemp_OutMessage(logWidget, QObject::tr("Echec  SetOneBase(), La base  '%1' n'a pu être ouverte \n").arg(mysql_base->databaseName ())) ;return 0;}
-       }
-    QStringList basesAlreadyPresents;
-    QSqlQuery query(QString::null, mysql_base);
-    query.exec(QString("SHOW DATABASES"));
-    if (query.isActive())
-       {while (query.next())  basesAlreadyPresents.append (query.value(0).toString());                    // on a la liste des utilisateurs signataires
-       }
-    mysql_base->close();
-
-    while((pt = CGestIni::Param_GotoNextSection(pt, 0, &dataBaseName)) && *pt)     // recupere le nom de la section dans  dataBaseName
-    {QString toCompare = dataBaseName.mid(3);
-     if (toCompare == baseToSet)           // PB   baseToSet avec majuscules telles que le nom devrai etre
-        {   dataBaseName = baseToSet;      // PB   dataBaseName sans majuscules car Windows connait pas
-            #ifdef Q_WS_WIN
-              dataBaseName = dataBaseName.lower();
-            #endif
-            //................ existe deja --> poser la question de l'effacement .....................................
-            if (basesAlreadyPresents.findIndex(dataBaseName) != -1)
-               {outMess   = QObject::tr("============== La base  ")+ baseToSet +QObject::tr(" existe déjà ======================================\n");
-                Datasemp_OutMessage(logWidget, outMess) ;
-                ret_create =  QMessageBox::information( 0,    QObject::tr(  " MedinTux Setup "),
-                                                              QObject::tr ( "La base : <b>") + dataBaseName +
-                                                              QObject::tr ( "</b><br> semble déjà exister <br>"
-                                                                            "faut-il l'effacer et la recréer <br>"
-                                                                            "<b>au risque de d'écraser des données précieuses</b> <br>"
-                                                                            "ou annuler l'opération en cours ?<br>") ,
-                                                              QObject::tr("Annu&ler"), QObject::tr("&Recréer"), 0,
-                                                        1, 1 ) ;
-                if (ret_create==1)
-                   {if (! DropBase(mysql_base, baseToSet, &outMess, &errNum ) )
-                       {   outMess.prepend(QObject::tr("<font color=#ff0000>============== Échec de l'effacement de la base  ")+ baseToSet +QObject::tr(" ======================================</font>\n"));
-                           Datasemp_OutMessage(logWidget, outMess);
-                           ret_create = 0;
-                       }
-                    else
-                       {   outMess = QObject::tr("============== Succès de l'effacement de la base ")+ baseToSet +QObject::tr(" ======================================\n");
-                           Datasemp_OutMessage(logWidget, outMess);
-                       }
-                   }
-                else
-                   {outMess = QObject::tr("============== Annulation de l'installation de la base ")+ baseToSet +QObject::tr(" ======================================\n");
-                    Datasemp_OutMessage(logWidget, outMess);
-                    return 0;
-                   }
-               }
-            //.................... le champ devrait être libre pour creation ....................................
-            ret_create = CreationBase(mysql_base, baseToSet, &errMess, 0, driver, user, passWord, hostName, port);
-            if ( ret_create == 1 )   // si la creation de la base s'est passée normalement
-               {        //............... Ouverture de la base et remplissage....................................
-                outMess  =      QObject::tr("<font color=#ff6f01>============== Création de la base ")+ baseToSet +QObject::tr(" ============================================</font>\n") ;
-                Datasemp_OutMessage(logWidget, outMess) ;
-                // on se connecte à la nouvelle base
-                dataBase =  BaseConnect( driver  ,        // nom du driver: "QODBC3" "QMYSQL3" "QPSQL7"
-                                         baseToSet,       // nom de la base: si QODBC3 -> nom de la source de données (userDSN)
-                                         user,            // = "root"
-                                         passWord,        // = ""
-                                         hostName,        // = "localhost"
-                                         port,
-                                         dataBaseConName+baseToSet,
-                                         &errMess,
-                                         &errNum );
-                if (dataBase==0)
-                   {   outMess  = QObject::tr("<font color=#ff0000>============== Échec de la création de la base ")+ baseToSet +QObject::tr(" ======================================</font>\n") ;
-                       outMess += errMess + " " + QString::number(errNum) ;
-                       Datasemp_OutMessage(logWidget, outMess) ;
-                   }
-                else
-                   {   QApplication::setOverrideCursor( QCursor( Qt::WaitCursor ) );
-                       //............... Ok la base a bien été créée ....................................
-                       outMess  = QObject::tr("La base de données ")+ baseToSet +QObject::tr(" a été créée avec succès \n");
-                       Datasemp_OutMessage(logWidget, outMess) ;
-                       //............... Création des tables ............................................
-                       QString file, var_name;
-                       while (*pt && *pt != '[')
-                       {pt = CGestIni::Param_ExtraireNextValeurs(pt, var_name, &file);
-                        if (var_name=="ParseSQL_Dump")
-                           {   Datasemp_OutMessage(logWidget,QObject::tr("<font color=#ffd201>Exécution du fichier de requêtes SQL   ")+ file +QObject::tr(" en cours....</font>"));
-                               ParseSQL_Dump(dataBase,  m_PathAppli + QDir::separator()+ "SqlCreateTable" + QDir::separator() + file, pQProgressBar, logWidget);
-                           }
-                           var_name = "";
-                       } // end while (*pt && *pt != '[')
-                       QApplication::restoreOverrideCursor();
-                   } // end else if if (dataBase==0)
-               }  //end if (ret_create == 1 )
-            else
-               {outMess = QObject::tr("Opération annulée : la base ")+ baseToSet +QObject::tr(" n'a pu être créée (vérifiez vos droits MySQL) \n");
-                Datasemp_OutMessage(logWidget, outMess) ;
-               } //end if else(dataBase ==0 )
-        } // end if (toCompare == baseToSet)
-        dataBaseName = "";
-    } //end while((pt = CGestIni::Param_GotoNextSection(pt, 0, &dataBaseName)) && *pt)
-
-    QString   qsNbPas = QString::number(m_position);
-    outMess           = QObject::tr("  Analyse de : <font color=#ffd201><b>") + qsNbPas + QObject::tr("</b></font> lignes effectuée \n");
-    Datasemp_OutMessage(logWidget, outMess) ;
-    CGestIni::Param_WriteParam(  &m_ParamData,  baseToSet, "nb_progress", qsNbPas);
-    CGestIni::Param_UpdateToDisk( m_ParamPath,  m_ParamData);
-    return dataBase;
-}
 
 //-----------------------------------------------------  reataureBase -------------------------------------------
 QSqlDatabase*  CApp::restaureBase(    QString fileName,
@@ -274,12 +152,15 @@ QSqlDatabase*  CApp::restaureBase(    QString fileName,
                                       QString hostName,            // = "localhost"
                                       QString port,
                                       CW_EditText  *logWidget,     // QEdit pour afficher les logs
-                                      QProgressBar *pQProgressBar  // progress_barr
+                                      QProgressBar *pQProgressBar,  // progress_barr
+                                      QLabel *pQlabel
                                      )
-{
-    QString dataBaseName      = getBaseNameToSetFromSQLFile(fileName);  if (dataBaseName.length()==0)  return 0;
-    unsigned long  lenFile    = QFileInfo(fileName).size();
-    pQProgressBar->setTotalSteps(lenFile/1000);
+{   QString dataBaseName      = getBaseNameToSetFromSQLFile(fileName);  if (dataBaseName.length()==0)  return 0;
+    m_DisplayFilePosLabel     = pQlabel;
+    m_QProgressBar            = pQProgressBar;
+    m_fileToRestaure          = fileName;
+    m_positionEnd             = 0;
+    m_divSteep                = 10000;
     m_position                = 0;
     QString        baseToSet  = dataBaseName;
     QString          outMess  = "";
@@ -293,6 +174,7 @@ QSqlDatabase*  CApp::restaureBase(    QString fileName,
     QSqlDatabase* mysql_base  = GetMySQL_DataBase(user, passWord, hostName, port, logWidget);       // base MySQL pour creer les bases
     if (mysql_base ==0) return 0;
 
+    if (pQlabel) pQlabel->setText( tr("Restauration de la base de données : ") + m_fileToRestaure + tr(" en cours ... lus : %1 octets sur : %2 " ).arg(QString::number(m_position) , QString::number(m_positionEnd) ) );
     //........................ lister les bases deja presentes ...............................
     if (!mysql_base->isOpen())
        { if (mysql_base->open()==FALSE) {Datasemp_OutMessage(logWidget, QObject::tr("Echec  SetOneBase(), La base  '%1' n'a pu être ouverte \n").arg(mysql_base->databaseName ())) ;return 0;}
@@ -305,13 +187,11 @@ QSqlDatabase*  CApp::restaureBase(    QString fileName,
        }
     mysql_base->close();
 
-
     while((pt = CGestIni::Param_GotoNextSection(pt, 0, &dataBaseName)) && *pt)     // recupere le nom de la section dans  dataBaseName
     {QString toCompare = dataBaseName.mid(3);
      if (toCompare.lower() == baseToSet.lower())           // PB   baseToSet avec majuscules telles que le nom devrai etre
         {   dataBaseName = toCompare;              // PB   dataBaseName sans majuscules car Windows connait pas
             //................ existe deja --> poser la question de l'effacement .....................................
-
 #ifdef Q_WS_WIN
             if (basesAlreadyPresents.findIndex(dataBaseName.lower()) != -1
 #else
@@ -377,7 +257,8 @@ QSqlDatabase*  CApp::restaureBase(    QString fileName,
                        Datasemp_OutMessage(logWidget, outMess) ;
                        //............... Création des tables ............................................
                        Datasemp_OutMessage(logWidget,QObject::tr("<font color=#ffd201>Exécution du fichier de requêtes SQL   ")+ fileName + QObject::tr(" en cours....</font>"));
-                       ParseSQL_Dump(dataBase,  fileName, pQProgressBar, logWidget);
+                       Datasemp_OutMessage(logWidget,QObject::tr("<font color=#ffd201>La taille du buffer SQL est de <b>%1</b> octets ").arg(QString::number(m_bufferSize)));
+                       ParseSQL_Dump(dataBase,  fileName, pQProgressBar, logWidget, pQlabel);
                        QApplication::restoreOverrideCursor();
                    } // end else if if (dataBase==0)
                }  //end if (ret_create == 1 )
@@ -389,7 +270,7 @@ QSqlDatabase*  CApp::restaureBase(    QString fileName,
         dataBaseName = "";
     } //end while((pt = CGestIni::Param_GotoNextSection(pt, 0, &dataBaseName)) && *pt)
 
-    QString   qsNbPas = QString::number(m_position);
+    QString   qsNbPas = QString::number(m_position,'f',0);
     outMess           = QObject::tr("  Analyse de : <font color=#ffd201><b>") + qsNbPas + QObject::tr("</b></font> lignes effectuée \n");
     Datasemp_OutMessage(logWidget, outMess) ;
     CGestIni::Param_WriteParam(  &m_ParamData,  baseToSet, "nb_progress", qsNbPas);
@@ -415,7 +296,7 @@ QString CApp::getBaseNameToSetFromSQLFile(const QString &fname)
            {pos += 9;
             baseName =  line.mid(pos).remove(";").remove("\n").remove("\r").stripWhiteSpace();
             lstName  = GetBasesListToSet();
-            for (int i = 0; i<lstName.count();++i)
+            for (int i = 0; i < (int)lstName.count(); ++i)
                 {if (lstName[i].lower() == baseName.lower()) baseName = lstName[i];
                 }
             break;
@@ -423,7 +304,7 @@ QString CApp::getBaseNameToSetFromSQLFile(const QString &fname)
         else if (line.left(29)=="CREATE DATABASE IF NOT EXISTS")
            {baseName =  line.mid(29).remove(";").remove("\n").remove("\r").stripWhiteSpace();
             lstName  = GetBasesListToSet();
-            for (int i = 0; i<lstName.count();++i)
+            for (int i = 0; i<(int)lstName.count();++i)
                 {if (lstName[i].lower() == baseName.lower()) baseName = lstName[i];
                 }
             break;
@@ -431,7 +312,7 @@ QString CApp::getBaseNameToSetFromSQLFile(const QString &fname)
         else if (line.left(16)=="-- Create schema")              //-- Create schema CIM10Test
            {baseName =  line.mid(16).remove(";").remove("\n").remove("\r").stripWhiteSpace();
             lstName  = GetBasesListToSet();
-            for (int i = 0; i<lstName.count();++i)
+            for (int i = 0; i<(int)lstName.count();++i)
                 {if (lstName[i].lower() == baseName.lower()) baseName = lstName[i];
                 }
             break;
@@ -440,83 +321,6 @@ QString CApp::getBaseNameToSetFromSQLFile(const QString &fname)
     }
    file.close();
    return baseName;
-}
-
-//-----------------------------------------------------  SetBase -------------------------------------------
-QSqlDatabase*  CApp::SetBase(      QString driver,              // nom du driver: "QODBC3" "QMYSQL3" "QPSQL7"
-                                   QString dataBaseName,        // nom de la base: si QODBC3 -> nom de la source de données (userDSN)
-                                   QString user,                // = "root"
-                                   QString passWord,            // = ""
-                                   QString hostName,            // = "localhost"
-                                   QString port,
-                                   CW_EditText  *logWidget,     // QEdit pour afficher les logs
-                                   QProgressBar *pQProgressBar, // progress_barr
-                                   long enr_tot                 // = 340535
-                                   )
-{   pQProgressBar->setTotalSteps(enr_tot);
-    m_position                = 0;
-    int                  sav  = 0;
-    QString          errMess  = "";
-    QString          qsNbPas  = "";
-    int               errNum  = 0;
-    char                 *pt  = (char*)(const char*) m_ParamData;
-    int            ret_create = FALSE;
-    QString   dataBaseConName = "SetupTest";
-    QSqlDatabase* dataBase    = 0;
-    QSqlDatabase* mysql_base  = GetMySQL_DataBase(user, passWord, hostName, port, logWidget);       // base MySQL pour creer les bases
-    if (mysql_base ==0) return 0;
-
-    while((pt = CGestIni::Param_GotoNextSection(pt, 0, &dataBaseName)) && *pt)     // recupere le nom de la section dans  dataBaseName
-    {if (dataBaseName.left(3)=="DB_")
-        {   QString baseToSet = dataBaseName.mid(3);
-            ret_create = CreationBase(mysql_base, baseToSet, &errMess, &errNum);
-            if ( ret_create == 1 )   // si la creation de la base s'est passée normalement
-            {   //............... Ouverture de la base et remplissage....................................
-                Datasemp_OutMessage(logWidget, QObject::tr("<font color=#ff6f01>============== Création de la base ")+ baseToSet +QObject::tr(" ============================================</font>\n")) ;
-                // on se connecte à la nouvelle base
-                dataBase =  BaseConnect( driver  ,        // nom du driver: "QODBC3" "QMYSQL3" "QPSQL7"
-                                         baseToSet,       // nom de la base: si QODBC3 -> nom de la source de données (userDSN)
-                                         user,            // = "root"
-                                         passWord,        // = ""
-                                         hostName,        // = "localhost"
-                                         port,
-                                         dataBaseConName+baseToSet,
-                                         &errMess,
-                                         &errNum );
-                if (dataBase==0)
-                {   Datasemp_OutMessage(logWidget, QObject::tr("<font color=#ff0000>============== Échec de la création de la base ")+ baseToSet +QObject::tr(" ======================================</font>\n") + errMess + " " + QString::number(errNum)) ;
-                }
-                else
-                {   //............... Ok la base a bien été créée ....................................
-                    Datasemp_OutMessage(logWidget, QObject::tr("La base de données ")+ baseToSet +QObject::tr(" a été créée avec succès \n")) ;
-                    //............... Création des tables ............................................
-                    QString file, var_name;
-                    while (*pt && *pt != '[')
-                    {pt = CGestIni::Param_ExtraireNextValeurs(pt, var_name, &file);
-                     if (var_name=="ParseSQL_Dump")
-                        {   Datasemp_OutMessage(logWidget, QObject::tr("<font color=#ffd201>Exécution du fichier de requêtes SQL   ")+ file + QObject::tr(" en cours....</font>"));
-                            ParseSQL_Dump(dataBase,  m_PathAppli + QDir::separator()+ "SqlCreateTable" + QDir::separator() + file, pQProgressBar, logWidget);
-                            //........ ecrire la taille de la base .................
-                            qsNbPas = QString::number(m_position-sav);  sav = m_position;
-                            CGestIni::Param_WriteParam(  &m_ParamData,  baseToSet, "nb_progress", qsNbPas);
-                            CGestIni::Param_UpdateToDisk( m_ParamPath,  m_ParamData);
-                        }
-                        var_name = "";
-                    } // end while (*pt && *pt != '[')
-                } // end else if if (dataBase==0)
-            }  //end if (dataBase ==0 )
-            else
-            {   Datasemp_OutMessage(logWidget, QObject::tr(" Opération annulée : la base ")+ baseToSet +QObject::tr(" n'a pu être créée (elle existe probablement déjà) \n")) ;
-            } //end if else(dataBase ==0 )
-        } // end if (dataBaseName.left(3)=="DB_")
-        dataBaseName = "";
-    } //end while((pt = CGestIni::Param_GotoNextSection(pt, 0, &dataBaseName)) && *pt)
-    qsNbPas = QString::number(m_position);
-    Datasemp_OutMessage(logWidget, QObject::tr("  Analyse de : ") + qsNbPas + QObject::tr(" lignes effectuée \n"));
-    //........ ecrire la taille de l'ensemble des bases .................
-    CGestIni::Param_WriteParam(  &m_ParamData,  "CONFIG", "nb_progress", qsNbPas);
-    CGestIni::Param_UpdateToDisk( m_ParamPath,  m_ParamData);
-    return dataBase;
 }
 
 //-----------------------------------------------------  RemoveDesignerVersion -------------------------------------------
@@ -606,6 +410,8 @@ void  CApp::RemoveAllDesignerVersion(const QString &path_in)
     }
 }
 
+#define MAX_READ 0XFFFFFFF
+
 
 //-----------------------------------------------------  readLine -------------------------------------------
 unsigned long  CApp::readLine(QFile *pQFile, char *buffer, QString &outParam, unsigned long nbMax)
@@ -617,30 +423,256 @@ unsigned long  CApp::readLine(QFile *pQFile, char *buffer, QString &outParam, un
 
          return nb;
 }
-
+/*
+//----------------------------------------------------- read_line    -------------------------------------------
+QString  CApp::read_line( QFile *file, char *buffer, int &len_read, Q_ULONG maxlen)
+{       len_read         = (int)file->readLine ( buffer, maxlen );
+        buffer[len_read] = 0;    //  on assure le zero de fin
+        int isUtf8       = CGestIni::IsUtf8  ( buffer, len_read );
+        if (isUtf8)
+           {return  QString::fromUtf8 ( buffer ) ;
+           }
+        else
+           {return  QString (buffer);
+           } 
+}
 //-----------------------------------------------------  ParseSQL_Dump -------------------------------------------
-void  CApp::ParseSQL_Dump(QSqlDatabase *dataBase, const QString &fname, QProgressBar *pQProgressBar /* = 0 */, CW_EditText *logWidget /* = 0 */)
+void  CApp::ParseSQL_Dump(QSqlDatabase *dataBase, const QString &fname, QProgressBar *pQProgressBar / * = 0 * /, CW_EditText *logWidget / * = 0 * /)
 {//....................... ouvrir le fichier en mode QTextStream ...........................
     if ( !QFile::exists( fname ) )           return;
     QFile file( fname );
     if ( !file.open( IO_ReadOnly|IO_Raw  ) ) return;
-
-    long           nbMax  = 9000000;              //
-    char          *buffer = new char[nbMax+5];    // +5 pour permettre analyse utf8 qui explore trois apres
-    //.......... on déclare une variable pour lire le fichier ligne à ligne ..................
+    Q_ULONG maxlen        = 16004000;
+    char    *buffer       = new char[maxlen+5];    // +5 pour permettre analyse utf8 qui explore trois apres
+    QDateTime dtDeb       = QDateTime::currentDateTime();
     QString requete       = "";
     QString line          = "";
     QString table         = "";
-    int                 r = 0;
-    int                 t = 0;
+    int nbErr             = 0;
+    long len_line         = 0;
+    int  len_read         = 0;
+    if (buffer==0) {      Datasemp_OutMessage(logWidget, QObject::tr("CApp::ParseSQL_Dump() Réservation du buffer de lecture <font color=#01eaff><b>%1</b></font> octets impossible.")
+                                                        .arg(QString::number(maxlen)));
+                          return;
+                   }
+   //.......... on déclare une variable pour lire le fichier ligne à ligne ..................
     QSqlQuery query(QString::null, dataBase);
+    while (!file.atEnd())
+    {
+        //m_position += (int)file.readLine(line,MAX_READ); // line = line.stripWhiteSpace();
+        line           = read_line( &file, buffer, len_read, maxlen);
+        m_position    += len_read;
+        len_line       = line.length();
+        if (pQProgressBar)  {pQProgressBar->setProgress(m_position/1000); qApp->processEvents();qApp->processEvents();} 
+            //.................creation de la table .....................
+        if ( len_line>=12 && line[0]=='C' && line[1]=='R' && line.left(12)=="CREATE TABLE")
+        {
+            int pos = line.find("(",12);
+            if ( pos != -1 )
+               {table = line.mid(12, pos-12);
+                query.exec( QString("DROP TABLE IF EXISTS ")+table+";");
+                OutSQL_error(query, QObject::tr("ERREUR DROP TABLE IF EXISTS : ParseSQL_Dump()"), table );
+                Datasemp_OutMessage(logWidget, QObject::tr("Création de la table <font color=#01eaff><b>") + table + QObject::tr("</b></font> en cours....")) ;
+               }
+            requete = line;
+            while (!file.atEnd())
+            {   //m_position    += (int)file.readLine(line,MAX_READ);
+                line           = read_line( &file, buffer, len_read, maxlen);
+                m_position    += len_read;
+                if (pQProgressBar)  {pQProgressBar->setProgress(m_position/1000); qApp->processEvents();qApp->processEvents();} 
+                if (line[0]==')' && (line[2]=='T' || line[2]=='E' || line[1]==';'))
+                   {   if (line.left(7) == ") TYPE=" || line.left(9) == ") ENGINE=" )  // ne surtout pas inclure ';' dans la comparaison
+                          {requete += ");"; // TYPE=MyISAM;  passe pas sous mac;
+                           // requete.remove ("collate utf8_unicode_ci");
+                           // requete.remove ("collate utf8_bin");
+                           // requete.remove ("character set utf8");
+                           query.exec(requete);
+                           if (OutSQL_error(query, QObject::tr("ERREUR CREATE TABLE : ParseSQL_Dump()"), requete ))
+                              { Datasemp_OutMessage(logWidget, QString( "<font color=#ff0000><b>ERREUR SQL CREATE TABLE: %1 \n</b></font>").arg(table) + m_LastError) ;
+                              }
+                           requete = "";
+                           break;
+                          }
+                   }
+               requete += line;
+            }
+        }
+        else if ( len_line>=11 &&  line[0]=='I' && line[1]=='N' && line.left(11)=="INSERT INTO")
+        {   // PB de ce * /$x?! de datasemp; certaines données ont des retours chariots
+            //............ isoler le verbe .................................................................
+            requete            = "";
+            int    pos         = 0;
+            int isMultiLines   = 0;
+            //..................... isoler les données à inserer de toutes les donnees INSERT............................................
+            //                      en effet un INSERT INTO peut etre sur plusieurs lignes
+            //                      (aller jusqu'au ');' de fin
+            do      {
+                       len_line = line.length();
+                       pos      = len_line;
+                       if (pos>2)
+                          { while (line[pos-1]=='\r' || line[pos-1]=='\n')
+                                  {--pos;
+                                  }
+                            if (line[pos-2]==')' && line[pos-1]==';')
+                               { if (isMultiLines)
+                                    { requete += line;
+                                      query.exec(requete);
+                                      if (  OutSQL_error(query, QObject::tr("\nERREUR INSERT INTO : ParseSQL_Dump()"), requete + "\n"))
+                                         {  CGestIni::Param_UpdateToDisk( QString("/home/ro/lastRequete-%1.sql").arg(QString::number(nbErr++)), requete);
+                                            Datasemp_OutMessage(logWidget, QString( "<font color=#ff0000><b>ERREUR INSERT INTO : \n</b></font>") + m_LastError) ; // \n pour mettre m_LastError � la ligne
+                                         }
+                                      isMultiLines  = 0;
+                                    }
+                                 else  //.... on se sert de multi ligne pour eviter recopie dans requete (plus rapide) ........
+                                    { query.exec(line);
+                                      if (  OutSQL_error(query, QObject::tr("\nERREUR INSERT INTO : ParseSQL_Dump()"), line + "\n"))
+                                         {  CGestIni::Param_UpdateToDisk( QString("/home/ro/lastRequete-%1.sql").arg(QString::number(nbErr++)), line);
+                                            Datasemp_OutMessage(logWidget, QString( "<font color=#ff0000><b>ERREUR INSERT INTO : \n</b></font>") + m_LastError) ; // \n pour mettre m_LastError � la ligne
+                                         }
+                                    }
+                                 break;
+                               }
+                            else  //.. on a rencontre une fin de ligne qui n'est pas une fin INSERT TO ...........
+                                  //   faisons l'hypothese que c'est une donnee textuelle sur plusieurs lignes
+                                  //   et remplacons cette donnee par un espace
+                               {while (pos<len_line)
+                                      {line[pos] = '$';
+                                       ++pos;
+                                      }
+                                ++ isMultiLines;
+                                requete += line;
+                               } 
+                          }
+                       else //..... on ne rajoute que si besoin .............
+                          { requete      += line;
+                            ++ isMultiLines;
+                          }
+                       //m_position    += (int)file.readLine(line,MAX_READ); //line=line.stripWhiteSpace();
+                       line           = read_line( &file, buffer, len_read, maxlen);
+                       m_position    += len_read;
+                       if (pQProgressBar) {pQProgressBar->setProgress(m_position/1000); qApp->processEvents();qApp->processEvents();} 
+                    } while (!file.atEnd());
+        }
+    }
+    delete buffer;
+    long    s = dtDeb.secsTo (QDateTime::currentDateTime());
+    long    h = s/3600; s -=  h*3600;
+    long    m = s/60;   s -=  m*60;
+    Datasemp_OutMessage(logWidget, QObject::tr( "=== Intégration SQL terminée en : <font color=#ff0000><b>%1</b></font>==")
+                                            .arg(QString::number(h) + "h" + QString::number(m) + "mn" + QString::number(s) + "s"));
+}
+*/
+//-----------------------------------------------------  get_file_size -------------------------------------------
+double CApp::get_file_size(const char *file_name , QLabel *pQlabel /* = 0 */)
+{  /*
+   FILE *fp;
+   unsigned long file_size = 0;
+   if ((fp = fopen(file_name, "rb" )) == NULL) {
+      fprintf(stderr, "Cannot open %s.\n", file_name);
+      return(file_size);
+   }
+   if (fseek(fp, (long)(0), SEEK_END) != 0) {
+      fclose(fp);
+      return(file_size);
+   }
+   file_size = (unsigned long) (ftell(fp));
+   fclose(fp);
+   return(file_size);
+*/
+/*
+QFile file( file_name );
+if ( !file.open( IO_ReadOnly|IO_Raw  ) ) return 0;
+double size = file.size();
+file.close();
+return size;
+*/
+
+QFile file( file_name );
+if ( !file.open( IO_ReadOnly|IO_Raw  ) ) return 0;
+char          *buffer = new char[m_bufferSize+5];     // +5 pour permettre analyse utf8 qui explore trois apres
+if (buffer==0)                           return 0;
+QString line          = "";
+double size = 0;
+while (!file.atEnd())
+    {   size += file.readBlock(buffer, m_bufferSize);
+        if (pQlabel) { pQlabel->setText( tr("Mesure de la taille du fichier %1  en cours ...").arg(QString::number(size,'f',2))); 
+                       qApp->processEvents();qApp->processEvents();
+                     }
+    }
+ delete buffer;
+ file.close();
+ return size;
+}
+
+//-----------------------------------------------------  Slot_displayAvancement -------------------------------------------
+// m_startTime                   dtCurr                       dtEnd
+//    ^                            ^                             ^
+//    |<--------- s_past --------->|                             |
+//    |<++++++ m_position ++++++++>|                             |
+//    |                            |<---------- s_rest --------->|
+//    |<------------------------------ s_end ------------------->|
+//    |<++++++++++++++++++++++++++++++ m_positionEnd +++++++++++>|
+//
+void  CApp::Slot_displayAvancement()
+{if (m_DisplayFilePosLabel)  
+    { //........... on collate les infos ............................
+      QDateTime dtCurr     = QDateTime::currentDateTime();
+      long    s_past       = m_startTime.secsTo (dtCurr);
+      long    s_end        = (long)((m_positionEnd/m_position)*s_past);
+      long    s_rest       = s_end - s_past;
+      QDateTime dtEnd      = m_startTime.addSecs ( s_end );
+      //........... on prepare les infos ............................
+      long    h_past       = s_past/3600; s_past -=  h_past*3600;
+      long    m_past       = s_past/60;   s_past -=  m_past*60;
+      long    h_rest       = s_rest/3600; s_rest -=  h_rest*3600;
+      long    m_rest       = s_rest/60;   s_rest -=  m_rest*60;
+      QString s_timePast   = QString::number(h_past)  + "h" + QString::number(m_past) + "mn" + QString::number(s_past) + "s";
+      QString s_timeRest   = QString::number(h_rest)  + "h" + QString::number(m_rest) + "mn" + QString::number(s_rest) + "s";
+
+      //........... on affiche les infos ............................
+      m_DisplayFilePosLabel->setText( tr("Restauration de %1 octets sur %2 temps écoulé %3 restant %4 fin prévue " )
+                                        .arg( QString::number(m_position,    'f', 0),
+                                              QString::number(m_positionEnd, 'f', 0),
+                                              s_timePast,
+                                              s_timeRest
+                                            ) + dtEnd.toString ( tr("le dd à hh:mm:ss"))
+                                    );
+    }
+ if (m_QProgressBar)  {m_QProgressBar->setProgress(m_position/m_divSteep); }
+ qApp->processEvents();qApp->processEvents();qApp->processEvents();qApp->processEvents();
+}
+
+//-----------------------------------------------------  ParseSQL_Dump -------------------------------------------
+void  CApp::ParseSQL_Dump(QSqlDatabase *dataBase, const QString &fname, QProgressBar *pQProgressBar /* = 0 */, CW_EditText *logWidget /* = 0 */, QLabel *pQlabel /* = 0 */)
+{//....................... ouvrir le fichier en mode QTextStream ...........................
+    m_positionEnd                  = get_file_size( fname, pQlabel ); //file.size();
+    unsigned long  max_length_find = 0;
+    if ( !QFile::exists( fname ) )           return;
+    QFile file( fname );
+    if ( !file.open( IO_ReadOnly|IO_Raw  ) ) return;
+    char          *buffer = new char[m_bufferSize+5];     // +5 pour permettre analyse utf8 qui explore trois apres
+    if (buffer==0)  
+       { Datasemp_OutMessage(logWidget, QObject::tr("Allocation du buffer de lecture de taille : <font color=#01eaff><b>%1</b></font> non possible.").arg(QString::number(m_bufferSize+5))) ;
+         return;
+       }
+    //............. creer et initialiser le systeme d'affichage de l'avancement ......................
+    m_DisplayFilePosLabel     = pQlabel;
+    m_QProgressBar            = pQProgressBar;
+    QTimer *timer             = new QTimer( this );
+    m_startTime               = QDateTime::currentDateTime();
+    connect( timer, SIGNAL(timeout()), this, SLOT(Slot_displayAvancement()) );
+    timer->start( 1000, FALSE );
+    //.......... on déclare une variable pour lire le fichier ligne à ligne ..........................
+    QString requete       = "";
+    QString line          = "";
+    QString table         = "";
+    QSqlQuery query(QString::null, dataBase);
+    pQProgressBar->setTotalSteps(m_positionEnd/m_divSteep);
     while (!file.atEnd())
 
     {
-        //m_position += (int)file.readLine(line,MAX_READ); // line = line.stripWhiteSpace();
-        m_position += readLine(&file, buffer, line, nbMax);
-        if (pQProgressBar)  {pQProgressBar->setProgress(m_position/1000); qApp->processEvents();qApp->processEvents();}
-            //.................creation de la table .....................
+        m_position += readLine(&file, buffer, line, m_bufferSize);
+        //.................creation de la table .....................
         if (line.left(12)=="CREATE TABLE")
         {
             int pos = line.find("(",12);
@@ -652,9 +684,7 @@ void  CApp::ParseSQL_Dump(QSqlDatabase *dataBase, const QString &fname, QProgres
                }
             requete = line;
             while (!file.atEnd())
-            {   //m_position += (int)file.readLine(line,MAX_READ);
-                m_position += readLine(&file, buffer, line, nbMax);
-                if (pQProgressBar)  {pQProgressBar->setProgress(m_position/1000); qApp->processEvents();qApp->processEvents();}
+            {   m_position += readLine(&file, buffer, line, m_bufferSize);
                 if (line[0]==')' && (line[2]=='T' || line[2]=='E' || line[1]==';'))
                    {   if (line.left(7) == ") TYPE=" || line.left(9) == ") ENGINE=" )  // ne surtout pas inclure ';' dans la comparaison
                           {requete += ") ENGINE=MyISAM;";    // TYPE=MyISAM;";  pour passer sur mac
@@ -693,19 +723,25 @@ void  CApp::ParseSQL_Dump(QSqlDatabase *dataBase, const QString &fname, QProgres
                                   }
                             if (line[len_line-2]==')' && line[len_line-1]==';')
                                { requete += line;
+                                 if (requete.length()>max_length_find)
+                                    { max_length_find = requete.length();
+                                      CGestIni::Param_UpdateToDisk(m_PathAppli+"MaxLastInsert.sql", requete);
+                                    }
+                                 CGestIni::Param_UpdateToDisk(m_PathAppli+"LastInsert.sql", requete);
                                  ParseSQL_InsertInto(requete, dataBase, pQProgressBar, logWidget );
+                                 qApp->processEvents();qApp->processEvents();qApp->processEvents();qApp->processEvents();
                                  break;
                                }
                           }
                        requete    += line;
-                       // m_position += (int)file.readLine(line,MAX_READ); //line=line.stripWhiteSpace();
-                       m_position += readLine(&file, buffer, line, nbMax);
-                       if (pQProgressBar) {pQProgressBar->setProgress(m_position/1000); qApp->processEvents();qApp->processEvents();}
+                       m_position += readLine(&file, buffer, line, m_bufferSize);
                     } while (!file.atEnd());
         }
     }
  delete buffer;
+ delete timer;
 }
+
 //-----------------------------------------------------  ParseSQL_InsertInto -------------------------------------------
 // INSERT INTO `RubriquesHead` VALUES (1,'30DC82DD-7632-2C46-9DC3-BC1AC0ECD20A',20030000,'Asthme sai','2004-12-08 19:23:41','admin',0,0);
 // INSERT INTO `RubriquesHead` VALUES (2,'30DC82DD-7632-2C46-9DC3-BC1AC0ECD20A',20020200,'Bilan labo complet','2004-12-08 19:23:41','admin',0,0);
@@ -713,7 +749,7 @@ void  CApp::ParseSQL_Dump(QSqlDatabase *dataBase, const QString &fname, QProgres
 // INSERT INTO `codes_postaux` (`id`,`code_postal`,`ville`) VALUES
 //  (26662,62153,'ABLAIN ST NAZAIRE'),
 //  (35076,80320,'ABLAINCOURT PRESSOIR');
-void  CApp::ParseSQL_InsertInto(QString &text, QSqlDatabase *dataBase, QProgressBar *pQProgressBar /* = 0 */, CW_EditText *logWidget /* = 0 */)
+void  CApp::ParseSQL_InsertInto(QString &text, QSqlDatabase *dataBase, QProgressBar * /* = 0 */, CW_EditText *logWidget /* = 0 */)
 {   int pos,deb, len_sep, i, textLen;
     QSqlQuery query(QString::null, dataBase);
     deb = text.find("INSERT INTO");
@@ -751,7 +787,7 @@ void  CApp::ParseSQL_InsertInto(QString &text, QSqlDatabase *dataBase, QProgress
                { len_sep = (i-end);
                }
            }
-        if (end==-1)                                      //==> si pas trouv� chercher derni�re insertion ");"
+        if (end==-1)                                      //==> si pas trouve chercher derniere insertion ");"
            {   end = findNextSep(text, deb, ");");
                if (end==-1)
                   { Datasemp_OutMessage(logWidget,QObject::tr("    <font color=#ff0000><b>Erreur de syntaxe  INSERT INTO VALUES :  '),' non trouvé mais ');' non plus</b></font>"));
@@ -761,14 +797,13 @@ void  CApp::ParseSQL_InsertInto(QString &text, QSqlDatabase *dataBase, QProgress
                   { run = FALSE;
                   }
            }
-        //........................ si donn�es valide les ins�rer ...................................................
+        //........................ si donnees valide les inserer ...................................................
         if (end!=-1)
            {   QString requete = verb + text.mid(deb, end-deb+1);
                query.exec(requete);
                if (OutSQL_error(query, QObject::tr("\nERREUR INSERT INTO : ParseSQL_Dump()"), requete + "\n"))
                   {Datasemp_OutMessage(logWidget, QString( "<font color=#ff0000><b>ERREUR INSERT INTO : \n</b></font>") + m_LastError) ; // \n pour mettre m_LastError � la ligne
                   }
-               //if (pQProgressBar) {pQProgressBar->setProgress(++m_position); qApp->processEvents();}
                if (run) deb = end + len_sep;
            }
     } //end while (run)
@@ -795,6 +830,7 @@ int  CApp::findNextSep(const QString & text, int pos, const QString &sep)
     }
  return -1;
 }
+
 
 //-----------------------------------------------------  ExecSQL_File -------------------------------------------
 int  CApp::ExecSQL_File(QSqlDatabase *dataBase, const QString &fname, QProgressBar *pQProgressBar /* = 0 */)
@@ -1296,38 +1332,38 @@ QString CApp::Datasemp_Maj_ExtractValue(char* &pt, const char* end, const char* 
 //----------------------------------------------- Datasemp_Maj_DecodeSpecialCar ---------------------------------------------------------------------
 QString CApp::Datasemp_Maj_DecodeSpecialCar(const QString &val)
 {QString ret;
-    //  0    1    2    3    4    5    6    7    8    9    A    B    C    D    E    F      00
-    char DECODE_TBL[256] = {  0, '?', '?', '?', '?', '?', '?', '?', '?',   9,'\n', '?', '?','\r', '?', '?',\
+                              //  0    1    2    3    4    5    6    7    8    9    A    B    C    D    E    F      00
+    QString DECODE_TBL[256] = {  "", "?", "?", "?", "?", "?", "?", "?", "?",  "\t","\n", "?", "?","\r", "?", "?",\
                               // 10   11   12   13   14   15   16   17   18   19   1A   1B   1C   1D   1E   1F      01
-                              '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?',\
+                              "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?",\
                               // 20   21   22   23   24   25   26   27   28   29   2A   2B   1C   2D   2E   2F      02
-                              '?', '?','\"', '#', '$', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?',\
+                              "?", "?","\"", "#", "$", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?",\
                               // 30   31   32   33   34   35   36   37   38   39   3A   3B   3C   3D   3E   3F      03
-                              '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?',\
+                              "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?",\
                               // 40   41   42   43   44   45   46   47   48   49   4A   4B   4C   4D   4E   4F      04
-                              '@', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?',\
+                              "@", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?",\
                               // 50   51   52   53   54   55   56   57   58   59   5A   5B   5C   5D   5E   5F      05
-                              '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '[','\\', ']', '^', '_',\
+                              "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "[","\\", "]", "^", "_",\
                               // 60   61   62   63   64   65   66   67   68   69   6A   6B   6C   6D   6E   6F      06
-                              '\'', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?',\
+                              "\"", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?",\
                               // 70   71   72   73   74   75   76   77   78   79   7A   7B   7C   7D   7E   7F      07
-                              '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '{', '|', '}', '~', '?',\
+                              "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "{", "|", "}", "~", "?",\
                               // 80   81   82   83   84   85   86   87   88   89   8A   8B   8C   8D   8E   8F      08
-                              '?', '?', ',', '§','\"', '_', '¡', '?', '^', '?', '?', '«', '?', '?', '?', '?',\
+                              "?", "?", ",", "§","\"", "_", "¡", "?", "^", "?", "?", "«", "?", "?", "?", "?",\
                               // 90   91   92   93   94   95   96   97   98   99   9A   9B   9C   9D   9E   9F      09
-                              '?', '?','\'','\"','\"', '·', '-', '-', '~', '?', 's', '»', 'æ', '?', '?', 'ÿ',\
+                              "?", "?","\"","\"","\"", "·", "-", "-", "~", "?", "s", "»", "æ", "?", "?", "ÿ",\
                               // A0   A1   A2   A3   A4   A5   A6   A7   A8   A9   AA   AB   AC   AD   AE   AF      0A
-                              '?', '¡', '?', '£', '?', '¥', '?', '§', '?', '©', 'ª', '«', '¬', '-', '®', '-',\
+                              "?", "¡", "?", "£", "?", "¥", "?", "§", "?", "©", "ª", "«", "¬", "-", "®", "-",\
                               // B0   B1   B2   B3   B4   B5   B6   B7   B8   B9   BA   BB   BC   BD   BE   BF      0B
-                              '°', '±', '²', '³', '?', 'µ', '¶', '·', '?', '¹', 'º', '»', '?', '?', '?', '¿',\
+                              "°", "±", "²", "³", "?", "µ", "¶", "·", "?", "¹", "º", "»", "?", "?", "?", "¿",\
                               // C0   C1   C2   C3   C4   C5   C6   C7   C8   C9   CA   CB   CC   CD   CE   CF      0C
-                              'À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Æ', 'Ç', 'È', 'É', 'Ê', 'Ë', 'Ì', 'Í', 'Î', 'Ï',\
+                              "À", "Á", "Â", "Ã", "Ä", "Å", "Æ", "Ç", "È", "É", "Ê", "Ë", "Ì", "Í", "Î", "Ï",\
                               // D0   D1   D2   D3   D4   D5   D6   D7   D8   D9   DA   DB   DC   DD   DE   DF      0D
-                              'Ð', 'Ñ', 'Ò', 'Ó', 'Ô', 'Õ', 'Ö', '×', 'Ø', 'Ù', 'Ú', 'Û', 'Ü', 'Ý', 'Þ', 'ß',\
+                              "Ð", "Ñ", "Ò", "Ó", "Ô", "Õ", "Ö", "×", "Ø", "Ù", "Ú", "Û", "Ü", "Ý", "Þ", "ß",\
                               // E0   E1   E2   E3   E4   E5   E6   E7   E8   E9   EA   EB   EC   ED   EE   EF      OE
-                              'à', 'à', 'â', 'ã', 'ä', 'å', 'æ', 'ç', 'è', 'é', 'ê', 'ë', 'ì', 'í', 'î', 'ï',\
+                              "à", "à", "â", "ã", "ä", "å", "æ", "ç", "è", "é", "ê", "ë", "ì", "í", "î", "ï",\
                               // F0   F1   F2   F3   F4   F5   F6   F7   F8   F9   FA   FB   FC   FD   FE   FF      0F
-                              'ð', 'ñ', 'ò', 'ó', 'ô', 'õ', 'ö', '÷', 'ø', 'ù', 'ú', 'û', 'ü', 'ý', 'þ', 'ÿ'
+                              "ð", "ñ", "ò", "ó", "ô", "õ", "ö", "÷", "ø", "ù", "ú", "û", "ü", "ý", "þ", "ÿ"
                           };
     if       (  val ==  "EU") ret = "euro";
     else if  (  val ==  "9C") ret = "oe";

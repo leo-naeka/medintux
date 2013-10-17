@@ -59,18 +59,6 @@ typedef  void (CDevilCrucible::*PrtItemScript)(QString&, QString, QString&);
 typedef  QString (CDevilCrucible::*PrtFunctionScript)(QString&, QString&);
 
 
-
-
-//..................... Liste de paires type de document-Index dans RUBREC_LIST.........................................................
-//                      sert par exemple à établir un liste de documents en cours
-//                      d'affichage avec leur index dans liste des rubrique
-//====================================== DOCUMENT_DISPLAY_MAP =======================================================
-// cette QMap permet d'associer un pointeur sur un contenu de rubrique : *CRubRecord   �
-// une clef : QString qui contient le nom : 'Observation' , 'Prescription',  'Terrain'  etc ...
-// de la rubrique en cours dans laquelle est affich� : CRubRecord
-
-typedef QMap<QString, CRubRecord*> DOCUMENT_DISPLAY_MAP;
-
 /*! \class CDevilCrucible
  *  \brief Classe de script de MedinTux.
  * DrTux possède un langage de script permettant d'accéder à diverses fonctions et informations du dossier patient.

@@ -468,7 +468,7 @@ void  C_DlgMainDialog::toLog(  const QString &mess)
 }
 
 //----------------------------------------- saveFavoris ---------------------------------------------
-void C_DlgMainDialog::checkBox_Nomadisme_stateChanged(int state )
+void C_DlgMainDialog::checkBox_Nomadisme_stateChanged(int /* state */ )
 {if (checkBox_Nomadisme->isChecked ())
     {tabWidget_Nomadisme->insertTab   ( m_pTabQWidgetNomade ,  "Serveur nomade");
      tabWidget_Nomadisme->insertTab   ( m_pTabQWidgetReverse , "Serveur reverse");
@@ -501,7 +501,7 @@ void C_DlgMainDialog::saveFavoris(QComboBox *pQComboBox)
     QString     var_name   = "";
     const char      *txt   = G_pCApp->m_ParamData;
     char             *pt   = (char*) txt;
-    char     *prop_section = 0;       // permet de noter le pointeur sur la section propriete renouvelable/intercurent des produits
+    // char     *prop_section = 0;       // permet de noter le pointeur sur la section propriete renouvelable/intercurent des produits
 
     //.................................. virer la section des variables ........................................................;
     while((pt=CGestIni::Param_GotoNextSection(pt, 0, &section)) && *pt)
@@ -537,7 +537,7 @@ void C_DlgMainDialog::fillFavoris(QComboBox *pQComboBox)
     QString     var_name   = "";
     const char      *txt   = G_pCApp->m_ParamData;
     char             *pt   = (char*) txt;
-    char     *prop_section = 0;       // permet de noter le pointeur sur la section propriete renouvelable/intercurent des produits
+    // char     *prop_section = 0;       // permet de noter le pointeur sur la section propriete renouvelable/intercurent des produits
     while((pt=CGestIni::Param_GotoNextSection(pt, 0, &section)) && *pt)
     {//.................................. ATCD ........................................................;
         if (section==sectionToMatch)
@@ -751,7 +751,7 @@ QString  C_DlgMainDialog::tryToFindSdkQt4()
  int         lastIndex  = -1;
  int             lastN  = 0;
  int                  n = 0;
- for (int i=0; i<listOptDir.count(); ++i)
+ for (int i=0; i< (int)listOptDir.count(); ++i)
      {if ( (n = keepOnlyNumber(listOptDir[i]).toInt())>lastN)
          {lastN     = n;
           lastIndex = i;
@@ -882,12 +882,22 @@ void C_DlgMainDialog::Compilation(const QString &path, const QString & target)
     comboBox_Executables->hide();
     int isQT3          =  0;
     QString sdkDir     =  lineEdit_Qt4Sdk->text(); if (!sdkDir.endsWith("/")) sdkDir += "/";
+    QString os         = "unknow";
+
 #ifdef  Q_WS_MAC
-    bool isQT4Here     =  QFile::exists(sdkDir+"bin/qmake");
-#else
-    bool isQT4Here     =  QFile::exists(sdkDir+"bin/qmake");            // pour GG
-    if (!isQT4Here) isQT4Here     =  QFile::exists(sdkDir+"qt");        // si cela ne marche pas pour les autres
+    bool isQT4Here                =  QFile::exists(sdkDir+"bin/qmake");
+    os                            =  "Mac Os";
 #endif
+#ifdef Q_WS_X11
+    bool isQT4Here                =  QFile::exists(sdkDir+"bin/qmake");            // pour GG
+    if (!isQT4Here) isQT4Here     =  QFile::exists(sdkDir+"qt");        // si cela ne marche pas pour les autres
+    os                            =  "Linux";
+#endif
+
+#ifdef Q_WS_WIN
+    os                            =  "Windows";
+#endif
+
     QString modulePath =  QDir::cleanDirPath(G_pCApp->m_PathAppli + "../../" + target)+"/";
     if (target=="compta-plugins"||target=="check_dus"||QFile::exists(modulePath+target+".kdevelop")) isQT3 = 1;
     //....................... corriger version des UI de MedinTuxTools...............................
@@ -913,7 +923,7 @@ void C_DlgMainDialog::Compilation(const QString &path, const QString & target)
     m_CurrentCompil    = target;
     if (isQT3)
        {    QApplication::setOverrideCursor( QCursor( Qt::WaitCursor ) );
-            toLog( tr ("<br>============= Compilation de <font color=#ffa800><b> '%1' </b></font><font color=#ff0000><b>(librairie QT3)</b></font> en cours ... =============").arg(target));
+            toLog( tr ("<br>============= Compilation de <font color=#ffa800><b> '%1' </b></font> sur <font color=#00e5e8><b>%2</b></font> <font color=#ff0000><b>(librairie QT3)</b></font> en cours ... =============").arg(target,os));
          #ifdef  Q_WS_MAC
             QString qtdir = lineEdit_Qt3->text().stripWhiteSpace();
             script  =  "#! /bin/sh\n"
@@ -944,7 +954,7 @@ void C_DlgMainDialog::Compilation(const QString &path, const QString & target)
        }
    else if (QFile::exists(modulePath + "src/"+target+".pro"))
        {if (isQT4Here)
-           {toLog( tr ("<br>============= Compilation de <font color=#ffa800><b> '%1' </b></font><font color=#ff0000><b>(librairie QT4)</b></font> en cours ... =============").arg(target));
+           {toLog( tr ("<br>============= Compilation de <font color=#ffa800><b> '%1' </b></font> sur <font color=#00e5e8><b>%2</b></font> <font color=#ff0000><b>(librairie QT4)</b></font> en cours ... =============").arg(target,os));
             QFile::remove ( modulePath+"src/makeQT4Module.sh" );
             QFile::remove ( modulePath+"src/Makefile" );
             //toLog( tr ("<br> Remove <font color=#ff0000><b>QT4</b></font> de<font color=#ffa800><b> %1 </b></font>en cours ...").arg(modulePath+"src/makeQT4Module.sh"));
@@ -1017,7 +1027,7 @@ void C_DlgMainDialog::Compilation(const QString &path, const QString & target)
 bool C_DlgMainDialog::IsExecutablesExist(QStringList &exeNotFoundList)
 {   toLog( tr("============ Vérification de la présence des exécutables ============= "));
     exeNotFoundList.clear();
-    for( int i=0; i<m_compilList.size(); ++i)
+    for( int i=0; i<(int)m_compilList.size(); ++i)
        {QString target = m_compilList[i].stripWhiteSpace();
         if ( (target == "QFseVitale"||target == "qgetdatasemp"))
            {if ( IsSesamVersionExist() && ! IsThisExecutableExist(target) )
@@ -1111,7 +1121,8 @@ void C_DlgMainDialog::logOutCompil(const QByteArray &data)
     char *pt          = (char*)(const char*)data.data();
     char *buffer      = new char[len+1]; if (buffer==0) return;
     for (int i=0; i<len; ++i)
-        {if (pt[i]>=32 && pt[i]<=126) {buffer[pos]=pt[i]; ++pos;}
+        {if (pt[i]=='\n')             {buffer[pos]=pt[i]; ++pos;}
+         if (pt[i]>=32 && pt[i]<=126) {buffer[pos]=pt[i]; ++pos;}
         }
     buffer[pos] = 0;
     data_str    = buffer;
@@ -1209,7 +1220,7 @@ void C_DlgMainDialog::setBase(const QString &sqlFile /* = "" */)
     if (err.length())
        {toLog(tr("============ Erreur  : GetBasesListToSet()==============") + err);
        }
-    for (int i=0; i<basesListToSet.size(); ++i)
+    for (int i=0; i<(int)basesListToSet.size(); ++i)
         {
          baseName = basesListToSet[i];
          #ifdef Q_WS_WIN
@@ -1225,11 +1236,11 @@ void C_DlgMainDialog::setBase(const QString &sqlFile /* = "" */)
     //.....................................  on affiche un peu ..........................................................
     if (basesListFound.size())
        {toLog(tr("============ Liste des bases déjà initialisées =============="));
-        for (int i=0; i<basesListFound.size(); ++i)    G_pCApp->Datasemp_OutMessage(textEdit_Message, QString(".        <font color=#ff7601>") +    basesListFound[i]    + "</font>\n");
+        for (int i=0; i<(int)basesListFound.size(); ++i)    G_pCApp->Datasemp_OutMessage(textEdit_Message, QString(".        <font color=#ff7601>") +    basesListFound[i]    + "</font>\n");
        }
     if (basesListNotFound.size())
        {toLog(tr("============ Liste des bases non initialisées =============="));
-        for (int i=0; i<basesListNotFound.size(); ++i) G_pCApp->Datasemp_OutMessage(textEdit_Message, QString(".        <font color=#ff0000>")  +   basesListNotFound[i] + "</font>\n");
+        for (int i=0; i<(int)basesListNotFound.size(); ++i) G_pCApp->Datasemp_OutMessage(textEdit_Message, QString(".        <font color=#ff0000>")  +   basesListNotFound[i] + "</font>\n");
        }
     //.....................................  on se pose les bonnes questions ..........................................................
     if  (comboBox_Bases->currentItem()==0 && sqlFile.length()==0)
@@ -1248,7 +1259,7 @@ void C_DlgMainDialog::setBase(const QString &sqlFile /* = "" */)
                                                  tr( "Une partie des bases de données semble déjà exister. \r\n"
                                                      "La réinstallation des bases ne concernera que celles \r\n"
                                                      "manquantes.\r\n") ,
-                                                     tr("Que les base manquantes"), tr("&Annuler"),0,
+                                                     tr("Que les bases manquantes"), tr("&Annuler"),0,
                                                      1, 1 )
 
                    )
@@ -1267,8 +1278,8 @@ void C_DlgMainDialog::setBase(const QString &sqlFile /* = "" */)
         }
 
     if (sqlFile.length())
-    {bool setButtonVidal = FALSE;
-     textLabel_Progress->setText( tr("Restauration de la base de données : ") + sqlFile + tr(" en cours ..." ));
+    {//bool setButtonVidal = FALSE;
+     // textLabel_Progress->setText( tr("Restauration de la base de données : ") + sqlFile + tr(" en cours ..." ));
      G_pCApp->restaureBase(sqlFile,             // en sera extrait le nom de la base
                            driverName,          // nom du driver: "QODBC3" "QMYSQL3" "QPSQL7"
                            userName,            // = "root"
@@ -1276,12 +1287,13 @@ void C_DlgMainDialog::setBase(const QString &sqlFile /* = "" */)
                            hostName,            // = "localhost"
                            port,
                            textEdit_Message,
-                           progressBar_Load
+                           progressBar_Load,
+                           textLabel_Progress
                           );
     }
     else
     {   bool setButtonVidal = FALSE;
-        for (int i=0; i<basesListNotFound.size(); ++i)
+        for (int i=0; i<(int)basesListNotFound.size(); ++i)
             {baseName               = basesListNotFound[i];
              QString fileToRestore  = baseName; fileToRestore = fileToRestore.prepend("Dump_") +".sql"; fileToRestore = fileToRestore.prepend(G_pCApp->m_PathAppli+"SqlCreateTable/");//Dump_DrTuxTest.sql
              textLabel_Progress->setText( tr("Installation de la base de données : <b>") + baseName + tr("</b> en cours ..." ));
@@ -1292,7 +1304,8 @@ void C_DlgMainDialog::setBase(const QString &sqlFile /* = "" */)
                                    hostName,            // = "localhost"
                                    port,
                                    textEdit_Message,
-                                   progressBar_Load
+                                   progressBar_Load,
+                                   textLabel_Progress
                                   );
             if (baseName=="MedicaTuxTest"||baseName=="BaseGetTest") setButtonVidal = TRUE;
            }
@@ -2029,8 +2042,8 @@ void C_DlgMainDialog::pushButtonConnexionAppl_clicked()
         CGestIni::Param_WriteParam( &param,  "CCAMTest",       "Connexion",    driverName,  baseName,  userName,  passWord,  hostName, port);
         CGestIni::Param_ReadParam(   param,  "Datasemp",       "Connexion",   &driverName, &baseName);
         CGestIni::Param_WriteParam( &param,  "Datasemp",       "Connexion",    driverName,  baseName,  userName,  passWord,  hostName, port);
-        CGestIni::Param_ReadParam(   param,  "QLaboFTPTest",   "Connexion",   &driverName, &baseName);
-        CGestIni::Param_WriteParam( &param,  "QLaboFTPTest",   "Connexion",    driverName,  baseName,  userName,  passWord,  hostName, port);
+        CGestIni::Param_ReadParam(   param,  "qlaboftp",       "Connexion",   &driverName, &baseName);
+        CGestIni::Param_WriteParam( &param,  "qlaboftp",       "Connexion",    driverName,  baseName,  userName,  passWord,  hostName, port);
         CGestIni::Param_UpdateToDisk(path, param);
         G_pCApp->Datasemp_OutMessage(textEdit_Message,param);
        }
@@ -2089,8 +2102,8 @@ void C_DlgMainDialog::pushButtonConnexionAppl_clicked()
     CGestIni::Param_WriteParam( &G_pCApp->m_ParamData,  "CCAMTest",      "Connexion",   driverName,  baseName,  userName,  passWord,  hostName, port);
     CGestIni::Param_ReadParam(G_pCApp->m_ParamData,   "Datasemp",      "Connexion",  &driverName, &baseName);
     CGestIni::Param_WriteParam( &G_pCApp->m_ParamData,  "Datasemp",      "Connexion",   driverName,  baseName,  userName,  passWord,  hostName, port);
-    CGestIni::Param_ReadParam(G_pCApp->m_ParamData,   "QLaboFTPTest",  "Connexion",  &driverName, &baseName);
-    CGestIni::Param_WriteParam( &G_pCApp->m_ParamData,  "QLaboFTPTest",  "Connexion",   driverName,  baseName,  userName,  passWord,  hostName, port);
+    CGestIni::Param_ReadParam(G_pCApp->m_ParamData,   "qlaboftp",  "Connexion",  &driverName, &baseName);
+    CGestIni::Param_WriteParam( &G_pCApp->m_ParamData,  "qlaboftp",  "Connexion",   driverName,  baseName,  userName,  passWord,  hostName, port);
     CGestIni::Param_ReadParam(G_pCApp->m_ParamData,   "BaseGetTest",   "Connexion",  &driverName, &baseName);
     CGestIni::Param_WriteParam( &G_pCApp->m_ParamData,  "BaseGetTest",   "Connexion",   driverName,  baseName,  userName,  passWord,  hostName, port);
     CGestIni::Param_UpdateToDisk(G_pCApp->m_ParamPath, G_pCApp->m_ParamData);
@@ -2198,7 +2211,7 @@ QString C_DlgMainDialog::TestBases(  const QString &driver, const QString &base,
             QStringList basesListNotFound;
             QStringList basesListFound;
             int i;
-            for (i=0; i<basesListToSet.size(); ++i)
+            for (i=0; i<(int)basesListToSet.size(); ++i)
                 {baseName = basesListToSet[i];
             #ifdef Q_WS_WIN
                  baseName = baseName.lower();
@@ -2212,10 +2225,10 @@ QString C_DlgMainDialog::TestBases(  const QString &driver, const QString &base,
                 }
             if (basesListNotFound.size())
                {toLog (tr("Bases de données manquantes : %1").arg( QString::number( basesListNotFound.size() ) ));
-                for (i=0; i<basesListNotFound.size(); ++i) toLog(QString(".        <font color=#ff0000><b>'"+basesListNotFound[i]+"'</b></font>"));
+                for (i=0; i<(int)basesListNotFound.size(); ++i) toLog(QString(".        <font color=#ff0000><b>'"+basesListNotFound[i]+"'</b></font>"));
                }
             toLog (tr("Bases de données trouvées : %1").arg( QString::number( basesListFound.size() ) ));
-            for (i=0; i<basesListFound.size(); ++i) toLog(QString(".        <font color=#ffae00><b>'"+basesListFound[i]+"'</b></font>"));
+            for (i=0; i<(int)basesListFound.size(); ++i) toLog(QString(".        <font color=#ffae00><b>'"+basesListFound[i]+"'</b></font>"));
             tabWidget_Instal->setCurrentPage(0);
            }
         else
@@ -2502,7 +2515,7 @@ QString C_DlgMainDialog::GetMAJVersion()
 }
 
 //----------------------------------------- SetButtonIndexVidal ------------------------------------------------
-void C_DlgMainDialog::SetButtonIndexVidal(int mode)
+void C_DlgMainDialog::SetButtonIndexVidal(int /* mode */)
 {   if (DataSempBaseInit())
     {   pushButton_IndexerDatasemp->show();
         pushButton_SetDatasemp->setPaletteForegroundColor ( QColor("black") );
@@ -2688,7 +2701,7 @@ void C_DlgMainDialog::eraseDirectory( QString dir_to_erase)
 // mysqldump --quote-name --compatible=mysql323 MedicaTuxTest IndexProd IndexDiet IndexVeterinaire IndexParapharmacie IndexAccessoire IndexDivers IndexHomeopathie > /home/ro/Dump_IndexMedica-0001-oo-0-oo-119A02.2.sql
 // mysqldump --quote-name --compatible=mysql323 DatasempTest > /home/ro/Dump_Datasemp-0001-oo-0-oo-119A02.2.sql
 
-//................................ r�gles de nommage des fichiers de mise à jour ................................
+//................................ regles de nommage des fichiers de mise à jour ................................
 // Dl-1144774740-Dump_Datasemp-0001-oo-1234-oo-112B02.2.sql
 // ^  ^          ^                     ^       ^_____________ Datasemp version
 // |  |          |_____ Ident Patern   |___ nb progress
@@ -2702,14 +2715,34 @@ void C_DlgMainDialog::pushButtonMakeSQL_clicked()
     //    FILE *in  = stdin;
     //    FILE *out = stdout;
     QApplication::setOverrideCursor( QCursor( Qt::WaitCursor ) );
-    G_pCApp->Datasemp_OutMessage(textEdit_Message, tr ("----------- Dump du Vidal Datasemp en cours : ") + "-----------");
+    QString dump_opt   = "-O net_buffer_length=4096";
+    if (QFile::exists(G_pCApp->m_PathAppli+"Dump_IndexMedica_options.opt"))
+       {dump_opt = CGestIni::Param_UpdateFromDisk(G_pCApp->m_PathAppli+"Dump_IndexMedica_options.opt").remove('\r').remove('\n');
+       }
+    else
+       {CGestIni::Param_UpdateToDisk(G_pCApp->m_PathAppli+"Dump_IndexMedica_options.opt", dump_opt);
+       }
+    G_pCApp->Datasemp_OutMessage(textEdit_Message, tr ("===============  Dump du Vidal Datasemp en cours...") + " =================");
     QString file_name  = QString("Dump_IndexMedica-0001-oo-0-oo-") + GetDatasempBaseVersion();
     QString main_path  = G_pCApp->m_PathAppli ;
     QDir::setCurrent ( main_path );
-    G_pCApp->Datasemp_OutMessage(textEdit_Message, tr ("==>       Ecriture en cours : ") + file_name + ".sql");
+    G_pCApp->Datasemp_OutMessage(textEdit_Message, tr ("==>       Ecriture en cours <b>%1<b/> options <font color=#23cbcd><b>%2<b/><font/>").arg(file_name + ".sql", dump_opt) );
+    QString command    = QString("#!/bin/sh \nmysqldump %1 "
+                                 "MedicaTuxTest "
+                                 "IndexProd "
+                                 "IndexDiet "
+                                 "IndexVeterinaire "
+                                 "IndexParapharmacie "
+                                 "IndexAccessoire "
+                                 "IndexDivers "
+                                 "IndexHomeopathie "
+                                 "SpecProd "
+                                 "ClassesATC "
+                                 "FormesAD "
+                                 "FormesPA "
+                                 "FormesST "
+                                 "FormesUP > %2").arg(dump_opt, file_name + ".sql");
 
-    QString command    = "#!/bin/sh \nmysqldump --quote-name --compatible=mysql323 MedicaTuxTest IndexProd IndexDiet IndexVeterinaire IndexParapharmacie IndexAccessoire IndexDivers IndexHomeopathie SpecProd ClassesATC FormesAD FormesPA FormesST FormesUP > ";
-    command           += file_name + ".sql";
     CGestIni::Param_UpdateToDisk(main_path + "/makeSqlIndex.sh", command);
     QProcess proc(this);
     proc.addArgument("chmod");
@@ -2729,15 +2762,23 @@ void C_DlgMainDialog::pushButtonMakeSQL_clicked()
     G_pCApp->Datasemp_OutMessage(textEdit_Message, tr ("          Compression en cours : ") + file_name + ".zql");
     C_Zlib czlib;
     czlib.Compresse(file_name + ".sql", file_name, ".zql");   //   ".zip"   est ajouté
-    QFile::remove(file_name + ".sql");
+    //QFile::remove(file_name + ".sql");
     G_pCApp->Datasemp_OutMessage(textEdit_Message, tr ("          Copie en cours vers : ") + pathDest+file_name+".zql");
     CHtmlTools::Copy_File(G_pCApp->m_PathAppli+file_name+".zql", pathDest+"Ressources");
     QFile::remove(file_name + ".zql");
 
+    dump_opt   = "--quote-name -O net_buffer_length=64000";
+    if (QFile::exists(G_pCApp->m_PathAppli+"Dump_Datasemp_options.opt"))
+       {dump_opt = CGestIni::Param_UpdateFromDisk(G_pCApp->m_PathAppli+"Dump_Datasemp_options.opt").remove('\r').remove('\n');
+       }
+    else
+       {CGestIni::Param_UpdateToDisk(G_pCApp->m_PathAppli+"Dump_Datasemp_options.opt", dump_opt);
+       }
+ 
     file_name = QString("Dump_Datasemp-0001-oo-0-oo-")+ GetDatasempBaseVersion();
-    G_pCApp->Datasemp_OutMessage(textEdit_Message, tr ("==>       Ecriture en cours : ") + file_name + ".sql");
-    command   = "#!/bin/sh \nmysqldump --quote-name --compatible=mysql323 DatasempTest > ";
-    command  += file_name + ".sql";
+    G_pCApp->Datasemp_OutMessage(textEdit_Message, tr ("==>       Ecriture en cours <b>%1<b/> options <font color=#23cbcd><b>%2<b/><font/>").arg(file_name + ".sql", dump_opt) );
+    command   = QString("#!/bin/sh \nmysqldump %1 DatasempTest > %2").arg(dump_opt, file_name + ".sql");
+
     CGestIni::Param_UpdateToDisk(main_path + "/makeSql.sh", command);
     QProcess proc3(this);
     proc3.addArgument("chmod");
@@ -2753,7 +2794,7 @@ void C_DlgMainDialog::pushButtonMakeSQL_clicked()
     //............................... compresser le fichier ........................................
     G_pCApp->Datasemp_OutMessage(textEdit_Message, tr ("          Compression en cours : ") + file_name + ".zql");
     czlib.Compresse(file_name + ".sql", file_name, ".zql");   //   ".zip"   est ajouté
-    QFile::remove(file_name + ".sql");
+    //QFile::remove(file_name + ".sql");
     G_pCApp->Datasemp_OutMessage(textEdit_Message, tr ("          Copie en cours vers : ")  + pathDest+"Ressources/"+file_name+".zql");
     CHtmlTools::Copy_File(G_pCApp->m_PathAppli+file_name+".zql", pathDest+"Ressources");
     QFile::remove(file_name + ".zql");
@@ -2801,7 +2842,7 @@ void C_DlgMainDialog::pushButton_LireVitale_clicked()
 //------------------------------------------------------- PluginExe --------------------------------------------------
 QString C_DlgMainDialog::PluginExe(     QObject         * pQObject,
                                         const char      * pluginScript,
-                                        int               waitFlag /* = CMoteurBase::endWait */)
+                                        int             /*  waitFlag  = CMoteurBase::endWait */)
 {
       QString     pathPlugin;  // Chemin de l'executable plugin àactionner sans l'extension .exe
       QString     pathIni;     // Chemin de l'executable plugin àactionner sans l'extension .exe
@@ -2979,7 +3020,7 @@ void C_DlgMainDialog::setGalsINI()
         pos  = galss.find("Index=",pos);
         if (pos != -1)
            {pos += 6;
-            end  = pos; while(end<galss.length() && galss[end] != '\r' && galss[end] != '\n') ++end;
+            end  = pos; while(end<(int)galss.length() && galss[end] != '\r' && galss[end] != '\n') ++end;
             QString portCom  = comboBox_PortLecteur->currentText();
             if (portCom.length())
                {int pSepEnd  = portCom.find("=");
@@ -3513,7 +3554,7 @@ bool C_DlgMainDialog::fichiersinipmd(QString &userName,QString &passWord,QString
      {QFile filealarme2(""+pathabsolu+"/../../pensebetux/Alarmes/bin/utilisateur.ini");
       if (!filealarme2.open(IO_WriteOnly | IO_Truncate)) return false;
       QTextStream streamalarme2(&filealarme2);
-      for (int i=0 ; i < listealarme.size() ; i++)
+      for (int i=0 ; i < (int)listealarme.size() ; i++)
           { streamalarme2 << ""+listealarme[i]+"\n";
           }
      }
@@ -3545,7 +3586,7 @@ bool C_DlgMainDialog::fichiersinipmd(QString &userName,QString &passWord,QString
      { QFile filelecture2(""+pathabsolu+"/../../pensebetux/lecture_table_alarmes/bin/utilisateur.ini");
        if (!filelecture2.open(IO_WriteOnly | IO_Truncate))   return false;
        QTextStream streamlecture2(&filelecture2);
-       for (int i=0 ; i < listelecture.size() ; i++)
+       for (int i=0 ; i < (int)listelecture.size() ; i++)
            { streamlecture2 << ""+listelecture[i]+"\n";
            }
      }
@@ -3576,7 +3617,7 @@ bool C_DlgMainDialog::fichiersinipmd(QString &userName,QString &passWord,QString
      { QFile filesauvegarde2(""+pathabsolu+"/../../sauvegarde/bin/utilisateur.ini");
        if (!filesauvegarde2.open(IO_WriteOnly | IO_Truncate))   return false;
        QTextStream streamsauvegarde2(&filesauvegarde2);
-       for (int i=0 ; i < listesauvegarde.size() ; i++)
+       for (int i=0 ; i < (int)listesauvegarde.size() ; i++)
            { streamsauvegarde2 << ""+listesauvegarde[i]+"\n";
            }
      }
@@ -3608,7 +3649,7 @@ bool C_DlgMainDialog::fichiersinipmd(QString &userName,QString &passWord,QString
       QFile fileapitux2(""+pathabsolu+"/../../apitux/bin/utilisateur.ini");
       if (!fileapitux2.open(IO_WriteOnly | IO_Truncate))  return false;
       QTextStream streamapitux2(&fileapitux2);
-      for (int i=0 ; i < listeapitux.size() ; i++)
+      for (int i=0 ; i < (int)listeapitux.size() ; i++)
           { streamapitux2 << ""+listeapitux[i]+"\n";
           }
      }
@@ -3644,7 +3685,7 @@ return true;
 
 QString C_DlgMainDialog::PassWordEncode(QString &pass)
 {char encoded_car;
- char *pt_magic_key  = "les linges qui sechent mouillent les cordes";
+ char pt_magic_key[] = "les linges qui sechent mouillent les cordes";
  QString encoded_str = "";
  int len_pass        = pass.length();
  char    *pt         = (char*)(const char*)pass;
@@ -3679,7 +3720,7 @@ QString C_DlgMainDialog::PassWordEncode(QString &pass)
 QString C_DlgMainDialog::PassWordDecode(QString str_to_decode)
 {
  char decoded_car;
- char *pt_magic_key  = "les linges qui sechent mouillent les cordes";
+ char pt_magic_key[] = "les linges qui sechent mouillent les cordes";
  QString decoded_str = "";
  int len_pass        = str_to_decode.length();
  int      pos        = 0;

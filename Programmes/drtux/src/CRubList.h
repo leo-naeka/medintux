@@ -571,5 +571,14 @@ QCString serialize(int withXmlHead)
 
 };
 
+//..................... Liste de paires type de document-Index dans RUBREC_LIST.........................................................
+//                      sert par exemple à établir un liste de documents en cours
+//                      d'affichage avec leur index dans liste des rubrique
+//====================================== DOCUMENT_DISPLAY_MAP =======================================================
+// cette QMap permet d'associer un pointeur sur un contenu de rubrique : *CRubRecord   �
+// une clef : QString qui contient le nom : 'Observation' , 'Prescription',  'Terrain'  etc ...
+// de la rubrique en cours dans laquelle est affich� : CRubRecord
+
+typedef QMap<QString, CRubRecord*> DOCUMENT_DISPLAY_MAP;
 #endif
 

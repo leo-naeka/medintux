@@ -435,7 +435,13 @@ long              GetPatientListFromNomPrenomSecuDtNssGeme( QListView *pQlistVie
   int             DeleteUserDataFromPrimKey( const char *primKey );
   int             DeleteUserDataFromRefUserPrimKey( const char *refUserPrimKey);
   int             DeleteUserFromPrimKey(const char *refUserPrimKey);
- //............................................ Rubriques...............................................................
+  //............................................ Rubriques...............................................................
+  int             save_ListAtcd(const QString &pkDoss,
+                                const QString &guidDoss,
+                                const QString &user,
+                                const QString &sign_user,
+                                const QString tableName,
+                                QListView*   listView_ATCD);
   void            Evnmt_InitList(EVNT_LIST *pEvnmtList, QString dossPk);
   int             Evnmt_GetFils(EVNT_LIST *pEvnmtList,  const QString &evnmt_pere);
   void            Evnmt_UpdateToDisk(EVNT_LIST *pEvnmtList);
@@ -660,7 +666,9 @@ long              GetPatientListFromNomPrenomSecuDtNssGeme( QListView *pQlistVie
    QString      m_USER_IDENT_PASSWORD;           // mot de passe
    QString      m_USER_IDENT_DROITS;             // Droits de cet utilisateur
    QString      m_USER_IDENT_SEXE;               // sexe de l'utilisateur (si il y en a un)
-   QString      m_USER_IDENT_NUM_ORDRE;          // Numéro d'ordre (si il y en a un)
+   QString      m_USER_IDENT_NUM_ORDRE;          // Numero d'ordre (si il y en a un)
+   QString      m_USER_IDENT_NUM_RPPS;           // Numero RPPS (si il y en a un)
+   QString      m_USER_IDENT_CLEF_RPPS;          // clef RPPS (si il y en a une)
    QString      m_USER_IDENT_PRIMKEY;            // clef primaire de cet enregistrement
    QString      m_USER_IDENT_GUID;               // Identifiant unique de cet utilisateur
    QString      m_USER_IDENT_CONVENTION;         // convention exple "01 MEDECINE GENERALE"
@@ -722,7 +730,6 @@ public slots:
   void On_ReconnectTimerDone();
 signals:
   void Sign_ReconnectTimerDone();
-
 };
 
 

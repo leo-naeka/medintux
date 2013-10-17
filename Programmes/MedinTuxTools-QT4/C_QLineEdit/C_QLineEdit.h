@@ -14,7 +14,7 @@
  *                              http://www.cecill.info/                           *
  *   as published by :                                                            *
  *                                                                                *
- *   Commissariat à l'Energie Atomique                                            *
+ *   Commissariat �  l'Energie Atomique                                            *
  *   - CEA,                                                                       *
  *                            31-33 rue de la Fédération, 75752 PARIS cedex 15.   *
  *                            FRANCE                                              *
@@ -55,12 +55,16 @@ class QKeyEvent;
      Q_OBJECT
 
  public:
+     enum flags  { NOT_CALL_STD_EVENT     = 0,
+                   AFTER_CALL_STD_EVENT   = 1
+                 };
      C_QLineEdit(QWidget *parent = 0);
      void doParentPressEvent ( QKeyEvent * event ){QLineEdit::keyPressEvent(event);}
      void emuleKeyPress(int key, Qt::KeyboardModifiers modifier = Qt::NoModifier);
      //void forceCursorPosition ( int pos );
  signals:
      void Sign_keyPressEvent(QKeyEvent *, int &);
+     void Sign_keyPressEvent(QKeyEvent *, int &, C_QLineEdit*);
      void Sign_focusInEvent(QFocusEvent*, int &);
      void Sign_focusOutEvent(QFocusEvent*, int &);
  protected:

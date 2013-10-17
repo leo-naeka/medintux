@@ -1,4 +1,4 @@
-<!DOCTYPE UI><UI version="0.0" stdsetdef="1">
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
 <class>FormRubPrescription</class>
 <widget class="QWidget">
     <property name="name">
@@ -327,6 +327,7 @@
     <include location="local" impldecl="in implementation">../../MedinTuxTools/CHtmlTools.h</include>
     <include location="local" impldecl="in implementation">Dlg_MedicaTux.h</include>
     <include location="local" impldecl="in implementation">../../MedinTuxTools/CPrtQListBoxItem.h</include>
+    <include location="local" impldecl="in implementation">RubPrescription.ui.h</include>
 </includes>
 <variables>
     <variable access="public">int m_IsModifiable;</variable>
@@ -350,6 +351,7 @@
     <signal>Sign_DuplicateData(RUBREC_LIST::iterator, QDateTime &amp;, const QString&amp;, const QString&amp;)</signal>
     <signal>Sign_PutPrescriptionInTerrain(RUBREC_LIST::iterator)</signal>
     <signal>Sign_Renouveler_TTT_Fond()</signal>
+    <signal>Sign_CreateAllCurrentsTTT()</signal>
 </signals>
 <slots>
     <slot>pushButtonPlus_clicked()</slot>
@@ -367,6 +369,7 @@
     <slot>PutDataInRubList( RUBREC_LIST::iterator it )</slot>
     <slot>pushButtonDelete_clicked()</slot>
     <slot>pushButtonSave_clicked()</slot>
+    <slot>Slot_LapExited()</slot>
     <slot>pushButtonVidal_clicked()</slot>
     <slot>pushButtonRubDateChange_clicked()</slot>
     <slot>SetRubDateName( const QString &amp; name, const QString &amp; date )</slot>

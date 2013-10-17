@@ -52,7 +52,7 @@
 
 
 CApp* G_pCApp = 0;  // contiendra l'instance globale de l'application
-static char NUM_VERSION[]     = "==##@@==2.14.000==@@##==";
+static char NUM_VERSION[]     = "==##@@==2.16.000==@@##==";
 
 //--------------------------------------------- CApp -------------------------------------------------------------------
 CApp::~CApp()
@@ -80,7 +80,7 @@ CApp::CApp(int & argc, char ** argv, QString &erreur, const char*user,  const ch
     m_CriptedPassWord        =  tr("----- m_CriptedPassWord no initialised-----");
     G_pCApp                  =  0;
     m_PathAppli              =  CGestIni::Construct_PathBin_Module( "gest_user", QFileInfo (argv[0]).dirPath (true));
-    m_PathIni                =  CGestIni::Construct_Name_File_Ini("gest_user", QFileInfo (argv[0]).dirPath (true),"");
+    m_PathIni                =  CGestIni::Construct_Name_File_Ini(  "gest_user", QFileInfo (argv[0]).dirPath (true),"");
     m_Contacts_Run           = FALSE;
     m_PermsChoice            = "";
     m_IsAppStartWithUser     = FALSE;
@@ -125,7 +125,7 @@ CApp::CApp(int & argc, char ** argv, QString &erreur, const char*user,  const ch
     //m_ImagePath = CGestIni::Construct_Name_File_Ini("drtux", QFileInfo (argv[0]).dirPath (true),"Ressources/RubriquesTextes/");
     //....................... charger le fichier de configuration ......................................
     //                        de la base de donnée
-    CGestIni::Param_UpdateFromDisk(CGestIni::Construct_Name_File_Ini("drtux", QFileInfo (argv[0]).dirPath (true), "DataBase.cfg"), baseCfg);
+    CGestIni::Param_UpdateFromDisk(CGestIni::Construct_Name_File_Ini("Manager", QFileInfo (argv[0]).dirPath (true), "DataBase.cfg"), baseCfg);
     //.......................Charger les parametres de connexion ........................................
     if (CGestIni::Param_ReadParam( data_ini, "Connexion", "Parametres", &val1, &val2, &val3, &val4, &qstr2,&port) !=0 )  // zero = pas d'erreur
        { val1     = "QMYSQL3";     // driver name

@@ -43,6 +43,7 @@
 #include "CSetupBase.h"
 #include <qsqldatabase.h>
 #include <qtextedit.h>
+#include <qdatetime.h>
 #include <qprogressbar.h>
 #include <qprogressdialog.h>
 #include <qthread.h>
@@ -68,7 +69,7 @@ class CApp :  public QApplication ,  public CSetupBase
         AllUpdate           = 15,
         Force               = 16
 
-    };
+    }; 
     CApp(int & argc, char ** argv);
     ~CApp();
     QSqlDatabase*  restaureBase(      QString fileName,
@@ -78,29 +79,9 @@ class CApp :  public QApplication ,  public CSetupBase
                                       QString hostName,            // = "localhost"
                                       QString port,
                                       CW_EditText  *logWidget,     // QEdit pour afficher les logs
-                                      QProgressBar *pQProgressBar  // progress_barr
+                                      QProgressBar *pQProgressBar,  // progress_barr
+                                      QLabel       *pQlabel
                                       );
-    QSqlDatabase*  SetOneBase(        QString driver,              // nom du driver: "QODBC3" "QMYSQL3" "QPSQL7"
-                                      QString dataBaseName,        // nom de la base: si QODBC3 -> nom de la source de données (userDSN)
-                                      QString user,                // = "root"
-                                      QString passWord,            // = ""
-                                      QString hostName,            // = "localhost"
-                                      QString port,
-                                      CW_EditText  *logWidget,     // QEdit pour afficher les logs
-                                      QProgressBar *pQProgressBar, // progress_barr
-                                      long enr_tot = 340535        // = 340535
-                               );
-
-    QSqlDatabase*  SetBase( QString driver,        // nom du driver: "QODBC3" "QMYSQL3" "QPSQL7"
-                            QString dataBaseName,    // nom de la base: si QODBC3 -> nom de la source de données (userDSN)
-                            QString user,            // = "root"
-                            QString passWord,        // = ""
-                            QString hostName,        // = "localhost"
-                            QString port,
-                            CW_EditText  *logWidget,
-                            QProgressBar *pQProgressBar,
-                            long enr_tot = 340535
-                          );
 
     QStringList    GetBasesListToSet();
     int  GotoDebug();
@@ -110,12 +91,14 @@ class CApp :  public QApplication ,  public CSetupBase
     void RemoveAllDesignerVersion(const  QString &path);
     void RemoveDesignerVersion(QString &txt);
     void Remove_TAG_includehints(QString &txt);
-    void ParseSQL_Dump(QSqlDatabase *dataBase, const QString &fname,   QProgressBar *pQProgressBar=0, CW_EditText *logWidget=0 );
+    void ParseSQL_Dump(QSqlDatabase *dataBase, const QString &fname,   QProgressBar *pQProgressBar=0, CW_EditText *logWidget=0, QLabel *pQlabel = 0);
     void ParseSQL_InsertInto(QString &text, QSqlDatabase *dataBase, QProgressBar *pQProgressBar  = 0, CW_EditText *logWidget  = 0 );
     int  ExecSQL_File(QSqlDatabase *dataBase, const QString & fname,   QProgressBar *pQProgressBar=0);
     int  CreationTables(QSqlDatabase *dataBase, const QString & fname, QProgressBar *pQProgressBar=0);
     int  OutSQL_error( const QSqlQuery &cur, const char *messFunc =0, const char *requete =0);
+    // QString  read_line( QFile *file, char *buffer, int &len_read, Q_ULONG maxlen);
     unsigned long  readLine(QFile *pQFile, char *buffer, QString &outParam, unsigned long nbMax);
+    double  get_file_size(const char *file_name, QLabel *pQlabel = 0 );
     //................... fonctions d'installation et mise à jour Datasemp .............................................
     QSqlDatabase*    Datasemp_CreateBases(  QString driver,              // nom du driver: "QODBC3" "QMYSQL3" "QPSQL7"
                                             QString dataBaseName,        // nom de la base: si QODBC3 -> nom de la source de données (userDSN)
@@ -157,9 +140,17 @@ public slots:
      /*! \brief surcharge du Slot quit afin d'envoyer le message Sign_QuitterRequired permettant a ceux qui s'y connectent de sauver les meubles \
      */
      void  quit();
+     void  Slot_displayAvancement();
 private:
-     unsigned long    m_position;
+     double    m_positionEnd;
+     double    m_position;
+     unsigned long    m_divSteep;
+     long             m_bufferSize;
+     QString          m_fileToRestaure;
      QString          m_LastError;
+     QLabel          *m_DisplayFilePosLabel;
+     QProgressBar    *m_QProgressBar;
+     QDateTime        m_startTime;
 signals:
      void  Sign_QuitterRequired();
 };

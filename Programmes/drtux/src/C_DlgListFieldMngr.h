@@ -66,6 +66,7 @@ protected:
     QListViewItem *m_OldpQlistViewItem;
     QString        m_PathListes;
     QString        m_PathDrTux;
+    QString        m_PathGetFile;
     QString        m_PathGlossaire;
     QString       *m_pRet;
     QString        m_DrTuxParam;
@@ -124,6 +125,7 @@ protected slots:
     virtual void lineEditFindItem_textChanged( const QString & qtxt );
     virtual void pushButtonSetMasque_clicked();
     virtual void MenuActionListGet();
+    virtual void MenuActionListGetFile();
     virtual void MenuActionInsertField();
     virtual void MakeInsertFieldList( const char * path, QStringList & fieldList, int mustBeClear );
     virtual void MenuActionListNewRef();

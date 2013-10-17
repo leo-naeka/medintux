@@ -54,6 +54,11 @@ int C_DBVar::initValues( QString& confData)
   char     *deb = (char*)(const char *)ba;
   char      *pt = deb;
   int      line = 0;
+    pt = SetConfBase_SetProperties(pt,  m_BDM_VERSION_TBL_NAME,     "m_BDM_VERSION_TBL_NAME",    &line , err); if (err.length())     goto SetConfBase_Error;
+    pt = SetConfBase_SetProperties(pt,  m_BDM_VERSION_PK,           "m_BDM_VERSION_PK",          &line , err); if (err.length())     goto SetConfBase_Error;
+    pt = SetConfBase_SetProperties(pt,  m_BDM_VERSION_OWNER,        "m_BDM_VERSION_OWNER",       &line , err); if (err.length())     goto SetConfBase_Error;
+    pt = SetConfBase_SetProperties(pt,  m_BDM_VERSION_LANG,         "m_BDM_VERSION_LANG",        &line , err); if (err.length())     goto SetConfBase_Error;
+    pt = SetConfBase_SetProperties(pt,  m_BDM_VERSION_NUMBER,       "m_BDM_VERSION_NUMBER",      &line , err); if (err.length())     goto SetConfBase_Error;
 
     pt = SetConfBase_SetProperties(pt,  m_MEDICA_INDEX_MED_TBL_NAME,     "m_MEDICA_INDEX_MED_TBL_NAME",    &line , err); if (err.length())     goto SetConfBase_Error;
     pt = SetConfBase_SetProperties(pt,  m_MEDICA_INDEX_DIET_TBL_NAME,    "m_MEDICA_INDEX_DIET_TBL_NAME",   &line , err); if (err.length())     goto SetConfBase_Error;

@@ -43,7 +43,7 @@ class CMDI_ChoixPatient : public CMDI_Generic
 {
     Q_OBJECT
 public:
-     static  QString      S_GetRubName(){return QString("Choix Patients");};
+     static  QString      S_GetRubName(){return tr("Choix Patients");};
      static  int          S_GetType() {return 2;};      //#define TYP_CHOIX_PATIENT  2
 
      CMDI_ChoixPatient( QWidget* parent, const char* name, int wflags , CMoteurBase *pCMoteurBase, RUBREC_LIST  *pRubList,

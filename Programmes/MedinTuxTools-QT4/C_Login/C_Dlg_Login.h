@@ -14,13 +14,17 @@ class C_Dlg_Login : public QDialog
 
 public:
 
-    enum Visibility  {Show    = 0,
-                      OnEdit  = 1,
-                      Hide    = 2,
+    enum Visibility  {Show          = 0,
+                      OnEdit        = 1,
+                      Hide          = 2,
+                      Cached        = 3,  // 2+3
+                      LoginReadOnly = 4
                      };
 
 
-    explicit C_Dlg_Login(const QString &login, const QString &password, QWidget *parent = 0);
+    explicit C_Dlg_Login(const QString &login, const QString &password, QWidget *parent = 0 ,
+                         C_Dlg_Login::Visibility loginState =  C_Dlg_Login::Show,
+                         C_Dlg_Login::Visibility passState  =  C_Dlg_Login::Cached);
     ~C_Dlg_Login();
 
     //---------------------------------------- get_Login -----------------------------------------
@@ -31,6 +35,20 @@ public:
     QString  get_CriptedLogin(const QString &prefix = "");
     //---------------------------------------- get_CriptedPassword -----------------------------------------
     QString  get_CriptedPassword(const QString &prefix = "");
+    //---------------------------------------- IsPasswordMustBeRecord -----------------------------------------
+    bool IsPasswordMustBeRecord();
+    //------------------------------------------------------ setFocusOnPass -------------------------------------------------------------------
+    void setFocusOnPass();
+    //------------------------------------------------------ setDefaultOnOk -------------------------------------------------------------------
+    void setDefaultOnOk();
+
+protected:
+    //---------------------------------------- eventFilter -----------------------------------------
+#ifdef Q_WS_MAC
+    bool eventFilter(QObject *obj, QEvent *ev);
+    bool                      m_CapsLock;
+#endif
+    void setIconCapsSate();
 private:
     //---------------------------------------- set_LoginOnState -----------------------------------------
     void set_LoginOnState     (C_Dlg_Login::Visibility state);
@@ -38,8 +56,10 @@ private:
     void set_PasswordOnState  (C_Dlg_Login::Visibility state);
     //---------------------------------------- getModeEditState -----------------------------------------
     void getModeEditState ();
-    //---------------------------------------- getModeEditState -----------------------------------------
-    C_Dlg_Login::Visibility nextModeEditState (C_Dlg_Login::Visibility state);
+    //---------------------------------------- nextModeEditStateLogin -----------------------------------------
+    C_Dlg_Login::Visibility nextModeEditStateLogin (C_Dlg_Login::Visibility state);
+    //---------------------------------------- nextModeEditStatePassword -----------------------------------------
+    C_Dlg_Login::Visibility nextModeEditStatePassword (C_Dlg_Login::Visibility state);
 private slots:
     //---------------------------------------- Slot_pushButton_LoginHideShow -----------------------------------------
     void Slot_pushButton_LoginHideShow  (bool);
@@ -64,7 +84,11 @@ private:
     QTimer                   *m_pQTimer;
     int                       m_TimerPasswordCount;
     int                       m_TimerLoginCount;
+    int                       m_TimerMajCount;
+    int                       m_maskPassState;          // si sur on le mode visible permanent est interdit
+    int                       m_maskLoginState;
     Ui::C_Dlg_Login          *m_pGUI;
+
 };
 
 #endif // C_DLG_LOGIN_H

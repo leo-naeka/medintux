@@ -13,44 +13,69 @@
 #include "C_Atcd.h"
 #include "drtux.h"
 #include "../../MedinTuxTools/CGenTools.h"
-
+#include "ui/Dlg_Calendar.h"
 #include "C_TokenInterpret.h"
 #include <qnamespace.h>
 #include <qmap.h>
 #include <qlineedit.h>
 //============================= Atcd_Element =========================================================================================
 //------------------------------ isAllergie ------------------------------------------------------------------------------------------
-/*! \brief Test l'ATCD et retourne TRUE si il s'agit d'une allergie. */
-bool Atcd_Element::isAllergie()
-{ if (m_Code.left(1) == "(") return TRUE; else return FALSE; }
-//------------------------------ isAllergie ------------------------------------------------------------------------------------------
-/*! \brief Test l'ATCD et retourne TRUE si il s'agit d'un codage CISP. */
-bool Atcd_Element::isCisp()
-{ if (m_Code.left(1) == "-") return TRUE; else return FALSE; }
-
+/*! \brief Teste l'ATCD et retourne TRUE si il s'agit d'une allergie. */
+bool Atcd_Element::isAllergie() { return isAllergie(m_Code);}
+//------------------------------ is_ATC ------------------------------------------------------------------------------------------
+/*! \brief Teste l'ATCD et retourne TRUE si il s'agit d'un code atc. */
+bool Atcd_Element::is_ATC()     { return is_ATC(m_Code);}
+//------------------------------ isCisp ------------------------------------------------------------------------------------------
+/*! \brief Teste l'ATCD et retourne TRUE si il s'agit d'un codage CISP. */
+bool Atcd_Element::isCisp()     { return isCisp(m_Code);}
 //------------------------------ isCIM10 --------------------------------------------------
-/*! \brief Test l'ATCD et retourne TRUE si il s'agit d'un codage CIM10. */
-bool Atcd_Element::isCIM10()
-{ if (m_Code.left(1) == "~" ) return TRUE; else return FALSE; }
+/*! \brief Teste l'ATCD et retourne TRUE si il s'agit d'un codage CIM10. */
+bool Atcd_Element::isCIM10()    { return isCIM10(m_Code);}
+
+//------------------------------ isAllergie ------------------------------------------------------------------------------------------
+/*! \brief fonction statique qui teste l'ATCD et retourne TRUE si il s'agit d'une allergie. */
+bool Atcd_Element::isAllergie(const QString &code)
+{ return (code.left(1) == "(");}
+//------------------------------ is_ATC ------------------------------------------------------------------------------------------
+/*! \brief fonction statique qui teste l'ATCD et retourne TRUE si il s'agit d'un code atc. */
+bool Atcd_Element::is_ATC(const QString &code)
+{ return (code.left(2) == "(.");}
+//------------------------------ isCisp ------------------------------------------------------------------------------------------
+/*! \brief fonction statique qui teste l'ATCD et retourne TRUE si il s'agit d'un codage CISP. */
+bool Atcd_Element::isCisp(const QString &code)
+{ return (code.left(1) == "-");}
+//------------------------------ isCIM10 --------------------------------------------------
+/*! \brief fonction statique qui teste l'ATCD et retourne TRUE si il s'agit d'un codage CIM10. */
+bool Atcd_Element::isCIM10(const QString &code)
+{ return (code.left(1) == "~" );}
 
 //------------------------------ getPixmap --------------------------------------------------
-/*! \brief Récupère le Pixmap de l'ATCD selon le Thème défini dans CApp.
+/*! \brief Récupère le Pixmap de l'ATCD selon son code dans le Thème défini dans CApp.
 */
 QPixmap Atcd_Element::getPixmap()
-{ if ( isCIM10()  )
+{ return getPixmap(m_Code);
+}
+
+//------------------------------ getPixmap --------------------------------------------------
+/*! \brief fonction statique qui récupère le Pixmap de l'ATCD selon son code dans le Thème défini dans CApp.
+*/
+QPixmap Atcd_Element::getPixmap(const QString &code)
+{ if ( isCIM10(code)  )
      {return Theme::getIcon( "16x16/Cim10ItemTab.png");
      }
-  else if (isCisp())
+  else if (isCisp(code))
      {return Theme::getIcon( "16x16/CispItemTab.png");
      }
-  else if (isAllergie())
+  else if (is_ATC(code))
+     {return Theme::getIcon( "16x16/atc_interdit.png");
+     }
+  else if (isAllergie(code))
      {return Theme::getIcon( "16x16/AllergieTab.png");
      }
   else
      {return Theme::getIcon( "16x16/item.png");
      }
 }
-
 //------------------------------ getLightCIM10 --------------------------------------------------
 /*! \brief Les intitulés de la CIM10 sont parfois peu comptabiles avec la lecture. Cette fonction allège les intutilés pour les rendre plus compréhensibles.
 */
@@ -94,7 +119,7 @@ bool Atcd_Element::operator< (const Atcd_Element& e) const
           break;
         }
    case CApp::SortByDate :
-        { resultat = m_Date < e.m_Date;
+        { resultat = m_DateDeb < e.m_DateDeb;
           break;
         }
    default : // SortByRubrique
@@ -117,8 +142,8 @@ bool Atcd_Element::operator== (const Atcd_Element& e) const
   // Si les id n'étaient pas définis lors teste tous les items
   if (m_Rubrique      != e.m_Rubrique)            return FALSE;
   if (m_Libelle       != e.m_Libelle)             return FALSE;
-  if (m_Date          != e.m_Date)                return FALSE;
-  if (m_Etat          != e.m_Etat)                return FALSE;
+  if (m_DateDeb       != e.m_DateDeb)             return FALSE;
+  if (m_DateFin       != e.m_DateFin)             return FALSE;
   if (m_Commentaire   != e.m_Commentaire)         return FALSE;
   if (m_Code          != e.m_Code)                return FALSE;
   if (m_ald           != e.m_ald)                 return FALSE;
@@ -315,6 +340,29 @@ int Atcd_Code::setTerrain(RUBREC_LIST::iterator it, CMoteurBase* pCMoteurBase)
   emit ATCD_Changed();
   return ret;
 }
+//------------------------------ setDatesToNewVersion --------------------------------------------------
+/*! \brief converti l'ancien format (date debut, etat) d'un atcd en s'assurant que les dates de fin et debut soient correctes.
+ *  \param dateDeb = texte de la date de debut au format dd-MM-yyyy
+ *  \param dateFin = texte de la date de fin   au format dd-MM-yyyy
+ *  \param dt_deb  = date de debut calculee en fonction de elements fournis par dateDeb et dateFin
+ *  \param dt_fin  = date de fin   calculee en fonction de elements fournis par dateDeb et dateFin
+*/
+void Atcd_Code::setDatesToNewVersion(QString &dateDeb, QString &dateFin, QDate &dt_deb, QDate &dt_fin)
+{       dt_deb = QDate::fromString(CGenTools::dd_MM_yyyy_ToIso(dateDeb), Qt::ISODate);
+        dt_fin = QDate::fromString(CGenTools::dd_MM_yyyy_ToIso(dateFin), Qt::ISODate);
+        if (dateFin[0]=='P')
+           {if (dateDeb.length())
+               {dt_deb = QDate::fromString(CGenTools::dd_MM_yyyy_ToIso(dateDeb), Qt::ISODate);
+                dt_fin = dt_deb.addDays ( 1 );     // en mettant +1 jour pour la date de fin on est quasi sur que l'antecedant est du passe
+               }
+           }
+        else if (dateFin[0]=='A')
+           {if (dateDeb.length())
+               {dt_deb = QDate::fromString(CGenTools::dd_MM_yyyy_ToIso(dateDeb), Qt::ISODate);
+                dt_fin = QDate();     // en mettant une date invalide on met l'antecedent actif
+               }
+           }
+}
 
 //------------------------------ setTerrain --------------------------------------------------
 /*! \brief Préférez utiliser la fonction setTerrain(CRubRecord* pCRubRecord, CMoteurBase* pCMoteurBase) plutôt que cette fonction, car elle gère pas la synchronisation. Cette fonction défini pour la classe le fichier de terrain �  analyser et construit la liste des ATCD.
@@ -338,25 +386,25 @@ void Atcd_Code::setTerrain(const char* strTerrain, CMoteurBase* /*pCMoteurBase*/
  QString libelle, dt_str, rubrique, comm, etat, code, ald;
  QString      section          = "";
  QString     var_name          = "";
- int            etat_int       = 0;
  Atcd_Element*            Atcd = 0;
- QDate        dt;
+ QString               dateDeb = "";
+ QString               dateFin = "";
+ QDate        dt_deb;
+ QDate        dt_fin;
  while((pt = CGestIni::Param_GotoNextSection(pt, 0, &section)) && *pt)
  { if (section == TR("Antecedents") || section==TR("Antécédents")||section == TR("Ant�c�dents"))
      { while (*pt && *pt != '[')
        {var_name = "";
-        libelle  = ""; rubrique=""; etat=""; code=""; comm=""; dt_str=""; ald="";
-        pt = CGestIni::Param_ExtraireNextValeurs(pt, libelle, &rubrique, &etat, &code, &comm, &dt_str, &ald);
+        libelle  = ""; rubrique=""; dateFin=""; code=""; comm=""; dateDeb=""; ald="";
+        pt = CGestIni::Param_ExtraireNextValeurs(pt, libelle, &rubrique, &dateFin, &code, &comm, &dateDeb, &ald);
         // Nettoie les items de l'antécédent
         libelle.replace("\\,",",");        libelle.replace("\\;",";");        libelle.replace("\\[","[");
         libelle.replace("\\]","]");        comm.replace("\\,",",");           comm.replace("\\;",";");
         comm.replace("\\[","[");           comm.replace("\\]","]");
-        if (dt_str.length())  dt = QDate::fromString(dt_str.right(4)+"-"+dt_str.mid(3,2)+"-"+dt_str.left(2), Qt::ISODate);
-        else                  dt = QDate();
-        if (etat == TR("Passé")||etat == TR("Pass�")) etat_int = 0;
-        else                                          etat_int = 1;
 
-        Atcd = new Atcd_Element(rubrique, libelle, dt , code, etat_int, comm, ald) ;
+        setDatesToNewVersion(dateDeb, dateFin, dt_deb, dt_fin);
+
+        Atcd = new Atcd_Element(rubrique, libelle, dt_deb , code, dt_fin, comm, ald) ;
         Atcd->setId(id);
         m_Atcd_Liste.append ( *Atcd );
         ++id;
@@ -390,7 +438,39 @@ void Atcd_Code::setTerrain(const char* strTerrain, CMoteurBase* /*pCMoteurBase*/
  qHeapSort( m_Atcd_Liste );
 
 }
-
+//--------------------------------- valid_DateStringOrEmptyString -------------------------------------------------------------
+/*! \brief retourne une chaine vide si date invalide sinon une de la forme "dd-MM-yyyy"
+ *  \param date_in = date dont il faut tester la validite
+ *  \param format  = format de retour
+ *  \return QString qui est vide si date invalide sinon la date avec le format d'entree
+*/
+QString Atcd_Code::valid_DateStringOrEmptyString(QString date_in, const QString &format  /* = "dd-MM-yyyy" */ )
+{QString date    = CGenTools::NormaliseDate(date_in) ;
+ QDate   dateEnd = QDate::fromString(date,Qt::ISODate);
+ if (dateEnd.isValid()) return dateEnd.toString(format);
+ else                   return QString("");
+}
+//------------------------------ setNewState_FromOldState --------------------------------------------------
+/*! \brief l'etat ancien stocké est 'Passé' 'Actif' le nouveau devant etre une date qui si invalide l'atcd est actif si valide il est termine a la date présente
+ *  \param old_state = ancien etat a interpreter (il tient compte d'un eventuel etat date deja positionne)
+ *  \return QString qui est le nouvel etat sous forme nouvelle (date valide ou invalide) selon actif ou inactif
+*/
+QString Atcd_Code::setNewState_FromOldState(const QString &old_state, QDate *date_to_set /* =0 */ )
+{       QDate   dateEnd;
+        if (old_state.upper()[0] == 'P')
+           {dateEnd = QDate::currentDate().addDays (-1);   // on met une date de fin valide anterieure a ce jour ==> atcd inactif;
+           }
+        if (old_state.upper()[0] == 'A')
+           {dateEnd = QDate();                             // on met une date de fin invalide donc non determinee  ==> atcd encore actif
+           }
+        else
+           {QString date    = CGenTools::NormaliseDate(old_state) ;
+            dateEnd         = QDate::fromString(date,Qt::ISODate);
+           }
+       if (date_to_set) *date_to_set = dateEnd;
+       if (dateEnd.isValid() ) return QString("");
+       else                    return dateEnd.toString("dd-MM-yyyy");
+}
 //------------------------------ toOldIni --------------------------------------------------
 /*! \brief Prépare le fichier de sauvegarde des ATCD dans l'ancien format dit "format INI".
  *
@@ -417,10 +497,10 @@ QString Atcd_Code::toOldIni()
     retour +=  "   ";
     retour +=  (*it).m_Libelle                                + " = ";    // 0
     retour +=  (*it).m_Rubrique                               + " , ";    // 1
-    retour +=  ((*it).m_Etat ? TR("Actif"):TR("Passé"))       + " , ";    // 2
+    retour +=  (*it).m_DateFin.toString("dd-MM-yyyy")         + " , ";    // 2
     retour +=  (*it).m_Code                                   + " , ";    // 3
     retour +=  (*it).m_Commentaire                            + " , ";    // 4
-    retour +=  (*it).m_Date.toString("dd-MM-yyyy")            + " , ";    // 5
+    retour +=  (*it).m_DateDeb.toString("dd-MM-yyyy")         + " , ";    // 5
     retour +=  (*it).m_ald                                    + "\r\n";   // 6
   } // fin for
   retour.prepend("[Antecedents]\r\n");
@@ -526,14 +606,14 @@ void Atcd_Code::createAtcdListView(CPrtQListViewItem& retour)
            }
         else cur_rub_Item = *mit;                                                                  // c'est celle trouvee dans la map qui sera le pere de l'antecedent
         //..................... inserer l'antecedent ...........................................................
-                                         tmp  = (*it).m_Libelle;
-        if ( (*it).isCIM10() )           tmp  = (*it).getLightCIM10();
-        if ( (*it).m_Date.isValid() )    tmp += " ("+(*it).m_Date.toString("yyyy")+")";
+                                            tmp  = (*it).m_Libelle;
+        if ( (*it).isCIM10() )              tmp  = (*it).getLightCIM10();
+        if ( (*it).m_DateDeb.isValid() )    tmp += " ("+(*it).m_DateDeb.toString("yyyy")+")";
+        if ( (*it).m_DateFin.isValid() )    tmp += " ("+(*it).m_DateFin.toString("yyyy")+")";
         atcd_Item = new CPrtQListViewItem ( cur_rub_Item, atcd_Item, tmp);
         if (atcd_Item)
            {atcd_Item->set_ID_Rublist( (*it).getId() );
-            if ((*it).m_ald.length()) atcd_Item->setPixmap(0, Theme::getIcon("16x16/ald_on.png") );
-            else                      atcd_Item->setPixmap(0, Theme::getIcon("16x16/ald_off.png") );
+            atcd_Item->setPixmap(LV_TYPE, ald_sport_codeToPixmap((*it).m_ald));
             atcd_Item->setAtcd(&(*it));    // noter les donnees responsales de l'affichage
            }
   } // Fin FOR
@@ -568,6 +648,35 @@ void Atcd_Code::atcd_To_ListView(QListView& retour)
       {atcd_Element_To_ListViewItem(*it, &retour);
       } // Fin FOR
 }
+//------------------------------ ald_sport_codeToPixmap --------------------------------------------------
+/*! \brief retourne le type d'icone correspondant au code ald_sport
+ *  \param ald_sport_code : code ald_sport 'ALD' 'Sport' ''
+ *  \return QPixmap correspondant (icone ALD ou sport)
+*/
+QPixmap Atcd_Code::ald_sport_codeToPixmap(const QString & ald_sport_code)
+{      if (ald_sport_code.length())
+          { if      (ald_sport_code[0]=='A')           return Theme::getIcon("16x16/ald_on.png");
+            else if (ald_sport_code[0]=='S')           return Theme::getIcon("16x16/sport_on.png");
+            else /*if (ald_sport_code[0]=='V')*/       return Theme::getIcon("16x16/vigilance_on.png");
+          }
+       else                                            return Theme::getIcon("16x16/ald_off.png") ;
+}
+//------------------------------ datesDebFinToPixmap --------------------------------------------------
+/*! \brief retourne le type d'icone correspondant aux dates de debut et fin
+ *  \param dateDeb : date de debut
+ *  \param dateDeb : date de fin
+ *  \return QPixmap correspondant (actif inactif)
+*/
+QPixmap Atcd_Code::datesDebFinToPixmap(const QDate &dateDeb, const QDate &dateFin)
+{      if (dateDeb.isValid())
+          {if (dateFin.isValid())
+              {if (dateFin<QDate::currentDate()) return Theme::getIcon("16x16/listok.png");
+               else                              return Theme::getIcon("16x16/warning.png");
+              }
+           else                                  return Theme::getIcon("16x16/warning.png");
+          }
+       return Theme::getIcon("16x16/listok.png");
+}
 //------------------------------ atcd_Element_To_ListViewItem --------------------------------------------------
 /*! \brief Ajoute a une listView un item affichant un ATCD.
  *
@@ -576,18 +685,16 @@ void Atcd_Code::atcd_To_ListView(QListView& retour)
 void Atcd_Code::atcd_Element_To_ListViewItem(Atcd_Element& pAtcd_Element, QListView* pQListView)
 {      CPrtQListViewItem* pCPrtQListViewItem  = new CPrtQListViewItem ( pQListView, 0,  pAtcd_Element.m_Libelle);       // 0 Libelle
        pCPrtQListViewItem->set_ID_Rublist( pAtcd_Element.getId() );
-       pCPrtQListViewItem->setText( 1,  pAtcd_Element.m_Rubrique);                                       // 1 famille Genre
-       pCPrtQListViewItem->setText( 2,  pAtcd_Element.m_Etat ? TR("Actif"):TR("Passé"));                // 2 etat Actif/gueri
-       pCPrtQListViewItem->setText( 3,  pAtcd_Element.m_Commentaire);                                    // 3 commentaire
-       pCPrtQListViewItem->setText( 4,  pAtcd_Element.m_Date.toString("dd-MM-yyyy"));                    // 4 date
-       pCPrtQListViewItem->setText( 5,  pAtcd_Element.m_ald);                                            // 5 ald
-       pCPrtQListViewItem->setText( 6,  pAtcd_Element.m_Code);                                           // 6 code
-       if (pAtcd_Element.m_ald.length()) pCPrtQListViewItem->setPixmap(1, Theme::getIcon("16x16/ald_on.png") );
-       else                              pCPrtQListViewItem->setPixmap(1, Theme::getIcon("16x16/ald_off.png") );
-
-       if (pAtcd_Element.m_Etat) pCPrtQListViewItem->setPixmap ( 2, G_pCApp->m_Theme.getIcon("16x16/warning.png") );
-       else                      pCPrtQListViewItem->setPixmap ( 2, G_pCApp->m_Theme.getIcon("16x16/listok.png") );
-       pCPrtQListViewItem->setPixmap(0, pAtcd_Element.getPixmap() );
+       pCPrtQListViewItem->setText( LV_TYPE,  pAtcd_Element.m_Rubrique);                                       // 1 famille Genre
+       pCPrtQListViewItem->setText( LV_DFIN,  pAtcd_Element.m_DateFin.toString("dd-MM-yyyy"));                 // 2 etat Actif/gueri
+       pCPrtQListViewItem->setText( LV_COMM,  pAtcd_Element.m_Commentaire);                                    // 3 commentaire
+       pCPrtQListViewItem->setText( LV_DDEB,  pAtcd_Element.m_DateDeb.toString("dd-MM-yyyy"));                 // 4 date
+       pCPrtQListViewItem->setText( LV_ALSP,  pAtcd_Element.m_ald);                                            // 5 ald
+       pCPrtQListViewItem->setText( LV_CODE,  pAtcd_Element.m_Code);                                           // 6 code
+       //............. les icones .........................
+       pCPrtQListViewItem->setPixmap(LV_TYPE, ald_sport_codeToPixmap(pAtcd_Element.m_ald) );
+       pCPrtQListViewItem->setPixmap(LV_DDEB, datesDebFinToPixmap(pAtcd_Element.m_DateDeb, pAtcd_Element.m_DateFin) );
+       pCPrtQListViewItem->setPixmap(LV_NAME, Atcd_Element::getPixmap(pAtcd_Element.m_Code) );
 }
 
 //------------------------------ addATCD_Textuel --------------------------------------------------
@@ -602,13 +709,15 @@ void Atcd_Code::addATCD_Textuel(QWidget *parent , int sendModifMessage /*=Atcd_C
  pDlgAtcd_txt->exec();
  if (pDlgAtcd_txt->result() == QDialog::Accepted)
     { // Récupère les données du widget set_Atcd_Element(rubrique, libelle,  dt,  code, etat,  commentaire, ald,  -1);
-      QString libelle, commentaire, date, rubrique;
-      QDate dt ;
-      pDlgAtcd_txt->getInfos(libelle, rubrique, date, commentaire);
-      if (date != "") dt = QDate::fromString(date, Qt::ISODate);
-      else            dt = QDate();
+      QString libelle, commentaire, dateDebIso,dateFinIso, rubrique;
+      QDate dt_deb, dt_fin ;
+      pDlgAtcd_txt->getInfos(libelle, rubrique, dateDebIso, dateFinIso, commentaire);
+      if (dateDebIso != "") dt_deb = QDate::fromString(dateDebIso, Qt::ISODate);
+      else                  dt_deb = QDate();
+      if (dateFinIso != "") dt_fin = QDate::fromString(dateFinIso, Qt::ISODate);
+      else                  dt_fin = QDate();
       int id_ATCD                  = m_Atcd_Liste.count()+1;
-      Atcd_Element elementAdded    = Atcd_Element(rubrique, libelle, dt, "", pDlgAtcd_txt->isActif(), commentaire, pDlgAtcd_txt->GetALD());
+      Atcd_Element elementAdded    = Atcd_Element(rubrique, libelle, dt_deb, "", dt_fin, commentaire, pDlgAtcd_txt->getSate_Ald_Sport());
       elementAdded.setId( id_ATCD );
       ATCD_LISTE::iterator it = m_Atcd_Liste.append (elementAdded);
       m_pLastElementAdded     = &(*it);          // noter le dernier element ajoute
@@ -721,47 +830,84 @@ void Atcd_Code::setDDRTo(QDate dt)
  emitATCD_Changed();
 }
 
-//------------------------------ modifyDate --------------------------------------------------
-/*! \brief Affiche le widget calendar pour modifier la date de l'antécédent passé en paramètre.
+//------------------------------ modifyDateDeb --------------------------------------------------
+/*! \brief Affiche le widget calendar pour modifier la date debut de l'antécédent passé en paramètre.
 */
-void Atcd_Code::modifyDate(QWidget *parent, Atcd_Element* pAtcd,  int sendModifMessage /*= Atcd_Code::sendModifMessage*/)
+void Atcd_Code::modifyDateDeb(QWidget *parent, Atcd_Element* pAtcd,  int sendModifMessage /*= Atcd_Code::sendModifMessage*/)
 { if (!pAtcd) return;
   Dlg_Calendar* dlg  = new Dlg_Calendar(parent, "Calendar_Dial", FALSE);
   if (dlg==0) return;
-  dlg->setCaption(TR("Date de l'antécédent"));
+  dlg->setCaption(TR("Date de debut de l'antécédent"));
   dlg->move ( QCursor::pos().x(), QCursor::pos().y() );
-  QDate dt = pAtcd->m_Date;
-  if ( ! dt.isValid() ) dt = QDate::currentDate();
+  QDate dt_deb = pAtcd->m_DateDeb;
+  if ( ! dt_deb.isValid() ) dt_deb = QDate::currentDate();
 
-  dlg->setDate(dt);
-  dlg->setComboAnOnDate_Offset(dt, 25,0);
+  dlg->setDate(dt_deb);
+  dlg->setComboAnOnDate_Offset(dt_deb, 25,0);
   dlg->SelectDateAll();
 
   if (dlg->exec()== QDialog::Accepted )
-     { setDate(pAtcd, dlg->getDate(), sendModifMessage);
+     { setDateDeb(pAtcd, dlg->getDate(), sendModifMessage);
      }
  if (dlg) delete dlg;
 }
-//------------------------------ modifyDate --------------------------------------------------
-/*! \brief Affiche le widget calendar pour modifier la date de l'antécédent passé en paramètre.
+//------------------------------ modifyDateFin --------------------------------------------------
+/*! \brief Affiche le widget calendar pour modifier la date de fin de l'antécédent passé en paramètre.
 */
-void Atcd_Code::setDate(Atcd_Element* pAtcd, const QDate &date,  int sendModifMessage /*= Atcd_Code::sendModifMessage*/)
+void Atcd_Code::modifyDateFin(QWidget *parent, Atcd_Element* pAtcd,  int sendModifMessage /*= Atcd_Code::sendModifMessage*/)
+{ if (!pAtcd) return;
+  Dlg_Calendar* dlg  = new Dlg_Calendar(parent, "Calendar_Dial", FALSE);
+  if (dlg==0) return;
+  dlg->setCaption(TR("Date de fin de l'antécédent"));
+  dlg->move ( QCursor::pos().x(), QCursor::pos().y() );
+  QDate dt_fin = pAtcd->m_DateFin;
+  if ( ! dt_fin.isValid() ) dt_fin = QDate::currentDate();
+
+  dlg->setDate(dt_fin);
+  dlg->setComboAnOnDate_Offset(dt_fin, 25,0);
+  dlg->SelectDateAll();
+
+  if (dlg->exec()== QDialog::Accepted )
+     { setDateFin(pAtcd, dlg->getDate(), sendModifMessage);
+     }
+ if (dlg) delete dlg;
+}
+//------------------------------ setDateDeb --------------------------------------------------
+/*! \brief modifie la date de debut et emet le signal de changement.
+*/
+void Atcd_Code::setDateDeb(Atcd_Element* pAtcd, const QDate &date,  int sendModifMessage /*= Atcd_Code::sendModifMessage*/)
 {if (!pAtcd) return;
- pAtcd->m_Date = date;
+ pAtcd->m_DateDeb = date;
  if (sendModifMessage==Atcd_Code::sendModifMessage) emitATCD_Changed();
 }
-
-//------------------------------ deleteDate --------------------------------------------------
-/*! \brief Affiche le widget calendar pour modifier la date de l'antécédent passé en paramètre.
+//------------------------------ setDateFin --------------------------------------------------
+/*! \brief  modifie la date de fin et emet le signal de changement.
 */
-void Atcd_Code::deleteDate(Atcd_Element* pAtcd,  int sendModifMessage /*= Atcd_Code::sendModifMessage*/)
+void Atcd_Code::setDateFin(Atcd_Element* pAtcd, const QDate &date,  int sendModifMessage /*= Atcd_Code::sendModifMessage*/)
+{if (!pAtcd) return;
+ pAtcd->m_DateFin = date;
+ if (sendModifMessage==Atcd_Code::sendModifMessage) emitATCD_Changed();
+}
+//------------------------------ deleteDateDeb --------------------------------------------------
+/*! \brief efface la date de debut de l'atcd passe en parametre.
+*/
+void Atcd_Code::deleteDateDeb(Atcd_Element* pAtcd,  int sendModifMessage /*= Atcd_Code::sendModifMessage*/)
 { if (!pAtcd) return;
-  if (pAtcd->m_Date.isValid())
-     {pAtcd->m_Date = QDate();
+  if (pAtcd->m_DateDeb.isValid())
+     {pAtcd->m_DateDeb = QDate();
       if (sendModifMessage==Atcd_Code::sendModifMessage) emitATCD_Changed();
      }
 }
-
+//------------------------------ deleteDateFin --------------------------------------------------
+/*! \brief efface la date de debut de l'atcd passe en parametre.
+*/
+void Atcd_Code::deleteDateFin(Atcd_Element* pAtcd,  int sendModifMessage /*= Atcd_Code::sendModifMessage*/)
+{ if (!pAtcd) return;
+  if (pAtcd->m_DateFin.isValid())
+     {pAtcd->m_DateFin = QDate();
+      if (sendModifMessage==Atcd_Code::sendModifMessage) emitATCD_Changed();
+     }
+}
 //------------------------------ addATCD --------------------------------------------------
 /*! \brief Ajoute �  la liste actuelle des ATCD un ATCD en mode textuel.
  *  Fait apparaître le Widget d'ajout DlgAtcd_txt.
@@ -777,13 +923,16 @@ void Atcd_Code::addATCD(QWidget *parent, const QString &libelle, const QString &
  pDlgAtcd_txt->exec();
  if (pDlgAtcd_txt->result() == QDialog::Accepted)
     { // Récupère les données du widget set_Atcd_Element(rubrique, libelle,  dt,  code, etat,  commentaire, ald,  -1);
-      QString libelle, commentaire, date, rubrique;
-      QDate dt ;
-      pDlgAtcd_txt->getInfos(libelle, rubrique, date, commentaire);
-      if (date != "") dt = QDate::fromString(date, Qt::ISODate);
-      else            dt = QDate();
+      QString libelle, commentaire, dateDebIso, dateFinIso, rubrique;
+      QDate dt_deb ;
+      QDate dt_fin ;
+      pDlgAtcd_txt->getInfos(libelle, rubrique, dateDebIso, dateFinIso, commentaire);
+      if (dateDebIso.length()) dt_deb = QDate::fromString(dateDebIso, Qt::ISODate);
+      else                     dt_deb = QDate();
+      if (dateFinIso.length()) dt_fin = QDate::fromString(dateFinIso, Qt::ISODate);
+      else                     dt_fin = QDate();
       int id_ATCD                  = m_Atcd_Liste.count()+1;
-      Atcd_Element elementAdded    = Atcd_Element(rubrique, libelle, dt, code, pDlgAtcd_txt->isActif(), commentaire, pDlgAtcd_txt->GetALD());
+      Atcd_Element elementAdded    = Atcd_Element(rubrique, libelle, dt_deb, code, dt_fin, commentaire, pDlgAtcd_txt->getSate_Ald_Sport());
       elementAdded.setId( id_ATCD );
       ATCD_LISTE::iterator it = m_Atcd_Liste.append (elementAdded);
       m_pLastElementAdded     = &(*it);          // noter le dernier element ajoute
@@ -829,6 +978,10 @@ void Atcd_Code::modifyAtcd(QWidget *parent, Atcd_Element* pAtcd,  int sendModifM
      {addATCD_CIM10(4);
       if (sendModifMessage==Atcd_Code::sendModifMessage) emitATCD_Changed();
      }
+  else if (pAtcd->is_ATC() )
+     {addATCD_CIM10(2);
+      if (sendModifMessage==Atcd_Code::sendModifMessage) emitATCD_Changed();
+     }
   else if (pAtcd->isAllergie() )
      {addATCD_CIM10(2);
       if (sendModifMessage==Atcd_Code::sendModifMessage) emitATCD_Changed();
@@ -842,12 +995,14 @@ void Atcd_Code::modifyAtcd(QWidget *parent, Atcd_Element* pAtcd,  int sendModifM
     pDlgAtcd_txt->exec();
     if (pDlgAtcd_txt->result() == QDialog::Accepted)
        { // Récupère les données du widget
-         QString libelle, commentaire, date, rubrique;
-         QDate dt ;
-         pDlgAtcd_txt->getInfos(libelle, rubrique, date, commentaire);
-         if (date != "") dt = QDate::fromString(date, Qt::ISODate);
-         else            dt = QDate();
-         pAtcd->set_Atcd_Element(rubrique, libelle, dt, "", 0, commentaire, pDlgAtcd_txt->isALD()?"ALD":"", pAtcd->getId());
+         QString libelle, commentaire, dateDebIso, dateFinIso, rubrique;
+         QDate dt_deb, dt_fin ;
+         pDlgAtcd_txt->getInfos(libelle, rubrique, dateDebIso, dateFinIso, commentaire);
+         if (dateDebIso.length()) dt_deb = QDate::fromString(dateDebIso, Qt::ISODate);
+         else                     dt_deb = QDate();
+         if (dateFinIso.length()) dt_fin = QDate::fromString(dateFinIso, Qt::ISODate);
+         else                     dt_fin = QDate();
+         pAtcd->set_Atcd_Element(rubrique, libelle, dt_deb, "", dt_fin, commentaire, pDlgAtcd_txt->getSate_Ald_Sport(), pAtcd->getId());
        }
     if (pDlgAtcd_txt) delete pDlgAtcd_txt;
     if (sendModifMessage==Atcd_Code::sendModifMessage) emitATCD_Changed();
@@ -874,27 +1029,39 @@ void Atcd_Code::changeDDR(QWidget *parent)
  if (dlg) delete dlg;
 }
 
-//------------------------------ changeEtat --------------------------------------------------
-/*! \brief Change l'état de l'antécédent, passé en paramètre, de Actif<->Guéri.
+//------------------------------ changeDateFin --------------------------------------------------
+/*! \brief Change la date de fin de l'antécédent, passé en paramètre.
 */
-void Atcd_Code::changeEtat(Atcd_Element* pAtcd)
-{ if (!pAtcd) return;
-  switch (pAtcd->m_Etat)
-  { case 0 : pAtcd->m_Etat = 1;  break;
-    case 1 : pAtcd->m_Etat = 0;  break;
-  }
- emitATCD_Changed();
+void Atcd_Code::changeDateFin(QWidget *parent, Atcd_Element* pAtcd)
+{  if (!pAtcd) return;
+   QDate dt;
+   if (pAtcd->m_DateFin.isValid())  dt = pAtcd->m_DateFin;
+   else                             dt = QDate::currentDate();
+   Dlg_Calendar          *dlg  = new Dlg_Calendar(parent, "Calendar_Dial", FALSE);
+   if (dlg ==0)                                                   return;
+   dlg->setCaption(tr("Choix dans la date de fin "));
+   dlg->setDate  (dt);
+
+   dlg->hideHeure();
+   if (dlg->exec()== QDialog::Accepted )
+      {pAtcd->m_DateFin = dlg->getDate();
+       delete dlg;
+       emitATCD_Changed();
+       return;
+      }
+   delete dlg;
 }
 
 //------------------------------ setEtat --------------------------------------------------
 /*! \brief Change l'état de l'antécédent, passé en paramètre,
 */
-void Atcd_Code::setEtat(Atcd_Element* pAtcd, int etat,  int sendModifMessage /*= Atcd_Code::sendModifMessage*/)
+/*
+void Atcd_Code::setEtat(Atcd_Element* pAtcd, QString etat,  int sendModifMessage / *= Atcd_Code::sendModifMessage* /)
 { if (!pAtcd)     return;
   pAtcd->m_Etat = etat;
   if (sendModifMessage==Atcd_Code::sendModifMessage) emitATCD_Changed();
 }
-
+*/
 //------------------------------ changeCommentaire --------------------------------------------------
 /*! \brief Appel un widget pour changer le commentaire de l'antécédent.
 */
@@ -952,16 +1119,20 @@ void Atcd_Code::updateFromListViewTerrain(QListView* pQListView, int sendModifMe
         while ( it.current() )
               {
                QListViewItem *pQListViewItem = it.current();
-               int isInvalid;
-               QDate     dt = QDate();
-               if (pQListViewItem->text(4).stripWhiteSpace().length())  dt = CGenTools::setDate(pQListViewItem->text(4) , isInvalid);
-               Atcd_Element         elementAdded(pQListViewItem->text(1),
-                                                 pQListViewItem->text(0),
-                                                 dt,
-                                                 pQListViewItem->text(6),
-                                                 pQListViewItem->text(2)==tr("Actif") ? 1:0,
-                                                 pQListViewItem->text(3),
-                                                 pQListViewItem->text(5),
+               QString dateDeb  = pQListViewItem->text(LV_DDEB);
+               QString dateFin  = pQListViewItem->text(LV_DFIN);
+               QDate     dt_deb = QDate();
+               QDate     dt_fin = QDate();
+
+               setDatesToNewVersion(dateDeb, dateFin, dt_deb, dt_fin);
+
+               Atcd_Element         elementAdded(pQListViewItem->text(LV_TYPE),
+                                                 pQListViewItem->text(LV_NAME),
+                                                 dt_deb,
+                                                 pQListViewItem->text(LV_CODE),
+                                                 dt_fin,
+                                                 pQListViewItem->text(LV_COMM),
+                                                 pQListViewItem->text(LV_ALSP),
                                                  m_Atcd_Liste.count()+1
                                                 );
                m_Atcd_Liste.append (elementAdded);

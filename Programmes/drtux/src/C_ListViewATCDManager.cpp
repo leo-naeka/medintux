@@ -10,7 +10,6 @@
 //
 //
 
-
 #include "C_ListViewATCDManager.h"
 #include <qobject.h>
 #include <qmessagebox.h>
@@ -56,7 +55,7 @@ void C_ListViewATCDManager::Slot_listView_ATCD_contextMenuRequested( QListViewIt
  QString ret                = "";
  QStringList optionList;
  switch(c)
- {case 0:  // libelle
+ {case LV_NAME:  // libelle
      {
       ThemePopup *pThemePopup   = new ThemePopup((QWidget*)this->parent(), "MyPopupMenu" );
       //pThemePopup->insertItem(Theme::getIcon( "Cim10All_Icon.png"), tr("Ajouter un  Ant\303\251c\303\251dent CIM10"),                this, SLOT( ATCD_MenuActionNewCIM10()),       CTRL+Key_M );
@@ -65,62 +64,70 @@ void C_ListViewATCDManager::Slot_listView_ATCD_contextMenuRequested( QListViewIt
       if (pQListViewItem!=0)
         {// Construit le menu g\303\251n\303\251ral
          pThemePopup->insertSeparator ();
-         pThemePopup->insertItem( Theme::getIconListDelete() , tr("Effacer les ant\303\251c\303\251dents s\303\251lectionn\303\251s"),             this, SLOT( ATCD_MenuActionMultiDel()),       CTRL+Key_F );
+         pThemePopup->insertItem( Theme::getIconListDelete() , tr("Effacer les ant\303\251c\303\251dents s\303\251lectionn\303\251s"),               this, SLOT( ATCD_MenuActionMultiDel()),       CTRL+Key_F );
          pThemePopup->insertSeparator ();
-         pThemePopup->insertItem( Theme::getIconListDateTime(),        tr("Modifier la date de cet Ant\303\251c\303\251dent"),       this, SLOT( ATCD_MenuActionSetDate()),        CTRL+Key_G );
-         pThemePopup->insertItem( Theme::getIcon("16x16/timeDel.png"), tr("Effacer la date de cet Ant\303\251c\303\251dent"),        this, SLOT( ATCD_MenuActionDelDate()),        CTRL+Key_G );
-         if (pQListViewItem->text(2)==tr("Pass\303\251"))
-            {  pThemePopup->insertItem( Theme::getIcon("16x16/listok.png"),  tr("Gu\303\251ri (passer en Actif)"),           this, SLOT( ATCD_MenuActionChangeEtatActif()),    CTRL+Key_H );
-            }
-         else
-            {  pThemePopup->insertItem( Theme::getIconListWarning(),  tr("Actif (passer en Gu\303\251ri)"),                   this, SLOT( ATCD_MenuActionChangeEtatGueri()),    CTRL+Key_H );
-            }
+         pThemePopup->insertItem( Theme::getIconListDateTime(),        tr("Modifier la date de d\303\251but de cet Ant\303\251c\303\251dent"),       this, SLOT( ATCD_MenuActionSetDateDeb()),        CTRL+Key_G );
+         pThemePopup->insertItem( Theme::getIcon("16x16/timeDel.png"), tr("Effacer la date de d\303\251but de cet Ant\303\251c\303\251dent"),        this, SLOT( ATCD_MenuActionDelDateDeb()),        CTRL+Key_G );
+         pThemePopup->insertItem( Theme::getIconListDateTime(),        tr("Modifier la date de fin de cet Ant\303\251c\303\251dent"),                this, SLOT( ATCD_MenuActionSetDateFin()),        CTRL+Key_G );
+         pThemePopup->insertItem( Theme::getIcon("16x16/timeDel.png"), tr("Effacer la date de fin de cet Ant\303\251c\303\251dent"),                 this, SLOT( ATCD_MenuActionDelDateFin()),        CTRL+Key_G );
          pThemePopup->insertSeparator ();
          Add_popMenu_ATCD_Type(pThemePopup);
          pThemePopup->insertSeparator ();
-         if (pQListViewItem->text(3).length())
-            { pThemePopup->insertItem( Theme::getIcon("16x16/commentaire.png"),  pQListViewItem->text(3),                   this, SLOT( ATCD_MenuActionSetCommentaire()), CTRL+Key_K );
+         if (pQListViewItem->text(LV_COMM).length())
+            { pThemePopup->insertItem( Theme::getIcon("16x16/commentaire.png"),  pQListViewItem->text(LV_COMM),                   this, SLOT( ATCD_MenuActionSetCommentaire()), CTRL+Key_K );
             }
          else
             { pThemePopup->insertItem( Theme::getIcon("16x16/commentaire.png"),  tr("D\303\251finir un commentaire"),             this, SLOT( ATCD_MenuActionSetCommentaire()), CTRL+Key_K );
             }
         pThemePopup->insertSeparator ();
-        pThemePopup->insertItem( Theme::getIcon("16x16/ald_on.png"),  tr("En rapport avec une pathologie ALD"),            this, SLOT( ATCD_setAldOn()),         CTRL+Key_L );
-        pThemePopup->insertItem( Theme::getIcon("16x16/ald_off.png"), tr("Sans rapport avec une pathologie ALD"),          this, SLOT( ATCD_setAldOff()),        CTRL+Key_O );
+        pThemePopup->insertItem( Theme::getIcon("16x16/ald_on.png"),        tr("En rapport avec une pathologie ALD"),         this, SLOT( ATCD_setAldOn()),         CTRL+Key_L );
+        pThemePopup->insertItem( Theme::getIcon("16x16/sport_on.png"),      tr("En rapport avec une activité sportive"),      this, SLOT( ATCD_setSportOn()),       ALT+Key_S );
+        pThemePopup->insertItem( Theme::getIcon("16x16/vigilance_on.png"),  tr("En rapport avec une vigilance intacte"),      this, SLOT( ATCD_setVigilanceOn()),   ALT+Key_V );
+        pThemePopup->insertItem( Theme::getIcon("16x16/ald_off.png"),       tr("Sans rapport ALD ou activité sportive"),      this, SLOT( ATCD_setAldOff()),        CTRL+Key_O );
         }
       pThemePopup->exec(pos);
       delete pThemePopup;
       //m_pQListViewItem = 0;
      }
      break;
-  case 1:         // med/chir
-     pQPopupMenu   = new ThemePopup((QWidget*)this->parent(), "MyPopupMenu" );
-     Add_popMenu_ATCD_Type(pQPopupMenu);
-     pQPopupMenu->exec(QCursor::pos());
-     delete pQPopupMenu;
+  case LV_TYPE:         // med/chir
+     {pQPopupMenu   = new ThemePopup((QWidget*)this->parent(), "MyPopupMenu" );
+      Add_popMenu_ATCD_Type(pQPopupMenu);
+      pQPopupMenu->exec(QCursor::pos());
+      delete pQPopupMenu;
+     }
      break;
-  case 2:         // etat passe transitoire
-        pQPopupMenu   = new ThemePopup((QWidget*)this->parent(), "MyPopupMenu" );
-        pQPopupMenu->insertItem( G_pCApp->m_Theme.getIcon("16x16/listok.png"),   tr("Gu\303\251ri (passer en Actif)"),  this, SLOT( ATCD_MenuActionChangeEtatActif()),    CTRL+Key_H );
-        pQPopupMenu->insertItem( G_pCApp->m_Theme.getIconListWarning(),  tr("Actif (passer en Gu\303\251ri)"),          this, SLOT( ATCD_MenuActionChangeEtatGueri()),    SHIFT+Key_H );
-        pQPopupMenu->exec(QCursor::pos());
-     delete pQPopupMenu;
-     break;
-  case 3:         // commentaire
-     ATCD_MenuActionSetCommentaire();
-     break;
-  case 4:         // date
-     ATCD_MenuActionSetDate();
-     break;
-  case 5:         // ALD
+  case LV_DFIN:         // date de fin
      {ThemePopup *pThemePopup   = new ThemePopup((QWidget*)this->parent(), "MyPopupMenu" );
-      pThemePopup->insertItem( Theme::getIcon("16x16/ald_on.png"),  tr("En rapport avec une pathologie ALD"),      this, SLOT( ATCD_setAldOn()),         CTRL+Key_L );
-      pThemePopup->insertItem( Theme::getIcon("16x16/ald_off.png"), tr("Sans rapport avec une pathologie ALD"),    this, SLOT( ATCD_setAldOff()),        CTRL+Key_O );
+      pThemePopup->insertItem( Theme::getIconListDateTime(),        tr("Modifier la date de fin de cet Ant\303\251c\303\251dent"),                this, SLOT( ATCD_MenuActionSetDateFin()),        CTRL+Key_G );
+      pThemePopup->insertItem( Theme::getIcon("16x16/timeDel.png"), tr("Effacer la date de fin de cet Ant\303\251c\303\251dent"),                 this, SLOT( ATCD_MenuActionDelDateFin()),        CTRL+Key_G );
       pThemePopup->exec(QCursor::pos());
       delete pThemePopup;
      }
      break;
-  case 6:          // code de l'antecedent
+  case LV_COMM:         // commentaire
+     {ATCD_MenuActionSetCommentaire();
+     }
+     break;
+  case LV_DDEB:
+     {ThemePopup *pThemePopup   = new ThemePopup((QWidget*)this->parent(), "MyPopupMenu" );
+      pThemePopup->insertItem( Theme::getIconListDateTime(),        tr("Modifier la date de d\303\251but de cet Ant\303\251c\303\251dent"),       this, SLOT( ATCD_MenuActionSetDateDeb()),        CTRL+Key_G );
+      pThemePopup->insertItem( Theme::getIcon("16x16/timeDel.png"), tr("Effacer la date de d\303\251but de cet Ant\303\251c\303\251dent"),        this, SLOT( ATCD_MenuActionDelDateDeb()),        CTRL+Key_G );
+      pThemePopup->exec(QCursor::pos());
+      delete pThemePopup;
+     }
+     break;
+  case LV_ALSP:         // ALD
+     {ThemePopup *pThemePopup   = new ThemePopup((QWidget*)this->parent(), "MyPopupMenu" );
+      pThemePopup->insertItem( Theme::getIcon("16x16/ald_on.png"),        tr("En rapport avec une pathologie ALD"),         this, SLOT( ATCD_setAldOn()),         ALT+Key_A );
+      pThemePopup->insertItem( Theme::getIcon("16x16/sport_on.png"),      tr("En rapport avec une activité sportive"),      this, SLOT( ATCD_setSportOn()),       ALT+Key_S );
+      pThemePopup->insertItem( Theme::getIcon("16x16/vigilance_on.png"),  tr("En rapport avec une vigilance intacte"),      this, SLOT( ATCD_setVigilanceOn()),   ALT+Key_V );
+      pThemePopup->insertItem( Theme::getIcon("16x16/ald_off.png"),       tr("Sans rapport ALD ou activité sportive"),      this, SLOT( ATCD_setAldOff()),        ALT+Key_O );
+      pThemePopup->exec(QCursor::pos());
+      delete pThemePopup;
+     }
+     break;
+  case LV_CODE:          // code de l'antecedent
      {listView_ATCD_doubleClicked( pQListViewItem);
      }
      break;
@@ -132,6 +139,19 @@ void C_ListViewATCDManager::Slot_listView_ATCD_contextMenuRequested( QListViewIt
 */
 void C_ListViewATCDManager::ATCD_setAldOn()
 {ATCD_setAldOnOff(tr("ALD"));
+}
+//------------------------------------ ATCD_setSportOn --------------------------------------------------
+/*! \brief positionne les ATCD selectionnes dans la listview des ATCD sur en rapport avec une activite sportive
+*/
+void C_ListViewATCDManager::ATCD_setSportOn()
+{ATCD_setAldOnOff(tr("Sport"));
+}
+
+//------------------------------------ ATCD_setVigilanceOn --------------------------------------------------
+/*! \brief positionne les ATCD selectionnes dans la listview des ATCD sur en rapport avec une vigilance
+*/
+void C_ListViewATCDManager::ATCD_setVigilanceOn()
+{ATCD_setAldOnOff(tr("Vigilance"));
 }
 //------------------------------------ ATCD_setAldOff --------------------------------------------------
 /*! \brief positionne les ATCD selectionnes dans la listview des ATCD sur sans rapport avec les ALD
@@ -153,9 +173,8 @@ void C_ListViewATCDManager::ATCD_setAldOnOff(const QString &state)
              { Atcd_Element* pAtcd_Element_Selected = m_pAtcd_Code->getAtcd_byID( pCPrt->get_ID_Rublist().toInt() );
                if (pAtcd_Element_Selected) m_pAtcd_Code->setALD(pAtcd_Element_Selected, state, Atcd_Code::sendNotModifMessage);
              }
-          pCPrt->setText( 5,state );
-          if (state.length()) pCPrt->setPixmap(1, Theme::getIcon("16x16/ald_on.png") );
-          else                pCPrt->setPixmap(1, Theme::getIcon("16x16/ald_off.png") );
+          pCPrt->setText( LV_ALSP, state );
+          pCPrt->setPixmap(LV_TYPE, Atcd_Code::ald_sport_codeToPixmap(state) );
           *m_pIsModified = 1;
          }
       ++it;
@@ -172,10 +191,10 @@ void C_ListViewATCDManager::listView_ATCD_doubleClicked( QListViewItem * pQListV
  m_pAtcd_Code->modifyAtcd((QWidget*)this, get_Selected_Atcd_Element((CPrtQListViewItem*)pQListViewItem));
 }
 
-//------------------------------------ ATCD_MenuActionSetDate --------------------------------------------------
+//------------------------------------ ATCD_MenuActionSetDateDeb --------------------------------------------------
 /*! \brief Modifie la date de l'ATCD s\303\251lectionn\303\251 par le biais de la classe Atcd_Code
 */
-void C_ListViewATCDManager::ATCD_MenuActionSetDate()
+void C_ListViewATCDManager::ATCD_MenuActionSetDateDeb()
 {
   if (*m_pIsModifiable==0)        return;
   if (!m_pAtcd_Code)              return;
@@ -183,29 +202,63 @@ void C_ListViewATCDManager::ATCD_MenuActionSetDate()
   CPrtQListViewItem   *pCPrtQListViewItem = get_CurrentItem();
   if (pCPrtQListViewItem == 0)    return;
 
+  QDate ret = ATCD_selectDate(pCPrtQListViewItem->text(LV_DDEB), TR("Date de d\303\251but de l'ant\303\251c\303\251dent"));
+
+  if ( ret.isValid() )
+     { if (pAtcd_Element)
+          {m_pAtcd_Code->setDateDeb(pAtcd_Element, ret, Atcd_Code::sendNotModifMessage);
+          }
+       pCPrtQListViewItem->setText(LV_DDEB, ret.toString("dd-MM-yyyy"));
+       pCPrtQListViewItem->setPixmap(LV_DDEB, Atcd_Code::datesDebFinToPixmap(ret, CGenTools::dd_MM_yyyy_ToDate(pCPrtQListViewItem->text(LV_DFIN))) );
+     }
+}
+//------------------------------------ ATCD_MenuActionSetDateFin --------------------------------------------------
+/*! \brief Modifie la date de l'ATCD s\303\251lectionn\303\251 par le biais de la classe Atcd_Code
+*/
+void C_ListViewATCDManager::ATCD_MenuActionSetDateFin()
+{
+  if (*m_pIsModifiable==0)        return;
+  if (!m_pAtcd_Code)              return;
+  Atcd_Element        *pAtcd_Element      = get_Selected_Atcd_Element();
+  CPrtQListViewItem   *pCPrtQListViewItem = get_CurrentItem();
+  if (pCPrtQListViewItem == 0)    return;
+
+  QDate ret = ATCD_selectDate(pCPrtQListViewItem->text(LV_DFIN), TR("Date de fin de l'ant\303\251c\303\251dent"));
+
+  if ( ret.isValid() )
+     { if (pAtcd_Element)
+          {m_pAtcd_Code->setDateFin(pAtcd_Element, ret, Atcd_Code::sendNotModifMessage);
+          }
+       pCPrtQListViewItem->setText(LV_DFIN, ret.toString("dd-MM-yyyy"));
+       pCPrtQListViewItem->setPixmap(LV_DDEB, Atcd_Code::datesDebFinToPixmap(CGenTools::dd_MM_yyyy_ToDate(pCPrtQListViewItem->text(LV_DDEB)),ret) );
+     }
+}
+//------------------------------------ ATCD_selectDate --------------------------------------------------
+/*! \brief selectionne une date de l'ATCD s\303\251lectionn\303\251 par le biais de la classe Atcd_Code
+*/
+QDate C_ListViewATCDManager::ATCD_selectDate(const QString &date, const QString &title)
+{
+  QDate retDate = QDate();
   Dlg_Calendar* dlg  = new Dlg_Calendar((QWidget*)this->parent(), "Calendar_Dial", FALSE);
-  if (dlg==0)                     return;
-  dlg->setCaption(TR("Date de l'ant\303\251c\303\251dent"));
+  if (dlg==0)                     return retDate;
+  dlg->setCaption(title);
   int isInvalid     = 0;
-  QDate          dt = CGenTools::setDate(pCPrtQListViewItem->text(4), isInvalid);
+  QDate          dt = CGenTools::setDate(date, isInvalid);
   if (isInvalid) dt = QDate::currentDate();
   dlg->setDate(dt);
   dlg->setComboAnOnDate_Offset(dt, 25,0);
   dlg->SelectDateAll();
 
   if (dlg->exec()== QDialog::Accepted )
-     { if (pAtcd_Element)
-          {m_pAtcd_Code->setDate(pAtcd_Element, dlg->getDate(), Atcd_Code::sendNotModifMessage);
-          }
-       pCPrtQListViewItem->setText(4, dlg->getDate().toString("dd-MM-yyyy"));
+     {retDate =   dlg->getDate();
      }
  if (dlg) delete dlg;
+ return retDate;
 }
-
-//------------------------------------ ATCD_MenuActionDelDate --------------------------------------------------
+//------------------------------------ ATCD_MenuActionDelDateDeb --------------------------------------------------
 /*! \brief Efface la date de l'ATCD s\303\251lectionn\303\251 par le biais de la classe Atcd_Code
 */
-void C_ListViewATCDManager::ATCD_MenuActionDelDate()
+void C_ListViewATCDManager::ATCD_MenuActionDelDateDeb()
 {
   if (*m_pIsModifiable==0)     return;
   if (!m_pAtcd_Code)           return;
@@ -217,9 +270,34 @@ void C_ListViewATCDManager::ATCD_MenuActionDelDate()
       if (pCPrt->isSelected())
          {if (m_pAtcd_Code)
               {Atcd_Element* pAtcd_Element_Selected = m_pAtcd_Code->getAtcd_byID( pCPrt->get_ID_Rublist().toInt() );
-               if (pAtcd_Element_Selected) m_pAtcd_Code->deleteDate(pAtcd_Element_Selected, Atcd_Code::sendNotModifMessage);
+               if (pAtcd_Element_Selected) m_pAtcd_Code->deleteDateDeb(pAtcd_Element_Selected, Atcd_Code::sendNotModifMessage);
               }
-          pCPrt->setText( 4,"" );
+          pCPrt->setText( LV_DDEB,"" );
+          pCPrt->setPixmap(LV_DDEB, Atcd_Code::datesDebFinToPixmap(CGenTools::dd_MM_yyyy_ToDate(pCPrt->text(LV_DDEB)), CGenTools::dd_MM_yyyy_ToDate(pCPrt->text(LV_DFIN))) );
+          *m_pIsModified = 1;
+         }
+      ++it;
+    }
+}
+//------------------------------------ ATCD_MenuActionDelDateFin --------------------------------------------------
+/*! \brief Efface la date de l'ATCD s\303\251lectionn\303\251 par le biais de la classe Atcd_Code
+*/
+void C_ListViewATCDManager::ATCD_MenuActionDelDateFin()
+{
+  if (*m_pIsModifiable==0)     return;
+  if (!m_pAtcd_Code)           return;
+ //................. parcourir tous les items ............
+ QListViewItemIterator it( m_pQListView );
+ while ( it.current() )
+    {
+      CPrtQListViewItem* pCPrt = (CPrtQListViewItem*)it.current();
+      if (pCPrt->isSelected())
+         {if (m_pAtcd_Code)
+              {Atcd_Element* pAtcd_Element_Selected = m_pAtcd_Code->getAtcd_byID( pCPrt->get_ID_Rublist().toInt() );
+               if (pAtcd_Element_Selected) m_pAtcd_Code->deleteDateFin(pAtcd_Element_Selected, Atcd_Code::sendNotModifMessage);
+              }
+          pCPrt->setText( LV_DFIN,"" );
+          pCPrt->setPixmap(LV_DDEB, Atcd_Code::datesDebFinToPixmap(CGenTools::dd_MM_yyyy_ToDate(pCPrt->text(LV_DDEB)), CGenTools::dd_MM_yyyy_ToDate(pCPrt->text(LV_DFIN))) );
           *m_pIsModified = 1;
          }
       ++it;
@@ -257,7 +335,7 @@ void C_ListViewATCDManager::ATCD_MenuActionNewTexteLibre()
  else
     {  CPrtQListViewItem*   pCPrtQListViewItem = get_CurrentItem();
        if (pCPrtQListViewItem==0)       return;
-       m_pAtcd_Code->addATCD_Textuel((QWidget*)this, Atcd_Code::sendNotModifMessage);    // siOK met a jour le dernier element rajoute
+       m_pAtcd_Code->addATCD_Textuel((QWidget*)this, Atcd_Code::sendNotModifMessage);    // si OK met a jour le dernier element rajoute
        m_pAtcd_Code->atcd_Element_To_ListViewItem(*pAtcd_Element, m_pQListView);
     }
 }
@@ -273,25 +351,25 @@ int C_ListViewATCDManager::ATCD_EditListViewItem(CPrtQListViewItem* pCPrtQListVi
        pDlgAtcd_txt->exec();
        if (pDlgAtcd_txt->result() == QDialog::Accepted)
           { // R\303\251cupère les donn\303\251es du widget set_Atcd_Element(rubrique, libelle,  dt,  code, etat,  commentaire, ald,  -1);
-            QString libelle, commentaire, familleGenre, etat, date, ald;
-            QDate dt ;
-            pDlgAtcd_txt->getInfos(libelle, familleGenre, date, commentaire);
-            if (date != "") dt = QDate::fromString(date, Qt::TextDate);
-            else            dt = QDate();
-            ald  = pDlgAtcd_txt->GetALD();
-            etat = pDlgAtcd_txt->getEtatGueriActif();
-            pCPrtQListViewItem->setText(0,libelle);
-            pCPrtQListViewItem->setText(1,familleGenre);
-            pCPrtQListViewItem->setText(2,etat);
-            pCPrtQListViewItem->setText(3,commentaire);
-            pCPrtQListViewItem->setText(4,dt.toString("dd-MM-yyyy"));
-            pCPrtQListViewItem->setText(5,ald);
-            if (ald.length()) pCPrtQListViewItem->setPixmap(1, Theme::getIcon("16x16/ald_on.png") );
-            else              pCPrtQListViewItem->setPixmap(1, Theme::getIcon("16x16/ald_off.png") );
+            QString libelle, commentaire, familleGenre, dateDeb, dateFin, ald_sport;
+            QDate dt_deb ;
+            QDate dt_fin ;
+            pDlgAtcd_txt->getInfos(libelle, familleGenre, dateDeb, dateFin, commentaire);
+            if (dateDeb.length()) dt_deb = QDate::fromString(dateDeb, Qt::TextDate);
+            else                  dt_deb = QDate();
+            if (dateFin.length()) dt_fin = QDate::fromString(dateFin, Qt::TextDate);
+            else                  dt_fin = QDate();
+            ald_sport  = pDlgAtcd_txt->getSate_Ald_Sport();
+            pCPrtQListViewItem->setText(LV_NAME,libelle);
+            pCPrtQListViewItem->setText(LV_TYPE,familleGenre);
+            pCPrtQListViewItem->setText(LV_DFIN,dt_fin.toString("dd-MM-yyyy"));
+            pCPrtQListViewItem->setText(LV_COMM,commentaire);
+            pCPrtQListViewItem->setText(LV_DDEB,dt_deb.toString("dd-MM-yyyy"));
+            pCPrtQListViewItem->setText(LV_ALSP,ald_sport);
 
-            if (etat==tr("Actif")) pCPrtQListViewItem->setPixmap ( 2, G_pCApp->m_Theme.getIcon("16x16/warning.png") );
-            else                   pCPrtQListViewItem->setPixmap ( 2, G_pCApp->m_Theme.getIcon("16x16/listok.png") );
-            pCPrtQListViewItem->setPixmap (0, G_pCApp->m_Theme.getIcon( "16x16/item.png"));
+            pCPrtQListViewItem->setPixmap (LV_NAME, Atcd_Element::getPixmap("") );       // le texte libre est sans code
+            pCPrtQListViewItem->setPixmap (LV_TYPE, Atcd_Code::ald_sport_codeToPixmap(ald_sport) );
+            pCPrtQListViewItem->setPixmap (LV_DFIN, Atcd_Code::datesDebFinToPixmap(dt_deb, dt_fin) );
             delete pDlgAtcd_txt;
             return 1;
           }
@@ -353,45 +431,6 @@ void C_ListViewATCDManager::ATCD_MenuActionMultiDel(int sendModifMessage)
     }
 }
 
-//------------------------------------ ATCD_MenuActionChangeEtatGueri --------------------------------------------------
-/*! \brief Connecte avec Atcd_Code la modification de l'\303\251tat de l'ant\303\251c\303\251dent s\303\251lectionn\303\251.
-*/
-void C_ListViewATCDManager::ATCD_MenuActionChangeEtatGueri()
-{ ATCD_MenuActionChangeEtat(0);
-}
-
-//------------------------------------ ATCD_MenuActionChangeEtatActif --------------------------------------------------
-/*! \brief Connecte avec Atcd_Code la modification de l'\303\251tat de l'ant\303\251c\303\251dent s\303\251lectionn\303\251.
-*/
-void C_ListViewATCDManager::ATCD_MenuActionChangeEtatActif()
-{ ATCD_MenuActionChangeEtat(1);
-}
-
-//------------------------------------ ATCD_MenuActionChangeEtat --------------------------------------------------
-/*! \brief Connecte avec Atcd_Code la modification de l'\303\251tat de l'ant\303\251c\303\251dent s\303\251lectionn\303\251.
-*/
-void C_ListViewATCDManager::ATCD_MenuActionChangeEtat(int etat)
-{if (*m_pIsModifiable==0)        return;
- if (!m_pAtcd_Code)              return;
-
- //................. parcourir tous les items ............
- QListViewItemIterator it( m_pQListView );
- while ( it.current() )
-    {
-      CPrtQListViewItem* pCPrt = (CPrtQListViewItem*)it.current();
-      if (pCPrt->isSelected())
-         {if (m_pAtcd_Code)
-              {Atcd_Element* pAtcd_Element_Selected = m_pAtcd_Code->getAtcd_byID( pCPrt->get_ID_Rublist().toInt() );
-               if (pAtcd_Element_Selected) m_pAtcd_Code->setEtat(pAtcd_Element_Selected, etat, Atcd_Code::sendNotModifMessage);
-              }
-          if (etat) { pCPrt->setPixmap(2,Theme::getIcon("16x16/warning.png"));pCPrt->setText( 2,tr("Actif") );}
-          else      { pCPrt->setPixmap(2,Theme::getIcon("16x16/listok.png")); pCPrt->setText( 2,tr("Pass\303\251") );}
-          *m_pIsModified = 1;
-         }
-      ++it;
-    }
-}
-
 //------------------------------------ ATCD_MenuActionSetFamilleGenre --------------------------------------------------
 /*! \brief Modifie la Famille et Genre d'un ATCD par le biais de la classe Atcd_Code.
 */
@@ -409,7 +448,7 @@ void C_ListViewATCDManager::ATCD_MenuActionSetFamilleGenre()
               {Atcd_Element* pAtcd_Element_Selected = m_pAtcd_Code->getAtcd_byID( pCPrt->get_ID_Rublist().toInt() );
                if (pAtcd_Element_Selected) m_pAtcd_Code->setRubrique(pAtcd_Element_Selected, *m_pTypeATCD_Selectionne, Atcd_Code::sendNotModifMessage);
               }
-          pCPrt->setText( 1, *m_pTypeATCD_Selectionne);
+          pCPrt->setText( LV_TYPE, *m_pTypeATCD_Selectionne);
           *m_pIsModified = 1;
          }
       ++it;
@@ -422,16 +461,16 @@ void C_ListViewATCDManager::ATCD_MenuActionSetCommentaire()
  if (!m_pAtcd_Code)                 return;
  CPrtQListViewItem* pCPrtQListViewItem = get_CurrentItem();
  if (pCPrtQListViewItem == 0)       return;
- QString         commentaire = pCPrtQListViewItem->text(3);
+ QString         commentaire = pCPrtQListViewItem->text(LV_COMM);
  Atcd_Element* pAtcd_Element = get_Selected_Atcd_Element();
  if (pAtcd_Element == 0)
     {  if (CGenTools::DialogGetString(0, TR("Saisir un commentaire (mode texte libre)") , commentaire) == QDialog::Accepted)
-          {pCPrtQListViewItem->setText(3,commentaire);
+          {pCPrtQListViewItem->setText(LV_COMM,commentaire);
           }
     }
  else
     { m_pAtcd_Code->changeCommentaire(pAtcd_Element, Atcd_Code::sendNotModifMessage);
-      pCPrtQListViewItem->setText(3, pAtcd_Element->m_Commentaire);
+      pCPrtQListViewItem->setText(LV_COMM, pAtcd_Element->m_Commentaire);
     }
 }
 

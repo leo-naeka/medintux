@@ -14,7 +14,7 @@
  *                              http://www.cecill.info/                           *
  *   as published by :                                                            *
  *                                                                                *
- *   Commissariat à l'Energie Atomique                                            *
+ *   Commissariat �  l'Energie Atomique                                            *
  *   - CEA,                                                                       *
  *                            31-33 rue de la Fédération, 75752 PARIS cedex 15.   *
  *                            FRANCE                                              *
@@ -49,9 +49,13 @@
  }
 
  void C_QLineEdit::keyPressEvent ( QKeyEvent * event )
- {    int call_StandardEvent = 1;
-      emit Sign_keyPressEvent(event, call_StandardEvent);
-      if (call_StandardEvent) QLineEdit::keyPressEvent(event);
+ {    int call_StandardEvent_1 = C_QLineEdit::AFTER_CALL_STD_EVENT;
+      int call_StandardEvent_2 = C_QLineEdit::AFTER_CALL_STD_EVENT;
+      emit Sign_keyPressEvent(event, call_StandardEvent_1);
+      emit Sign_keyPressEvent(event, call_StandardEvent_2, this);
+      if ( call_StandardEvent_1==C_QLineEdit::AFTER_CALL_STD_EVENT ||
+           call_StandardEvent_2==C_QLineEdit::AFTER_CALL_STD_EVENT
+         ) QLineEdit::keyPressEvent(event);
  }
 
  void C_QLineEdit::focusInEvent ( QFocusEvent * event )
@@ -62,7 +66,7 @@
          { //emuleKeyPress(Qt::Key_End);
            //emuleKeyPress(Qt::Key_Home, Qt::ShiftModifier);
            QTimer::singleShot ( 1, this, SLOT(Slot_emuleSelectAll()));
-         } 
+         }
  }
 /*
 void C_QLineEdit::forceCursorPosition ( int pos )

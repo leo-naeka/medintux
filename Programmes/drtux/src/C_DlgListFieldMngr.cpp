@@ -311,6 +311,7 @@ void C_DlgListFieldMngr::initDialog(const QString &drTuxParam, const QString &pa
     if ( !m_PathDrTux.endsWith ("/") )     m_PathDrTux     += "/";
     if ( !m_PathListes.endsWith ("/") )    m_PathListes    += "/";
     if ( !m_PathGlossaire.endsWith ("/") ) m_PathGlossaire += "/";
+    m_PathGetFile = m_PathGlossaire;
     QDir dir ( m_PathListes  );
     dir.convertToAbs();
     dir.setFilter( QDir::All | QDir::NoSymLinks );
@@ -865,7 +866,7 @@ void C_DlgListFieldMngr::MenuActionNewListe()
             return;
         }
         if (qsName.find(":") != -1 || qsName.find("\\") != -1 || qsName.find("/") != -1)
-        {CGenTools::MessageAlert(this, tr("ATTENTION ! "),tr("Les noms de listes ne doivent pas contenir les caract�es ':' '/' '\\' .<br>Veuillez choisir un autre nom."), tr("Annu&ler"));
+        {CGenTools::MessageAlert(this, tr("ATTENTION ! "),tr("Les noms de listes ne doivent pas contenir les caractères ':' '/' '\\' .<br>Veuillez choisir un autre nom."), tr("Annu&ler"));
         }
         //........................ a la racine des listes ................................................
         //                         il faut juste créer le repertoire de la liste
@@ -1471,6 +1472,7 @@ void C_DlgListFieldMngr::pushButtonSetMasque_clicked()
     pQPopupMenu->insertItem(Theme::getIcon( "22x22/CreateList_Item.png"),       tr("C&réer une liste déroulante avec le texte sélectionné."),       this, SLOT( MenuActionListNewRef()),      CTRL+Key_F );
     pQPopupMenu->insertItem(Theme::getIcon( "22x22/InsererChampInsertion.png"), tr("I&nsérer au curseur un champ d'insertion ou d'extraction."),    this, SLOT( MenuActionInsertField()),     CTRL+Key_E );
     pQPopupMenu->insertItem(Theme::getIcon( "22x22/InsertList_Item.png"),       tr("&Insérer au curseur une référence à une liste déroulante."),    this, SLOT( MenuActionListGet()),         CTRL+Key_N );
+    pQPopupMenu->insertItem(Theme::getIcon( "22x22/filefind.png"),              tr("In&sérer au curseur le chemin d'un fichier choisi avec le sélecteur de fichiers."),    this, SLOT( MenuActionListGetFile()),         CTRL+Key_N );
 
     pQPopupMenu->exec(QCursor::pos());
     delete pQPopupMenu;
@@ -1498,7 +1500,29 @@ QString C_DlgListFieldMngr::HtmlToAscii(QString str)
     } while (1);
     return str;
 }
-
+//------------------------------------ MenuActionListGet --------------------------------------------------
+void C_DlgListFieldMngr::MenuActionListGetFile()
+{    QString s = QFileDialog::getOpenFileName(
+                                               QFileInfo(m_PathGetFile).dirPath (),
+                                               tr("fichiers (*.html *.HTML *.txt *.TXT *.ORD *.ord)"),
+                                               this,
+                                               tr("Sélecteur de fichiers"),
+                                               tr("Choisissez un fichier") );
+     if (s.length()==0) return;
+     m_PathGetFile  = s;
+     if (s.startsWith(m_PathGlossaire))
+        {s = QString("$Glossaire/") + s.mid(m_PathGlossaire.length());
+        }
+     s = s.replace("(","\\(");
+     s = s.replace(")","\\)");
+     QColor old_col = textEditField->color();
+     textEditField->setColor( QColor(0x00,0x00,0x00) );
+     if (textEditField->hasSelectedText()) textEditField->del();
+     else                                  textEditField->insert(QString(" "));
+     textEditField->setColor( QColor(0x00,0x00,0x00) );
+     textEditField->insert( s );
+     textEditField->setColor( old_col );
+}
 //------------------------------------ MenuActionListGet --------------------------------------------------
 void C_DlgListFieldMngr::MenuActionListGet()
 {   FormDlgListOff_Listes *dlg = new FormDlgListOff_Listes(this,"RefList_Dial",TRUE);
@@ -1531,7 +1555,7 @@ void C_DlgListFieldMngr::MenuActionInsertField()
 
     QListBoxItem *pQListBoxItem  = dlg->listBox_InsertList->selectedItem();
     if (pQListBoxItem)
-    {QColor old_col = textEditField->color();
+    {   QColor old_col = textEditField->color();
         textEditField->setColor( QColor(0x00,0x00,0x00) );
         if (textEditField->hasSelectedText()) textEditField->del();
         else                                  textEditField->insert(QString(" "));
@@ -1570,7 +1594,7 @@ void C_DlgListFieldMngr::MakeInsertFieldList(const char *path, QStringList &fiel
 }
 //------------------------------------ MenuActionListNewRef --------------------------------------------------
 void C_DlgListFieldMngr::MenuActionListNewRef()
-{QString qsName(HtmlToAscii(textEditField->selectedText ()));
+{   QString qsName(HtmlToAscii(textEditField->selectedText ()));
     // QListViewItem *qlistViewItem;
     QListViewItem *element;
 

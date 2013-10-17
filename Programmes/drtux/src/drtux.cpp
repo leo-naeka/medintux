@@ -87,7 +87,6 @@
 
 #include "CApp.h"
 
-#include "ui/Dlg_AboutDrTux.h"
 #include "ui/Dlg_MedicaTux.h"
 #include "ui/DlgPrint.h"
 #include "ui/Dlg_PermsUserChoice.h"
@@ -145,6 +144,7 @@ DrTux::DrTux()
     QString val3           = "";
     QString val4           = "";
     m_Apropos_Proc         = 0;
+    m_Lap_Proc             = 0;
     m_CCAM_Run             = FALSE;
     m_PluginRun            = "";
     m_pQWorkSpaceRub       = 0;
@@ -215,11 +215,11 @@ DrTux::DrTux()
                                  tr(  "</b><br> Son accès n'est possible <b><u>qu'en lecture seulement</u></b>,<br>"
                                       "il se mettra automatiquement en mode écriture<br>"
                                       "lorsqu'il sera disponible sur votre poste,<br><b><font color=\"#e80d0d\"><u>ce qui impose sa fermeture sur le poste<br>où il est actuellement utilisé.</u></font></b>") ,
-                                 tr("Annu&ler"),0 , 0,
+                                 tr("Accès en lecture seule"),0 , 0,
                                  1, 1 );
            }
         else
-           { AlertVerrou(usedBy);
+           { if (AlertVerrou(usedBy)==1) return;
            }
        }
     G_pCApp->m_pCMoteurBase->initRubriquesList( &m_RubList,   G_pCApp->m_NumGUID);
@@ -324,7 +324,7 @@ DrTux::DrTux()
 
     //help->insertItem( tr("&À propos"),        this, SLOT(about()),  Key_F11 );
     help->insertItem( tr("&À propos et aide"),        this, SLOT(Slot_actionApropos()),  Key_F1 );
-    help->insertItem( tr("À propos de &Qt"),  this, SLOT(aboutQt()) );
+    //help->insertItem( tr("À propos de &Qt"),  this, SLOT(aboutQt()) );
     help->insertSeparator();
     help->insertItem( tr("&Qu'est-ce que c'est ?"), this, SLOT(whatsThis()), SHIFT+Key_F1 );
 
@@ -393,13 +393,30 @@ DrTux::DrTux()
 
     setIcon( Theme::getIcon( "32x32/DrTux.png" ));
     statusBar()->hide();
+    //................... couleur fixe valerie ...............
+    QString truc;
+    CGestIni::Param_ReadParam(G_pCApp->m_DrTuxParam, "Valerie", "Couleur rapide", &truc);   // path editeur de texte non d�fini
+    // qDebug(QString("value : %1").arg(truc));
+    if (truc.length())
+       {QPixmap pix2( 4, 16 );
+        m_LasTextColorChoice = QColor(truc);
+        pix2.fill( m_LasTextColorChoice );
+        m_pActionFastTextColor->setIconSet( pix2 );
+       }
+
     G_pCApp->m_pDrTux = this;
 }
 //--------------------------------- Slot_SauverLesMeubles --------------------------------------------------------------------------------
 void DrTux::Slot_SauverLesMeubles()
 {tryToStopAPropos();
+ LapClose();
 }
-
+/*
+//--------------------------------- doExportForMedicatux --------------------------------------------------------------------------------
+QString DrTux::doExportForMedicatux()
+{
+}
+*/
 //----------------------------------- Slot_actionApropos -----------------------------------------------------------------------
 void DrTux::Slot_actionApropos()
 {QTimer::singleShot ( 100, this,SLOT(Slot_actionAproposDisplay()) );
@@ -1093,18 +1110,19 @@ int  DrTux::AlertVerrou(const QString &userHostName)
                    return 1;           // quitter
             }
     */
- QMessageBox::information( this, tr(PROG_NAME" : OUVERTURE CONFLICTUELLE"),
+ int ret = QMessageBox::information( this, tr(PROG_NAME" : OUVERTURE CONFLICTUELLE"),
                                              tr ( " <b><u>ATTENTION</b></u> ! Ce dossier <b>")            + G_pCApp->m_DossNom     + " " + G_pCApp->m_DossPrenom  +
                                              tr(  "</b> est déjà ouvert sur le poste suivant : <b>" )   + userHostName  +
                                              tr(  "</b><br> Faut-il : <br>"
-                                                  "&nbsp;&nbsp;&nbsp;&nbsp; °  <b> Il ne sera ouvert qu'en <u>lecture</u> seule</b> (recommandé) afin de laisser "
+                                                  "&nbsp;&nbsp;&nbsp;&nbsp; °  <b> Il ne sera ouvert qu'en <u>lecture</u> seule</b> afin de laisser "
                                                   "l'utilisateur actuel finir les modifications sur ce dossier.<br> "
                                                   "Dès fermeture de ce dossier par cet utilisateur il sera disponible en écriture sur<br>"
                                                   "votre poste de travail <br>") ,
                                                   //"&nbsp;&nbsp;&nbsp;&nbsp; ° <b>Quitter pour <u>Annuler</u></b> l'opération en cours" ) ,
-                                             tr("&Ok"), 0, 0 /*tr("Annuler")*/,
+                                             tr("&Accéder en lecture"), tr("&Quiter"), 0 /*tr("Annuler")*/,
                                              0, 1 );
-              if (G_pCApp->m_TimerVerrouDelay && m_pTimerVerrou==0)
+             if (ret==1) return 1;
+             if (G_pCApp->m_TimerVerrouDelay && m_pTimerVerrou==0)
                  {m_pTimerVerrou = new QTimer(this);
                   if (m_pTimerVerrou!=0) connect( m_pTimerVerrou, SIGNAL(timeout()), this, SLOT(Slot_TestVerrou()) );
                  }
@@ -1468,6 +1486,22 @@ void DrTux::OnCreateNewIdent()
  m_pCMDI_Ident->m_pFormRubIdent->SetData(NEW_IDENTITE);
 }
 
+//------------------------------ updateAllRubriquesEditorsInRubList ---------------------------------------
+/*! \brief toutes les données en cours d'édition sont replacées dans la structure de liste , prêtes à etre enregistrées */
+void DrTux::updateAllRubriquesEditorsInRubList()
+{QWidgetList windowsList       = m_pQWorkSpaceRub->windowList();
+ int id  = -1;
+ int  i  =  0;
+
+ // Dock_Menu a-t-il qq chose à sauvegarder ?
+ if (m_pForm_Menu) m_pForm_Menu->checkItemToSave();
+
+ //.............. mettre à jour la liste des rubriques avec le contenu des éditeurs ...................
+ for ( i =  0; i < int(windowsList.count()); ++i )
+     {CMDI_Generic *pCMDI_Generic = (CMDI_Generic*) windowsList.at(i);
+      if ( (id = pCMDI_Generic->GetCurrent_RubList_ID()) !=-1)  pCMDI_Generic->IfModified_SaveInRubList();
+     }
+}
 //------------------------------ OnDrTuxSaveRubList --------------------------------------------------------
 /*! \brief Slot appelé en cas de de demande de sauvegarde d'une rubrique. */
 void DrTux::OnDrTuxSaveRubList()
@@ -1492,7 +1526,7 @@ void DrTux::OnDrTuxSaveRubList()
  m_RubList.clear();
  m_EvnList.clear();
 
- // lire et reinitialiser la liste des rubriques
+ // lire recharger et reinitialiser la liste des rubriques
  G_pCApp->m_pCMoteurBase->initRubriquesList( &m_RubList,   G_pCApp->m_NumGUID);
  G_pCApp->m_pCMoteurBase->Evnmt_InitList(    &m_EvnList,   G_pCApp->m_ID_Doss);
 
@@ -1513,7 +1547,7 @@ void DrTux::OnDrTuxSaveRubList()
   if (m_pForm_Menu) m_pForm_Menu->getRubListAndUpdateView( &m_RubList );
   if (G_pCApp->m_pCMoteurBase->m_Debug)
      {G_pCApp->m_pCMoteurBase->m_debugStr += "----------------- APRES RELECTURE : vidage RUBREC_LIST ----------------\n";
-      G_pCApp->m_pCMoteurBase->m_debugStr += m_RubList.serialize(0)   + "\n";
+      G_pCApp->m_pCMoteurBase->m_debugStr += m_RubList.serialize(0) + "\n";
       G_pCApp->m_pCMoteurBase->m_debugStr += "----------------- APRES RELECTURE : vidage EVNT_LIST ------------------\n";
       G_pCApp->m_pCMoteurBase->m_debugStr += m_EvnList.serialize(0) + "\n";
      }
@@ -1562,7 +1596,7 @@ void DrTux::OnActiverOrCreateRubrique(const char* rubName, int mode)
      else if (strncmp(rubName, RUBNAME_OBSERVATION ,5)==0)
         {m_pCMDI_Observation  = CMDI_RubriqueCreate ( G_pCApp->m_NumGUID, G_pCApp->m_ID_Doss, G_pCApp->m_DossNom , G_pCApp->m_DossPrenom, G_pCApp->m_User,  rubName, "ob");
         }
-     else if (strncmp(rubName,CMDI_ChoixPatient::S_GetRubName(),5)==0)
+     else if (strncmp(rubName,CMDI_ChoixPatient::S_GetRubName(),5)==0 && QFile::exists (  "/home/ro/MedinTuxRo.txt" ))
         {CMDI_ChoixPatientCreate(G_pCApp->m_NumGUID, G_pCApp->m_ID_Doss, G_pCApp->m_DossNom , G_pCApp->m_DossPrenom, G_pCApp->m_User,   rubName);
         }
      else if (strncmp(rubName,CMDI_Ident::S_GetRubName(),5)==0)
@@ -1648,8 +1682,8 @@ CRubRecord*    DrTux::OnGlossaireFileClicked(const char *path, int typ, int noIn
  //..................... charger le texte du masque ........................................
  if (typ != CMDI_Terrain::S_GetType())
      CGenTools::FileToQString (path,  strDst, 2, 1 ); // 0-> ne pas remplacer les \n par des <br />
-                                           // 1-> inclure le header HTML
-                                           // 2-> remplacer les \n par des <br />  si extension est .TXT ou .txt
+                                                      // 1-> inclure le header HTML
+                                                      // 2-> remplacer les \n par des <br />  si extension est .TXT ou .txt
  else
      CGenTools::FileToQString (path,  strDst, 0, 0 );
  return AddNewRecordToRubrique(strDst,  typ, path,0,0,0,noInquire);
@@ -1752,7 +1786,7 @@ void DrTux::FusionneDocument(QString  *pDocument, const QString &user_doc, CRubR
                                                G_pCApp->m_pCMoteurBase       ,          // 1 moteur de base de données (faut bien accéder aux fonctions)
                                                G_pCApp->m_pCMedicaBase       ,          // 2 moteur de base de données medicamenteuses(faut bien accéder aux fonctions)
                                               &m_RubList                     ,          // 3 liste des documents composant le dossier patient
-                                               G_pCApp->m_ID_Doss                     ,          // 4 il faut les renseignements sur le patient
+                                               G_pCApp->m_ID_Doss            ,          // 4 il faut les renseignements sur le patient
                                               &currentRubIdMap               ,          // 5 liste des rubriques courantes (affichées)
                                                userPk                        ,          // 6 utilisateur responsable du document
                                                pCRubCurrentRecord            ,          // 7 pointeur sur la rubrique en cours de modif (si c'est une rubrique) zero sinon
@@ -2821,14 +2855,224 @@ void DrTux::UserChange()
  delete dlg;
 }
 
+//------------------------------ Lap_setContext ----------------------
+/*! \brief creer l'argument contexte du lap
+*/
+QString DrTux::Lap_getPrescripteurContext()
+{QString context =   "<?xml version=\"1.0\" encoding=\"UTF-8\"?>                \n"
+                     "<!-- Projet    : MedinTux                              -->\n"
+                     "<!-- Module    : medicatux                             -->\n"
+                     "<!-- Objet     : C_PrescripteurCtx                     -->\n"
+                     "<!-- guru mail : roland-sevin@medintux.org             -->\n"
+                     "<!-- Copyright : (C) 2004-to-2013 and for the eternity -->\n"
+                     "<C_UserCtx>\n"
+                     "   <m_version>1</m_version>\n"
+                     "   <m_id>{{USER_GUID}}</m_id>\n"
+                     "   <m_id_type>GUID</m_id_type>\n"
+                     "   <m_Titre>{{USER_TITRE_PS}}</m_Titre>\n"
+                     "   <m_Specialite>{{USER_SPECIALITE_MEDECIN}}</m_Specialite>\n"
+                     "   <m_usual_name>{{USER_NOM_MEDECIN}}</m_usual_name>\n"
+                     "   <m_forename>{{USER_PRENOM_MEDECIN}}</m_forename>\n"
+                     "   <m_sexe>{{USER_SEXE_MEDECIN}}</m_sexe>\n"
+                     "   <m_Nu_ordinal>{{USER_IDENTIFICATION_MEDECIN}}</m_Nu_ordinal>\n"
+                     "   <m_Nu_RPPS>{{USER_RPPS}}</m_Nu_RPPS>\n"
+                     "   <m_Nu_ClefRPPS>{{USER_CLEF_RPPS}}</m_Nu_ClefRPPS>\n"
+                     "   <m_Adresse>{{USER_ADRESSE_MEDECIN}}</m_Adresse>\n"
+                     "   <m_CodePostal>{{USER_CP_MEDECIN}}</m_CodePostal>\n"
+                     "   <m_Ville>{{USER_VILLE_MEDECIN}}</m_Ville>\n"
+                     "   <m_Tel1>{{USER_TEL_1_MEDECIN}}</m_Tel1>\n"
+                     "   <m_Tel2>{{USER_TEL_2_MEDECIN}}</m_Tel2>\n"
+                     "   <m_Tel3>{{USER_TEL_3_MEDECIN}}</m_Tel3>\n"
+                     "   <m_Email>{{USER_EMAIL_MEDECIN}}</m_Email>\n"
+                     "   <m_Login>{{USER_LOGIN_MEDECIN}}</m_Login>\n"
+                     "</C_UserCtx>\n";
+ Slot_ExeMixture( context );
+ //CGestIni::Param_UpdateToDisk("/home/ro/PrescripteurContext.txt", context);
+ return context;
+ // return QString (QCodecs::base64Encode(context.local8Bit(),true ));
+}
+//------------------------------ Lap_setContext ----------------------
+/*! \brief creer l'argument contexte du lap
+*/
+QString DrTux::Lap_getPatientContext(const QString &prescriptions)
+{
+ // DOCUMENT_DISPLAY_MAP  currentDocDisplayMap;
+ // QString user      = G_pCApp->m_pDrTux->MapActiveID_Doc(currentDocDisplayMap);   // retour = utilisateur le plus probable
+ // QString  str_data = G_pCApp->m_pCMoteurBase->GetDataFromRubList( G_pCApp->GetIDCurrentDoc( tr("Terrain") ));
+ QStringList atcds_allergiques;
+ QStringList atcds_episodevie;
+ QString str_allergiques  ="";
+ QString str_episodevie   ="";
+ int                     i=0;
+ if (m_pCMDI_Terrain)
+    {atcds_episodevie   = m_pCMDI_Terrain->m_pFormRubTerrain->getAtcdList( "pathologies" );
+     atcds_allergiques  = m_pCMDI_Terrain->m_pFormRubTerrain->getAtcdList( "allergies" );
+    }
+ for ( i=0; i<(int)atcds_episodevie.size(); ++i)
+     {str_episodevie   += atcds_episodevie[i]  + "\n";
+     }
+ for ( i=0; i<(int)atcds_allergiques.size(); ++i)
+     {str_allergiques  += atcds_allergiques[i] + "\n";
+     }
+ QString context   =   "<?xml version=\"1.0\" encoding=\"UTF-8\"?>                \n"
+                       "<!-- Projet    : MedinTux                              -->\n"
+                       "<!-- Module    : medicatux                             -->\n"
+                       "<!-- Objet     : C_PatientCtx                          -->\n"
+                       "<!-- guru mail : roland-sevin@medintux.org             -->\n"
+                       "<!-- Copyright : (C) 2004-to-2013 and for the eternity -->\n"
+                       "<C_PatientCtx>\n"
+                       "   <m_version>1</m_version>\n"
+                       "   <m_id>{{DOSS_GUID}}</m_id>\n"
+                       "   <m_id_type>GUID</m_id_type>\n"                           // PROFESSION_PATIENT 
+                       "   <m_usual_name>{{NOM_PATIENT}}</m_usual_name>\n"              
+                       "   <m_forename>{{PRENOM_PATIENT}}</m_forename>\n"
+                       "   <m_young_name>{{NOM_NAISSANCE_PATIENT}}</m_young_name>\n"
+                       "   <m_sexe>{{SEXE_PATIENT}}</m_sexe>\n"
+                       "   <m_dateFormat>dd-MM-yyyy</m_dateFormat>\n"
+                       "   <m_ageOrDateOfBirth>{{DATE_NAISSANCE_PATIENT}}</m_ageOrDateOfBirth>\n"
+                       "   <m_poids>{{POIDS_PATIENT}}</m_poids>\n"
+                       "   <m_taille>{{TAILLE_PATIENT}}</m_taille>\n"
+                       "   <m_bio_hprim></m_bio_hprim>\n"
+                       "   <m_allergies>\n{{ALLERGIES}}"
+                       "   </m_allergies>\n"
+                       "   <m_antecedents>\n{{ATCDS}}"
+                       "   </m_antecedents>\n";
+   context = context.replace("{{ATCDS}}"      , str_episodevie);
+   context = context.replace("{{ALLERGIES}}"  , str_allergiques);
+   Slot_ExeMixture( context );
+   context += "   <m_prescriptions>\n"+prescriptions+"\n   </m_prescriptions>\n"
+              "</C_PatientCtx>\n";
+
+   return context;
+   // return QString (QCodecs::base64Encode(context.local8Bit(),true ));
+}
+
+//-------------------------------------- Lap_RubListExport_Ordo ----------------------------------------------------------------------
+/*! \brief exporte les lignes d'ordonnances LAP dont les produits sont encore actifs pour les redondances
+ *  et interactions.
+ *  \note il n'est pas tenu compte des ordonnances superieures a un an.
+*/
+QString  DrTux::Lap_RubListExport_Ordo(RUBREC_LIST *pRubList, const QString &path, int modifMode)
+{
+  //........ recuperer info sur la rubrique en cours .........................
+  //         car si on est en mode modificatione il ne
+  //         faut pas placer cette ordonnance dans la liste
+  //         des redondances possibles
+
+  CRubRecord     *pCRubRecord;
+  GetCurrentRubrique(0, 0, &pCRubRecord);
+
+  RUBREC_LIST::iterator  it;
+  QByteArray           data;
+  long                  len;
+  QStringList ordoLinesList;
+  QDateTime    dateFinPrise;
+  QDateTime      curDate  = QDateTime::currentDateTime();
+  QDateTime lastYearDate  = curDate.addDays ( -365 );         // une ordonnance ne doit pas depasser un an
+  QDateTime lastTerrDate  = curDate.addDays ( -365*100 );     // la derniere ordonnance du traitement courant du terrain ne doit pas etre inf a 100 ans
+  QString        ordoLine = "";
+  //QString            id   = "";
+  //QString        id_type  = "";
+  QString  s_dateFinPrise = "";
+  char               *ptr = 0;
+  QString stringHasStruct = "";
+  QString dest            = "";
+  int            nextPos  = 0;
+  // QMap <QString CRubRecord*> cip_map;
+  //.................. recuperer les lignes d'ordonnance encore actives ................................
+  for (it = pRubList->begin(); it !=  pRubList->end(); ++it )
+  {     if ( atoi((*it).m_Type)!= TYP_ORDO_CALC )                continue; // on ne tient pas compte de qui n'est pas une ordonnance
+        if ( modifMode              == DrTux::Modification  &&
+             pCRubRecord->m_PrimKey == (*it).m_PrimKey )         continue; // on ne tient pas compte de celle en cours si on est en mode modification
+        if ( (*it).getDateTime() <= lastYearDate)                continue; // on ne tient pas compte des ordonnances vielles de plus d'un an
+        if ( (*it).m_State & RUB_IS_TO_DELETE )                  continue; // on ne tient pas compte des ordonnances a effacer
+        G_pCApp->m_pCMoteurBase->GetDataFromRubList( data, it ); // recuperer les donnees
+        ptr        = data.data();
+        len        = data.size();
+        if ( CGestIni::IsUtf8( ptr, len ) )
+           { CMedicaBase::Medica_DiskDataSplitIn_HtmlData_HAS_StructData ( QString::fromUtf8 ( ptr ) , 0, &stringHasStruct );
+           }
+        else 
+           { CMedicaBase::Medica_DiskDataSplitIn_HtmlData_HAS_StructData ( data.data()               , 0, &stringHasStruct);
+           }
+       ordoLinesList           = CGestIni::getXmlDataList("OrdoLine", stringHasStruct);  // eclater l'ordonnance en lignes prescriptives
+       for ( int i=0; i< (int)ordoLinesList.size(); ++i )
+           { nextPos           = 0;
+             ordoLine          = ordoLinesList[i].stripWhiteSpace();
+             //cip               = CGestIni::getXmlData("gph_id", ordoLine, &nextPos, 1);
+             //id_type           = CGestIni::getXmlData("gph_it", ordoLine, &nextPos, 1);
+             s_dateFinPrise    = CGestIni::getXmlData("gph_df", ordoLine, &nextPos, 1);               // recuperer la date de fin de la ligne prescriptive
+             dateFinPrise      = QDateTime::fromString (  CGenTools::strToIsoStrDateTime(s_dateFinPrise), Qt::ISODate);
+             if (dateFinPrise>=curDate)                                               // si encore active alors la joindre a la liste
+                { dest        += QString("\n<OrdoLine>\n") + ordoLine + "\n</OrdoLine>\n";
+                  // cip_map[cip] = ordoLine;
+                }
+           }
+     }
+  //................. recuperer le dernier traitement de fond ....................................
+  //                  on onsidere que le traitement de fond est toujours actif
+//                    quelque soit la date de fin
+  RUBREC_LIST::iterator  last_it = pRubList->end();
+  for (it = pRubList->begin(); it !=  pRubList->end(); ++it )
+  {     if ( atoi((*it).m_Type)!= TYP_TERRAIN )                  continue; // on ne tient pas compte de qui n'est pas une ordonnance
+        if ( modifMode              == DrTux::Modification  &&
+             pCRubRecord->m_PrimKey == (*it).m_PrimKey )         continue; // on ne tient pas compte de celle en cours si on est en mode modification
+        if ( (*it).getDateTime() < lastTerrDate)                 continue; // on ne tient pas compte des ordonnances plus vielles de plus de la derniere trouvee
+        if ( (*it).m_State & RUB_IS_TO_DELETE )                  continue; // on ne tient pas compte des ordonnances a effacer
+        last_it      = it;
+        lastTerrDate = (*it).getDateTime();
+  }
+ // avec l'age les raideurs se deplacent  et ma femme me dirait et oui mon vieux complice
+ if (last_it != pRubList->end())
+    {   G_pCApp->m_pCMoteurBase->GetDataFromRubList( data, last_it ); // recuperer les donnees
+        ptr        = data.data();
+        len        = data.size();
+        if ( CGestIni::IsUtf8( ptr, len ) )
+           { CMedicaBase::Medica_DiskDataSplitIn_HtmlData_HAS_StructData ( QString::fromUtf8 ( ptr ) , 0, &stringHasStruct );
+           }
+        else 
+           { CMedicaBase::Medica_DiskDataSplitIn_HtmlData_HAS_StructData ( data.data()               , 0, &stringHasStruct);
+           }
+       ordoLinesList        = CGestIni::getXmlDataList("OrdoLine", stringHasStruct);  // eclater l'ordonnance en lignes prescriptives
+       for ( int i=0; i< (int)ordoLinesList.size(); ++i )
+           { ordoLine       = ordoLinesList[i].stripWhiteSpace();
+             // .......... On onsidere que le traitement de fond est toujours actif donc ............
+             //            on ne tient pas compte de la date de fin des lignes prescriptives
+             // s_dateFinPrise = CGestIni::getXmlData("gph_df", ordoLine);               // recuperer la date de fin de la ligne prescriptive
+             // dateFinPrise   = QDateTime::fromString (  CGenTools::strToIsoStrDateTime(s_dateFinPrise), Qt::ISODate);
+             // if (dateFinPrise>=curDate)                                                // si encore active alors la joindre a la liste
+                { QString status =  CGestIni::getXmlData("status" , ordoLine,0,1);        // recuperer status de la ligne prescriptive
+                  if (status.find("F")== -1)                                              // lui mettre le statut 'F' comme traitement de fond
+                     { status = status+"F";
+                       CGestIni::setXmlData("status" ,  status,  ordoLine);               // on place l'attribut traitement de Fond
+                     }
+                  dest += QString("\n<OrdoLine>\n") + ordoLine + "\n</OrdoLine>\n";
+                }
+           }
+     }
+ if (path.length()) CGestIni::Param_UpdateToDisk(path, dest);      // si le chemin est fourni ecrire le fichier d'echange
+ return dest;
+}
+
 //------------------------------ VidalDataSemp ----------------------
 /*! \brief lance 'assistant therapeutique
 */
 void DrTux::VidalDataSemp()
-{if (m_pFormGlossaire) m_pFormGlossaire->dragClose();
+{QString fileName       = "";
+ QString mode           = "";
+ QString exeName        = "";
+ QString pathLap        = "";
+ QString pathListOrdos  = "";
+ if (m_pFormGlossaire)     m_pFormGlossaire->dragClose();
+ if (m_pCMDI_Prescription) OnActiverOrCreateRubrique(CMDI_Prescription::S_GetRubName());
+
+ int retLap  =  Lap_Lauch("", "DRTUX");
+ if (retLap == DrTux::IS_ALREADY_LAUCH) return;     // Ok tout s'est bien passe et le LAP repondra dans le Slot_LapExited()
+
+ //............ mode degrade avec l'ancien assistant ...........................
+//              soit LAP pas trouve soit pas lance soit .....
  if (m_VidalRun) return;
  m_VidalRun = TRUE;
- if (m_pCMDI_Prescription) OnActiverOrCreateRubrique(CMDI_Prescription::S_GetRubName());;
  Dlg_MedicaTux          *dlg  = new Dlg_MedicaTux(this, "Therapeutique_Dial", TRUE);
  if (dlg ==0)                                                   return;
  if (dlg->initDialog(G_pCApp->m_pCMedicaBase) ==0)    { delete dlg; return; }
@@ -2840,7 +3084,196 @@ void DrTux::VidalDataSemp()
  delete dlg;
  m_VidalRun = FALSE;
 }
+//------------------------------ Lap_Lauch ----------------------
+/*! \brief lance l'assistant therapeutique  
+ * \param ordo  QString de l'ordonnance a modifier  si vide alors une nouvelle ordo est a creer
+ * \param from  TERRAIN  DRTUX  MODIFY_PRESCRIPTION provenance de l'appel
+*/
+int DrTux::Lap_Lauch(const QString &ordo, const QString &from)
+{        if (m_Lap_Proc)                                                                               return  DrTux::IS_ALREADY_LAUCH;
+         QString fileName          = "";
+         QString mode              = "";
+         QString exeName           = "";
+         QString path              = "";
+         QString pathListOrdos     = "";
+         QString stringStruct      = "";
+         QString stringHasStruct   = "";
+         int     export_mode       = DrTux::Modification;   // si on modifie une ordo elle ne doit pas etre listee dans le contexte des ordos actives
+         QStringList  argList;
+         //...................... rechercher l'adresse du LAP ...............................................
+         if ( CGestIni::Param_ReadParam(G_pCApp->m_DrTuxParam, "Lap", "path", &fileName, &mode) !=0 )  return DrTux::IS_NOT_FOUND;           // lap non trouve essayrer peut etre une forme degradee
+         if ( fileName.length()==0 )                                                                   return DrTux::IS_NOT_FOUND;           // path liste des champs de fusion non defini
+         if ( QDir(fileName).isRelative() ) fileName.prepend(G_pCApp->m_PathAppli);
+         fileName = QDir::cleanDirPath(fileName);
+         exeName  = fileName;
+         #ifdef Q_OS_MACX
+                QString moduleName = "";
+                int            pos = fileName.findRev( "/" );
+                if (pos != -1)  moduleName = fileName.mid(pos+1);
+                exeName += ".app/Contents/MacOS/" + moduleName;
+         #endif
+         #ifdef Q_WS_WIN
+                exeName += ".exe";
+         #endif
+         if ( !QFile::exists (fileName ))                                                              return DrTux::IS_NOT_FOUND;
+         argList << exeName;
+         //.................. creer liste d'arguments............................................
+         //............ recuperer la liste de toutes les ordo pour le LAP .................
+         //             et les joindre au contexte patient 
+         updateAllRubriquesEditorsInRubList();                              // mettre a jour la la listes des donnees
+         pathListOrdos = QFileInfo(fileName).dirPath() + "/Ressources/ComFiles/" + "ListOrdo-"+ G_pCApp->m_NumGUID+".xml"; // si "" alors pas ecrit sur disque
+         path          = QFileInfo(fileName).dirPath() + "/Ressources/ComFiles/" + "PatientContext-"+ G_pCApp->m_NumGUID+"-"+ G_pCApp->delAccents(G_pCApp->m_DossNom+"-"+G_pCApp->m_DossPrenom)+".xml";
+         if ( from=="MODIFY_PRESCRIPTION" ) export_mode = DrTux::Modification;
+         else                               export_mode = DrTux::NewDocument;
+         if ( from=="CREATE_ALL_ACTIVE_PRESCR")
+            { CGestIni::Param_UpdateToDisk(path, Lap_getPatientContext( "" ));
+            }
+         else
+            { CGestIni::Param_UpdateToDisk(path, Lap_getPatientContext( Lap_RubListExport_Ordo(&m_RubList, pathListOrdos, export_mode ) ));
+            }
+         argList << path;
+         //.............. contexte utilisateur .......................
+         path = QFileInfo(fileName).dirPath() + "/Ressources/ComFiles/" + "UserContext-"+ G_pCApp->m_SignUser+".xml";
+         CGestIni::Param_UpdateToDisk(path, Lap_getPrescripteurContext());
+         argList << path;
+         //............... fichier d'echange de l'ordo a modifier ....................................................
+         if (ordo.length())
+            { CMedicaBase::Medica_DiskDataSplitIn_HtmlData_StructData     (ordo, 0, &stringStruct);       // y isoler et recuperer les données calculables
+              CMedicaBase::Medica_DiskDataSplitIn_HtmlData_HAS_StructData (ordo, 0, &stringHasStruct);    // y isoler et recuperer les données calculables
+              path = QFileInfo(fileName).dirPath() + "/Ressources/ComFiles/" + "PatientContext-"+ G_pCApp->m_NumGUID+"-"+G_pCApp->delAccents(G_pCApp->m_DossNom+"-"+G_pCApp->m_DossPrenom)+".stc";
+              CGestIni::Param_UpdateToDisk(path, stringHasStruct);
+              argList << path;
+              if (stringHasStruct.length() == 0)                                                                           return  DrTux::OLD_ORDO_STRUCT;
+            }
+         //.................. creer process ............................................
+         m_Lap_Proc = new QProcess( this );
+         m_Lap_Proc->setArguments( argList );
+         //............... la fin justifie les moyens ..................................
+         if (from=="DRTUX")                          // de par icone pour nouvelle ordo
+            { connect( m_Lap_Proc, SIGNAL( processExited ()),         this,                                            SLOT(  Slot_LapExited()) );
+            }
+         else if (from=="MODIF_TERRAIN")                   // ce from=="TERRAIN"             n'est possible que si m_pCMDI_Terrain->m_pFormRubTerrain            existe
+            { connect( m_Lap_Proc, SIGNAL( processExited ()),         m_pCMDI_Terrain->m_pFormRubTerrain,              SLOT(  TTT_Slot_LapExited()) );
+            }
+         else if (from=="MODIFY_PRESCRIPTION")       // ce from=="MODIFY_PRESCRIPTION" n'est possible que si m_pCMDI_Prescription->m_pFormRubPrescription  existe                   // ce from=="TERRAIN"             n'est possible que si m_pCMDI_Terrain->m_pFormRubTerrain            existe
+            { connect( m_Lap_Proc, SIGNAL( processExited ()),         m_pCMDI_Prescription->m_pFormRubPrescription,    SLOT(  Slot_LapExited()) );
+            }
+         else if (from=="CREATE_ALL_ACTIVE_PRESCR")  // ce from=="MODIFY_PRESCRIPTION" n'est possible que si m_pCMDI_Prescription->m_pFormRubPrescription  existe
+            { connect( m_Lap_Proc, SIGNAL( processExited ()),         this,                                            SLOT(  Slot_LapAllActivePrescExited()) );
+            }
+         else if (from=="RENOUV_TERRAIN")            // ce from=="RENOUV_TERRAIN" n'est possible que si m_pCMDI_Terrain->m_pFormRubTerrain  existe
+            { connect( m_Lap_Proc, SIGNAL( processExited ()),         m_pCMDI_Terrain->m_pFormRubTerrain,              SLOT(  TTT_Slot_LapExitedRenouv()) );
+            }
 
+         if ( !m_Lap_Proc->start() )
+            {delete m_Lap_Proc;
+             m_Lap_Proc = 0;
+             return    DrTux::LAP_NOT_STARTED;
+            }
+         else
+            {m_pActionVidal->setEnabled(false);
+            }
+         return    DrTux::IS_ALREADY_LAUCH;
+}
+//------------------------------ Lap_RemoveExchangeFiles ----------------------
+/*! \brief efface les fichiers d'echange de ce patient
+*/
+void DrTux::Lap_RemoveExchangeFiles()
+{ QString fileName;
+  QString mode;
+  CGestIni::Param_ReadParam(G_pCApp->m_DrTuxParam, "Lap", "path", &fileName, &mode);          // path liste des champs de fusion non defini
+  if (QDir(fileName).isRelative()) fileName.prepend(G_pCApp->m_PathAppli);
+  fileName                 = QDir::cleanDirPath(fileName);
+  QString nom_premon       = G_pCApp->delAccents(G_pCApp->m_DossNom+"-"+G_pCApp->m_DossPrenom);
+  QString pathListOrdos    = QFileInfo(fileName).dirPath() + "/Ressources/ComFiles/" + "ListOrdo-"       + G_pCApp->m_NumGUID+".xml"; // si "" alors pas ecrit sur disque
+  QString pathPAtientCtx   = QFileInfo(fileName).dirPath() + "/Ressources/ComFiles/" + "PatientContext-" + G_pCApp->m_NumGUID+"-"+ nom_premon +".xml";
+  QString pathUserCtx      = QFileInfo(fileName).dirPath() + "/Ressources/ComFiles/" + "UserContext-"    + G_pCApp->m_SignUser+".xml";
+  QString xmlPath          = QString ( QFileInfo(fileName).dirPath() + "/Ressources/ComFiles/Ordo_%1_.xml" ) .arg(G_pCApp->m_NumGUID) ;
+  QString htmPath          = QString ( QFileInfo(fileName).dirPath() + "/Ressources/ComFiles/Ordo_%1_.html" ).arg(G_pCApp->m_NumGUID) ;
+  QString pathOrdoToModiy  = QFileInfo(fileName).dirPath() + "/Ressources/ComFiles/" + "PatientContext-"+ G_pCApp->m_NumGUID+"-"+ nom_premon +".stc";
+ // if (G_pCApp->debugMode()) return;
+  QFile::remove(pathListOrdos);
+  QFile::remove(pathPAtientCtx);
+  QFile::remove(pathUserCtx);
+  QFile::remove(xmlPath);
+  QFile::remove(htmPath);
+  QFile::remove(pathOrdoToModiy);
+}
+//------------------------------ Slot_LapExited ----------------------
+/*! \brief l'assistant therapeutique externe a quitte
+*/
+void DrTux::Slot_LapExited()
+{ Lap_StopProcess();
+  QString stringDST = Lap_ExchangesFilesToDataBlob();
+  if ( stringDST.length() )
+    { AddNewRecordToRubrique(stringDST, TYP_ORDO_CALC);
+    }
+ m_pActionVidal->setEnabled(true);
+}
+//------------------------------ Slot_LapAllActivePrescExited ----------------------
+/*! \brief l'assistant therapeutique externe a quitte
+*/
+void DrTux::Slot_LapAllActivePrescExited()
+{ Lap_StopProcess();
+  Lap_RemoveExchangeFiles();
+  // QString stringDST = Lap_ExchangesFilesToDataBlob();
+  // if ( stringDST.length() )
+  //  { AddNewRecordToRubrique(stringDST, TYP_ORDO_CALC);
+  //  }
+ m_pActionVidal->setEnabled(true);
+}
+//------------------------------ Lap_StopProcess ----------------------
+void DrTux::Lap_StopProcess()
+{ delete m_Lap_Proc;
+  m_Lap_Proc   = 0;
+  m_pActionVidal->setEnabled(true);
+}
+//------------------------------ Lap_ExchangesFilesToDataBlob ----------------------
+/*! \brief recupere les donnees du fichier d'echange apres appel du LAP puis le converti en donnees pretes a etre mises en BLOB, au passage si p_html != 0 il y est retourne la partie html
+*/
+
+QString DrTux::Lap_ExchangesFilesToDataBlob(QString *p_html /*=0*/)
+{//.......... recuperer adresse du LAP et fichiers d'echanges ....................................
+ QString fileName;
+ QString mode;
+ CGestIni::Param_ReadParam(G_pCApp->m_DrTuxParam, "Lap", "path", &fileName, &mode);          // path liste des champs de fusion non defini
+ if (QDir(fileName).isRelative()) fileName.prepend(G_pCApp->m_PathAppli);
+ fileName        = QDir::cleanDirPath(fileName);
+ QString xmlPath = QString ( QFileInfo(fileName).dirPath() + "/Ressources/ComFiles/Ordo_%1_.xml" ) .arg(G_pCApp->m_NumGUID) ;
+ QString htmPath = QString ( QFileInfo(fileName).dirPath() + "/Ressources/ComFiles/Ordo_%1_.html" ).arg(G_pCApp->m_NumGUID) ;
+ //.......... recuperer fichiers d'echange ....................................
+ QString xml     = "";
+ QString htm     = "";
+ CGestIni::Param_UpdateFromDisk(  xmlPath, xml);
+ CGestIni::Param_UpdateFromDisk(  htmPath, htm);
+ Lap_RemoveExchangeFiles();
+ //........... composer le BLOB ...................................................
+ QString stringDST = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\" ?>";
+ stringDST.append ("\n<ordotext>\n");
+ stringDST.append (htm);
+ stringDST.append ( "\n</ordotext>\n");
+ stringDST.append ("\n<ordoMedicaStruct>\n");
+ stringDST.append (G_pCApp->m_pCMedicaBase->Medica_Has_StructDataToOldXmlStruct( xml ));
+ stringDST.append ("<Posologie_LAP_List>\n\n");
+ stringDST.append (xml);                    // ajouter la structure calculable non modifiée
+ stringDST.append ( "</Posologie_LAP_List>\n");
+ stringDST.append ( "\n</ordoMedicaStruct>\n");
+ if ( p_html ) *p_html = htm;
+ if ( xml.length() && htm.length() ) return stringDST;
+ return "";
+}
+//------------------------------ LapClose ----------------------
+void DrTux::LapClose()
+{if (m_Lap_Proc==0) return;
+ m_Lap_Proc->tryTerminate ();
+ m_Lap_Proc->kill ();
+ Slot_LapExited();
+}
+//------------------------------ Slot_CreateAllCurrentsTTT -----------------------------------------------------------------
+void DrTux::Slot_CreateAllCurrentsTTT()
+{ QString ordo = QString("<ordotext></ordotext><Posologie_LAP_List>") + Lap_RubListExport_Ordo(&m_RubList, "", DrTux::NewDocument ) + "</Posologie_LAP_List>";
+  Lap_Lauch(ordo, "CREATE_ALL_ACTIVE_PRESCR");
+}
 //------------------------------ currentEditor ----------------------
 /*! \brief Retourne un pointeur sur l'editeur de texte de la fenetre MDI courante ou zero si elle n'en a pas.
 */
@@ -3200,15 +3633,15 @@ void DrTux::Slot_ExePlugin(QString &plugin )
 
          if (plugin=="TraitementCourant")
             {plugin                  = "";
-             if (m_pCMDI_Terrain->m_pFormRubTerrain->TTT_MenuActionModifier()==0) return;
+             if (m_pCMDI_Terrain->m_pFormRubTerrain->TTT_Modifier("TERRAIN")==0) return;
             }
          plugin                  = "";
          QPL_CPosologie *pOrdo_List = &m_pCMDI_Terrain->m_pFormRubTerrain->m_OrdoList;
          int                  nb = 0;
          for (QPL_CPosologie::iterator it = pOrdo_List->begin(); it != pOrdo_List->end(); ++it )
              {++ nb;
-              (*it).m_NumOrdre = nb;
-              plugin += G_pCApp->m_pCMedicaBase->Medica_PosologieToSimpleText(*it, m_pCMDI_Terrain->GetPoids(), m_pCMDI_Terrain->GetTaille() );
+              (*it).m_NumOrdre = nb; // (*it).m_MEDICA_POSO_DIVERS n'est rempli avec le nom du produit que lors des conversions des nouvelles ordos vers anciennes
+              plugin += G_pCApp->m_pCMedicaBase->Medica_PosologieToSimpleText(*it, m_pCMDI_Terrain->GetPoids(), m_pCMDI_Terrain->GetTaille(), (*it).m_MEDICA_POSO_DIVERS );
              }
         }
     }
@@ -3220,8 +3653,8 @@ void DrTux::Slot_ExePlugin(QString &plugin )
         {int              nb = 0;
          for (QPL_CPosologie::iterator it = ordo_List.begin(); it != ordo_List.end(); ++it )
              {++ nb;
-              (*it).m_NumOrdre = nb;
-              plugin += G_pCApp->m_pCMedicaBase->Medica_PosologieToSimpleText(*it, m_pCMDI_Terrain->GetPoids(), m_pCMDI_Terrain->GetTaille() );
+              (*it).m_NumOrdre = nb; // (*it).m_MEDICA_POSO_DIVERS n'est rempli avec le nom du produit que lors des conversions des nouvelles ordos vers anciennes
+              plugin += G_pCApp->m_pCMedicaBase->Medica_PosologieToSimpleText(*it, m_pCMDI_Terrain->GetPoids(), m_pCMDI_Terrain->GetTaille() , (*it).m_MEDICA_POSO_DIVERS);
              }
         }
     }
@@ -3877,11 +4310,13 @@ void DrTux::textColor()
     QPixmap pix( 16, 16 );
     pix.fill( m_LasTextColorChoice );
     m_pActionTextColor->setIconSet( pix );
-
-    QPixmap pix2( 4, 16 );
-    pix2.fill( m_LasTextColorChoice );
-    m_pActionFastTextColor->setIconSet( pix2 );
-
+    QString value;
+    CGestIni::Param_ReadParam(G_pCApp->m_DrTuxParam, "Valerie", "Couleur rapide", &value);   // path editeur de texte non d�fini
+    if (value.length()==0)
+       {QPixmap pix2( 4, 16 );
+        pix2.fill( m_LasTextColorChoice );
+        m_pActionFastTextColor->setIconSet( pix2 );
+       }
 }
 
 //---------------------------------- fast_textColor ----------------------------
@@ -3889,8 +4324,10 @@ void DrTux::textColor()
 */
 void DrTux::fast_textColor()
 {if ( !currentEditor() )                   return;
+ QString value;
+ CGestIni::Param_ReadParam(G_pCApp->m_DrTuxParam, "Valerie", "Couleur rapide", &value);   // path editeur de texte non d�fini
+ if (value.length()) m_LasTextColorChoice = QColor(value);
  if ( !m_LasTextColorChoice.isValid() )    return;
-
     currentEditor()->setColor( m_LasTextColorChoice );
     QPixmap pix( 16, 16 );
     pix.fill( m_LasTextColorChoice );
@@ -4047,27 +4484,11 @@ int DrTux::SauverDossierAvantNouvelleAction(SAVE_Mode mode /*= DrTux::Inquire*/)
      return actionQuit;
 }
 
-//------------------------------ about ---------------------------
-void DrTux::about()
-{   Dlg_AboutDrTux * dlg = new Dlg_AboutDrTux(this, "About_Dial", TRUE);;
-    if (dlg==0) return;
-    dlg->exec();
-    delete dlg;
-}
-
-
-
-//---------------------------------------- aboutQt --------------------------------
-void DrTux::aboutQt()
-{
-    QMessageBox::aboutQt( this, tr(PROG_NAME" par SEVIN Roland avec Qt") );
-}
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////    CREATION DES CMDI    /////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-//------------------------------ CMDI_ChoixPatientCreate  ------------
+//------------------------------ CMDI_ChoixPatientCreate  ------------------------------------------------
 CMDI_ChoixPatient*  DrTux::CMDI_ChoixPatientCreate(const char* num_GUID,          const char* id_doss,
                                                    const char* dossNom ,          const char* dossPrenom, const char* user, QString rubName)
 {
@@ -4285,6 +4706,13 @@ CMDI_Prescription* DrTux::CMDI_PrescriptionCreate (const char* num_GUID,        
     connect( m_pCMDI_Prescription->m_pFormRubPrescription,   SIGNAL( Sign_Renouveler_TTT_Fond()),
              this,                                           SIGNAL( Sign_DrTux_Renouveler_TTT_Fond())
            );
+    //.................. connecter les filles au DrTux.............................................
+    //                   elles pouront envoyer et notifier leur desir de duplication de données
+    //                   de leur rubrique au DrTux qui fera ce que de droit
+    connect( m_pCMDI_Prescription->m_pFormRubPrescription,   SIGNAL( Sign_CreateAllCurrentsTTT()),
+             this,                                           SLOT  ( Slot_CreateAllCurrentsTTT())
+           );
+
     //.................. connecter les filles au DrTux.............................................
     //                   elles pouront envoyer et notifier leur desir d'imprimer
     //                   de leur rubrique au DrTux qui fera ce que de droit

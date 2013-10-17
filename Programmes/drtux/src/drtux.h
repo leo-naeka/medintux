@@ -153,8 +153,17 @@ public:
                           GestionATCD
                         };
     enum SAVE_Mode      { NoInquire = 0,
-                          Inquire   = 1,
+                          Inquire   = 1
                         };
+    enum LAP_Mode      {  Modification     = 1,
+                          NewDocument      = 0,
+                          IS_ALREADY_LAUCH = 2,
+                          IS_NOT_FOUND     = 3,
+                          LAP_NOT_STARTED  = 4,
+                          LAP_STARTED      = 5,
+                          OLD_ORDO_STRUCT  = 6
+                        };
+
     //! Constructor of DrTux.
     /*!
      \sa QMainWindow()
@@ -248,8 +257,8 @@ public:
          ///////////////  METHODES  /////////////////
          ////////////////////////////////////////////
 
-    QSqlDatabase *Get_CIM10_QSqlDatabase(){return m_DataBaseCIM10;};
-    void Set_CIM10_QSqlDatabase(QSqlDatabase *pQSqlDatabase){m_DataBaseCIM10=pQSqlDatabase;};
+    QSqlDatabase *Get_CIM10_QSqlDatabase(){return m_DataBaseCIM10;}
+    void Set_CIM10_QSqlDatabase(QSqlDatabase *pQSqlDatabase){m_DataBaseCIM10=pQSqlDatabase;}
     void SetDefaultDoc();
     int  getCurrentPageID_ByTitle(QTabWidget *pQTabWidget, const QString &title);
     void SetZoom(int zoom);
@@ -288,6 +297,16 @@ public:
                               const QString &local_param,
                               const QString &user);
     void LancerVidal(int delay);
+    QString Lap_RubListExport_Ordo(RUBREC_LIST *pRubList, const QString &path, int modifMode);
+    int     Lap_Lauch(const QString &ordo, const QString &from);
+    void    Lap_StopProcess();
+    QString Lap_getPatientContext(const QString &prescriptions);
+    QString Lap_getPrescripteurContext();
+    QString Lap_ExchangesFilesToDataBlob(QString *p_html =0);
+    //------------------------------ Lap_RemoveExchangeFiles ----------------------
+    /*! \brief efface les fichiers d'echange de ce patient
+    */
+    void    Lap_RemoveExchangeFiles();
     int  isThisDockMenu_Desired(QString name);
     void setStateActivationDockMenu(QAction *pQAction, const QString &dockName, const QString text);
     //......................... menus utilisateurs ...........................................
@@ -321,6 +340,8 @@ public slots:
     void Slot_SauverLesMeubles();
     void recordPathModulesMenus(QString path);
     void Slot_OnGlossaireLocalise();
+    void LapClose();
+    void Slot_LapExited();
     void SlotMakeVisible(const QString&);
     void setZoom8();
     void setZoom9();
@@ -347,6 +368,10 @@ public slots:
     void      DuplicateRecordWithNewDate(RUBREC_LIST::iterator it, QDateTime &qdt, const QString &libelle, const QString &subType);
     CRubRecord*  OnGlossaireFileClicked(const char *path, int mode, int noInquire=0);
     CRubRecord*  AddNewRecordToRubrique(const QString &strData, int typ, const char *path = 0, const QDateTime *pQDateTime = 0, const QString *libelle = 0, const QString *subType = 0, int noInquire =0);
+    //------------------------------ updateAllRubriquesEditorsInRubList ---------------------------------------
+    /*! \brief toutes les données en cours d'édition sont replacées dans la structure de liste , prêtes à etre enregistrées */
+    void      updateAllRubriquesEditorsInRubList();
+    
     void      OnDrTuxSaveRubList();
     void      SetTitle();
     void      recordProfil();
@@ -390,6 +415,9 @@ public slots:
     void Slot_SetDockMenu_Glossaire();
     void Slot_SetDockMenu_RubriquesButton();
     void Slot_SetDockMenu_Organiseur();
+
+    void Slot_CreateAllCurrentsTTT();
+    void Slot_LapAllActivePrescExited();
 
     void setupFileActions();       // cree la barre d'outils et menu lié aux fonctions disque
     void setupTextActions();       // cree la barre d'outils et menu lié aux attributs texte (gras italique etc..)
@@ -469,14 +497,14 @@ private slots:
     void Slot_actionAproposDisplay();
     void tryToStopAPropos();
     void filePrint();
-    void about();
-    void aboutQt();
 
 private:
     QSqlDatabase *m_DataBaseCIM10;
     int           m_CCAM_Run;
     QString       m_PluginRun;
     QProcess     *m_Apropos_Proc;
+    QProcess     *m_Lap_Proc;
+
     //.................. menus optionnels utilisateurs.....................
     ThemePopup        *m_Custom_Menu;
     QToolBar          *m_Custom_ToolBar;

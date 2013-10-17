@@ -314,8 +314,8 @@ QString CGenTools::strToIsoStrDateTime(const QString &date, QString *pDate  /* =
  int   i = -1;
  QString str;
  QString hh,mm,ss,uu;
- while (++i < end) 
-       {if (  (date[i]>='0' && date[i]<='9') ) 
+ while (++i < end)
+       {if (  (date[i]>='0' && date[i]<='9') )
            {str += date[i];
            }
        }
@@ -335,15 +335,24 @@ QString CGenTools::strToIsoStrDateTime(const QString &date, QString *pDate  /* =
  if (pDate)  *pDate = str;
  return str+"T"+hh;
 }
-
+//------------------------------------------ NormaliseDate -----------------------------
+/*! \brief Retourne une date de la forme 12x09xx2007 sous forme 2007-09-12 */
+QDate CGenTools::dd_MM_yyyy_ToDate(const QString &date)
+{return QDate::fromString(NormaliseDate(date), Qt::ISODate);
+}
+//------------------------------------------ NormaliseDate -----------------------------
+/*! \brief Retourne une date de la forme 12x09xx2007 sous forme 2007-09-12 */
+QString CGenTools::dd_MM_yyyy_ToIso(const QString &date)
+{return NormaliseDate(date);
+}
 //------------------------------------------ NormaliseDate -----------------------------
 /*! \brief Retourne une date de la forme 12x09xx2007 sous forme 2007-09-12 */
 QString CGenTools::NormaliseDate(const QString &date)
 {int end = date.length();
  int   i = -1;
  QString str;
- while (++i < end) { 
-                     if (  (date[i]>='0' && date[i]<='9') ) str += date[i]; 
+ while (++i < end) {
+                     if (  (date[i]>='0' && date[i]<='9') ) str += date[i];
                    }
  if (str.length() ==6 )  str.insert ( 4, "20" ); // date forme 011207 --> 01122007
  if (str.length() !=8 )  return TR("format invalide");

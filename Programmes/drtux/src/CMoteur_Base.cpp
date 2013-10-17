@@ -53,7 +53,7 @@
 
 
 #define TR  QObject::tr
-#define VERSION_BASE "02.15.000"
+#define VERSION_BASE "02.16.000"
 #define MAX_READ      32000
 //=============================================== IMPLEMENTATION =====================================================
 //-----------------------------------------------------  CMoteurBase -------------------------------------------
@@ -646,6 +646,8 @@ int CMoteurBase::SetConfBase(const char* confFile, QString *errMess)
   pt = SetConfBase_SetProperties(pt,   m_USER_IDENT_DROITS,        "USER_IDENT_DROITS",           &line , err); if (err.length())     goto SetConfBase_Error;
   pt = SetConfBase_SetProperties(pt,   m_USER_IDENT_SEXE,          "USER_IDENT_SEXE",             &line , err); if (err.length())     goto SetConfBase_Error;
   pt = SetConfBase_SetProperties(pt,   m_USER_IDENT_NUM_ORDRE,     "USER_IDENT_NUM_ORDRE",        &line , err); if (err.length())     goto SetConfBase_Error;
+  pt = SetConfBase_SetProperties(pt,   m_USER_IDENT_NUM_RPPS,      "USER_IDENT_NUM_RPPS",         &line , err); if (err.length())     goto SetConfBase_Error;
+  pt = SetConfBase_SetProperties(pt,   m_USER_IDENT_CLEF_RPPS,     "USER_IDENT_CLEF_RPPS",        &line , err); if (err.length())     goto SetConfBase_Error;
   pt = SetConfBase_SetProperties(pt,   m_USER_IDENT_PRIMKEY,       "USER_IDENT_PRIMKEY",          &line , err); if (err.length())     goto SetConfBase_Error;
   pt = SetConfBase_SetProperties(pt,   m_USER_IDENT_GUID,          "USER_IDENT_GUID",             &line , err); if (err.length())     goto SetConfBase_Error;
   pt = SetConfBase_SetProperties(pt,   m_USER_IDENT_CONVENTION,    "USER_IDENT_CONVENTION",       &line , err); if (err.length())     goto SetConfBase_Error;
@@ -1710,7 +1712,7 @@ QStringList CMoteurBase::PatientIntervenantsGetData(const QString &qualite, cons
 }
 
 //-------------------------------------- PatientIntervenantsGetData ----------------------------------------------------------------------------
-void CMoteurBase::PatientIntervenantsGetData(const char *primKeyPat , QStringList &intervList, const QString &specialite, const char *validStr, const char *decalage) //Médecin généraliste
+void CMoteurBase::PatientIntervenantsGetData(const char *primKeyPat , QStringList &intervList, const QString &specialite, const char *validStr, const char *decalage) //Médecin generaliste
 { QStringList pkIntervList;
   //................. Preparer la requete .....................................
   if (OpenBase()==0)  return ;
@@ -2328,8 +2330,7 @@ QString  CMoteurBase::GetUserPrimKeyFromNumOrdre(QString nir, QString droit /* =
   if (query.isActive())
      {while (query.next())
            {QString numOrdre = query.value( 1 ).toString();
-            numOrdre         = numOrdre.remove(' ').left(8);
-            if (numOrdre == nir.left(8))
+            if (numOrdre.remove(' ').startsWith(nir))
                {if (nbField)
                    {pFiedList->clear();
                     for ( i = 0; i < nbField; ++i ) pFiedList->append(query.value( 2+i ).toString());
@@ -2342,6 +2343,7 @@ QString  CMoteurBase::GetUserPrimKeyFromNumOrdre(QString nir, QString droit /* =
   CloseBase();
   return ret;
 }
+
 //-----------------------------------------------------  GetUserPrimKeyFromGUID -------------------------------------------
 QString  CMoteurBase::GetUserPrimKeyFromGUID(const QString &guid)
 { //................. Preparer la requete .....................................
@@ -3126,7 +3128,8 @@ QString CMoteurBase::CreateNewUser(const QString &nom,
                                    const QString &login,
                                    const QString &droit /*="med" */,
                                    const QString &pass/*=""*/,
-                                   const QString &nir/*=""*/ )
+                                   const QString &nir/*=""*/
+                                  )
 { //................................. methode QSqlCursor .....................................
   //                         ne pose pas de PB avec valeur avec une apostrophe
   QString ok("");
@@ -3149,8 +3152,6 @@ QString CMoteurBase::CreateNewUser(const QString &nom,
       buffer->setValue(  m_USER_IDENT_PASSWORD, pass_cripted);                   // y placer les données
      }
   if (nir.length())buffer->setValue(   m_USER_IDENT_NUM_ORDRE,  nir);                    // y placer les données
-
-
   if (cur.insert()) ok = guid;                                    // ecrire le buffer
 
   if (ok=="") OutSQL_error(cur, "CreateNewUser()");
@@ -3880,7 +3881,114 @@ int CMoteurBase::Evnmt_EraseAllFils(EVNT_LIST *pEvnmtList, const QString &evnmt_
 //************************************************************************************************************************
 //=================================== GESTION DE LA LISTE DES RUBRIQUES ==================================================
 //************************************************************************************************************************
-
+//-------------------------------------------- save_ListAtcd ---------------------------------------------------------
+int CMoteurBase::save_ListAtcd(const QString &pkDoss,
+                                const QString &guidDoss,
+                                const QString &user,
+                                const QString &sign_user,
+                                const QString tableName,
+                                QListView*   listView_ATCD)
+{ //................. parcourir tous les items et les selectionner ............
+  QString requete = QString (" DELETE FROM %2 WHERE %2_ref_human_pk='%1'").arg(pkDoss, tableName);
+  QSqlQuery query(requete , m_DataBase );
+  int n = 0;
+  //......................... on renseigne la liste ...................................
+  QString prepare  =      QString  (" INSERT INTO %1( "
+                                     "%1_owner,"        // 0
+                                     "%1_lang,"         // 1
+                                     "%1_status,"       // 2
+                                     "%1_human_guid,"   // 3
+                                     "%1_ref_human_pk," // 4
+                                     "%1_sign_user,"    // 5
+                                     "%1_user,"         // 6
+                                     "%1_datedeb,"      // 7
+                                     "%1_datefin,"      // 8
+                                     "%1_libelle,"      // 9
+                                     "%1_code,"         // 10
+                                     "%1_code_type,"    // 11
+                                     "%1_level,"        // 12
+                                     "%1_classe,"       // 13
+                                     "%1_note, "        // 14
+                                     "%1_ald "          // 15
+                                     ") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)").replace("%1",tableName);
+   QSqlQuery queryInsert(QString::null , m_DataBase );
+   QListViewItemIterator it( listView_ATCD );
+   while ( it.current() )
+       { queryInsert.prepare(prepare);
+         CPrtQListViewItem* pCPrt = (CPrtQListViewItem*)it.current();
+         QString code = pCPrt->text(6);
+         if ( tableName=="allergies")
+            { if (!code.startsWith("(")) {++it;continue;}
+            }
+         else
+            { if ( code.startsWith("(")) {++it;continue;}
+            }
+         queryInsert.bindValue(0,  "MDT");                   // 0 owner
+         queryInsert.bindValue(1,  "FR");                    // 1 lang
+         queryInsert.bindValue(2,  pCPrt->text(2));          // 2 statut
+         queryInsert.bindValue(3,  guidDoss);                // 3 guid
+         queryInsert.bindValue(4,  pkDoss);                  // 4 pk
+         queryInsert.bindValue(5,  sign_user);               // 5 sign_user
+         queryInsert.bindValue(6,  user);                    // 6 user
+         //................ les dates de debut ...........................
+         QString date = CGenTools::NormaliseDate(pCPrt->text(4)) ;
+         QDate                     dateDeb = QDate::fromString(date,Qt::ISODate);
+         if (! dateDeb.isValid ()) dateDeb = QDate::currentDate().addDays (-2);
+         //................ les dates de fin ...........................
+         //                 pCPrt->text(2) = soit 'date au format dd-MM-yyyy' 'Passé' 'Actif'
+         QDate  dateEnd;
+         if (pCPrt->text(2).upper()[0]=='P')                // passe mais date de fin non fixee
+            {dateEnd = QDate::currentDate().addDays (-1);   // on met une date de fin valide anterieure a ce jour ==> atcd inactif
+            }
+         else if (pCPrt->text(2).upper()[0]=='A')           // actif mais date de fin non fixee
+            {dateEnd = QDate();                             // on met une date de fin invalide donc non determinee  ==> atcd encore actif
+            }
+         else    // peut etre il y a une date valide
+            { date      = CGenTools::NormaliseDate(pCPrt->text(2));
+              dateEnd   = QDate::fromString(date,Qt::ISODate);
+              if (! dateDeb.isValid())  dateEnd = QDate(); // on met une date de fin invalide donc non determinee  ==> atcd encore actif
+            }
+         queryInsert.bindValue(7,  dateDeb);                 // 7 date deb
+         queryInsert.bindValue(8,  dateEnd);                 // 8 date end
+         queryInsert.bindValue(9,  pCPrt->text(0));          // 9 libelle
+         //.................. code de l'atcd ou allergie ........................................
+         if (code.startsWith("-("))
+            { queryInsert.bindValue(10, code.remove('-').remove('(').remove(')') );     // 10 code
+              queryInsert.bindValue(11, "CISP" );                                       // 11 code type
+            }
+         else if (code.startsWith("(-"))
+            { queryInsert.bindValue(10, code.remove('-').remove('(').remove(')') );     // 10 code
+              queryInsert.bindValue(11, "CIP" );                                        // 11 code type
+            }
+         else if (code.startsWith("~"))
+            { queryInsert.bindValue(10, code.remove('~') );                             // 10 code
+              queryInsert.bindValue(11, "CIM" );                                        // 11 code type
+            }
+         else if (code.startsWith("(."))
+            { queryInsert.bindValue(10, code.remove("(.").remove(".)") );               // 10 code
+              queryInsert.bindValue(11, "ATC" );                                        // 11 code type
+            }
+         else if (code.startsWith("("))
+            { queryInsert.bindValue(10, code.remove('(').remove(')') );                 // 10 code
+              queryInsert.bindValue(11, "VID_ALRG" );                                   // 11 code type
+            }
+         else
+            { queryInsert.bindValue(10, "" );                                           // 10 code
+              queryInsert.bindValue(11, "MD" );                                         // 11 code type
+            }
+         queryInsert.bindValue(12, "");                                                 // 12 level
+         queryInsert.bindValue(13, pCPrt->text(1).replace("(","[").replace(")","]"));   // 13 classe Chirurgical(vasculaire)                    //
+         queryInsert.bindValue(14, pCPrt->text(3));                                     // 14 commentaire
+         queryInsert.bindValue(15, pCPrt->text(5));                                     // 15 A/ald  S/relatif au sport
+         if ( !queryInsert.exec())
+            { OutSQL_error(queryInsert, "CMoteurBase::save_ListAtcd()" , prepare /*=0*/);
+              return 0;
+            }
+        ++n;
+        ++it;
+       }
+    return n;
+}
 
 //-------------------------------------------- GetPkDoc_Provisoire ---------------------------------------------------------
 QString  CMoteurBase::GetPkDoc_Provisoire(RUBREC_LIST *pRubList)
@@ -3930,7 +4038,7 @@ long  CMoteurBase::initRubriquesList(RUBREC_LIST *pRubList, QString numGUID, con
  requete +=  m_DOSS_RUB_HEAD_TBL_NAME               + " WHERE ";
  if (sqlFilter.length()) requete += "( "+ sqlFilter + ") AND (";
  requete +=  m_DOSS_RUB_HEAD_GUID                   + "='"     + numGUID   + "'";
- if (sqlFilter.length()) requete +=       sqlFilter + "      )";
+ if (sqlFilter.length()) requete +=       sqlFilter + "      ) AND  " + m_DOSS_RUB_HEAD_TYPE + " != '20110010' AND " + m_DOSS_RUB_HEAD_TYPE + " != '20110011' ";
  requete += " ORDER BY ";                               //RbDate_Date RbDate_TypeRub='20030000'
  requete +=  m_DOSS_RUB_HEAD_DATE;
 
@@ -4153,16 +4261,17 @@ void  CMoteurBase::ReplaceDataInRubList(const char* text, long len_data, RUBREC_
 
  QString debugStr;
  if (m_Debug)
-    {debugStr += QString("----------------- ReplaceDataInRubList() AVANT ACTION : vidage RUBREC_LIST --- id %1 -------------\n").arg(QString::number(id));
+    {CGestIni::Param_UpdateFromDisk("./ReplaceDataInRubList-txtbefore.txt", debugStr);
+     debugStr += QString("----------------- ReplaceDataInRubList() AVANT ACTION : vidage RUBREC_LIST --- id %1 date %2-------------\n").arg(QString::number(id), QDateTime::currentDateTime().toString("dd-MM-yyyy hh:mm:ss"));
      debugStr += pRubList->serialize(0)   + "\n";
-     CGestIni::Param_UpdateToDisk("/home/ro/ReplaceDataInRubList-txtbefore.txt",debugStr);
+     CGestIni::Param_UpdateToDisk("./ReplaceDataInRubList-txtbefore.txt",debugStr);
     }
  (*it).SetData (text, len_data);
 if (m_Debug)
-    {debugStr += "----------------- ReplaceDataInRubList() APRES ACTION : vidage RUBREC_LIST ----------------\n";
+    {debugStr += QString("----------------- ReplaceDataInRubList() APRES ACTION : vidage RUBREC_LIST --- id %1 date %2-------------\n").arg(QString::number(id), QDateTime::currentDateTime().toString("dd-MM-yyyy hh:mm:ss"));
      debugStr += pRubList->serialize(0)   + "\n";
-     CGestIni::Param_UpdateToDisk("/home/ro/ReplaceDataInRubList.log",debugStr);
-     CGestIni::Param_UpdateToDisk("/home/ro/ReplaceDataInRubList-txtAfter.txt",debugStr);
+     CGestIni::Param_UpdateToDisk("./ReplaceDataInRubList.log",debugStr);
+     CGestIni::Param_UpdateToDisk("./ReplaceDataInRubList-txtAfter.txt",debugStr);
     }
 }
 
@@ -4650,6 +4759,18 @@ int  CMoteurBase::RubListUpdate(RUBREC_LIST::iterator it, int /*mode = CMoteurBa
   CloseBase();
 
   */
+
+  if ( (*it).m_Type  == 20110010  || (*it).m_Type== 20110011) 
+     {
+       QString debugStr = "";
+       if (m_Debug)
+          {CGestIni::Param_UpdateFromDisk("./ReplaceDataInRubList-txtbefore.txt", debugStr);
+           debugStr += QString("----------------- RubListUpdate 2011()  %1-------------\n").arg(QDateTime::currentDateTime().toString("dd-MM-yyyy hh:mm:ss"));
+           debugStr += (*it).serialize(1)+ "\n";
+           CGestIni::Param_UpdateToDisk("./ReplaceDataInRubList-txtbefore.txt",debugStr);
+          }
+        return FALSE;
+     }
   //................................. methode QSqlCursor .....................................
   //                         ne pose pas de PB avec valeur avec une apostrophe
   int ok  = FALSE;

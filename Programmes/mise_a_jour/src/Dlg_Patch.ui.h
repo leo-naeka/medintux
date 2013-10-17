@@ -329,7 +329,7 @@ if (tablesList.findIndex (m_pCMoteurBase->m_DOSS_RUB_HEAD_TBL_NAME )==-1)
 m_pCMoteurBase->GetMedinTuxVersion(val);   // fait plus grande valeur de  "SELECT NumVers FROM version "
 int lastVersion   = normaliseVersion(val);
 int resultVersion = 0;
-while (lastVersion < 215000)
+while (lastVersion < 216000)
  {//...................................................................... V0 ==> V1 .......................................
   /*
   if (lastVersion == QString("0").toDouble())
@@ -775,6 +775,35 @@ while (lastVersion < 215000)
 
      //............. verifions si l'upgrade est passe ..............................
      if (isUpgradeOk(resultVersion , lastVersion , "vers V2.15")==0) return;
+    }
+ if ( lastVersion < 216000 ) /////////////////////////////////////////////////////////////////// V 2.15 //////////////////////////////////
+    {QApplication::setOverrideCursor( QCursor( Qt::WaitCursor ) );
+     textLabelInfo->setText(tr("MedinTux vers version 2.16.000 en cours ..."));
+     QString     v;
+     //..................................Ouverture base patient ........................................
+     if ( ! (m_pCMoteurBase->OpenBase()==0))
+        {QSqlQuery query(QString::null, m_pCMoteurBase->m_DataBase);
+         qDebug(query.lastError().text());
+         //................... mise à jour SQL ...............................................................
+         QString sql_txt;
+         CGestIni::Param_UpdateFromDisk(m_PathAppli + "Ressources/Vers-2.16/DrTuxTestUpdates.sql", sql_txt );
+         QStringList queryList = QStringList::split(";",sql_txt);
+         for (int i=0; i<queryList.size(); ++i)
+             { sql_txt = queryList[i];
+               query.exec(sql_txt);
+               qDebug(query.lastError().text());
+             }
+         //................... droits .................................................
+         if (QFile::exists(m_PathAppli + "Ressources/Vers-2.16/droitsToAdd.txt"))
+            {QString droitsToAdd;
+             CGestIni::Param_UpdateFromDisk(m_PathAppli + "Ressources/Vers-2.16/droitsToAdd.txt", droitsToAdd );
+             AddDroitsToAllUser(query, droitsToAdd, 3);
+            }
+         m_pCMoteurBase->CloseBase();
+        }
+
+     //............. verifions si l'upgrade est passe ..............................
+     if (isUpgradeOk(resultVersion , lastVersion , "vers V2.16")==0) return;
     }
  } // end while
 //////////////////////////////////////////////////////////////////////////////////////////////////////

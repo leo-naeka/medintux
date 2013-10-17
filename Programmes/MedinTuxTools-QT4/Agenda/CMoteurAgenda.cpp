@@ -770,6 +770,40 @@ QString CMoteurAgenda::RDV_Create(const C_RendezVous &rendezVous, QString *errMe
   QString ret  = "";
   //............... ouvrir la base .......................................................
   if (OpenBase()==0) {if (errMess) *errMess = "CMoteurAgenda::RDV_Create(): database can't be opened";              return FALSE; }
+  // ---CZ 06082012 deb-------------------------------------------------------------------
+  // AJOUT D'UN CONTROLE DE l'EXISTENCE D'UN RDV A CETTE HEURE
+      QDateTime   dateRDVdeb, dateRDVfin, dateNewRDVdeb, dateNewRDVfin;
+      QString     requetea, sdateNewRDVdeb, sdateNewRDVfin;
+      dateNewRDVdeb  = rendezVous.m_date;
+      dateNewRDVfin  = dateNewRDVdeb.addSecs( ((int)rendezVous.m_Duree * 60));
+      sdateNewRDVdeb = dateNewRDVdeb.toString("yyyy-MM-dd 00:00:00");
+      sdateNewRDVfin = dateNewRDVfin.toString("yyyy-MM-dd hh:mm:ss");
+      requetea = "SELECT "     + m_AGENDA_DATETIME    + ","
+                               + m_AGENDA_DUREE       + ","
+                               + m_AGENDA_NOM         + ","
+                               + m_AGENDA_PRENOM      +
+                 " FROM "      + m_AGENDA_TBL_NAME    +
+                 " WHERE "     + m_AGENDA_PRIS_AVEC   + " = '" + rendezVous.m_PrisAvec +
+                 "' AND "      + m_AGENDA_DATETIME    + " > '" + sdateNewRDVdeb      +
+                 "' AND "      + m_AGENDA_DATETIME    + " < '" + sdateNewRDVfin      + "'";
+      QSqlQuery querya (requetea , QSqlDatabase::database(m_BaseLabel) );
+      if (querya.isActive())
+         {  while (querya.next())
+                {dateRDVdeb = QDateTime::fromString(querya.value(0).toString(),"yyyy-MM-ddThh:mm:ss");
+                 dateRDVfin = dateRDVdeb.addSecs( querya.value(1).toInt() * 60);
+                 if ( dateNewRDVdeb > dateRDVdeb && dateNewRDVdeb < dateRDVfin ||
+                      dateNewRDVfin > dateRDVdeb && dateNewRDVfin < dateRDVfin)
+                    {int ret = QMessageBox::warning ( (QWidget*)parent(), tr("New appointement"),
+                               tr( "Il y a d\303\251j\303\240 un rendez-vous \303\240 cette date pour : \n\n") + querya.value(2).toString()  + " " + querya.value(3).toString()  +
+                               tr("\n\nVoulez-vous continuer ?") , tr("&Continuer"), tr("&Abandonner"), 0, 1, 1);
+                     if (ret==1)
+                        { CloseBase();
+                          return ("");
+                        }
+                  }
+              }
+          }
+  //-FIN CZ 06082012---------------------------------------------------------------------
 
   QSqlQuery query(QSqlDatabase::database(m_BaseLabel));
   QString prepare  = "INSERT INTO ";
@@ -1053,8 +1087,6 @@ QString CMoteurAgenda::OutSQL_error(const QSqlError &error, const char *messFunc
 #define DOSS_INDEX_PRENOM       "FchGnrl_Prenom"
 #define DOSS_INDEX_PRIM_KEY     "ID_PrimKey"
 #define DOSS_INDEX_GUID         "FchGnrl_IDDos"
-
-
 #define DOSS_IDENT_TBL_NAME     "fchpat"
 #define DOSS_IDENT_REF_PK       "FchPat_RefPk"
 #define DOSS_IDENT_GUID         "FchPat_GUID_Doss"

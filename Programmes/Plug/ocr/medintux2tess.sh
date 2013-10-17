@@ -19,7 +19,7 @@
 # {{::exe_process (WaitEnd,../../Plug/OCR/medintux2tess.sh,LastScanned.tif,LastScanned,-l fra,$ToAbsPath../../tmp$EndToAbsPath/,nodebug)}}\
 # {{::import (../../tmp/LastScanned.txt , insert)}}
 
-
+export TESSDATA_PREFIX=/usr/local/share/
 ERRORLOG="medintux2tess.log"  # file where STDERR goes
 
 TEMP_DIR=$4
@@ -44,6 +44,8 @@ echo $1>&2
 echo $2>&2
 echo $3>&2
 echo $4>&2
+echo "------------ environnement-----------------">&2
+echo "TESSDATA_PREFIX="$TESSDATA_PREFIX>&2
 echo "------------ fichiers-----------------">&2
 echo "Rep. Temp   : "$TEMP_DIR>&2
 echo "Fichier tif : "$TEMP_DIR""$TIF_FILE>&2

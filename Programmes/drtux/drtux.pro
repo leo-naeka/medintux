@@ -1,7 +1,7 @@
-# Fichier généré par le module QMake de KDevelop. 
+# Fichier gï¿½nï¿½rï¿½ par le module QMake de KDevelop. 
 # -------------------------------------------------- 
-# Sous dossier relatif au dossier principal du projet : .
-# Cible : un sous-dossier du projet 
+# Sous dossier relatif au dossier principal du projetï¿½: .
+# Cible : un sous-dossier du projet
 
 CONFIG += release \
           warn_on \

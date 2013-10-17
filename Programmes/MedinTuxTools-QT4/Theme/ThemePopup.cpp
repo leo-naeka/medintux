@@ -51,7 +51,25 @@ ThemePopup::ThemePopup(QWidget * parent/*=0*/ , const QString & style /*=""*/)
        }
   }
 }
-
+//------------------------ addOptionMenu ---------------------------------------
+void ThemePopup::addOptionMenu(QMenu* pQMenu, const QString &optionsTitle)
+{   if (optionsTitle.startsWith("----"))
+       { pQMenu->addSeparator();
+       }
+    else
+       { QAction *pQAction = 0;
+         QString      num  = "";
+         QString    title  = optionsTitle;
+         int pos           = title.indexOf('-');
+         if (pos != -1)
+            { num   = title.left(pos).trimmed();
+              title = title.mid(pos+1).trimmed();
+            }
+         pQAction = pQMenu->addAction(title);
+         pQAction->setObjectName( tr("%1 menu ").arg(pQMenu->objectName()+"@"+title));
+         pQAction->setData(num);
+       }
+}
 //--------------------------------- ThemePopup -----------------------------------------------------
 ThemePopup::ThemePopup(QStringList &list, QWidget * parent/*=0*/ , const QString & style /*=""*/, const QString& sep /*= "|"*/, int toMask /*= 0*/ )
  : QMenu(parent)
@@ -75,7 +93,7 @@ ThemePopup::ThemePopup(QStringList &list, QWidget * parent/*=0*/ , const QString
      { QString toInsert    = *(it);
        QAction *pQAction   = 0;
        QString identifiant = "";
-       if (sep.length())        // si chaque item de la liste est composée de plusieurs termes separes par un separateur
+       if (sep.length())        // si chaque item de la liste est composee de plusieurs termes separes par un separateur
           {if (toMask > 0)      // si l'on doit masquer les champs situes apres toMask
               {int   i = 0;
                int pos = 0;

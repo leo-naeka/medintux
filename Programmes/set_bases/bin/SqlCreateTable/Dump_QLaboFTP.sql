@@ -1,6 +1,6 @@
 -- MySQL dump 10.2
 --
--- Host: localhost    Database: QLaboFTP
+-- Host: localhost    Database: qlaboftp
 ---------------------------------------------------------
 -- Server version	4.1.0-alpha-log
 
@@ -11,7 +11,7 @@
 DROP TABLE IF EXISTS `examens`;
 CREATE TABLE `examens` (
   `ref_prim_key_Patient` bigint(20) default '0',
-  `hprim_line` varchar(224) default '',
+  `hprim_line` varchar(254) default '',
   `prim_key` bigint(20) NOT NULL auto_increment,
   PRIMARY KEY  (`prim_key`)
 ) TYPE=MyISAM CHARSET=latin1;
@@ -60,6 +60,7 @@ CREATE TABLE `patients` (
   `dateExamen` varchar(14) default '',
   `heureExamen` varchar(4) default '',
   `HprimSep` varchar(8) NOT NULL default '',
+  `fileNameRef` varchar(64) default '',
   `definitionExamen` varchar(40) NOT NULL default '',
   `prim_key` bigint(20) NOT NULL auto_increment,
   PRIMARY KEY  (`prim_key`)

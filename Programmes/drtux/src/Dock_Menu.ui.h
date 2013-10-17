@@ -18,6 +18,7 @@
 #include "../../../MedinTuxTools/CGestIni.h"
 #include "../../../MedinTuxTools/CPrtQListViewItem.h"
 #include "../../MedinTuxTools/Theme.h"  // Gestion du thème de l'appli
+#include "CMDI_ChoixPatient.h"
 
 #include "C_Atcd.h"
 #include "C_Var.h"
@@ -393,7 +394,11 @@ void Dock_Menu::init()
   but_ZoomMinus->setPixmap              (Theme::getIcon("16x16/viewmag-.png"));
   but_ZoomDefault->setPixmap            (Theme::getIcon("16x16/viewmag1.png"));
   but_NewIdent->setPixmap               (Theme::getIcon("16x16/patients.png") );
-  textLabel1->hide();
+  if ( ! (QFile::exists (  "/home/ro/MedinTuxRo.txt" ) &&   G_pCApp->IsThisDroitExist( G_pCApp->m_Droits, G_pCApp->m_mapNameRubInfos[CMDI_ChoixPatient::S_GetRubName()]+"v")) )
+     {  textLabel1->hide();
+        m_LineEdit_ToSearch->hide();
+        but_NewIdent->hide();
+     }
   connect( m_ListView_AccesRapide, SIGNAL( doubleClicked(QListViewItem*,const QPoint&,int) ), this, SLOT( listView_AccesRapide_doubleClicked(QListViewItem*,const QPoint&,int) ) );
 
 }
@@ -1662,20 +1667,35 @@ void Dock_Menu::ATCD_createPopup(ThemePopup* pPopup, CPrtQListViewItem* pCPrt)
                            );
         }
         // Gestion de la date de l'ATCD
-        if (m_pAtcd_Element_Selected->m_Date.isValid() )
+        if (m_pAtcd_Element_Selected->m_DateDeb.isValid() )
         { pPopup->insertItem( Theme::getIconListDateTime(),
                              QString(TR("En date du %1 (Modifier)"))
-                                .arg(m_pAtcd_Element_Selected->m_Date.toString("dd MMM yyyy")),
+                                .arg(m_pAtcd_Element_Selected->m_DateDeb.toString("dd MMM yyyy")),
                              this, SLOT ( ATCD_modifyDate() )
                            );
         }
         else
         { if ((m_IsModifiable!=0) && ((m_Droits_All) || (m_Droits_Modif_ATCD)) )
              pPopup->insertItem( Theme::getIconListDateTime(),
-                             TR("Définir une date"),
-                             this, SLOT ( ATCD_modifyDate() )
+                             TR("Définir une date de début"),
+                             this, SLOT ( ATCD_modifyDateDeb() )
                            );
         }
+        if (m_pAtcd_Element_Selected->m_DateFin.isValid() )
+        { pPopup->insertItem( Theme::getIconListDateTime(),
+                             QString(TR("Terminé le %1 (Modifier)"))
+                                .arg(m_pAtcd_Element_Selected->m_DateFin.toString("dd MMM yyyy")),
+                             this, SLOT ( ATCD_modifyDateFin() )
+                           );
+        }
+        else
+        { if ((m_IsModifiable!=0) && ((m_Droits_All) || (m_Droits_Modif_ATCD)) )
+             pPopup->insertItem( Theme::getIconListDateTime(),
+                             TR("Définir une date de fin"),
+                             this, SLOT ( ATCD_modifyDateFin() )
+                           );
+        }
+
         // Gestion du commentaire
         if (m_pAtcd_Element_Selected->m_Commentaire != "")
         { pPopup->insertItem( Theme::getIcon(("16x16/commentaire.png")),
@@ -1690,20 +1710,6 @@ void Dock_Menu::ATCD_createPopup(ThemePopup* pPopup, CPrtQListViewItem* pCPrt)
                                  this, SLOT(ATCD_modifyCommentaire() )
                                );
         }
-        // Gestion de l'état
-        if (m_pAtcd_Element_Selected->m_Etat == 0) // Gueri
-        { pPopup->insertItem(        Theme::getIcon("16x16/listok.png"),
-                                TR("Guéri - Définir comme Actif"),
-                                this, SLOT( ATCD_changeEtat() )
-                             );
-         }
-        else
-        { pPopup->insertItem(        Theme::getIconListWarning(),
-                                TR("Actif - Définir comme Guéri"),
-                                this, SLOT( ATCD_changeEtat() )
-                             );
-        }
-
         // Gestion des rubriques
         if ((m_IsModifiable!=0) && ((m_Droits_All) || (m_Droits_Modif_ATCD)) )
         { ATCDRubriques_createPopup( pPopup );
@@ -1766,31 +1772,28 @@ void Dock_Menu::ATCD_eraseIt()
 }
 
 
-//------------------------------------------- ATCD_changeEtat ----------------------------------------
-/*! \brief Connecte avec Atcd_Code la modification de l'état de l'antécédent sélectionné.
-*/
-void Dock_Menu::ATCD_changeEtat()
-{ if (m_IsModifiable==0)                           return;
-  if (!((m_Droits_All) || (m_Droits_Modif_ATCD)) ) return;
-  if (!m_pAtcd_Code)                               return;
-  if (!m_pAtcd_Element_Selected)                   return;
-  m_pAtcd_Code->changeEtat(m_pAtcd_Element_Selected);
-  // L'affichage se remet �  jour grâce au signal de Atcd_Code.
-}
-
-
 //------------------------------------------- ATCD_modifyDate ----------------------------------------
 /*! \brief Connecte avec Atcd_Code laq modification de la date de l'antécédent sélectionné.
 */
-void Dock_Menu::ATCD_modifyDate()
+void Dock_Menu::ATCD_modifyDateDeb()
 { if (m_IsModifiable==0)                           return;
   if (!((m_Droits_All) || (m_Droits_Modif_ATCD)) ) return;
   if (!m_pAtcd_Code)                               return;
   if (!m_pAtcd_Element_Selected)                   return;
-  m_pAtcd_Code->modifyDate((QWidget*)this,m_pAtcd_Element_Selected);
+  m_pAtcd_Code->modifyDateDeb((QWidget*)this,m_pAtcd_Element_Selected);
   // L'affichage se remet �  jour grâce au signal de Atcd_Code.
 }
-
+//------------------------------------------- ATCD_modifyDate ----------------------------------------
+/*! \brief Connecte avec Atcd_Code laq modification de la date de l'antécédent sélectionné.
+*/
+void Dock_Menu::ATCD_modifyDateFin()
+{ if (m_IsModifiable==0)                           return;
+  if (!((m_Droits_All) || (m_Droits_Modif_ATCD)) ) return;
+  if (!m_pAtcd_Code)                               return;
+  if (!m_pAtcd_Element_Selected)                   return;
+  m_pAtcd_Code->modifyDateFin((QWidget*)this,m_pAtcd_Element_Selected);
+  // L'affichage se remet �  jour grâce au signal de Atcd_Code.
+}
 //------------------------------------------- ATCD_ald_on() ----------------------------------------
 /*! \brief Connecte avec Atcd_Code laq modification de la date de l'antécédent sélectionné.
 */

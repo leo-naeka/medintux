@@ -83,6 +83,171 @@
                  <property name="orientation">
                   <enum>Qt::Vertical</enum>
                  </property>
+                 <widget class="QTreeWidget" name="listView_Sigems">
+                  <property name="palette">
+                   <palette>
+                    <active>
+                     <colorrole role="Base">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>111</red>
+                        <green>130</green>
+                        <blue>255</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                    </active>
+                    <inactive>
+                     <colorrole role="Base">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>111</red>
+                        <green>130</green>
+                        <blue>255</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                    </inactive>
+                    <disabled>
+                     <colorrole role="Base">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>255</red>
+                        <green>255</green>
+                        <blue>255</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                    </disabled>
+                   </palette>
+                  </property>
+                  <property name="rootIsDecorated">
+                   <bool>false</bool>
+                  </property>
+                  <property name="sortingEnabled">
+                   <bool>true</bool>
+                  </property>
+                  <column>
+                   <property name="text">
+                    <string>Name</string>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>9</pointsize>
+                    </font>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>First name</string>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>9</pointsize>
+                    </font>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>Birth date</string>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>9</pointsize>
+                    </font>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>Num SS</string>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>9</pointsize>
+                    </font>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>Gem rank</string>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>9</pointsize>
+                    </font>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>Qu ayant droit</string>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>9</pointsize>
+                    </font>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>Folder #</string>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>9</pointsize>
+                    </font>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>GUID</string>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>9</pointsize>
+                    </font>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>Occurrence</string>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>9</pointsize>
+                    </font>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>DroitsDeb</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>DroitsFin</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>CAS</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>PK Entree Sigems</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>Date PEC</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>Num_Pat Sigems</string>
+                   </property>
+                  </column>
+                 </widget>
                  <widget class="QTreeWidget" name="listView_Vitale">
                   <property name="palette">
                    <palette>
@@ -1995,6 +2160,121 @@ p, li { white-space: pre-wrap; }
 &lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
 &lt;tr&gt;
 &lt;td style=&quot;border: none;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;====================================== Données du poste de travail =======================================&lt;br /&gt;&lt;/span&gt;Adresse IP&lt;span style=&quot; font-family:'courier';&quot;&gt; &lt;/span&gt;:&lt;span style=&quot; font-family:'courier';&quot;&gt;    &lt;/span&gt;{{IP_ADR}}&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Adresse mac&lt;span style=&quot; font-family:'courier';&quot;&gt; &lt;/span&gt;:&lt;span style=&quot; font-family:'courier';&quot;&gt;  &lt;/span&gt;{{MAC_ADR}}&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#000000;&quot;&gt;Adresse du fichier de configuration&lt;/span&gt;&lt;span style=&quot; font-family:'courier'; color:#000000;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; color:#000000;&quot;&gt;: {{PATH_INI}}&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;========================================================================================================== &lt;br /&gt;Modif RS Manager du 18-04-2013  Version 2.16.008&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;- &lt;/span&gt;&lt;span style=&quot; font-family:'courier'; text-decoration: underline;&quot;&gt;FONCTIONNALITES&lt;/span&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt; : &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;    ° Integration du systeme de gestion des entrees Sigems.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;      compile ces fonctionnalites que si le repertoire.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;      ../../SigEntrees/bin/SigEntreesBases.cfg est present&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;========================================================================================================== &lt;br /&gt;Modif RS Manager du 20-02-2013  Version 2.15.007&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;- &lt;/span&gt;&lt;span style=&quot; font-family:'courier'; text-decoration: underline;&quot;&gt;FONCTIONNALITES&lt;/span&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt; : &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;    ° L'aide en ligne est non modale.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'courier';&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;    ° &lt;/span&gt;&lt;span style=&quot; font-family:'courier'; text-decoration: underline;&quot;&gt;Contrôle de la date de naissance&lt;/span&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt; : dans le champ date de naissance il peut aussi &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;      être saisi un âge (ans-mois) ou (00-mois-jours) ou (00-00-jours)	&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;      La partie année peut être saisie en abrégé 05-06-56 la date de naissance doit&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;      obligatoirement être valide pour être compatible LAP HAS.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;      soit à partir d'un âge aproximatif, soit à partir d'une date de naissance.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;      Ce contrôle peut être désactivé en plaçant dans la section &lt;/span&gt;&lt;span style=&quot; font-family:'courier'; font-weight:600;&quot;&gt;[Manager session]&lt;/span&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt; &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;      du fichier &lt;/span&gt;&lt;span style=&quot; font-family:'courier'; font-weight:600;&quot;&gt;Manager.ini&lt;/span&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;, la clef : &lt;/span&gt;&lt;span style=&quot; font-family:'courier'; font-weight:600;&quot;&gt;Compatibility Lap Has = non&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;      &lt;/span&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic; text-decoration: underline;&quot;&gt;exemple&lt;/span&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt; :&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;      &lt;/span&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;[Manager session]&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;            Compatibility Lap Has = non&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'courier';&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;    ° &lt;/span&gt;&lt;span style=&quot; font-family:'courier'; text-decoration: underline;&quot;&gt;Contrôle du nom&lt;/span&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt; : si le nom est vide, il est demandé de saisir obligatoirement &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;      un nom pour être compatible LAP HAS. Ce contrôle peut être désactivé&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;      en plaçant dans section &lt;/span&gt;&lt;span style=&quot; font-family:'courier'; font-weight:600;&quot;&gt;[Manager session]&lt;/span&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt; du fichier &lt;/span&gt;&lt;span style=&quot; font-family:'courier'; font-weight:600;&quot;&gt;Manager.ini&lt;/span&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;,&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;      la clef : &lt;/span&gt;&lt;span style=&quot; font-family:'courier'; font-weight:600;&quot;&gt;Compatibility Lap Has = non&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;      &lt;/span&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic; text-decoration: underline;&quot;&gt;exemple&lt;/span&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt; :&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;      &lt;/span&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;[Manager session]&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;            Compatibility Lap Has = non&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'courier';&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;    ° &lt;/span&gt;&lt;span style=&quot; font-family:'courier'; text-decoration: underline;&quot;&gt;Contrôle du sexe&lt;/span&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt; : si le sexe est égal à 'I' (indéterminé) il est demandé de choisir &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;      masculin ou féminin. Ce contrôle peut être désactivé en plaçant dans &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;      la section &lt;/span&gt;&lt;span style=&quot; font-family:'courier'; font-weight:600;&quot;&gt;[Manager session]&lt;/span&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt; du fichier &lt;/span&gt;&lt;span style=&quot; font-family:'courier'; font-weight:600;&quot;&gt;Manager.ini &lt;/span&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;, la clef : &lt;/span&gt;&lt;span style=&quot; font-family:'courier'; font-weight:600;&quot;&gt;Sex control = non&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;      &lt;/span&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic; text-decoration: underline;&quot;&gt;exemple&lt;/span&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt; :&lt;/span&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt; &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;      &lt;/span&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;[Manager session]&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;            Sex control = non&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'courier'; font-style:italic;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;    ° &lt;/span&gt;&lt;span style=&quot; font-family:'courier'; text-decoration: underline;&quot;&gt;Contrôle de l'accès concurrent&lt;/span&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt; : bloquer l'accès concurrent des dossiers &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;      en plaçant dans la section &lt;/span&gt;&lt;span style=&quot; font-family:'courier'; font-weight:600;&quot;&gt;[Gestion des dossiers]&lt;/span&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt; &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;      du fichier &lt;/span&gt;&lt;span style=&quot; font-family:'courier'; font-weight:600;&quot;&gt;Manager.ini &lt;/span&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;, la clef : &lt;/span&gt;&lt;span style=&quot; font-family:'courier'; font-weight:600;&quot;&gt;Acces Concurrent = exclusif&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;      &lt;/span&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic; text-decoration: underline;&quot;&gt;exemple&lt;/span&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt; :&lt;/span&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt; &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;      &lt;/span&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;[Gestion des dossiers]&lt;/span&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt; &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;            Acces Concurrent = exclusif&lt;/span&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;&lt;br /&gt;&lt;br /&gt;========================================================================================================== &lt;br /&gt;Modif RS Manager du 02-02-2013  Version 2.15.006&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;- &lt;/span&gt;&lt;span style=&quot; font-family:'courier'; text-decoration: underline;&quot;&gt;FONCTIONNALITES&lt;/span&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt; : &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;    ° nouveau parametre dans &lt;/span&gt;&lt;span style=&quot; font-family:'courier'; font-weight:600;&quot;&gt;Manager.ini&lt;/span&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt; surchargeant toute les autres pour la gestion du&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;      déblocage des bases si : &lt;/span&gt;&lt;span style=&quot; font-family:'courier'; font-weight:600;&quot;&gt;[Manager session]&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier'; font-weight:600;&quot;&gt;                                 Remove Locks = no&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;      alors le déblocage des bases sera interdit sur ce poste. Cela permet de bloquer  &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;      cette possibilité dangereuse au niveau d'un poste de travail quelque soit &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;      le profil utilisateur.			&lt;br /&gt;========================================================================================================== &lt;br /&gt;Modif RS Manager du 10-08-2012  Version 2.15.005&lt;br /&gt;---------------------------------------------------------------------------------------------------------- &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;- &lt;/span&gt;&lt;span style=&quot; font-family:'courier'; text-decoration: underline;&quot;&gt;FONCTIONNALITES&lt;/span&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt; : &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;    ° Gestion de la boite de dialogue d'identification avec détection Majuscules et modes avances &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;      de masquages du mot de passe.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;    ° Gestion des instances uniques par nouvelle entree dans la section :&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;             [Manager session] &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;                   Instance = unique &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;    ° Avertissement lors prise de RDV à la même date.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;    ° Adhésion à la politique de gestion globale de recherche des fichiers de configuration :&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'courier';&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;    ............................... POLITIQUE DE GESTION DES FICHIERS .INI ............................................    &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;    ° -a- &lt;/span&gt;&lt;span style=&quot; font-style:italic; color:#000000;&quot;&gt;Le fichier de configuration est d'abord recherché  : au niveau de l'exécutable,  &lt;/span&gt;&lt;span style=&quot; font-weight:600; font-style:italic; color:#000000;&quot;&gt;nom_de_lexecutable.ini&lt;/span&gt;&lt;span style=&quot; font-style:italic; color:#000000;&quot;&gt;  puis on y  recherche :&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'courier'; font-style:italic; color:#000000;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;        - &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-style:italic; text-decoration: underline; color:#000000;&quot;&gt;Une mention d'indirection de fichier&lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-style:italic; color:#000000;&quot;&gt; du type :&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;            &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-weight:600; font-style:italic; color:#000000;&quot;&gt;[PathIni]&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier'; font-weight:600; font-style:italic;&quot;&gt;                &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-weight:600; font-style:italic; color:#000000;&quot;&gt;RedirectPath =../../IndirectConfig.ini&lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-style:italic; color:#000000;&quot;&gt;   où '&lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-weight:600; font-style:italic; color:#000000;&quot;&gt;IndirectConfig.ini&lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-style:italic; color:#000000;&quot;&gt;' est le fichier dont il sera tenu compte.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'courier'; font-style:italic; color:#000000;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;        - &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-style:italic; text-decoration: underline; color:#000000;&quot;&gt;Une mention d'indirection selon adresse IP ou adresse MAC&lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-style:italic; color:#000000;&quot;&gt; permettant à un poste de travail distant exécutant &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;        &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-style:italic; color:#000000;&quot;&gt;le binaire chargé sur un serveur applicatif de rechercher ses fichiers de configuration dans un répertoire lié &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;        &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-style:italic; color:#000000;&quot;&gt;à son adresse IP ou adresse MAC sur ce serveur d'applicatifs.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;        - &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-style:italic; color:#000000;&quot;&gt;Cette disposition est utile lorsque des postes de travail disk less PXE lancent l'applicatif &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;        &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-style:italic; color:#000000;&quot;&gt;à partir d'un serveur applicatif distant type serveur PXE ou autre.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;        - &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-style:italic; color:#000000;&quot;&gt;Cela permet à chaque poste de travail distant disk less qui ne disposent pas d'espace &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;        &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-style:italic; color:#000000;&quot;&gt;de stokage permanent, de disposer de leur propre fichier de configuration sur le serveur &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;        &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-style:italic; color:#000000;&quot;&gt;applicatif distant.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;        - &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-style:italic; color:#000000;&quot;&gt;Ces espaces sont définis au niveau du serveur applicatif par une syntaxe obéissant aux règles suivantes :&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Courier New,courier'; font-style:italic; color:#000000;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;            ;......... cas d'une indirection selon adresse IP ....................&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'courier'; font-style:italic;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;            &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-weight:600; font-style:italic; color:#000000;&quot;&gt;[PathIni]&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier'; font-weight:600; font-style:italic;&quot;&gt;                &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-weight:600; font-style:italic; color:#000000;&quot;&gt;PathOnIP =  ../../IndirectConfig/ , _ , poste_&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Courier New,courier'; font-weight:600; font-style:italic; color:#000000;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;            ;......... cas d'une indirection selon adresse MAC ....................&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;            ; &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-style:italic; color:#000000;&quot;&gt;ici nous voyons que le séparateur n'est pas indiqué auquel cas celui par défaut, le point sera utilisé&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;            ; de même le préfixe n'étant pas indiqué il ne sera pa utilisé.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Courier New,courier'; font-style:italic; color:#000000;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;            &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-weight:600; font-style:italic; color:#000000;&quot;&gt;[PathIni]&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier'; font-weight:600; font-style:italic;&quot;&gt;                PathOnMacAdr&lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-weight:600; font-style:italic; color:#000000;&quot;&gt; =  ../../IndirectConfig/    &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-style:italic; color:#000000;&quot;&gt; &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'courier'; font-style:italic; color:#000000;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;          &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-style:italic; color:#000000;&quot;&gt;* le premier est le répertoire (peut être indiqué en mode relatif) dans lequel retrouver le répertoire des &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;            &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-style:italic; color:#000000;&quot;&gt;fichiers de configuration d'un poste de travail liés à son adresse IP ou son adresse MAC.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;          * &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-style:italic; color:#000000;&quot;&gt;le deucième paramètre est un séparateur, qui remplacera les points composant l'adresse IP du poste de travail&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;            ou les deux points dans l'adresse MAC (selon  &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-style:italic; color:#000000;&quot;&gt;PathOnIP ou &lt;/span&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;PathOnMacAdr)&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;            exemple : 1&lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-style:italic; color:#000000;&quot;&gt;92.168.100.79 &lt;/span&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;   &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-style:italic; color:#000000;&quot;&gt;l'adresse IP deviendra &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-weight:600; font-style:italic; color:#000000;&quot;&gt;192_168_100_79&lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-style:italic; color:#000000;&quot;&gt; si le séparateur est _&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;            exemple : &lt;/span&gt;00:0C:29:CD:78:F0&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;   &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-style:italic; color:#000000;&quot;&gt;l'adresse MAC deviendra &lt;/span&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;00.0C.29.CD.78.F0&lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-style:italic; color:#000000;&quot;&gt; si le séparateur est . ou non indiqué (point par défaut)&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Courier New,courier'; font-style:italic; color:#000000;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;          *&lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-style:italic; color:#000000;&quot;&gt; le troisième est le préfixe du nom du répertoire des fichiers de configuration liés au poste de travail .&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'courier'; font-style:italic; color:#000000;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;            &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-style:italic; color:#000000;&quot;&gt;Au total le nom du répertoire de configuration lié à un poste distant sera : &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;            &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-style:italic; color:#000000;&quot;&gt;Préfixe + adresse IP ou MAC du poste ( dont les points sont remplacés par le deuxième paramètre, ou si non indiqué un point)&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;            &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-style:italic; color:#000000;&quot;&gt;spécifiant le répertoire dans lequel l'on recherchera les fichiers de configuration qui lui sont liés&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'courier'; font-style:italic; color:#000000;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;            &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-weight:600; font-style:italic; color:#000000;&quot;&gt;../../IndirectConfig/&lt;/span&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;                &lt;/span&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic; color:#000000;&quot;&gt;répertoire global des fichiers de configuration distants&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;                                                 &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-style:italic; color:#000000;&quot;&gt;(le point de départ étant sur le poste du serveur applicatif, le répertoire du binaire exécuté)&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;                        &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-weight:600; font-style:italic; color:#000000;&quot;&gt;poste_192_168_100_79&lt;/span&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;     &lt;/span&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic; color:#000000;&quot;&gt;répertoire des fichiers de configuration d'un poste distant situé à l'adresse IP : &lt;/span&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;1&lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-style:italic; color:#000000;&quot;&gt;92.168.100.79&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;                            &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-weight:600; font-style:italic; color:#000000;&quot;&gt;Manager.ini&lt;/span&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;          &lt;/span&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic; color:#000000;&quot;&gt;les différents fichiers de configuration de ce poste distant&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;                            &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-weight:600; font-style:italic; color:#000000;&quot;&gt;drtux.ini&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;                            &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-weight:600; font-style:italic; color:#000000;&quot;&gt;biogest.ini&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'courier'; font-style:italic; color:#000000;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;    &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-style:italic; color:#000000;&quot;&gt;° &lt;/span&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;-b- &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-style:italic; color:#000000;&quot;&gt;Si echec le fichier de configuration sera recherché en :  &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-weight:600; font-style:italic; color:#000000;&quot;&gt;../../../config/nom_de_lexecutable.ini&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;    &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-style:italic; color:#000000;&quot;&gt;° &lt;/span&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;-c- &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-style:italic; color:#000000;&quot;&gt;Si echec le fichier de configuration sera recherché en :  &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-weight:600; font-style:italic; color:#000000;&quot;&gt;homePath/.organizationName/organizationDomain/nom_de_lexecutable.ini&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;    &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-style:italic; color:#000000;&quot;&gt;° &lt;/span&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;-d- &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-style:italic; color:#000000;&quot;&gt;Si echec le fichier de configuration sera recherché en :  &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-weight:600; font-style:italic; color:#000000;&quot;&gt;../../../config/MedinTuxGlobal.ini&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;    &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-style:italic; color:#000000;&quot;&gt;° &lt;/span&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;-e- &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-style:italic; color:#000000;&quot;&gt;Si echec le fichier de configuration sera recherché en :  &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-weight:600; font-style:italic; color:#000000;&quot;&gt;homePath/.organizationName/organizationDomain/MedinTuxGlobal.ini&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;    &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-style:italic; color:#000000;&quot;&gt;° &lt;/span&gt;&lt;span style=&quot; font-family:'courier'; font-style:italic;&quot;&gt;-f- &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-style:italic; color:#000000;&quot;&gt;Si echec le fichier de configuration sera recherché en :  &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New,courier'; font-weight:600; font-style:italic; color:#000000;&quot;&gt;../../../MedinTuxGlobal.ini&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'courier';&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;========================================================================================================== &lt;br /&gt;Modif RS Manager du 08-03-2012  Version 2.15.004&lt;br /&gt;---------------------------------------------------------------------------------------------------------- &lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;- &lt;/span&gt;&lt;span style=&quot; font-family:'courier'; text-decoration: underline;&quot;&gt;FONCTIONNALITES&lt;/span&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt; : &lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'courier';&quot;&gt;    ° Paramétrage de la taille des polices des graduations verticales&lt;/span&gt;&lt;/p&gt;
@@ -2314,7 +2594,7 @@ p, li { white-space: pre-wrap; }
           <x>0</x>
           <y>0</y>
           <width>205</width>
-          <height>866</height>
+          <height>876</height>
          </rect>
         </property>
         <layout class="QGridLayout">

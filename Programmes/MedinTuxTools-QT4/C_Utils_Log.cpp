@@ -162,7 +162,10 @@ QString C_Utils_Log::removeHtmlTag( const QString &txt)
 }
 
 //=============================================== C_Log ================================================
-C_Log::C_Log(QTextEdit *logWidget /*=0 */)  { setLogWidget(logWidget);}
+C_Log::C_Log(QTextEdit *logWidget /*=0 */)
+{   m_logWidget = 0;
+    setLogWidget(logWidget);
+}
 
 //-------------------------------------------------- outSQL_error -----------------------------------------------
 /*! \brief  display et retrieve last QSqlQuery error
@@ -191,7 +194,7 @@ void     C_Log::outMessage( const QString &mess, const QString &file /* = "" */,
 /*! \brief  initialise class on a QTextEdit logwidget
  *  \param  QTextEdit *logWidget                pointer on the logwidget
 */
-void     C_Log::setLogWidget(QTextEdit *logWidget){ m_logWidget = logWidget; }
+void     C_Log::setLogWidget(QTextEdit *logWidget)  { m_logWidget = logWidget; }
 
 //----------------------------------------------- logWidget ---------------------------------------------------------------------
 /*! \brief  return the QTextEdit logwidget

@@ -1,4 +1,4 @@
-<!DOCTYPE UI><UI version="0.0" stdsetdef="1">
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
 <class>FormRubTerrain</class>
 <widget class="QWidget">
     <property name="name">
@@ -8,7 +8,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>685</width>
+            <width>727</width>
             <height>625</height>
         </rect>
     </property>
@@ -209,7 +209,7 @@
                                             <enum>MenuBarPanel</enum>
                                         </property>
                                         <property name="text">
-                                            <string>Antécédents, intolérances et allergies</string>
+                                            <string>Épisodes de vie, antécédents, intolérances et allergies</string>
                                         </property>
                                         <property name="alignment">
                                             <set>AlignCenter</set>
@@ -242,7 +242,18 @@
                                 </column>
                                 <column>
                                     <property name="text">
-                                        <string>État</string>
+                                        <string>Date de debut</string>
+                                    </property>
+                                    <property name="clickable">
+                                        <bool>true</bool>
+                                    </property>
+                                    <property name="resizable">
+                                        <bool>true</bool>
+                                    </property>
+                                </column>
+                                <column>
+                                    <property name="text">
+                                        <string>Date de fin</string>
                                     </property>
                                     <property name="clickable">
                                         <bool>true</bool>
@@ -264,18 +275,7 @@
                                 </column>
                                 <column>
                                     <property name="text">
-                                        <string>Date</string>
-                                    </property>
-                                    <property name="clickable">
-                                        <bool>true</bool>
-                                    </property>
-                                    <property name="resizable">
-                                        <bool>true</bool>
-                                    </property>
-                                </column>
-                                <column>
-                                    <property name="text">
-                                        <string>ALD</string>
+                                        <string>ALD/Sport</string>
                                     </property>
                                     <property name="clickable">
                                         <bool>true</bool>
@@ -401,7 +401,7 @@
                                             </font>
                                         </property>
                                         <property name="text">
-                                            <string>Date Der. Règles :</string>
+                                            <string>Début de grossesse :</string>
                                         </property>
                                         <property name="buddy" stdset="0">
                                             <cstring>lineEditDateDDR</cstring>
@@ -788,29 +788,31 @@
     <include location="local" impldecl="in implementation">RubTerrain.ui.h</include>
 </includes>
 <variables>
-    <variable access="public">int m_Selected_Id_RubList;</variable>
-    <variable access="public">QMap&lt;int, ThemePopup* &gt; m_PopupHeadMap;</variable>
-    <variable access="public">bool m_IsAllDroitsOn;</variable>
-    <variable access="public">int m_IsModifiable;</variable>
-    <variable access="public">int m_LastRub;</variable>
-    <variable access="public">QPtrList&lt;CMyQTable&gt; m_ptrListQTableVar;</variable>
-    <variable access="public">QPL_CPosologie m_OrdoList;</variable>
-    <variable access="public">QListViewItem *m_pQListViewItem ;</variable>
-    <variable access="public">RUBREC_LIST *m_pRubList;</variable>
-    <variable access="public">QString m_DossPrenom;</variable>
-    <variable access="public">QString m_DossNom;</variable>
-    <variable access="public">QString m_ID_Doss;</variable>
-    <variable access="public">CMoteurBase* m_pCMoteurBase;</variable>
-    <variable access="public">QString m_NumGUID;</variable>
-    <variable access="public">QScrollView* m_pQScrollView;</variable>
-    <variable access="public">CBigShrinker *m_pCBigShrinker;</variable>
-    <variable access="public">QVBoxLayout *m_pLayout_VAR;</variable>
-    <variable access="public">CMyQTable *m_pQTable;</variable>
-    <variable access="public">int m_IsModified;</variable>
-    <variable access="public">QString m_TypeATCD_Selectionne;</variable>
-    <variable access="public">Atcd_Code* m_pAtcd_Code;</variable>
-    <variable access="public">Atcd_Element* m_pAtcd_Element_Selected;</variable>
+    <variable access="public">int m_StateModifBeforeLAP;</variable>
+    <variable access="public">QString m_LAP_Ordo;</variable>
     <variable access="public">C_ListViewATCDManager *m_pC_ListViewATCDManager;</variable>
+    <variable access="public">Atcd_Element* m_pAtcd_Element_Selected;</variable>
+    <variable access="public">Atcd_Code* m_pAtcd_Code;</variable>
+    <variable access="public">QString m_TypeATCD_Selectionne;</variable>
+    <variable access="public">int m_IsModified;</variable>
+    <variable access="public">CMyQTable *m_pQTable;</variable>
+    <variable access="public">QVBoxLayout *m_pLayout_VAR;</variable>
+    <variable access="public">CBigShrinker *m_pCBigShrinker;</variable>
+    <variable access="public">QScrollView* m_pQScrollView;</variable>
+    <variable access="public">QString m_NumGUID;</variable>
+    <variable access="public">CMoteurBase* m_pCMoteurBase;</variable>
+    <variable access="public">QString m_ID_Doss;</variable>
+    <variable access="public">QString m_DossNom;</variable>
+    <variable access="public">QString m_DossPrenom;</variable>
+    <variable access="public">RUBREC_LIST *m_pRubList;</variable>
+    <variable access="public">QListViewItem *m_pQListViewItem ;</variable>
+    <variable access="public">QPL_CPosologie m_OrdoList;</variable>
+    <variable access="public">QPtrList&lt;CMyQTable&gt; m_ptrListQTableVar;</variable>
+    <variable access="public">int m_LastRub;</variable>
+    <variable access="public">int m_IsModifiable;</variable>
+    <variable access="public">bool m_IsAllDroitsOn;</variable>
+    <variable access="public">QMap&lt;int, ThemePopup* &gt; m_PopupHeadMap;</variable>
+    <variable access="public">int m_Selected_Id_RubList;</variable>
 </variables>
 <signals>
     <signal>Sign_SaveButtonClicked()</signal>
@@ -863,14 +865,17 @@
     <slot>pushButtonSave_clicked()</slot>
     <slot>VAR_GetModeleList( QString &amp; strDST, int areValueToBeListed )</slot>
     <slot>listView_TTT_contextMenuRequested( QListViewItem * qlistViewItem, const QPoint &amp; pos, int )</slot>
-    <slot>TTT_SlotMenuActionModifier()</slot>
     <slot>Alert_WriteOnly()</slot>
     <slot>TTT_PutPrescriptionInTerrain( RUBREC_LIST::iterator it )</slot>
-    <slot returnType="int">TTT_MenuActionModifier()</slot>
-    <slot>TTT_MenuActionRenouveler()</slot>
-    <slot>TTT_MenuActionPrescrire()</slot>
-    <slot>TTT_MenuActionSetRenouveler()</slot>
-    <slot>TTT_MenuActionSetIntercurent()</slot>
+    <slot>TTT_PutBlobPrescriptionInTerrain( const QString &amp; datas )</slot>
+    <slot>TTT_SlotMenuActionModifier()</slot>
+    <slot>TTT_Slot_LapExited()</slot>
+    <slot>TTT_SlotMenuActionRenouveler()</slot>
+    <slot>TTT_Slot_LapExitedRenouv()</slot>
+    <slot>TTT_SlotMenuActionPrescrire()</slot>
+    <slot>TTT_SlotMenuActionSetRenouveler()</slot>
+    <slot>TTT_SlotMenuActionSetIntercurent()</slot>
+    <slot>TTT_LapXmlToListView( QListView * pQListView, const QString &amp; lap_Ordo )</slot>
     <slot>TTT_OrdoListToListView( QListView * pQListView, QPL_CPosologie &amp; ordo_list )</slot>
     <slot>listView_TTT_doubleClicked( QListViewItem * )</slot>
     <slot>pushButtonNewTTT_clicked()</slot>
@@ -878,20 +883,22 @@
     <slot>Add_popMenu_ATCD_Type( QPopupMenu * pQPopupMenu )</slot>
     <slot>listView_ATCD_contextMenuRequested( QListViewItem * qlistViewItem, const QPoint &amp; pos, int c )</slot>
     <slot>ATCD_setAldOn()</slot>
+    <slot>ATCD_setSportOn()</slot>
+    <slot>ATCD_setVigilanceOn()</slot>
     <slot>ATCD_setAldOff()</slot>
     <slot>ATCD_setAldOnOff( const QString &amp; state )</slot>
     <slot>listView_ATCD_doubleClicked( QListViewItem * pQListViewItem )</slot>
     <slot>ATCD_MenuActionNewFromFavori()</slot>
     <slot>ATCD_MenuActionNewCIM10()</slot>
     <slot>ATCD_MenuActionNewCISP()</slot>
-    <slot>ATCD_MenuActionSetDate()</slot>
-    <slot>ATCD_MenuActionDelDate()</slot>
+    <slot>ATCD_MenuActionSetDateDeb()</slot>
+    <slot>ATCD_MenuActionSetDateFin()</slot>
+    <slot>ATCD_MenuActionDelDateDeb()</slot>
+    <slot>ATCD_MenuActionDelDateFin()</slot>
     <slot>ATCD_MenuActionNewAllergie()</slot>
     <slot>ATCD_MenuActionNewTexteLibre()</slot>
     <slot>ATCD_MenuActionDel()</slot>
     <slot>ATCD_MenuActionMultiDel()</slot>
-    <slot>ATCD_MenuActionChangeEtatGueri()</slot>
-    <slot>ATCD_MenuActionChangeEtatActif()</slot>
     <slot>ATCD_MenuActionSetFamilleGenre()</slot>
     <slot>ATCD_MenuActionSetCommentaire()</slot>
     <slot>pushButtonNewATCD_clicked()</slot>
@@ -917,7 +924,8 @@
     <function>VAR_CreateTable( const char * text )</function>
     <function returnType="long">VAR_RearangeTable()</function>
     <function returnType="long">initComboRubName( void )</function>
-    <function>ATCD_MenuActionChangeEtat( int etat )</function>
+    <function returnType="QStringList">getAtcdList( const QString &amp; tableName )</function>
+    <function returnType="int">TTT_Modifier( const QString &amp; mode )</function>
     <function returnType="int">Current_RubList_ID()</function>
     <function returnType="RUBREC_LIST::iterator">Current_RubList_Iterator()</function>
     <function returnType="int">SetCurentDocByPrimkey( const QString &amp; primKey )</function>

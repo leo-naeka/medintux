@@ -43,6 +43,7 @@
 int main(int argc, char *argv[])
 {   int ret = -1;
     CApp cApp("Manager", argc, argv);
+    if ( cApp.instanceMustBeUnique() ) return 0;
     if (G_pCApp) // n'est postionnee qu'a la fin du constructeur 'CApp' lorsque tout est OK
        {
         QTranslator qtTranslator;
@@ -50,12 +51,14 @@ int main(int argc, char *argv[])
         cApp.installTranslator(&qtTranslator);
 
         QTranslator myappTranslator;
-        myappTranslator.load(QString("Manager_")+ QLocale::system().name(),G_pCApp->m_PathAppli+"/lang");
+        myappTranslator.load(QString("Manager_")+ QLocale::system().name(),G_pCApp->pathAppli()+"/lang");
         cApp.installTranslator(&myappTranslator);
 
         C_Manager* pC_Manager = new C_Manager(G_pCApp->m_pCMoteurBase);
+
         G_pCApp->setMainWidget (pC_Manager);
         pC_Manager->show();
+        G_pCApp->setActivationWindow(pC_Manager);
         ret = G_pCApp->exec();
         delete  pC_Manager;
        }

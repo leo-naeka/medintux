@@ -1,38 +1,38 @@
- /********************************* C_DBVar.h ********************************
- *  #include "C_DBVar.h"                                                     *
- * ...............................................................................*
- *   Project   :  MedinTux  (typographie made in france)                          *
- *   Copyright : (C) 2004-2005-2006-2007-2008-2009-2010 and for the eternity      *
- *   by        :  Sevin Roland     from   MedinTux project                        *
- *   E-Mail    : roland-sevin@medintux.org                                        *
- *   Web site  : www.medintux.org                                                 *
- * ...............................................................................*
- *                                                                                *
- *   This program is free software; you can redistribute it and/or modify         *
- *   it under the terms of the CeCILL Version 1 du 21/06/2004                     *
- *   License (GPL compatible)                                                     *
- *                              http://www.cecill.info/                           *
- *   as published by :                                                            *
- *                                                                                *
- *   Commissariat �  l'Energie Atomique                                            *
- *   - CEA,                                                                       *
- *                            31-33 rue de la Fédération, 75752 PARIS cedex 15.   *
- *                            FRANCE                                              *
- *   Centre National de la Recherche Scientifique                                 *
- *   - CNRS,                                                                      *
- *                            3 rue Michel-Ange, 75794 Paris cedex 16.            *
- *                            FRANCE                                              *
- *   Institut National de Recherche en Informatique et en Automatique             *
- *   - INRIA,                                                                     *
- *                            Domaine de Voluceau, Rocquencourt, BP 105, 78153    *
- *                            FRANCE                                              *
- *                                                                                *
- *         This program is distributed in the hope that it will be useful,        *
- *         but WITHOUT ANY WARRANTY; without even the implied warranty of         *
- *         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.                   *
- *         CeCILL  License (GPL compatible) for more details.                     *
- *                                                                                *
- **********************************************************************************/
+/********************************* C_DBVar.h ********************************
+*  #include "C_DBVar.h"                                                     *
+* ...............................................................................*
+*   Project   :  MedinTux  (typographie made in france)                          *
+*   Copyright : (C) 2004-2005-2006-2007-2008-2009-2010 and for the eternity      *
+*   by        :  Sevin Roland     from   MedinTux project                        *
+*   E-Mail    : roland-sevin@medintux.org                                        *
+*   Web site  : www.medintux.org                                                 *
+* ...............................................................................*
+*                                                                                *
+*   This program is free software; you can redistribute it and/or modify         *
+*   it under the terms of the CeCILL Version 1 du 21/06/2004                     *
+*   License (GPL compatible)                                                     *
+*                              http://www.cecill.info/                           *
+*   as published by :                                                            *
+*                                                                                *
+*   Commissariat �  l'Energie Atomique                                            *
+*   - CEA,                                                                       *
+*                            31-33 rue de la Fédération, 75752 PARIS cedex 15.   *
+*                            FRANCE                                              *
+*   Centre National de la Recherche Scientifique                                 *
+*   - CNRS,                                                                      *
+*                            3 rue Michel-Ange, 75794 Paris cedex 16.            *
+*                            FRANCE                                              *
+*   Institut National de Recherche en Informatique et en Automatique             *
+*   - INRIA,                                                                     *
+*                            Domaine de Voluceau, Rocquencourt, BP 105, 78153    *
+*                            FRANCE                                              *
+*                                                                                *
+*         This program is distributed in the hope that it will be useful,        *
+*         but WITHOUT ANY WARRANTY; without even the implied warranty of         *
+*         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.                   *
+*         CeCILL  License (GPL compatible) for more details.                     *
+*                                                                                *
+**********************************************************************************/
 
 // C++ Interface: C_DBVar.h
 
@@ -55,6 +55,12 @@ public:
     int           areFieldsNamesValids() {return (m_LastError.length()==0);}
     QString       getLastError()         {return  m_LastError;}
 public:
+    QString  m_BDM_VERSION_TBL_NAME;           // nom de la table des numeros de version
+    QString  m_BDM_VERSION_PK ;                // clef primaire
+    QString  m_BDM_VERSION_OWNER;              // Origine des donnees (AFSSAPS, Vidal, Theriaque Claude Bernard, perso...)
+    QString  m_BDM_VERSION_LANG;               // langue de la donnee (en fr etc...)
+    QString  m_BDM_VERSION_NUMBER;             // numero de version
+
     //........................ MEDICA_TUX  Table index des produits .........................................
     //                         la structure d' l'index est commune
     //

@@ -39,6 +39,8 @@
 #include <stdlib.h>
 
 #include <qpoint.h>
+//.......... forUse_G_MacroTab_List ............
+static int forUse_G_MacroTab_List();
 
 class CDevilCrucible;
 class CRubRecord;
@@ -136,6 +138,7 @@ class C_TokenInterpret
   static QString APPEND_DOC_IN_CLASSEUR        (QStringList &arg_list);
   static QString COPY_FILE                     (QStringList &arg_list);
   static QString CALC                          (QStringList &arg_list);
+  static QString VAR_CALC                      (QStringList &arg_list);
   static QString DO_LISTE                      (QStringList &arg_list);
   static QString DAYSTO                        (QStringList &arg_list);
   static QString DELETE_FILE                   (QStringList &arg_list);
@@ -253,6 +256,7 @@ class C_TokenInterpret
   static QString NOM_PRENOM_MEDECIN            (QStringList &arg_list);
   static QString POLITESSE_MEDECIN             (QStringList &arg_list);
   static QString NOM_PRENOM_PATIENT            (QStringList &arg_list);
+  static QString NOM_NAISSANCE_PATIENT         (QStringList &arg_list);
   static QString NOMBRE_D_ENFANT_PATIENT       (QStringList &arg_list);
   static QString NOP                           (QStringList &arg_list);
   static QString MID                           (QStringList &arg_list);
@@ -287,10 +291,13 @@ class C_TokenInterpret
   static QString USER_CP_MEDECIN               (QStringList &arg_list);
   static QString USER_CONVENTION_MEDECIN       (QStringList &arg_list);
   static QString USER_IDENTIFICATION_MEDECIN   (QStringList &arg_list);
+  static QString USER_GUID                     (QStringList &arg_list);
   static QString USER_NOM_MEDECIN              (QStringList &arg_list);
   static QString USER_NOM_PRENOM_MEDECIN       (QStringList &arg_list);
   static QString USER_POLITESSE_MEDECIN        (QStringList &arg_list);
   static QString USER_PRENOM_MEDECIN           (QStringList &arg_list);
+  static QString USER_RPPS                     (QStringList &arg_list);
+  static QString USER_CLEF_RPPS                (QStringList &arg_list);
   static QString USER_SEXE_MEDECIN             (QStringList &arg_list);
   static QString USER_SPECIALITE_MEDECIN       (QStringList &arg_list);
   static QString USER_TITRE_PS                 (QStringList &arg_list);
@@ -299,6 +306,9 @@ class C_TokenInterpret
   static QString VALIDER_DOSSIER               (QStringList &arg_list);
   static QString VILLE_MEDECIN                 (QStringList &arg_list);
   static QString VILLE_PATIENT                 (QStringList &arg_list);
+//.......... eviter message Not Used ............
+  int justForUsed() {return forUse_G_MacroTab_List();}
+
   static QString     GetVarNeerer (QString &section, QString &variable, QString &dateSel);
   static QString     GetVarNeerer (QStringList &valuesList, QString &dateSel);
   static QStringList GetVar (QString &section_var, QString &name_var);
@@ -493,6 +503,7 @@ static QString    Func_Extract_Table_D(    const QString &str_data,
                                            };
   static KEY_MACRO      G_MacroTab_N[ ] = {{"NOMBRE_D'ENFANT_PATIENT",        C_TokenInterpret::NOMBRE_D_ENFANT_PATIENT},
                                            {"NOM_MEDECIN",                    C_TokenInterpret::NOM_MEDECIN},
+                                           {"NOM_NAISSANCE_PATIENT",          C_TokenInterpret::NOM_NAISSANCE_PATIENT},
                                            {"NOM_PATIENT",                    C_TokenInterpret::NOM_PATIENT},
                                            {"NOM_PRENOM_ASSURE",              C_TokenInterpret::NOM_PRENOM_ASSURE},
                                            {"NOM_PRENOM_INTERVENANT",         C_TokenInterpret::NOM_PRENOM_INTERVENANT},
@@ -530,9 +541,13 @@ static QString    Func_Extract_Table_D(    const QString &str_data,
                                            {"REPLACE",                        C_TokenInterpret::REPLACE_BY},
                                            {"REPLACE_IMAGE",                  C_TokenInterpret::REPLACE_IMAGE},
                                            {"REPLACE_IN_FILE",                C_TokenInterpret::REPLACE_IN_FILE},
+                                           {"RES",                            C_TokenInterpret::VAR_CALC},
+                                           {"RESOLVE",                        C_TokenInterpret::VAR_CALC},
+                                           {"RESULT",                         C_TokenInterpret::VAR_CALC},
                                            {"RF",                             C_TokenInterpret::REPLACE_IN_FILE},
                                            {"RIGHT",                          C_TokenInterpret::RIGHT},
                                            {"RM",                             C_TokenInterpret::SIMPLIFY},
+                                           {"RS",                             C_TokenInterpret::VAR_CALC},
                                            {"RUBRIQUE_SHOW",                  C_TokenInterpret::RUBRIQUE_SHOW}
                                            };
   static KEY_MACRO      G_MacroTab_S[ ] = {{"SAVE_CURRENT_DOC",               C_TokenInterpret::SAVE_CURRENT_DOC},
@@ -572,9 +587,11 @@ static QString    Func_Extract_Table_D(    const QString &str_data,
   static KEY_MACRO      G_MacroTab_U[ ] = {{"UPPER",                          C_TokenInterpret::UPPER},
                                            {"USER_ADRESSE_COMPLETE_MEDECIN",  C_TokenInterpret::USER_ADRESSE_COMPLETE_MEDECIN},
                                            {"USER_ADRESSE_MEDECIN",           C_TokenInterpret::USER_ADRESSE_MEDECIN},
-                                           {"USER_CP_MEDECIN",                C_TokenInterpret::USER_CP_MEDECIN},
+                                           {"USER_CLEF_RPPS",                 C_TokenInterpret::USER_CLEF_RPPS},
                                            {"USER_CONVENTION_MEDECIN",        C_TokenInterpret::USER_CONVENTION_MEDECIN},
+                                           {"USER_CP_MEDECIN",                C_TokenInterpret::USER_CP_MEDECIN},
                                            {"USER_EMAIL_MEDECIN",             C_TokenInterpret::USER_EMAIL_MEDECIN},
+                                           {"USER_GUID",                      C_TokenInterpret::USER_GUID},
                                            {"USER_IDENTIFICATION_MEDECIN",    C_TokenInterpret::USER_IDENTIFICATION_MEDECIN},
                                            {"USER_LOGIN",                     C_TokenInterpret::USER_LOGIN_MEDECIN},
                                            {"USER_LOGIN_MEDECIN",             C_TokenInterpret::USER_LOGIN_MEDECIN},
@@ -582,6 +599,7 @@ static QString    Func_Extract_Table_D(    const QString &str_data,
                                            {"USER_NOM_PRENOM_MEDECIN",        C_TokenInterpret::USER_NOM_PRENOM_MEDECIN},
                                            {"USER_POLITESSE_MEDECIN",         C_TokenInterpret::USER_POLITESSE_MEDECIN},
                                            {"USER_PRENOM_MEDECIN",            C_TokenInterpret::USER_PRENOM_MEDECIN},
+                                           {"USER_RPPS",                      C_TokenInterpret::USER_RPPS},
                                            {"USER_SEXE_MEDECIN",              C_TokenInterpret::USER_SEXE_MEDECIN},
                                            {"USER_SPECIALITE_MEDECIN",        C_TokenInterpret::USER_SPECIALITE_MEDECIN},
                                            {"USER_TEL_1_MEDECIN",             C_TokenInterpret::USER_TEL_1_MEDECIN},
@@ -592,9 +610,11 @@ static QString    Func_Extract_Table_D(    const QString &str_data,
                                           };
   static KEY_MACRO      G_MacroTab_V[ ] = {{"VALIDER_DOSSIER",                C_TokenInterpret::VALIDER_DOSSIER},
                                            {"VAR",                            C_TokenInterpret::PUT_VAR},
+                                           {"VAR_CALC",                       C_TokenInterpret::VAR_CALC},
                                            {"VAR_LIST_CLEAR",                 C_TokenInterpret::VAR_LIST_CLEAR},
                                            {"VAR_SET",                        C_TokenInterpret::SET_VAR},
                                            {"VAR_SPLIT",                      C_TokenInterpret::VAR_SPLIT},
+                                           {"VC",                             C_TokenInterpret::VAR_CALC},
                                            {"VILLE_MEDECIN",                  C_TokenInterpret::VILLE_MEDECIN},
                                            {"VILLE_PATIENT",                  C_TokenInterpret::VILLE_PATIENT}
                                           };
@@ -632,4 +652,7 @@ static QString    Func_Extract_Table_D(    const QString &str_data,
                                                  {G_MacroTab_Y, sizeof(G_MacroTab_Y)  / sizeof(KEY_MACRO)},
                                                  {G_MacroTab_Z, sizeof(G_MacroTab_Z)  / sizeof(KEY_MACRO)}
                                                };
+//.......... forUse_G_MacroTab_List ..........................
+int forUse_G_MacroTab_List() {return G_MacroTab_List->m_size;}
+
 #endif

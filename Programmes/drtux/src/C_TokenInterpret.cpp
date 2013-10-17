@@ -177,7 +177,7 @@ int C_TokenInterpret::ResolvFunctionToken(CDevilCrucible *pCDC, QString &resolvT
  if (token[0] !='#')   CHtmlTools::HtmlToAscii(token);
  else                  token.remove (0, 1);
  int pos_prem_p =  token.find('(');
- if (pos_prem_p ==-1)  {resolvToken = TR("C_TokenInterpret::ResolvScriptTokenSyntax() Syntax Error first '(' not found in : ") + token; return 0;}
+ if (pos_prem_p ==-1)  {resolvToken = TR("C_TokenInterpret::ResolvScriptTokenSyntax() Syntax Error first '(' not found in : ")  + token; return 0;}
  int pos_last_p =  findLastDelimiter(token, ')');
  if (pos_last_p ==-1)  {resolvToken = TR("C_TokenInterpret::ResolvScriptTokenSyntax() Syntax Error last  ')' not found in : ")  + token; return 0;}
  int ret = exeFunction(token.left(pos_prem_p).stripWhiteSpace().upper(), token.mid(pos_prem_p + 1, pos_last_p-pos_prem_p - 1), resolvToken);
@@ -236,6 +236,70 @@ QString C_TokenInterpret::CALC(QStringList &arg_list)
         }
      return ret;
     }
+//-------------------------- VAR_CALC -------------------------------------------
+/*! \brief non documenté */
+QString C_TokenInterpret::VAR_CALC(QStringList &arg_list)
+{int                   nb     = arg_list.count();
+ int                 op       = -1;
+ int                 op_i     = -1;
+ double              ret_d    = 0.0;
+ QString             arg      = "";
+ int                 isArgOp  = 0;
+ static QString     operators = "+-*/:%?xX";
+ if (nb<=0)           return "";
+
+ for (int i=0; i<nb; ++i)
+     {arg     = arg_list[i].stripWhiteSpace();
+      if (arg.startsWith("$"))
+         {arg = (*G_mCDC->m_pVariables)[arg.mid(1)];
+         }
+      isArgOp = 0;
+      if (arg.length()==1)  
+         {op = operators.find(arg);
+          if (op != -1 ) 
+             {isArgOp = 1;         // l'argument en cours est un operateur
+              op_i    = op;        // on note l'operateur
+             }
+         }
+      // si l'argument en cours n'est pas un operateur soit on est au premier tour 
+      // auquel cas il n'y a pas d'operateur encore valide (op_i==-1) 
+      // alors et on affecte le resultat avec le contenu de arg 
+      if (isArgOp==0)
+         {
+          switch (op_i)
+           {case 0:     // +   addition
+                 ret_d += arg.toDouble();
+                 break;
+            case 1:     // -   soustraction
+                 ret_d -= arg.toDouble();
+                 break;
+            case 2:     // *   multiplication
+                 ret_d *= arg.toDouble();
+                 break;
+            case 3:     // /   division flottante
+                 ret_d /= arg.toDouble();
+                 break;
+            case 4:     // :   division entière
+                 ret_d = ((int)ret_d / arg.toInt());
+                 break;
+            case 5:     // %   pourcentage
+                 ret_d = (ret_d*arg.toDouble())/100;
+                 break;
+            case 6:     // ?   modulo
+                 ret_d = (int)ret_d - (((int)ret_d /arg.toInt())*(int)ret_d);
+                 break;
+            case 7:     // x   multiplication entière 
+            case 8:     // X   multiplication entière 
+                 ret_d = ((int)ret_d * arg.toInt());
+                 break;
+            default:
+                 ret_d = arg.toDouble();
+           }
+         }
+     }
+ return QString::number(ret_d);
+}
+
 //-------------------------- CADRE -------------------------------------------
 /*! \brief non documenté */
 QString C_TokenInterpret::CADRE(QStringList &arg_list)
@@ -2518,7 +2582,12 @@ QString C_TokenInterpret::INTERVENANT(QStringList &arg_list) //{{INTERVENANT = M
         }
      return QString::null;
     }
-
+//-------------------------- NOM_NAISSANCE_PATIENT -------------------------------------------
+/*! \brief non documenté */
+QString C_TokenInterpret::NOM_NAISSANCE_PATIENT( QStringList&)
+    {return G_mCDC->m_pMB->GetFieldValue(G_mCDC->m_pMB->m_DOSS_INDEX_TBL_NAME,  G_mCDC->m_pMB->m_DOSS_IDENT_JFNOM,
+                                         G_mCDC->m_pMB->m_DOSS_INDEX_PRIM_KEY , G_mCDC->m_IdentPrimKey);
+    }
 //-------------------------- NOM_PATIENT -------------------------------------------
 /*! \brief non documenté */
 QString C_TokenInterpret::NOM_PATIENT( QStringList&)
@@ -2789,6 +2858,22 @@ QString C_TokenInterpret::USER_ADRESSE_COMPLETE_MEDECIN(QStringList &)
                                                   G_mCDC->m_pMB->m_USER_IDENT_PRIMKEY ,       G_mCDC->m_UserActuelPk) ;
       return (resolvToken.replace("\n","<br />"));
      }
+
+//-------------------------- USER_RPPS -------------------------------------------
+/*! \brief non documenté */
+QString C_TokenInterpret::USER_RPPS(QStringList &)
+{return G_mCDC->m_pMB->GetFieldValue(G_mCDC->m_pMB->m_USER_IDENT_TBL_NAME, G_mCDC->m_pMB->m_USER_IDENT_NUM_RPPS,    G_mCDC->m_pMB->m_USER_IDENT_PRIMKEY ,       G_mCDC->m_UserActuelPk);
+}
+//-------------------------- USER_CLEF_RPPS -------------------------------------------
+/*! \brief non documenté */
+QString C_TokenInterpret::USER_CLEF_RPPS(QStringList &)
+{return G_mCDC->m_pMB->GetFieldValue(G_mCDC->m_pMB->m_USER_IDENT_TBL_NAME, G_mCDC->m_pMB->m_USER_IDENT_CLEF_RPPS,   G_mCDC->m_pMB->m_USER_IDENT_PRIMKEY ,       G_mCDC->m_UserActuelPk);
+}
+//-------------------------- USER_GUID -------------------------------------------
+/*! \brief non documenté */
+QString C_TokenInterpret::USER_GUID(QStringList &)
+{return G_mCDC->m_pMB->GetFieldValue(G_mCDC->m_pMB->m_USER_IDENT_TBL_NAME, G_mCDC->m_pMB->m_USER_IDENT_GUID,        G_mCDC->m_pMB->m_USER_IDENT_PRIMKEY ,       G_mCDC->m_UserActuelPk);
+}
 //-------------------------- USER_EMAIL_MEDECIN -------------------------------------------
 /*! \brief non documenté */
 QString C_TokenInterpret::USER_EMAIL_MEDECIN(QStringList &)
@@ -3946,20 +4031,28 @@ QString C_TokenInterpret::Func_Extract(QString &doc_type, QString &tag_deb, QStr
 
  if (tag_deb.length()) deb = CHtmlTools::HtmlFind(pt_doc, tag_deb);
  if (deb && tag_end.length())
-    {CHtmlTools::HtmlFind(deb, tag_end, &debEndMotif);
-     if (debEndMotif)
-        {resolvToken.setLatin1 (deb, debEndMotif - deb);
-         if (justNum.find("$keepHtml") == -1){CHtmlTools::HtmlToAscii(resolvToken);}
-         else                                {justNum = justNum.remove("$keepHtml");}
-         if ( find_to.length() )
-            {if ( resolvToken.find(find_to,0,TRUE) != -1)
-                {resolvToken = replace_by;
-                }
-             else                                         resolvToken = "";
-            }
-         resolvToken.replace("\n","<br />");       // Remplace les sauts de lignes ASCII par les sauts de ligne HTML
-         resolvToken.replace("\r","");             // pour les puristes...resolvToken=resolvToken.stripWhiteSpace();
+    {if (tag_end.upper()=="$TOEND")
+        {resolvToken = str_data.mid(deb-pt_doc);
+         int p = resolvToken.find("</HTML_Data>");
+         if (p !=-1) resolvToken = resolvToken.left(p);
         }
+     else
+        {
+          CHtmlTools::HtmlFind(deb, tag_end, &debEndMotif);
+          if (debEndMotif)
+             {resolvToken.setLatin1 (deb, debEndMotif - deb);
+              if (justNum.find("$keepHtml") == -1){CHtmlTools::HtmlToAscii(resolvToken);}
+              else                                {justNum = justNum.remove("$keepHtml");}
+              if ( find_to.length() )
+                 {if ( resolvToken.find(find_to,0,TRUE) != -1)
+                     {resolvToken = replace_by;
+                     }
+                  else                                         resolvToken = "";
+                 }
+              resolvToken.replace("\n","<br />");       // Remplace les sauts de lignes ASCII par les sauts de ligne HTML
+              resolvToken.replace("\r","");             // pour les puristes...resolvToken=resolvToken.stripWhiteSpace();
+             }
+         }
      }
  if (justNum.length()) return  toNum(resolvToken, justNum);
  else                  return  resolvToken;
@@ -3969,7 +4062,11 @@ QString C_TokenInterpret::Func_Extract(QString &doc_type, QString &tag_deb, QStr
 /*! \brief Retourne le CRubRecord correspondant au document actuellement affiché dans la CMDI gérant le doc_type.
 */
 CRubRecord  *C_TokenInterpret::GetIDCurrentDoc(const QString &doc_type_in)
-{CRubRecord  *pCRubRecordRet = 0;
+{ return G_pCApp->GetIDCurrentDoc(doc_type_in, G_mCDC->m_pCurDisplayDocMap);
+
+
+/*
+ CRubRecord  *pCRubRecordRet = 0;
  int                    pos  = -1;
  QString            libelle  = "";
  QString            doc_type = doc_type_in;
@@ -4028,6 +4125,7 @@ CRubRecord  *C_TokenInterpret::GetIDCurrentDoc(const QString &doc_type_in)
          }
      }
  return pCRubRecordRet;
+*/
 }
 
 

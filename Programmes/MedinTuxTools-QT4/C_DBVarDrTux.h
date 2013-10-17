@@ -14,7 +14,7 @@
  *                              http://www.cecill.info/                           *
  *   as published by :                                                            *
  *                                                                                *
- *   Commissariat à l'Energie Atomique                                            *
+ *   Commissariat �  l'Energie Atomique                                            *
  *   - CEA,                                                                       *
  *                            31-33 rue de la Fédération, 75752 PARIS cedex 15.   *
  *                            FRANCE                                              *
@@ -88,7 +88,7 @@ public:
    QString      m_DOSS_IDENT_NSS_ASS;       // date de naissance de l'assure
    QString      m_DOSS_IDENT_PROF;          // profession
    QString      m_DOSS_IDENT_TITRE;         // Titre( Dr Mr Md Pr ...)
-   QString      m_DOSS_IDENT_REF_PK;        // reference à la primary key: DOSS_INDEX_PRIM_KEY de la table: DOSS_INDEX
+   QString      m_DOSS_IDENT_REF_PK;        // reference �  la primary key: DOSS_INDEX_PRIM_KEY de la table: DOSS_INDEX
 
    //................. DOSS_NOTE ............................
    QString      m_DOSS_NOTE_TBL_NAME;               // nom de la table de la note du patient
@@ -127,9 +127,9 @@ public:
    QString      m_DOSS_RUB_HEAD_GUID;            // GUID du dossier auquel l'enregistrement fait reference
    QString      m_DOSS_RUB_HEAD_TYPE;            // Type de rubrique
    QString      m_DOSS_RUB_HEAD_NOM_DATE;        // Court texte descriptif de l'enregistrement.
-   QString      m_DOSS_RUB_HEAD_SUBTYPE;         // sous Type de rubrique (sert notamment à orienter sur un modèle d'ipression)
+   QString      m_DOSS_RUB_HEAD_SUBTYPE;         // sous Type de rubrique (sert notamment �  orienter sur un modèle d'ipression)
    QString      m_DOSS_RUB_HEAD_DATE;            // date de l'enregistrement
-   QString      m_DOSS_RUB_HEAD_USER;            // utilisateur associé à rubrique
+   QString      m_DOSS_RUB_HEAD_USER;            // utilisateur associé �  rubrique
    QString      m_DOSS_RUB_HEAD_SIGN_USER;       // utilisateur associé signataire de la rubrique
    QString      m_DOSS_RUB_HEAD_FIN;             // date de fin de l'enregistrement
    QString      m_DOSS_RUB_HEAD_DUREE_MOD;       // duree de vie du document en modification
@@ -164,6 +164,8 @@ public:
    QString      m_USER_IDENT_DROITS;             // Droits de cet utilisateur
    QString      m_USER_IDENT_SEXE;               // sexe de l'utilisateur (si il y en a un)
    QString      m_USER_IDENT_NUM_ORDRE;          // Numéro d'ordre (si il y en a un)
+   QString      m_USER_IDENT_NUM_RPPS;           // Numero RPPS (si il y en a un)
+   QString      m_USER_IDENT_CLEF_RPPS;          // Clef RPPS (si il y en a une)
    QString      m_USER_IDENT_PRIMKEY;            // clef primaire de cet enregistrement
    QString      m_USER_IDENT_GUID;               // Identifiant unique de cet utilisateur
    QString      m_USER_IDENT_CONVENTION;         // convention exple "01 MEDECINE GENERALE"
@@ -191,7 +193,7 @@ public:
   //................. USER_DATA ............................
    QString      m_USER_DATA_TBL_NAME;           // nom de la table des données des RUBRIQUES
    QString      m_USER_DATA_PK;                 // clef primaire de cet enregistrement
-   QString      m_USER_DATA_REF_PK;             // Ref à la clef primaire de l'utilisateur auquel appartiennent les données
+   QString      m_USER_DATA_REF_PK;             // Ref �  la clef primaire de l'utilisateur auquel appartiennent les données
    QString      m_USER_DATA_NAMEDOC;            // nom des données
    QString      m_USER_DATA_TYPE;               // type de données
    QString      m_USER_DATA_BLOB;               // données proprement dites
@@ -199,7 +201,7 @@ public:
    //................. VERROU ............................
    QString      m_VERROU_TBL_NAME;              // nom de la table des données des verrous
    QString      m_VERROU_PK;                    // clef primaire de cet enregistrement
-   QString      m_VERROU_DOSS_PK;               // Ref à la clef primaire du dosssier verrouillé
+   QString      m_VERROU_DOSS_PK;               // Ref �  la clef primaire du dosssier verrouillé
    QString      m_VERROU_DOSS_GUID;             // GUID du dossier verrouillé
    QString      m_VERROU_RUB_NAME;              // Nom de la rubrique verrouillee
    QString      m_VERROU_RUB_PK;                // PK du header de rubrique verrouille
@@ -212,7 +214,7 @@ public:
    QString      m_USER_PERMS_PK;                // clef primaire de cet enregistrement
    QString      m_USER_PERMS_SIGN_GUID;         // Ref au GUID du signataire autorisant cet utilisateur
    QString      m_USER_PERMS_FRIEND_GUID;       // GUID de cet utilisateur
-   QString      m_USER_PERMS_FRIEND_DROITS;     // Droits que le signataire attribue à cet utilisateur
+   QString      m_USER_PERMS_FRIEND_DROITS;     // Droits que le signataire attribue �  cet utilisateur
    QString      m_USER_PERMS_FRIEND_BLOBS;      // Configuration des autorisations fines (liste des fichiers autorisés avec les droits)
    QString      m_AGENDA_MASK_TBL_NAME;         // table des masques agenda
    QString      m_AGENDA_TBL_NAME;              // table de l'agenda

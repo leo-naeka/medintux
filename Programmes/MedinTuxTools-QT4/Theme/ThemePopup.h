@@ -57,6 +57,7 @@ class ThemePopup : public QMenu
 public:
     ThemePopup(QWidget * parent = 0, const QString & style="");
     ThemePopup(QStringList &list, QWidget * parent = 0, const QString & style="", const QString& sep = "|", int toMask = 0);
+    static  void addOptionMenu(QMenu* pQMenu, const QString &optionsTitle);
     QString DoPopupList(const QString & style="");
 };
 
