@@ -1,0 +1,23 @@
+ <u><br><b>ATTENTION : RESULTATS NON VALIDÉS BIOLOGIQUEMENT, DONNÉS A TITRE INDICATIF</b><br>Résultats de: <b>GIMENO;PAULETTE</b> âge: <b>91 ans  </b> 
+en date du: <b>13-10-2013 à 07:54</b> Service: <b>Urgences</b></u><br> 
+fichier de référence : <b>2013-13-10-08-00-23-625_CLIR729010</b> 
+<br> <b>GB:</b> 8410 (N: de 4000 à 10000) /mm3 
+<b>N°: </b> 48.1 % 
+ <b>L°: </b> 37.6 % 
+ <b>M°: </b> 9.0 % 
+ <b>E°: </b> 2.6 % 
+ <b>B°: </b> 0.6 % 
+<br> <b>GR:</b> 4.20 (N: de 4.10 à 5.70) million/mm 
+<b> VGM: </b> 92.0 (N: de 83.0 à 95.0)  
+<br> <b>Hb:</b> 12.9 (N: de 11.5 à 15.0) g/100ml 
+<br> <b>Hc:</b> 38.6 (N: de 37.0 à 47.0) % 
+<br> <b>Plaquettes:</b> 175000 (N: de 150000 à 450000) /mm3 
+ <b>Vol. Plaq.:</b> 8.0 (N: de 7.0 à 12.0)  
+<br> <b>TP:</b> # <span style="font-weight:600;color:#FF0000"> 29</span>  (N: de 70 à 999) % 
+ <b>i.n.r:</b> 3.05 (NL: environ 1)  
+<br> <b>TCK: témoin</b> 33.5 <b>patient:</b> 43.4 sec.  
+ <b>TCA: patient/témoin</b> 1.30   
+<br> <b>Myoglobinémie:</b> # <span style="font-weight:600;color:#FF0000"> 76.5</span>  (N: inf à 65.8) ng/ml  
+ <b>Troponinémie:</b> &lt;0.10 (N: inf à 0.10) (0.1 à 0.8 Angor instable)(sup à 0.8 IDM) ng/ml 
+<br> <b>BNP:</b> # <span style="font-weight:600;color:#FF0000"> 169</span>  (N: inf à 100) (<100 IC peu probable)(100 à 400 IC possible)(>400 IC certaine ou EP sévère) pg/ml 
+<br> <b>D-Dimeres:</b> 0.3 (N: inf à 0.5) µg/ml 

@@ -1,0 +1,49 @@
+91260
+AAA
+AAA
+
+5 RUE PATOU
+28000 CHARTRES
+11/07/1940
+140xxxxxxxxxxx 63
+0812526005
+26/12/2008
+SYNBIO     SYNBIO
+.          Pierre-Marie.DESOMBRE
+               Examen(s) du: 26/12/08             Valeurs de réf.
+
+                                B I O C H I M I E
+Créatinine sanguine. . .         9,6  mg/l         6,7 ê 11,7
+                                85,0  umol/l      59,3 ê 103,5
+Clairance de la créatinin         85  ml/mn       sup. ê 60
+Glycémie ê jeun. . . . .        1,34 *g/l         0,75 ê 1,15
+                                7,45 *mmol/l      4,17 ê 6,39
+Sodium . . . . . . . . .         137  mEq/l        135 ê 145
+Potassium. . . . . . . .        4,30  mEq/l       3,50 ê 4,80
+
+                    C H I M I E   D E S   U R I N E S
+Protéinurie - dosage . .        0,11 *g/l         inf. ê 0,10
+
+****LAB****
+
+TEX|               Examen(s) du: 26/12/08             Valeurs de réf.
+TEX|
+TEX|                                B I O C H I M I E
+TEX|Créatinine sanguine. . .         9,6  mg/l         6,7 ê 11,7
+TEX|                                85,0  umol/l      59,3 ê 103,5
+RES|Créatinine sanguine|CR |N|9.6|mg/l|6.7|11.7|N|F|85.0|umol/l|59.3|103.5
+TEX|Clairance de la créatinin         85  ml/mn       sup. ê 60
+RES|Clairance de la créatinine|cch |N|85|ml/mn|60||N|F
+TEX|Glycémie ê jeun. . . . .        1,34 *g/l         0,75 ê 1,15
+TEX|                                7,45 *mmol/l      4,17 ê 6,39
+RES|Glycémie ê jeun|G|N|1.34|g/l|0.75|1.15|H|F|7.45|mmol/l|4.17|6.39
+TEX|Sodium . . . . . . . . .         137  mEq/l        135 ê 145
+RES|Sodium|-na|N|137|mEq/l|135|145|N|F
+TEX|Potassium. . . . . . . .        4,30  mEq/l       3,50 ê 4,80
+RES|Potassium|K|N|4.30|mEq/l|3.50|4.80|N|F
+TEX|
+TEX|                    C H I M I E   D E S   U R I N E S
+TEX|Protéinurie - dosage . .        0,11 *g/l         inf. ê 0,10
+RES|Protéinurie - dosage|a|N|0.11|g/l||0.10|H|F
+****FIN****
+****FINFICHIER****

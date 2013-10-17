@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>                
+<!-- Projet    : MedinTux                              -->
+<!-- Module    : medicatux                             -->
+<!-- Objet     : C_PatientCtx                          -->
+<!-- guru mail : roland-sevin@medintux.org             -->
+<!-- Copyright : (C) 2004-to-2013 and for the eternity -->
+<C_PatientCtx>
+   <m_version>1</m_version>
+   <m_id>9F2D1DDE-AFD7-3F4E-5BBB-2EAB97489A93</m_id>
+   <m_id_type>GUID</m_id_type>
+   <m_usual_name>TARTEMPION</m_usual_name>
+   <m_forename>MARCEL</m_forename>
+   <m_young_name></m_young_name>
+   <m_sexe>Masculin</m_sexe>
+   <m_dateFormat>dd-MM-yyyy</m_dateFormat>
+   <m_ageOrDateOfBirth>01-01-1999</m_ageOrDateOfBirth>
+   <m_poids>68</m_poids>
+   <m_taille>178</m_taille>
+   <m_bio_hprim></m_bio_hprim>
+   <m_allergies>
+2313Y|VID_ALRG|iode||Allergique||07-10-2013|
+   </m_allergies>
+   <m_antecedents>
+D68.9|CIM|anomalie de la coagulation||Médicaux||07-10-2013|
+I71.9|CIM|anévrisme de l'aorte||Chirurgicaux (Vasculaire)||07-10-2013|
+M15.8|CIM|autres polyarthroses||Médicaux||07-10-2013|
+R52|CIM|douleur (de) dent|ALD|Médicaux||07-10-2013|
+F98.4|CIM|se mettre les doigts dans le nez||Cognitifs (DPTDC)||07-10-2013|
+Z72.0|CIM|usage du tabac||Médicaux|20 pa|07-10-2013|
+   </m_antecedents>
+   <m_prescriptions>
+
+   </m_prescriptions>
+</C_PatientCtx>

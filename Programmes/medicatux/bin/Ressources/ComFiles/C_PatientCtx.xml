@@ -1,0 +1,98 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Projet    : MedinTux                              -->
+<!-- Module    : medicabase                            -->
+<!-- Objet     : C_PatientCtx                          -->
+<!-- guru mail : sevin-roland@medintux.org             -->
+<!-- Copyright : (C) 2004-to-2013 and for the eternity -->
+<C_PatientCtx>
+   <version>1</version>
+   <guid>30DC82DD-7632-2C46-9DC3-BC1AC0ECD20A</guid>
+   <usual_name>TARTEMPION</usual_name>
+   <forename>MARCEL</forename>
+   <young_name></young_name>
+   <sex>M</sex>
+   <ageOrDateOfBirth>01-01-1970</ageOrDateOfBirth>
+   <dateFormat>dd-MM-yyyy</dateFormat>
+   <poids>80</poids>
+   <taille>160</taille>
+   <allaitement>oui</allaitement>
+   <grossesse>24</grossesse>
+   <bio_hprim>H|\^&amp;~|CLIR390.hpr||CASA\LABORATOIRE||ORU|||M070780168\SA CLINIQUE DE MARIGNANE||P|H2.0\:C|201209301859
+     P|0001|248094||12034554|TARTEMPION\MARCEL||19491205|M||4 ALLEE DES OLIVIERS      *\\ MARIGNANE\\13700||0662640323|
+     OBR|0001|60930344\1209306344|\1209306344|NFPA\FORMULE et NUMERATION MC ADVIA^HMC\hemolyse^ICMC\ictere^LMC\lipemique^PCR\PROTEINE C REACTIVE (ultrasensible)^AZ\AZOTEMIE^CREA\CREATININEMIE (standardisée IDMS)^BIL\Biliru
+     A|bine totale et directe^LIPASE\LIPASE^GPT\TRANSAMINASES  S.G.P.T.  (ALAT)^GGT\GAMMA G T^NAX\SODIUM^K\POTASSIUM^TCKMC\TCA (Sur STA Compact MC)^TPMC\Taux de prothrombine^TRAIMC\Patient traité par:^TROPO\TROPONINE:^MYOMC\
+     A|MYOGLOBINE:^DDI\D-DIMERES^BNPMC\BNP (peptide natriurétique de type B):^HERPM0\Herpes simplex virus 1/2 - HSV - sérologi$^EBVG00\Epstein Barr Virus - EBV - sérologie VCA $^EBVM00\Epstein Barr Virus - EBV - sérologie VC
+     A|A $|R||201209301836|201209301836|||N|||||131159964\GIRAULT VINCENT\\CMUR||||||20120930|
+     OBX|0001|ST|GBSMC||9300|/mm3|4000-10000|N|||F|||201209301836|RIP\10060|
+     OBX|0002|ST|GRS||4.64|million/mm|4.10-5.70|N|||F|||201209301836|RIP\10060|
+     OBX|0003|ST|LHEMO||12.7|g/100ml|13.6-17.2|L|||F|||201209301836|RIP\10060|
+     OBX|0004|ST|hct1||38.6|%|40.0-54.0|L|||F|||201209301836|RIP\10060|
+     OBX|0005|ST|VMCS||83.1|micro3|83.0-95.0|N|||F|||201209301836|RIP\10060|
+     OBX|0006|ST|mch1||27.4|pg|27.0-34.0||||F|||201209301836|RIP\10060|
+     OBX|0007|ST|mchc||32.9|g/100 ml|32.0-36.0||||F|||201209301836|RIP\10060|
+     OBX|0008|ST|HYPOC||3.1|%|||||F|||201209301836|RIP\10060|
+     OBX|0009|ST|PLAMC||258000|/mm3|150000-450000|N|||F|||201209301836|RIP\10060|
+     OBX|0010|ST|MPV S||8.0|micro3|7.0-12.0||||F|||201209301836|RIP\10060|
+     OBX|0011|ST|GRANMC||66.7|%|||||F|||201209301836|RIP\10060|
+     OBX|0012|ST|granmc||6203|/mm3|2500-7000|N|||F|||201209301836|RIP\10060|
+     OBX|0013|ST|EOSIMC||2.0|%|||||F|||201209301836|RIP\10060|
+     OBX|0014|ST|eosimc||186|/mm3|50-400|N|||F|||201209301836|RIP\10060|
+     OBX|0015|ST|BASOMC||0.6|%|||||F|||201209301836|RIP\10060|
+     OBX|0016|ST|basomc||56|/mm3|25-70|N|||F|||201209301836|RIP\10060|
+     OBX|0017|ST|LYMPMC||21.6|%|||||F|||201209301836|RIP\10060|
+     OBX|0018|ST|lympmc||2009|/mm3|1500-4000|N|||F|||201209301836|RIP\10060|
+     OBX|0019|ST|MONOMC||6.9|%|||||F|||201209301836|RIP\10060|
+     OBX|0020|ST|monomc||642|/mm3|300-600|N|||F|||201209301836|RIP\10060|
+     OBX|0021|ST|LUC||2.2|%|0.0-4.5|N|||F|||201209301836|RIP\10060|
+     OBX|0022|ST|HMC||0||||||F|||201209301836|MC\20030|
+     OBX|0023|ST|HMC||0||||||F|||201209301836|MC\20030|
+     OBX|0024|ST|ICMC||1||||||F|||201209301836|MC\20030|
+     OBX|0025|ST|ICMC||1||||||F|||201209301836|MC\20030|
+     OBX|0026|ST|LMC||1.0||||||F|||201209301836|MC\20030|
+     OBX|0027|ST|LMC||1.0||||||F|||201209301836|MC\20030|
+     OBX|0028|ST|PCR||5.0|mg/l|0.0-7.5|N|||F|||201209301836|RIP\20050|
+     OBX|0029|ST|PCR||5.0|mg/l|0.0-7.5|N|||F|||201209301836|RIP\20050|
+     OBX|0030|ST|AZ||0.43|g/l|0.13-0.43|N|||F|||201209301836|RIP\20100|
+     OBX|0031|ST|AZ||0.43|g/l|0.13-0.43|N|||F|||201209301836|RIP\20100|
+     OBX|0032|ST|az||7.18|mmol/l|2.10-7.10||||F|||201209301836|RIP\20100|
+     OBX|0033|ST|CREA||12|mg/l|6-13|N|||F|||201209301836|RIP\20110|
+     OBX|0034|ST|CREA||12|mg/l|6-13|N|||F|||201209301836|RIP\20110|
+     OBX|0035|ST|crea7||106|mcmol/l|53-115||||F|||201209301836|RIP\20110|
+     OBX|0036|ST|G||1.23|g/l|0.74-1.18|H|||F|||201209301836|RIP\20200|
+     OBX|0037|ST|G||1.23|g/l|0.74-1.18|H|||F|||201209301836|RIP\20200|
+     OBX|0038|ST|gmmol||6.83|mmol/l|4.10-6.60|H|||F|||201209301836|RIP\20200|
+     OBX|0039|ST|BIT||6|mg/l|3-12|N|||F|||201209301836|RIP\21600|
+     OBX|0040|ST|bit4||10.3|mcmol/l|5.0-20.0||||F|||201209301836|RIP\21600|
+     OBX|0041|ST|LIPASE||28|U/l|0-52|N|||F|||201209301836|RIP\22060|
+     OBX|0042|ST|LIPASE||28|U/l|0-52|N|||F|||201209301836|RIP\22060|
+     OBX|0043|ST|GOT||19|UI/L|0-42|N|||F|||201209301836|RIP\22420|
+     OBX|0044|ST|GOT||19|UI/L|0-42|N|||F|||201209301836|RIP\22420|
+     OBX|0045|ST|GPT||17|UI/L|10-40|N|||F|||201209301836|RIP\22430|
+     OBX|0046|ST|GPT||17|UI/L|10-40|N|||F|||201209301836|RIP\22430|
+     OBX|0047|ST|PAL||59|UI/L|38-126|N|||F|||201209301836|RIP\22450|
+     OBX|0048|ST|PAL||59|UI/L|38-126|N|||F|||201209301836|RIP\22450|
+     OBX|0049|ST|GGT||15|UI/L|3-55|N|||F|||201209301836|RIP\22460|
+     OBX|0050|ST|GGT||15|UI/L|3-55|N|||F|||201209301836|RIP\22460|
+     OBX|0051|ST|enzhb1||1||||||F|||201209301836|RIP\22460|
+     OBX|0052|ST|NAX||143|mmol/l|136-145|N|||F|||201209301836|RIP\30830|
+     OBX|0053|ST|NAX||143|mmol/l|136-145|N|||F|||201209301836|RIP\30830|
+     OBX|0054|ST|K||4.3|mmol/l|3.5-5.1|N|||F|||201209301836|RIP\30850|
+     OBX|0055|ST|K||4.3|mmol/l|3.5-5.1|N|||F|||201209301836|RIP\30850|
+     OBR|2|60930344\1209306344|\1209306344|CR_PDF|R|201209301836|201209301836||||N|||201209301836||CPSANTE||||||||
+     OBX|1|FIC|CR_SGL||ACROBAT\CLIR390001.PDF\Adobe ACROBAT
+     L|1||1|64|
+   </bio_hprim>
+   <allergie>
+     3007528|CIP|ASPIRINE|ALD|Allergie(Allergie)|plutôt intolérance|06-06-1956|
+     J01CR02|ATC|AMOXICILINE ET INHIBITEUR D'ENZYME|ALD|Allergie(Allergie)|pas de commentaire|06-06-1956|
+   </allergie>
+   <antecedents>
+     K27|CIM|ulcère gastro duodénal|ALD|Médical(Gastro)|pas de commentaire|06-06-1956|
+     N19|CIM|Insuffisance renale|ALD|Médical(uro néphro)|pas de commentaire|06-06-1956|
+     W78|CISP|Grossesse||Médical(Obstétrique)|pas de commentaire|10-10-2012|
+     Z32|CIM|Grossesse||Médical(Obstétrique)|pas de commentaire|10-10-2012|
+     Z39.1|CIM|Allaitement||Médical(Puerpéralité)|pas de commentaire|10-10-2012|
+     |MD|Pratique du judo à haut niveau|Sport|Habitudes(Activité Sportive)|Attention aux produits dopants|10-10-2012|
+   </antecedents>
+</C_PatientCtx>

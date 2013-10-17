@@ -1,0 +1,105 @@
+85010
+TARTEMPION
+MARCEL
+
+5 RUE Patou
+28000 CHARTRES
+06/05/1942
+1400457347689 63
+0812518030
+18/12/2008
+SYNBIO     SYNBIO
+.          Pierre-Marie.DESOMBRE
+               Examen(s) du: 18/12/08             Valeurs de réf.
+
+                                B I O C H I M I E
+Créatinine sanguine. . .         6,0  mg/l         5,1 ê 9,5
+                                53,1  umol/l      45,1 ê 84,1
+Clairance de la créatinin        109  ml/mn       sup. ê 60
+Glycémie ê jeun. . . . .        1,50 *g/l         0,75 ê 1,15
+                                8,34 *mmol/l      4,17 ê 6,39
+Hémoglobine glycosylée A1       7,85 *%           4,20 ê 6,00
+(Glycémie moyenne estimée       1,75  g/l)
+Aspect du sérum. . . . .  limpide
+Cholestérol total. . . .        1,27  g/l         inf. ê 2,50
+                                3,28  mmol/l      inf. ê 6,45
+HDL Cholestérol. . . . .        0,32 *g/l         sup. ê 0,40
+                                0,83 *mmol/l      sup. ê 1,03
+Rapport cholestérol total       3,97
+Triglycérides. . . . . .        1,11  g/l         inf. ê 1,50
+                                1,27  mmol/l      inf. ê 1,71
+Apolipoprotéine A1 . . .        1,27  g/l         1,05 ê 2,05
+LDL Cholestérol. . . . .        0,73  g/l         inf. ê 2,20
+                                1,88  mmol/l      inf. ê 5,68
+Commentaire : ê interpréter selon les facteurs de risques cardiovasculaires
+et ê confronter au contexte clinique.
+Sodium . . . . . . . . .         140  mEq/l        135 ê 145
+Potassium. . . . . . . .        4,10  mEq/l       3,50 ê 4,80
+
+                    C H I M I E   D E S   U R I N E S
+Diurèse des 24 heures. .       1,300  l          1,000 ê 3,000
+Microalbuminurie . . . .        10,2  mg/l        inf. ê 30,0
+                                13,3  mg/24h      inf. ê 30,0
+Créatinine urinaire. . .         688  mg/l
+                                6,05  mmol/l
+                                 894  mg/24h       800 ê 2800
+                                7,87  mmol/24h    7,04 ê 24,64
+
+****LAB****
+
+TEX|               Examen(s) du: 18/12/08             Valeurs de réf.
+TEX|
+TEX|                                B I O C H I M I E
+TEX|Créatinine sanguine. . .         6,0  mg/l         5,1 ê 9,5
+TEX|                                53,1  umol/l      45,1 ê 84,1
+RES|Créatinine sanguine|CR |N|6.0|mg/l|5.1|9.5|N|F|53.1|umol/l|45.1|84.1
+TEX|Clairance de la créatinin        109  ml/mn       sup. ê 60
+RES|Clairance de la créatinine|ccf |N|109|ml/mn|60||N|F
+TEX|Glycémie ê jeun. . . . .        1,50 *g/l         0,75 ê 1,15
+TEX|                                8,34 *mmol/l      4,17 ê 6,39
+RES|Glycémie ê jeun|G|N|1.50|g/l|0.75|1.15|H|F|8.34|mmol/l|4.17|6.39
+TEX|Hémoglobine glycosylée A1       7,85 *%           4,20 ê 6,00
+RES|Hémoglobine glycosylée A1c|hba1c|N|7.85|%|4.20|6.00|H|F
+TEX|
+TEX|(Glycémie moyenne estimée       1,75  g/l)
+RES|(Glycémie moyenne estimée des 2 derniers mois:|hbagmo|N|1.75|g/l)||||F
+TEX|
+TEX|Cholestérol total. . . .        1,27  g/l         inf. ê 2,50
+TEX|                                3,28  mmol/l      inf. ê 6,45
+RES|Cholestérol total|C|N|1.27|g/l||2.50|N|F|3.28|mmol/l||6.45
+TEX|HDL Cholestérol. . . . .        0,32 *g/l         sup. ê 0,40
+TEX|                                0,83 *mmol/l      sup. ê 1,03
+RES|HDL Cholestérol|hdlc|N|0.32|g/l|0.40||L|F|0.83|mmol/l|1.03|
+TEX|Rapport cholestérol total       3,97
+RES|Rapport cholestérol total/HDL|fac|N|3.97|||||F
+TEX|Triglycérides. . . . . .        1,11  g/l         inf. ê 1,50
+TEX|                                1,27  mmol/l      inf. ê 1,71
+RES|Triglycérides|T|N|1.11|g/l||1.50|N|F|1.27|mmol/l||1.71
+TEX|Apolipoprotéine A1 . . .        1,27  g/l         1,05 ê 2,05
+RES|Apolipoprotéine A1|APOA|N|1.27|g/l|1.05|2.05|N|F
+TEX|LDL Cholestérol. . . . .        0,73  g/l         inf. ê 2,20
+TEX|                                1,88  mmol/l      inf. ê 5,68
+RES|LDL Cholestérol|ldlca|N|0.73|g/l||2.20|N|F|1.88|mmol/l||5.68
+TEX|
+TEX|Commentaire : ê interpréter selon les facteurs de risques cardiovasculaires
+TEX|et ê confronter au contexte clinique.
+TEX|Sodium . . . . . . . . .         140  mEq/l        135 ê 145
+RES|Sodium|-na|N|140|mEq/l|135|145|N|F
+TEX|Potassium. . . . . . . .        4,10  mEq/l       3,50 ê 4,80
+RES|Potassium|K|N|4.10|mEq/l|3.50|4.80|N|F
+TEX|
+TEX|                    C H I M I E   D E S   U R I N E S
+TEX|Diurèse des 24 heures. .       1,300  l          1,000 ê 3,000
+RES|Diurèse des 24 heures|V24|N|1.300|l|1.000|3.000|N|F
+TEX|Microalbuminurie . . . .        10,2  mg/l        inf. ê 30,0
+RES|Microalbuminurie|micr|N|10.2|mg/l||30.0|N|F
+TEX|                                13,3  mg/24h      inf. ê 30,0
+RES|soit|micr24|N|13.3|mg/24h||30.0|N|F
+TEX|Créatinine urinaire. . .         688  mg/l
+TEX|                                 6,05  mmol/l
+RES|Créatinine urinaire|cru|N|688|mg/l||||F|6.05|mmol/l||
+TEX|                                 894  mg/24h       800 ê 2800
+TEX|                                7,87  mmol/24h    7,04 ê 24,64
+RES|soit|cruo24|N|894|mg/24h|800|2800|N|F|7.87|mmol/24h|7.04|24.64
+****FIN****
+****FINFICHIER****

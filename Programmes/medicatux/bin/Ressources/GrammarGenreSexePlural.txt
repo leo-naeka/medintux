@@ -1,0 +1,27 @@
+cuillere|cuillère|cuillères|f
+cuillère|cuillère|cuillères|f
+application|application|applications|f
+goutte|goutte|gouttes|f
+injection|injection|injections|f
+inhalation|inhalation|inhalations|f
+gelule|gélule|gélules|f
+gélule|gélule|gélules|f
+pulverisation|pulvérisation|pulvérisations|f
+pulvérisation|pulvérisation|pulvérisations|f
+ampoule(s)|ampoule|ampoules|f
+ampoule|ampoule|ampoules|f
+capsule|capsule|capsules|f
+mg|mg|mg|m
+ml|ml|ml|m
+ui|ui|ui|f
+comprime|comprimé|comprimés|m
+comprimé|comprimé|comprimés|m
+bouffee|bouffée|bouffées|f
+bouffée|bouffée|bouffées|f
+gourde|fiole|fioles|f
+sucette|sucette|sucettes|f
+milligramme|milligramme|milligrammes|m
+gramme|gramme|grammes|m
+microgramme|microgramme|microgrammes|m
+dose-graduation|dose-graduation|dose-graduations|f
+comprimé orodispersible|comprimé orodispersible|comprimés orodispersibles|m

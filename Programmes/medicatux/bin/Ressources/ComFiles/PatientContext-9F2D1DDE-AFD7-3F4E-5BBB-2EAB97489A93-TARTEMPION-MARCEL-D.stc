@@ -1,0 +1,58 @@
+<OrdoLine>
+<gph>
+ <status></status>
+ <smr></smr>
+ <smr_l></smr_l>
+ <gph_html><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'Lucida Grande'; font-weight:400; font-style:normal;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'arial,verdana,sans-serif'; font-weight:600; color:#ff0000;">1)</span> <span style=" font-family:'arial,verdana,sans-serif'; font-weight:600; text-decoration: underline; color:#637867;">IBUPROFÈNE  200 milligrammes</span> <span style=" font-family:'arial,verdana,sans-serif'; font-style:italic; color:#a6c9ad;">(IBUPROFENE SDZ 200mg Cpr enr Plaq/30)</span> <span style=" font-family:'arial,verdana,sans-serif'; font-weight:600; color:#637867;">comprimé par voie orale<br /></span> <span style=" font-family:'arial,verdana,sans-serif'; color:#637867;">2 comprimés le matin au cours du repas, 2 comprimés à midi au cours du repas, 2 comprimés le soir au cours du repas,  traitement à poursuivre pendant 1 mois</span><br /></p></body></html></gph_html>
+ <gph_ald></gph_ald>
+ <gph_pk></gph_pk>
+ <gph_id>3658303</gph_id>
+ <gph_it>CIP</gph_it>
+ <gph_dr>09-10-2013 08:39:36</gph_dr>
+ <gph_dt>09-10-2013 08:39:36</gph_dt>
+ <gph_df>08-11-2013 08:39:36</gph_df>
+ <gph_na>IBUPROFENE SDZ 200mg Cpr enr Plaq/30</gph_na>
+ <gph_dcl>
+  <gph_dc>
+    <gph_dcn>IBUPROFÈNE</gph_dcn>  <gph_dcp>200</gph_dcp>  <gph_dcu>milligramme</gph_dcu>
+  </gph_dc>
+ </gph_dcl>
+ <gph_cy>M1R0</gph_cy>
+ <gph_sb>1</gph_sb>
+ <gph_dci>2</gph_dci>
+ <gph_uf>comprimé</gph_uf>
+ <gph_voie>orale</gph_voie>
+ <gph_fmin></gph_fmin>
+ <gph_fmax></gph_fmax>
+ <gph_funit></gph_funit>
+ <gph_pmin></gph_pmin>
+ <gph_pmax></gph_pmax>
+ <gph_punit></gph_punit>
+ <gph_pfc></gph_pfc>
+ <gph_pfcunit>Kg</gph_pfcunit>
+ <gph_pqbyuf></gph_pqbyuf>
+ <gph_dmin></gph_dmin>
+ <gph_dmax></gph_dmax>
+ <gph_dunit></gph_dunit>
+ <gph_nm>0</gph_nm>
+ <gph_cm>NOT_LITERAL</gph_cm>
+ <gph_in>  <gph_il>-1344312120|DS_I|Douleur d'intensité légère à modérée</gph_il>
+</gph_in>
+ <gph_co></gph_co>
+</gph>
+<gps>
+ <gpp>comprimé[2;m0r0|2;d0r0|2;s0r0]</gpp>
+</gps>
+<gpi_engine>Datasemp Version : 200A  date d'extraction : 05/08/2013</gpi_engine>
+<gpi_user>
+    <m_Login>ro</m_Login>
+    <m_usual_name>SEVIN</m_usual_name>
+    <m_forename>Roland</m_forename>
+    <m_Nu_RPPS></m_Nu_RPPS>
+    <m_Nu_ClefRPPS></m_Nu_ClefRPPS>
+</gpi_user>
+</OrdoLine>
