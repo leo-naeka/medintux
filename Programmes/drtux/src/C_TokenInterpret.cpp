@@ -4023,7 +4023,14 @@ QString C_TokenInterpret::Func_Extract(QString &doc_type, QString &tag_deb, QStr
      resolvToken    = CGestIni::Param_ReadUniqueParam(param,tag_deb,tag_end);
      return resolvToken;
     }
- if (doc_type.length()>0)
+ if (doc_type.startsWith("$VAR"))
+    {int p                =  doc_type.find("=");
+     if (p !=-1) doc_type =  doc_type.mid(p+1).stripWhiteSpace();
+     else        doc_type =  doc_type.mid(4).stripWhiteSpace();
+     str_data             =  (*G_mCDC->m_pVariables)[doc_type];
+     pt_doc               =  (char*) (const char*) str_data;
+    }
+ else if (doc_type.length()>0)
     {str_data    = G_mCDC->m_pMB->GetDataFromRubList( GetIDCurrentDoc(doc_type) );       // recuperer données soit dans liste cache soit sur disque
      if (str_data.length()==0)              return resolvToken;
      pt_doc      = (char*) (const char*) str_data;
