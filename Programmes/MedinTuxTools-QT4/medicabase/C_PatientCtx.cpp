@@ -167,8 +167,8 @@ QString C_PatientBioCtx::code_Acte_To_Value (QString codeActe, QString *pUnit /*
     //............ verifier si cet acte ne doit pas etre traduit en un autre ...........................................
     //             en effet C_PatientBioCtx utilise ses propres codes (NABM) pour extraire les donnees OBX
     //             les labos n'utilisent surement pas ces codes, donc une table de correspondance permet de
-    //             faire correspondre les codes NBAM utilisés par les methodes pre parametrees aux codes
-    //             retrouves dans l'OBX d'un labo X à partir de la table :
+    //             faire correspondre les codes NBAM utilisÃ©s par les methodes pre parametrees aux codes
+    //             retrouves dans l'OBX d'un labo X Ã  partir de la table :
     //             m_transTableCodes QMap <QString C_PatientBioCtx_NBAMCode, QString laboXX_code>
     if (m_transTableCodesName.length())
        { QMap<QString, QString>::const_iterator    i = m_transTableCodes.find(codeActe);
@@ -350,8 +350,8 @@ int    C_PatientCtx::insuffisance_renale(QString *pComment  /* = 0 */)
 
     //......... si pas d'indication d'insuff renale dans les ATCD ...............
     //          voir si il n' y en a pas une dans la biologie (creat)
-    // - Chez l'homme = 1.25 x Poids (kg) x (140-âge) / créatinine (µmol/l)
-    // - Chez la femme = 1.04 x Poids (kg) x (140-âge) / créatinine (µmol/l)
+    // - Chez l'homme = 1.25 x Poids (kg) x (140-age) / creatinine (Âµmol/l)
+    // - Chez la femme = 1.04 x Poids (kg) x (140-age) / creatinine (Âµmol/l)
 
     QString v_norm;
     QString value = creat(0, 0, &v_norm); // on a besoin de la valeur et des valeurs normales (separees par un tiret)
@@ -417,12 +417,12 @@ int    C_PatientCtx::grossesse(QString *pComment /* = 0 */)
  return 0;
 }
 //--------------------------------- pathologiesStringMap -----------------------------------------------------
-/*   K27|CIM|ulcère gastro duodénal|ALD|Médical(Gastro)|pas de commentaire|06-06-1956|
-     N19|CIM|Insuffisance renale|ALD|Médical(uro néphro)|pas de commentaire|06-06-1956|
-     W78|CISP|Grossesse||Médical(Obstétrique)|pas de commentaire|10-10-2012|
-     Z32|CIM|Grossesse||Médical(Obstétrique)|pas de commentaire|10-10-2012|
-     Z39.1|CIM|Allaitement||Médical(Puerpéralité)|pas de commentaire|10-10-2012|
-     |MD|Pratique du judo à haut niveau|Sport|Habitudes(Activité Sportive)|Attention aux produits dopants|10-10-2012|
+/*   K27|CIM|ulcÃ¨re gastro duodÃ©nal|ALD|MÃ©dical(Gastro)|pas de commentaire|06-06-1956|
+     N19|CIM|Insuffisance renale|ALD|MÃ©dical(uro nÃ©phro)|pas de commentaire|06-06-1956|
+     W78|CISP|Grossesse||MÃ©dical(ObstÃ©trique)|pas de commentaire|10-10-2012|
+     Z32|CIM|Grossesse||MÃ©dical(ObstÃ©trique)|pas de commentaire|10-10-2012|
+     Z39.1|CIM|Allaitement||MÃ©dical(PuerpÃ©ralitÃ©)|pas de commentaire|10-10-2012|
+     |MD|Pratique du judo Ã  haut niveau|Sport|Habitudes(ActivitÃ© Sportive)|Attention aux produits dopants|10-10-2012|
 */
 QMap<QString,QString>    C_PatientCtx::pathologiesStringMap(const QString &codeTyp /* = "CIM" */, int flag /*= C_PatientCtx::ALL_ATCD*/)
 {QMap<QString, QString> map;

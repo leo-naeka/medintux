@@ -132,17 +132,16 @@ C_Utils_Html *C_Macro::u_Html()
 {return G_pC_Utils_Html;
 }
 
-
 //-------------------------- ABS_PATH -------------------------------------------
-/*! \brief non documenté */
+/*! \brief non documentÃ© */
 //static QString ABS_PATH             (QStringList &arg_list);
 QString C_Macro::ABS_PATH(QStringList &arg_list)
-{ if (arg_list.count()<1)  return TR("::ABS_PATH() argument du path à convertir manquant.");
+{ if (arg_list.count()<1)  return TR("::ABS_PATH() argument du path Ã  convertir manquant.");
   return resolvePath (arg_list[0]);
 }
 
 //-------------------------- NOP -------------------------------------------
-/*! \brief non documenté */
+/*! \brief non documentÃ© */
 //static QString NOP                  (QStringList &arg_list);
 QString C_Macro::NOP(QStringList &)
 { return "";
@@ -150,23 +149,23 @@ QString C_Macro::NOP(QStringList &)
 
 
 //-------------------------- CALC -------------------------------------------
-/*! \brief non documenté */
+/*! \brief non documentÃ© */
 //static QString CALC                 (QStringList &arg_list);
 QString C_Macro::CALC(QStringList &arg_list)
     {if (arg_list.count()<3)  return TR("::CALC() nombre d'arguments insuffisant");
      double valeur1  = arg_list[0].toDouble();
      QString op      = arg_list[1].toLower();
      double valeur2  = arg_list[2].toDouble();
-     if (op == "*" || op == "x")   // testé OK
+     if (op == "*" || op == "x")   // testÃ© OK
        {   return QString::number(valeur1 * valeur2);
        }
-     else if (op == "/")                   // testé OK
+     else if (op == "/")                   // testÃ© OK
        {   return  QString::number(valeur1 / valeur2);
        }
-     else if (op == "+")                   // testé OK
+     else if (op == "+")                   // testÃ© OK
        {   return QString::number(valeur1 + valeur2);
        }
-     else if (op == "-")                   // testé OK
+     else if (op == "-")                   // testÃ© OK
        {   return  QString::number(valeur1 - valeur2);
        }
      else if (op == "div")
@@ -183,7 +182,7 @@ QString C_Macro::CALC(QStringList &arg_list)
 
 //-------------------------- DATECOURANTE -------------------------------------------
 // DATE TIRET DATE DD-MM-YYYY CURRENT DATE DATECOURANTE DT
-/*! \brief non documenté */
+/*! \brief non documentÃ© */
 //static QString DATECOURANTE         (QStringList &arg_list);
 QString C_Macro::DATECOURANTE(QStringList &arg_list)
 {QString   frm = "dd-MM-yyyy";
@@ -195,20 +194,20 @@ QString C_Macro::DATECOURANTE(QStringList &arg_list)
 //-------------------------- DATE_CALC -------------------------------------------
 /*
 static QString DATE_CALC            (QStringList &arg_list);
-4.5.3.133 |==> {{:: DATE_CALC( date de départ , valeur, operateur,  valTyp, format date retour )}}
-Variante : {{:: DTC( date de départ , valeur, operateur,  valTyp, format date retour ) }}
-retourne le nombre de jours à partir de la date placée dans le parametre N°1 et le Paramètre N°2. Le format des dates doit être xxxxddxxxxxxMMxxxxxxyyyyxxxx (voir : Format des dates) où x peut représenter n'importe quel caractère non numérique.
-[0]Paramètre N° 1 (date de départ) chaîne de caractères à traiter.
-[1]Paramètre N° 2 (valeur à ajouter ou soustraire) valeur à ajouter ou soustraire
-[2]Paramètre N° 3 (facultatif : opérateur) + - par défaut (si omis) sur +
-[3]Paramètre N° 4 (facultatif : type de valeur à ajouter ou soustraire) si non précisé il prend la valeur J (jours).
- SI   contient S la valeur numérique à ajouter  est en secondes.
- SI   contient J la valeur numérique à ajouter  est en jours.
- SI   contient M la valeur numérique à ajouter  est en mois.
- SI   contient A la valeur numérique à ajouter  est en année.
-[4]Paramètre N° 5 (facultatif : format du type de date à retourner) Le format des dates doit être xxxxddxxxxxxMMxxxxxxyyyyxxxx si non précisé dd-MM-yyyy (voir : Format des dates)  .
+4.5.3.133 |==> {{:: DATE_CALC( date de dÃ©part , valeur, operateur,  valTyp, format date retour )}}
+Variante : {{:: DTC( date de dÃ©part , valeur, operateur,  valTyp, format date retour ) }}
+retourne le nombre de jours Ã  partir de la date placÃ©e dans le parametre NÂ°1 et le ParamÃ¨tre NÂ°2. Le format des dates doit Ãªtre xxxxddxxxxxxMMxxxxxxyyyyxxxx (voir : Format des dates) oÃ¹ x peut reprÃ©senter n'importe quel caractÃ¨re non numÃ©rique.
+[0]ParamÃ¨tre NÂ° 1 (date de dÃ©part) chaÃ®ne de caractÃ¨res Ã  traiter.
+[1]ParamÃ¨tre NÂ° 2 (valeur Ã  ajouter ou soustraire) valeur Ã  ajouter ou soustraire
+[2]ParamÃ¨tre NÂ° 3 (facultatif : opÃ©rateur) + - par dÃ©faut (si omis) sur +
+[3]ParamÃ¨tre NÂ° 4 (facultatif : type de valeur Ã  ajouter ou soustraire) si non prÃ©cisÃ© il prend la valeur J (jours).
+ SI   contient S la valeur numÃ©rique Ã  ajouter  est en secondes.
+ SI   contient J la valeur numÃ©rique Ã  ajouter  est en jours.
+ SI   contient M la valeur numÃ©rique Ã  ajouter  est en mois.
+ SI   contient A la valeur numÃ©rique Ã  ajouter  est en annÃ©e.
+[4]ParamÃ¨tre NÂ° 5 (facultatif : format du type de date Ã  retourner) Le format des dates doit Ãªtre xxxxddxxxxxxMMxxxxxxyyyyxxxx si non prÃ©cisÃ© dd-MM-yyyy (voir : Format des dates)  .
 */
-/*! \brief non documenté */
+/*! \brief non documentÃ© */
 QString C_Macro::DATE_CALC(QStringList &arg_list)
     {int          nb = arg_list.count();
      QChar    valTyp = 'J';
@@ -221,7 +220,7 @@ QString C_Macro::DATE_CALC(QStringList &arg_list)
         {valTyp   = arg_list[3].toUpper()[0];
         }
      if (nb>4)  format  = arg_list[4].trimmed();                    // [4]
-     QString      date  = strToIsoStrDateTime(arg_list[0]);      // Retourne une chaine de la forme 12x09xx2007 à l'heure de 12h30 sous forme 2007-09-12T12:30:00
+     QString      date  = strToIsoStrDateTime(arg_list[0]);      // Retourne une chaine de la forme 12x09xx2007 Ã  l'heure de 12h30 sous forme 2007-09-12T12:30:00
      QDateTime      d1  = QDateTime::fromString (date, Qt::ISODate );
      switch(valTyp.toAscii())
             {case  'S': {d1=d1.addSecs(val);   break;}
@@ -237,16 +236,16 @@ QString C_Macro::DATE_CALC(QStringList &arg_list)
 static QString DATE_FROMNUM         (QStringList &arg_list);
 4.5.3.135 |==> {{:: DATE_FROMNUM( num,  valTyp, format date retour )}}
 Variante : {{:: DTFN( num ,  valTyp, format date retour  ) }}
-retourne la date et temps depuis le nombre de secondes écoulées depuis le 01 Janvier 1970  (voir : Format des dates).
-Paramètre N° 1 (nombre de secondes) chaîne de caractères à traiter soit le nombre de secondes depuis le 01 Janvier 1970.
-Paramètre N° 2 (facultatif : type de valeur numérique à retourner) si non précisé il prend la valeur S (secondes).
- SI   contient S           la valeur numérique est en secondes.
- SI   contient   J ou D  la valeur numérique est en jours.
- SI   contient M          la valeur numérique est en mois.
- SI   contient A ou Y   la valeur numérique est en années.
-Paramètre N° 3 (facultatif : format du type de date à retourner) Le format des dates. si non précisé dd-MM-yyyy (voir : Format des dates)  .
+retourne la date et temps depuis le nombre de secondes Ã©coulÃ©es depuis le 01 Janvier 1970  (voir : Format des dates).
+ParamÃ¨tre NÂ° 1 (nombre de secondes) chaÃ®ne de caractÃ¨res Ã  traiter soit le nombre de secondes depuis le 01 Janvier 1970.
+ParamÃ¨tre NÂ° 2 (facultatif : type de valeur numÃ©rique Ã  retourner) si non prÃ©cisÃ© il prend la valeur S (secondes).
+ SI   contient S           la valeur numÃ©rique est en secondes.
+ SI   contient   J ou D  la valeur numÃ©rique est en jours.
+ SI   contient M          la valeur numÃ©rique est en mois.
+ SI   contient A ou Y   la valeur numÃ©rique est en annÃ©es.
+ParamÃ¨tre NÂ° 3 (facultatif : format du type de date Ã  retourner) Le format des dates. si non prÃ©cise dd-MM-yyyy (voir : Format des dates)  .
 */
-/*! \brief non documenté */
+/*! \brief non documente */
 QString C_Macro::DATE_FROMNUM(QStringList &arg_list)
     {int      nb    = arg_list.count();
      if (nb==0) return TR("::DATE_FROMNUM() 1er argument du nombre de secondes manquant");
@@ -272,19 +271,19 @@ QString C_Macro::DATE_FROMNUM(QStringList &arg_list)
 //-------------------------- DATE_TONUM -------------------------------------------
 /*
 static QString DATE_TONUM           (QStringList &arg_list);
-4.5.3.134 |==> {{:: DATE_TONUM( date de départ , valTyp)}}
-Variante : {{:: DTN( date de départ , valTyp ) }}
-retourne le nombre de jours à partir de la date placée dans le parametre N°1 et le Paramètre N°2. Le format des dates doit être xxxxddxxxxxxMMxxxxxxyyyyxxxx (voir : Format des dates) où x peut représenter n'importe quel caractère non numérique.
-Paramètre N° 1 (date de départ) chaîne de caractères à traiter.
-Paramètre N° 2 (facultatif : type de valeur numérique à retourner) si non précisé il prend la valeur S (secondes).
- SI   contient S la valeur numérique à retourner est en secondes.
- SI   contient J la valeur numérique à retourner est en jours.
- SI   contient M la valeur numérique à retourner est en mois.
- SI   contient A la valeur numérique à retourner est en année.
+4.5.3.134 |==> {{:: DATE_TONUM( date de depart , valTyp)}}
+Variante : {{:: DTN( date de depart , valTyp ) }}
+retourne le nombre de jours Ã  partir de la date placee dans le parametre NÂ°1 et le ParamÃ¨tre NÂ°2. Le format des dates doit Ãªtre xxxxddxxxxxxMMxxxxxxyyyyxxxx (voir : Format des dates) oÃ¹ x peut representer n'importe quel caractÃ¨re non numerique.
+ParamÃ¨tre NÂ° 1 (date de depart) chaÃ®ne de caractÃ¨res Ã  traiter.
+ParamÃ¨tre NÂ° 2 (facultatif : type de valeur numerique Ã  retourner) si non precise il prend la valeur S (secondes).
+ SI   contient S la valeur numerique Ã  retourner est en secondes.
+ SI   contient J la valeur numerique Ã  retourner est en jours.
+ SI   contient M la valeur numerique Ã  retourner est en mois.
+ SI   contient A la valeur numerique Ã  retourner est en annee.
 
 1970-01-01T00:00:00
 */
-/*! \brief non documenté */
+/*! \brief non documente */
 QString C_Macro::DATE_TONUM(QStringList &arg_list)
     {int      nb    = arg_list.count();
      QChar valTyp   = 'S';
@@ -294,7 +293,7 @@ QString C_Macro::DATE_TONUM(QStringList &arg_list)
          //valTyp   = *pt;
          valTyp = arg_list[1].toUpper()[0];
         }
-     QString date = strToIsoStrDateTime(arg_list[0]);    // Retourne une chaine de la forme 12x09xx2007 à l'heure de 12h30 sous forme 2007-09-12T12:30:00
+     QString date = strToIsoStrDateTime(arg_list[0]);    // Retourne une chaine de la forme 12x09xx2007 Ã  l'heure de 12h30 sous forme 2007-09-12T12:30:00
      QDateTime d1 = QDateTime::fromString ("1970-01-01T00:00:00", Qt::ISODate );
      QDateTime d2 = QDateTime::fromString (date,                  Qt::ISODate );
      int     nbd  = d1.daysTo ( d2 );
@@ -308,7 +307,7 @@ QString C_Macro::DATE_TONUM(QStringList &arg_list)
      return QString("");
     }
 //-------------------------- DAYSTO -------------------------------------------
-/*! \brief non documenté */
+/*! \brief non documente */
 //static QString DAYSTO               (QStringList &arg_list);
 QString C_Macro::DAYSTO(QStringList &arg_list)
     {int nb = arg_list.count();
@@ -318,7 +317,7 @@ QString C_Macro::DAYSTO(QStringList &arg_list)
     }
 
 //-------------------------- ECHO -------------------------------------------
-/*! \brief non documenté */
+/*! \brief non documente */
 QString C_Macro::ECHO(QStringList &arg_list)
 {if (arg_list.count()==0) outMessage("");
  else                     outMessage(arg_list[0]);
@@ -328,7 +327,7 @@ QString C_Macro::ECHO(QStringList &arg_list)
 //-------------------------- INDEX_OF -------------------------------------------
 /*! \brief return the index of a text patern.
  *  \param arg_list  QStringList& arguments list where :
- *   arg_list[­0] string where find text patern. if is VAR=varName the string is the varName content.
+ *   arg_list[Â­0] string where find text patern. if is VAR=varName the string is the varName content.
  *   arg_list[1] text patern
  *   arg_list[2] number from where begin find, default value is zero if not precised
  *  \return index if patern finded in not -1
@@ -336,8 +335,8 @@ QString C_Macro::ECHO(QStringList &arg_list)
 
 QString C_Macro::INDEX_OF(QStringList &arg_list)
 { int from       = 0;
-  if (arg_list.count()<1) return TR("::INDEX_OF() argument de la chaîne à évaluer manquant.");
-  if (arg_list.count()<2) return TR("::INDEX_OF() argument de la chaîne à trouver manquant.");
+  if (arg_list.count()<1) return TR("::INDEX_OF() argument de la chaÃ®ne Ã  Ã©valuer manquant.");
+  if (arg_list.count()<2) return TR("::INDEX_OF() argument de la chaÃ®ne Ã  trouver manquant.");
   if (arg_list.count()>2) from = arg_list[2].toInt();
 
   int pos          = -1;
@@ -351,11 +350,11 @@ QString C_Macro::INDEX_OF(QStringList &arg_list)
 //-------------------------- LENGTH -------------------------------------------
 /*! \brief return the length of a text.
  *  \param arg_list  QStringList& arguments list where :
- *   arg_list[­0] string to evaluate. if is VAR=varName the string is the varName content.
+ *   arg_list[Â­0] string to evaluate. if is VAR=varName the string is the varName content.
  *  \return length
  */
 QString C_Macro::LENGTH(QStringList &arg_list)
-{  if (arg_list.count()<1) return TR("::LENGTH() argument de la chaîne à évaluer manquant (string).");
+{  if (arg_list.count()<1) return TR("::LENGTH() argument de la chaÃ®ne Ã  Ã©valuer manquant (string).");
     int pos          = -1;
     QString str = arg_list[0];
     if (str.startsWith("VAR", Qt::CaseInsensitive) && (pos = str.indexOf('=')) != -1)
@@ -368,15 +367,15 @@ QString C_Macro::LENGTH(QStringList &arg_list)
 //-------------------------- CUT -------------------------------------------
 /*! \brief cut or remove a part of text.
  *  \param arg_list  QStringList& arguments list where :
- *   arg_list[­0] string where opération must be do. If is VAR=varName the string is the varName content.
+ *   arg_list[Â­0] string where operation must be do. If is VAR=varName the string is the varName content.
  *   arg_list[1] index from where begin the part to remove.
  *   arg_list[2] number of caracters to remove.
  *  \return string modified if action not in VAR, null if action is in VAR.
  */
 QString C_Macro::CUT(QStringList &arg_list)
-{   if (arg_list.count()<1) return TR("::CUT() argument 'string' de la chaîne à évaluer manquant (string, from, len).");
-    if (arg_list.count()<2) return TR("::CUT() argument 'from'   de la position du premier caractère à retirer manquant (string, from, len).");
-    if (arg_list.count()<3) return TR("::CUT() argument 'len'    quantité de caractères à effacer manquant (string, from, len).");
+{   if (arg_list.count()<1) return TR("::CUT() argument 'string' de la chaÃ®ne Ã  Ã©valuer manquant (string, from, len).");
+    if (arg_list.count()<2) return TR("::CUT() argument 'from'   de la position du premier caractÃ¨re Ã  retirer manquant (string, from, len).");
+    if (arg_list.count()<3) return TR("::CUT() argument 'len'    quantitÃ© de caractÃ¨res Ã  effacer manquant (string, from, len).");
     int pos     = -1;
     QString str = arg_list[0];
     if (str.startsWith("VAR", Qt::CaseInsensitive) && (pos = str.indexOf('=')) != -1)
@@ -387,7 +386,7 @@ QString C_Macro::CUT(QStringList &arg_list)
   return str.remove(arg_list[1].toInt(), arg_list[2].toInt());
 }
 //-------------------------- MID -------------------------------------------
-/*! \brief non documenté */
+/*! \brief non documente */
 QString C_Macro::MID(QStringList &arg_list)
 {    int nb = arg_list.count();
      if (nb<2)   return TR("::MID() nombre d'arguments insuffisant (string, position, len = '~')");
@@ -404,7 +403,7 @@ QString C_Macro::MID(QStringList &arg_list)
 }
 
 //-------------------------- LEFT -------------------------------------------
-/*! \brief non documenté */
+/*! \brief non documente */
 QString C_Macro::LEFT(QStringList &arg_list)
 {   if (arg_list.count()<2) return TR("::LEFT() nombre d'arguments insuffisant (string, position)");
     QString str = arg_list[0];
@@ -418,7 +417,7 @@ QString C_Macro::LEFT(QStringList &arg_list)
 }
 
 //-------------------------- RIGHT -------------------------------------------
-/*! \brief non documenté */
+/*! \brief non documentÃ© */
 QString C_Macro::RIGHT(QStringList &arg_list)
 {   if (arg_list.count()<2) return TR("::RIGHT() nombre d'arguments insuffisant (string, position)");
     QString str = arg_list[0];
@@ -449,7 +448,7 @@ QString C_Macro::SIMPLIFY(QStringList &arg_list)
 
 //-------------------------- TRIMMED -------------------------------------------
 QString C_Macro::TRIMMED(QStringList &arg_list)
-{      if ( arg_list.count()==0) return TR("::TRIMMED() argument de la chaîne à évaluer manquant (string).");
+{      if ( arg_list.count()==0) return TR("::TRIMMED() argument de la chaÃ®ne Ã  Ã©valuer manquant (string).");
        QString str = arg_list[0];
        int     pos = -1;
        if (str.startsWith("VAR", Qt::CaseInsensitive) && (pos = str.indexOf('=')) != -1)
@@ -461,9 +460,9 @@ QString C_Macro::TRIMMED(QStringList &arg_list)
 }
 
 //-------------------------- UPPER -------------------------------------------
-/*! \brief non documenté */
+/*! \brief non documentÃ© */
 QString C_Macro::UPPER(QStringList &arg_list)
-    {if ( arg_list.count()==0) return TR("::UPPER() argument de la chaîne à évaluer manquant (string).");
+    {if ( arg_list.count()==0) return TR("::UPPER() argument de la chaÃ®ne Ã  Ã©valuer manquant (string).");
      QString str = arg_list[0];
      int     pos = -1;
      if (str.startsWith("VAR", Qt::CaseInsensitive) && (pos = str.indexOf('=')) != -1)
@@ -475,9 +474,9 @@ QString C_Macro::UPPER(QStringList &arg_list)
     }
 
 //-------------------------- LOWER -------------------------------------------
-/*! \brief non documenté */
+/*! \brief non documentÃ© */
 QString C_Macro::LOWER(QStringList &arg_list)
-    {if ( arg_list.count()==0) return TR("::LOWER() argument de la chaîne à évaluer manquant (string).");
+    {if ( arg_list.count()==0) return TR("::LOWER() argument de la chaÃ®ne Ã  Ã©valuer manquant (string).");
      QString str = arg_list[0];
      int     pos = -1;
      if (str.startsWith("VAR", Qt::CaseInsensitive) && (pos = str.indexOf('=')) != -1)
@@ -490,7 +489,7 @@ QString C_Macro::LOWER(QStringList &arg_list)
 
 //-------------------------- TEST -------------------------------------------
 // TEST (S,PATIENT,>=,ADRESSE,TESTISTRUE,TESTISFALSE, 1)
-/*! \brief non documenté */
+/*! \brief non documentÃ© */
 QString C_Macro::TEST(QStringList &arg_list)
     {if ( arg_list.count() <= 5 )  return TR("Erreur de syntaxe ::TEST() cette fonction doit comporter  au moins 5 arguments ");
      if ( arg_list.count() <= 6 )  arg_list.append("");
@@ -510,7 +509,7 @@ QString C_Macro::TEST(QStringList &arg_list)
      QString val1 = arg_list[1].trimmed();
      QString val2 = arg_list[3].trimmed();
      if (arg_list.count() == 7) cs = Qt::CaseInsensitive;
-     if (arg_list[0][0]=='N') // on teste les valeurs numériques et si pas ok on continue mais avec les textes
+     if (arg_list[0][0]=='N') // on teste les valeurs numÃ©riques et si pas ok on continue mais avec les textes
         {double v1 = C_Utils_Html::toNum(val1).toDouble();
          double v2 = C_Utils_Html::toNum(val2).toDouble();
          switch (iop)
@@ -579,10 +578,10 @@ QString C_Macro::TEST(QStringList &arg_list)
     }
 
 //-------------------------- EXE_PROCESS -------------------------------------------
-/*! \brief non documenté */
+/*! \brief non documentÃ© */
 // static QString EXE_PROCESS          (QStringList &arg_list);
 QString C_Macro::EXE_PROCESS(QStringList &arg_list)
-    {//............. récupère les arguments passés à la fonction ................
+    {//............. rÃ©cupÃ¨re les arguments passÃ©s Ã  la fonction ................
      bool      addExe = TRUE;
      bool   isCommand = FALSE;
      int           nb = arg_list.count();
@@ -605,10 +604,10 @@ QString C_Macro::EXE_PROCESS(QStringList &arg_list)
         }
      #ifdef Q_WS_MAC
      else
-        {if (addExe)   pathExe  +=  ".app/Contents/MacOS/" + QFileInfo(pathExe).baseName() ;                   // 0  Chemin de l'executable plugin à actionner
+        {if (addExe)   pathExe  +=  ".app/Contents/MacOS/" + QFileInfo(pathExe).baseName() ;                   // 0  Chemin de l'executable plugin Ã  actionner
         }
      #else
-         if (addExe)   pathExe  +=  F_EXE;                 // 0  Chemin de l'executable plugin à actionner
+         if (addExe)   pathExe  +=  F_EXE;                 // 0  Chemin de l'executable plugin Ã  actionner
      #endif
      //................... les arguments .......................
      QStringList argList;
@@ -646,7 +645,7 @@ QString C_Macro::EXE_PROCESS(QStringList &arg_list)
    }
 
 //-------------------------- EXTRACT -------------------------------------------
-/*! \brief non documenté */
+/*! \brief non documentÃ© */
 QString C_Macro::EXTRACT(QStringList &arg_list)
 {if (PT_DOCUMENT==0) return TR("::EXTRACT() le pointeur du document est null ");
  int nb  = arg_list.count();
@@ -664,7 +663,7 @@ QString C_Macro::EXTRACT(QStringList &arg_list)
 }
 
 //-------------------------- REPLACE -------------------------------------------
-/*! \brief non documenté */
+/*! \brief non documentÃ© */
 QString C_Macro::REPLACE(QStringList &arg_list)
 {if (PT_DOCUMENT==0) return TR("::REPLACE() le pointeur du document est null ");
  int nb  = arg_list.count();
@@ -895,7 +894,7 @@ QString C_Macro::PUT_PAGE_IN_BASE(QStringList &arg_list)
 }
 
 //-------------------------- OS -------------------------------------------
-/*! \brief non documenté */
+/*! \brief non documentÃ© */
 QString C_Macro::OS(QStringList &)
      {
        #ifdef Q_WS_WIN
@@ -910,13 +909,13 @@ QString C_Macro::OS(QStringList &)
      }
 
 //-------------------------- PUT_VAR -------------------------------------------
-/*! \brief non documenté */
+/*! \brief non documentÃ© */
 QString C_Macro::PUT_VAR(QStringList &arg_list)
 {int nb = arg_list.count();
  QString fileName = "";
  QString var      = (*PT_VAR_MAP)[arg_list[0].trimmed()];
  if (PT_VAR_MAP==0)      return TR("::PUT_VAR() pointeur du tableau de variables null ");
- if (nb<1)               return TR("::PUT_VAR() nom de la variable non indiqué");
+ if (nb<1)               return TR("::PUT_VAR() nom de la variable non indiquÃ©");
  if (nb>1)               // argument de modificateurs
     {if (arg_list[1].contains("%commaProtect"))  var = C_Utils_Html::protectSymbolByAntiSlash(var,',');
      if (arg_list[1].contains("%braketProtect")) var = C_Utils_Html::protectSymbolByAntiSlash(C_Utils_Html::protectSymbolByAntiSlash(var,'('),')');
@@ -930,7 +929,7 @@ QString C_Macro::PUT_VAR(QStringList &arg_list)
 }
 
 //-------------------------- SET_VAR -------------------------------------------
-/*! \brief non documenté */
+/*! \brief non documentÃ© */
 QString C_Macro::SET_VAR(QStringList &arg_list)
     {if (PT_VAR_MAP==0)      return TR("::SET_VAR() pointeur du tableau de variables null ");
      int nb = arg_list.count();
@@ -963,14 +962,14 @@ QString C_Macro::TO_NUM(QStringList &arg_list)
 }
 
 //-------------------------- VAR_LIST_CLEAR -------------------------------------------
-/*! \brief non documenté */
+/*! \brief non documentÃ© */
 QString C_Macro::VAR_LIST_CLEAR(QStringList &)
     {if (PT_VAR_MAP==0)      return TR("::VAR_LIST_CLEAR() pointeur du tableau de variables null ");
      PT_VAR_MAP->clear();
      return QString("");
     }
 //-------------------------- VAR_SPLIT -------------------------------------------
-/*! \brief non documenté */
+/*! \brief non documentÃ© */
 QString C_Macro::VAR_SPLIT(QStringList &arg_list)
     {if (PT_VAR_MAP==0)      return TR("::VAR_SPLIT() pointeur du tableau de variables null ");
      int nb = arg_list.count();
@@ -1031,7 +1030,7 @@ static QString VAR_LIST_CLEAR       (QStringList &arg_list);
 static QString VAR_SPLIT            (QStringList &arg_list);
 */
 //--------------------------- func_Extract ---------------------------------------------------
-/*! \brief Extrait une partie du texte du document selon le modèle demandé */
+/*! \brief Extrait une partie du texte du document selon le modÃ¨le demandÃ© */
 QString C_Macro::func_Extract(const QString &text, QString &patern_deb, QString &patern_end, QString &find_to, QString &replace_by, const QString justNum_in)
 {if (patern_deb.length()==0 || patern_end.length()==0) return QString::null;
  QString   resolvToken    = "";

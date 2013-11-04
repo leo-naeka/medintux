@@ -499,12 +499,12 @@ limit      0,30000
     /*int up_frequency                  = */ C_PosologieGrammar::toMinMax_UP(seqList,  q_min,  q_max, up_formes_min_max_period);
     QString s_q_min                   = QString::number(q_min,'f',2);
     QString s_q_max                   = QString::number(q_max,'f',2);
-    //............ si doses non renseignées alors cassos car controles non possibles ..........................
+    //............ si doses non renseign\303\251es alors cassos car controles non possibles ..........................
     if (q_min==0 && q_max==0)    // Alerte : dose non precisees
-       { interResultPairList.append( C_InterResultPair(  s_q_min+";"+s_q_max    , "QUANT", tr("DOSES NON PRECISÉES") ,
+       { interResultPairList.append( C_InterResultPair(  s_q_min+";"+s_q_max    , "QUANT", tr("DOSES NON PRECIS\303\211ES") ,
                                                          id                     , "CIP"  , drugName,
-                                                         tr("Les doses indiquées pour ce produit ne permettent pas de contrôler correctement la prescription, "
-                                                            "car elles sont non renseignées"
+                                                         tr("Les doses indiqu\303\251es pour ce produit ne permettent pas de contr\303\264ler correctement la prescription, "
+                                                            "car elles sont non renseign\303\251es"
                                                            ),"IT_QUANT", "1"
                                                       )
                                    );
@@ -642,7 +642,7 @@ limit      0,30000
                           if (q_max  && q_max>drug_max)         // alert on est au dessus du maximum conseille pour ce poids
                              { interResultPairList.append( C_InterResultPair(  s_q_max  , "QUANT", tr("DOSE %1 %2 INCOMPATIBLE").arg(s_q_max, drug_qu_unit) ,
                                                                                id       , "CIP"  , drugName,
-                                                                               tr("Dose prescrite maximum %1 trop elevée.<br/>"
+                                                                               tr("Dose prescrite maximum %1 trop elev\303\251e.<br/>"
                                                                                   "Dose maximum permise est de %2 pour un poids de %3 Kg"
                                                                                  ).arg(s_q_max+" "+drug_qu_unit, s_drug_max+" "+drug_qu_unit, s_poids),"IT_QUANT", "4"
                                                                             )
@@ -666,7 +666,7 @@ limit      0,30000
                              { interResultPairList.append( C_InterResultPair(   s_q_min  , "QUANT", tr("DOSE %1 %2 INCOMPATIBLE").arg(s_q_min, drug_qu_unit) ,
                                                                                 id       , "CIP"  , drugName,
                                                                                 tr("Dose prescrite minimum %1 trop faible.<br/>"
-                                                                                   "La dose minimum permise est de %2 pour un âge de %3 "
+                                                                                   "La dose minimum permise est de %2 pour un \303\242ge de %3 "
                                                                                   ).arg(s_q_min+" "+drug_qu_unit, s_drug_min+" "+drug_qu_unit, s_age),"IT_QUANT", "2"
                                                                             )
                                                          );
@@ -675,8 +675,8 @@ limit      0,30000
                           if (q_max  && q_max>drug_max)         // alert quantite  au dessus du maximum conseille pour cet age
                              { interResultPairList.append( C_InterResultPair(  s_q_max  , "QUANT", tr("DOSE %1 %2 INCOMPATIBLE").arg(s_q_max, drug_qu_unit) ,
                                                                                id       , "CIP"  , drugName,
-                                                                               tr("Dose prescrite %1 trop elevée.<br/>"
-                                                                                  "La dose maximum permise est de %2 pour un âge de %3 "
+                                                                               tr("Dose prescrite %1 trop elev\303\251e.<br/>"
+                                                                                  "La dose maximum permise est de %2 pour un \303\242ge de %3 "
                                                                                  ).arg(s_q_max+" "+drug_qu_unit, s_drug_max+" "+drug_qu_unit, s_age),"IT_QUANT", "4"
                                                                             )
                                                          );
@@ -701,7 +701,7 @@ limit      0,30000
                           if (q_max  && q_max>drug_max)         // alert quantite  au dessus du maximum conseille pour ce sexe
                              { interResultPairList.append( C_InterResultPair(  s_q_max  , "QUANT", tr("DOSE %1 %2 INCOMPATIBLE POUR LE SEXE %3").arg(s_q_min, drug_qu_unit, s_sexe) ,
                                                                                id       , "CIP"  , drugName,
-                                                                               tr("Dose prescrite maximum %1 trop elevée.<br/>"
+                                                                               tr("Dose prescrite maximum %1 trop elev\303\251e.<br/>"
                                                                                   "La dose maximum permise pour le sexe %3 est de %2 "
                                                                                  ).arg( s_q_max+" "+drug_qu_unit , s_drug_max+" "+drug_qu_unit, s_sexe ),"IT_QUANT", "4"
                                                                             )
@@ -722,7 +722,7 @@ limit      0,30000
                           if (q_max  && q_max>drug_max)         // alert quantite  au dessus du maximum conseille
                              { interResultPairList.append( C_InterResultPair(  s_q_max  , "QUANT", tr("DOSE %1 %2 INCOMPATIBLE").arg(s_q_max, drug_qu_unit) ,
                                                                                id       , "CIP"  , drugName,
-                                                                               tr("Dose maximum %1 trop elevée (pas de facteur physiopathologique)<br/>"
+                                                                               tr("Dose maximum %1 trop elev\303\251e (pas de facteur physiopathologique)<br/>"
                                                                                   "La dose maximum permise est de %2"
                                                                                  ).arg( s_q_max+" "+drug_qu_unit ,  s_drug_max+" "+drug_qu_unit ),"IT_QUANT", "4"
                                                                             )
@@ -735,7 +735,7 @@ limit      0,30000
     if (isNoResponse)
        { interResultPairList.append( C_InterResultPair(  s_q_max  , "QUANT", tr("CONTROLE DES DOSES ET DUREES NON POSSIBLE") ,
                                                          id       , "CIP"  , drugName,
-                                                         tr("Données non trouvées pour le contrôle des doses <br/>"),"IT_QUANT", "1"
+                                                         tr("Donn\303\251es non trouv\303\251es pour le contr\303\264le des doses <br/>"),"IT_QUANT", "1"
                                                       )
                                    );
          return interResultPairList;
@@ -745,8 +745,8 @@ limit      0,30000
        { QString s_durationInDays = QString::number(durationInDays,'f',0);
          interResultPairList.append( C_InterResultPair(  s_durationInDays       , "TEMPS"        , tr("DUREE DE PRESCRIPTION DE %1 JOUR(S) TROP COURTE").arg(s_durationInDays) ,
                                                          id                     , "CIP"          , drugName,
-                                                         tr("La durée de prescription %1 jours(s) est trop faible. "
-                                                            "La fourchette de durees permise pour une prescription correcte de ce produit est de %2 à %3 jour(s)"
+                                                         tr("La dur\303\251e de prescription %1 jours(s) est trop faible. "
+                                                            "La fourchette de durees permise pour une prescription correcte de ce produit est de %2 \303\240 %3 jour(s)"
                                                            ).arg(s_durationInDays, QString::number(drug_min_period,'f',2), QString::number(drug_max_period,'f',2)),"IT_TEMPS", "2"
                                                       )
                                    );
@@ -755,8 +755,8 @@ limit      0,30000
        { QString s_durationInDays = QString::number(durationInDays,'f',0);
          interResultPairList.append( C_InterResultPair(  s_durationInDays       , "TEMPS"        , tr("DUREE DE PRESCRIPTION DE %1 JOUR(S) TROP GRANDE").arg(s_durationInDays) ,
                                                          id                     , "CIP"          , drugName,
-                                                         tr("La durée de prescription %1 jours(s) est trop grande. "
-                                                            "La fourchette de durees permise pour une prescription correcte de ce produit est de %2 à %3 jour(s)"
+                                                         tr("La dur\303\251e de prescription %1 jours(s) est trop grande. "
+                                                            "La fourchette de durees permise pour une prescription correcte de ce produit est de %2 \303\240 %3 jour(s)"
                                                            ).arg(s_durationInDays, QString::number(drug_min_period,'f',2), QString::number(drug_max_period,'f',2)),"IT_TEMPS", "2"
                                                       )
                                    );
@@ -764,8 +764,8 @@ limit      0,30000
     if ( weightIsNotInLimits && drug_max_weight>0 )    // Alerte : poids evalue (drug_max_weight>0) mais en dehors des limites (il y a eu des reponse mais aucune correspond)
        { interResultPairList.append( C_InterResultPair(  s_q_min+";"+s_q_max    , "QUANT", tr("POIDS PATIENT %1 Kg INCOMPATIBLE").arg(s_poids) ,
                                                          id                     , "CIP"  , drugName,
-                                                         tr("Ce produit ne permet pas d'établir une prescription correcte pour le poids de %1 kg de ce patient. "
-                                                            "La fourchette de poids permise pour une prescription correcte de ce produit est de %2 à %3 kg"
+                                                         tr("Ce produit ne permet pas d'\303\251tablir une prescription correcte pour le poids de %1 kg de ce patient. "
+                                                            "La fourchette de poids permise pour une prescription correcte de ce produit est de %2 \303\240 %3 kg"
                                                            ).arg(s_poids, QString::number(drug_min_weight,'f',2), QString::number(drug_max_weight,'f',2)),"IT_POIDS", "2"
                                                       )
                                    );
@@ -774,8 +774,8 @@ limit      0,30000
        {
          interResultPairList.append( C_InterResultPair(  s_q_min+";"+s_q_max    , "QUANT", tr("AGE %1 INCOMPATIBLE").arg(s_age) ,
                                                           id                     , "CIP" , drugName,
-                                                          tr("Ce produit ne permet pas d'établir une prescription correcte pour l'âge de %1 de ce patient. "
-                                                             "La fourchette d'âge permise pour une prescription correcte est de %2 à %3  an(s)"
+                                                          tr("Ce produit ne permet pas d'\303\251tablir une prescription correcte pour l'\303\242ge de %1 de ce patient. "
+                                                             "La fourchette d'\303\242ge permise pour une prescription correcte est de %2 \303\240 %3  an(s)"
                                                             ).arg(s_age, QString::number(drug_min_age/365.25,'f',2),QString::number(drug_max_age/365.25,'f',2)),"IT_YEARS", "2"
                                                        )
                                     );
@@ -906,7 +906,7 @@ QList<C_InterResultPair> C_BDM_DatasempPlugin::getInteractionCim10(const QString
                 {   niveau = query.value(0).toInt();
                     switch(niveau)   // fitrage des niveaux par programmation car en SQL c'est archi lent ??!!
                           {case 2999:      // CI absolue
-                           case 2991:      // effet indésirable information
+                           case 2991:      // effet ind\303\251sirable information
                            case 2988:      // Mise en garde
                            case 2990:      //  precaution d'emploi
                            case 2996:      // CI relative
@@ -1150,7 +1150,7 @@ QList<C_InterResultPair> C_BDM_DatasempPlugin::getInteractionPairFromCipList ( c
        QString cip2 = QString::number(inter.m_cip2);
        interResultPairList.append (  C_InterResultPair ( QString::number(inter.m_cip)    ,                 "CIP",       inter.m_drugName,
                                                          cip2                            ,                 "CIP",       inter.m_product,
-                                                         tr("Interaction médicamenteuse avec : %1 <br/>%2")
+                                                         tr("Interaction m\303\251dicamenteuse avec : %1 <br/>%2")
                                                          .arg(dbi_cip_drugName(cip2), Datasemp_SGML_to_html(inter.m_document))     , "AFSSAPS", inter.m_level
                                                        )
                                   );
@@ -1227,7 +1227,7 @@ QList<C_InterResultPair> C_BDM_DatasempPlugin::getInteractionRedundancy( const Q
                      }
                  interResultPairList.append( C_InterResultPair( ""       , "REDON", title,
                                                                 ""       , "REDON", substName,
-                                                                tr("%1 produits avec la même substance <b>%2</b> on été trouvés :<br/>").arg(QString::number(nb), substName) + avec + "<br/>","REDONDANCES", QString::number(nb)
+                                                                tr("%1 produits avec la mÃªme substance <b>%2</b> on \303\251t\303\251 trouv\303\251s :<br/>").arg(QString::number(nb), substName) + avec + "<br/>","REDONDANCES", QString::number(nb)
                                                               )
                                            );
 
@@ -1378,7 +1378,7 @@ limit 0,200
                QString title   = "";
                QByteArray ba   = query.value(9).toByteArray();   // query.value(9).toBool()  fonctionne pas sous mac ??!!
                if (dopeIsNotEvaluated && ba.length() && ba[0])
-                  { title = tr(" Produit pouvant être positif lors des contrôles anti-dopage");
+                  { title = tr(" Produit pouvant Ãªtre positif lors des contr\303\264les anti-dopage");
                     interResultPairList.append( C_InterResultPair( ""      , "DOPE", title,
                                                                    cip     , "CIP", drugName,
                                                                    tr("Sport : <br/>") +title + "<br/>","IT_DOPE", sport==true?"4":"0"
@@ -1390,8 +1390,8 @@ limit 0,200
                int niveauVigi = query.value(10).toInt();
                if (vigiIsNotEvaluated && niveauVigi && niveauVigi<= 5)
                   { QString niveau =  query.value(10).toString();
-                    title = tr(" Produit altérant la vigilance (niveau %1)").arg(QString::number(niveauVigi));
-                    interResultPairList.append( C_InterResultPair( ""     , "VIGIL", tr("Effets sur l'aptitude à conduire des véhicules et à utiliser des machines"),
+                    title = tr(" Produit alt\303\251rant la vigilance (niveau %1)").arg(QString::number(niveauVigi));
+                    interResultPairList.append( C_InterResultPair( ""     , "VIGIL", tr("Effets sur l'aptitude \303\240 conduire des v\303\251hicules et \303\240 utiliser des machines"),
                                                                    cip    , "CIP"  , drugName,
                                                                    tr("Vigilance : <br/>") +title + "<br/>"+CGestIni::Utf8_Query(query, 11), vigil==true?"IT_VIG":"IT_W_VIG", niveau
                                                                  )
@@ -1402,15 +1402,15 @@ limit 0,200
                int api_level   = 0;
                switch (codeTerrain)
                       {
-                       /* a table t2G contient les données correspondantes à celle du lexique (t50) :
+                       /* a table t2G contient les donn\303\251es correspondantes \303\240 celle du lexique (t50) :
                           Dans le cas ci-dessus nous avons :
-                          Précaution d'emploi pour enfant de moins de 15 ans correspond aux valeurs 0 (t2G.f1) et 15 (t2G.f2), si l?âge saisi est entre 0 et 15  il faut afficher une alerte.
-                          Mise en garde Réservé à l'adulte correspond aux valeurs 15(t2G.f1) et 0(t2G.f2), si l'âge saisi est entre 0 et 15  il faut afficher une alerte.
-                          Pour les valeurs de t52.f2 (2990 [Précaution d'emploi], 2996 [Contre-indication relative] et 2999 [contre-indication absolue]), les valeurs dans t2G sont des valeurs exclusives
-                          si une donnée  correspond à un EPP*, il faut afficher une alerte.
-                          Pour la valeur de   t52.f2 (2988 [Mise en garde]) les valeurs dans t2G sont inclusives  si une donnée  ne correspond pas à un EPP*,  il faut afficher une alerte de 'reserve'.
-                          Pour la valeur de   t52.f2 (2994 [Indication]), les valeurs dans t2G sont inclusives comme il peut éxister plusieurs indications sans préconisation d'âge, ceci est donné à titre 'indicatif'.
-                          Il est peut-être judicieux de n'afficher qu?une seule alerte pour l'âge, et d?indiquer qu'il y a une mise en garde et une précaution d'emploi.
+                          Pr\303\251caution d'emploi pour enfant de moins de 15 ans correspond aux valeurs 0 (t2G.f1) et 15 (t2G.f2), si l?\303\242ge saisi est entre 0 et 15  il faut afficher une alerte.
+                          Mise en garde R\303\251serv\303\251 \303\240 l'adulte correspond aux valeurs 15(t2G.f1) et 0(t2G.f2), si l'\303\242ge saisi est entre 0 et 15  il faut afficher une alerte.
+                          Pour les valeurs de t52.f2 (2990 [Pr\303\251caution d'emploi], 2996 [Contre-indication relative] et 2999 [contre-indication absolue]), les valeurs dans t2G sont des valeurs exclusives
+                          si une donn\303\251e  correspond \303\240 un EPP*, il faut afficher une alerte.
+                          Pour la valeur de   t52.f2 (2988 [Mise en garde]) les valeurs dans t2G sont inclusives  si une donn\303\251e  ne correspond pas \303\240 un EPP*,  il faut afficher une alerte de 'reserve'.
+                          Pour la valeur de   t52.f2 (2994 [Indication]), les valeurs dans t2G sont inclusives comme il peut \303\251xister plusieurs indications sans pr\303\251conisation d'\303\242ge, ceci est donn\303\251 \303\240 titre 'indicatif'.
+                          Il est peut-Ãªtre judicieux de n'afficher qu?une seule alerte pour l'\303\242ge, et d?indiquer qu'il y a une mise en garde et une pr\303\251caution d'emploi.
                        */
                        case 1:  // age
                              {
@@ -1436,7 +1436,7 @@ limit 0,200
                                 else                ageToDisplay    = QString::number(d_age,'g',0)      + " mois";
                                 if    (level==2988)
                                       { isAlert  = ! (d_age >= d_borneInf && d_age < d_borneSup);   // d_borneInf = 15   d_borneSup = 0  les valeurs dans t2G sont inclusives
-                                        strAlert = tr("Age du patient <b>%1</b> en dehors des zones de compatibilité <b>%2</b> et <b>%3</b><br/>").arg(ageToDisplay, ageToDisplayInf, ageToDisplaySup);
+                                        strAlert = tr("Age du patient <b>%1</b> en dehors des zones de compatibilit\303\251 <b>%2</b> et <b>%3</b><br/>").arg(ageToDisplay, ageToDisplayInf, ageToDisplaySup);
                                       }
                                 else
                                       { isAlert  =   (d_age >  d_borneInf && d_age < d_borneSup);   // d_borneInf = 0    d_borneSup = 15 les valeurs dans t2G sont exclusives
@@ -1460,7 +1460,7 @@ limit 0,200
                                 QString strAlert = "";
                                 if    (level==2988)
                                       { isAlert  = ! (poids >= borneInf && poids < borneSup);   // borneInf = 15   d_borneSup = 0  les valeurs dans t2G sont inclusives
-                                        strAlert = tr("Poids du patient <b>%1 kg</b> en dehors des zones de compatibilité <b>%2</b> et <b>%3</b><br/>").arg(_poids, QString::number(borneInf), QString::number(borneSup));
+                                        strAlert = tr("Poids du patient <b>%1 kg</b> en dehors des zones de compatibilit\303\251 <b>%2</b> et <b>%3</b><br/>").arg(_poids, QString::number(borneInf), QString::number(borneSup));
                                       }
                                 else
                                       { isAlert =   (poids >  borneInf && poids < borneSup);   // borneInf = 0    d_borneSup = 15 les valeurs dans t2G sont exclusives
@@ -1486,11 +1486,11 @@ limit 0,200
                               QString strAlert     = "";
                               if    (level==2988)
                                     { isAlert  = ! (amenorrhee >= borneInf && amenorrhee < borneSup);   // borneInf = 15   d_borneSup = 0  les valeurs dans t2G sont inclusives
-                                      strAlert = tr("Age de grossesse de la patiente <b>%1</b> (en semaines d'aménorrhée)  en dehors des zones de compatibilité <b>%2</b> et <b>%3</b><br/>").arg(s_amenorrhee, QString::number(borneInf), QString::number(borneSup));
+                                      strAlert = tr("Age de grossesse de la patiente <b>%1</b> (en semaines d'am\303\251norrh\303\251e)  en dehors des zones de compatibilit\303\251 <b>%2</b> et <b>%3</b><br/>").arg(s_amenorrhee, QString::number(borneInf), QString::number(borneSup));
                                     }
                               else
                                     { isAlert  =   (amenorrhee >  borneInf && amenorrhee < borneSup);   // borneInf = 0    d_borneSup = 15 les valeurs dans t2G sont exclusives
-                                      strAlert = tr("Age de grossesse de la patiente <b>%1</b> (en semaines d'aménorrhée)  incompatible car entre <b>%2</b> et <b>%3</b><br/>").arg(s_amenorrhee, QString::number(borneInf), QString::number(borneSup));
+                                      strAlert = tr("Age de grossesse de la patiente <b>%1</b> (en semaines d'am\303\251norrh\303\251e)  incompatible car entre <b>%2</b> et <b>%3</b><br/>").arg(s_amenorrhee, QString::number(borneInf), QString::number(borneSup));
                                     }
 
                               if (isAlert)
@@ -1520,7 +1520,7 @@ limit 0,200
                               QString strAlert     = "";
                               if    (level==2988)
                                     { isAlert  = ! (clairance >= borneInf && clairance < borneSup);   // borneInf = 15   d_borneSup = 0  les valeurs dans t2G sont inclusives
-                                      strAlert = tr("Clairance du patient <b>%1 ml/min</b> en dehors des zones de compatibilité <b>%2</b> et <b>%3</b><br/>").arg(_clairance, QString::number(borneInf), QString::number(borneSup));
+                                      strAlert = tr("Clairance du patient <b>%1 ml/min</b> en dehors des zones de compatibilit\303\251 <b>%2</b> et <b>%3</b><br/>").arg(_clairance, QString::number(borneInf), QString::number(borneSup));
                                     }
                               else
                                     { isAlert  =   (clairance >  borneInf && clairance < borneSup);   // borneInf = 0    d_borneSup = 15 les valeurs dans t2G sont exclusives
@@ -1558,14 +1558,14 @@ limit 0,200
  //-------------------------------- nextATC_Code ------------------------------------------------------
  /*
  Table 42 : Dictionnaire des classes ATC
- Classification OMS des produits, par intentions thérapeutiques.
+ Classification OMS des produits, par intentions th\303\251rapeutiques.
          Code	Description	Type	Taille	Relation
  1  	 0	Code classe ATC
- Code structuré, traduisant une arborescence.	[9] Texte longueur variable	 7
-         1	Intitulé anglais
- Intitulé de la classe en anglais (OMS)	[9] Texte longueur variable	 127
-         2	Intitulé français
- Intitulé de la classe en français	[9] Texte longueur variable	 255
+ Code structur\303\251, traduisant une arborescence.	[9] Texte longueur variable	 7
+         1	Intitul\303\251 anglais
+ Intitul\303\251 de la classe en anglais (OMS)	[9] Texte longueur variable	 127
+         2	Intitul\303\251 fran\303\247ais
+ Intitul\303\251 de la classe en fran\303\247ais	[9] Texte longueur variable	 255
  */
 int  C_BDM_DatasempPlugin::nextATC_Code(QString &codeAtc, QString &libelle)
 {
@@ -1687,7 +1687,7 @@ QString  C_BDM_DatasempPlugin::drugListMakeSQLFilter()
           //   " AND   t4B.fA IS NOT NULL   \n" // code ATC non null   -- AND   t4B.fA IS NULL
              " AND   t01.f0 = t00.f1      \n"
              " AND   t02.f0 = t00.f1      \n"
-             " AND   t00.fK LIKE '1%'     \n"   // famille datasemp K = 1 = Spécialités ; 2 = Diététiques ; 3 = Vétérinaires ; 4 = Parapharmacie ; 5 = Accessoires ; 6 = Divers (herboristerie, etc.) ; 7 = Homéopathie
+             " AND   t00.fK LIKE '1%'     \n"   // famille datasemp K = 1 = Sp\303\251cialit\303\251s ; 2 = Di\303\251t\303\251tiques ; 3 = V\303\251t\303\251rinaires ; 4 = Parapharmacie ; 5 = Accessoires ; 6 = Divers (herboristerie, etc.) ; 7 = Hom\303\251opathie
              " AND   t02.f3 = '0'         \n"   // disponible
           //   " AND   t4b.f7 like '1%'     \n"
              " ORDER BY t00.f3            \n";
@@ -1745,7 +1745,7 @@ QString  C_BDM_DatasempPlugin::convertPrixDecimalToCts(const QString &prix)
  int           len = prix.length();
  int           pos = prix.indexOf('.');
  if (pos==-1)  pos = prix.indexOf(',');
- if (pos==-1)                    // pas de partie décimale exple 0012  12 faut rajouter deux zeros
+ if (pos==-1)                    // pas de partie d\303\251cimale exple 0012  12 faut rajouter deux zeros
     { int_part = prix;
       for ( i=0; i<len; ++i)   // enlever les zeros non significatifs de debut
           { if (int_part.toAscii()[i]!='0')
@@ -1756,7 +1756,7 @@ QString  C_BDM_DatasempPlugin::convertPrixDecimalToCts(const QString &prix)
       int_part += "00";
       return int_part;
     }
-  else                       // il y a partie décimale exple 0012.25  12.1 faut ajuster la partie decimale a deux chiffres
+  else                       // il y a partie d\303\251cimale exple 0012.25  12.1 faut ajuster la partie decimale a deux chiffres
     { int_part = prix.left(pos);
       for ( i=0; i<len; ++i)   // enlever les zeros non significatifs de debut
           { if (int_part.toAscii()[i]!='0')
@@ -1946,7 +1946,7 @@ QString  C_BDM_DatasempPlugin::getMonographieFromCIP (    const QString &cip   ,
 }
 
 //-------------------------------- getPriseUnitFormFromCIP ------------------------------------------------------
-/*! \brief return the prise unit form from cip. (comprimes, suppositoires sachets,ampoules,doses kg, cuillères a café etc...)
+/*! \brief return the prise unit form from cip. (comprimes, suppositoires sachets,ampoules,doses kg, cuillÃ¨res a caf\303\251 etc...)
  *  \param const QString &cip      code CIP of the drug from wich wee want datas.
  *  \return QString with unit form
  */
@@ -2224,48 +2224,48 @@ QStringList C_BDM_DatasempPlugin::code_CPG_to_DCI_1_2_3(const QString &codeCPG) 
 //-------------------------------- code_CPG_to_StatutGenerique ------------------------------------------------------
 /*
 RAPPEL   DU CONTENU DE CETTE TABLE DE LIENS
-Vous pouvez déterminer si une spécialité appartient au répertoire des génériques en étant soit
-     -   un référent (t3F.f2=1)
-     -   un générique (t3F.f2=6)
-     -   un quasi-générique (t3F.f2=7).
-RAPPEL   SUR LES QUASI-GÉNÉRIQUES
-Spécialité substituable « S » conformément au Décret 2011-149 du 3 février 2011 relatif à
-l?inscription au répertoire des groupes génériques des spécialités qui se présentent sous une forme
-pharmaceutique orale à libération modifiée différente de celle de la spécialité de référence.
+Vous pouvez d\303\251terminer si une sp\303\251cialit\303\251 appartient au r\303\251pertoire des g\303\251n\303\251riques en \303\251tant soit
+     -   un r\303\251f\303\251rent (t3F.f2=1)
+     -   un g\303\251n\303\251rique (t3F.f2=6)
+     -   un quasi-g\303\251n\303\251rique (t3F.f2=7).
+RAPPEL   SUR LES QUASI-GENERIQUES
+Sp\303\251cialit\303\251 substituable Â« S Â» conform\303\251ment au D\303\251cret 2011-149 du 3 f\303\251vrier 2011 relatif \303\240
+l?inscription au r\303\251pertoire des groupes g\303\251n\303\251riques des sp\303\251cialit\303\251s qui se pr\303\251sentent sous une forme
+pharmaceutique orale \303\240 lib\303\251ration modifi\303\251e diff\303\251rente de celle de la sp\303\251cialit\303\251 de r\303\251f\303\251rence.
 
 
-Table 3F : Relation entre produit (répertoire des génériques et spécialité
+Table 3F : Relation entre produit (r\303\251pertoire des g\303\251n\303\251riques et sp\303\251cialit\303\251
 pharmaceutique proche)
-Relation entre produit (répertoire des génériques et spécialité pharmaceutique proche). Une
-spécialité pharmaceutique proche est une spécialité de même composition en substance(s)
-active(s) de même dosage(s) de même forme(s) et même voie d'administration
+Relation entre produit (r\303\251pertoire des g\303\251n\303\251riques et sp\303\251cialit\303\251 pharmaceutique proche). Une
+sp\303\251cialit\303\251 pharmaceutique proche est une sp\303\251cialit\303\251 de mÃªme composition en substance(s)
+active(s) de mÃªme dosage(s) de mÃªme forme(s) et mÃªme voie d'administration
      Code                          Description                             Type       Taille Relation
  1           Code du produit                                          [8] Texte
      0                                                                                6          4B.0
              Code du produit membre d'un groupe.                      longueur fixe
-             Code du groupe ou spécialité proche
+             Code du groupe ou sp\303\251cialit\303\251 proche
  2                                                                    [8] Texte
-     1       Code du groupe générique ou de la spécialité                             6          4B.0
+     1       Code du groupe g\303\251n\303\251rique ou de la sp\303\251cialit\303\251                             6          4B.0
                                                                       longueur fixe
              pharmaceutique proche
              Champ de bits qualifiant la relation.
-             Champ de bits qualifiant la relation. 1 : Référent 6 :   [2] Entier
+             Champ de bits qualifiant la relation. 1 : R\303\251f\303\251rent 6 :   [2] Entier
      2                                                                                0          1F.0
-             Générique 7 : Substituable 8 : Spécialité pharmaceutique Octet
+             G\303\251n\303\251rique 7 : Substituable 8 : Sp\303\251cialit\303\251 pharmaceutique Octet
              proche
-             Pointeur éventuel vers un commentaire
+             Pointeur \303\251ventuel vers un commentaire
                                                                       [5] Entier long
-             Certaines équivalences sont accompagnées d'un
+             Certaines \303\251quivalences sont accompagn\303\251es d'un
      3                                                                (4 octets       0          1C.0
-             commentaire, conservé dans la table 1C. Dans ce cas, ce
+             commentaire, conserv\303\251 dans la table 1C. Dans ce cas, ce
                                                                       binaires)
              champ en contient le code.
              Commentaires sur la participation du produit au groupe   [L] Structure
      5                                                                                0
              Commentaires sur la participation du produit au groupe.  SGML
-             Date de mise à jour de la fiche technique
+             Date de mise \303\240 jour de la fiche technique
      C                                                                [S] Date        0          3F.5
-             Date de dernière modification du contenu du champ 5.
+             Date de derniÃ¨re modification du contenu du champ 5.
 
 */
 QString C_BDM_DatasempPlugin::code_CPG_to_StatutGenerique(const QString &codeCPG)
@@ -2342,7 +2342,7 @@ QString C_BDM_DatasempPlugin::code_UV_to_dispVilleHopital(const QString &codeUV)
 //--------------------------------- Datasemp_LevelToLevelStr ------------------------------------------------------------
 /*
 case 2999:      // CI absolue
-case 2991:      // effet indésirable information
+case 2991:      // effet ind\303\251sirable information
 case 2988:      // Mise en garde
 case 2990:      //  precaution d'emploi
 case 2996:      // CI relative
@@ -2717,7 +2717,7 @@ QString   C_BDM_DatasempPlugin::Datasemp_GetMonographie(const QString &code_UV)
 QString C_BDM_DatasempPlugin::Datasemp_SGML_to_html( QString& input, QString  name  /* = QString::null */ )
 {
  int xmlDepth      = -1;
- //................ convertir les retours chariot en trucs non XML (ne doivent pas etres interprÃ©tÃ©s) ................
+ //................ convertir les retours chariot en trucs non XML (ne doivent pas etres interprÃƒÂ©tÃƒÂ©s) ................
  input.replace("<BR/>","{{@}}");
  QDomDocument doc( "mydocument" );
  if ( !doc.setContent( input ) ) return "";
@@ -2731,14 +2731,14 @@ QString C_BDM_DatasempPlugin::Datasemp_SGML_to_html( QString& input, QString  na
     }
  Datasemp_Xml_ListChild(input, doc.documentElement(), xmlDepth );
  // input     += "</body></html>";
- input.replace("Â’","\'");
+ input.replace("\303\242Â’","\'");
  return input;
 }
 //-------------------------------------- Datasemp_Xml_to_html -------------------------------------------------------
 void C_BDM_DatasempPlugin::Datasemp_Xml_to_html( QString& input, QString  name  /* = QString::null */ )
 {
  int xmlDepth      = -1;
- //................ convertir les retours chariot en trucs non XML (ne doivent pas etres interprÃ©tÃ©s) ................
+ //................ convertir les retours chariot en trucs non XML (ne doivent pas etres interprÃƒÂ©tÃƒÂ©s) ................
  input.replace("<BR/>","{{@}}");
  QDomDocument doc( "mydocument" );
  if ( !doc.setContent( input ) ) return;
@@ -2752,7 +2752,7 @@ void C_BDM_DatasempPlugin::Datasemp_Xml_to_html( QString& input, QString  name  
     }
  Datasemp_Xml_ListChild(input, doc.documentElement(), xmlDepth );
  input     += "</body></html>";
- input.replace("Â’","\'");
+ input.replace("\303\242Â’","\'");
 }
 
 //-------------------------------------- Datasemp_Xml_ListChild -------------------------------------------------------

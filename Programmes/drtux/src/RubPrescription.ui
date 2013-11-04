@@ -1,4 +1,4 @@
-<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<!DOCTYPE UI><UI version="0.0" stdsetdef="1">
 <class>FormRubPrescription</class>
 <widget class="QWidget">
     <property name="name">

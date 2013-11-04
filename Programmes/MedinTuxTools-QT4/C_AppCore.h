@@ -17,6 +17,7 @@
 
 #define TR QObject::tr
 
+
 //================================================= CApp ==============================================================
 /*! \class C_AppCore
  *  \brief Main base class derived from QApplication.
@@ -49,18 +50,18 @@ public:
     QString readParam (const char *section, const char  *variable,
                        QString *val1=0, QString *val2=0, QString *val3=0, QString *val4=0, QString *val5=0,
                        QString *val6=0, QString *val7=0, QString *val8=0, QString *val9=0, QString *val10=0); /*!< lit une serie de valeurs dans la variable de parametrage */
-    QString readUniqueParam(const QString &section, const QString &variable); /*!< lit une valeur dans la variable de parametrage */
+    QString readUniqueParam(const QString &section, const QString &variable);    /*!< lit une valeur dans la variable de parametrage */
     QString readUniqueParam(const char *section, const char  *variable);         /*!< lit une valeur dans la variable de parametrage */
     //--------------------------------------------- getParamList -------------------------------------------------------------------
     /*! \brief retourne une liste de parametres dans le .ini
      *  \param sectionToRetrieve : section contenant les variables dont il faut faire une liste
      *  \param varToRetrieve     : variable dont il faut faire une liste (si vide alors toutes les donnees de la section apres le signe = seront retenues)
-     *                             si terminee par * alors on prend toutes les variables commençant par ce qui est avant le * de varToRetrieve
-     *                             si commence par * alors on prend toutes les variables terminees  par ce qui est après le * de varToRetrieve
-     *                             si vide alors toutes les lignes de la section seront retenues, alors entireDataLine est un ou deux  (ne s'arrete pas à la premiere valeur entre = et virgule)
+     *                             si terminee par * alors on prend toutes les variables commencant par ce qui est avant le * de varToRetrieve
+     *                             si commence par * alors on prend toutes les variables terminees  par ce qui est apres le * de varToRetrieve
+     *                             si vide alors toutes les lignes de la section seront retenues, alors entireDataLine est un ou deux  (ne s'arrete pas Ã  la premiere valeur entre = et virgule)
      *  \param lst :        liste a initialiser et construire
      *  \param isToStrip :  isToStrip a zero par defaut si a un, chaque element de la liste sera nettoye des espaces de debut et fin
-     *  \param entireDataLine :  entireDataLine a zero par defaut seule la première valeur apres le signe egal et avant la premiere virgule sera retenue.
+     *  \param entireDataLine :  entireDataLine a zero par defaut seule la premiere valeur apres le signe egal et avant la premiere virgule sera retenue.
      *                           si a un,   toutes les donnees apres le signe = seront retenues
      *                           si a deux, toutes les donnees de la ligne seront retenues y compris ce qui est avant le signe =
     */
@@ -69,11 +70,11 @@ public:
     /*! \brief retourne une liste de parametres dans le .ini
      *  \param sectionToRetrieve : section contenant les variables dont il faut faire une liste
      *  \param varToRetrieve     : variable dont il faut faire une liste (si vide alors toutes les donnees de la section apres le signe = seront retenues)
-     *                             si terminee par * alors on prend toutes les variables commençant par ce qui est avant le * de varToRetrieve
-     *                             si commence par * alors on prend toutes les variables terminees  par ce qui est après le * de varToRetrieve
-     *                             si vide alors toutes les lignes de la section seront retenues, alors entireDataLine est un ou deux  (ne s'arrete pas à la premiere valeur entre = et virgule)
+     *                             si terminee par * alors on prend toutes les variables commencant par ce qui est avant le * de varToRetrieve
+     *                             si commence par * alors on prend toutes les variables terminees  par ce qui est apres le * de varToRetrieve
+     *                             si vide alors toutes les lignes de la section seront retenues, alors entireDataLine est un ou deux  (ne s'arrete pas Ã  la premiere valeur entre = et virgule)
      *  \param isToStrip :  isToStrip a zero par defaut si a un, chaque element de la liste sera nettoye des espaces de debut et fin
-     *  \param entireDataLine :  entireDataLine a zero par defaut seule la première valeur apres le signe egal et avant la premiere virgule sera retenue.
+     *  \param entireDataLine :  entireDataLine a zero par defaut seule la premiere valeur apres le signe egal et avant la premiere virgule sera retenue.
      *                           si a un,   toutes les donnees apres le signe = seront retenues
      *                           si a deux, toutes les donnees de la ligne seront retenues y compris ce qui est avant le signe =
     */
@@ -95,7 +96,7 @@ public:
                                      else                         return false;
                                    }
     //--------------------------------------------- readLine -------------------------------------------------------------------
-    /*! \brief lit les donnees situees apres le signe egal d'une varible donnee pour une section donnee.
+    /*! \brief lit les donnees situees apres le signe egal d'une variable donnee pour une section donnee.
     */
     QString readLine(const char *section, const char  *variable);         /*!< lit une valeur dans la variable de parametrage */
     //--------------------------------------------- initSettingVar -------------------------------------------------------------------

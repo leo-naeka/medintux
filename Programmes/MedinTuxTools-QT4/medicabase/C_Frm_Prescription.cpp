@@ -57,39 +57,39 @@ TID : 3 fois par jour
 QID : 4 fois par jour
 QH : chaque heure
 Q4H : toutes les 4 heures
-Q4-6H : toutes les 4 à 6 heures
-QSP (X jour(s)) : quantité suffisante pour X jour(s) > nombre de jour(s)
+Q4-6H : toutes les 4 \303\240 6 heures
+QSP (X jour(s)) : quantit\303\251 suffisante pour X jour(s) > nombre de jour(s)
 [modifier]Formes
 ONG : onguent
 LOT : lotion
-CP : comprimé
+CP : comprim\303\251
 CAP : capsule
-CR : crème
+CR : cr\303\250me
 AMP : ampoule
 SUSP : suspension
 SUPP : suppositoire
 INJ : injection
-SC : sous-cutané
+SC : sous-cutan\303\251
 IM : injection intra musculaire
 IV : injection intra veineuse
-CR VAG : crème vaginale
+CR VAG : cr\303\250me vaginale
 APPL : application
 PO : par voie orale = per os
 PRN : au besoin
-ALD : à la demande
+ALD : \303\240 la demande
 AU : aux 2 oreilles
 AD : oreille droite
 AS : oreille gauche
 OU : aux 2 yeux
 OS : ?il gauche
 OD : ?il droit
-CAT : cuillère à thé
-CAS : cuillère à soupe
-[modifier]Moment de la prise de la médication
+CAT : cuill\303\250re \303\240 th\303\251
+CAS : cuill\303\250re \303\240 soupe
+[modifier]Moment de la prise de la m\303\251dication
 HS : au coucher
 CC : en mangeant
 AC : avant les repas
-PC : après les repas
+PC : apr\303\250s les repas
 AM : le matin
 */
 //======================== C_PopupDialDate =============================
@@ -328,7 +328,7 @@ C_PopupDialDate::C_PopupDialDate          ( QWidget                  *parent,
         rect                 = QRect(pos_x, pos_y, 80, h);
         title                = QString(title_modele)
                 .arg(m_pC_BitMapCollection->imagePath("-dci-0.png"),  // 1
-                     tr("dénomination"),                              // 2
+                     tr("d\303\251nomination"),                              // 2
                      QString::number(m_fGrd.pixelSize()),                // 3
                      m_backGround.lighter(110).name(),                   // 4
                      m_fGrd.family());                                   // 5
@@ -362,7 +362,7 @@ void C_PopupDialDate::Slot_DialDateDeployed(int &ok)
 bool C_PopupDialDate::event ( QEvent * ev )
 {
  if (ev->type()==QEvent::HoverMove)
-    { QPoint pos = mapFromGlobal (QCursor::pos());
+    { //QPoint pos = mapFromGlobal (QCursor::pos());
       if ( /* pos.x()<m_pQDateTimeEdit->width() + 30 && */ ! isDeploy() )
          {setToDeployRect();
          }
@@ -596,7 +596,7 @@ bool CMyQLineEdit::event ( QEvent * e )
            {
             QKeyEvent                    *k = (QKeyEvent *)e;
             int                         key = k->key();
-            Qt::KeyboardModifiers modifiers = k->modifiers();
+            // Qt::KeyboardModifiers modifiers = k->modifiers();
             if (m_caractersMask[0]=='9' &&                                // ultra crade mais pour l'instant on fait avec
                 ! ( (key>=Qt::Key_0 && key<=Qt::Key_9)              ||
                      key==Qt::Key_Comma      || key==Qt::Key_Period ||
@@ -809,11 +809,11 @@ C_PopupDialPosoPoint::C_PopupDialPosoPoint ( QWidget                  *parent,
     m_buttonMap[m_Button_RepasPendant->objectName()] = m_Button_RepasPendant;        m_Button_RepasPendant->setFont(m_fGrd);
     connect( m_Button_RepasPendant, SIGNAL( Sign_ButtonClicked (const QString&)  ),  this , SLOT( Slot_ButtonMomentMealClicked(const QString&) ));
 
-    m_Button_RepasApres          = new CMyColorButton(m_backGround,m_pC_BitMapCollection->m_Button_RepasApres,   QRect(pos_x, pos_y, w, h),this,  tr("après le repas|HitList : m_Button_RepasApresDial-204"));
+    m_Button_RepasApres          = new CMyColorButton(m_backGround,m_pC_BitMapCollection->m_Button_RepasApres,   QRect(pos_x, pos_y, w, h),this,  tr("apr\303\250s le repas|HitList : m_Button_RepasApresDial-204"));
     m_buttonMap[m_Button_RepasApres->objectName()] = m_Button_RepasApres;            m_Button_RepasApres->setFont(m_fGrd);
     connect( m_Button_RepasApres, SIGNAL( Sign_ButtonClicked (const QString&)  ),    this , SLOT( Slot_ButtonMomentMealClicked(const QString&) ));
 
-    m_Button_RepasNoChoice       = new CMyColorButton(m_backGround,m_pC_BitMapCollection->m_Button_Repas,        QRect(pos_x, pos_y, w, h), this, tr("non concerné|HitList : m_Button_RepasNoChoiceDial-201"));
+    m_Button_RepasNoChoice       = new CMyColorButton(m_backGround,m_pC_BitMapCollection->m_Button_Repas,        QRect(pos_x, pos_y, w, h), this, tr("non concern\303\251|HitList : m_Button_RepasNoChoiceDial-201"));
     m_buttonMap[m_Button_RepasNoChoice->objectName()] = m_Button_RepasNoChoice;      m_Button_RepasNoChoice->setFont(m_fGrd);
     connect( m_Button_RepasNoChoice, SIGNAL( Sign_ButtonClicked (const QString&)  ), this , SLOT( Slot_ButtonMomentMealClicked(const QString&) ));
 
@@ -878,7 +878,7 @@ void C_PopupDialPosoPoint::Slot_ButtonMomentMealClicked(const QString &objectNam
        ThemePopup::addOptionMenu(pQMenu,tr("201 - sans importance"));
        ThemePopup::addOptionMenu(pQMenu,tr("202 - avant le repas"));
        ThemePopup::addOptionMenu(pQMenu,tr("203 - pendant le repas"));
-       ThemePopup::addOptionMenu(pQMenu,tr("204 - après le repas"));
+       ThemePopup::addOptionMenu(pQMenu,tr("204 - apr\303\250s le repas"));
 
        QAction *QAction = pQMenu->exec(this->cursor().pos());
        if (QAction)
@@ -1028,33 +1028,33 @@ C_Frm_Sequence::C_Frm_Sequence (  C_Frm_PosologieHitList *pC_Frm_PosologieHitLis
     pos_x                = m_marge ;
     pos_y               += m_buttonH;
     rect                 = QRect(pos_x, pos_y, (daySegment_w*3)-m_marge, m_buttonH);
-                 pQlabel = new QLabel(tr("répartition journalière "), this); pQlabel->setGeometry(rect);
+                 pQlabel = new QLabel(tr("r\303\251partition journali\303\250re "), this); pQlabel->setGeometry(rect);
     pQlabel->setObjectName("HitList : pQlabel_repart/j"); pQlabel->setFont(m_fGrd);
 
     pos_x                = (daySegment_w*3)-m_marge;
     rect                 = QRect(pos_x, pos_y, (daySegment_w*3)-m_marge, m_buttonH);
-    m_Button_Repart      = new CMyColorButton(m_backGround,rect,this, tr("libre dans la journée|HitList : m_Button_Repart")); m_Button_Repart->setFont(m_fGrd);
+    m_Button_Repart      = new CMyColorButton(m_backGround,rect,this, tr("libre dans la journ\303\251e|HitList : m_Button_Repart")); m_Button_Repart->setFont(m_fGrd);
     pQMenu               = new QMenu(m_Button_Repart); pQMenu->setFont(m_fGrd);
     pQMenu->setObjectName("HitList : m_Button_Repart menu");
-    ThemePopup::addOptionMenu(pQMenu, tr("101  - libre dans la journée"));
+    ThemePopup::addOptionMenu(pQMenu, tr("101  - libre dans la journ\303\251e"));
     ThemePopup::addOptionMenu(pQMenu, tr("102  - 1 fois par jour : le matin"));
-    ThemePopup::addOptionMenu(pQMenu, tr("103  - 1 fois par jour : à midi"));
-    ThemePopup::addOptionMenu(pQMenu, tr("104  - 1 fois par jour : l'après-midi"));
+    ThemePopup::addOptionMenu(pQMenu, tr("103  - 1 fois par jour : \303\240 midi"));
+    ThemePopup::addOptionMenu(pQMenu, tr("104  - 1 fois par jour : l'apr\303\250s-midi"));
     ThemePopup::addOptionMenu(pQMenu, tr("105  - 1 fois par jour : le soir"));
     ThemePopup::addOptionMenu(pQMenu, tr("106  - 1 fois par jour : au coucher"));
     ThemePopup::addOptionMenu(pQMenu, tr("107  - 1 fois par jour : dans la nuit"));
     pQMenu->addSeparator();
-    ThemePopup::addOptionMenu(pQMenu, tr("108  - 2 fois par jour : le matin et à  midi"));
+    ThemePopup::addOptionMenu(pQMenu, tr("108  - 2 fois par jour : le matin et \303\240  midi"));
     ThemePopup::addOptionMenu(pQMenu, tr("109  - 2 fois par jour : le matin et le soir"));
-    ThemePopup::addOptionMenu(pQMenu, tr("110  - 2 fois par jour : le matin et l'après-midi"));
+    ThemePopup::addOptionMenu(pQMenu, tr("110  - 2 fois par jour : le matin et l'apr\303\250s-midi"));
     ThemePopup::addOptionMenu(pQMenu, tr("111  - 2 fois par jour : le matin et au coucher"));
-    ThemePopup::addOptionMenu(pQMenu, tr("112  - 2 fois par jour : à  midi et le soir"));
+    ThemePopup::addOptionMenu(pQMenu, tr("112  - 2 fois par jour : \303\240  midi et le soir"));
     ThemePopup::addOptionMenu(pQMenu, tr("113  - 2 fois par jour : au coucher et dans la nuit"));
     pQMenu->addSeparator();
     ThemePopup::addOptionMenu(pQMenu, tr("114 - 3 fois par jour : matin midi soir"));
     ThemePopup::addOptionMenu(pQMenu, tr("115 - 4 fois par jour : matin midi soir coucher"));
-    ThemePopup::addOptionMenu(pQMenu, tr("116 - 5 fois par jour : matin midi après-midi soir coucher"));
-    ThemePopup::addOptionMenu(pQMenu, tr("117 - 6 fois par vingt quatre heures : matin midi après-midi soir coucher nuit"));
+    ThemePopup::addOptionMenu(pQMenu, tr("116 - 5 fois par jour : matin midi apr\303\250s-midi soir coucher"));
+    ThemePopup::addOptionMenu(pQMenu, tr("117 - 6 fois par vingt quatre heures : matin midi apr\303\250s-midi soir coucher nuit"));
     m_Button_Repart->setMenu ( pQMenu );
     connect( pQMenu, SIGNAL( triggered ( QAction *  )  ),    this , SLOT( Slot_MenuTriggered( QAction *  ) ));
 
@@ -1071,7 +1071,7 @@ C_Frm_Sequence::C_Frm_Sequence (  C_Frm_PosologieHitList *pC_Frm_PosologieHitLis
     ThemePopup::addOptionMenu(pQMenu,tr("201 - sans importance"));
     ThemePopup::addOptionMenu(pQMenu,tr("202 - avant le repas"));
     ThemePopup::addOptionMenu(pQMenu,tr("203 - pendant le repas"));
-    ThemePopup::addOptionMenu(pQMenu,tr("204 - après le repas"));
+    ThemePopup::addOptionMenu(pQMenu,tr("204 - apr\303\250s le repas"));
     m_Button_RepartRepas->setMenu ( pQMenu );
     connect( pQMenu, SIGNAL( triggered ( QAction *  )  ),    this , SLOT( Slot_MenuTriggered( QAction *  ) ));
 
@@ -1080,12 +1080,12 @@ C_Frm_Sequence::C_Frm_Sequence (  C_Frm_PosologieHitList *pC_Frm_PosologieHitLis
     pos_x            = margeX + HIT_W_MMASCN + m_marge;
     pos_y            = m_buttonH*2+m_marge; //m_LineEditNuit->y() - m_buttonH;   // on se cale sur le debut de la zone des rectangles de couleur
     rect             = QRect(pos_x, pos_y, geometry_rect.width()-pos_x-m_marge, m_buttonH);
-    m_check_MenuBut  = new CMyColorButton(m_backGround,rect,this, tr("jours non détaillés|HitList : m_check_MenuBut 501"));  m_check_MenuBut->setFont(m_fGrd);  pos_y += m_buttonH;
+    m_check_MenuBut  = new CMyColorButton(m_backGround,rect,this, tr("jours non d\303\251taill\303\251s|HitList : m_check_MenuBut 501"));  m_check_MenuBut->setFont(m_fGrd);  pos_y += m_buttonH;
     pQMenu           = new QMenu(m_check_MenuBut); pQMenu->setFont(m_fGrd);
     pQMenu->setObjectName("HitList : m_check_MenuBut menu");
-    ThemePopup::addOptionMenu(pQMenu,tr("501 - jours non détaillés"));
-    ThemePopup::addOptionMenu(pQMenu,tr("502 - jours à inclure"));
-    ThemePopup::addOptionMenu(pQMenu,tr("503 - jours à exclure"));
+    ThemePopup::addOptionMenu(pQMenu,tr("501 - jours non d\303\251taill\303\251s"));
+    ThemePopup::addOptionMenu(pQMenu,tr("502 - jours \303\240 inclure"));
+    ThemePopup::addOptionMenu(pQMenu,tr("503 - jours \303\240 exclure"));
     ThemePopup::addOptionMenu(pQMenu,tr("504 - sauf samedi dimanche"));
     m_check_MenuBut->setMenu ( pQMenu );
     connect( pQMenu, SIGNAL( triggered ( QAction *  )  ),    this , SLOT( Slot_MenuTriggered( QAction *  ) ));
@@ -1115,7 +1115,7 @@ C_Frm_Sequence::C_Frm_Sequence (  C_Frm_PosologieHitList *pC_Frm_PosologieHitLis
     m_Button_Pendant     = new CMyColorButton(m_backGround,rect,this, tr("pendant|HitList : m_Button_Pendant")); m_Button_Pendant->setFont(m_fGrd);
     pQMenu               = new QMenu(m_Button_Pendant); pQMenu->setFont(m_fGrd);
     pQMenu->setObjectName("HitList : m_Button_Pendant menu");
-    ThemePopup::addOptionMenu(pQMenu,tr("300 -  non précisé"));
+    ThemePopup::addOptionMenu(pQMenu,tr("300 -  non pr\303\251cis\303\251"));
     ThemePopup::addOptionMenu(pQMenu,tr("301 -  un "));
     ThemePopup::addOptionMenu(pQMenu,tr("302 -  deux "));
     ThemePopup::addOptionMenu(pQMenu,tr("303 -  trois "));
@@ -1150,7 +1150,7 @@ C_Frm_Sequence::C_Frm_Sequence (  C_Frm_PosologieHitList *pC_Frm_PosologieHitLis
     ThemePopup::addOptionMenu(pQMenu,tr("401 - jour(s)"));
     ThemePopup::addOptionMenu(pQMenu,tr("407 - semaines"));
     ThemePopup::addOptionMenu(pQMenu,tr("430 - mois"));
-    ThemePopup::addOptionMenu(pQMenu,tr("465 - année(s)"));
+    ThemePopup::addOptionMenu(pQMenu,tr("465 - ann\303\251e(s)"));
     ThemePopup::addOptionMenu(pQMenu,tr("466 - une seule prise unique"));
     m_Button_DureeUnite->setMenu ( pQMenu );
     connect( pQMenu, SIGNAL( triggered ( QAction *  )  ),    this , SLOT( Slot_MenuTriggered( QAction *  ) ));
@@ -1344,16 +1344,16 @@ void C_Frm_Sequence::Slot_MenuTriggered( QAction *pQAction  )
 void C_Frm_Sequence::controlMenuCheckBox(int idMenu)
 {switch(idMenu)
  {setCheckBoxConnexionState(false);
-  case 501: setWeekDaysCheckBoxEnabled( false );      // tr("501 - jours non détaillés")
+  case 501: setWeekDaysCheckBoxEnabled( false );      // tr("501 - jours non d\303\251taill\303\251s")
             setDureeControlsEnabled( true );
-            m_check_MenuBut->setObjectName(tr("jours non détaillés|HitList : m_check_MenuBut 501"));
+            m_check_MenuBut->setObjectName(tr("jours non d\303\251taill\303\251s|HitList : m_check_MenuBut 501"));
             break;
   case 502: setWeekDaysCheckBoxEnabled( true );       // tr("502 - ne prendre que pour les jours ci-dessous")
             setDureeControlsEnabled( false );
-            m_check_MenuBut->setObjectName(tr("jours à inclure|HitList : m_check_MenuBut 502"));
+            m_check_MenuBut->setObjectName(tr("jours \303\240 inclure|HitList : m_check_MenuBut 502"));
             break;
   case 503: setWeekDaysCheckBoxEnabled( true );       // tr("503 - exclure les jours ci-dessous")
-            m_check_MenuBut->setObjectName(tr("jours à exclure|HitList : m_check_MenuBut 503"));
+            m_check_MenuBut->setObjectName(tr("jours \303\240 exclure|HitList : m_check_MenuBut 503"));
             setDureeControlsEnabled( false );
             break;
   case 504: setWeekDaysCheckBoxEnabled( true );
@@ -1548,11 +1548,11 @@ int C_Frm_Sequence::sequenceTimeToInterface(const QString &sequence)
               int after_n  = after.toInt();
               if ( after=="0" && before=="0" )       momentMeal = 203;          // "203 - pendant le repas"
               else if ( before=="0" )                momentMeal = 202;          // "202 - avant le repas""
-              else if ( after=="0" )                 momentMeal = 204;          // "204 - après le repas"
+              else if ( after=="0" )                 momentMeal = 204;          // "204 - apr\303\250s le repas"
               else if ( before_n==0 && after_n==0 )  momentMeal = 203;          // "203 - pendant le repas"
               else //if (before_n||after_n)
                  {if      (before.length()) {tps =  before;  momentMeal = 202;}    // " minutes avant le repas"
-                  else if (after.length() ) {tps =  after;   momentMeal = 204;}    // " minutes après le repas"
+                  else if (after.length() ) {tps =  after;   momentMeal = 204;}    // " minutes apr\303\250s le repas"
                   else                      {tps =  "";      momentMeal = 203;}    // " au cours du repas"
                  }
             }
@@ -1673,9 +1673,9 @@ void C_Frm_Sequence::sequenceDaysToInterface(const QString &sequence)
       case 'j': m_Button_DureeUnite->setText(tr("jour(s)"));                m_LineEdit_Duree->setText(j);   break;
       case 's': m_Button_DureeUnite->setText(tr("semaine(s)"));             m_LineEdit_Duree->setText(j);   break;
       case 'm': m_Button_DureeUnite->setText(tr("mois"));                   m_LineEdit_Duree->setText(j);   break;
-      case 'a': m_Button_DureeUnite->setText(tr("année(s)"));               m_LineEdit_Duree->setText(j);   break;
+      case 'a': m_Button_DureeUnite->setText(tr("ann\303\251e(s)"));               m_LineEdit_Duree->setText(j);   break;
     }
-    controlMenuCheckBox(501);                       // jours non détaillés
+    controlMenuCheckBox(501);                       // jours non d\303\251taill\303\251s
 }
 
 //------------------------ clearInterface ---------------------------------------
@@ -1689,7 +1689,7 @@ void C_Frm_Sequence::clearInterface()
 
     //........ detail des jours inactif .............................
     setWeekDaysCheckBox("lmMjvsd", true);
-    controlMenuCheckBox(501);                       // jours non détaillés
+    controlMenuCheckBox(501);                       // jours non d\303\251taill\303\251s
 }
 //------------------------ weekDaysCheckBoxToString ---------------------------------------
 QString C_Frm_Sequence::weekDaysCheckBoxToString(char mode)
@@ -2069,8 +2069,8 @@ C_Frm_PosologieHitList::C_Frm_PosologieHitList (const QStringList   &grammarHitL
    pQMenu->setObjectName("HitList : m_Button_Note menu ");
    ThemePopup::addOptionMenu(pQMenu,tr("101 - si besoin "));
    ThemePopup::addOptionMenu(pQMenu,tr("102 - en cas de douleurs "));
-   ThemePopup::addOptionMenu(pQMenu,tr("103 - à dissoudre dans un verre d'eau "));
-   ThemePopup::addOptionMenu(pQMenu,tr("104 - à adapter selon I.N.R. "));
+   ThemePopup::addOptionMenu(pQMenu,tr("103 - \303\240 dissoudre dans un verre d'eau "));
+   ThemePopup::addOptionMenu(pQMenu,tr("104 - \303\240 adapter selon I.N.R. "));
    ThemePopup::addOptionMenu(pQMenu,tr("105 - absorber avec un grand verre d'eau "));
    QStringList additionnalOptions = m_pC_BitMapCollection->getFileList("add_comment_options.txt");
    for (int i=0; i<additionnalOptions.size(); ++i)
@@ -2101,8 +2101,8 @@ C_Frm_PosologieHitList::C_Frm_PosologieHitList (const QStringList   &grammarHitL
    pQMenu->setObjectName("HitList : m_Button_Indic menu");
    ThemePopup::addOptionMenu(pQMenu,tr("201 - Ajouter une indication CIM 10 ..."));
    ThemePopup::addOptionMenu(pQMenu,tr("202 - Ajouter une indication CISP ..."));
-   ThemePopup::addOptionMenu(pQMenu,tr("203 - Ajouter une indication spécifique Thériaque ..."));
-   ThemePopup::addOptionMenu(pQMenu,tr("204 - Ajouter une indication spécifique Vidal ..."));
+   ThemePopup::addOptionMenu(pQMenu,tr("203 - Ajouter une indication sp\303\251cifique Th\303\251riaque ..."));
+   ThemePopup::addOptionMenu(pQMenu,tr("204 - Ajouter une indication sp\303\251cifique Vidal ..."));
    ThemePopup::addOptionMenu(pQMenu,tr("205 - Ajouter une indication de votre liste personnelle ..."));
    m_Button_Indic->setMenu ( pQMenu );
    connect( pQMenu, SIGNAL( triggered ( QAction *  )  ),    this , SLOT( Slot_HitListMenuTriggered( QAction *  ) ));
@@ -2484,14 +2484,14 @@ QString C_Frm_PosologieHitList::compositionToXml(const QList<C_CompositionItem> 
  *         <gph_id>301546</gph_id>
  *         <gph_it>CIP</gph_it>
  *         <gph_pk>123</gph_pk>
- *         <gph_uf>comprimé</gph_uf>
+ *         <gph_uf>comprim\303\251</gph_uf>
  *         <gph_nm>5</gph_nm>                        // conversion mode en mode numerique UP_QUANTITE MOMENT_MEAL ALL_LITERAL (on se sert de celui-ci car plus rapide a interpreter)
  *         <gph_cm>UP_QUANTITE DURATION</gph_cm>     // traduction textuelle de <gph_nm>5</gph_nm> information lisible de celle numerique  UP_QUANTITE DURATION on a pas peur des redondances ! (vive la memoire vive et les HD)
  *         <gph_in>
- *             <gph_il>I13.1|CIM|insuffisance rénale et cardiopathie hypertensive</gph_il>
- *             <gph_il>P96.0|CIM|insuffisance rénale congénitale</gph_il>
+ *             <gph_il>I13.1|CIM|insuffisance r\303\251nale et cardiopathie hypertensive</gph_il>
+ *             <gph_il>P96.0|CIM|insuffisance r\303\251nale cong\303\251nitale</gph_il>
  *         </gph_in>
- *         <gph_co>à prendre avec un grand verre d'eau sans respirer pendant 30 minutes</gph_co>
+ *         <gph_co>\303\240 prendre avec un grand verre d'eau sans respirer pendant 30 minutes</gph_co>
  *      </gph>
  *      <gps>
  *         <gpp>[1;m|2;d|4;s]J8</gpp>
@@ -2579,7 +2579,7 @@ QString C_Frm_PosologieHitList::interfaceToGrammar()
                         "    <m_Nu_ClefRPPS>"  + m_pC_BDM_Api->userContexte()->get_Nu_ClefRPPS()   + "</m_Nu_ClefRPPS>\n";
  QString ret          = QString (
                        "<gph>\n"
-                       " <status>%1</status>\n"             //        propriete satut : F pour traitement de fond et autres à venir
+                       " <status>%1</status>\n"             //        propriete satut : F pour traitement de fond et autres \303\240 venir
                        " <smr></smr>\n"                     //        niveau du service medical rendu SMR
                        " <smr_l></smr_l>\n"                 //        libelle du service medical rendu SMR
                        " <gph_html></gph_html>\n"           //        contenu html (accelere l'affichage et sera mis a jour par C_Frm_Posologie.grammar() )
@@ -2592,7 +2592,7 @@ QString C_Frm_PosologieHitList::interfaceToGrammar()
                        " <gph_df>%7</gph_df>\n"             //        date et heure de fin  de prise de la prescription format yyyy-MM-dd hh:mm:ss // la date de fin est calculee avec <gph_cy>
                        " <gph_na>%8</gph_na>\n"             //        nom commercial et usuel du produit
                        )
-                       .arg( m_status                   ,                                                           // 1   propriete : F pour traitement de fond et autres à venir
+                       .arg( m_status                   ,                                                           // 1   propriete : F pour traitement de fond et autres \303\240 venir
                              c_frm_produit()->ald()     ,                                                           // 2   ald
                              c_frm_produit()->id()      ,                                                           // 3   identifiant produit (le plus souvent CIP)
                              c_frm_produit()->id_type() ,                                                           // 4   type d'identifiant produit (le plus souvent "CIP")
@@ -2658,7 +2658,7 @@ QString C_Frm_PosologieHitList::interfaceToGrammar()
                             )+
                          QString (
                         "<gpi_engine>%1</gpi_engine>\n"     //        systeme de donnees a l'origine de cette ligne prescriptive
-                        "<gpi_user>\n%2</gpi_user>\n"       //        donnés utilisateur a l'origine de cette ligne prescriptive
+                        "<gpi_user>\n%2</gpi_user>\n"       //        donn\303\251s utilisateur a l'origine de cette ligne prescriptive
                         ).arg( m_pC_BDM_Api->dataSourceVersion(),                          // 1   systeme de donnees a l'origine de cette ligne prescriptive
                                userInfo                                                    // 2   informations utilisateur a l'origine de cette ligne prescriptive
                              );
@@ -2825,11 +2825,11 @@ int C_Frm_PosologieHitList::literaliteToInt()
 }
 
 //------------------------------------------------------ c_frm_produit ---------------------------------------------------------------------------------
-C_Frm_Produit *C_Frm_PosologieHitList::c_frm_produit()     // TODO dependance toxique à virer
+C_Frm_Produit *C_Frm_PosologieHitList::c_frm_produit()     // TODO dependance toxique \303\240 virer
 { return m_pC_Frm_Posologie->c_frm_produit();
 }
 //------------------------------------------------------ c_frm_posologie ---------------------------------------------------------------------------------
-C_Frm_Posologie *C_Frm_PosologieHitList::c_frm_posologie()  // TODO dependance toxique à virer
+C_Frm_Posologie *C_Frm_PosologieHitList::c_frm_posologie()  // TODO dependance toxique \303\240 virer
 { return m_pC_Frm_Posologie;
 }
 
@@ -2843,7 +2843,7 @@ void C_Frm_PosologieHitList::Slot_Button_Add_Fav_Clicked(bool)
        { //................... si ce favoris existe deja cassos ................
          int index = isExistsThisHit(grammar);
          if (index)
-            { QToolTip::showText (QCursor::pos(), tr("Ce favoris existe déjà en %1, et ne sera donc pas rajouté.").arg(QString::number(index)), this) ;
+            { QToolTip::showText (QCursor::pos(), tr("Ce favoris existe d\303\251j\303\240 en %1, et ne sera donc pas rajout\303\251.").arg(QString::number(index)), this) ;
               return;
             }
          id      = C_PosologieGrammar::id     (grammar);
@@ -3066,7 +3066,7 @@ bool C_Frm_PosologieHitList::event ( QEvent * ev )
 {if ( ev->type() ==  QEvent::KeyRelease )
     {
      QKeyEvent                    *k = (QKeyEvent *)ev;
-     Qt::KeyboardModifiers modifiers = k->modifiers();
+     // Qt::KeyboardModifiers modifiers = k->modifiers();
      switch (k->key())
          {case Qt::Key_Down:
                setWidgetEditFocus(C_Frm_PosologieHitList::NEXT);
@@ -3243,8 +3243,8 @@ QString C_Frm_Posologie::numOrdre()
   return "";
 }
 //------------------------------- updateNumOrdreInHtmlView ----------------------------------------
-// on ne va pas regenerer toute l'interprétation de la grammaire, .
-// on recupere l'html de la view on replace directement dedans le numéro d'ordre et
+// on ne va pas regenerer toute l'interpr\303\251tation de la grammaire, .
+// on recupere l'html de la view on replace directement dedans le num\303\251ro d'ordre et
 // on replace le html dans la view
 // color:#496975;">)</span>
 void C_Frm_Posologie::updateNumOrdreInHtmlView( QString numOrdre )
@@ -3605,7 +3605,7 @@ void C_Frm_Produit::Slot_ButtonNoSecure(const QString&)
 {   C_Frm_Prescription *pC_Frm_Prescription = (C_Frm_Prescription*)this->parentWidget();   // parent; :: adjust_Vertical_PositionToGrid();
     if (pC_Frm_Prescription==0) return;
     QPoint pos = QCursor::pos(); pos.setX(pos.x()+30);
-    pC_Frm_Prescription->displayInfo(m_pC_BDM_Api->noSecureProductText(commercialName()), tr("PRODUIT NON SECURISÉ : %1").arg(commercialName()),pos.x(),pos.y(),500,400);
+    pC_Frm_Prescription->displayInfo(m_pC_BDM_Api->noSecureProductText(commercialName()), tr("PRODUIT NON SECURIS\303\251 : %1").arg(commercialName()),pos.x(),pos.y(),500,400);
 }
 //------------------------ Slot_focusChanged ---------------------------------------
 void C_Frm_Produit::Slot_focusChanged(QWidget * /*old*/, QWidget * /*now*/)
@@ -4176,7 +4176,7 @@ void C_Frm_Prescription::dragMoveEvent(QDragMoveEvent * event)
                              "<body text=\"#000000\" style=\"font-size:9pt;font-family:MS Shell Dlg\"><ul>"     +
                              dragGetListDrugsName().replace(" ","&nbsp;") +  // affichage du nom des medocs
                              "</ul><font color=\"" + backColor.name() + "\">" +QString::number(pos.y()+pos.x()) +
-                             "</font></body></html>";   // affichage invisible de la position pour creer un changement du contenu textuel afin de raffraichir l'affichage lors des déplacements
+                             "</font></body></html>";   // affichage invisible de la position pour creer un changement du contenu textuel afin de raffraichir l'affichage lors des d\303\251placements
 
         QToolTip::showText (pos,  tm_str, this, rect() );
         event->acceptProposedAction ();
@@ -4292,7 +4292,7 @@ C_Frm_Produit* C_Frm_Prescription::appendNewObject( C_OrdoLineRecord ordoLine, i
        { if (QMessageBox::question ( this,
                                      tr("Redondance"),
                                      tr("Ce produit : <b>%1</b> <br />"
-                                        "est déjà présent, confirmez vous son ajout").arg(ordoLine.commercialName()),
+                                        "est d\303\251j\303\240 pr\303\251sent, confirmez vous son ajout").arg(ordoLine.commercialName()),
                                      QMessageBox::Cancel | QMessageBox::Ok,
                                      QMessageBox::Cancel
                                    ) == QMessageBox::Cancel) return 0;
@@ -4300,9 +4300,9 @@ C_Frm_Produit* C_Frm_Prescription::appendNewObject( C_OrdoLineRecord ordoLine, i
     //.................. faire la place du nouvel arrivant .................................
     //                   detecter si relache sur la premiere case ALD vide
     //                   auquel cas ne pas deplacer les sous jacents vers le bas
-    QList <C_Frm_Produit*> listObjects = objectListAt(pos_y, C_Frm_Prescription::JUST_ONE_POSITION_UNDER_Y);  // liste des objets deja présents sur cette case (exclusion de celui en cours de deplacement)
+    QList <C_Frm_Produit*> listObjects = objectListAt(pos_y, C_Frm_Prescription::JUST_ONE_POSITION_UNDER_Y);  // liste des objets deja pr\303\251sents sur cette case (exclusion de celui en cours de deplacement)
 
-    if (listObjects.count())   // si un objet sous la souris déplacer tous ceux sous jacent vers le bas pour faire la place du nouveau arrivant
+    if (listObjects.count())   // si un objet sous la souris d\303\251placer tous ceux sous jacent vers le bas pour faire la place du nouveau arrivant
        { pC_Frm_Produit = listObjects.at(0);
          deplace_Objects(pos_y + m_Grid_H,                  // on deplace tout ce qui se situe apres ca
                                  m_Grid_H);                 // d'une hauteur de grille vers le bas
@@ -4525,7 +4525,7 @@ void C_Frm_Prescription::objectDoMoving(C_Frm_Produit *pC_Frm_Produit)
  QList <C_Frm_Produit*> excludedObjects;
  excludedObjects.append(pC_Frm_Produit);          // ne pas tenir compte de celui en cours (car on teste ce qu'il y a AVANT son larguage)
  if ( pos_y == adjust_Vertical_PositionToGrid(FIRST_OBJ_POS_Y) )                                                                     // si relache sur premiere case (case ALD) verifier si vide
-    { QList <C_Frm_Produit*> listAldObjects = objectListAt(pos_y, C_Frm_Prescription::JUST_ONE_POSITION_UNDER_Y, &excludedObjects);  // liste des objets deja présents sur cette case (exclusion de celui en cours de deplacement)
+    { QList <C_Frm_Produit*> listAldObjects = objectListAt(pos_y, C_Frm_Prescription::JUST_ONE_POSITION_UNDER_Y, &excludedObjects);  // liste des objets deja pr\303\251sents sur cette case (exclusion de celui en cours de deplacement)
       if (listAldObjects.count() == 0) to_move = false;
     }
  //.......... taguer le caractere ALD ou non de l'objet ...............
@@ -4770,7 +4770,7 @@ p.setPen (grad_color.darker(90));
 p.drawText ( QPoint(x_txt+2,  pos_y+2), text );
 fGrd.setPixelSize(11); p.setFont ( fGrd );
 p.setPen (grad_color.darker(160));
-p.drawText ( QPoint(x_txt+2+boundRect.width(),  pos_y ), tr("  (glissez les médicaments ALD ici)") );
+p.drawText ( QPoint(x_txt+2+boundRect.width(),  pos_y ), tr("  (glissez les m\303\251dicaments ALD ici)") );
 
 //............ se deplacer a la derniere case ..............................
 int  nb_Prd;
@@ -4792,7 +4792,7 @@ p.setPen (grad_color.darker(90));
 p.drawText ( QPoint(x_txt+2,  pos_y+2), text );
 fGrd.setPixelSize(11); p.setFont ( fGrd );
 p.setPen (grad_color.darker(160));
-p.drawText ( QPoint(x_txt+2+boundRect.width(),  pos_y ), tr("  (glissez les médicaments hors ALD ici)") );
+p.drawText ( QPoint(x_txt+2+boundRect.width(),  pos_y ), tr("  (glissez les m\303\251dicaments hors ALD ici)") );
 }
 
 //------------------------ Slot_ButtonNumberClicked ---------------------------------------

@@ -1,4 +1,4 @@
-#include <QtGui/QApplication>
+#include <QApplication>
 #include <QLibraryInfo>
 #include <QTranslator>
 #include "C_MW_Prescription.h"

@@ -151,7 +151,7 @@ public:
                     ||  code   =="P96.0"   // congenitale
                     ||  code   =="I12.0"   // hypertensive
                     ||  (  libelle.contains(QObject::tr("insuf"))         // on explore le libelle au cas ou toutes les autres methodes echouent
-                           && (   libelle.contains(QObject::tr("rénale"))
+                           && (   libelle.contains(QObject::tr("r\303\251nale"))
                                || libelle.contains(QObject::tr("renale"))
                               )
                         )

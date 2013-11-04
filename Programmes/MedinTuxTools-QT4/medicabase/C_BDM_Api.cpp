@@ -251,9 +251,9 @@ C_BDM_PluginI::~C_BDM_PluginI()
  *  \param QString drugName (default empty) the drug name.
  *  \return QList<C_InterResultPair> result interaction pair list
  */
-// ASPIRINE|DCI|ASPIRINE|ALD|Allergie(Allergie)|plutôt intolérance|06-06-1956|
-// 3515495|CIP|LAMALINE|Sport|Allergie(Allergie)|urticaire généralisé |06-06-1956|
-// 3007528|CIP|ASPIRINE|ALD|Allergie(Allergie)|plutôt intolérance|06-06-1956|
+// ASPIRINE|DCI|ASPIRINE|ALD|Allergie(Allergie)|plutot intol\303\251rance|06-06-1956|
+// 3515495|CIP|LAMALINE|Sport|Allergie(Allergie)|urticaire g\303\251n\303\251ralis\303\251 |06-06-1956|
+// 3007528|CIP|ASPIRINE|ALD|Allergie(Allergie)|plut\303\264t intol\303\251rance|06-06-1956|
 // J01CR02|ATC|AMOXICILINE ET INHIBITEUR D'ENZYME|ALD|Allergie(Allergie)|pas de commentaire|06-06-1956|
 QList<C_InterResultPair> C_BDM_PluginI::getInteractionAllergies(const QString &cip, QList<C_LifeEvent> lifeEventList, QString drugName /* = "" */ )
 {QList<C_InterResultPair>        interResultPairList;
@@ -320,7 +320,7 @@ QList<C_InterResultPair> C_BDM_PluginI::getInteractionAllergies(const QString &c
                                                                               ((codePatho==QString("DCI"))?QString(""):QObject::tr (" contenu par le produit <b>%1</b> "
                                                                              "de code CIP : <b>%2</b>,<br />"
                                                                             ).arg(dbi_cip_drugName(codePatho),codePatho)) +
-                                                                 QObject::tr("pour lequel ce patient est déclaré allergique<br />"),
+                                                                 QObject::tr("pour lequel ce patient est d\303\251clar\303\251 allergique<br />"),
                                                                  "PATCTXALL","1")
                                             );
 
@@ -344,7 +344,7 @@ QList<C_InterResultPair> C_BDM_PluginI::getInteractionAllergies(const QString &c
                     interResultPairList.append(C_InterResultPair(codePatho, "ATC", termPatho,
                                                                  cip      , "CIP", drugName,
                                                                  QObject::tr("<u><b>ATTENTION ALLERGIE ATC</b></u> <br />"
-                                                                             "Allergie déclarée à cette famille de produits : <b>%3</b> "
+                                                                             "Allergie d\303\251clar\303\251e \303\240 cette famille de produits : <b>%3</b> "
                                                                              "de code ATC : <b>%1</b><br />"
                                                                              "dont fait partie ce produit : <b>%5</b><br />"
                                                                              "%2")
@@ -365,7 +365,7 @@ QList<C_InterResultPair> C_BDM_PluginI::getInteractionAllergies(const QString &c
                               { interResultPairList.append(C_InterResultPair(codePatho, "ATC", termPatho,
                                                                              cip      , "CIP", drugName,
                                                                              QObject::tr("<u><b>ATTENTION ALLERGIE ATC</b></u> <br />"
-                                                                                         "Allergie déclarée à cette famille <b>ATC</b> de produits : <b>%3</b> "
+                                                                                         "Allergie d\303\251clar\303\251e \303\240 cette famille <b>ATC</b> de produits : <b>%3</b> "
                                                                                          "de code ATC : <b>%1</b><br />"
                                                                                          "dont fait partie un composant DCI <b>%6</b> du produit : <b>%5</b><br />"
                                                                                          "%2")
@@ -394,8 +394,8 @@ QList<C_InterResultPair> C_BDM_PluginI::getInteractionAllergies(const QString &c
                      interResultPairList.append(C_InterResultPair(codePatho, "CIP", termPatho,
                                                                   cip      , "CIP", drugName,
                                                                   QObject::tr("<u><b>ATTENTION ALLERGIE SUR CIP</b></u> <br />"
-                                                                              "Allergie formelle déclarée pour le code CIP %1 <br />"
-                                                                              "lié à ce produit : <b>%2</b>"
+                                                                              "Allergie formelle d\303\251clar\303\251e pour le code CIP %1 <br />"
+                                                                              "li\303\251 \303\240 ce produit : <b>%2</b>"
                                                                               "%3")
                                                                               .arg(codePatho, drugName, comment.length()?comment:""),
                                                                   "PATCTXALL","1"));
@@ -414,11 +414,11 @@ QList<C_InterResultPair> C_BDM_PluginI::getInteractionAllergies(const QString &c
                                                                   QObject::tr("<u><b>ATTENTION ALLERGIE FAMILLE ATC</b></u> <br />"
                                                                               "Ce produit <b>%1</b> "
                                                                               "de code CIP : <b>%2</b><br />"
-                                                                              "appartient à la même famille de produits : <b>%3</b> "
+                                                                              "appartient \303\240 la m\303\252me famille de produits : <b>%3</b> "
                                                                               "de code ATC : <b>%4</b> <br />"
                                                                               "qu'un produit <b>%5</b> "
                                                                               "de code CIP : <b>%6</b><br />"
-                                                                              "auquel ce patient est déclaré allergique<br />"
+                                                                              "auquel ce patient est d\303\251clar\303\251 allergique<br />"
                                                                               "%7")
                                                                               .arg(drugName,                         // 1
                                                                        cip,                                          // 2
@@ -938,7 +938,7 @@ QString C_BDM_PluginI::dbi_increasePosologieHit(const QString &grammar, const QS
        QString  m_BDM_POSO_HIT_CODE_INDIC;      // codage de l'indication liee a ce hit
        QString  m_BDM_POSO_HIT_CODE_INDIC_TYPE; // type de codage CIM10 etc ....
        QString  m_BDM_POSO_HIT_LIBELLE_INDIC;   // libelle de l'indication principale liee a ce favori
-       QString  m_BDM_POSO_HIT_DRUG_ID;         // identificateur unique du medicament relie à ce hit
+       QString  m_BDM_POSO_HIT_DRUG_ID;         // identificateur unique du medicament relie \303\240 ce hit
        QString  m_BDM_POSO_HIT_DRUG_TYPE_ID;    // type d'identificateur de l'id du medicament (CIP CIP7 CIS)
 
  */
@@ -1241,7 +1241,7 @@ int C_BDM_PluginI::dbi_createPosologieHit(int mode  /* = ONLY_IF_NOT_EXISTS */)
                     "`"+m_BDM_POSO_HIT_CODE_INDIC      +"` VARCHAR(10)  ,"                     // codage de l'indications liees a ce hit
                     "`"+m_BDM_POSO_HIT_CODE_INDIC_TYPE +"` VARCHAR(60)  ,"                     // type de codage CIM10 etc ....
                     "`"+m_BDM_POSO_HIT_LIBELLE_INDIC   +"` VARCHAR(256) ,"                     // libelle de l'indication principale liee a ce hit
-                    "`"+m_BDM_POSO_HIT_DRUG_ID         +"` VARCHAR(40)  ,"                     // identificateur unique du medicament relie à ce hit
+                    "`"+m_BDM_POSO_HIT_DRUG_ID         +"` VARCHAR(40)  ,"                     // identificateur unique du medicament relie \303\240 ce hit
                     "`"+m_BDM_POSO_HIT_DRUG_TYPE_ID    +"` VARCHAR(8)   ,"                     // type d'identificateur de l'id du medicament (CIP CIP7 CIS)
                     "PRIMARY KEY (`"+m_BDM_POSO_HIT_PK+"`)"
                     ")"
@@ -1260,9 +1260,9 @@ int C_BDM_PluginI::dbi_createPosologieHit(int mode  /* = ONLY_IF_NOT_EXISTS */)
  *  \param const QString   &pathIni        application configuration path.
  *  \param QObject         *parent         pointer QObject parent.
 */
-C_BDM_Api::C_BDM_Api( const QString   &confData,                        // definition des champs de la base de donnée (ceux de la liste des drogues)
+C_BDM_Api::C_BDM_Api( const QString   &confData,                        // definition des champs de la base de donn\303\251e (ceux de la liste des drogues)
                       const QString   &prefixLabel,                     // prefixage du label (permettre plusieurs base)
-                      const QString   &connectParams ,                  // parametres de connexion a la base de données
+                      const QString   &connectParams ,                  // parametres de connexion a la base de donn\303\251es
                       const QString   &imagePath,                       // chemin des images
                       const QString   &pathAppli,                       // chemin de l'applicatif
                       const QString   &pathIni,                         // chemin du fichier de configuration general
@@ -1410,8 +1410,8 @@ QStringList C_BDM_Api::selectCustomMonographie(const C_BDM_DrugListRecord  &c_bd
             QString urlAncre = "ancre_id_["+ pk + "-" + title + "]_";
             //html            += "<hr />";
             html            += "<a name=\""          + urlAncre +"\"></a><br />";                                                       // l'ancre d'acces
-            html            += "<hr/><p align=\"center\"><font color=#0000ff><img src=\"NewNotePicto.png\">&nbsp;&nbsp;&nbsp;<b>NOTE COMPLÉMENTAIRE PERSONNELLE</b></font>"
-                                "&nbsp;&nbsp;&nbsp;<a href=\"#monographie_start\"><img src=\"HomePicto.png\"> Revenir au début de la page</a></p><hr/>" ;
+            html            += "<hr/><p align=\"center\"><font color=#0000ff><img src=\"NewNotePicto.png\">&nbsp;&nbsp;&nbsp;<b>NOTE COMPL&#201;MENTAIRE PERSONNELLE</b></font>"
+                                "&nbsp;&nbsp;&nbsp;<a href=\"#monographie_start\"><img src=\"HomePicto.png\"> Revenir au d&#233;but de la page</a></p><hr/>" ;
             html            += tr("Title: ")         + title                                                        + "<br />";
             html            += tr("Added by: ")      + CGestIni::Utf8_Query(query, 1)                               + "<br />";
             html            += tr("Date: ")          + query.value(2).toDateTime().toString("dd-MM-yyyy hh:mm:ss")  + "<br />";
@@ -1994,12 +1994,12 @@ QString C_BDM_Api::getUserInfos(QString *name, QString *first_name, QString *rpp
   */
  QString  C_BDM_Api::HAS_NotCertifiedAlertText(const QString &pathImage /* = "" */)
  { if (pathImage.length()) m_imagePath = pathImage;
-   QString text = QString("<b>PROGRAMME D'AIDE A LA PRESCRIPTION NON SECURISÉ</b><hr/><p align=\"center\"><img src=\"%1\"  /></p><br />%2")
+   QString text = QString("<b>PROGRAMME D'AIDE A LA PRESCRIPTION NON SECURIS&#201;</b><hr/><p align=\"center\"><img src=\"%1\"  /></p><br />%2")
                  .arg( m_imagePath+"no_has_certified.png" ,
-                       tr("Ce logiciel est <u>non agréé par l'HAS</u>.<br/>"
-                          "Tous les contrôles de sécurité sur les allergies, interactions, terrain etc. ne sont présents qu'à titre indicatif.<br/>"
-                          "Ces contrôles sont effectués à partir des données suivantes : <b>%1</b> <br/>"
-                          "Il est vous est donc recommandé d'être particulièrement vigilant lors de son utilisation. Il n'en est pas moins agréable.").arg(dataSourceVersion())
+                       tr("Ce logiciel est <u>non agr\303\251\303\251 par l'HAS</u>.<br/>"
+                          "Tous les contr\303\264les de s\303\251curit\303\251 sur les allergies, interactions, terrain etc. ne sont pr\303\251sents qu'\303\240 titre indicatif.<br/>"
+                          "Ces contr\303\264les sont effectu\303\251s \303\240 partir des donn\303\251es suivantes : <b>%1</b> <br/>"
+                          "Il est vous est donc recommand\303\251 d'\303\252tre particuliÃ¨rement vigilant lors de son utilisation. Il n'en est pas moins agr\303\251able.").arg(dataSourceVersion())
                 );
    return htmlEncapsulateInteraction(text);
  }
@@ -2023,12 +2023,12 @@ QString C_BDM_Api::getUserInfos(QString *name, QString *first_name, QString *rpp
    *  \return html text
    */
   QString C_BDM_Api::noSecureProductText(const QString &productName)
-  {QString text = QString("<b>PRODUIT NON SECURISÉ</b><hr/><b><u>%1</u> </b><br /><img src=\"%2\" height=\"42\" width=\"42\" /><br />%3")
+  {QString text = QString("<b>PRODUIT NON SECURIS\303\251</b><hr/><b><u>%1</u> </b><br /><img src=\"%2\" height=\"42\" width=\"42\" /><br />%3")
                   .arg( productName,
                         m_imagePath + "no_secure.png"  ,
-                        tr("Ce produit provient d'une origine non sécurisée.<br />"
-                           "Il ne fait l'objet d'aucun contrôle de sécurité sur les allergies, interactions, terrain etc....<br />"
-                           "Il est vous est donc recommandé d'être particulièrement vigilant lors de sa prescription.")
+                        tr("Ce produit provient d'une origine non s\303\251curis\303\251e.<br />"
+                           "Il ne fait l'objet d'aucun contr\303\264le de s\303\251curit\303\251 sur les allergies, interactions, terrain etc....<br />"
+                           "Il est vous est donc recommand\303\251 d'\303\252tre particuliÃ¨rement vigilant lors de sa prescription.")
                  );
    return htmlEncapsulateInteraction(text);
   }
@@ -2163,8 +2163,8 @@ QString C_BDM_Api::getUserInfos(QString *name, QString *first_name, QString *rpp
  QString  C_BDM_Api::afssaps_interactions_LevelToTexte(int level)
  {switch(level)
   { case 0:  return tr("<table><tr><td width=100% align=\"left\" bgcolor=\"#02BD02\">Interaction : Information</td></tr></table>");
-    case 1:  return tr("<table><tr><td width=100% align=\"left\" bgcolor=\"#ffde00\">Effets indésirables</td></tr></table>");
-    case 2:  return tr("<table><tr><td width=100% align=\"left\" bgcolor=\"#ffb400\">Précautions d'emploi</td></tr></table>");
+    case 1:  return tr("<table><tr><td width=100% align=\"left\" bgcolor=\"#ffde00\">Effets ind\303\251sirables</td></tr></table>");
+    case 2:  return tr("<table><tr><td width=100% align=\"left\" bgcolor=\"#ffb400\">Pr\303\251cautions d'emploi</td></tr></table>");
     case 3:  return tr("<table><tr><td width=100% align=\"left\" bgcolor=\"#ff7800\">Association DECONSEILLEE</td></tr></table>");
     case 4:  return tr("<table><tr><td width=100% align=\"left\" bgcolor=\"#FF0000\">CONTRE-INDICATION Association CONTRE INDIQUEE</td></tr></table>");
     default: return tr("<table><tr><td width=100% align=\"left\" bgcolor=\"#0000FF\">CONTRE-INDICATION Niveau inconnu</td></tr>");
@@ -2331,7 +2331,7 @@ QList<C_InterResultPair> C_BDM_Api::getInteractionCim10(const QString &cip, QStr
  */
 QList<C_InterResultPair> C_BDM_Api::getInteractionCim10(const QString &cip, const QStringList &cim10List , QString drugName  )
 {   QList<C_InterResultPair> interResultPairList;
-    // on cherche dans le cache de resultats car opération couteuse en SQL
+    // on cherche dans le cache de resultats car op\303\251ration couteuse en SQL
     for (int i = 0; i < m_interResultCacheList.size(); ++i)
         { C_InterResultPair interResultPair = m_interResultCacheList.at(i);
           if (interResultPair.Code2()==cip )
@@ -2387,16 +2387,16 @@ QList<C_InterResultPair> C_BDM_Api::getInteractionAllergiesFromCipList( const QS
  *  \param QString drugName (default empty) the drug name.
  *  \return QList<C_InterResultPair> result interaction pair list
  */
-//        |DCI|ASPIRINE|ALD|Allergie(Allergie)|plutôt intolérance|06-06-1956|
-// 3515495|CIP|LAMALINE|Sport|Allergie(Allergie)|urticaire généralisé |06-06-1956|
-// 3007528|CIP|ASPIRINE|ALD|Allergie(Allergie)|plutôt intolérance|06-06-1956|
+//        |DCI|ASPIRINE|ALD|Allergie(Allergie)|plut\303\264t intol\303\251rance|06-06-1956|
+// 3515495|CIP|LAMALINE|Sport|Allergie(Allergie)|urticaire g\303\251n\303\251ralis\303\251 |06-06-1956|
+// 3007528|CIP|ASPIRINE|ALD|Allergie(Allergie)|plut\303\264t intol\303\251rance|06-06-1956|
 // J01CR02|ATC|AMOXICILINE ET INHIBITEUR D'ENZYME|ALD|Allergie(Allergie)|pas de commentaire|06-06-1956|
 QList<C_InterResultPair> C_BDM_Api::getInteractionAllergies(const QString &cip, QString drugName /* = "" */ )
 {   QList<C_InterResultPair>                interResultPairList;
     if (m_pC_PatientCtx==0)         return  interResultPairList;
     if (m_pC_BDM_PluginI==0)        return  interResultPairList;
 
-     // on cherche dans le cache de resultats car opération couteuse en SQL
+     // on cherche dans le cache de resultats car op\303\251ration couteuse en SQL
      for (int i = 0; i < m_AllergieCacheList.size(); ++i)
          { C_InterResultPair interResultPair = m_AllergieCacheList.at(i);
            if (interResultPair.Code2()==cip )
@@ -2453,14 +2453,14 @@ QString C_BDM_Api::CIP_to_DrugName(const QString& cip)
 }
 
 //-------------------------------- drugsList_Count ------------------------------------------------------
-/*! \brief return size of drugs list. proceed to SQL opération and set cache list number.
+/*! \brief return size of drugs list. proceed to SQL op\303\251ration and set cache list number.
  */
 int C_BDM_Api::drugsList_Count()
 {if (m_pC_BDM_PluginI==0)        return  0;
  return m_pC_BDM_PluginI->dbi_DrugListCount();
 }
 //-------------------------------- drugsList_Size ------------------------------------------------------
-/*! \brief return size of drugs list. This return only cache value and proceed to no SQL opération
+/*! \brief return size of drugs list. This return only cache value and proceed to no SQL op\303\251ration
  */
 int  C_BDM_Api::drugsList_Size()
 {   if (m_DrugListNb==-1) m_DrugListNb = drugsList_Count();   // si pas initialisee ob fait unefois l'operation couteuse
@@ -2501,7 +2501,7 @@ const QList < C_BDM_DrugListRecord > C_BDM_Api::selectFavorisList (const QString
  *  \param C_BDM_Api::flags filterFlag selection filter.
  *  \return number products
  */
-int  C_BDM_Api::selectProductsList(QTreeWidget     *pQTreeWidget,                                    // QTreeWidget graphique à renseigner avec les données
+int  C_BDM_Api::selectProductsList(QTreeWidget     *pQTreeWidget,                                    // QTreeWidget graphique \303\240 renseigner avec les donn\303\251es
                                    const    QString text               /* = ""  */,                       // saisie partielle d'un texte pour recherche
                                    C_BDM_PluginI::flags filterFlag,    /* = C_BDM_Api::flags */      // filtre de saisie
                                    int limit                           /* = 200 */
@@ -2580,8 +2580,8 @@ QString C_BDM_Api::increasePosologieHit(const QString &grammar, const QString &d
  */
 void C_BDM_Api::reinitHitsList()
 {   if (m_pC_BDM_PluginI==0)  return;
-    if (QMessageBox::warning ( 0, tr("Réinitialisation des la listes des posologies favorites"),
-                               tr("ATTENTION : la réinitialisation de la liste des posologies favorites, efface la liste actuelle"),
+    if (QMessageBox::warning ( 0, tr("R\303\251initialisation des la listes des posologies favorites"),
+                               tr("ATTENTION : la r\303\251initialisation de la liste des posologies favorites, efface la liste actuelle"),
                                QMessageBox::Cancel|QMessageBox::Yes,
                                QMessageBox::Cancel
                              ) == QMessageBox::Yes
@@ -2605,18 +2605,18 @@ QString C_BDM_Api::dataSourceVersion()
  /*
   SMR majeur        remboursement 100%
   SMR important     remboursement 65%
-  SMR Modéré        remboursement 35%
+  SMR Mod\303\251r\303\251        remboursement 35%
   SMR Faible        remboursement 15%
-  SMR insuffisant   remboursement 0% remboursement avis défavorable à l?inscription sur la liste des médicaments remboursables
-  SMR non précisé   remboursement 0%
+  SMR insuffisant   remboursement 0% remboursement avis d\303\251favorable \303\240 l'inscription sur la liste des m\303\251dicaments remboursables
+  SMR non pr\303\251cis\303\251   remboursement 0%
 
-  ASMR 1  Amélioration majeure
-  ASMR 2  Amélioration importante
-  ASMR 3  Amélioration modeste
-  ASMR 4  Amélioration mineure
-  ASMR 5  Aucune amélioration
-  ASMR 6  Avis défavorable inscription Collectivité ou Sécurité Sociale
-  ASMR 00 Amélioration difficile à préciser
+  ASMR 1  Am\303\251lioration majeure
+  ASMR 2  Am\303\251lioration importante
+  ASMR 3  Am\303\251lioration modeste
+  ASMR 4  Am\303\251lioration mineure
+  ASMR 5  Aucune am\303\251lioration
+  ASMR 6  Avis d\303\251favorable inscription Collectivit\303\251 ou S\303\251curit\303\251 Sociale
+  ASMR 00 Am\303\251lioration difficile \303\240 pr\303\251ciser
 
   case 1  : return "2";    // faible
   case 2  : return "4";    // important
@@ -2628,7 +2628,7 @@ QString C_BDM_Api::level_SMR_ToLibelle(int level)
 {switch(level)
    { case 1  : return tr("SMR insuffisant");          // insuffisant remboursement 0%
      case 2  : return tr("SMR faible");               // faible      remboursement 15%
-     case 3  : return tr("SMR modéré");               // modere      remboursement 35%
+     case 3  : return tr("SMR mod\303\251r\303\251");               // modere      remboursement 35%
      case 4  : return tr("SMR important");            // important   remboursement 65%
      case 5  : return tr("SMR majeur");               // majeur      remboursement 100%
      default : return tr("SMR inconnu");
@@ -2683,7 +2683,7 @@ QString   C_BDM_Api::getDrugRouteFromCIP ( const QString &cip)
 }
 
 //-------------------------------- getPriseUnitFormFromCIP ------------------------------------------------------
-/*! \brief return the prise unit form from cip. (comprimés, suppositoires sachets,ampoules,doses kg, cuillères à café etc...)
+/*! \brief return the prise unit form from cip. (comprim\303\251s, suppositoires sachets,ampoules,doses kg, cuillÃ¨res \303\240 caf\303\251 etc...)
  *  \param const QString &cip      code CIP of the drug from wich wee want datas.
  *  \return QString with unit form
  */
@@ -2692,7 +2692,7 @@ QString   C_BDM_Api::getPriseUnitFormFromCIP ( const QString &cip, const QString
  return QString::null;
 }
 //-------------------------------- getFormeFromCIP ------------------------------------------------------
-/*! \brief return drug presentation form from cip. (comprimés, suppositoires sachets,ampoules, suspension buvable etc...)
+/*! \brief return drug presentation form from cip. (comprim\303\251s, suppositoires sachets,ampoules, suspension buvable etc...)
  *  \param const QString &cip      code CIP of the drug from wich wee want datas.
  *  \return QString with presentation form
  */
@@ -2853,7 +2853,7 @@ void C_BDM_Api::fill_ATC_treeWidget(QTreeWidget *pQTreeWidget)
                     curLen = len;
                   }
                else if (len < curLen)
-                  { //......... remonter tant que le père n'a pas de partie commune avec le fils ............
+                  { //......... remonter tant que le pÃ¨re n'a pas de partie commune avec le fils ............
                     while( curParentItem->parent() != 0 &&  atc_code.left(curParentItem->text(1).length()) != curParentItem->text(1))
                          {curParentItem = curParentItem->parent();
                          }

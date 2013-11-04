@@ -65,6 +65,7 @@ class QT_QTSINGLEAPPLICATION_EXPORT QtSingleApplication : public QApplication
     Q_OBJECT
 
 public:
+    enum Type{Tty,GuiClient,GuiServer};
     QtSingleApplication(int &argc, char **argv, bool GUIenabled = true);
     QtSingleApplication(const QString &id, int &argc, char **argv);
     QtSingleApplication(int &argc, char **argv, Type type);

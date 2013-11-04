@@ -29,7 +29,7 @@ TEMPLATE     = app
 
 include(../../MedinTuxTools-QT4/qtsingleapplication/src/qtsingleapplication.pri)
 unix {
-      // LIBS += -L/usr/lib/ -lX11 -ldl -lXext
+      # LIBS += -L/usr/lib/ -lX11 -ldl -lXext
      }
 
 SOURCES += main.cpp \
@@ -49,14 +49,12 @@ SOURCES += main.cpp \
     ../../MedinTuxTools-QT4/C_Macro_Core.cpp \
     C_Macro.cpp \
     ../../MedinTuxTools-QT4/C_DragQTreeWidget/C_DragQTreeWidget.cpp \
-    ../../MedinTuxTools-QT4/medicabase/C_Prescription.cpp \
     ../../MedinTuxTools-QT4/medicabase/C_BaseMedica.cpp \
     ../../MedinTuxTools-QT4/medicabase/C_DBVar.cpp \
     ../../MedinTuxTools-QT4/medicabase/C_BDM_Api.cpp \
     ../../MedinTuxTools-QT4/medicabase/C_Theriaque_DBVar.cpp \
     ../../MedinTuxTools-QT4/medicabase/C_BDM_TheriaquePlugin.cpp \
     ../../MedinTuxTools-QT4/medicabase/C_BDM_DatasempPlugin.cpp \
-#    ../../MedinTuxTools-QT4/medicabase/C_BDM_FreeBasePlugin.cpp \
     ../../MedinTuxTools-QT4/medicabase/C_BDM_ApiVar.cpp \
     ../../MedinTuxTools-QT4/univers/C_Universal_Ident.cpp \
     ../../MedinTuxTools-QT4/univers/C_DateTools.cpp \
@@ -70,7 +68,6 @@ SOURCES += main.cpp \
     ../../MedinTuxTools-QT4/medicabase/C_PosologieGrammar.cpp \
     ../../MedinTuxTools-QT4/medicabase/C_PopupDialCorpoFact.cpp \
     ../../MedinTuxTools-QT4/medicabase/C_PopupDial_IndicationChoice.cpp \
-#    ../../MedinTuxTools-QT4/medicabase/C_PopupDial_NotesInfos.cpp \
     ../../MedinTuxTools-QT4/medicabase/C_LevelItemDelegate.cpp \
     ../../MedinTuxTools-QT4/medicabase/C_Dlg_NotesInfos.cpp \
     ../../MedinTuxTools-QT4/medicabase/C_BDM_Control.cpp
@@ -92,12 +89,10 @@ HEADERS += C_MW_Prescription.h \
     ../../MedinTuxTools-QT4/C_DragQTreeWidget/C_DragQTreeWidget.h \
     ../../MedinTuxTools-QT4/medicabase/C_BaseMedica.h \
     ../../MedinTuxTools-QT4/medicabase/C_DBVar.h \
-    ../../MedinTuxTools-QT4/medicabase/C_Prescription.h \
     ../../MedinTuxTools-QT4/medicabase/C_BDM_Api.h \
     ../../MedinTuxTools-QT4/medicabase/C_Theriaque_DBVar.h \
     ../../MedinTuxTools-QT4/medicabase/C_BDM_TheriaquePlugin.h \
     ../../MedinTuxTools-QT4/medicabase/C_BDM_DatasempPlugin.h \
-#    ../../MedinTuxTools-QT4/medicabase/C_BDM_FreeBasePlugin.h \
     ../../MedinTuxTools-QT4/medicabase/C_BDM_ApiVar.h \
     ../../MedinTuxTools-QT4/univers/C_Universal_Ident.h \
     ../../MedinTuxTools-QT4/univers/C_DateTools.h \
@@ -112,18 +107,14 @@ HEADERS += C_MW_Prescription.h \
     ../../MedinTuxTools-QT4/medicabase/C_InterResultPair.h \
     ../../MedinTuxTools-QT4/medicabase/C_PopupDialCorpoFact.h \
     ../../MedinTuxTools-QT4/medicabase/C_PopupDial_IndicationChoice.h \
-#    ../../MedinTuxTools-QT4/medicabase/C_PopupDial_NotesInfos.h \
     ../../MedinTuxTools-QT4/medicabase/C_LevelItemDelegate.h \
     ../../MedinTuxTools-QT4/medicabase/C_Dlg_NotesInfos.h \
-#     ../../MedinTuxTools-QT4/medicabase/C_PosoGrammar.h \
     ../../MedinTuxTools-QT4/medicabase/C_WordGenrePair.h \
     ../../MedinTuxTools-QT4/medicabase/C_BDM_Control.h
 FORMS       += C_MW_Prescription.ui \
     ../../MedinTuxTools-QT4/C_Login/C_Dlg_Login.ui \
     ../../MedinTuxTools-QT4/medicabase/C_PopupDialCorpoFact.ui \
     ../../MedinTuxTools-QT4/medicabase/C_PopupDial_IndicationChoice.ui \
-#    ../../MedinTuxTools-QT4/medicabase/C_PopupDial_NotesInfos.ui
-#    ../../MedinTuxTools-QT4/medicabase/C_PopupDialCustomListTools.ui \
     ../../MedinTuxTools-QT4/medicabase/C_Dlg_NotesInfos.ui
 OTHER_FILES += ../bin/Ressources/Changements.html \
     ../bin/prescriptionBases.cfg \

@@ -51,7 +51,7 @@
 #include "../../MedinTuxTools-QT4/medicabase/C_PatientCtx.h"
 #include "../../MedinTuxTools-QT4/medicabase/C_UserCtx.h"
 #include "../../MedinTuxTools-QT4/medicabase/C_LevelItemDelegate.h"
-#include "../../MedinTuxTools-QT4/medicabase/C_PopupDial_NotesInfos.h"
+//#include "../../MedinTuxTools-QT4/medicabase/C_PopupDial_NotesInfos.h"
 #include "../../MedinTuxTools-QT4/medicabase/C_Dlg_NotesInfos.h"
 #include "../../MedinTuxTools-QT4/univers/C_DateTools.h"
 
@@ -100,20 +100,29 @@ C_MW_Prescription::C_MW_Prescription(QWidget *parent) :
     m_pGUI->toolBox_ListesProduits->setItemIcon ( toolWidgetIndexByTabObjectName(m_pGUI->toolBox_ListesProduits, "page_Accessoires"), Theme::getIcon("medicatux/toolbox_accessoires.png") );
 
     //..........//////// navigateur internet ////////....................
+    QWebSettings::globalSettings()->setAttribute(QWebSettings::JavascriptCanOpenWindows,TRUE);
+    QWebSettings::globalSettings()->setAttribute(QWebSettings::JavascriptCanAccessClipboard,TRUE);
+    QWebSettings::globalSettings()->setAttribute(QWebSettings::PluginsEnabled, true);
+    QWebSettings::globalSettings()->setAttribute(QWebSettings::AutoLoadImages, true);
+    QWebSettings::globalSettings()->setAttribute(QWebSettings::OfflineStorageDatabaseEnabled, true);
+    QWebSettings::globalSettings()->setAttribute(QWebSettings::OfflineWebApplicationCacheEnabled, true);
+    QWebSettings::globalSettings()->setAttribute(QWebSettings::LocalStorageEnabled, true);
 
     delete m_pGUI->webView_Help;
     m_webView_Mono = new C_QWebView(m_pGUI->tab_bibliographie);
     m_webView_Mono->setObjectName(QString::fromUtf8("m_webView_Mono"));
     m_webView_Mono->setUrl(QUrl("about:blank"));
+    m_webView_Mono->settings()->setLocalStoragePath ( CApp::pCApp()->pathAppli()+"/Ressources/web/" );
+    m_webView_Mono->page()->setLinkDelegationPolicy ( QWebPage::DelegateAllLinks );      //QWebPage::DelegateAllLinks
     m_pGUI->gridLayout_15->addWidget(m_webView_Mono, 3, 0, 1, 2);
 
     delete m_pGUI->webView_HAS;
     m_webView_Info = new C_QWebView(m_pGUI->tab_Monographie);
     m_webView_Info->setObjectName(QString::fromUtf8("webView_HAS"));
     m_webView_Info->setUrl(QUrl("about:blank"));
+    m_webView_Info->page()->setLinkDelegationPolicy ( QWebPage::DelegateAllLinks );      //QWebPage::DelegateAllLinks
     m_webView_Info->settings()->setAttribute( QWebSettings::JavascriptEnabled, true);
     m_webView_Info->settings()->setLocalStoragePath ( CApp::pCApp()->pathAppli()+"/Ressources/HtmlCache/" );
-
     m_pGUI->gridLayout_5->addWidget(m_webView_Info, 0, 0, 1, 1);
 
     //..........//////// barre de menus ////////....................
@@ -130,17 +139,8 @@ C_MW_Prescription::C_MW_Prescription(QWidget *parent) :
     m_pGUI->pushButton_Forward->setIcon ( m_webView_Mono->pageAction(QWebPage::Forward)->icon() ) ;
     m_pGUI->pushButton_Stop->setIcon    ( m_webView_Mono->pageAction(QWebPage::Stop)->icon() ) ;
 
-    QWebSettings::globalSettings()->setAttribute(QWebSettings::JavascriptCanOpenWindows,TRUE);
-    QWebSettings::globalSettings()->setAttribute(QWebSettings::JavascriptCanAccessClipboard,TRUE);
-    m_webView_Mono->page()->setLinkDelegationPolicy ( QWebPage::DelegateAllLinks );      //QWebPage::DelegateAllLinks
-    m_webView_Info->page()->setLinkDelegationPolicy ( QWebPage::DelegateAllLinks );      //QWebPage::DelegateAllLinks
-    QWebSettings::globalSettings()->setAttribute(QWebSettings::PluginsEnabled, true);
-    QWebSettings::globalSettings()->setAttribute(QWebSettings::AutoLoadImages, true);
-    QWebSettings::globalSettings()->setAttribute(QWebSettings::OfflineStorageDatabaseEnabled, true);
-    QWebSettings::globalSettings()->setAttribute(QWebSettings::OfflineWebApplicationCacheEnabled, true);
-    QWebSettings::globalSettings()->setAttribute(QWebSettings::LocalStorageEnabled, true);
 
-    m_webView_Mono->settings()->setLocalStoragePath ( CApp::pCApp()->pathAppli()+"/Ressources/web/" );
+
     m_PathPageHelp = QString("../../Doc/%1/index.html").arg(CApp::pCApp()->applicationName());
     if ( QDir(m_PathPageHelp).isRelative()) {m_PathPageHelp.prepend(CApp::pCApp()->pathAppli()); m_PathPageHelp = QDir::cleanPath(m_PathPageHelp);}
 
@@ -196,11 +196,11 @@ C_MW_Prescription::C_MW_Prescription(QWidget *parent) :
     connect( m_pGUI->toolButton_zoomUp,       SIGNAL(released ( )),              this, SLOT(Slot_toolButton_zoomUpReleased (  )) );
     connect( m_pGUI->toolButton_zoomDw,       SIGNAL(released ( )),              this, SLOT(Slot_toolButton_zoomDwReleased (  )) );
     m_prescription_zoom_menu = new QMenu(this);
-    m_prescription_zoom_menu->addAction(tr("1  - Mode réduit"));
-    m_prescription_zoom_menu->addAction(tr("2  - Mode déployé "));
+    m_prescription_zoom_menu->addAction(tr("1  - Mode r\303\251duit"));
+    m_prescription_zoom_menu->addAction(tr("2  - Mode d\303\251ploy\303\251 "));
     m_prescription_zoom_menu->addSeparator();
-    m_prescription_zoom_menu->addAction(tr("3  - Enregistrer la position courante comme mode réduit "));
-    m_prescription_zoom_menu->addAction(tr("4  - Enregistrer la position courante comme mode déployé "));
+    m_prescription_zoom_menu->addAction(tr("3  - Enregistrer la position courante comme mode r\303\251duit "));
+    m_prescription_zoom_menu->addAction(tr("4  - Enregistrer la position courante comme mode d\303\251ploy\303\251 "));
     m_prescription_zoom_menu->addSeparator();
     m_prescription_zoom_menu->addAction(tr("5  - Choisir une couleur pour la zone non ALD"));
     m_prescription_zoom_menu->addAction(tr("6  - Choisir une couleur pour la zone ALD"));
@@ -208,8 +208,8 @@ C_MW_Prescription::C_MW_Prescription(QWidget *parent) :
     //m_prescription_zoom_menu->addAction(tr("7  - Cacher les graduations"));
     //m_prescription_zoom_menu->addAction(tr("8  - Montrer les graduations"));
     m_prescription_zoom_menu->addSeparator();
-    m_prescription_zoom_menu->addAction(tr("9  - Réinitialiser la liste des médicaments"));
-    m_prescription_zoom_menu->addAction(tr("10 - Réinitialiser la liste des posologie favorites"));
+    m_prescription_zoom_menu->addAction(tr("9  - R\303\251initialiser la liste des m\303\251dicaments"));
+    m_prescription_zoom_menu->addAction(tr("10 - R\303\251initialiser la liste des posologie favorites"));
 
     m_pGUI->toolButton_zoomDw->setMenu ( m_prescription_zoom_menu );
     m_pGUI->toolButton_zoomDw->setPopupMode ( QToolButton::MenuButtonPopup );
@@ -328,6 +328,7 @@ C_MW_Prescription::C_MW_Prescription(QWidget *parent) :
     connect( m_webView_Mono,            SIGNAL(statusBarMessage(const QString &)), this,  SLOT(Slot_On_webView_Help_statusBarMessage (const QString &)) );
     connect( m_webView_Mono,            SIGNAL(linkClicked ( const QUrl &  )),     this,  SLOT(Slot_webView_Mono_linkClicked ( const QUrl &  )));  // marche po
 
+    // connect( m_webView_Info,                  SIGNAL(urlChanged (  const QUrl &  )),        this, SLOT(Slot_webView_Info_urlChanged ( const QUrl &  )));
     connect( m_webView_Info,                  SIGNAL(linkClicked ( const QUrl &  )),        this, SLOT(Slot_webView_Info_linkClicked ( const QUrl &  )));  // marche po
 
     connect( m_pGUI->pushButton_Home,         SIGNAL(clicked ( bool )),                   this, SLOT(Slot_actionWebHome  (bool)) );
@@ -431,7 +432,7 @@ C_MW_Prescription::C_MW_Prescription(QWidget *parent) :
     //................ placer le gestionnaire de cookie jar .............................
     m_pCookieJar = new CookieJar(CApp::pCApp()->pathAppli()+"/Ressources/cookies.txt", this, m_pGUI->textEdit_Monitor);
     m_webView_Mono->page()->networkAccessManager()->setCookieJar(m_pCookieJar);
-    m_webView_Info->page()->networkAccessManager()->setCookieJar(m_pCookieJar);
+    // m_webView_Info->page()->networkAccessManager()->setCookieJar(m_pCookieJar);
     //................ positionner les elements complementaires pour le gestionnaire de macro .............................
     //                 dont derive CApp
     CApp::pCApp()->setQNetworkAccessManager(m_webView_Mono->page()->networkAccessManager()); // positionne m_pC_Utils_Html
@@ -842,6 +843,7 @@ int  C_MW_Prescription::getCustomMonographiePropertys ( QString &title , QString
     delete p_dlg;
     return 0;
 }
+/*
 //--------------------------------- Slot_PopupDial_NotesInfos_finished -----------------------------------------------------------------------
 void  C_MW_Prescription::Slot_PopupDial_NotesInfos_finished( const QString &direction )
 {if (direction=="TO_INITIAL")
@@ -849,10 +851,11 @@ void  C_MW_Prescription::Slot_PopupDial_NotesInfos_finished( const QString &dire
       m_pC_PopupDial_NotesInfos = 0;
     }
 }
-
+*/
 //--------------------------------- URL_ExecSpecialSyntax -----------------------------------------------------------------------
 int  C_MW_Prescription::URL_ExecSpecialSyntax ( QString urlStr , const QString &pathAppli)
-{   if (urlStr.startsWith("exec:"))    // Modify:#ancre_id_[1-index]_   Remove:#ancre_id_[1-index]_
+{   // qDebug()<<urlStr;
+    if (urlStr.startsWith("exec:"))    // modify:#ancre_id_[1-index]_   remove:#ancre_id_[1-index]_
        {urlStr = urlStr.mid(5);
         QStringList argList = urlStr.split("||");
         urlStr = argList[0]; if (!argList.isEmpty()) argList.removeAt(0);
@@ -870,8 +873,8 @@ int  C_MW_Prescription::URL_ExecSpecialSyntax ( QString urlStr , const QString &
         QProcess::startDetached(urlStr, argList);
         return 1;
        }
-    else if (urlStr.startsWith("Remove:#ancre"))
-       { QString  pk =  CGestIni::CutStrRight( urlStr, "Remove:#ancre_id_[");
+    else if (urlStr.startsWith("remove:#ancre"))
+       { QString  pk =  CGestIni::CutStrRight( urlStr, "remove:#ancre_id_[");
                   pk =  CGestIni::CutStrLeft(pk, "-");
          if (pk.length()==0) return 1;
          int ret          = QMessageBox::warning( this, tr("Delete a note"),
@@ -884,8 +887,8 @@ int  C_MW_Prescription::URL_ExecSpecialSyntax ( QString urlStr , const QString &
              show_ProductMonographie(m_last_drugListRecord);
             }
        }
-    else if (urlStr.startsWith("Modify:#ancre"))
-       { QString  pk =  CGestIni::CutStrRight( urlStr, "Modify:#ancre_id_[");
+    else if (urlStr.startsWith("modify:#ancre"))
+       { QString  pk =  CGestIni::CutStrRight( urlStr, "modify:#ancre_id_[");
                   pk =  CGestIni::CutStrLeft(pk, "-");
          if (pk.length()==0) return 1;
          QByteArray datas;
@@ -905,7 +908,7 @@ int  C_MW_Prescription::URL_ExecSpecialSyntax ( QString urlStr , const QString &
               show_ProductMonographie(m_last_drugListRecord);
             }
        }
-    else if (urlStr.startsWith("New:#ancre"))
+    else if (urlStr.startsWith("new:#ancre"))
        { QString title       = "Titre de la note";
          QString author      = "Anonyme";
          QDateTime date_time = QDateTime::currentDateTime();
@@ -990,7 +993,7 @@ int C_MW_Prescription::Datasemp_fill_treeWidget_Accessoires(QTreeWidget *pQTreeW
  else                 familleSemp = QString::number(familleIndex);
  //................. Preparer la requete ............................................................................
  //                                                                     homeopathie 1X  --> f1 pointe sur t0g.f0 pour boiron et t0h.f0 pour weleda
- //                                                     fk = 1 = Spécialités ; 2 = Diététiques ; 3 = Vétérinaires ; 4 = Parapharmacie ; 5 = Accessoires ; 6 = Divers (herboristerie, etc.) ; 7 = Homéopathie
+ //                                                     fk = 1 = Sp\303\251cialit\303\251s ; 2 = Di\303\251t\303\251tiques ; 3 = V\303\251t\303\251rinaires ; 4 = Parapharmacie ; 5 = Accessoires ; 6 = Divers (herboristerie, etc.) ; 7 = Hom\303\251opathie
  //                                                     0   1   2   3   4   5
  QString              requete  =               " SELECT fK, ge, f0, fG, f2, f1 FROM t00 WHERE fk like '" + familleSemp + "%' ";
  //                                     Famille SEMP____^   ^   ^   ^   ^   ^
@@ -1919,7 +1922,6 @@ void C_MW_Prescription::Slot_On_pushButton_GeneralFontChoice(bool)
        { this->setFont(font);
         QFontMetrics fm( font );
         int pixSize = fm.leading()+fm.height();
-        qDebug() << "pixel size : " << QString::number(pixSize);
         CApp::pCApp()->writeParam(section.toAscii(), "interface", QString::number(pixSize).toAscii(), font.family().toAscii());
        }
 }
@@ -1948,7 +1950,6 @@ void C_MW_Prescription::Slot_On_pushButton_PosoEditorFontChoice(bool)
        { if (m_pC_Frm_Prescription) m_pC_Frm_Prescription->setFont(font);
          QFontMetrics fm( font );
          int pixSize = fm.leading()+fm.height();
-         qDebug() << "pixel size : " << QString::number(pixSize);
          CApp::pCApp()->writeParam(section.toAscii(), "posologieEditor", QString::number(pixSize).toAscii(), font.family().toAscii());
        }
 }
@@ -2188,7 +2189,7 @@ void C_MW_Prescription::writeMainTabWidgetConfig()
 //------------------------ Slot_PrescriptionWantGeometry ---------------------------------------
 void C_MW_Prescription::Slot_PrescriptionWantGeometry(QRect &application_rect, QRect &wdg_rect)
 { QString val1, val2, val3, val4;
-  application_rect = this->geometry();         // ok on peut toujours repondre a ça
+  application_rect = this->geometry();         // ok on peut toujours repondre a ca
   wdg_rect = QRect(-1,-1,-1,-1);               // par defaut non connu
   if (  CApp::pCApp()->readParam("medicatux geometry", "interaction window", &val1, &val2, &val3, &val4)==QString::null)  // zero = pas d'erreur
      {  wdg_rect = QRect(val1.toInt(),val2.toInt(),val3.toInt(),val4.toInt());
@@ -2275,7 +2276,7 @@ C_BDM_PluginI *C_MW_Prescription::set_BDM_Plugin(const QString &_namePlugin)   /
           debTime  = QTime::currentTime();
 
           m_pC_BDM_Api->outMessage(tr("Database '%1' Slot_lineEdit_DrugsSearch_textChanged() en : %2").arg(namePlugin,   QTime (0, 0, 0, 0 ).addMSecs(debTime.msecsTo(QTime::currentTime())).toString("mm:ss:zzz") ));
-          m_pC_BDM_Api->outMessage(tr("Database '%1' connectée en : %2").arg(namePlugin,   QTime (0, 0, 0, 0 ).addMSecs(debGTime.msecsTo(QTime::currentTime())).toString("mm:ss:zzz") ));
+          m_pC_BDM_Api->outMessage(tr("Database '%1' connect\303\251e en : %2").arg(namePlugin,   QTime (0, 0, 0, 0 ).addMSecs(debGTime.msecsTo(QTime::currentTime())).toString("mm:ss:zzz") ));
           QString section = "medicatux data source";
           CApp::pCApp()->writeParam(section.toAscii(), "name", namePlugin.toAscii());
           if (m_pC_Frm_Prescription)
@@ -2300,7 +2301,7 @@ void C_MW_Prescription::setWindowTitle()
 {QString title = CApp::pCApp()->applicationName()  + " (" +  m_pC_BDM_Api->dataSourceVersion() + ") ";
  if (m_pC_PatientCtx && m_pC_PatientCtx->get_usual_name().length())
     {
-     title += m_pC_PatientCtx->get_usual_name() + " " + m_pC_PatientCtx->get_forename() + tr(" âge : ") + m_pC_PatientCtx->get_age() + tr(" poids : ") + m_pC_PatientCtx->poids();
+     title += m_pC_PatientCtx->get_usual_name() + " " + m_pC_PatientCtx->get_forename() + tr(" \303\242ge : ") + m_pC_PatientCtx->get_age() + tr(" poids : ") + m_pC_PatientCtx->poids();
 
     }
  QMainWindow::setWindowTitle(title);
@@ -2335,8 +2336,8 @@ void C_MW_Prescription::patientCtxToInterface(C_PatientCtx *pC_PatientCtx)
  m_pGUI->lineEdit_poids->setText(pC_PatientCtx->poids());
  m_pGUI->lineEdit_taille->setText(pC_PatientCtx->taille());
  QString sexe = pC_PatientCtx->get_sexe().left(1);
- m_pGUI->lineEdit_sexe->setText( (sexe=="M")?tr("Masculin"):tr("Féminin"));
- m_pGUI->label_DtNaiss->setText(tr("Âgé de <b>%1</b> né%2 le ").arg(C_DateTools::CalculeDiffAge(pC_PatientCtx->get_dateOfBirth()),(sexe=="M")?"":"e"));
+ m_pGUI->lineEdit_sexe->setText( (sexe=="M")?tr("Masculin"):tr("F\303\251minin"));
+ m_pGUI->label_DtNaiss->setText(tr("\303\242g\303\251 de <b>%1</b> n\303\251%2 le ").arg(C_DateTools::CalculeDiffAge(pC_PatientCtx->get_dateOfBirth()),(sexe=="M")?"":"e"));
  QList <C_LifeEvent> lifeEventList =  pC_PatientCtx->lifeEventList();
  m_pGUI->treeWidget_ATCD->clear();
  for (int i=0; i<lifeEventList.size(); ++i)
@@ -2492,7 +2493,7 @@ void C_MW_Prescription::Slot_m_action_APropos ()
     //......................... completer les autres arguments .........................................
     argList << CApp::pCApp()->applicationName();                                                            // 1  nom du module
     argList << tr("Module for drugs prescription");                                                         // 2  description courte
-    argList << CApp::pCApp()->ApplicationAndQtVersion(tr("%1:%2").arg(__DATE__,__TIME__));            // 3  numero de version
+    argList << CApp::pCApp()->ApplicationAndQtVersion(tr("%1:%2").arg(__DATE__,__TIME__));                  // 3  numero de version
     argList << CApp::pCApp()->pathAppli()+"Ressources/Changements.html";                                    // 4  fichiers decrivant les changements
     argList <<"";                                                                                           // 5  Icone par defaut
     argList <<"";                                                                                           // 6  aide en ligne (vide pour prendre celle par defaut)
@@ -2530,19 +2531,19 @@ void C_MW_Prescription::Slot_toolButton_zoomDwReleased (  )
 //------------------------------------ Slot_prescription_zoom_menu_triggered -------------------------------
 void C_MW_Prescription::Slot_prescription_zoom_menu_triggered ( QAction* pQAction)
 { if (m_pC_Frm_Prescription==0) return;
-   // tr("1 - Mode réduit");
-   // tr("2 - Mode déployé ");
-   // tr("3 - Enregistrer la position courante comme mode réduit");
-   // tr("4 - Enregistrer la position courante comme mode déployé");
+   // tr("1 - Mode r\303\251duit");
+   // tr("2 - Mode d\303\251ploy\303\251 ");
+   // tr("3 - Enregistrer la position courante comme mode r\303\251duit");
+   // tr("4 - Enregistrer la position courante comme mode d\303\251ploy\303\251");
    // tr("5 - Choisir une couleur pour la zone non ALD");
    // tr("6 - Choisir une couleur pour la zone ALD");
    // tr("7 - Cacher les graduations");
    // tr("8 - Montrer les graduations");
-   // tr("9 - désactiver 'après-midi'"));
-   // tr("10- activer 'après-midi'"));
-   // tr("11- désactiver 'coucher'"));
+   // tr("9 - d\303\251sactiver 'apres-midi'"));
+   // tr("10- activer 'apres-midi'"));
+   // tr("11- d\303\251sactiver 'coucher'"));
    // tr("12- activer 'coucher'"));
-   // tr("13- désactiver 'nuit'"));
+   // tr("13- d\303\251sactiver 'nuit'"));
    // tr("14- activer 'nuit'"));
 
   QSize size      = m_pC_Frm_Prescription->getChildsSize();
@@ -2587,11 +2588,11 @@ void C_MW_Prescription::Slot_prescription_zoom_menu_triggered ( QAction* pQActio
            m_pC_Frm_Prescription->setChildsColors(value_std, value_ald);
          }
     }
-  else if (option == 9 )    // "9 - Réinitialiser la liste des médicaments"
+  else if (option == 9 )    // "9 - R\303\251initialiser la liste des m\303\251dicaments"
     { if (m_pC_BDM_Api) m_pC_BDM_Api->updateDrugLists();
-      Slot_lineEdit_DrugsSearch_textChanged (""); //on remet à jour la liste
+      Slot_lineEdit_DrugsSearch_textChanged (""); //on remet a jour la liste
     }
-  else if (option == 10 )   // "10 - Réinitialiser la liste des posologies favorites"
+  else if (option == 10 )   // "10 - R\303\251initialiser la liste des posologies favorites"
     { if (m_pC_BDM_Api) m_pC_BDM_Api->reinitHitsList();
     }
 }
@@ -2712,7 +2713,7 @@ void C_MW_Prescription::Slot_On_pushButton_AllItems(bool)
  m_pGUI->treeWidget_Produits->setEnabled(FALSE);
  m_pGUI->pushButton_RetrySite->setEnabled(FALSE);
  m_pGUI->pushButton_UpdateCache->setEnabled(FALSE);
- //......... sauf celui d'arrêt .....................
+ //......... sauf celui d'arret .....................
  m_pGUI->pushButton_AllItems->setEnabled(TRUE);
  get_BiblioType_Url_Login_Pass_FromComboBiblio(index, &biblioType, &biblioUrl, &biblioLogin, &biblioPassw);
  QString lastItemFile  = CApp::pCApp()->pathAppli() + "Ressources/web/" + biblioType + "/LastItem.txt";
@@ -3018,7 +3019,7 @@ void C_MW_Prescription::Slot_checkBox_DrugList_filter_stateChanged(const QString
     if (pQCheckBox->isChecked()) CApp::pCApp()->writeParam("medicatux filter",mappedText.toAscii(),tr("actif").toAscii() );
     else                         CApp::pCApp()->writeParam("medicatux filter",mappedText.toAscii(),tr("non actif").toAscii() );
     initDrugListFilter();
-    Slot_lineEdit_DrugsSearch_textChanged (m_pGUI->lineEdit_DrugsSearch->text()); //on remet à jour la liste
+    Slot_lineEdit_DrugsSearch_textChanged (m_pGUI->lineEdit_DrugsSearch->text()); //on remet a jour la liste
 }
 
 //------------------------------------ Slot_ProductNumberClicked --------------------------------------------------
@@ -3049,7 +3050,7 @@ void C_MW_Prescription::show_ProductMonographie(const C_BDM_DrugListRecord & dru
 
  if (htmlList.size())           // on parse toutes les notes pour en extraire les infos pour creer les liens
     {
-     // html  +=  "<hr/><p align=\"center\"><font color=#0000ff><b>NOTES COMPLÉMENTAIRES PERSONNELLES</b></font></p>";
+     // html  +=  "<hr/><p align=\"center\"><font color=#0000ff><b>NOTES COMPL&#201;MENTAIRES PERSONNELLES</b></font></p>";
      for (i=0; i<htmlList.size(); ++i)    // on merge toutes les notes recuperees par la requete SQL en installant les liens adequats
          { part_str = htmlList.at(i);                            // recuperer la liste des notes
            pos_deb  = part_str.indexOf("<a name=\"ancre_id_[");
@@ -3059,9 +3060,9 @@ void C_MW_Prescription::show_ProductMonographie(const C_BDM_DrugListRecord & dru
               }
            if ( pos_end != -1 )
               { cible     = part_str.mid(pos_deb, pos_end-pos_deb);
-                link_str += "&nbsp;&nbsp;&nbsp;"
-                            "&nbsp;&nbsp;<a href=\"Modify:#ancre_id_[" + cible + "]_\"><img src=\"./EditPicto.png\"> modifier</a>"   +  // ce lien sera a interpreter dans URL_ExecSpecialSyntax
-                            "&nbsp;&nbsp;<a href=\"Remove:#ancre_id_[" + cible + "]_\"><img src=\"./RemovePicto.png\"> effacer</a>"  +  // ce lien sera a interpreter dans URL_ExecSpecialSyntax
+                link_str += "&nbsp;&nbsp;&nbsp;" // ATTENTION en 4.8.5 conversion possible des majuscules en minuscules ==> nom des ancres toujours en minuscules
+                            "&nbsp;&nbsp;<a href=\"modify:#ancre_id_[" + cible + "]_\"><img src=\"./EditPicto.png\"> modifier</a>"   +  // ce lien sera a interpreter dans URL_ExecSpecialSyntax
+                            "&nbsp;&nbsp;<a href=\"remove:#ancre_id_[" + cible + "]_\"><img src=\"./RemovePicto.png\"> effacer</a>"  +  // ce lien sera a interpreter dans URL_ExecSpecialSyntax
                             "&nbsp;&nbsp;<a href=\"#ancre_id_["        + cible + "]_\"><img src=\"./NotePicto.png\"> voir la note : <font size=2px color=#ff0000>" + CGestIni::CutStrRight( cible,"-" ) + "</font></a>"+ // ce lien est actif
                             "<br />";    // lien sur la cible, le du lien texte est coupe apres les informations du pk
                 html     +=  part_str + "<br />"; // joindre la note a la page
@@ -3069,8 +3070,8 @@ void C_MW_Prescription::show_ProductMonographie(const C_BDM_DrugListRecord & dru
          }
     }
  html  = "<a name=\"monographie_start\"></a>"             // placer lancre de debut de page
-         "<hr/><p align=\"center\"><font color=#0000ff><b>NOTES COMPLÉMENTAIRES PERSONNELLES</b></font>&nbsp;&nbsp;"
-         "<a href=\"New:#ancre_id_[note]_\"><img src=\"./NewNotePicto.png\"> ajouter</a></p><hr/>" + link_str + (noLast_hr_tag?"":"<hr/>") + html;  // on place les liens au debut de page puis la monographie standard suivieie des notes
+         "<hr/><p align=\"center\"><font color=#0000ff><b>NOTES COMPL&#201;MENTAIRES PERSONNELLES</b></font>&nbsp;&nbsp;"
+         "<a href=\"new:#ancre_id_[note]_\"><img src=\"./NewNotePicto.png\"> ajouter</a></p><hr/>" + link_str + (noLast_hr_tag?"":"<hr/>") + html;  // on place les liens au debut de page puis la monographie standard suivieie des notes
  C_Utils_Log::outMessage( m_pGUI->textEdit_Monitor, tr(" Time to get CUSTOM Monographie of %1 = %2").arg(id,  QTime (0, 0, 0, 0 ).addMSecs(tm_tmp.msecsTo(QTime::currentTime())).toString("mm:ss:zzz") ));
  C_Utils_Log::outMessage( m_pGUI->textEdit_Monitor, tr(" Time to get TOTAL  Monographie of %1 = %2").arg(id,  QTime (0, 0, 0, 0 ).addMSecs(tm_deb.msecsTo(QTime::currentTime())).toString("mm:ss:zzz") ));
  m_webView_Info->setHtml(html, QUrl::fromLocalFile(m_pC_BDM_Api->plugin_image_source() ));
@@ -3187,11 +3188,17 @@ void C_MW_Prescription::Slot_webView_linkClicked ( const QUrl & url )
 {if (URL_ExecSpecialSyntax ( url.toString().trimmed() ,CApp::pCApp()->pathAppli())) return;
  m_webView_Mono->load (url );
 }
-
+/*
+//--------------------------------- Slot_webView_Info_urlChanged -----------------------------------------------------------------------
+void C_MW_Prescription::Slot_webView_Info_urlChanged( const QUrl & url )
+{// m_webView_Info->load (url );
+}
+*/
 //--------------------------------- Slot_webView_Info_linkClicked -----------------------------------------------------------------------
 void C_MW_Prescription::Slot_webView_Info_linkClicked( const QUrl & url )
-{if (URL_ExecSpecialSyntax ( url.toString().trimmed() ,CApp::pCApp()->pathAppli())) return;
- QString urlText = url.toString();
+{ QString urlText = url.toString();
+ if (URL_ExecSpecialSyntax (urlText.trimmed() ,CApp::pCApp()->pathAppli())) return;
+ //qDebug()<<urlText;
  int pos = 0;
  if ( ( pos=urlText.indexOf("Drug_CIP=") ) != -1)
     {int nb = m_pC_BDM_Api->selectProductsList(m_pGUI->treeWidget_Produits, urlText.mid(pos+9), getDrugListFilter());

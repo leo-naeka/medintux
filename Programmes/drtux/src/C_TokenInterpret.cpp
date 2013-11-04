@@ -76,10 +76,8 @@
 #endif
 
 #define TR QObject::tr
-
 static  CDevilCrucible        *G_mCDC = 0;
 static QString            G_PluginRun = "";
-
 typedef                   QMap<QString, QStringList*> FAMILLE_GENRE_MAP;
 //====================================== C_TokenInterpret ==============================================================
 //-------------------------- C_TokenInterpret -------------------------------------------
@@ -177,9 +175,9 @@ int C_TokenInterpret::ResolvFunctionToken(CDevilCrucible *pCDC, QString &resolvT
  if (token[0] !='#')   CHtmlTools::HtmlToAscii(token);
  else                  token.remove (0, 1);
  int pos_prem_p =  token.find('(');
- if (pos_prem_p ==-1)  {resolvToken = TR("C_TokenInterpret::ResolvScriptTokenSyntax() Syntax Error first '(' not found in : ")  + token; return 0;}
+ if (pos_prem_p ==-1)  {resolvToken = TR("C_TokenInterpret::ResolvScriptTokenSyntax rififi in syntax first open bracket not found in : ")  + token; return 0;}
  int pos_last_p =  findLastDelimiter(token, ')');
- if (pos_last_p ==-1)  {resolvToken = TR("C_TokenInterpret::ResolvScriptTokenSyntax() Syntax Error last  ')' not found in : ")  + token; return 0;}
+ if (pos_last_p ==-1)  {resolvToken = TR("C_TokenInterpret::ResolvScriptTokenSyntax rififi in syntax last close bracket not found in : ")  + token; return 0;}
  int ret = exeFunction(token.left(pos_prem_p).stripWhiteSpace().upper(), token.mid(pos_prem_p + 1, pos_last_p-pos_prem_p - 1), resolvToken);
  G_mCDC  = sav_pCDC;
  return ret;
@@ -250,9 +248,9 @@ QString C_TokenInterpret::VAR_CALC(QStringList &arg_list)
 
  for (int i=0; i<nb; ++i)
      {arg     = arg_list[i].stripWhiteSpace();
-      if (arg.startsWith("$"))
-         {arg = (*G_mCDC->m_pVariables)[arg.mid(1)];
-         }
+      //if (arg.startsWith("$"))
+      //   {arg = (*G_mCDC->m_pVariables)[arg.mid(1)];
+      //   }
       isArgOp = 0;
       if (arg.length()==1)  
          {op = operators.find(arg);
@@ -360,20 +358,21 @@ QString C_TokenInterpret::COPY_FILE(QStringList &arg_list)
 QString C_TokenInterpret::MID(QStringList &arg_list)
 {    int nb = arg_list.count();
      if (nb<2) return TR("::MID() nombre d'arguments insuffisants");
-     if (nb==2 ) return arg_list[0].mid(arg_list[1].toInt());
-     return arg_list[0].mid(arg_list[1].toInt(), arg_list[2].toInt());
+     if (nb==2 ) return var(arg_list[0]).mid(arg_list[1].toInt());
+     return var(arg_list[0]).mid(arg_list[1].toInt(), arg_list[2].toInt());
 }
+
 //-------------------------- LEFT -------------------------------------------
 /*! \brief non documenté */
 QString C_TokenInterpret::LEFT(QStringList &arg_list)
 {    if (arg_list.count()<2) return TR("::LEFT() nombre d'arguments insuffisants");
-     return arg_list[0].left(arg_list[1].toInt());
+     return var(arg_list[0]).left(arg_list[1].toInt());
 }
 //-------------------------- RIGHT -------------------------------------------
 /*! \brief non documenté */
 QString C_TokenInterpret::RIGHT(QStringList &arg_list)
 {    if (arg_list.count()<2) return TR("::RIGHT() nombre d'arguments insuffisants");
-     return arg_list[0].mid(arg_list[1].toInt());
+     return var(arg_list[0]).mid(arg_list[1].toInt());
 }
 
 //-------------------------- DO_LISTE -------------------------------------------
@@ -729,14 +728,14 @@ QString C_TokenInterpret::EXTRACT_VAR(QStringList &arg_list)
 QString C_TokenInterpret::INDEX_OF(QStringList &arg_list)
 { if (arg_list.count()<1) return TR("::INDEX_OF() argument de la chaîne à évaluer manquant.");
   if (arg_list.count()<2) return TR("::INDEX_OF() argument de la chaîne à trouver manquant.");
-  return QString::number(arg_list[0].find(arg_list[1]));
+  return QString::number(var(arg_list[0]).find(arg_list[1]));
 }
 
 //-------------------------- LENGTH -------------------------------------------
 /*! \brief non documenté */
 QString C_TokenInterpret::LENGTH(QStringList &arg_list)
 { if (arg_list.count()<1) return TR("::LENGTH() argument de la chaîne à évaluer manquant.");
-  return QString::number(arg_list[0].length());
+  return QString::number(var(arg_list[0]).length());
 }
 //-------------------------- FILE_EXISTS -------------------------------------------
 /*! \brief non documenté */
@@ -839,17 +838,16 @@ QString C_TokenInterpret::FORM_DATE (QStringList &arg_list)
 QString C_TokenInterpret::SIMPLIFY(QStringList &arg_list)
 { int          nb = arg_list.count();
   if (nb < 1) return TR("::SIMPLIFY() 1er argument manquant");
-  QString        str = arg_list[0];
+  QString        str = var(arg_list[0]);
   QString   toRemove = " ";
-  if (nb>1) toRemove = arg_list[1];
+  if (nb>1) toRemove = var(arg_list[1]);
   return str.remove(toRemove);
 }
 
 //-------------------------- CLEAR_SPACES -------------------------------------------
 QString C_TokenInterpret::CLEAR_SPACES(QStringList &arg_list)
 { if (arg_list.count()<1) return TR("::CLEAR_SPACES() 1er argument manquant");
-  QString str = arg_list[0];
-  return str.stripWhiteSpace();
+  return var(arg_list[0]).stripWhiteSpace();
 }
 
 //-------------------------- TO_NUM -------------------------------------------
@@ -1054,7 +1052,7 @@ QString C_TokenInterpret::EXPORT_TABLE(QStringList &arg_list)
  QString date_deb           = "1900-01-01T00:00:00";    // DATE VISITE / TOUTE DATE / DATE ACTUELLE /        ou date de debut forme : 2004-03-15T17:14:48:00
  QString date_end           = "3000-01-01T00:00:00";    // DATE VISITE / TOUTE DATE / DATE ACTUELLE / +-24 / ou date de fin   forme : 2004-03-15T17:14:48:00
  QString exportDefinition   = "";                       // liste des tables a exportet style : VAR Constantes de Base[Pouls L=50  & SAO2 L=80  & Temp L=100]; VAR Poids[Poids L=50  & Taille L=80]
- QString tableSep           = "<br>";                   // motif de separation  entre les tables  <br> par defaut
+ QString tableSep           = "<br/>";                  // motif de separation  entre les tables  <br> par defaut
  QString cell_W             = "25%";                    // largeur de chaque cellule  si non indiquee  dans la chaine list_VAR
  QString cell_H             = "30";                     // hauteur de la cellule
  QString border_W           = "1";                      // largeur de la bordure
@@ -1110,9 +1108,9 @@ QString C_TokenInterpret::EXPORT(QStringList &arg_list)
  if (nb<=0) return TR("::EXPORT() 1er  argument du fichier de destination manquant");
  if (nb<=1) return TR("::EXPORT() 2eme argument du type d'exportation manquant");
  if (nb<=2) return TR("::EXPORT() 3eme argument string a exporter ou liste des rubriques separees par | ou mode de conversion manquant");
- QString            pathFile  = G_pCApp->resolvePath(arg_list[0]);
+ QString            pathFile  = G_pCApp->resolvePath(var(arg_list[0]));
  QString                toDo  = arg_list[1].stripWhiteSpace().lower();
- QString             dataStr  = arg_list[2];
+ QString             dataStr  = var(arg_list[2]);
  QString           imageName  = "";
                 //............. cas le plus simple d'ecriture d'une chaine sur le disque ........................................
  if (toDo=="t"||toDo=="a" ||toDo=="s")
@@ -1635,7 +1633,7 @@ QString C_TokenInterpret::LIST_DIR(QStringList &arg_list)
 QString C_TokenInterpret::LOWER(QStringList &arg_list)
     {int nb = arg_list.count();
      if (nb<1) return QString::null;
-     return arg_list[0].lower();
+     return var(arg_list[0]).lower();
     }
 
 //-------------------------- NOP -------------------------------------------
@@ -1771,7 +1769,7 @@ QString C_TokenInterpret::REPLACE_BY(QStringList &arg_list)
  if (nb<1)                                        return TR("::REPLACE_BY() 1er argument du texte à traiter manquant");
  if (nb<2)                                        return TR("::REPLACE_BY() 2ème argument motif à  remplacer manquant");
  if (nb<3)                                        return TR("::REPLACE_BY() 3ème argument motif de remplacement manquant");
- return arg_list[0].stripWhiteSpace().replace(arg_list[1],arg_list[2]);
+ return var(arg_list[0]).stripWhiteSpace().replace(var(arg_list[1]),var(arg_list[2]));
 }
 
 //-------------------------- REPLACE_IN_FILE -------------------------------------------
@@ -1983,6 +1981,12 @@ QString C_TokenInterpret::VAR_SPLIT(QStringList &arg_list)
      if (nb<2)  return TR("Erreur VAR_SPLIT() nombre d'arguments insuffisants" );
      QString  prefix = arg_list[0];
      QString  toSep  = arg_list[1];
+     if (toSep.startsWith("$VAR"))
+        {int p             =  toSep.find("=");
+         if (p !=-1) toSep =  toSep.mid(p+1).stripWhiteSpace();
+         else        toSep =  toSep.mid(4).stripWhiteSpace();
+         toSep             =  (*G_mCDC->m_pVariables)[toSep];
+        }
      QString    sep  = "|";                // valeur par defaut
      if (nb>=3) sep  = arg_list[2];
      bool allowEmptyEntries = TRUE;        // valeur par defaut
@@ -2142,7 +2146,7 @@ QString C_TokenInterpret::SQL_SELECT(QStringList &arg_list)
 // TEST (S,PATIENT,>=,ADRESSE,TESTISTRUE,TESTISFALSE, 1)
 /*! \brief non documenté */
 QString C_TokenInterpret::TEST(QStringList &arg_list)
-    {if ( arg_list.count() <= 5 )  return TR("Erreur de syntaxe ::TEST() cette fonction doit comporter  au moins 5 arguments ");
+    {if ( arg_list.count() <= 5 )  return TR("Erreur de syntaxe ::TEST cette fonction doit comporter  au moins 5 arguments ");
      if ( arg_list.count() <= 6 )  arg_list.append("");
      QString op =  arg_list[2].stripWhiteSpace();
      int    iop = 0;
@@ -2157,8 +2161,8 @@ QString C_TokenInterpret::TEST(QStringList &arg_list)
      else if (op=="=%")  {iop = 8; }
      else if (op=="%%")  {iop = 9; }
 
-     QString val1 = arg_list[1].stripWhiteSpace();
-     QString val2 = arg_list[3].stripWhiteSpace();
+     QString val1 = var(arg_list[1]).stripWhiteSpace();
+     QString val2 = var(arg_list[3]).stripWhiteSpace();
      if (arg_list.count() == 7) cs = (bool)arg_list[6].toInt();
      if (arg_list[0][0]=='N') // on teste les valeurs numériques et si pas ok on continue mais avec les textes
         {double v1 = toNum(val1).toDouble();
@@ -4035,32 +4039,48 @@ QString C_TokenInterpret::Func_Extract(QString &doc_type, QString &tag_deb, QStr
      if (str_data.length()==0)              return resolvToken;
      pt_doc      = (char*) (const char*) str_data;
     }
+ if (tag_deb=="$FROMSTART") deb = (char*) (const char*) pt_doc;
+ else if (tag_deb.length()) deb = CHtmlTools::HtmlFind(pt_doc, tag_deb);
 
- if (tag_deb.length()) deb = CHtmlTools::HtmlFind(pt_doc, tag_deb);
  if (deb && tag_end.length())
     {if (tag_end.upper()=="$TOEND")
         {resolvToken = str_data.mid(deb-pt_doc);
          int p = resolvToken.find("</HTML_Data>");
          if (p !=-1) resolvToken = resolvToken.left(p);
         }
-     else
+     else 
         {
           CHtmlTools::HtmlFind(deb, tag_end, &debEndMotif);
           if (debEndMotif)
              {resolvToken.setLatin1 (deb, debEndMotif - deb);
               if (justNum.find("$keepHtml") == -1){CHtmlTools::HtmlToAscii(resolvToken);}
               else                                {justNum = justNum.remove("$keepHtml");}
-              if ( find_to.length() )
-                 {if ( resolvToken.find(find_to,0,TRUE) != -1)
-                     {resolvToken = replace_by;
-                     }
-                  else                                         resolvToken = "";
-                 }
               resolvToken.replace("\n","<br />");       // Remplace les sauts de lignes ASCII par les sauts de ligne HTML
               resolvToken.replace("\r","");             // pour les puristes...resolvToken=resolvToken.stripWhiteSpace();
              }
          }
-     }
+     if ( find_to.length() )
+        {
+          if  (find_to.startsWith("$VAR"))
+              { QString var_name     = "";
+                int p                =  find_to.find("=");
+                if (p !=-1) var_name =  find_to.mid(p+1).stripWhiteSpace();
+                else        var_name =  find_to.mid(4).stripWhiteSpace();
+                if (var_name.length()==0)  resolvToken                       = "l'argument 4 est $VAR mais le nom de la variable devant suivre $VAR est absent";
+                else                     { if (justNum.find("$keepHtml") == -1){CHtmlTools::HtmlToAscii(resolvToken);}
+                                           else                                {justNum = justNum.remove("$keepHtml");}
+                                          (*G_mCDC->m_pVariables)[var_name] = resolvToken; 
+                                           resolvToken="";
+                                         }
+              }
+          else
+              { if ( resolvToken.find(find_to,0,TRUE) != -1)
+                   { resolvToken = replace_by;
+                   }
+                else resolvToken = "";
+              }
+        }  // end if ( find_to.length() )
+     } // end if (deb && tag_end.length())
  if (justNum.length()) return  toNum(resolvToken, justNum);
  else                  return  resolvToken;
 }
@@ -4166,9 +4186,93 @@ QString C_TokenInterpret::DocNameToDocNumType(const QString &doc_name, int part 
 
 }
 */
+//-------------------------- extractArgList -------------------------------------------
+/*! \brief non document� */
+long C_TokenInterpret::extractArgList(QStringList &arg_list, const QString &arg_str)
+{long len     = arg_str.length();
+ long pos     = 0;
+ long deb     = 0;
+ QString arg  = "";
+ QString argS = "";
 
+ QMap<QString,QString>::Iterator it;
+ while(pos <= len)
+    {if (arg_str.at(pos) == '\\') 
+        { pos += 2;
+        }
+     else if (pos==len || arg_str.at(pos) == ',')
+        {arg   = arg_str.mid(deb, pos-deb);
+         argS  = arg.stripWhiteSpace();
+         //........... prendre le contenu de la variable si l'agument commence par $ .............
+         if (  argS.startsWith("$")               &&
+             ! argS.startsWith("$VAR")
+            )
+            { it      = (*G_mCDC->m_pVariables).find(argS.mid(1));
+              if (it != (*G_mCDC->m_pVariables).end())  arg = it.data();
+            }
+         arg_list.append( argUnProtect(arg) );
+         ++pos;
+         deb = pos;
+        }
+     else
+        {++pos;
+        }
+    }
+ return 1;
+ /*
+ while(pos < len)
+    {if (arg_str.at(pos) == '\\') pos += 2;
+     else if (arg_str.at(pos) == ',')
+        {arg   = arg_str.mid(deb, pos-deb);
+         argS  = arg.stripWhiteSpace();
+
+         if (  argS.startsWith("$")               &&
+             ! argS.startsWith("$VAR")
+            )
+            { it      = (*G_mCDC->m_pVariables).find(argS.mid(1));
+              if (it != (*G_mCDC->m_pVariables).end())  arg = it.data();
+            }
+         arg_list.append( argUnProtect(arg) );
+         ++pos;
+         deb = pos;
+        }
+     else
+        {++pos;
+        }
+    }
+ //........ ne pas oublier le dernier argument ...................
+ arg   = arg_str.mid(deb, pos-deb);
+ argS  = arg.stripWhiteSpace();
+ if (  argS.startsWith("$")               && 
+     ! argS.startsWith("$VAR")
+    )
+    {it      = (*G_mCDC->m_pVariables).find(argS.mid(1));
+     if (it != (*G_mCDC->m_pVariables).end())  arg = it.data();
+    }
+ arg_list.append( argUnProtect(arg) );
+ return 1;
+*/
+}
+
+//-------------------------- argUnProtect -------------------------------------------
+QString C_TokenInterpret::C_TokenInterpret::argUnProtect(QString arg)
+{arg = arg.replace("\\\\","!°!;:");
+ arg = arg.remove("\\");
+ arg = arg.replace("!°!;:","\\");
+ return arg;
+}
+
+//-------------------------- isReservedKeyWord -------------------------------------------
+bool C_TokenInterpret::isReservedKeyWord(const QString &word)
+{ KEY_MACRO toTest;
+            toTest.m_Token     = word.latin1();
+  //............... recuperer le tableau des mots clefs.............................
+  KEY_MACRO_TAB_DEF *p_MACRO_LIST = &G_MacroTab_List[26];
+  return bsearch(&toTest, p_MACRO_LIST->m_MacroTab, p_MACRO_LIST->m_size , sizeof(KEY_MACRO), C_TokenInterpret::comparatorMacro);
+}
 //-------------------------- extractArgList -------------------------------------------
 /*! \brief non documenté */
+/*
 long C_TokenInterpret::extractArgList(QStringList &arg_list, const QString &arg_str)
 {char   *deb  = (char*)(const char*) arg_str;
  char   *pt   = deb;
@@ -4207,7 +4311,8 @@ long C_TokenInterpret::extractArgList(QStringList &arg_list, const QString &arg_
     }
  return 1;
 }
-//--------------------=-------- findLastDelimiter -----------------------------------------------
+*/
+//----------------------------- findLastDelimiter -----------------------------------------------
 /*! \brief Pour la récursivité. */
 long C_TokenInterpret::findLastDelimiter(QString &str, char delimiter)
 {char *deb = (char*)(const char*) str;
@@ -4382,4 +4487,20 @@ int C_TokenInterpret::FindToken(int pos_deb, int pos_max, const QString &tokenTo
            }
        }
   return pos_max;
+}
+//-------------------------------------- var ----------------------------------------------------------------
+/*! \brief retourne le contenu d'une variable suivant le token $VAR =
+ *  \param token const QString &token : token  a rechercher
+ *  \return le contenude la variable
+ */
+
+QString C_TokenInterpret::var(const QString &token)
+{    QString var_name         = "";
+     if (token.startsWith("$VAR"))
+        {int p                =  token.find("=");
+         if (p !=-1) var_name =  token.mid(p+1).stripWhiteSpace();
+         else        var_name =  token.mid(4).stripWhiteSpace();
+         return  (*G_mCDC->m_pVariables)[var_name];
+        }
+     return token;
 }

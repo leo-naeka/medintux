@@ -335,6 +335,9 @@ class C_TokenInterpret
                                           const QString &aldPrefix);
   static QPoint      adjustScreenDialogPosition(QPoint pos, QWidget* pQWidget);
  protected:
+  static QString    var(const QString &token);
+  static QString    argUnProtect(QString arg);
+  static bool       isReservedKeyWord(const QString &word);
   static int        comparatorMacro (const void *a, const void *b);
   static int        exeFunction(QString func, const QString &args, QString &resolvToken);
   static long       extractArgList(QStringList &arg_list, const QString &arg_str);
@@ -389,7 +392,7 @@ static QString    Func_Extract_Table_D(    const QString &str_data,
 
 };
   //...................................... tableaux de fonctions .............................................................
-  static KEY_MACRO      G_MacroTab_A[ ] = {{"ABS_PATH",                       C_TokenInterpret::ABS_PATH},
+  static KEY_MACRO     G_MacroTab_A[ ] =  {{"ABS_PATH",                       C_TokenInterpret::ABS_PATH},
                                            {"ADRESSE_COMPLETE_MEDECIN",       C_TokenInterpret::ADRESSE_COMPLETE_MEDECIN},
                                            {"ADRESSE_COMPLETE_PATIENT",       C_TokenInterpret::ADRESSE_COMPLETE_PATIENT},
                                            {"ADRESSE_MEDECIN",                C_TokenInterpret::ADRESSE_MEDECIN},
@@ -401,11 +404,11 @@ static QString    Func_Extract_Table_D(    const QString &str_data,
                                            {"AP",                             C_TokenInterpret::ABS_PATH},
                                            {"APPEND_DOC_IN_CLASSEUR",         C_TokenInterpret::APPEND_DOC_IN_CLASSEUR}
                                           };
-  static KEY_MACRO      G_MacroTab_B[ ] = {{"BASE_THERAPEUTIQUE",             C_TokenInterpret::BASE_THERAPEUTIQUE},
+  static KEY_MACRO     G_MacroTab_B[ ] =  {{"BASE_THERAPEUTIQUE",             C_TokenInterpret::BASE_THERAPEUTIQUE},
                                            {"BMI",                            C_TokenInterpret::BMI_PATIENT},
                                            {"BMI_PATIENT",                    C_TokenInterpret::BMI_PATIENT}
                                           };
-  static KEY_MACRO      G_MacroTab_C[ ] = {{"CADRE",                          C_TokenInterpret::CADRE},
+  static KEY_MACRO     G_MacroTab_C[ ] =  {{"CADRE",                          C_TokenInterpret::CADRE},
                                            {"CALC",                           C_TokenInterpret::CALC},
                                            {"CLEAR_SPACES",                   C_TokenInterpret::CLEAR_SPACES},
                                            {"CODE_POSTAL_PATIENT",            C_TokenInterpret::CODE_POSTAL_PATIENT},
@@ -415,7 +418,7 @@ static QString    Func_Extract_Table_D(    const QString &str_data,
                                            {"CP_MEDECIN",                     C_TokenInterpret::CP_MEDECIN},
                                            {"CS",                             C_TokenInterpret::CLEAR_SPACES}
                                           };
-  static KEY_MACRO      G_MacroTab_D[ ] = {{"DATE",                           C_TokenInterpret::DATECOURANTE},
+  static KEY_MACRO     G_MacroTab_D[ ] =  {{"DATE",                           C_TokenInterpret::DATECOURANTE},
                                            {"DATECOURANTE",                   C_TokenInterpret::DATECOURANTE},
                                            {"DATE_CALC",                      C_TokenInterpret::DATE_CALC},
                                            {"DATE_DERNIERES_REGLES",          C_TokenInterpret::DDR},
@@ -437,7 +440,7 @@ static QString    Func_Extract_Table_D(    const QString &str_data,
                                            {"DTFN",                           C_TokenInterpret::DATE_FROMNUM},
                                            {"DTN",                            C_TokenInterpret::DATE_TONUM}
                                           };
-  static KEY_MACRO      G_MacroTab_E[ ] = {{"EMAIL_MEDECIN",                  C_TokenInterpret::EMAIL_MEDECIN},
+  static KEY_MACRO     G_MacroTab_E[ ] =  {{"EMAIL_MEDECIN",                  C_TokenInterpret::EMAIL_MEDECIN},
                                            {"EMAIL_PATIENT",                  C_TokenInterpret::EMAIL_PATIENT},
                                            {"EXE_PROCESS",                    C_TokenInterpret::EXE_PROCESS},
                                            {"EXIT",                           C_TokenInterpret::EXIT},
@@ -450,7 +453,7 @@ static QString    Func_Extract_Table_D(    const QString &str_data,
                                            {"EXTRACT_VAR",                    C_TokenInterpret::EXTRACT_VAR}
                                           };
 
-  static KEY_MACRO      G_MacroTab_F[ ] = {{"FE",                             C_TokenInterpret::FILE_EXISTS},
+  static KEY_MACRO     G_MacroTab_F[ ] =  {{"FE",                             C_TokenInterpret::FILE_EXISTS},
                                            {"FILE_EXISTS",                    C_TokenInterpret::FILE_EXISTS},
                                            {"FILL",                           C_TokenInterpret::FILL},
                                            {"FORM_DATE",                      C_TokenInterpret::FORM_DATE},
@@ -459,7 +462,7 @@ static QString    Func_Extract_Table_D(    const QString &str_data,
                                            {"FORM_MESSAGE",                   C_TokenInterpret::MESSAGE_ALERT},
                                            {"FORM_POPUP_MESSAGE",             C_TokenInterpret::MESSAGE_POPUP}
                                           };
-  static KEY_MACRO      G_MacroTab_G[ ] = {{"GET_DOC_DATE_FIN",               C_TokenInterpret::GET_DOC_DATE_FIN},
+  static KEY_MACRO     G_MacroTab_G[ ] =  {{"GET_DOC_DATE_FIN",               C_TokenInterpret::GET_DOC_DATE_FIN},
                                            {"GET_DOC_PROP_0",                 C_TokenInterpret::GET_DOC_PROP_0},
                                            {"GET_DOC_PROP_1",                 C_TokenInterpret::GET_DOC_PROP_1},
                                            {"GET_DOC_PROP_2",                 C_TokenInterpret::GET_DOC_PROP_2},
@@ -473,10 +476,10 @@ static QString    Func_Extract_Table_D(    const QString &str_data,
                                            {"GRAPH",                          C_TokenInterpret::GRAPH},
                                            {"GUID",                           C_TokenInterpret::SQL_GET_DOSS_GUID}
                                           };
-  static KEY_MACRO      G_MacroTab_H[ ] = {{"HEURECOURANTE",                  C_TokenInterpret::HHHMM},
+  static KEY_MACRO     G_MacroTab_H[ ] =  {{"HEURECOURANTE",                  C_TokenInterpret::HHHMM},
                                            {"HHHMM",                          C_TokenInterpret::HHHMM}
                                           };
-  static KEY_MACRO      G_MacroTab_I[ ] = {{"IDENTIFICATION_MEDECIN",         C_TokenInterpret::IDENTIFICATION_MEDECIN},
+  static KEY_MACRO     G_MacroTab_I[ ] =  {{"IDENTIFICATION_MEDECIN",         C_TokenInterpret::IDENTIFICATION_MEDECIN},
                                            {"IMC",                            C_TokenInterpret::BMI_PATIENT},
                                            {"IMPORT",                         C_TokenInterpret::IMPORT},
                                            {"INCLUDE",                        C_TokenInterpret::INCLUDE},
@@ -488,21 +491,21 @@ static QString    Func_Extract_Table_D(    const QString &str_data,
                                            {"INTITULE",                       C_TokenInterpret::INTITULE},
                                            {"IO",                             C_TokenInterpret::INDEX_OF}
                                           };
-  static KEY_MACRO      G_MacroTab_J[ ] = {{"J_NOP",                          C_TokenInterpret::NOP}};
-  static KEY_MACRO      G_MacroTab_K[ ] = {{"K_NOP",                          C_TokenInterpret::NOP}};
-  static KEY_MACRO      G_MacroTab_L[ ] = {{"LEFT",                           C_TokenInterpret::LEFT},
+  static KEY_MACRO     G_MacroTab_J[ ] =  {{"J_NOP",                          C_TokenInterpret::NOP}};
+  static KEY_MACRO     G_MacroTab_K[ ] =  {{"K_NOP",                          C_TokenInterpret::NOP}};
+  static KEY_MACRO     G_MacroTab_L[ ] =  {{"LEFT",                           C_TokenInterpret::LEFT},
                                            {"LEN",                            C_TokenInterpret::LENGTH},
                                            {"LENGTH",                         C_TokenInterpret::LENGTH},
                                            {"LINE_EDIT",                      C_TokenInterpret::LINE_EDIT},
                                            {"LIST_DIR",                       C_TokenInterpret::LIST_DIR},
                                            {"LOWER",                          C_TokenInterpret::LOWER}
                                           };
-  static KEY_MACRO      G_MacroTab_M[ ] = {{"MESSAGE_ALERT",                  C_TokenInterpret::MESSAGE_ALERT},
+  static KEY_MACRO     G_MacroTab_M[ ] =  {{"MESSAGE_ALERT",                  C_TokenInterpret::MESSAGE_ALERT},
                                            {"MESSAGE_POPUP",                  C_TokenInterpret::MESSAGE_POPUP},
                                            {"MID",                            C_TokenInterpret::MID},
                                            {"M_NOP",                          C_TokenInterpret::NOP}
                                            };
-  static KEY_MACRO      G_MacroTab_N[ ] = {{"NOMBRE_D'ENFANT_PATIENT",        C_TokenInterpret::NOMBRE_D_ENFANT_PATIENT},
+  static KEY_MACRO     G_MacroTab_N[ ] =  {{"NOMBRE_D'ENFANT_PATIENT",        C_TokenInterpret::NOMBRE_D_ENFANT_PATIENT},
                                            {"NOM_MEDECIN",                    C_TokenInterpret::NOM_MEDECIN},
                                            {"NOM_NAISSANCE_PATIENT",          C_TokenInterpret::NOM_NAISSANCE_PATIENT},
                                            {"NOM_PATIENT",                    C_TokenInterpret::NOM_PATIENT},
@@ -522,10 +525,10 @@ static QString    Func_Extract_Table_D(    const QString &str_data,
                                            {"NUM_TEL3_PATIENT",               C_TokenInterpret::NUM_TEL3_PATIENT}
 
                                           };
-  static KEY_MACRO      G_MacroTab_O[ ] = {{"OPEN_FILE_NAME",                 C_TokenInterpret::OPEN_FILE_NAME},
+  static KEY_MACRO     G_MacroTab_O[ ] =  {{"OPEN_FILE_NAME",                 C_TokenInterpret::OPEN_FILE_NAME},
                                            {"OS",                             C_TokenInterpret::OS}
                                           };
-  static KEY_MACRO      G_MacroTab_P[ ] = {{"POIDS_ENFANT",                   C_TokenInterpret::POIDS_PATIENT},
+  static KEY_MACRO     G_MacroTab_P[ ] =  {{"POIDS_ENFANT",                   C_TokenInterpret::POIDS_PATIENT},
                                            {"POIDS_PATIENT",                  C_TokenInterpret::POIDS_PATIENT},
                                            {"POLITESSE_MEDECIN",              C_TokenInterpret::POLITESSE_MEDECIN},
                                            {"PRENOM_MEDECIN",                 C_TokenInterpret::PRENOM_MEDECIN},
@@ -533,8 +536,8 @@ static QString    Func_Extract_Table_D(    const QString &str_data,
                                            {"PROFESSION_PATIENT",             C_TokenInterpret::PROFESSION_PATIENT},
                                            {"PUT_VAR",                        C_TokenInterpret::PUT_VAR}
                                           };
-  static KEY_MACRO      G_MacroTab_Q[ ] = {{"Q_NOP",                          C_TokenInterpret::NOP}};
-  static KEY_MACRO      G_MacroTab_R[ ] = {{"RB",                             C_TokenInterpret::REPLACE_BY},
+  static KEY_MACRO     G_MacroTab_Q[ ] =  {{"Q_NOP",                          C_TokenInterpret::NOP}};
+  static KEY_MACRO     G_MacroTab_R[ ] =  {{"RB",                             C_TokenInterpret::REPLACE_BY},
                                            {"REINIT_CLASSEUR",                C_TokenInterpret::REINIT_CLASSEUR},
                                            {"REM",                            C_TokenInterpret::NOP},
                                            {"REMARQUE",                       C_TokenInterpret::NOP},
@@ -551,7 +554,7 @@ static QString    Func_Extract_Table_D(    const QString &str_data,
                                            {"RS",                             C_TokenInterpret::VAR_CALC},
                                            {"RUBRIQUE_SHOW",                  C_TokenInterpret::RUBRIQUE_SHOW}
                                            };
-  static KEY_MACRO      G_MacroTab_S[ ] = {{"SAVE_CURRENT_DOC",               C_TokenInterpret::SAVE_CURRENT_DOC},
+  static KEY_MACRO     G_MacroTab_S[ ] =  {{"SAVE_CURRENT_DOC",               C_TokenInterpret::SAVE_CURRENT_DOC},
                                            {"SAVE_LAST_IMAGE_NAME",           C_TokenInterpret::SAVE_LAST_IMAGE_NAME},
                                            {"SET_DOC_DATE_FIN",               C_TokenInterpret::SET_DOC_DATE_FIN},
                                            {"SET_DOC_PROP_0",                 C_TokenInterpret::SET_DOC_PROP_0},
@@ -573,7 +576,7 @@ static QString    Func_Extract_Table_D(    const QString &str_data,
                                            {"SQL_SELECT",                     C_TokenInterpret::SQL_SELECT},
                                            {"SURFACE_PATIENT",                C_TokenInterpret::SURFACE_PATIENT}
                                           };
-  static KEY_MACRO      G_MacroTab_T[ ] = {{"TAILLE_PATIENT",                 C_TokenInterpret::TAILLE_PATIENT},
+  static KEY_MACRO     G_MacroTab_T[ ] =  {{"TAILLE_PATIENT",                 C_TokenInterpret::TAILLE_PATIENT},
                                            {"TEL_1_MEDECIN",                  C_TokenInterpret::TEL_1_MEDECIN},
                                            {"TEL_2_MEDECIN",                  C_TokenInterpret::TEL_2_MEDECIN},
                                            {"TEL_3_MEDECIN",                  C_TokenInterpret::TEL_3_MEDECIN},
@@ -585,7 +588,7 @@ static QString    Func_Extract_Table_D(    const QString &str_data,
                                            {"TO_SCRIPT",                      C_TokenInterpret::TO_SCRIPT},
                                            {"TO_NUM",                         C_TokenInterpret::TO_NUM}
                                           };
-  static KEY_MACRO      G_MacroTab_U[ ] = {{"UPPER",                          C_TokenInterpret::UPPER},
+  static KEY_MACRO     G_MacroTab_U[ ] =  {{"UPPER",                          C_TokenInterpret::UPPER},
                                            {"USER_ADRESSE_COMPLETE_MEDECIN",  C_TokenInterpret::USER_ADRESSE_COMPLETE_MEDECIN},
                                            {"USER_ADRESSE_MEDECIN",           C_TokenInterpret::USER_ADRESSE_MEDECIN},
                                            {"USER_CLEF_RPPS",                 C_TokenInterpret::USER_CLEF_RPPS},
@@ -609,7 +612,7 @@ static QString    Func_Extract_Table_D(    const QString &str_data,
                                            {"USER_TITRE_PS",                  C_TokenInterpret::USER_TITRE_PS},
                                            {"USER_VILLE_MEDECIN",             C_TokenInterpret::USER_VILLE_MEDECIN}
                                           };
-  static KEY_MACRO      G_MacroTab_V[ ] = {{"VALIDER_DOSSIER",                C_TokenInterpret::VALIDER_DOSSIER},
+  static KEY_MACRO     G_MacroTab_V[ ] =  {{"VALIDER_DOSSIER",                C_TokenInterpret::VALIDER_DOSSIER},
                                            {"VAR",                            C_TokenInterpret::PUT_VAR},
                                            {"VAR_CALC",                       C_TokenInterpret::VAR_CALC},
                                            {"VAR_LIST_CLEAR",                 C_TokenInterpret::VAR_LIST_CLEAR},
@@ -619,39 +622,97 @@ static QString    Func_Extract_Table_D(    const QString &str_data,
                                            {"VILLE_MEDECIN",                  C_TokenInterpret::VILLE_MEDECIN},
                                            {"VILLE_PATIENT",                  C_TokenInterpret::VILLE_PATIENT}
                                           };
-  static KEY_MACRO      G_MacroTab_W[ ] = {{"W_NOP",                          C_TokenInterpret::NOP}};
-  static KEY_MACRO      G_MacroTab_X[ ] = {{"X_NOP",                          C_TokenInterpret::NOP}};
-  static KEY_MACRO      G_MacroTab_Y[ ] = {{"Y_NOP",                          C_TokenInterpret::NOP}};
-  static KEY_MACRO      G_MacroTab_Z[ ] = {{"Z_NOP",                          C_TokenInterpret::NOP}};
+  static KEY_MACRO     G_MacroTab_W[ ]  = {{"W_NOP",                          C_TokenInterpret::NOP}};
+  static KEY_MACRO     G_MacroTab_X[ ]  = {{"X_NOP",                          C_TokenInterpret::NOP}};
+  static KEY_MACRO     G_MacroTab_Y[ ]  = {{"Y_NOP",                          C_TokenInterpret::NOP}};
+  static KEY_MACRO     G_MacroTab_Z[ ]  = {{"Z_NOP",                          C_TokenInterpret::NOP}};
+  //................... le tableau des mots reserves utilise la meme mecanique ......................
+  static KEY_MACRO     G_MacroTab_WR[ ] = {{"$ALLSTRING",                     C_TokenInterpret::NOP},
+                                           {"$DATEDEB",                       C_TokenInterpret::NOP},
+                                           {"$DATEDEBFICHE",                  C_TokenInterpret::NOP},
+                                           {"$DATEFIN",                       C_TokenInterpret::NOP},
+                                           {"$DATEFINFICHE",                  C_TokenInterpret::NOP},
+                                           {"$DUREE",                         C_TokenInterpret::NOP},
+                                           {"$ENDTOABSPATH",                  C_TokenInterpret::NOP},
+                                           {"$END_WIDTH",                     C_TokenInterpret::NOP},
+                                           {"$FILE",                          C_TokenInterpret::NOP},
+                                           {"$FROMSTART",                     C_TokenInterpret::NOP},
+                                           {"$FUSION_ADD",                    C_TokenInterpret::NOP},
+                                           {"$FUSION_CREATE",                 C_TokenInterpret::NOP},
+                                           {"$GLOSSAIRE",                     C_TokenInterpret::NOP},
+                                           {"$GUIDPAT",                       C_TokenInterpret::NOP},
+                                           {"$HEUREDEB",                      C_TokenInterpret::NOP},
+                                           {"$HEUREFIN",                      C_TokenInterpret::NOP},
+                                           {"$HOME",                          C_TokenInterpret::NOP},
+                                           {"$ISABSPATH",                     C_TokenInterpret::NOP},
+                                           {"$ISBINPATH",                     C_TokenInterpret::NOP},
+                                           {"$KEEPHTML",                      C_TokenInterpret::NOP},
+                                           {"$KEEP_ORIGINAL_H",               C_TokenInterpret::NOP},
+                                           {"$KEEP_ORIGINAL_W",               C_TokenInterpret::NOP},
+                                           {"$KEEP_SRC_NAME",                 C_TokenInterpret::NOP},
+                                           {"$NO KEY",                        C_TokenInterpret::NOP},
+                                           {"$NOADDEXE",                      C_TokenInterpret::NOP},
+                                           {"$NOMPATIENT",                    C_TokenInterpret::NOP},
+                                           {"$NOMRUB",                        C_TokenInterpret::NOP},
+                                           {"$NUMFICHERUB",                   C_TokenInterpret::NOP},
+                                           {"$NUMFICHETOT",                   C_TokenInterpret::NOP},
+                                           {"$PASTE",                         C_TokenInterpret::NOP},
+                                           {"$PKFICHE",                       C_TokenInterpret::NOP},
+                                           {"$PKPAT",                         C_TokenInterpret::NOP},
+                                           {"$PRENOMPATIENT",                 C_TokenInterpret::NOP},
+                                           {"$PREVISUALISATION",              C_TokenInterpret::NOP},
+                                           {"$PREVISUALISATION_END",          C_TokenInterpret::NOP},
+                                           {"$PRINT_HEADER_CHANGED",          C_TokenInterpret::NOP},
+                                           {"$PRINT_SCRIPT_BEFORE",           C_TokenInterpret::NOP},
+                                           {"$PRINT_SCRIPT_END",              C_TokenInterpret::NOP},
+                                           {"$PRINT_STOP",                    C_TokenInterpret::NOP},
+                                           {"$REMOVE_SRC_FILE",               C_TokenInterpret::NOP},
+                                           {"$SELECTION",                     C_TokenInterpret::NOP},
+                                           {"$SET_VAR",                       C_TokenInterpret::NOP},
+                                           {"$SIGNUSER",                      C_TokenInterpret::NOP},
+                                           {"$STOPIFNOTNUM",                  C_TokenInterpret::NOP},
+                                           {"$TABLENAME",                     C_TokenInterpret::NOP},
+                                           {"$THEME",                         C_TokenInterpret::NOP},
+                                           {"$TITRERUB",                      C_TokenInterpret::NOP},
+                                           {"$TOABSPATH",                     C_TokenInterpret::NOP},
+                                           {"$TOEND",                         C_TokenInterpret::NOP},
+                                           {"$TOINT",                         C_TokenInterpret::NOP},
+                                           {"$TOSTDIN",                       C_TokenInterpret::NOP},
+                                           {"$USER",                          C_TokenInterpret::NOP},
+                                           {"$USER_PARAM",                    C_TokenInterpret::NOP},
+                                           {"$VIGIE",                         C_TokenInterpret::NOP},
+                                           {"$WIDTH",                         C_TokenInterpret::NOP},
+                                          };
 
   //...................................... tableaux des tableaux de fonctions .............................................................
   //                                       un tableau par lettre de l'alphabet
-  static KEY_MACRO_TAB_DEF G_MacroTab_List[]  ={ {G_MacroTab_A, sizeof(G_MacroTab_A)  / sizeof(KEY_MACRO)},
-                                                 {G_MacroTab_B, sizeof(G_MacroTab_B)  / sizeof(KEY_MACRO)},
-                                                 {G_MacroTab_C, sizeof(G_MacroTab_C)  / sizeof(KEY_MACRO)},
-                                                 {G_MacroTab_D, sizeof(G_MacroTab_D)  / sizeof(KEY_MACRO)},
-                                                 {G_MacroTab_E, sizeof(G_MacroTab_E)  / sizeof(KEY_MACRO)},
-                                                 {G_MacroTab_F, sizeof(G_MacroTab_F)  / sizeof(KEY_MACRO)},
-                                                 {G_MacroTab_G, sizeof(G_MacroTab_G)  / sizeof(KEY_MACRO)},
-                                                 {G_MacroTab_H, sizeof(G_MacroTab_H)  / sizeof(KEY_MACRO)},
-                                                 {G_MacroTab_I, sizeof(G_MacroTab_I)  / sizeof(KEY_MACRO)},
-                                                 {G_MacroTab_J, sizeof(G_MacroTab_J)  / sizeof(KEY_MACRO)},
-                                                 {G_MacroTab_K, sizeof(G_MacroTab_K)  / sizeof(KEY_MACRO)},
-                                                 {G_MacroTab_L, sizeof(G_MacroTab_L)  / sizeof(KEY_MACRO)},
-                                                 {G_MacroTab_M, sizeof(G_MacroTab_M)  / sizeof(KEY_MACRO)},
-                                                 {G_MacroTab_N, sizeof(G_MacroTab_N)  / sizeof(KEY_MACRO)},
-                                                 {G_MacroTab_O, sizeof(G_MacroTab_O)  / sizeof(KEY_MACRO)},
-                                                 {G_MacroTab_P, sizeof(G_MacroTab_P)  / sizeof(KEY_MACRO)},
-                                                 {G_MacroTab_Q, sizeof(G_MacroTab_Q)  / sizeof(KEY_MACRO)},
-                                                 {G_MacroTab_R, sizeof(G_MacroTab_R)  / sizeof(KEY_MACRO)},
-                                                 {G_MacroTab_S, sizeof(G_MacroTab_S)  / sizeof(KEY_MACRO)},
-                                                 {G_MacroTab_T, sizeof(G_MacroTab_T)  / sizeof(KEY_MACRO)},
-                                                 {G_MacroTab_U, sizeof(G_MacroTab_U)  / sizeof(KEY_MACRO)},
-                                                 {G_MacroTab_V, sizeof(G_MacroTab_V)  / sizeof(KEY_MACRO)},
-                                                 {G_MacroTab_W, sizeof(G_MacroTab_W)  / sizeof(KEY_MACRO)},
-                                                 {G_MacroTab_X, sizeof(G_MacroTab_X)  / sizeof(KEY_MACRO)},
-                                                 {G_MacroTab_Y, sizeof(G_MacroTab_Y)  / sizeof(KEY_MACRO)},
-                                                 {G_MacroTab_Z, sizeof(G_MacroTab_Z)  / sizeof(KEY_MACRO)}
+  static KEY_MACRO_TAB_DEF G_MacroTab_List[]  ={ {G_MacroTab_A,  sizeof(G_MacroTab_A)  / sizeof(KEY_MACRO)},   // 0
+                                                 {G_MacroTab_B,  sizeof(G_MacroTab_B)  / sizeof(KEY_MACRO)},   // 1
+                                                 {G_MacroTab_C,  sizeof(G_MacroTab_C)  / sizeof(KEY_MACRO)},   // 2
+                                                 {G_MacroTab_D,  sizeof(G_MacroTab_D)  / sizeof(KEY_MACRO)},   // 3
+                                                 {G_MacroTab_E,  sizeof(G_MacroTab_E)  / sizeof(KEY_MACRO)},   // 4
+                                                 {G_MacroTab_F,  sizeof(G_MacroTab_F)  / sizeof(KEY_MACRO)},   // 5
+                                                 {G_MacroTab_G,  sizeof(G_MacroTab_G)  / sizeof(KEY_MACRO)},   // 6
+                                                 {G_MacroTab_H,  sizeof(G_MacroTab_H)  / sizeof(KEY_MACRO)},   // 7
+                                                 {G_MacroTab_I,  sizeof(G_MacroTab_I)  / sizeof(KEY_MACRO)},   // 8 
+                                                 {G_MacroTab_J,  sizeof(G_MacroTab_J)  / sizeof(KEY_MACRO)},   // 9
+                                                 {G_MacroTab_K,  sizeof(G_MacroTab_K)  / sizeof(KEY_MACRO)},   // 10
+                                                 {G_MacroTab_L,  sizeof(G_MacroTab_L)  / sizeof(KEY_MACRO)},   // 11
+                                                 {G_MacroTab_M,  sizeof(G_MacroTab_M)  / sizeof(KEY_MACRO)},   // 12
+                                                 {G_MacroTab_N,  sizeof(G_MacroTab_N)  / sizeof(KEY_MACRO)},   // 13
+                                                 {G_MacroTab_O,  sizeof(G_MacroTab_O)  / sizeof(KEY_MACRO)},   // 14
+                                                 {G_MacroTab_P,  sizeof(G_MacroTab_P)  / sizeof(KEY_MACRO)},   // 15
+                                                 {G_MacroTab_Q,  sizeof(G_MacroTab_Q)  / sizeof(KEY_MACRO)},   // 16
+                                                 {G_MacroTab_R,  sizeof(G_MacroTab_R)  / sizeof(KEY_MACRO)},   // 17
+                                                 {G_MacroTab_S,  sizeof(G_MacroTab_S)  / sizeof(KEY_MACRO)},   // 18
+                                                 {G_MacroTab_T,  sizeof(G_MacroTab_T)  / sizeof(KEY_MACRO)},   // 19
+                                                 {G_MacroTab_U,  sizeof(G_MacroTab_U)  / sizeof(KEY_MACRO)},   // 20
+                                                 {G_MacroTab_V,  sizeof(G_MacroTab_V)  / sizeof(KEY_MACRO)},   // 21
+                                                 {G_MacroTab_W,  sizeof(G_MacroTab_W)  / sizeof(KEY_MACRO)},   // 22
+                                                 {G_MacroTab_X,  sizeof(G_MacroTab_X)  / sizeof(KEY_MACRO)},   // 23
+                                                 {G_MacroTab_Y,  sizeof(G_MacroTab_Y)  / sizeof(KEY_MACRO)},   // 24
+                                                 {G_MacroTab_Z,  sizeof(G_MacroTab_Z)  / sizeof(KEY_MACRO)},   // 25
+                                                 {G_MacroTab_WR, sizeof(G_MacroTab_WR) / sizeof(KEY_MACRO)}    // 26
                                                };
 //.......... forUse_G_MacroTab_List ..........................
 int forUse_G_MacroTab_List() {return G_MacroTab_List->m_size;}

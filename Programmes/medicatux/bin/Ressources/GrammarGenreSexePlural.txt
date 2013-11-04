@@ -23,5 +23,8 @@ sucette|sucette|sucettes|f
 milligramme|milligramme|milligrammes|m
 gramme|gramme|grammes|m
 microgramme|microgramme|microgrammes|m
-dose-graduation|dose-graduation|dose-graduations|f
+dose-graduation|dose-graduation|doses-graduations|f
+dose-graduation/kg|dose-graduation/kg|doses-graduations/kg|f
+dose-kg|dose-kg|doses-kg|f
 comprimé orodispersible|comprimé orodispersible|comprimés orodispersibles|m
+comprimé effervescent|comprimé effervescent|comprimés effervescents|m

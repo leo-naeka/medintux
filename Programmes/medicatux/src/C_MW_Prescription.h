@@ -221,7 +221,6 @@ private slots:
     void Slot_tabWidget_Main_CloseRequested( int index);
     void Slot_m_Button_TabCorner_clicked(bool);
 
-    void Slot_PopupDial_NotesInfos_finished( const QString & );
     void Slot_comboBox_FamillesProduits_activated( int );
     void Slot_webView_Mono_linkClicked ( const QUrl & url );
 
@@ -308,6 +307,7 @@ private slots:
     void Slot_actionWebHome (bool);                                      // WEB VIEW
     void Slot_webView_urlChanged ( const QUrl &url  );                   // WEB VIEW
     void Slot_webView_linkClicked ( const QUrl & url );                  // WEB VIEW
+    // void Slot_webView_Info_urlChanged( const QUrl & url );
     void Slot_webView_Info_linkClicked( const QUrl & url );
     void Slot_On_comboBox_choixBase(const QString &namePlugin);
     void Slot_Apropos_Proc_finished (int,  QProcess::ExitStatus);

@@ -35,8 +35,8 @@ class C_PatientBase: public C_BaseCommon,            // le gestionnaire generiqu
     Q_OBJECT
 
 public:
-    C_PatientBase(const QString   &confData,                        // definition des champs de la base de donnée (ceux de la liste des champs)
-                  const QString   &params ,                         // parametres de connexion a la base de données
+    C_PatientBase(const QString   &confData,                        // definition des champs de la base de donnee (ceux de la liste des champs)
+                  const QString   &params ,                         // parametres de connexion a la base de donnees
                   const QString   &pathIni,
                   QObject         *parent
                  );

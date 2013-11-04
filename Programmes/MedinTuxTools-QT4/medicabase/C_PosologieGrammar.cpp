@@ -187,8 +187,8 @@ QString C_PosologieGrammar::empty_skeleton_grammar()
     //
     // EXEMPLES :
     //
-    //   <gpp>comprimé[1;m|2;d|4;s]J8!a suspendre si malaise</gpp>  // 1 comprime le matin 2 comprimes a midi 4comprimes le soir pendant 8 jour a suspendre si malaise
-    //   <gpp>mg[100-200;]U1!a la phase initiale en bolus</gpp>     // 100 à 200 mg à ne faire q'une fois à la phase initiale en bolus
+    //   <gpp>comprim\303\251[1;m|2;d|4;s]J8!a suspendre si malaise</gpp>  // 1 comprime le matin 2 comprimes a midi 4comprimes le soir pendant 8 jour a suspendre si malaise
+    //   <gpp>mg[100-200;]U1!a la phase initiale en bolus</gpp>     // 100 \303\240 200 mg \303\240 ne faire q'une fois \303\240 la phase initiale en bolus
     //   <gpp>comprime[1;m]Esd</gpp>                                // 1 comprime le matin sauf samedi et dimanche
     //
 }
@@ -444,8 +444,8 @@ QString C_PosologieGrammar::adjustGrammarSequencesToCorporalFactor( const QStrin
     //................. on a le total Maximum et Minimum possible du nombre d'UP selon le poids ou surface....................................
     //                  il faut maintenant exploser les sequences, pour le repartir dans chacune des sequences
     //                  ne mollissons pas,  moi a pas peur et tout le fourbi, on va y arriver
-    // <gpp>[1;m|2;d|4;s]J8!à la phase initiale en bolus</gpp>
-    // <gpp>[100-200;]U1!à la phase initiale en bolus</gpp>   // 100 à 200 mg à ne faire q'une fois à la phase initiale en bolus
+    // <gpp>[1;m|2;d|4;s]J8!\303\240 la phase initiale en bolus</gpp>
+    // <gpp>[100-200;]U1!\303\240 la phase initiale en bolus</gpp>   // 100 \303\240 200 mg \303\240 ne faire q'une fois \303\240 la phase initiale en bolus
 
     QString           sequence    = "";
     QString str_before_bracket    = "";
@@ -557,8 +557,8 @@ QString C_PosologieGrammar::adjustGrammarSequencesToCorporalFactor( const QStrin
 */
 int C_PosologieGrammar::toMinMax_UP(const QStringList &seqList, double &q_min,  double &q_max, QString &up_formes_min_max_period)
 {
-    // <gpp>[1;m|2;d|4;s]J8!à la phase initiale en bolus</gpp>
-    // <gpp>[100-200;]U1!à la phase initiale en bolus</gpp>   // 100 à 200 mg à ne faire q'une fois à la phase initiale en bolus
+    // <gpp>[1;m|2;d|4;s]J8!\303\240 la phase initiale en bolus</gpp>
+    // <gpp>[100-200;]U1!\303\240 la phase initiale en bolus</gpp>   // 100 \303\240 200 mg \303\240 ne faire q'une fois \303\240 la phase initiale en bolus
     int up_frequency          = -1;
     double              d_min = 0;
     double              d_max = 0;
@@ -652,7 +652,7 @@ int C_PosologieGrammar::sequence_timeToMinMax_UP(const QString &seq_time,  doubl
      if (str.length()==0) continue;
      //.......... CMedicaBase::UP_QUANTITE la quantite d'unite de prise .....................
      pos       = str.indexOf ('-');
-     if (pos != -1)                // cas ou 1-2   (un à deux)
+     if (pos != -1)                // cas ou 1-2   (un \303\240 deux)
         { t_min  = str.left ( pos ).toDouble();
           t_max  = str.mid  ( pos + 1).toDouble();
           if (t_min>t_max) {d_tmp = t_max; t_max = t_min; t_min = d_tmp;}
@@ -708,7 +708,7 @@ QString C_PosologieGrammar::fuse  (const QString &grammar_expression            
         {  must_be_literal = C_PosologieGrammar::NOT_LITERAL;
         }
      //............. si forme definie en entree on l'utilise et elle surcharge celle de la grammaire .....................................
-     //              sinon on tente d'utiliser celle définie dans la grammaire
+     //              sinon on tente d'utiliser celle d\303\251finie dans la grammaire
      nextPos              = 0;
      QString joinStr      = QObject::tr(", \npuis ");
      QString text         = "";
@@ -727,7 +727,7 @@ QString C_PosologieGrammar::fuse  (const QString &grammar_expression            
      mask.replace("{{posologie}}",     text);
      //...........  commencer le ..................................
      text           = "";
-     if (s_dateRed != s_dateDeb)       text += QObject::tr(", à commencer le : ") + s_dateDeb.left(10);
+     if (s_dateRed != s_dateDeb)       text += QObject::tr(", \303\240 commencer le : ") + s_dateDeb.left(10);
      mask.replace("{{commencer_le}}",  text);
      //...........  duree totale ..................................
      text           = "";
@@ -788,14 +788,14 @@ QString C_PosologieGrammar::fuse  (const QString &grammar_expression            
  *         <gph_id>301546</gph_id>
  *         <gph_it>CIP</gph_it>
  *         <gph_pk>123</gph_pk>
- *         <gph_uf>comprimé</gph_uf>
+ *         <gph_uf>comprim\303\251</gph_uf>
  *         <gph_nm>5</gph_nm>                        // conversion mode en mode numerique UP_QUANTITE MOMENT_MEAL ALL_LITERAL (on se sert de celui-ci car plus rapide a interpreter)
  *         <gph_cm>UP_QUANTITE DURATION</gph_cm>     // traduction textuelle de <gph_nm>5</gph_nm> information lisible de celle numerique  UP_QUANTITE DURATION on a pas peur des redondances ! (vive la memoire vive et les HD)
  *         <gph_in>
- *             <gph_il>I13.1|CIM|insuffisance rénale et cardiopathie hypertensive</gph_il>
- *             <gph_il>P96.0|CIM|insuffisance rénale congénitale</gph_il>
+ *             <gph_il>I13.1|CIM|insuffisance r\303\251nale et cardiopathie hypertensive</gph_il>
+ *             <gph_il>P96.0|CIM|insuffisance r\303\251nale cong\303\251nitale</gph_il>
  *         </gph_in>
- *         <gph_co>à prendre avec un grand verre d'eau sans respirer pendant 30 minutes</gph_co>
+ *         <gph_co>\303\240 prendre avec un grand verre d'eau sans respirer pendant 30 minutes</gph_co>
  *      </gph>
  *      <gps>
  *         <gpp>[1;m|2;d|4;s]J8</gpp>
@@ -853,7 +853,7 @@ QString C_PosologieGrammar::toHtml(const QString &grammar_expression,
         {  must_be_literal = C_PosologieGrammar::NOT_LITERAL;
         }
      //............. si forme definie en entree on l'utilise et elle surcharge celle de la grammaire .....................................
-     //              sinon on tente d'utiliser celle définie dans la grammaire
+     //              sinon on tente d'utiliser celle d\303\251finie dans la grammaire
      nextPos              = 0;
      QString joinStr      = QObject::tr(", \npuis ");
      QString body         = "";
@@ -872,7 +872,7 @@ QString C_PosologieGrammar::toHtml(const QString &grammar_expression,
      body.chop(joinStr.length());    // on enleve le dernier "\npuis "
      if (comment.length())                 body += " " + comment;
      if (s_dateRed != s_dateDeb)
-        {                                  body += QObject::tr(", à commencer le : ") + s_dateDeb.left(10);
+        {                                  body += QObject::tr(", \303\240 commencer le : ") + s_dateDeb.left(10);
         }
      if (cycle.length())                   body += dureeTotaleRenouvToString(cycle, must_be_literal );
      if (substituableImgPath.length()==0)     return body;
@@ -1015,7 +1015,7 @@ QString C_PosologieGrammar::dureeTotaleRenouvToString(QString cycle, int must_be
 //  J2
 QString C_PosologieGrammar::dureeTotaleToString(const QString &seq_days, int must_be_literal /* = C_PosologieGrammar::NOT_LITERAL */)
 {if (seq_days.length()==0) return "";
- QString    introStr = QObject::tr("traitement à poursuivre pendant ");   //QObject::tr(". La durée totale de cette prescription est de ")
+ QString    introStr = QObject::tr("traitement \303\240 poursuivre pendant ");   //QObject::tr(". La dur\303\251e totale de cette prescription est de ")
  char              t = seq_days.toAscii()[0]|32;
  QString         ret = seq_days;
  QString str_nb      = ret.mid(1);
@@ -1029,8 +1029,8 @@ QString C_PosologieGrammar::dureeTotaleToString(const QString &seq_days, int mus
  return ret;
 }
 //---------------------------- sequenceToString ------------------------------------------------
-// <gpp>[1;m|2;d|4;s]J8!à la phase initiale en bolus</gpp>
-// <gpp>[100-200;]U1!à la phase initiale en bolus</gpp>   // 100 à 200 mg à ne faire q'une fois à la phase initiale en bolus
+// <gpp>[1;m|2;d|4;s]J8!\303\240 la phase initiale en bolus</gpp>
+// <gpp>[100-200;]U1!\303\240 la phase initiale en bolus</gpp>   // 100 \303\240 200 mg \303\240 ne faire q'une fois \303\240 la phase initiale en bolus
 QString C_PosologieGrammar::sequenceToString(int numSeq, const QString &sequence, int must_be_literal /* = C_PosologieGrammar::NOT_LITERAL */, const QString &up_forme)
 {
  int pos             = sequence.indexOf(']');
@@ -1070,7 +1070,7 @@ QString C_PosologieGrammar::sequence_daysToString(int numSeq, const QString &seq
      int        len = str_nb.length();
      if (len ==0)       return "";
      if (t=='e') ret = QObject::tr(" sauf le");
-     else        ret = QObject::tr(" à prendre le");
+     else        ret = QObject::tr(" \303\240 prendre le");
      for (int i=0; i<len;++i)
        { switch(str_nb.toLatin1()[i])
           { case 'l': ret += QObject::tr(" lundi,");    break;
@@ -1085,7 +1085,7 @@ QString C_PosologieGrammar::sequence_daysToString(int numSeq, const QString &seq
       if (ret .endsWith(",")) ret = ret.left(ret.length()-1);
     } break;
    case 'u':     // UJSMA
-     { return          QObject::tr(" à ne faire ") +
+     { return          QObject::tr(" \303\240 ne faire ") +
                        ((nb>1)?QObject::tr("que "):"qu'") +
                        ((must_be_literal&C_PosologieGrammar::DURATION)?numberToLiteral(nb,((nb>1)?0:102)):str_nb) + QObject::tr(" fois");
      } break;
@@ -1097,8 +1097,8 @@ QString C_PosologieGrammar::sequence_daysToString(int numSeq, const QString &seq
      // ret = QObject::tr("pendant ") + ( (must_be_literal&C_PosologieGrammar::DURATION)?numberToLiteral(nb):str_nb) +" " + periodUnit+ ((nb>1)?"s":"");
     } break;
   case 's':
-    {if (numSeq==0) return ((nb==1) ? QObject::tr(" la première semaine") :
-                                      QObject::tr(" les ") + ( (must_be_literal&C_PosologieGrammar::DURATION)?numberToLiteral(nb):str_nb) + QObject::tr(" premières semaines"));
+    {if (numSeq==0) return ((nb==1) ? QObject::tr(" la premi\303\250re semaine") :
+                                      QObject::tr(" les ") + ( (must_be_literal&C_PosologieGrammar::DURATION)?numberToLiteral(nb):str_nb) + QObject::tr(" premi\303\250res semaines"));
      else           return ((nb==1) ? QObject::tr(" la semaine suivante") :
                                       QObject::tr(" les ") + ( (must_be_literal&C_PosologieGrammar::DURATION)?numberToLiteral(nb):str_nb) + QObject::tr(" semaines suivantes"));
     // ret            = QObject::tr("pendant ") + ( (must_be_literal&C_PosologieGrammar::DURATION)?numberToLiteral(nb):str_nb) +" " + periodUnit+ ((nb>1)?"s":"");
@@ -1111,10 +1111,10 @@ QString C_PosologieGrammar::sequence_daysToString(int numSeq, const QString &seq
      // ret            = QObject::tr("pendant ") + ( (must_be_literal&C_PosologieGrammar::DURATION)?numberToLiteral(nb):str_nb) +" " + periodUnit;
     } break;
   case 'a':
-    {if (numSeq==0) return ((nb==1) ? QObject::tr(" la première année") :
-                                      QObject::tr(" les ") + ( (must_be_literal&C_PosologieGrammar::DURATION)?numberToLiteral(nb):str_nb) + QObject::tr(" premières années"));
-     else           return ((nb==1) ? QObject::tr(" l'année suivante") :
-                                      QObject::tr(" les ") + ( (must_be_literal&C_PosologieGrammar::DURATION)?numberToLiteral(nb):str_nb) + QObject::tr(" années suivantes"));
+    {if (numSeq==0) return ((nb==1) ? QObject::tr(" la premi\303\250re ann\303\251e") :
+                                      QObject::tr(" les ") + ( (must_be_literal&C_PosologieGrammar::DURATION)?numberToLiteral(nb):str_nb) + QObject::tr(" premi\303\250res ann\303\251es"));
+     else           return ((nb==1) ? QObject::tr(" l'ann\303\251e suivante") :
+                                      QObject::tr(" les ") + ( (must_be_literal&C_PosologieGrammar::DURATION)?numberToLiteral(nb):str_nb) + QObject::tr(" ann\303\251es suivantes"));
      // ret            = QObject::tr("pendant ") + ( (must_be_literal&C_PosologieGrammar::DURATION)?numberToLiteral(nb):str_nb) +" " + periodUnit+ ((nb>1)?"s":"");
     } break;
  }
@@ -1148,7 +1148,7 @@ QString C_PosologieGrammar::sequence_timeToString(const QString &seq_time, int m
          //           ici est traite le mode literal ou numerique
          qu     = str.left(pos);
          p      = qu.indexOf('-');
-         if (p != -1)                // cas ou 1-2   (un à deux)
+         if (p != -1)                // cas ou 1-2   (un \303\240 deux)
             { qu2 = qu.mid(p+1);
               qu  = qu.left(p);
             }
@@ -1158,7 +1158,7 @@ QString C_PosologieGrammar::sequence_timeToString(const QString &seq_time, int m
                   ret   += qu_lit;
                   if (qu2.length())
                      {qu_lit2 = numberToLiteral(qu2, up_forme, 0);
-                      ret    += QObject::tr(" à ") + qu_lit2;
+                      ret    += QObject::tr(" \303\240 ") + qu_lit2;
                      }
                  }
          else if (must_be_literal & C_PosologieGrammar::UP_JUST_FRACTION)  // seules les parties fractionnaires 0.25 0.30 0.75 --> un quart un demi  trois quart
@@ -1166,7 +1166,7 @@ QString C_PosologieGrammar::sequence_timeToString(const QString &seq_time, int m
                   ret   += qu_lit;
                   if (qu2.length())
                      {qu_lit2 = numberToLiteral(qu2, up_forme, 1);
-                      ret    += QObject::tr(" à ") + qu_lit2;
+                      ret    += QObject::tr(" \303\240 ") + qu_lit2;
                      }
                  }
          else                                                              // tout doit rester en numerique
@@ -1174,7 +1174,7 @@ QString C_PosologieGrammar::sequence_timeToString(const QString &seq_time, int m
                   ret   += qu;
                   if (qu2.length())
                      {qu_lit2 = numberToLiteral(qu2, up_forme, 1);
-                      ret    += QObject::tr(" à ") + qu2;
+                      ret    += QObject::tr(" \303\240 ") + qu2;
                      }
                  }
          //.......... la forme (precedemment ajustee grammaticalement par l'appel numberToLiteral(qu, up_forme);) ..............
@@ -1185,15 +1185,15 @@ QString C_PosologieGrammar::sequence_timeToString(const QString &seq_time, int m
          str    = str.mid(pos+1);   // prendre ce qu'il y a apres le point virgule
          l      = str.length();
          if (l==0)             // mention l apres le point virgule
-            {ret   += QObject::tr(" par jour");          // sera remplacé par l'unite de temps de la periode (jour semaine mois etc...)
+            {ret   += QObject::tr(" par jour");          // sera remplac\303\251 par l'unite de temps de la periode (jour semaine mois etc...)
             }
          else
             { char t  = str.toAscii()[0]|32;    // relever le m d a s c n h
               str     = str.mid(1);
               switch (t)
               {    case 'm': ret += QObject::tr("le matin");     break;
-                   case 'd': ret += QObject::tr("à midi");       break;
-                   case 'a': ret += QObject::tr("l'après-midi"); break;
+                   case 'd': ret += QObject::tr("\303\240 midi");       break;
+                   case 'a': ret += QObject::tr("l'apr\303\250s-midi"); break;
                    case 's': ret += QObject::tr("le soir");      break;
                    case 'c': ret += QObject::tr("au coucher");   break;
                    case 'n': ret += QObject::tr("la nuit");      break;
@@ -1210,14 +1210,14 @@ QString C_PosologieGrammar::sequence_timeToString(const QString &seq_time, int m
                                     {before  =  numberToLiteral(before_n);
                                      after   =  numberToLiteral(after_n);
                                     }
-                                 ret   += QObject::tr("de ")+ before + QObject::tr(" à ") + after;
+                                 ret   += QObject::tr("de ")+ before + QObject::tr(" \303\240 ") + after;
                           }
                        else
                           {      nb = str.toInt();
                                  if (must_be_literal & C_PosologieGrammar::SEQUENCE_HOUR)
                                     { str = numberToLiteral(nb);
                                     }
-                                 ret   += QObject::tr("à ") + str;
+                                 ret   += QObject::tr("\303\240 ") + str;
                           }
                        ret += QObject::tr(" heure") + ((nb>1)?"s":"");
                       } break;
@@ -1237,7 +1237,7 @@ QString C_PosologieGrammar::sequence_timeToString(const QString &seq_time, int m
                        {ret +=  QObject::tr(" avant le repas");
                        }
                     else if (after=="0")
-                       {ret +=  QObject::tr(" après le repas");
+                       {ret +=  QObject::tr(" apr\303\250s le repas");
                        }
                     else if (before_n==0 && after_n==0)
                        {ret +=  QObject::tr(" au cours du repas");
@@ -1249,7 +1249,7 @@ QString C_PosologieGrammar::sequence_timeToString(const QString &seq_time, int m
                              after  = numberToLiteral(after.toInt());
                            }
                         if      (before.length()) ret += " " + before + QObject::tr(" minutes avant le repas");
-                        else if (after.length() ) ret += " " + after  + QObject::tr(" minutes après le repas");
+                        else if (after.length() ) ret += " " + after  + QObject::tr(" minutes apr\303\250s le repas");
                         else                      ret += " " + QObject::tr("au cours du repas");
                        }
                   }
@@ -1302,7 +1302,7 @@ QString C_PosologieGrammar::numberToLiteral(QString number, QString &up_forme , 
      else    { if (justOneFraction)     return number;
                else  right_part = numberToLiteral(right_part.toInt(),sexe);
              }
-     if (left_part_int==0) return QString("zéro virgule ") + right_part;
+     if (left_part_int==0) return QString("z\303\251ro virgule ") + right_part;
      else                  return left_part + " virgule "  + right_part;
     }
  left_part_int     = number.toInt();
@@ -1324,11 +1324,11 @@ QString C_PosologieGrammar::adjustPlurielUpForme(int nb, const QString &_up_form
  int pos = -1;
  if ( (pos=up_forme.indexOf("cuillere"))!=-1 )
  {sexe = 'f';
-  return up_forme.replace("cuillere",(nb>1 && up_forme[pos+8] != 's')?"cuillères":"cuillère").replace(" a "," à ");
+  return up_forme.replace("cuillere",(nb>1 && up_forme[pos+8] != 's')?"cuill\303\250res":"cuill\303\250re").replace(" a "," \303\240 ");
  }
- if ( (pos=up_forme.indexOf("cuillère"))!=-1 )
+ if ( (pos=up_forme.indexOf("cuill\303\250re"))!=-1 )
  {sexe = 'f';
-  return up_forme.replace("cuillère",(nb>1 && up_forme[pos+8] != 's')?"cuillères":"cuillère").replace(" a "," à ");
+  return up_forme.replace("cuill\303\250re",(nb>1 && up_forme[pos+8] != 's')?"cuill\303\250res":"cuill\303\250re").replace(" a "," \303\240 ");
  }
  else if( (pos=up_forme.indexOf("application"))!=-1 )
  {sexe = 'f';
@@ -1348,19 +1348,19 @@ QString C_PosologieGrammar::adjustPlurielUpForme(int nb, const QString &_up_form
  }
  else if( (pos=up_forme.indexOf("gelule"))!=-1 )
  {sexe = 'f';
-  return up_forme.replace("gelule",(nb>1 && up_forme[pos+6] != 's')?"gélules":"gélule");
+  return up_forme.replace("gelule",(nb>1 && up_forme[pos+6] != 's')?"g\303\251lules":"g\303\251lule");
  }
- else if( (pos=up_forme.indexOf("gélule"))!=-1 )
+ else if( (pos=up_forme.indexOf("g\303\251lule"))!=-1 )
  {sexe = 'f';
-  return up_forme.replace("gélule",(nb>1 && up_forme[pos+6] != 's')?"gélules":"gélule");
+  return up_forme.replace("g\303\251lule",(nb>1 && up_forme[pos+6] != 's')?"g\303\251lules":"g\303\251lule");
  }
  else if( (pos=up_forme.indexOf("pulverisation"))!=-1 )
  {sexe = 'f';
-  return up_forme.replace("pulverisation",(nb>1 && up_forme[pos+13] != 's')?"pulvérisations":"pulvérisation");
+  return up_forme.replace("pulverisation",(nb>1 && up_forme[pos+13] != 's')?"pulv\303\251risations":"pulv\303\251risation");
  }
- else if( (pos=up_forme.indexOf("pulvérisation"))!=-1 )
+ else if( (pos=up_forme.indexOf("pulv\303\251risation"))!=-1 )
  {sexe = 'f';
-  return up_forme.replace("pulvérisation",(nb>1 && up_forme[pos+13] != 's')?"pulvérisations":"pulvérisation");
+  return up_forme.replace("pulv\303\251risation",(nb>1 && up_forme[pos+13] != 's')?"pulv\303\251risations":"pulv\303\251risation");
  }
  else if( (pos=up_forme.indexOf("ampoule"))!=-1 )
  {sexe = 'f';
@@ -1384,19 +1384,19 @@ QString C_PosologieGrammar::adjustPlurielUpForme(int nb, const QString &_up_form
  }
  else if( (pos=up_forme.indexOf("comprime"))!=-1 )
  {sexe = 'm';
-  return up_forme.replace("comprime",(nb>1 && up_forme[pos+8] != 's')?"comprimés":"comprimé");
+  return up_forme.replace("comprime",(nb>1 && up_forme[pos+8] != 's')?"comprim\303\251s":"comprim\303\251");
  }
- else if( (pos=up_forme.indexOf("comprimé"))!=-1 )
+ else if( (pos=up_forme.indexOf("comprim\303\251"))!=-1 )
  {sexe    = 'm';
-  return up_forme.replace("comprimé",(nb>1 && up_forme[pos+8] != 's')?"comprimés":"comprimé");
+  return up_forme.replace("comprim\303\251",(nb>1 && up_forme[pos+8] != 's')?"comprim\303\251s":"comprim\303\251");
  }
  else if( (pos=up_forme.indexOf("bouffee"))!=-1 )
  {sexe = 'f';
-  return up_forme.replace("bouffee",(nb>1 && up_forme[pos+7] != 's')?"bouffées":"bouffée");
+  return up_forme.replace("bouffee",(nb>1 && up_forme[pos+7] != 's')?"bouff\303\251es":"bouff\303\251e");
  }
- else if( (pos=up_forme.indexOf("bouffée"))!=-1 )
+ else if( (pos=up_forme.indexOf("bouff\303\251e"))!=-1 )
  {sexe    = 'f';
-  return up_forme.replace("bouffée",(nb>1 && up_forme[pos+7] != 's')?"bouffées":"bouffée");
+  return up_forme.replace("bouff\303\251e",(nb>1 && up_forme[pos+7] != 's')?"bouff\303\251es":"bouff\303\251e");
  }
  else if( (pos=up_forme.indexOf("gourde"))!=-1 )
  {sexe    = 'f';
@@ -1442,8 +1442,8 @@ QString C_PosologieGrammar::numberToLiteral(int nb, char sexe /* = 'm' */)
     {
      if (dizaines==7 || dizaines==9)  ret += QString(nomdizaine[dizaines-2]);
      if (dizaines==7 && unites==1)
-        {ret.left(ret.length()-1);    ret += adjustUniteToSexe(nomspe[1],sexe);
-         ret.left(ret.length()-2);
+        { ret = ret.left(ret.length()-1);    ret += adjustUniteToSexe(nomspe[1],sexe);
+          ret = ret.left(ret.length()-2);
         }
                                       ret += QString(nompart[unites]);
      unites=0;

@@ -13,7 +13,7 @@
  *                                                                                *
  *   Commissariat �   l'Energie Atomique                                           *
  *   - CEA,                                                                       *
- *                            31-33 rue de la Fédération, 75752 PARIS cedex 15.   *
+ *                            31-33 rue de la Federation, 75752 PARIS cedex 15.   *
  *                            FRANCE                                              *
  *   Centre National de la Recherche Scientifique                                 *
  *   - CNRS,                                                                      *
@@ -68,7 +68,7 @@ CApp::~CApp()
 //--------------------------------------------- CApp -------------------------------------------------------------------
 CApp::CApp(QString mui_name, int & argc, char ** argv)
 : C_AppCore( mui_name, argc, argv ), C_Macro(this)
-{   // QTextCodec::setCodecForTr( QTextCodec::codecForName("utf8") );
+{    QTextCodec::setCodecForTr( QTextCodec::codecForName("utf8") );
     //.............................. initialiser la base C_BaseMedica ..........................................
     m_PatientCtxFileName       =  (argc>1)?argv[1]:"";
     m_UserCtxFileName          =  (argc>2)?argv[2]:"";

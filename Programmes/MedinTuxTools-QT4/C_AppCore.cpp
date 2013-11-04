@@ -19,8 +19,9 @@
 #include "CGestIni.h"
 
 
-static C_AppCore* G_AppCore = 0;  // contiendra l'instance globale de l'application accessible avec CApp::pCApp()
-
+static C_AppCore*           G_AppCore    = 0;  // contiendra l'instance globale de l'application accessible avec CApp::pCApp()
+static QString              G_currentIp  = "";
+static QString              G_currentMac = "";
 //--------------------------------------------- C_AppCore -------------------------------------------------------------------
 C_AppCore::~C_AppCore()
 {writeParam((m_NameAppli+" session").toAscii(),"closed", QDateTime::currentDateTime().toString("dd-MM-yyyy hh:mm:ss:zzz").toAscii());
@@ -33,7 +34,7 @@ C_AppCore::C_AppCore(QString mui_name, int & argc, char ** argv)
 {   //QTextCodec::setCodecForTr( QTextCodec::codecForName("utf8") );
     //.............................. recuperer le numer de version du .pro ..........................................
     //                               le mettre dans un tableau static tagué pour
-    //                               qu'il soit repérable dans le binaire
+    //                               qu'il soit reperable dans le binaire
     static char NUMTAB_VERSION[]     = "==##@@=="NUM_VERSION"==@@##==";    // defini dans le .pro
     Q_UNUSED(NUMTAB_VERSION);
     //................ initialisation de quelques repères .........................
@@ -413,34 +414,45 @@ QString C_AppCore::get_Current_HW_Adr()
  return ret;
 }
 
+
+
 //--------------------------------- get_Current_IP_Adr -----------------------------------------------------------------------
 QString C_AppCore::get_Current_IP_Adr(QString *pMacAdr /* = 0 */)
      { QString hdadr_toUse = "";
        QString ipadr_toUse = "";
-
+       if (G_currentIp.length())
+          { if ( pMacAdr && G_currentMac.length())
+                  { *pMacAdr =  G_currentMac;
+                     return     G_currentIp;
+                  }
+             else return G_currentIp;
+          }
        // QList <QHostAddress> lst = QNetworkInterface::allAddresses();
        // for (int i=0; i<lst.size(); ++i)
        //    {  qDebug() << QString("interface : %1").arg(lst[i].toString());
        //    }
        QList<QNetworkInterface> lstI = QNetworkInterface::allInterfaces ();
        for (int i=0; i<lstI.size(); ++i)
-           {  // qDebug() << QString("=== interface Name : %1 Hard adresse : %2 Human name : %3 flags : %4" ).arg(lstI[i].name(), lstI[i].hardwareAddress (),lstI[i].humanReadableName (), networkInterfaceFlagToString (lstI[i].flags()));
+           {  //qDebug() << QString("=== interface Name : %1 Hard adresse : %2 Human name : %3 flags : %4" ).arg(lstI[i].name(), lstI[i].hardwareAddress (),lstI[i].humanReadableName (), networkInterfaceFlagToString (lstI[i].flags()));
               if ( hdadr_toUse.length()==0                           &&
                    lstI[i].flags()    & QNetworkInterface::IsUp      &&
                    lstI[i].flags()    & QNetworkInterface::IsRunning &&
                    ! (lstI[i].flags() & QNetworkInterface::QNetworkInterface::IsLoopBack)
                  )
-                 { hdadr_toUse = lstI[i].hardwareAddress();
-                   QList<QNetworkAddressEntry> lstA = lstI[i].addressEntries ();
+                 { QList<QNetworkAddressEntry> lstA = lstI[i].addressEntries ();
+                   if (lstA.size()==0)  continue;
+                   hdadr_toUse = lstI[i].hardwareAddress();
                    for ( int u=0; u<lstA.size() && ipadr_toUse.length()==0; ++u)
                        { QString str = lstA[u].ip().toString();
-                         // qDebug() << QString("°             ip : %1 " ).arg(str);
+                         // qDebug() << QString(".             ip : %1 " ).arg(str);
                          if ( str.contains('.') ) ipadr_toUse = str;
                        }
-                 }
+                 }  // end if ( hdadr_toUse.length()==0                           &&
            }
        // if (ipadr_toUse.length()) qDebug() << QString("to use ip : %1 hd : %2").arg(ipadr_toUse , hdadr_toUse);
        if (pMacAdr) *pMacAdr = hdadr_toUse.toUpper();
+       G_currentIp  = ipadr_toUse;
+       G_currentMac = *pMacAdr;
        return ipadr_toUse;
      }
 //--------------------------------- networkInterfaceFlagToString -----------------------------------------------------------------------
