@@ -1,0 +1,33 @@
+//................................ règles de nommage des fichiers de mise à jour ................................
+// Dl-1144774740-Dump_Datasemp-0001-oo-1234-oo-112B02.2.sql
+// ^  ^          ^                     ^       ^_____________ Datasemp version
+// |  |          |_____ Ident Patern   |___ nb progress
+// |  |                 Le nom du fichier sur le FTP commence ici
+// |  |________ DateTime from FTP upload
+// |__________________ Le nom du fichier téléchargé commence ici (précédé de 'Dl-1144774740-')
+//                                                                               ^
+//                                                                               |________ DateTime from FTP upload
+//
+
+//....................... garder l'ordre du dump ..............................................................................................................
+ 
+mysqldump --quote-name --compatible=mysql323 MedicaTuxTest IndexProd IndexDiet IndexVeterinaire IndexParapharmacie IndexAccessoire IndexDivers IndexHomeopathie  > /home/ro/Dump_IndexMedica-0001-oo-0-oo-113A02.2.sql
+
+//....................... garder l'ordre de l'upload download ..............................................................................................................
+
+ dès que les fichier :   Dump_Datasemp-0001-oo-0-oo-112B02.2.sql          sont dumpés
+  
+ il faut les uploader sur le site, et les télécharger ENSUITE pour mettre à jour : Dl-1144774740-
+
+    ret = Datasemp_MakeIndex(CMedicaBase::MED_TBL_NAME,   pQProgressBar);  nb += ret;  if (ret<=0) return nb;
+    ret = Datasemp_MakeIndex(CMedicaBase::DIET_TBL_NAME,  pQProgressBar);  nb += ret;  if (ret<=0) return nb;
+    ret = Datasemp_MakeIndex(CMedicaBase::VETO_TBL_NAME,  pQProgressBar);  nb += ret;  if (ret<=0) return nb;
+    ret = Datasemp_MakeIndex(CMedicaBase::PARA_TBL_NAME,  pQProgressBar);  nb += ret;  if (ret<=0) return nb;
+    ret = Datasemp_MakeIndex(CMedicaBase::ACCS_TBL_NAME,  pQProgressBar);  nb += ret;  if (ret<=0) return nb;
+    ret = Datasemp_MakeIndex(CMedicaBase::HERBO_TBL_NAME, pQProgressBar);  nb += ret;  if (ret<=0) return nb;
+    ret = Datasemp_MakeIndex(CMedicaBase::HOMEO_TBL_NAME, pQProgressBar);  nb += ret;  if (ret<=0) return nb;
+    
+soit les commandes suivantes (remplacer    117A02.2 par le N° de version actuel en cours)
+
+mysqldump --quote-name --compatible=mysql323 MedicaTuxTest IndexProd IndexDiet IndexVeterinaire IndexParapharmacie IndexAccessoire IndexDivers IndexHomeopathie SpecProd ClassesATC FormesAD FormesPA FormesST FormesUP> /home/ro/Dump_IndexMedica-0001-oo-0-oo-117A02.2.sql;
+mysqldump --quote-name -c --compatible=mysql323 DatasempTest  > /home/ro/Dump_Datasemp-0001-oo-0-oo-117A02.2.sql;
