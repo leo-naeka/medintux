@@ -3931,7 +3931,7 @@ int CMoteurBase::save_ListAtcd(const QString &pkDoss,
          queryInsert.bindValue(5,  sign_user);               // 5 sign_user
          queryInsert.bindValue(6,  user);                    // 6 user
          //................ les dates de debut ...........................
-         QString date = CGenTools::NormaliseDate(pCPrt->text(4)) ;
+         QString date = CGenTools::NormaliseDateToIso(pCPrt->text(4)) ;
          QDate                     dateDeb = QDate::fromString(date,Qt::ISODate);
          if (! dateDeb.isValid ()) dateDeb = QDate::currentDate().addDays (-2);
          //................ les dates de fin ...........................
@@ -3944,7 +3944,7 @@ int CMoteurBase::save_ListAtcd(const QString &pkDoss,
             {dateEnd = QDate();                             // on met une date de fin invalide donc non determinee  ==> atcd encore actif
             }
          else    // peut etre il y a une date valide
-            { date      = CGenTools::NormaliseDate(pCPrt->text(2));
+            { date      = CGenTools::NormaliseDateToIso(pCPrt->text(2));
               dateEnd   = QDate::fromString(date,Qt::ISODate);
               if (! dateDeb.isValid())  dateEnd = QDate(); // on met une date de fin invalide donc non determinee  ==> atcd encore actif
             }

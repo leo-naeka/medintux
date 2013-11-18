@@ -77,14 +77,14 @@ static       int          MyMessageAlert(QWidget * parent, const char* title, co
 static       QString      qstringLoad(const char *path, int flag=0, long *nb_ligne=0);
 static       int          Convert_CRLF_To_BR(const char *text, QString &dstQStr, int flag =0);
 static       void         FileToQString(const char *path, QString  &dst, int mode  = 1 , int htmlHeader  = 0 );
-static       QString      daysTo(const QString &date1, const QString &date2);
-static       QString      strToIsoStrDateTime(const QString &date, QString *pDate  = 0, QString *pTime   = 0  );
 //------------------------------------------ NormaliseDate -----------------------------
 /*! \brief Retourne une date de la forme 12x09xx2007 sous forme 2007-09-12 */
-static       QDate dd_MM_yyyy_ToDate(const QString &date);
-
+static       QDate        dd_MM_yyyy_ToIsoDate(const QString &date);
 static       QString      dd_MM_yyyy_ToIso(const QString &date);
-static       QString      NormaliseDate(const QString &date);
+static       QString      NormaliseDateTimeToIso(const QString &date, QString *pDate  = 0, QString *pTime   = 0  );
+static       QString      NormaliseDateToIso(const QString &date);
+static       QString      daysTo(const QString &date1, const QString &date2);
+
 static       QString      GetExtension(QString &file, int cut_to  = -1 );
 static       int          NbLignes(const char *txt);
 static       QDateTime    setQDateTime(const QString & dateTime , int &isValid);

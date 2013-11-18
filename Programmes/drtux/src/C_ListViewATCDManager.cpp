@@ -209,7 +209,7 @@ void C_ListViewATCDManager::ATCD_MenuActionSetDateDeb()
           {m_pAtcd_Code->setDateDeb(pAtcd_Element, ret, Atcd_Code::sendNotModifMessage);
           }
        pCPrtQListViewItem->setText(LV_DDEB, ret.toString("dd-MM-yyyy"));
-       pCPrtQListViewItem->setPixmap(LV_DDEB, Atcd_Code::datesDebFinToPixmap(ret, CGenTools::dd_MM_yyyy_ToDate(pCPrtQListViewItem->text(LV_DFIN))) );
+       pCPrtQListViewItem->setPixmap(LV_DDEB, Atcd_Code::datesDebFinToPixmap(ret, CGenTools::dd_MM_yyyy_ToIsoDate(pCPrtQListViewItem->text(LV_DFIN))) );
      }
 }
 //------------------------------------ ATCD_MenuActionSetDateFin --------------------------------------------------
@@ -230,7 +230,7 @@ void C_ListViewATCDManager::ATCD_MenuActionSetDateFin()
           {m_pAtcd_Code->setDateFin(pAtcd_Element, ret, Atcd_Code::sendNotModifMessage);
           }
        pCPrtQListViewItem->setText(LV_DFIN, ret.toString("dd-MM-yyyy"));
-       pCPrtQListViewItem->setPixmap(LV_DDEB, Atcd_Code::datesDebFinToPixmap(CGenTools::dd_MM_yyyy_ToDate(pCPrtQListViewItem->text(LV_DDEB)),ret) );
+       pCPrtQListViewItem->setPixmap(LV_DDEB, Atcd_Code::datesDebFinToPixmap(CGenTools::dd_MM_yyyy_ToIsoDate(pCPrtQListViewItem->text(LV_DDEB)),ret) );
      }
 }
 //------------------------------------ ATCD_selectDate --------------------------------------------------
@@ -273,7 +273,7 @@ void C_ListViewATCDManager::ATCD_MenuActionDelDateDeb()
                if (pAtcd_Element_Selected) m_pAtcd_Code->deleteDateDeb(pAtcd_Element_Selected, Atcd_Code::sendNotModifMessage);
               }
           pCPrt->setText( LV_DDEB,"" );
-          pCPrt->setPixmap(LV_DDEB, Atcd_Code::datesDebFinToPixmap(CGenTools::dd_MM_yyyy_ToDate(pCPrt->text(LV_DDEB)), CGenTools::dd_MM_yyyy_ToDate(pCPrt->text(LV_DFIN))) );
+          pCPrt->setPixmap(LV_DDEB, Atcd_Code::datesDebFinToPixmap(CGenTools::dd_MM_yyyy_ToIsoDate(pCPrt->text(LV_DDEB)), CGenTools::dd_MM_yyyy_ToIsoDate(pCPrt->text(LV_DFIN))) );
           *m_pIsModified = 1;
          }
       ++it;
@@ -297,7 +297,7 @@ void C_ListViewATCDManager::ATCD_MenuActionDelDateFin()
                if (pAtcd_Element_Selected) m_pAtcd_Code->deleteDateFin(pAtcd_Element_Selected, Atcd_Code::sendNotModifMessage);
               }
           pCPrt->setText( LV_DFIN,"" );
-          pCPrt->setPixmap(LV_DDEB, Atcd_Code::datesDebFinToPixmap(CGenTools::dd_MM_yyyy_ToDate(pCPrt->text(LV_DDEB)), CGenTools::dd_MM_yyyy_ToDate(pCPrt->text(LV_DFIN))) );
+          pCPrt->setPixmap(LV_DDEB, Atcd_Code::datesDebFinToPixmap(CGenTools::dd_MM_yyyy_ToIsoDate(pCPrt->text(LV_DDEB)), CGenTools::dd_MM_yyyy_ToIsoDate(pCPrt->text(LV_DFIN))) );
           *m_pIsModified = 1;
          }
       ++it;

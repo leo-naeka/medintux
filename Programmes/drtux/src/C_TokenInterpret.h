@@ -335,7 +335,6 @@ class C_TokenInterpret
                                           const QString &aldPrefix);
   static QPoint      adjustScreenDialogPosition(QPoint pos, QWidget* pQWidget);
  protected:
-  static QString    var(const QString &token);
   static QString    argUnProtect(QString arg);
   static bool       isReservedKeyWord(const QString &word);
   static int        comparatorMacro (const void *a, const void *b);

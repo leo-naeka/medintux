@@ -179,6 +179,17 @@ int C_TokenInterpret::ResolvFunctionToken(CDevilCrucible *pCDC, QString &resolvT
  int pos_last_p =  findLastDelimiter(token, ')');
  if (pos_last_p ==-1)  {resolvToken = TR("C_TokenInterpret::ResolvScriptTokenSyntax rififi in syntax last close bracket not found in : ")  + token; return 0;}
  int ret = exeFunction(token.left(pos_prem_p).stripWhiteSpace().upper(), token.mid(pos_prem_p + 1, pos_last_p-pos_prem_p - 1), resolvToken);
+ //......... verifier si une variable de destination du résultat est indiquée ..............
+ //          et auquel cas affecter la valeur a cette variable le resultat sera alors vide
+ QChar c = token[pos_last_p+1];
+ if (c=='>'||c=='-')
+    { QString var_dest = token.mid(pos_last_p+2);
+      if (var_dest.length()) 
+         { if (c=='-') resolvToken = resolvToken.stripWhiteSpace();
+           (*G_mCDC->m_pVariables)[var_dest] = resolvToken; 
+           resolvToken = "";
+         }
+    }
  G_mCDC  = sav_pCDC;
  return ret;
 }
@@ -358,21 +369,21 @@ QString C_TokenInterpret::COPY_FILE(QStringList &arg_list)
 QString C_TokenInterpret::MID(QStringList &arg_list)
 {    int nb = arg_list.count();
      if (nb<2) return TR("::MID() nombre d'arguments insuffisants");
-     if (nb==2 ) return var(arg_list[0]).mid(arg_list[1].toInt());
-     return var(arg_list[0]).mid(arg_list[1].toInt(), arg_list[2].toInt());
+     if (nb==2 ) return arg_list[0].mid(arg_list[1].toInt());
+     return arg_list[0].mid(arg_list[1].toInt(), arg_list[2].toInt());
 }
 
 //-------------------------- LEFT -------------------------------------------
 /*! \brief non documenté */
 QString C_TokenInterpret::LEFT(QStringList &arg_list)
 {    if (arg_list.count()<2) return TR("::LEFT() nombre d'arguments insuffisants");
-     return var(arg_list[0]).left(arg_list[1].toInt());
+     return arg_list[0].left(arg_list[1].toInt());
 }
 //-------------------------- RIGHT -------------------------------------------
 /*! \brief non documenté */
 QString C_TokenInterpret::RIGHT(QStringList &arg_list)
 {    if (arg_list.count()<2) return TR("::RIGHT() nombre d'arguments insuffisants");
-     return var(arg_list[0]).mid(arg_list[1].toInt());
+     return arg_list[0].mid(arg_list[1].toInt());
 }
 
 //-------------------------- DO_LISTE -------------------------------------------
@@ -457,7 +468,7 @@ QString C_TokenInterpret::DATE_CALC(QStringList &arg_list)
          valTyp   = *pt;
         }
      if (nb>4)  format  = arg_list[4].stripWhiteSpace();                    // [4]
-     QString      date  = CGenTools::strToIsoStrDateTime(arg_list[0]);      // Retourne une chaine de la forme 12x09xx2007 à l'heure de 12h30 sous forme 2007-09-12T12:30:00
+     QString      date  = CGenTools::NormaliseDateTimeToIso(arg_list[0]);      // Retourne une chaine de la forme 12x09xx2007 à l'heure de 12h30 sous forme 2007-09-12T12:30:00
      QDateTime      d1  = QDateTime::fromString (date, Qt::ISODate );
      switch(valTyp)
             {case  'S': {d1=d1.addSecs(val);   break;}
@@ -468,7 +479,17 @@ QString C_TokenInterpret::DATE_CALC(QStringList &arg_list)
             }
      return  d1.toString(format);
     }
-
+//-------------------------- DAYSTO -------------------------------------------
+/*! \brief non documenté */
+QString C_TokenInterpret::DAYSTO(QStringList &arg_list)
+    {int nb = arg_list.count();
+     if (nb==3)
+        {
+        }
+     if (nb==0) return QString::null;
+     if (nb==1) return CGenTools::daysTo(arg_list[0],"");
+     else       return CGenTools::daysTo(arg_list[0], arg_list[1]);
+    }
 //-------------------------- DATE_TONUM -------------------------------------------
 /*
 4.5.3.134 |==> {{:: DATE_TONUM( date de départ , valTyp)}}
@@ -492,18 +513,22 @@ QString C_TokenInterpret::DATE_TONUM(QStringList &arg_list)
         {char *pt = (char*)(const char*)arg_list[1].upper();
          valTyp   = *pt;
         }
-     QString date = CGenTools::strToIsoStrDateTime(arg_list[0]);    // Retourne une chaine de la forme 12x09xx2007 à l'heure de 12h30 sous forme 2007-09-12T12:30:00
-     QDateTime d1 = QDateTime::fromString ("1970-01-01T00:00:00", Qt::ISODate );
-     QDateTime d2 = QDateTime::fromString (date,                  Qt::ISODate );
-     int     nbd  = d1.daysTo ( d2 );
+     QString dateTime2 = "1970-01-01T00:00:00";                             // Retourne une chaine de la forme 12x09xx2007 à l'heure de 12h30 sous forme 2007-09-12T12:30:00
+     if (nb>2)
+        {dateTime2 = CGenTools::NormaliseDateTimeToIso(arg_list[2]);
+        }
+     QString dateTime1 = CGenTools::NormaliseDateTimeToIso(arg_list[0]);    // Retourne une chaine de la forme 12x09xx2007 à l'heure de 12h30 sous forme 2007-09-12T12:30:00
+     QDateTime d1      = QDateTime::fromString (dateTime1,  Qt::ISODate );
+     QDateTime d2      = QDateTime::fromString (dateTime2,  Qt::ISODate );
+     int val           = 0;
      switch(valTyp)
-            {case  'S': return QString::number( d2.toTime_t());
-             case  'M': return QString::number( (nbd/365)*12);
-             case  'A': return QString::number(  nbd/365);
-             case  'Y': return QString::number(  nbd/365);
-             default  : return QString::number(  nbd);
+            {case  'S': val = d2.secsTo (d1);          break;
+             case  'M': val = (d2.daysTo (d1)/365)*12; break;
+             case  'A': val = d2.daysTo (d1)/365;      break;
+             case  'Y': val = d2.daysTo (d1)/365;      break;
+             default  : val = d2.daysTo (d1);          break;
             }
-     return QString("");
+     return QString::number(val);
     }
 //-------------------------- DATE_FROMNUM -------------------------------------------
 /*
@@ -520,7 +545,7 @@ Paramètre N° 3 (facultatif : format du type de date à retourner) Le format de
 */
 /*! \brief non documenté */
 QString C_TokenInterpret::DATE_FROMNUM(QStringList &arg_list)
-    {int      nb    = arg_list.count();
+    {int      nb      = arg_list.count();
      if (nb==0) return TR("::DATE_FROMNUM() 1er argument du nombre de secondes manquant");
      char valTyp      = 'S';
      QString format   = "dd-MM-yyyy";
@@ -529,25 +554,21 @@ QString C_TokenInterpret::DATE_FROMNUM(QStringList &arg_list)
         {char *pt = (char*)(const char*)arg_list[1].upper();
          valTyp   = *pt;
         }
-     if (nb>2) format = arg_list[2].stripWhiteSpace();                  // [2]
-     QDateTime     d1 = QDateTime::fromString ("1970-01-01T00:00:00", Qt::ISODate );
+     if (nb>2) format    = arg_list[2].stripWhiteSpace();                  // [2]
+     QString dateTime1   = "1970-01-01T00:00:00";
+     if (nb>3) dateTime1 = CGenTools::NormaliseDateTimeToIso(arg_list[3]);
+     QDateTime        d1 = QDateTime::fromString (dateTime1, Qt::ISODate );
      switch(valTyp)
-            {case  'S':  {d1.setTime_t(val);return d1.toString(format);}
+            {case  'S':  {if (nb>3) d1.addSecs((int)val);
+                          else      d1.setTime_t(val);
+                          return d1.toString(format);
+                         }
              case  'M': return d1.addMonths((int)val).toString(format);
              case  'A': return d1.addYears((int)val).toString(format);
              case  'Y': return d1.addYears((int)val).toString(format);
              default  : return d1.addDays((int)val).toString(format);
             }
      return QString("");
-    }
-
-//-------------------------- DAYSTO -------------------------------------------
-/*! \brief non documenté */
-QString C_TokenInterpret::DAYSTO(QStringList &arg_list)
-    {int nb = arg_list.count();
-     if (nb==0) return QString::null;
-     if (nb==1) return CGenTools::daysTo(arg_list[0],"");
-     else       return CGenTools::daysTo(arg_list[0], arg_list[1]);
     }
 
 //-------------------------- DELETE_FILE -------------------------------------------
@@ -728,14 +749,14 @@ QString C_TokenInterpret::EXTRACT_VAR(QStringList &arg_list)
 QString C_TokenInterpret::INDEX_OF(QStringList &arg_list)
 { if (arg_list.count()<1) return TR("::INDEX_OF() argument de la chaîne à évaluer manquant.");
   if (arg_list.count()<2) return TR("::INDEX_OF() argument de la chaîne à trouver manquant.");
-  return QString::number(var(arg_list[0]).find(arg_list[1]));
+  return QString::number(arg_list[0].find(arg_list[1]));
 }
 
 //-------------------------- LENGTH -------------------------------------------
 /*! \brief non documenté */
 QString C_TokenInterpret::LENGTH(QStringList &arg_list)
 { if (arg_list.count()<1) return TR("::LENGTH() argument de la chaîne à évaluer manquant.");
-  return QString::number(var(arg_list[0]).length());
+  return QString::number(arg_list[0].length());
 }
 //-------------------------- FILE_EXISTS -------------------------------------------
 /*! \brief non documenté */
@@ -838,16 +859,16 @@ QString C_TokenInterpret::FORM_DATE (QStringList &arg_list)
 QString C_TokenInterpret::SIMPLIFY(QStringList &arg_list)
 { int          nb = arg_list.count();
   if (nb < 1) return TR("::SIMPLIFY() 1er argument manquant");
-  QString        str = var(arg_list[0]);
+  QString        str = arg_list[0];
   QString   toRemove = " ";
-  if (nb>1) toRemove = var(arg_list[1]);
+  if (nb>1) toRemove = arg_list[1];
   return str.remove(toRemove);
 }
 
 //-------------------------- CLEAR_SPACES -------------------------------------------
 QString C_TokenInterpret::CLEAR_SPACES(QStringList &arg_list)
 { if (arg_list.count()<1) return TR("::CLEAR_SPACES() 1er argument manquant");
-  return var(arg_list[0]).stripWhiteSpace();
+  return arg_list[0].stripWhiteSpace();
 }
 
 //-------------------------- TO_NUM -------------------------------------------
@@ -1108,9 +1129,9 @@ QString C_TokenInterpret::EXPORT(QStringList &arg_list)
  if (nb<=0) return TR("::EXPORT() 1er  argument du fichier de destination manquant");
  if (nb<=1) return TR("::EXPORT() 2eme argument du type d'exportation manquant");
  if (nb<=2) return TR("::EXPORT() 3eme argument string a exporter ou liste des rubriques separees par | ou mode de conversion manquant");
- QString            pathFile  = G_pCApp->resolvePath(var(arg_list[0]));
+ QString            pathFile  = G_pCApp->resolvePath(arg_list[0]);
  QString                toDo  = arg_list[1].stripWhiteSpace().lower();
- QString             dataStr  = var(arg_list[2]);
+ QString             dataStr  = arg_list[2];
  QString           imageName  = "";
                 //............. cas le plus simple d'ecriture d'une chaine sur le disque ........................................
  if (toDo=="t"||toDo=="a" ||toDo=="s")
@@ -1633,7 +1654,7 @@ QString C_TokenInterpret::LIST_DIR(QStringList &arg_list)
 QString C_TokenInterpret::LOWER(QStringList &arg_list)
     {int nb = arg_list.count();
      if (nb<1) return QString::null;
-     return var(arg_list[0]).lower();
+     return arg_list[0].lower();
     }
 
 //-------------------------- NOP -------------------------------------------
@@ -1769,7 +1790,7 @@ QString C_TokenInterpret::REPLACE_BY(QStringList &arg_list)
  if (nb<1)                                        return TR("::REPLACE_BY() 1er argument du texte à traiter manquant");
  if (nb<2)                                        return TR("::REPLACE_BY() 2ème argument motif à  remplacer manquant");
  if (nb<3)                                        return TR("::REPLACE_BY() 3ème argument motif de remplacement manquant");
- return var(arg_list[0]).stripWhiteSpace().replace(var(arg_list[1]),var(arg_list[2]));
+ return arg_list[0].stripWhiteSpace().replace(arg_list[1],arg_list[2]);
 }
 
 //-------------------------- REPLACE_IN_FILE -------------------------------------------
@@ -1981,20 +2002,38 @@ QString C_TokenInterpret::VAR_SPLIT(QStringList &arg_list)
      if (nb<2)  return TR("Erreur VAR_SPLIT() nombre d'arguments insuffisants" );
      QString  prefix = arg_list[0];
      QString  toSep  = arg_list[1];
-     if (toSep.startsWith("$VAR"))
-        {int p             =  toSep.find("=");
-         if (p !=-1) toSep =  toSep.mid(p+1).stripWhiteSpace();
-         else        toSep =  toSep.mid(4).stripWhiteSpace();
-         toSep             =  (*G_mCDC->m_pVariables)[toSep];
-        }
      QString    sep  = "|";                // valeur par defaut
+     QString  cutTo  = "";
+     QString item    = "";
+     QString  modif  = "";
      if (nb>=3) sep  = arg_list[2];
      bool allowEmptyEntries = TRUE;        // valeur par defaut
-     if (nb>=4 && arg_list[3].stripWhiteSpace()==FALSE) allowEmptyEntries = FALSE;
+     bool resultTrimmed     = FALSE;       // valeur par defaut
+     if (nb>=4) modif = arg_list[3].stripWhiteSpace(); //=="FALSE") allowEmptyEntries = FALSE;
+     if (modif.contains('F')) allowEmptyEntries = FALSE;
+     if (modif.contains('T')) resultTrimmed     = TRUE;
+     if (nb>=5) cutTo = arg_list[4].stripWhiteSpace();
      QStringList listeSegments = QStringList::split(sep,toSep,allowEmptyEntries);
      int i = 0;
+     int n = 0;
      for ( QStringList::Iterator it = listeSegments.begin(); it != listeSegments.end(); ++it )
-         {G_mCDC->m_pVariables->insert (prefix+QString::number(i), listeSegments[i]);
+         {item = listeSegments[i];
+          if (cutTo.length())
+             { int p = item.find(cutTo);
+               if (p!=-1) item.truncate(p);
+               else       item="";         // si cutTo est defini on ne retient que les items encadres
+             }
+          if (resultTrimmed) item=item.stripWhiteSpace();
+          if (allowEmptyEntries==FALSE)
+             { if (item.length()) 
+                  { G_mCDC->m_pVariables->insert (prefix+QString::number(n), item);
+                    ++n;
+                  }
+             }
+          else
+             {G_mCDC->m_pVariables->insert (prefix+QString::number(n), item);
+              ++n;
+             }
           ++i;
          }
      return QString("");
@@ -2161,8 +2200,11 @@ QString C_TokenInterpret::TEST(QStringList &arg_list)
      else if (op=="=%")  {iop = 8; }
      else if (op=="%%")  {iop = 9; }
 
-     QString val1 = var(arg_list[1]).stripWhiteSpace();
-     QString val2 = var(arg_list[3]).stripWhiteSpace();
+     QString val1    = arg_list[1].stripWhiteSpace();
+     QString val2    = arg_list[3].stripWhiteSpace();
+     QString ifTrue  = arg_list[4].stripWhiteSpace();
+     QString ifFalse = arg_list[5].stripWhiteSpace();
+
      if (arg_list.count() == 7) cs = (bool)arg_list[6].toInt();
      if (arg_list[0][0]=='N') // on teste les valeurs numériques et si pas ok on continue mais avec les textes
         {double v1 = toNum(val1).toDouble();
@@ -2195,8 +2237,9 @@ QString C_TokenInterpret::TEST(QStringList &arg_list)
        }
      switch (iop)
                {case 1:     // =
-                    {if (val1==val2 ) return arg_list[4].stripWhiteSpace();
-                     else             return arg_list[5].stripWhiteSpace();
+                    {if (val1.length()==0 && val2.length()==0) return ifTrue;   //si les deux chaines sont vides == fonctionne mal
+                     else if (val1==val2 )                     return ifTrue;
+                     else                                      return ifFalse;
                     }
                 case 4:     // >=  si egal  ok
                     {if (val1==val2 ) return arg_list[4].stripWhiteSpace();
@@ -2213,8 +2256,9 @@ QString C_TokenInterpret::TEST(QStringList &arg_list)
                      else                                    return arg_list[5].stripWhiteSpace();
                     }
                 case 6:     // !=
-                    {if ( !(val1==val2) ) return arg_list[4].stripWhiteSpace();
-                     else                 return arg_list[5].stripWhiteSpace();
+                    {if (val1.length()==0 && val2.length()==0) return ifFalse;      // egales donc test faux si les deux chaines sont vides == fonctionne mal
+                     else if (val1==val2 )                     return ifFalse;      // egales donc test faux
+                     else                                      return ifTrue;       // pas egale donc test vrai
                     }
                 case 7:     // %=
                     {if (val1.startsWith(val2,cs))   return arg_list[4].stripWhiteSpace();
@@ -2428,7 +2472,7 @@ QString C_TokenInterpret::DATE_DOCUMENT(QStringList &arg_list)
      if (doc_typ.upper() == "THIS") pCRubRecord = G_mCDC->m_pCRubCurrentRecord;
      else                           pCRubRecord = GetIDCurrentDoc(doc_typ);
      if (pCRubRecord==0)      return TR("Syntax error in DATE DOCUMENT Document type : '") + doc_typ + "' not found";
-     QDate    qdt =  QDate::fromString ( pCRubRecord->m_Date, Qt::ISODate );
+     QDateTime    qdt =  pCRubRecord->getDateTime(); // QDate::fromString ( pCRubRecord->m_Date, Qt::ISODate ); // pCRubRecord->getDateTime()
      return  qdt.toString (format);
     }
 //-------------------------- DATE_NAISSANCE_ASSURE -------------------------------------------
@@ -4061,24 +4105,10 @@ QString C_TokenInterpret::Func_Extract(QString &doc_type, QString &tag_deb, QStr
          }
      if ( find_to.length() )
         {
-          if  (find_to.startsWith("$VAR"))
-              { QString var_name     = "";
-                int p                =  find_to.find("=");
-                if (p !=-1) var_name =  find_to.mid(p+1).stripWhiteSpace();
-                else        var_name =  find_to.mid(4).stripWhiteSpace();
-                if (var_name.length()==0)  resolvToken                       = "l'argument 4 est $VAR mais le nom de la variable devant suivre $VAR est absent";
-                else                     { if (justNum.find("$keepHtml") == -1){CHtmlTools::HtmlToAscii(resolvToken);}
-                                           else                                {justNum = justNum.remove("$keepHtml");}
-                                          (*G_mCDC->m_pVariables)[var_name] = resolvToken; 
-                                           resolvToken="";
-                                         }
-              }
-          else
-              { if ( resolvToken.find(find_to,0,TRUE) != -1)
-                   { resolvToken = replace_by;
-                   }
-                else resolvToken = "";
-              }
+          if ( resolvToken.find(find_to,0,TRUE) != -1)
+             { resolvToken = replace_by;
+             }
+          else resolvToken = "";
         }  // end if ( find_to.length() )
      } // end if (deb && tag_end.length())
  if (justNum.length()) return  toNum(resolvToken, justNum);
@@ -4488,19 +4518,4 @@ int C_TokenInterpret::FindToken(int pos_deb, int pos_max, const QString &tokenTo
        }
   return pos_max;
 }
-//-------------------------------------- var ----------------------------------------------------------------
-/*! \brief retourne le contenu d'une variable suivant le token $VAR =
- *  \param token const QString &token : token  a rechercher
- *  \return le contenude la variable
- */
 
-QString C_TokenInterpret::var(const QString &token)
-{    QString var_name         = "";
-     if (token.startsWith("$VAR"))
-        {int p                =  token.find("=");
-         if (p !=-1) var_name =  token.mid(p+1).stripWhiteSpace();
-         else        var_name =  token.mid(4).stripWhiteSpace();
-         return  (*G_mCDC->m_pVariables)[var_name];
-        }
-     return token;
-}

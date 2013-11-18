@@ -3002,7 +3002,7 @@ QString  DrTux::Lap_RubListExport_Ordo(RUBREC_LIST *pRubList, const QString &pat
              //cip               = CGestIni::getXmlData("gph_id", ordoLine, &nextPos, 1);
              //id_type           = CGestIni::getXmlData("gph_it", ordoLine, &nextPos, 1);
              s_dateFinPrise    = CGestIni::getXmlData("gph_df", ordoLine, &nextPos, 1);               // recuperer la date de fin de la ligne prescriptive
-             dateFinPrise      = QDateTime::fromString (  CGenTools::strToIsoStrDateTime(s_dateFinPrise), Qt::ISODate);
+             dateFinPrise      = QDateTime::fromString (  CGenTools::NormaliseDateTimeToIso(s_dateFinPrise), Qt::ISODate);
              if (dateFinPrise>=curDate)                                               // si encore active alors la joindre a la liste
                 { dest        += QString("\n<OrdoLine>\n") + ordoLine + "\n</OrdoLine>\n";
                   // cip_map[cip] = ordoLine;

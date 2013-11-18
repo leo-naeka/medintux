@@ -168,7 +168,7 @@ QString C_PatientBioCtx::code_Acte_To_Value (QString codeActe, QString *pUnit /*
     //             en effet C_PatientBioCtx utilise ses propres codes (NABM) pour extraire les donnees OBX
     //             les labos n'utilisent surement pas ces codes, donc une table de correspondance permet de
     //             faire correspondre les codes NBAM utilisés par les methodes pre parametrees aux codes
-    //             retrouves dans l'OBX d'un labo X à partir de la table :
+    //             retrouves dans l'OBX d'un labo X �  partir de la table :
     //             m_transTableCodes QMap <QString C_PatientBioCtx_NBAMCode, QString laboXX_code>
     if (m_transTableCodesName.length())
        { QMap<QString, QString>::const_iterator    i = m_transTableCodes.find(codeActe);
@@ -241,11 +241,16 @@ C_PatientCtx::C_PatientCtx(   const QString &dataXml
                             , const QString &transTables      /* ="" */
                             , const QString &transTablesName  /* ="" */
                           )
-{unserialize(this, dataXml);
- set_transTableCodes(transTables, transTablesName);
- for (int i = 0; i < m_lifeEventList.size(); ++i)
-     {if (m_lifeEventList[i].codeTyp()=="CIM" )m_cim10List.append(m_lifeEventList[i].code().remove('.'));
-     }
+{ unserialize(this, dataXml);
+  set_transTableCodes(transTables, transTablesName);
+  for (int i = 0; i < m_lifeEventList.size(); ++i)
+      {if ( m_lifeEventList[i].codeTyp()=="CIM")
+          { if ( m_lifeEventList[i].dateFin().length() &&
+                 QDate::fromString(m_lifeEventList[i].dateFin(),"dd-MM-yyyy")<QDate::currentDate()
+               ) continue;
+            m_cim10List.append(m_lifeEventList[i].code().remove('.'));
+          } // endif ( m_lifeEventList[i].codeTyp()=="CIM")
+     } // end for (int i = 0; i < m_lifeEventList.size(); ++i)
 }
 
 //--------------------------------- setLifeEventList -----------------------------------------------------
@@ -422,7 +427,7 @@ int    C_PatientCtx::grossesse(QString *pComment /* = 0 */)
      W78|CISP|Grossesse||Médical(Obstétrique)|pas de commentaire|10-10-2012|
      Z32|CIM|Grossesse||Médical(Obstétrique)|pas de commentaire|10-10-2012|
      Z39.1|CIM|Allaitement||Médical(Puerpéralité)|pas de commentaire|10-10-2012|
-     |MD|Pratique du judo à haut niveau|Sport|Habitudes(Activité Sportive)|Attention aux produits dopants|10-10-2012|
+     |MD|Pratique du judo �  haut niveau|Sport|Habitudes(Activité Sportive)|Attention aux produits dopants|10-10-2012|
 */
 QMap<QString,QString>    C_PatientCtx::pathologiesStringMap(const QString &codeTyp /* = "CIM" */, int flag /*= C_PatientCtx::ALL_ATCD*/)
 {QMap<QString, QString> map;

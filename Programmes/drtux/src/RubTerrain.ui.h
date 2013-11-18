@@ -1493,8 +1493,8 @@ QStringList FormRubTerrain::getAtcdList( const QString &tableName )
          */
          QDate   dateDeb;
          QDate   dateEnd;
-         QString s_dateDeb = CGenTools::NormaliseDate(pCPrt->text(2));
-         QString s_dateEnd = CGenTools::NormaliseDate(pCPrt->text(3));
+         QString s_dateDeb = CGenTools::NormaliseDateToIso(pCPrt->text(2));
+         QString s_dateEnd = CGenTools::NormaliseDateToIso(pCPrt->text(3));
 
          dateDeb  = QDate::fromString(s_dateDeb,Qt::ISODate);
          if (! dateDeb.isValid ())  dateDeb = QDate::currentDate().addDays (-2);

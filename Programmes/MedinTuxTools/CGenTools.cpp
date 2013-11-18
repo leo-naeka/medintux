@@ -302,14 +302,14 @@ int  CGenTools::NbLignes(const char *txt)
 /*! \brief Retourne le nombre de jours entre la date1 et la date2 */
 QString CGenTools::daysTo(const QString &date1, const QString &date2)
 {QDate d2 = QDate::currentDate();
- if (date2.length()!=0) d2 = QDate::fromString (NormaliseDate(date2), Qt::ISODate );
- QDate d1 = QDate::fromString (NormaliseDate(date1), Qt::ISODate );
+ if (date2.length()!=0) d2 = QDate::fromString (NormaliseDateToIso(date2), Qt::ISODate );
+ QDate d1 = QDate::fromString (NormaliseDateToIso(date1), Qt::ISODate );
  return QString::number( d1.daysTo ( d2 ) );
 }
 
-//------------------------------------------ strToIsoStrDateTime -----------------------------
+//------------------------------------------ NormaliseDateTimeToIso -----------------------------
 /*! \brief Retourne une chaine de la forme 12x09xx2007 à l'heure de 12h30 sous forme 2007-09-12T12:30:00 */
-QString CGenTools::strToIsoStrDateTime(const QString &date, QString *pDate  /* =0 */, QString *pTime  /* =0 */)
+QString CGenTools::NormaliseDateTimeToIso(const QString &date, QString *pDate  /* =0 */, QString *pTime  /* =0 */)
 {int end = date.length();
  int   i = -1;
  QString str;
@@ -335,19 +335,19 @@ QString CGenTools::strToIsoStrDateTime(const QString &date, QString *pDate  /* =
  if (pDate)  *pDate = str;
  return str+"T"+hh;
 }
-//------------------------------------------ NormaliseDate -----------------------------
+//------------------------------------------ dd_MM_yyyy_ToIsoDate -----------------------------
 /*! \brief Retourne une date de la forme 12x09xx2007 sous forme 2007-09-12 */
-QDate CGenTools::dd_MM_yyyy_ToDate(const QString &date)
-{return QDate::fromString(NormaliseDate(date), Qt::ISODate);
+QDate CGenTools::dd_MM_yyyy_ToIsoDate(const QString &date)
+{return QDate::fromString(NormaliseDateToIso(date), Qt::ISODate);
 }
-//------------------------------------------ NormaliseDate -----------------------------
+//------------------------------------------ dd_MM_yyyy_ToIso -----------------------------
 /*! \brief Retourne une date de la forme 12x09xx2007 sous forme 2007-09-12 */
 QString CGenTools::dd_MM_yyyy_ToIso(const QString &date)
-{return NormaliseDate(date);
+{return NormaliseDateToIso(date);
 }
-//------------------------------------------ NormaliseDate -----------------------------
+//------------------------------------------ NormaliseDateToIso -----------------------------
 /*! \brief Retourne une date de la forme 12x09xx2007 sous forme 2007-09-12 */
-QString CGenTools::NormaliseDate(const QString &date)
+QString CGenTools::NormaliseDateToIso(const QString &date)
 {int end = date.length();
  int   i = -1;
  QString str;

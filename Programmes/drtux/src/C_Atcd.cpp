@@ -445,7 +445,7 @@ void Atcd_Code::setTerrain(const char* strTerrain, CMoteurBase* /*pCMoteurBase*/
  *  \return QString qui est vide si date invalide sinon la date avec le format d'entree
 */
 QString Atcd_Code::valid_DateStringOrEmptyString(QString date_in, const QString &format  /* = "dd-MM-yyyy" */ )
-{QString date    = CGenTools::NormaliseDate(date_in) ;
+{QString date    = CGenTools::NormaliseDateToIso(date_in) ;
  QDate   dateEnd = QDate::fromString(date,Qt::ISODate);
  if (dateEnd.isValid()) return dateEnd.toString(format);
  else                   return QString("");
@@ -464,7 +464,7 @@ QString Atcd_Code::setNewState_FromOldState(const QString &old_state, QDate *dat
            {dateEnd = QDate();                             // on met une date de fin invalide donc non determinee  ==> atcd encore actif
            }
         else
-           {QString date    = CGenTools::NormaliseDate(old_state) ;
+           {QString date    = CGenTools::NormaliseDateToIso(old_state) ;
             dateEnd         = QDate::fromString(date,Qt::ISODate);
            }
        if (date_to_set) *date_to_set = dateEnd;

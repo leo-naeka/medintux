@@ -1148,7 +1148,7 @@ void C_Dlg_GestionATCD::Slot_listViewCim10_Choix_doubleClicked( QListViewItem * 
       //.............. dates debut fin ...........................
       pQListViewItem->setText(LV_DDEB, dateDeb );
       pQListViewItem->setText(LV_DFIN, dateFin );
-      pQListViewItem->setPixmap(LV_DDEB, Atcd_Code::datesDebFinToPixmap(CGenTools::dd_MM_yyyy_ToDate(dateDeb), CGenTools::dd_MM_yyyy_ToDate(dateFin)) );
+      pQListViewItem->setPixmap(LV_DDEB, Atcd_Code::datesDebFinToPixmap(CGenTools::dd_MM_yyyy_ToIsoDate(dateDeb), CGenTools::dd_MM_yyyy_ToIsoDate(dateFin)) );
 
       //............. ald sport ....................
       QString ald_sport = pDlgAtcd_txt->getSate_Ald_Sport();
