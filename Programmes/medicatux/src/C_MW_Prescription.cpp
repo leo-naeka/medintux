@@ -44,7 +44,6 @@
 
 #include "../../MedinTuxTools-QT4/C_DragQTreeWidget/C_DragQTreeWidget.h"
 #include "../../MedinTuxTools-QT4/medicabase/C_BaseMedica.h"
-#include "../../MedinTuxTools-QT4/medicabase/C_BDM_FreeBasePlugin.h"
 #include "../../MedinTuxTools-QT4/medicabase/C_BDM_TheriaquePlugin.h"
 #include "../../MedinTuxTools-QT4/medicabase/C_BDM_DatasempPlugin.h"
 #include "../../MedinTuxTools-QT4/medicabase/C_Frm_Prescription.h"

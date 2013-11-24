@@ -220,7 +220,7 @@ void   CMDI_Prescription::DoActionWithThisDocument(const QString &verbe, int /*t
           else
              {
               G_pCApp->m_VAR_MAP.insert("$SCRIPT_STATUS",CMDI_Prescription::S_GetRubName()+"_$FUSION_ADD_"+verbe);
-              G_pCApp->m_pDrTux->FusionneDocument(&txt_f, G_pCApp->m_SignUser, &(*m_pRubList->at(rubDoc_id)));
+              G_pCApp->m_pDrTux->FusionneDocument(&txt_f, G_pCApp->m_SignUser, &(*m_pRubList->at(rubDoc_id)),G_pCApp->m_pDrTux->GetMapActiveID_Doc());
               G_pCApp->m_VAR_MAP.insert("$SCRIPT_STATUS",CMDI_Prescription::S_GetRubName()+"_$FUSION_END");
               //....................... reajuster les combobox et editeurs de texte ...................................
               m_pMyEditText->setModified(TRUE);
@@ -356,7 +356,7 @@ CRubRecord*  CMDI_Prescription::AddNewDocument(const QString &strData, int typ, 
            (*last).m_LastErr = "";
            QString data(strData);
            G_pCApp->m_VAR_MAP.insert("$SCRIPT_STATUS",CMDI_Prescription::S_GetRubName()+"_$FUSION_CREATE");
-           G_pCApp->m_pDrTux->FusionneDocument(&data, G_pCApp->m_User, &(*last));
+           G_pCApp->m_pDrTux->FusionneDocument(&data, G_pCApp->m_User, &(*last), G_pCApp->m_pDrTux->GetMapActiveID_Doc());
            G_pCApp->m_VAR_MAP.insert("$SCRIPT_STATUS",CMDI_Prescription::S_GetRubName()+"_$FUSION_END");
            if ((*last).m_LastErr[0]=='_'||data.find("__ERREUR Fusion :__") != -1)
               {m_pRubList->remove ( last );

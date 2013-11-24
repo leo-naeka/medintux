@@ -132,7 +132,7 @@ class CApp : public C_MUI_App
      //--------------------------------- GetIDCurrentDoc -----------------------------------------------------
      /*! \brief Retourne le CRubRecord correspondant au document actuellement affiché dans la CMDI gérant le doc_type.
      */
-     static CRubRecord    *GetIDCurrentDoc(const QString &doc_type_in, DOCUMENT_DISPLAY_MAP  *currentDocDisplayMap);
+     static CRubRecord    *GetIDCurrentDoc(const QString &doc_type_in, const DOCUMENT_DISPLAY_MAP  *currentDocDisplayMap);
      //--------------------------------------------- get_PossiblesRubNameList --------------------------------------
      /*! \brief retourne la liste des rubriques possibles (ne sont pas forcement toutes activées selon les profils)
      *  \return Renvoie une QStringList avec le nom des rubriques possibles

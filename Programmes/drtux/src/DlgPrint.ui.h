@@ -174,19 +174,21 @@ int DlgPrint::initDialog(QTextEdit*   pBodyTextEdit,
                           )
 {   //............................. variables permettant la reinitialisation du dialogue ................
     //                              sur de nouvelles entêtes et pied de page
-    m_ID_Obs        = id_Obs;
-    m_ID_Prs        = id_Prs;
-    QString val1    = "";
-    QString val2    = "";
-    m_pRubList      = pRubList;
-    m_IdentPrimKey  = IdentPrimKey;
-    m_pBodyTextEdit = pBodyTextEdit;
-    m_pCMoteurBase  = pCMoteurBase;
-    m_ObsText       = observText;
-    m_UserActuelPk  = userActuelPk;
-    m_HeadText      = "";
-    m_FootText      = "";
-    m_BodyText      = m_pBodyTextEdit->text();
+    m_ID_Obs               = id_Obs;
+    m_ID_Prs               = id_Prs;
+    QString val1           = "";
+    QString val2           = "";
+    m_pRubList             = pRubList;
+    m_IdentPrimKey         = IdentPrimKey;
+    m_pBodyTextEdit        = pBodyTextEdit;
+    m_pCMoteurBase         = pCMoteurBase;
+    m_ObsText              = observText;
+    m_UserActuelPk         = userActuelPk;
+    m_HeadText             = "";
+    m_FootText             = "";
+    m_BodyText             = m_pBodyTextEdit->text();
+    m_currentDocDisplayMap = G_pCApp->m_pDrTux->GetMapActiveID_Doc();
+
     //....................... determination de l'utilisateur .................................................
     RUBREC_LIST::iterator it = m_pRubList->at(m_ID_Prs);      // iterateur de la liste des documents, sur le document � imprimer
     m_SignUser               = (*it).m_SignUser;              // utilisateur
@@ -555,11 +557,10 @@ void DlgPrint::SetDialogOnHeadAndFoot(int /*mode*/)
     if (m_pHeadRichText) delete m_pHeadRichText; m_pHeadRichText = 0;
     if (m_pBodyRichText) delete m_pBodyRichText; m_pBodyRichText = 0;
     if (m_pFootRichText) delete m_pFootRichText; m_pFootRichText = 0;
-
     //......................................... fusionner les documents ........................................
     //if (m_IsFusionOk==0)
-       {FusionneDocument(&m_HeadText, m_UserActuelPk);
-        FusionneDocument(&m_FootText, m_UserActuelPk);
+       { FusionneDocument(&m_HeadText, m_UserActuelPk);
+         FusionneDocument(&m_FootText, m_UserActuelPk);
        }
     G_pCApp->m_VAR_MAP.insert("$SCRIPT_STATUS","$PRINT_SCRIPT_END");
     //m_IsFusionOk = 1;
@@ -599,14 +600,14 @@ void DlgPrint::GetPossibleDefaultFont(const QString &txt, QFont &font)
 void DlgPrint::FusionneDocument(QString  *pDocument, QString userActuelPk)
 {
  //............. creer la liste des documents à l'affichage ...........................
- DOCUMENT_DISPLAY_MAP  currentDocDisplayMap;
- QString user   = G_pCApp->m_pDrTux->MapActiveID_Doc(currentDocDisplayMap);   // retour = utilisateur le plus probable
+ // DOCUMENT_DISPLAY_MAP  currentDocDisplayMap;
+ // QString user   = G_pCApp->m_pDrTux->MapActiveID_Doc(currentDocDisplayMap);   // retour = utilisateur le plus probable
  CDevilCrucible *pfusion = new CDevilCrucible(pDocument                      ,   // 0 texte du document à fusionner
                                               m_pCMoteurBase                 ,   // 1 moteur de base de données (faut bien accéder aux fonctions)
                                               G_pCApp->m_pCMedicaBase        ,   // 2 moteur de base de données medicamenteuses(faut bien accéder aux fonctions)
                                               &G_pCApp->m_pDrTux->m_RubList  ,   // 3 liste des documents composant le dossier patient
                                               m_IdentPrimKey                 ,   // 4 il faut les renseignements sur le patient
-                                              &currentDocDisplayMap          ,   // 5 liste des rubriques courantes (affichées)
+                                              &m_currentDocDisplayMap        ,   // 5 liste des rubriques courantes (affichées)
                                               userActuelPk                   ,   // 6 utilisateur responsable du document
                                               0                              ,   // 7 pointeur sur la rubrique en cours de modif (si c'est une rubrique) zero sinon
                                                &G_pCApp->m_VAR_MAP               // 8 pointeur sur la liste des variables (zero par defaut)

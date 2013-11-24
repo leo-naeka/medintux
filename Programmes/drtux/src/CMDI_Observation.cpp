@@ -63,8 +63,8 @@ CMDI_Observation::CMDI_Observation( QWidget* parent, const char* rub_name, int w
         //                     à ratacher au membre: MyEditText *m_pC_RubObservation->m_pMyEditText de :  m_pC_RubObservation
         //                     afin d'en disposer à l'interieur de sa classe.
         //..................... connecter impression ......................................................
-        connect( m_pC_RubObservation->pushButtonPrint,     SIGNAL( clicked()),  this,  SLOT  ( OnPrint())  );
-        connect( m_pC_RubObservation->pushButtonAdd,       SIGNAL( clicked()),   this,    SLOT  ( On_pushButtonAppend())  );
+        connect( m_pC_RubObservation->pushButtonPrint,     SIGNAL( clicked()),   this,  SLOT  ( OnPrint())  );
+        connect( m_pC_RubObservation->pushButtonAdd,       SIGNAL( clicked()),   this,  SLOT  ( On_pushButtonAppend())  );
         //.................. connecter les plugin de l'editeur de texte.............................................
         //                   au systeme de menu Custom
 

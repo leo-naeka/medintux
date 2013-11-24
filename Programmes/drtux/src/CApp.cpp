@@ -418,7 +418,7 @@ void CApp::quit()
 //--------------------------------- GetIDCurrentDoc -----------------------------------------------------
 /*! \brief Retourne le CRubRecord correspondant au document actuellement affiché dans la CMDI gérant le doc_type.
 */
-CRubRecord  *CApp::GetIDCurrentDoc(const QString &doc_type_in, DOCUMENT_DISPLAY_MAP  *currentDocDisplayMap)
+CRubRecord  *CApp::GetIDCurrentDoc(const QString &doc_type_in, const DOCUMENT_DISPLAY_MAP  *currentDocDisplayMap)
 {CRubRecord  *pCRubRecordRet = 0;
  int                    pos  = -1;
  QString            libelle  = "";
@@ -451,7 +451,7 @@ CRubRecord  *CApp::GetIDCurrentDoc(const QString &doc_type_in, DOCUMENT_DISPLAY_
 
  //................... on cherche celui de la map (ceux en cours d'affichage)..............................
  //                    si libelle fourni on verifie si il correspond
- DOCUMENT_DISPLAY_MAP::Iterator it = currentDocDisplayMap->find ( doc_type );
+ DOCUMENT_DISPLAY_MAP::ConstIterator  it = currentDocDisplayMap->find ( doc_type );
  if (! (it == currentDocDisplayMap->end()) )
     {pCRubRecordRet = it.data();
      if (libelle.length())
@@ -1574,7 +1574,7 @@ CRubRecord*   CApp::AddNewDocument(CMDI_Generic* pCMDI, const QString &strData_i
  //.......................... faire les fusions si nécessaire .............................................
  (*it).m_LastErr = "";
  m_VAR_MAP.insert("$SCRIPT_STATUS", rubName + "_$FUSION_CREATE");
- m_pDrTux->FusionneDocument(html_Data, m_User, it); // data = data.replace('0xa0','0x20');
+ m_pDrTux->FusionneDocument(html_Data, m_User, it, m_pDrTux->GetMapActiveID_Doc()); // data = data.replace('0xa0','0x20');
  m_VAR_MAP.insert("$SCRIPT_STATUS", rubName + "_$FUSION_END");
 
  if ((*it).m_LastErr[0]=='_'||html_Data.find("__ERREUR Fusion :__") != -1)
@@ -1647,7 +1647,7 @@ void   CApp::DoActionWithThisDocument(CMDI_Generic* pCMDI, const QString &verbe,
         }
      //.......................... faire les fusions si nécessaire .............................................
      m_VAR_MAP.insert("$SCRIPT_STATUS",pCMDI->GetRubName()+"_$FUSION_ADD_"+verbe);
-     m_pDrTux->FusionneDocument(strData, m_User, it); // data = data.replace('0xa0','0x20');
+     m_pDrTux->FusionneDocument(strData, m_User, it,  m_pDrTux->GetMapActiveID_Doc()); // data = data.replace('0xa0','0x20');
      m_VAR_MAP.insert("$SCRIPT_STATUS",pCMDI->GetRubName()+"_$FUSION_END");
 
      if (verbe == TR("Tout")) pMyEditText->selectAll();

@@ -68,7 +68,7 @@
 
 //====================================== CDevilCrucible ==============================================================
 
-//----------------------------  FusionneDocument ---------------------------------------------
+//----------------------------  CDevilCrucible ---------------------------------------------
 /*! \brief  Constructeur de la classe. Appelé par drtux::FusionneDocument.
  * \todo Utiliser Atcd_Code, Var_Code
 */
@@ -77,7 +77,7 @@ CDevilCrucible::CDevilCrucible(QString                *pDocument     ,       // 
                                CMedicaBase            *pCMedicaBase  ,       // 2 moteur de base de données medicamenteuses(faut bien accéder aux fonctions)
                                RUBREC_LIST            *pRubList      ,       // 3 liste des documents composant le dossier patient
                                QString                &identPrimKey  ,       // 4 il faut les renseignements sur le patient
-                               DOCUMENT_DISPLAY_MAP   *pCurDisplayDocMap,    // 5 liste des rubriques courantes (affichées)
+                               const DOCUMENT_DISPLAY_MAP   *pCurDisplayDocMap,    // 5 liste des rubriques courantes (affichées)
                                QString                &userActuelPk  ,       // 6 utilisateur courant du programme
                                CRubRecord             *pCRubCurrentRecord,   // 7 pointeur sur la rubrique en cours de modif (si c'est une rubrique) zero sinon
                                VAR_MAP *               pVariables,           // 8 pointeur sur la liste des variables (zero par defaut)
@@ -93,6 +93,10 @@ CDevilCrucible::CDevilCrucible(QString                *pDocument     ,       // 
  m_UserDocPk          = userActuelPk;
  m_pCRubCurrentRecord = pCRubCurrentRecord;
  m_isJustForWatch     = isJustForWatch;
+
+int p = pDocument->find("</HTML_Data>");
+if (p !=-1) pDocument->truncate(p);
+
  C_TokenInterpret::init(this);
  if (pVariables==0)
     {m_pVariables = new VAR_MAP;

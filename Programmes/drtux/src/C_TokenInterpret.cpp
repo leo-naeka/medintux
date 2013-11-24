@@ -4081,6 +4081,8 @@ QString C_TokenInterpret::Func_Extract(QString &doc_type, QString &tag_deb, QStr
  else if (doc_type.length()>0)
     {str_data    = G_mCDC->m_pMB->GetDataFromRubList( GetIDCurrentDoc(doc_type) );       // recuperer données soit dans liste cache soit sur disque
      if (str_data.length()==0)              return resolvToken;
+     int p = str_data.find("</HTML_Data>");
+     if (p !=-1) str_data.truncate(p);
      pt_doc      = (char*) (const char*) str_data;
     }
  if (tag_deb=="$FROMSTART") deb = (char*) (const char*) pt_doc;
@@ -4089,8 +4091,8 @@ QString C_TokenInterpret::Func_Extract(QString &doc_type, QString &tag_deb, QStr
  if (deb && tag_end.length())
     {if (tag_end.upper()=="$TOEND")
         {resolvToken = str_data.mid(deb-pt_doc);
-         int p = resolvToken.find("</HTML_Data>");
-         if (p !=-1) resolvToken = resolvToken.left(p);
+         //int p = resolvToken.find("</HTML_Data>");
+         //if (p !=-1) resolvToken = resolvToken.left(p);
         }
      else 
         {
@@ -4249,39 +4251,6 @@ long C_TokenInterpret::extractArgList(QStringList &arg_list, const QString &arg_
         }
     }
  return 1;
- /*
- while(pos < len)
-    {if (arg_str.at(pos) == '\\') pos += 2;
-     else if (arg_str.at(pos) == ',')
-        {arg   = arg_str.mid(deb, pos-deb);
-         argS  = arg.stripWhiteSpace();
-
-         if (  argS.startsWith("$")               &&
-             ! argS.startsWith("$VAR")
-            )
-            { it      = (*G_mCDC->m_pVariables).find(argS.mid(1));
-              if (it != (*G_mCDC->m_pVariables).end())  arg = it.data();
-            }
-         arg_list.append( argUnProtect(arg) );
-         ++pos;
-         deb = pos;
-        }
-     else
-        {++pos;
-        }
-    }
- //........ ne pas oublier le dernier argument ...................
- arg   = arg_str.mid(deb, pos-deb);
- argS  = arg.stripWhiteSpace();
- if (  argS.startsWith("$")               && 
-     ! argS.startsWith("$VAR")
-    )
-    {it      = (*G_mCDC->m_pVariables).find(argS.mid(1));
-     if (it != (*G_mCDC->m_pVariables).end())  arg = it.data();
-    }
- arg_list.append( argUnProtect(arg) );
- return 1;
-*/
 }
 
 //-------------------------- argUnProtect -------------------------------------------

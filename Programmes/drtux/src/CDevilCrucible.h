@@ -100,7 +100,7 @@ public:
                     CMedicaBase            *pCMedicaBase  ,                            /*!< moteur de base de données medicamenteuses */
                     RUBREC_LIST            *pRubList      ,                            /*!< liste des documents composant le dossier patient */
                     QString                &identPrimKey  ,                            /*!< il faut les renseignements sur le patient */
-                    DOCUMENT_DISPLAY_MAP  *pCurrentRubIdMap,                           /*!< liste des rubriques courantes (affichées) */
+                    const DOCUMENT_DISPLAY_MAP  *pCurrentRubIdMap,                           /*!< liste des rubriques courantes (affichées) */
                     QString                &userActuelPk  ,                            /*!< utilisateur courant du programme */
                     CRubRecord            *pCRubCurrentRecord,                         /*!< pointeur sur l'enregistrement rubrique en cours (si il y en a un) */
                     VAR_MAP               *pVariables        ,                         /*!< pointeur sur la liste des variables (zero par defaut) */
@@ -134,7 +134,7 @@ public:
      QString                 m_IdentPrimKey;      /*!< patient identity primary key on m_DOSS_IDENT_TBL_NAME */
      QString                 m_UserDocPk;         /*!< current  user primary key on m_USER_IDENT_TBL_NAME from document user */
      RUBREC_LIST            *m_pRubList;          /*!< pointer to RUBREC_LIST documents list of the patient */
-     DOCUMENT_DISPLAY_MAP   *m_pCurDisplayDocMap; /*!< pointer to DOCUMENT_DISPLAY_MAP, current displaying documents list */
+     const DOCUMENT_DISPLAY_MAP   *m_pCurDisplayDocMap; /*!< pointer to DOCUMENT_DISPLAY_MAP, current displaying documents list */
      CMedicaBase            *m_pMD;               /*!< pointer to CMedicaBase class to provide drugs database functions manipulation's */
      QString                *m_pDocument;         /*!< QString pointer to the text to be modified */
      QString                 m_UserActuelPk;      /*!< current  user primary key on m_USER_IDENT_TBL_NAME from actual   user */

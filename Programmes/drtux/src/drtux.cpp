@@ -1770,17 +1770,17 @@ void DrTux::OnGlossaireFileToEdit(QString pathDoc, QString action, int typ)
  }
 
 //------------------------------ FusionneDocument ---------------------------------------------
-void DrTux::FusionneDocument(QString  &document, const QString &user_doc, RUBREC_LIST::iterator it)
-{FusionneDocument(&document, user_doc, &(*it));
+void DrTux::FusionneDocument(QString  &document, const QString &user_doc, RUBREC_LIST::iterator it, const DOCUMENT_DISPLAY_MAP &currentRubIdMap)
+{FusionneDocument(&document, user_doc, &(*it), currentRubIdMap);
 }
 
 //------------------------------ FusionneDocument ---------------------------------------------
-void DrTux::FusionneDocument(QString  *pDocument, const QString &user_doc, CRubRecord *pCRubCurrentRecord)
+void DrTux::FusionneDocument(QString  *pDocument, const QString &user_doc, CRubRecord *pCRubCurrentRecord, const DOCUMENT_DISPLAY_MAP &currentRubIdMap)
 {
  //............. creer la liste des documents à l'affichage ...........................
- DOCUMENT_DISPLAY_MAP currentRubIdMap;
+ // DOCUMENT_DISPLAY_MAP currentRubIdMap;
 
- /*QString user   = */ MapActiveID_Doc(currentRubIdMap);   // retour = utilisateur le plus probable
+ // /*QString user   = */ MapActiveID_Doc(currentRubIdMap);   // retour = utilisateur le plus probable
  QString userPk    = G_pCApp->m_pCMoteurBase->GetUserPrimKey(user_doc);
  CDevilCrucible *pfusion = new CDevilCrucible(pDocument                      ,          // 0 texte du document à fusionner
                                                G_pCApp->m_pCMoteurBase       ,          // 1 moteur de base de données (faut bien accéder aux fonctions)
@@ -1797,7 +1797,15 @@ void DrTux::FusionneDocument(QString  *pDocument, const QString &user_doc, CRubR
      delete pfusion;
     }
 }
-
+//------------------------------ GetMapActiveID_Doc ---------------------------------------------------------------
+/*! \brief cree une liste mappant l'adresse du CRubRecord relatif aux documents actuellement a l'affichage avec les types de document associes. cette liste permet de retrouver dans la liste des documents celui affiche en fonction de son type cela permet de retrouver par exemple l'observation en cours d'affichage, ou la presscription juste avec le type a rechercher :
+ *  \return DOCUMENT_DISPLAY_MAP
+*/
+DOCUMENT_DISPLAY_MAP DrTux::GetMapActiveID_Doc()
+{DOCUMENT_DISPLAY_MAP mapDoc;
+ MapActiveID_Doc(mapDoc);
+ return mapDoc;
+}
 //------------------------------ MapActiveID_Doc ---------------------------------------------------------------
 /*! \brief cree une liste mappant l'adresse du CRubRecord relatif aux documents actuellement a l'affichage avec les types de document associes. cette liste permet de retrouver dans la liste des documents celui affiche en fonction de son type cela permet de retrouver par exemple l'observation en cours d'affichage, ou la presscription juste avec le type a rechercher :
  *  \param DOCUMENT_DISPLAY_MAP &mapId   reference sur la liste  a renseigner
@@ -2523,16 +2531,24 @@ void DrTux::ExeScript(QString &text)
  QString command   = "";
  int initialLen    =  0;
  int maxBoucle     = 30000;
+ //........ il vaut mieux recuperer la rubrique avant Slot_ExeMixture () .......
+ //         car si zero Slot_ExeMixture() la recherche a chaque fois
+ //         et l'operation est longue
+ int  rub_type               = 0;
+ CRubRecord *pCRubRecord       = 0;
+ QString     rubName          = "";
+ DOCUMENT_DISPLAY_MAP  map_id = GetMapActiveID_Doc();
+ GetCurrentRubrique(&rubName,&rub_type, &pCRubRecord);   // operation couteuse qu'il vaut mieux eviter de faire a chaque Slot_ExeMixture ou Slot_ExePlugin
  while ( (pos_deb        = text.find("{{")) != -1 && pos_deb < pos_max && --maxBoucle>0)
        {  pos_end        =  CGestIni::findFermant(&text, pos_deb + 2, pos_max, "{{", "}}");
           len            =  pos_end - pos_deb +2;
           command        =  text.mid(pos_deb, len);
           initialLen     =  command.length();
           if (initialLen)
-             {Slot_ExePlugin(command);
+             {Slot_ExePlugin(command, pCRubRecord, map_id);
               if (command==tr("!=!"))
                  {command =  text.mid(pos_deb, len);  // recuperer la commande
-                  Slot_ExeMixture(command);
+                  Slot_ExeMixture(command, pCRubRecord, map_id);
                  }
               text.replace(pos_deb, len, command);
              }
@@ -2859,7 +2875,9 @@ void DrTux::UserChange()
 /*! \brief creer l'argument contexte du lap
 */
 QString DrTux::Lap_getPrescripteurContext()
-{QString context =   "<?xml version=\"1.0\" encoding=\"UTF-8\"?>                \n"
+{
+
+ QString context =   "<?xml version=\"1.0\" encoding=\"UTF-8\"?>                \n"
                      "<!-- Projet    : MedinTux                              -->\n"
                      "<!-- Module    : medicatux                             -->\n"
                      "<!-- Objet     : C_PrescripteurCtx                     -->\n"
@@ -2886,7 +2904,15 @@ QString DrTux::Lap_getPrescripteurContext()
                      "   <m_Email>{{USER_EMAIL_MEDECIN}}</m_Email>\n"
                      "   <m_Login>{{USER_LOGIN_MEDECIN}}</m_Login>\n"
                      "</C_UserCtx>\n";
- Slot_ExeMixture( context );
+ //........ il vaut mieux recuperer la rubrique avant Slot_ExeMixture () .......
+ //         car si zero Slot_ExeMixture() la recherche a chaque fois
+ //         et l'operation est longue
+ int  rub_type               = 0;
+ CRubRecord *pCRubRecord     = 0;
+ QString     rubName         = "";
+ GetCurrentRubrique(&rubName,&rub_type, &pCRubRecord);   // operation couteuse qu'il vaut mieux evierer
+ DOCUMENT_DISPLAY_MAP  map_id = GetMapActiveID_Doc();
+ Slot_ExeMixture( context , pCRubRecord, map_id);
  //CGestIni::Param_UpdateToDisk("/home/ro/PrescripteurContext.txt", context);
  return context;
  // return QString (QCodecs::base64Encode(context.local8Bit(),true ));
@@ -2939,7 +2965,16 @@ QString DrTux::Lap_getPatientContext(const QString &prescriptions)
                        "   </m_antecedents>\n";
    context = context.replace("{{ATCDS}}"      , str_episodevie);
    context = context.replace("{{ALLERGIES}}"  , str_allergiques);
-   Slot_ExeMixture( context );
+   //........ il vaut mieux recuperer la rubrique avant Slot_ExeMixture () .......
+   //         car si zero Slot_ExeMixture() la recherche a chaque fois
+   //         et l'operation est longue
+   int  rub_type               = 0;
+   CRubRecord *pCRubRecord     = 0;
+   QString     rubName         = "";
+   G_pCApp->m_pDrTux->GetCurrentRubrique(&rubName,&rub_type, &pCRubRecord);   // operation couteuse qu'il vaut mieux evierer
+   DOCUMENT_DISPLAY_MAP map_id = GetMapActiveID_Doc();
+ 
+   Slot_ExeMixture( context , pCRubRecord, map_id);
    context += "   <m_prescriptions>\n"+prescriptions+"\n   </m_prescriptions>\n"
               "</C_PatientCtx>\n";
 
@@ -3530,7 +3565,8 @@ void DrTux::GetCurrentRubriquesPk(QString &obsPk, QString &ordPk, QString &terPk
  *  - InsérerOrdo
  *  \todo gérer présence du Dock_Menu et utiliser Atcd_Code
 */
-void DrTux::Slot_ExePlugin(QString &plugin )
+
+void DrTux::Slot_ExePlugin(QString &plugin, CRubRecord *pCRubRecord, const DOCUMENT_DISPLAY_MAP &currentRubIdMap)
 {//MyEditText *pMyEditText = currentEditor();
  plugin = plugin.mid(2,plugin.length()-4);
  if (plugin=="CCAM_View")
@@ -3577,7 +3613,7 @@ void DrTux::Slot_ExePlugin(QString &plugin )
                                   command        =  val1.mid(pos_deb, pos_end - pos_deb + 2);
                                   initialLen     =  command.length();
                                   if (initialLen)
-                                     {  Slot_ExeMixture( command );
+                                     {  Slot_ExeMixture( command , pCRubRecord, currentRubIdMap);
                                         val1.replace(pos_deb, pos_end - pos_deb+2, command);
                                         delta_len   =  initialLen - command.length();
                                      }
@@ -3665,13 +3701,15 @@ void DrTux::Slot_ExePlugin(QString &plugin )
 //------------------------------ Slot_ExeMixture ---------------------------
 /*! \brief Envoie le texte mixture à CDevilCrucible pour qu'il soit interprété.
 */
-void DrTux::Slot_ExeMixture(QString &mixture )
+void DrTux::Slot_ExeMixture(QString &mixture , CRubRecord *pCRubRecord, const DOCUMENT_DISPLAY_MAP &currentRubIdMap)
 { int     rub_type            = 0;
-  CRubRecord *pCRubRecord     = 0;
+  // CRubRecord *pCRubRecord     = 0;
   CRubRecord *pCRubRecordTemp = 0;
   QString     rubName         = "";
-  if (GetCurrentRubrique(&rubName,&rub_type, &pCRubRecordTemp)) pCRubRecord = pCRubRecordTemp;
-  FusionneDocument(&mixture, G_pCApp->m_SignUser, pCRubRecord);
+  if (pCRubRecord==0 &&
+      GetCurrentRubrique(&rubName,&rub_type, &pCRubRecordTemp)   // operation couteuse qu'il vaut mieux evierer
+     ) pCRubRecord = pCRubRecordTemp;
+  FusionneDocument(&mixture, G_pCApp->m_SignUser, pCRubRecord, currentRubIdMap);
 }
 
 //------------------------------ DocTypeSave ---------------------------------------
@@ -4616,8 +4654,8 @@ CMDI_Observation* DrTux::CMDI_RubriqueCreate (const char* num_GUID,          con
     //.................. connecter les plugin de l'editeur au DrTux.............................................
     //                   pour qu'il puisse les executer
 
-    connect( pCMDI_Observation->m_pC_RubObservation->m_pMyEditText,   SIGNAL( Sign_Exe_Mixture(QString&)),
-             this,                                                    SLOT  ( Slot_ExeMixture(QString&))
+    connect( pCMDI_Observation->m_pC_RubObservation->m_pMyEditText,   SIGNAL( Sign_Exe_Mixture(QString&, CRubRecord *pCRubRecord, const DOCUMENT_DISPLAY_MAP &currentRubIdMap)),
+             this,                                                    SLOT  ( Slot_ExeMixture(QString&,  CRubRecord *pCRubRecord, const DOCUMENT_DISPLAY_MAP &currentRubIdMap))
            );
     //...................................... zoom par defaut .....................................................
     //QString zoom;
@@ -4722,8 +4760,8 @@ CMDI_Prescription* DrTux::CMDI_PrescriptionCreate (const char* num_GUID,        
     //.................. connecter les plugin de l'editeur au DrTux.............................................
     //                   pour qu'il puisse les executer
 
-    connect( m_pCMDI_Prescription->m_pMyEditText,   SIGNAL( Sign_Exe_Mixture(QString&)),
-             this,                                  SLOT  ( Slot_ExeMixture(QString&))
+    connect( m_pCMDI_Prescription->m_pMyEditText,   SIGNAL( Sign_Exe_Mixture(QString&, CRubRecord *pCRubRecord, const DOCUMENT_DISPLAY_MAP &currentRubIdMap)),
+             this,                                  SLOT  ( Slot_ExeMixture(QString&,  CRubRecord *pCRubRecord, const DOCUMENT_DISPLAY_MAP &currentRubIdMap))
            );
     m_pCMDI_Prescription->DoConnexionOnGossaire(m_pFormGlossaire);
     //...................................... zoom par defaut .....................................................
@@ -4887,14 +4925,14 @@ CMDI_Ident* DrTux::CMDI_IdentCreate (const char* num_GUID,          const char* 
         //.................. connecter les plugin de l'editeur au DrTux.............................................
     //                   pour qu'il puisse les executer
 
-    connect( m_pCMDI_Ident->m_pFormRubIdent->m_pMyEditText,         SIGNAL( Sign_Exe_Plugin(QString&)),
-             this,                                                  SLOT  ( Slot_ExePlugin(QString&))
+    connect( m_pCMDI_Ident->m_pFormRubIdent->m_pMyEditText,         SIGNAL( Sign_Exe_Plugin(QString&, CRubRecord *pCRubRecord, const DOCUMENT_DISPLAY_MAP &currentRubIdMap)),
+             this,                                                  SLOT  ( Slot_ExePlugin(QString&,  CRubRecord *pCRubRecord, const DOCUMENT_DISPLAY_MAP &currentRubIdMap))
            );
     //.................. connecter les plugin de l'editeur au DrTux.............................................
     //                   pour qu'il puisse les executer
 
-    connect( m_pCMDI_Ident->m_pFormRubIdent->m_pMyEditText,         SIGNAL( Sign_Exe_Mixture(QString&)),
-             this,                                                  SLOT  ( Slot_ExeMixture(QString&)));
+    connect( m_pCMDI_Ident->m_pFormRubIdent->m_pMyEditText,         SIGNAL( Sign_Exe_Mixture(QString&, CRubRecord *pCRubRecord, const DOCUMENT_DISPLAY_MAP &currentRubIdMap)),
+             this,                                                  SLOT  ( Slot_ExeMixture(QString&,  CRubRecord *pCRubRecord, const DOCUMENT_DISPLAY_MAP &currentRubIdMap)));
 
     //.................. connecter les filles au DrTux.............................................
     //                   elles pouront envoyer et notifier leur desir de sauvegarde

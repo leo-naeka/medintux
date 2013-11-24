@@ -317,8 +317,8 @@ protected:
  signals:
     void message(const QString&, int);
     void Sign_ExeCommand( QString&);
-    void Sign_Exe_Plugin( QString&);
-    void Sign_Exe_Mixture( QString&);
+    void Sign_Exe_Plugin( QString&,  CRubRecord *pCRubRecord);
+    void Sign_Exe_Mixture( QString&, CRubRecord *pCRubRecord);
     void Signal_Key_Delete_Pressed(int );
     void Signal_Key_Backspace_Pressed(int );
     void Signal_Del_Before();

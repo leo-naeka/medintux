@@ -1596,17 +1596,25 @@ void MyEditText::DoMixture(QString &text)
  QString command   = "";
  int initialLen    =  0;
  int maxBoucle     = 30000;
+ //........ il vaut mieux recuperer la rubrique avant Slot_ExeMixture () .......
+ //         car si zero Slot_ExeMixture() la recherche a chaque fois
+ //         et l'operation est longue
+ int  rub_type               = 0;
+ CRubRecord *pCRubRecord     = 0;
+ QString     rubName         = "";
+ G_pCApp->m_pDrTux->GetCurrentRubrique(&rubName,&rub_type, &pCRubRecord);   // operation couteuse qu'il vaut mieux eviter de faire a chaque Slot_ExePlugin ou Slot_ExeMixture (cas ou pCRubRecord = 0) 
+ DOCUMENT_DISPLAY_MAP  map_id = G_pCApp->m_pDrTux->GetMapActiveID_Doc();    // operation couteuse on la fait avant la boucle et on passe en parametres a Slot_ExeMixture et Slot_ExePlugin
+
  while ( (pos_deb = text.find("{{")) != -1 && pos_deb < pos_max && --maxBoucle>0)
        {pos_end        =  CGestIni::findFermant(&text, pos_deb + 2, pos_max, "{{", "}}");
         len            =  pos_end - pos_deb +2;
         command        =  text.mid(pos_deb, len);
         initialLen     =  command.length();
         if (initialLen)
-           {    //emit Sign_Exe_Plugin(command);
-                G_pCApp->m_pDrTux->Slot_ExePlugin(command);
+           {    G_pCApp->m_pDrTux->Slot_ExePlugin(command,  pCRubRecord, map_id);
             if (command==tr("!=!"))
                {command =  text.mid(pos_deb, len);  // recuperer la commande
-                emit Sign_Exe_Mixture(command);
+                G_pCApp->m_pDrTux->Slot_ExeMixture(command, pCRubRecord, map_id);
                }
             text.replace(pos_deb, len, command);
            }

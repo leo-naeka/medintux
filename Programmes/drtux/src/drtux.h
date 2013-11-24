@@ -268,8 +268,8 @@ public:
     int  AlertVerrou(const QString &userHostName);
     void ForceWritting();
     void SaveLastSessionInfo();
-    void FusionneDocument(QString  &document, const QString &user_doc, RUBREC_LIST::iterator it);
-    void FusionneDocument(QString  *pDocument, const QString &user_doc, CRubRecord *pCRubCurrentRecord);
+    void FusionneDocument(QString  &document, const QString &user_doc, RUBREC_LIST::iterator it, const DOCUMENT_DISPLAY_MAP &currentRubIdMap);
+    void FusionneDocument(QString  *pDocument, const QString &user_doc, CRubRecord *pCRubCurrentRecord, const DOCUMENT_DISPLAY_MAP &currentRubIdMap);
     int  DateUserConflictResolve(QString &user, QString &sign_user, QString &date, const QString &obs_user,   const QString &obs_date);
     bool    connectDlgAtcdDialogToDataBase(C_Dlg_GestionATCD *dlg);
     QString CodageCisp( const QString &chapiFilter, const QString &classFilter, const QString &templateStr, const QString &showCombos="Chapitres Rubriques");
@@ -329,6 +329,7 @@ public:
                                                   const char* dossNom,  const char* dossPrenom, const char* user, QString rubName);
     CMDI_Observation*    CMDI_RubriqueCreate    (const char* num_GUID, const char* id_doss,
                                                   const char* dossNom,  const char* dossPrenom, const char* user, QString rubName, QString prDroit);
+    DOCUMENT_DISPLAY_MAP  GetMapActiveID_Doc();
     QString   MapActiveID_Doc(DOCUMENT_DISPLAY_MAP &mapId);
     CRubRecord* DocPrimKeyToRubRecord(const QString &docPk);
          ////////////////////////////////////////////
@@ -456,8 +457,8 @@ public slots:
     void        DisplayContextListPopup();
     void        VidalDataSemp();
     void        UserChange();
-    void        Slot_ExePlugin(QString &plugin);
-    void        Slot_ExeMixture(QString &mixture);
+    void        Slot_ExePlugin(QString &plugin,   CRubRecord *pCRubRecord, const DOCUMENT_DISPLAY_MAP &currentRubIdMap);
+    void        Slot_ExeMixture(QString &mixture, CRubRecord *pCRubRecord, const DOCUMENT_DISPLAY_MAP &currentRubIdMap);
     void        Slot_Renouveler_TTT_Fond();
     void        Slot_PutPrescriptionInTerrain(RUBREC_LIST::iterator it);
     void        OnSign_Ident_KillMe();

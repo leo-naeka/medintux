@@ -1,4 +1,4 @@
-<!DOCTYPE UI><UI version="0.0" stdsetdef="1">
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
 <class>DlgPrint</class>
 <widget class="QDialog">
     <property name="name">
@@ -1183,25 +1183,26 @@
     <include location="local" impldecl="in implementation">DlgPrint.ui.h</include>
 </includes>
 <variables>
-    <variable>QString m_BodyText;</variable>
-    <variable>QString m_UserActuelPk;</variable>
-    <variable>QString m_FootText;</variable>
-    <variable>QString m_HeadText;</variable>
-    <variable>QString m_ObsText;</variable>
-    <variable>QSimpleRichText * m_pFootRichText;</variable>
-    <variable>QSimpleRichText * m_pBodyRichText;</variable>
-    <variable access="public">QPrinter* m_pQPrinter;</variable>
-    <variable access="public">float m_PageH;</variable>
-    <variable access="public">float m_PageW;</variable>
-    <variable>CViewPageWidget* m_pCViewPageWidget;</variable>
-    <variable>QSimpleRichText * m_pHeadRichText;</variable>
-    <variable>QTextEdit * m_pBodyTextEdit;</variable>
-    <variable>CMoteurBase* m_pCMoteurBase;</variable>
-    <variable>QString m_SignUser;</variable>
-    <variable>QString m_IdentPrimKey;</variable>
-    <variable>RUBREC_LIST* m_pRubList;</variable>
-    <variable>int m_ID_Obs;</variable>
+    <variable>DOCUMENT_DISPLAY_MAP m_currentDocDisplayMap ;</variable>
     <variable>int m_ID_Prs;</variable>
+    <variable>int m_ID_Obs;</variable>
+    <variable>RUBREC_LIST* m_pRubList;</variable>
+    <variable>QString m_IdentPrimKey;</variable>
+    <variable>QString m_SignUser;</variable>
+    <variable>CMoteurBase* m_pCMoteurBase;</variable>
+    <variable>QTextEdit * m_pBodyTextEdit;</variable>
+    <variable>QSimpleRichText * m_pHeadRichText;</variable>
+    <variable>CViewPageWidget* m_pCViewPageWidget;</variable>
+    <variable access="public">float m_PageW;</variable>
+    <variable access="public">float m_PageH;</variable>
+    <variable access="public">QPrinter* m_pQPrinter;</variable>
+    <variable>QSimpleRichText * m_pBodyRichText;</variable>
+    <variable>QSimpleRichText * m_pFootRichText;</variable>
+    <variable>QString m_ObsText;</variable>
+    <variable>QString m_HeadText;</variable>
+    <variable>QString m_FootText;</variable>
+    <variable>QString m_UserActuelPk;</variable>
+    <variable>QString m_BodyText;</variable>
 </variables>
 <slots>
     <slot>slider_Marg_Top_sliderMoved( int value )</slot>
