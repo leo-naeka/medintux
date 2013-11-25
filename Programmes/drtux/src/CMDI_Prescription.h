@@ -65,6 +65,10 @@ public:
     void    SetZoom(int zoom);
     void    setWordWrap(int width);
     void    setSaveButtonVisible(int state);
+    int     reinitComboBoxWithRubList(RUBREC_LIST  *pRubList, const QString &pkToDisplay ="");
+    //----------------------------- GetDocListComboBox -----------------------------------
+    /*! \brief retourne la combobox affectee a al liste des documents */
+    QComboBox    *GetDocListComboBox() ;
     int     m_CustomMenuRequestState;
 public slots:
     void RubOnUserChange(const char*user, const char*sign_user);

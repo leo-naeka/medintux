@@ -1753,7 +1753,8 @@ int  CApp::On_pushButtonAppend(CMDI_Generic* pCMDI)
               m_pCMoteurBase->ReplaceDataInRubList(html_Data, it);
               //   on recharge le tout dans le texte
               //m_pFormRubIdent->pushButtonSave->show();
-              pCMDI->initData();                                                                    return 1;
+              pCMDI->initData();
+              pMyEditText->setModified (FALSE);                                                     return 1;
               //break;
      }
  return 0;

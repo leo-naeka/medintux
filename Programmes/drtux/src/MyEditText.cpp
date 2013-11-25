@@ -619,8 +619,11 @@ bool MyEditText::IsThisFileExist(const char* path )
 */
 void MyEditText::setText ( const char* ptr )
 {
+ // char *p = strstr(ptr,"</HTML_Data>");
+ // if (p) *p=0;
  if (CGestIni::IsUtf8( ptr ))
-    {setText(QString::fromUtf8 ( ptr ));
+    {
+     setText(QString::fromUtf8 ( ptr ));
     }
  else
     {setText( QString(ptr) );

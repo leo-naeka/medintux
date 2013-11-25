@@ -57,6 +57,8 @@ public:
      void         SetInterfaceOnDroits(const QString &droits);
      CRubRecord*  AddNewDocument(const QString &/*strData*/, int /*typ*/, const char * /*path =0*/, const QDateTime * /*pQDateTime=0*/, const QString * /*libelle=0*/, int ){return 0;};
      void         DoConnexionOnGossaire(C_FormGlossaire *);
+     int          reinitComboBoxWithRubList(RUBREC_LIST  *, const QString & =""){return -1;}
+     QComboBox    *GetDocListComboBox(){return 0;}
      virtual void    mouseEnter ();
      virtual void    mouseLeave ();
 

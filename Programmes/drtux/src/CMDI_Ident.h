@@ -61,10 +61,12 @@ public:
     void         DoActionWithThisDocument(const QString &verbe, int typ, const char *path =0, const QDateTime *pQDateTime=0, const QString *libelle=0, const QString *subType=0);
     CRubRecord*  AddNewDocument(const QString &strData, int typ, const char *path =0, const QDateTime *pQDateTime=0, const QString *libelle=0, const QString *subType=0, int noInquire =0);
     void         ChangeCurrentComboBoxItemName(const QString &name);
-    CPrtQListBoxItem    *GetRubListComboBox();
+    //----------------------------- GetDocListComboBox -----------------------------------
+    /*! \brief retourne la combobox affectee a al liste des documents */
+    QComboBox    *GetDocListComboBox();
     QString              GetDefaultMaskFile();
     void                 setSaveButtonVisible(int state );
-
+    int     reinitComboBoxWithRubList(RUBREC_LIST  *pRubList, const QString &pkToDisplay ="");
 
 public slots:
     void RubOnUserChange(const char*user, const char*sign_user);

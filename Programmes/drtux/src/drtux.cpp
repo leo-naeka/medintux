@@ -1505,22 +1505,32 @@ void DrTux::updateAllRubriquesEditorsInRubList()
 //------------------------------ OnDrTuxSaveRubList --------------------------------------------------------
 /*! \brief Slot appelé en cas de de demande de sauvegarde d'une rubrique. */
 void DrTux::OnDrTuxSaveRubList()
-{QString pk;
- RUBREC_LIST::iterator  it;
- QWidgetList windowsList       = m_pQWorkSpaceRub->windowList();
- int id  = -1;
- int  i  =  0;
+{QString                pk                = "";
+ int                    i                 =  0;
+ CPrtQListBoxItem      *pCPrtQListBoxItem =  0;
+ QWidgetList            windowsList       =  m_pQWorkSpaceRub->windowList();
+ RUBREC_LIST::iterator           it;
+ QMap<int,QString>::Iterator     mit;
+ QMap <int, QString>             map_activeRubTypeAndPk;
 
  // Dock_Menu a-t-il qq chose à sauvegarder ?
  if (m_pForm_Menu) m_pForm_Menu->checkItemToSave();
 
  //.............. mettre à jour la liste des rubriques avec le contenu des éditeurs ...................
  for ( i =  0; i < int(windowsList.count()); ++i )
-     {CMDI_Generic *pCMDI_Generic = (CMDI_Generic*) windowsList.at(i);
-      if ( (id = pCMDI_Generic->GetCurrent_RubList_ID()) !=-1)  pCMDI_Generic->IfModified_SaveInRubList();
+     { CMDI_Generic *pCMDI_Generic = (CMDI_Generic*) windowsList.at(i);
+       pCPrtQListBoxItem           = pCMDI_Generic->GetCurrentDocItem();
+       if ( pCPrtQListBoxItem )          // si c'est un enregistrement de rubrique active
+       // if ( (id = pCMDI_Generic->GetCurrent_RubList_ID()) !=-1)  
+          { //............. on mape le type de la rubrique avec le pk des rubriques actives .....................
+            //              les Pk peuvent etre provisoires et seront changes lors de l'enregistement par les vrais
+            if (pCPrtQListBoxItem) map_activeRubTypeAndPk[pCMDI_Generic->GetType()] = pCPrtQListBoxItem->GetUser();  // OUI c'est le boxon le Pk est dans le user de CPrtQListBoxItem.
+            pCMDI_Generic->IfModified_SaveInRubList();
+          }
      }
- //............................ mettre à jour la base en fonction de la liste .........................
- G_pCApp->m_pCMoteurBase->RubListSave(&m_RubList,&m_EvnList,  G_pCApp->m_NumGUID, G_pCApp->m_IsNomadeActif);
+ //............................ mettre à jour la base en fonction de la liste .......................................
+ //                             toutes les situations provisoires seront mise a jour sur les definitives
+ G_pCApp->m_pCMoteurBase->RubListSave(&m_RubList, &m_EvnList,  G_pCApp->m_NumGUID, map_activeRubTypeAndPk, G_pCApp->m_IsNomadeActif);
  //............... reinitialiser toute la liste .................................................
  // effacer la liste elle meme
  m_RubList.clear();
@@ -1532,15 +1542,20 @@ void DrTux::OnDrTuxSaveRubList()
 
  //.............. réinitialiser les affichages des rubriques  ...................
  for ( i =  0; i < int(windowsList.count()); ++i )
-     {CMDI_Generic *pCMDI_Generic = (CMDI_Generic*) windowsList.at(i);
-      if ( (id = pCMDI_Generic->GetCurrent_RubList_ID()) !=-1)
-         {  it = m_RubList.at(id);
-            pk = (*it).m_PrimKey;
-            pCMDI_Generic->initData();
-            if (pk !="-1")
-               {pCMDI_Generic->SetCurentDocByPrimkey(pk);
-               }
-         }
+     { QString pkToActivate                        =  "";
+       CMDI_Generic *pCMDI_Generic                 =  (CMDI_Generic*) windowsList.at(i);
+       //....... chercher si le Pk actif de cette rubrique dans la liste construite..............................
+       //        et relevee plus haut de la map liant le type de rubrique avec le pk de l'enregistrement actif 
+       mit                                         =  map_activeRubTypeAndPk.find(pCMDI_Generic->GetType());
+       //....... un record est identifie comme actif si : ....................
+       //        son type fait partie des type de rubriques actives
+       //        le Pk (provisoire ou pas) associe a cette rubrique active
+       //        est le meme que le record
+       if ( mit  != map_activeRubTypeAndPk.end() )
+          { pk = mit.data ();
+            if (pk!="-1") pkToActivate = pk;       // si ne satisfait pas aux conditions on ne retient pas ce record comme celui actif dans une rubrique
+          }
+       pCMDI_Generic->reinitComboBoxWithRubList(&m_RubList, pkToActivate);
      }
   if(m_pC_Organiseur) m_pC_Organiseur->makeListeMonitor();
   // Informer Dock_Menu du changement
@@ -1552,7 +1567,6 @@ void DrTux::OnDrTuxSaveRubList()
       G_pCApp->m_pCMoteurBase->m_debugStr += m_EvnList.serialize(0) + "\n";
      }
   CGestIni::Param_UpdateToDisk(G_pCApp->m_PathAppli+"RecordLog.log", G_pCApp->m_pCMoteurBase->m_debugStr);
-
 }
 
 //------------------------------ RubListMakeWhithNewDoss ------------------------------------------------------------
@@ -1801,7 +1815,7 @@ void DrTux::FusionneDocument(QString  *pDocument, const QString &user_doc, CRubR
 /*! \brief cree une liste mappant l'adresse du CRubRecord relatif aux documents actuellement a l'affichage avec les types de document associes. cette liste permet de retrouver dans la liste des documents celui affiche en fonction de son type cela permet de retrouver par exemple l'observation en cours d'affichage, ou la presscription juste avec le type a rechercher :
  *  \return DOCUMENT_DISPLAY_MAP
 */
-DOCUMENT_DISPLAY_MAP DrTux::GetMapActiveID_Doc()
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 DOCUMENT_DISPLAY_MAP DrTux::GetMapActiveID_Doc()
 {DOCUMENT_DISPLAY_MAP mapDoc;
  MapActiveID_Doc(mapDoc);
  return mapDoc;
@@ -3337,7 +3351,7 @@ QWidget *DrTux::GetCurrentRubrique(QString *pRubName /* = 0 */, int* rub_type_re
     int id                              = -1;
 
     if (ppCRubRecord)
-       {if ( (id = ((CMDI_Generic*)pQwdgRub)->GetCurrent_RubList_ID()) != -1 )
+       {if ( (id = ((CMDI_Generic*)pQwdgRub)->GetType()) != -1 )
            { RUBREC_LIST::iterator  it = m_RubList.at(id);
              *ppCRubRecord = &(*it);
            }
@@ -4654,9 +4668,9 @@ CMDI_Observation* DrTux::CMDI_RubriqueCreate (const char* num_GUID,          con
     //.................. connecter les plugin de l'editeur au DrTux.............................................
     //                   pour qu'il puisse les executer
 
-    connect( pCMDI_Observation->m_pC_RubObservation->m_pMyEditText,   SIGNAL( Sign_Exe_Mixture(QString&, CRubRecord *pCRubRecord, const DOCUMENT_DISPLAY_MAP &currentRubIdMap)),
-             this,                                                    SLOT  ( Slot_ExeMixture(QString&,  CRubRecord *pCRubRecord, const DOCUMENT_DISPLAY_MAP &currentRubIdMap))
-           );
+    // connect( pCMDI_Observation->m_pC_RubObservation->m_pMyEditText,   SIGNAL( Sign_Exe_Mixture(QString&, CRubRecord *pCRubRecord, const DOCUMENT_DISPLAY_MAP &currentRubIdMap)),
+    //         this,                                                    SLOT  ( Slot_ExeMixture(QString&,  CRubRecord *pCRubRecord, const DOCUMENT_DISPLAY_MAP &currentRubIdMap))
+    //        );
     //...................................... zoom par defaut .....................................................
     //QString zoom;
     //if (CGestIni::Param_ReadParam(m_DrTuxParam, "Observation", "Zoom", &zoom)==0)  // zero = pas d'erreur
@@ -4760,9 +4774,9 @@ CMDI_Prescription* DrTux::CMDI_PrescriptionCreate (const char* num_GUID,        
     //.................. connecter les plugin de l'editeur au DrTux.............................................
     //                   pour qu'il puisse les executer
 
-    connect( m_pCMDI_Prescription->m_pMyEditText,   SIGNAL( Sign_Exe_Mixture(QString&, CRubRecord *pCRubRecord, const DOCUMENT_DISPLAY_MAP &currentRubIdMap)),
-             this,                                  SLOT  ( Slot_ExeMixture(QString&,  CRubRecord *pCRubRecord, const DOCUMENT_DISPLAY_MAP &currentRubIdMap))
-           );
+   // connect( m_pCMDI_Prescription->m_pMyEditText,   SIGNAL( Sign_Exe_Mixture(QString&, CRubRecord *pCRubRecord, const DOCUMENT_DISPLAY_MAP &currentRubIdMap)),
+   //          this,                                  SLOT  ( Slot_ExeMixture(QString&,  CRubRecord *pCRubRecord, const DOCUMENT_DISPLAY_MAP &currentRubIdMap))
+   //        );
     m_pCMDI_Prescription->DoConnexionOnGossaire(m_pFormGlossaire);
     //...................................... zoom par defaut .....................................................
     //QString zoom;
@@ -4845,9 +4859,9 @@ CMDI_Terrain* DrTux::CMDI_TerrainCreate (const char* num_GUID,          const ch
     //.................. connecter les filles au DrTux.............................................
     //                   elles pouront envoyer et notifier leur desir de duplication de données
     //                   de leur rubrique au DrTux qui fera ce que de droit
-    connect( this,                                           SIGNAL( Sign_DrTux_Renouveler_TTT_Fond()),
-             m_pCMDI_Terrain->m_pFormRubTerrain,             SLOT( TTT_MenuActionRenouveler())
-           );
+    // connect( this,                                           SIGNAL( Sign_DrTux_Renouveler_TTT_Fond()),
+    //          m_pCMDI_Terrain->m_pFormRubTerrain,             SLOT( TTT_MenuActionRenouveler())
+    //        );
     m_pCMDI_Terrain->DoConnexionOnGossaire(m_pFormGlossaire);
     return m_pCMDI_Terrain;
 }
@@ -4931,8 +4945,8 @@ CMDI_Ident* DrTux::CMDI_IdentCreate (const char* num_GUID,          const char* 
     //.................. connecter les plugin de l'editeur au DrTux.............................................
     //                   pour qu'il puisse les executer
 
-    connect( m_pCMDI_Ident->m_pFormRubIdent->m_pMyEditText,         SIGNAL( Sign_Exe_Mixture(QString&, CRubRecord *pCRubRecord, const DOCUMENT_DISPLAY_MAP &currentRubIdMap)),
-             this,                                                  SLOT  ( Slot_ExeMixture(QString&,  CRubRecord *pCRubRecord, const DOCUMENT_DISPLAY_MAP &currentRubIdMap)));
+   // connect( m_pCMDI_Ident->m_pFormRubIdent->m_pMyEditText,         SIGNAL( Sign_Exe_Mixture(QString&, CRubRecord *pCRubRecord, const DOCUMENT_DISPLAY_MAP &currentRubIdMap)),
+   //          this,                                                  SLOT  ( Slot_ExeMixture(QString&,  CRubRecord *pCRubRecord, const DOCUMENT_DISPLAY_MAP &currentRubIdMap)));
 
     //.................. connecter les filles au DrTux.............................................
     //                   elles pouront envoyer et notifier leur desir de sauvegarde

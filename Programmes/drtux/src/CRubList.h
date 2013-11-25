@@ -207,7 +207,7 @@ int Evnmt_SetToDelete_Pk(const QString &pk_Head)
  *  \param state    int : etat à positionner
  *  \return neant
 */
-int Evnmt_Set_StateOn_AllFils(QString pk_Pere, int state)
+int Evnmt_Set_StateOn_AllFils(const QString &pk_Pere, int state)
 { CRubEvntList::iterator it;
   for (it = begin(); it !=  end(); ++it )
       {if (pk_Pere == (*it).m_Pere)

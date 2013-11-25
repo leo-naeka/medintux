@@ -68,6 +68,11 @@ public:
     void         ChangeCurrentComboBoxItemName(const QString &name);
     QString      GetDefaultMaskFile();
     void         setSaveButtonVisible(int state );
+    int          reinitComboBoxWithRubList(RUBREC_LIST  *pRubList, const QString &pkToDisplay ="");
+    //----------------------------- GetDocListComboBox -----------------------------------
+    /*! \brief retourne la combobox affectee a al liste des documents */
+    QComboBox    *GetDocListComboBox();
+
 public:
     C_RubObservation    *m_pC_RubObservation;
     int                  m_CustomMenuRequestState;

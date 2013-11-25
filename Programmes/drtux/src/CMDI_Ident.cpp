@@ -123,6 +123,18 @@ void CMDI_Ident::Slot_OnGlossaireFileClicked(const char *file , int typ_rub)
 int     CMDI_Ident::GetCurrent_RubList_ID()
 {return m_pFormRubIdent->Current_RubList_ID();   // noter rubrique affichée;
 }
+//----------------------------- reinitComboBoxWithRubList -----------------------------------
+/*! \brief initialise la combo box avec les donnees de la rublist */
+int  CMDI_Ident::reinitComboBoxWithRubList(RUBREC_LIST  *pRubList, const QString &pkToDisplay /*=""*/)
+{ int index  = 0;
+  int nb     = m_pCMoteurBase->initConboBoxWithRubList(pRubList, m_pFormRubIdent->comboBox_RubName, QString::number(CMDI_Ident::S_GetType()),pkToDisplay, &index);
+  if (index == -1) index =  nb-1;
+  m_pFormRubIdent->m_LastRub = -1;
+  m_pFormRubIdent->comboBox_RubName_activated(index);
+  m_pFormRubIdent->comboBox_RubName->setCurrentItem ( index );
+  m_pFormRubIdent->textLabel_NbRub->setText(QString::number(nb));
+  return nb;
+}
 
 //---------------------------------- Current_RubList_Iterator -----------------------------------------------------------------------------
 RUBREC_LIST::iterator CMDI_Ident::Current_RubList_Iterator()
@@ -164,10 +176,10 @@ void CMDI_Ident::ChangeCurrentComboBoxItemName(const QString &name)
  if (!pCPrtQListBoxItem)             return;
  pCPrtQListBoxItem->setText ( name );
 }
-
-//---------------------------------- GetRubListComboBox ----------------------------------------------------------------------------------
-CPrtQListBoxItem    *CMDI_Ident::GetRubListComboBox()
-{return (CPrtQListBoxItem*) m_pFormRubIdent->comboBox_RubName->listBox()->item (  m_pFormRubIdent->comboBox_RubName->currentItem () );
+//----------------------------- GetDocListComboBox -----------------------------------
+/*! \brief retourne la combobox affectee a al liste des documents */
+QComboBox    *CMDI_Ident::GetDocListComboBox()
+{return m_pFormRubIdent->comboBox_RubName;
 }
 
 //----------------------------- GetCurrentEditor -----------------------------------

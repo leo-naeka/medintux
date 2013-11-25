@@ -1299,7 +1299,6 @@ void FormRubTerrain::ClearAllTableValues()
 //--------------------------------- initComboRubName --------------------------------------------------
 long  FormRubTerrain::initComboRubName(void)
 {long nb = m_pCMoteurBase->initConboBoxWithRubList(m_pRubList, comboBox_RubName, QString::number(TYP_TERRAIN));
-// textLabel_NbRub->setText(QString::number(nb));
  return nb;
 }
 

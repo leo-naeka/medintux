@@ -60,14 +60,20 @@ void CMDI_Generic::DoActionWithThisDocument(const QString &/*action*/, int /*typ
 //---------------------------------- ChangeCurrentComboBoxItemName ----------------------------------------------------------------------------------
 void CMDI_Generic::ChangeCurrentComboBoxItemName(const QString &name)
 {if (name.length()==0)               return;
- CPrtQListBoxItem* pCPrtQListBoxItem  = GetRubListComboBox();
- if (!pCPrtQListBoxItem)             return;
+ CPrtQListBoxItem* pCPrtQListBoxItem  = GetCurrentDocItem();
+ if (pCPrtQListBoxItem==0)           return;
  pCPrtQListBoxItem->setText ( name );
 }
-
-//---------------------------------- GetRubListComboBox ----------------------------------------------------------------------------------
-CPrtQListBoxItem    *CMDI_Generic::GetRubListComboBox()
-{return 0;
+//---------------------------------- GetCurrentDocItem ----------------------------------------------------------------------------------
+CPrtQListBoxItem    *CMDI_Generic::GetCurrentDocItem()
+{ QComboBox    *pQComboBox = GetDocListComboBox();
+  if (pQComboBox==0)            return 0;
+  if (pQComboBox->count ()==0)  return 0;
+  int currentItem = pQComboBox->currentItem();
+  if (currentItem >= 0)
+     { return (CPrtQListBoxItem*) pQComboBox->listBox()->item ( currentItem );
+     }
+  return 0;
 }
 
 //---------------------------------- AddNewDocument ----------------------------------------------------------------------------------

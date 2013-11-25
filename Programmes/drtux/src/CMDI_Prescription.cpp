@@ -137,6 +137,24 @@ int     CMDI_Prescription::GetCurrent_RubList_ID()
 RUBREC_LIST::iterator CMDI_Prescription::Current_RubList_Iterator()
 {return m_pFormRubPrescription->Current_RubList_Iterator();
 }
+//----------------------------- reinitComboBoxWithRubList -----------------------------------
+/*! \brief initialise la combo box avec les donnees de la rublist */
+int  CMDI_Prescription::reinitComboBoxWithRubList(RUBREC_LIST  *pRubList, const QString &pkToDisplay /*=""*/)
+{ int index = 0;
+  int nb = m_pCMoteurBase->initConboBoxWithRubList(pRubList, m_pFormRubPrescription->comboBox_RubName, QString::number(CMDI_Prescription::S_GetType()), pkToDisplay, &index);
+  if (index == -1) index =  nb-1;
+  m_pFormRubPrescription->m_LastRub = -1;
+  m_pFormRubPrescription->comboBox_RubName_activated(index);
+  m_pFormRubPrescription->comboBox_RubName->setCurrentItem ( index );
+  m_pFormRubPrescription->textLabel_NbRub->setText(QString::number(nb));
+  return nb;
+}
+
+//----------------------------- GetDocListComboBox -----------------------------------
+/*! \brief retourne la combobox affectee a al liste des documents */
+QComboBox    *CMDI_Prescription::GetDocListComboBox()
+{return m_pFormRubPrescription->comboBox_RubName;
+}
 //----------------------------- initData -----------------------------------
 /*! \brief initialise la rubrique avec les données la concernant */
 int  CMDI_Prescription::initData()

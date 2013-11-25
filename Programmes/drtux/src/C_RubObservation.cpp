@@ -475,7 +475,7 @@ void C_RubObservation::SetRubDateName( const QString &name, const QString &date 
  if (date.length()==19) (*it).m_Date    = date;
 
  //................... remettre à jour le comboBox ................................
-  pCPrtQListBoxItem->SetType((*it).m_Date);
+ pCPrtQListBoxItem->SetType((*it).m_Date);
  pCPrtQListBoxItem->SetDate((*it).m_Date);
  pCPrtQListBoxItem->setText((*it).m_Date.left(10) + " " +(*it).m_Libelle );
  //................... mettre le document en modified (en replaçant les data ds rubrique liste) ......................
@@ -502,6 +502,7 @@ void C_RubObservation::SaveTextInRubList()
 {
  if (m_IsModifiable==0) return;
  m_pCMoteurBase->ReplaceDataInRubList(G_pCApp->interfaceToData(m_pMyEditText), m_pRubList, m_LastRub );
+ m_pMyEditText->setModified (FALSE);
 }
 
 

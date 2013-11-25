@@ -81,8 +81,10 @@
     virtual void         DoActionWithThisDocument(const QString &action, int typ, const char *path =0, const QDateTime *pQDateTime=0, const QString *libelle=0, const QString *subType=0);
     virtual CRubRecord*  AddNewDocument(const QString &strData, int typ, const char *path =0, const QDateTime *pQDateTime=0, const QString *libelle=0,  const QString *subType=0, int noInquire =0);
     virtual void         ChangeCurrentComboBoxItemName(const QString &name);
-    virtual CPrtQListBoxItem    *GetRubListComboBox();
-    virtual void                 setSaveButtonVisible(int /*state*/ ){};
+    virtual int          reinitComboBoxWithRubList(RUBREC_LIST  *, const QString & =""){return -1;};
+    virtual CPrtQListBoxItem    *GetCurrentDocItem();
+    virtual QComboBox    *GetDocListComboBox(){return 0;}
+    virtual void          setSaveButtonVisible(int /*state*/ ){};
  public slots:
     void                 ActiverRubrique(const char *rubName,   int mode);
  public:

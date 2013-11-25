@@ -98,7 +98,24 @@ RUBREC_LIST::iterator CMDI_Observation::Current_RubList_Iterator()
 {return m_pC_RubObservation->Current_RubList_Iterator();
 }
 
+//----------------------------- reinitComboBoxWithRubList -----------------------------------
+/*! \brief initialise la combo box avec les donnees de la rublist */
+int  CMDI_Observation::reinitComboBoxWithRubList(RUBREC_LIST  *pRubList, const QString &pkToDisplay /*=""*/)
+{ int index = 0;
+  int nb = m_pCMoteurBase->initConboBoxWithRubList(pRubList, m_pC_RubObservation->comboBox_RubName, QString::number(GetType()), pkToDisplay, &index);
+  if (index == -1) index =  nb-1;
+  m_pC_RubObservation->m_LastRub = -1;
+  m_pC_RubObservation->comboBox_RubName_activated(index);
+  m_pC_RubObservation->comboBox_RubName->setCurrentItem ( index );
+  m_pC_RubObservation->textLabel_NbRub->setText(QString::number(nb));
+  return nb;
+}
 
+//----------------------------- GetDocListComboBox -----------------------------------
+/*! \brief retourne la combobox affectee a al liste des documents */
+QComboBox    *CMDI_Observation::GetDocListComboBox()
+{return m_pC_RubObservation->comboBox_RubName;
+}
 //----------------------------- initData -----------------------------------
 /*! \brief initialise la rubrique avec les données la concernant */
 int  CMDI_Observation::initData()

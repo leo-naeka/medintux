@@ -77,6 +77,11 @@ public:
     void    SetTaille(QString taille);
     void    SetPoidsTaille(QString poids, QString taille);
     void    ChangeCurrentComboBoxItemName(const QString &name);
+    int     reinitComboBoxWithRubList(RUBREC_LIST  *pRubList, const QString &pkToDisplay ="");
+    //----------------------------- GetDocListComboBox -----------------------------------
+    /*! \brief retourne la combobox affectee a al liste des documents */
+    QComboBox    *GetDocListComboBox();
+
 public:
     FormRubTerrain*  m_pFormRubTerrain;
     void SetModifiableState(int state);

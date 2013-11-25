@@ -4162,22 +4162,35 @@ QString CMoteurBase::GetDossPrimKeyFromGUID(const QString &guid, int isBaseMusBe
  * \return Nombre de documents insérés dans le QComboBox.
  * \sa CPrtQListBoxItem
 */
-long  CMoteurBase::initConboBoxWithRubList(RUBREC_LIST *pRubList, QComboBox* pComboBox, QString type)
+long  CMoteurBase::initConboBoxWithRubList(RUBREC_LIST *pRubList, QComboBox* pComboBox, const QString &type, const QString &pkToDisplay /*=""*/, int *pIdComboItemToActivate /*=0*/)
 {    RUBREC_LIST::iterator it;
-     long  i = 0;
-     int pos = 0;
+     long  i    = 0;
+     int pos    = 0;
+     if (pIdComboItemToActivate) *pIdComboItemToActivate = -1;
      pComboBox->clear();
      int num_type = atoi(type);
      for(it = pRubList->begin(); it !=  pRubList->end(); ++it )   // it != m_RecSpeclist.end();
         {
           if ((*it).m_Type >= type && atoi((*it).m_Type) <= num_type+999)
              {QString qstr    = (*it).m_Date.left(10) + " " +(*it).m_Libelle;
+              //  CPrtQListBoxItem( QListBox * listbox , 
+              //                    const QString &text, 
+              //                    const QString &pk, 
+              //                    const QString &type, 
+              //                    const QString &user, 
+              //                    const QString &subType );
               new CPrtQListBoxItem(pComboBox->listBox() ,           // list box du combobox
                                    qstr ,                           // libelle
                                    QString::number(pos) ,           //  position du document dans la liste RUBREC_LIST
                                    (*it).m_Date ,                   //  date document
                                    (*it).m_PrimKey,                 //  pk du document
                                    (*it).m_SubType    );            //  sous type du document
+              if ( pIdComboItemToActivate && 
+                   pkToDisplay.length()   && 
+                   (*it).m_PrimKey==pkToDisplay
+                 )
+                 {*pIdComboItemToActivate = i;
+                 }
               ++i;
              }
          ++pos;
@@ -4457,10 +4470,12 @@ CRubRecord*  CMoteurBase::RubRecordFromPk( RUBREC_LIST *pRubList, const QString 
 }
 
 //-------------------------------------- RubListSave ----------------------------------------------------------------------
-long  CMoteurBase::RubListSave( RUBREC_LIST *pRubList, EVNT_LIST *pEvnmtList, QString numGUID, int mode /*= CMoteurBase::esclave*/)
+long  CMoteurBase::RubListSave( RUBREC_LIST *pRubList, EVNT_LIST *pEvnmtList, QString numGUID, QMap<int,QString> &map_activeRubTypeAndPk, int mode /*= CMoteurBase::esclave*/)
 {m_debugStr = "";
  long     i = 0;
- RUBREC_LIST::iterator it;
+ RUBREC_LIST::iterator           it;
+ QMap<int,QString>::Iterator     mit;
+ QMap<QString,QString>::Iterator it_pk;
  if (m_Debug)
     {m_debugStr += "----------------- AVANT ENREGISTREMENT : vidage RUBREC_LIST ----------------\n";
      m_debugStr += pRubList->serialize(0)   + "\n";
@@ -4468,7 +4483,20 @@ long  CMoteurBase::RubListSave( RUBREC_LIST *pRubList, EVNT_LIST *pEvnmtList, QS
      m_debugStr += pEvnmtList->serialize(0) + "\n";
     }
  for (it = pRubList->begin(); it !=  pRubList->end(); ++it )
-     {if ((*it).m_State & RUB_IS_TO_DELETE)
+     {//...... on recherche si ce record fait partie de ceux signales ................
+      //       comme en cours
+      int type  = (*it).m_Type.toInt();
+      mit       = map_activeRubTypeAndPk.find(type);
+      //....... un record est identifie comme actif si : ....................
+      //        son type fait partie des types des rubriques actives
+      //        le Pk (provisoire ou pas) associe a cette rubrique active
+      //        est le meme que le record
+      if ( ! (mit  != map_activeRubTypeAndPk.end() && mit.data()==(*it).m_PrimKey) )
+         { mit = map_activeRubTypeAndPk.end();       // si ne satisfait pas aux conditions on ne retient pas ce record comme celui actif dans une rubrique
+         }
+      //.......... attribuer les eventuels vrais Pk ...................................
+      //          si -1 alors le record est efface
+      if ((*it).m_State & RUB_IS_TO_DELETE)
          {QString provPk = (*it).m_PrimKey;
           RubListDelete(it, mode);                                   // ==> effacer la rubrique
           pEvnmtList->Evnmt_SetToDelete_Pk(provPk);                  // marquer à effacer tous les enregistrements contenant ce document
@@ -4484,6 +4512,11 @@ long  CMoteurBase::RubListSave( RUBREC_LIST *pRubList, EVNT_LIST *pEvnmtList, QS
          }
       else if (! (*it).isEmpty() )
          {RubListUpdate(it, mode);                                         // ==>  updater la rubrique
+         }
+      //........... si le map est celui d'un record actif ..................
+      //            mettre a jour le vrai Pk
+      if ( mit  != map_activeRubTypeAndPk.end() )
+         { map_activeRubTypeAndPk[type] = (*it).m_PrimKey;
          }
       ++i;
      } //end while (pSqlQuery->next())

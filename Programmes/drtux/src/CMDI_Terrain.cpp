@@ -127,6 +127,24 @@ int  CMDI_Terrain::SetCurentDocByPrimkey(const QString &pk)
 {return m_pFormRubTerrain->SetCurentDocByPrimkey(pk);
 }
 
+//----------------------------- reinitComboBoxWithRubList -----------------------------------
+/*! \brief initialise la combo box avec les donnees de la rublist */
+int  CMDI_Terrain::reinitComboBoxWithRubList(RUBREC_LIST  *pRubList, const QString &pkToDisplay /*=""*/)
+{ int index = 0;
+  int nb = m_pCMoteurBase->initConboBoxWithRubList(pRubList, m_pFormRubTerrain->comboBox_RubName, QString::number(CMDI_Terrain::S_GetType()), pkToDisplay, &index);
+  if (index == -1) index =  nb-1;
+  m_pFormRubTerrain->m_LastRub = -1;
+  m_pFormRubTerrain->comboBox_RubName->setCurrentItem ( index );
+  m_pFormRubTerrain->comboBox_RubName_activated(index);
+  //m_pFormRubTerrain->textLabel_NbRub->setText(QString::number(nb));
+  return nb;
+}
+
+//----------------------------- GetDocListComboBox -----------------------------------
+/*! \brief retourne la combobox affectee a al liste des documents */
+QComboBox    *CMDI_Terrain::GetDocListComboBox()
+{return m_pFormRubTerrain->comboBox_RubName;
+}
 //----------------------------- ChangeCurrentComboBoxItemName -----------------------------------
 /*! \brief SLOT qui change le nom de l'item courant de la comboBox */
 void CMDI_Terrain::ChangeCurrentComboBoxItemName(const QString &name)

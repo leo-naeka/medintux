@@ -455,7 +455,7 @@ long              GetPatientListFromNomPrenomSecuDtNssGeme( QListView *pQlistVie
   long            GetAllRubriqueFromDate(RUBREC_LIST *pRubList, const QDate &qdtRef, QString type="ALL_TYP",  QStringList *pRubNameList =0);
   int             ChangeRubUserName(QString userName, QString rubPrimKey, QString *errMess=0);
   long            initRubriquesList(RUBREC_LIST *pRubList, QString m_NumGUID, const QString &sqlFilter = "" );
-  long            initConboBoxWithRubList(RUBREC_LIST *pRubList, QComboBox* pComboBox, QString type);
+  long            initConboBoxWithRubList(RUBREC_LIST *pRubList, QComboBox* pComboBox, const QString &type, const QString &pkToDisplay="", int *pIdComboItemToActivate =0);
   void            ReplaceDataInRubList(const QString &data,             RUBREC_LIST *pRubList, int id);
   void            ReplaceDataInRubList(const QString & qString,         RUBREC_LIST::iterator it);
   void            ReplaceDataInRubList(const char* text, long len_data, RUBREC_LIST *pRubList, int id);
@@ -476,10 +476,10 @@ long              GetPatientListFromNomPrenomSecuDtNssGeme( QListView *pQlistVie
   long            TesteAndCorrigeDossIndexPkFromHeaders();
   QString         GetPkDoc_Provisoire(RUBREC_LIST *pRubList);
   long            RubNbToSave( RUBREC_LIST *pRubList);
-  long            RubListSave( RUBREC_LIST *pRubList, EVNT_LIST *pEvnmtList, QString numGUID, int mode /*= CMoteurBase::esclave*/);
-  int             RubListUpdate(RUBREC_LIST::iterator,                                        int mode /*= CMoteurBase::esclave*/);
-  int             RubListDelete(RUBREC_LIST::iterator it,                                     int mode /*= CMoteurBase::esclave*/);
-  QString         RubListCreate(RUBREC_LIST::iterator it, QString numGUID,                    int mode /*= CMoteurBase::esclave*/);
+  long            RubListSave( RUBREC_LIST *pRubList, EVNT_LIST *pEvnmtList, QString numGUID, QMap <int,QString> &mapActiveRubPk, int mode /*= CMoteurBase::esclave*/);
+  int             RubListUpdate(RUBREC_LIST::iterator,                                                                            int mode /*= CMoteurBase::esclave*/);
+  int             RubListDelete(RUBREC_LIST::iterator it,                                                                         int mode /*= CMoteurBase::esclave*/);
+  QString         RubListCreate(RUBREC_LIST::iterator it, QString numGUID,                                                        int mode /*= CMoteurBase::esclave*/);
   int             RubListBlobUpdate(RUBREC_LIST::iterator it);
   QString         RubListBlobCreate(RUBREC_LIST::iterator it, QString numGUID);
   int             deleteRubBlobFromPk(const QString &pk);

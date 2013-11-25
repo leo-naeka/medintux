@@ -599,7 +599,6 @@ long  C_RubIdentite::initComboListHistoric(void)
 {return m_pCMoteurBase->initConboBoxWithRubList(m_pRubList, comboBox_RubName, QString::number(CMDI_Ident::S_GetType()));
 }
 
-
 //----------------------------------------- comboBox_RubName_activated --------------------------------
 /*! \brief Met à jour l'affichage de MyEditText avec le contenu du document sélectionné. */
 void C_RubIdentite::comboBox_RubName_activated( int item )
@@ -723,6 +722,7 @@ int C_RubIdentite::SetCurentDocByPrimkey(const QString &primKey)
 void C_RubIdentite::SaveTextInRubList()
 {if (m_IsModifiable==0) return;
  m_pCMoteurBase->ReplaceDataInRubList(G_pCApp->interfaceToData(m_pMyEditText), m_pRubList, m_LastRub );
+ m_pMyEditText->setModified (FALSE);
 }
 
 //--------------------------------- GetRubDateName -----------------------------------
