@@ -4273,19 +4273,21 @@ void  CMoteurBase::ReplaceDataInRubList(const char* text, long len_data, RUBREC_
 {RUBREC_LIST::iterator it = pRubList->at(id);           // recuperer pointeur sur le CRubRecord correspondant à id
 
  QString debugStr;
+ /*
  if (m_Debug)
     {CGestIni::Param_UpdateFromDisk("./ReplaceDataInRubList-txtbefore.txt", debugStr);
      debugStr += QString("----------------- ReplaceDataInRubList() AVANT ACTION : vidage RUBREC_LIST --- id %1 date %2-------------\n").arg(QString::number(id), QDateTime::currentDateTime().toString("dd-MM-yyyy hh:mm:ss"));
      debugStr += pRubList->serialize(0)   + "\n";
      CGestIni::Param_UpdateToDisk("./ReplaceDataInRubList-txtbefore.txt",debugStr);
-    }
+    } */
  (*it).SetData (text, len_data);
+/*
 if (m_Debug)
     {debugStr += QString("----------------- ReplaceDataInRubList() APRES ACTION : vidage RUBREC_LIST --- id %1 date %2-------------\n").arg(QString::number(id), QDateTime::currentDateTime().toString("dd-MM-yyyy hh:mm:ss"));
      debugStr += pRubList->serialize(0)   + "\n";
      CGestIni::Param_UpdateToDisk("./ReplaceDataInRubList.log",debugStr);
      CGestIni::Param_UpdateToDisk("./ReplaceDataInRubList-txtAfter.txt",debugStr);
-    }
+    } */
 }
 
 //-------------------------------------- ReplaceDataInRubList ---------------------------------------------------------
@@ -4476,12 +4478,14 @@ long  CMoteurBase::RubListSave( RUBREC_LIST *pRubList, EVNT_LIST *pEvnmtList, QS
  RUBREC_LIST::iterator           it;
  QMap<int,QString>::Iterator     mit;
  QMap<QString,QString>::Iterator it_pk;
+ /*
  if (m_Debug)
     {m_debugStr += "----------------- AVANT ENREGISTREMENT : vidage RUBREC_LIST ----------------\n";
      m_debugStr += pRubList->serialize(0)   + "\n";
      m_debugStr += "----------------- AVANT ENREGISTREMENT : vidage EVNT_LIST ------------------\n";
      m_debugStr += pEvnmtList->serialize(0) + "\n";
     }
+ */
  for (it = pRubList->begin(); it !=  pRubList->end(); ++it )
      {//...... on recherche si ce record fait partie de ceux signales ................
       //       comme en cours
@@ -4521,12 +4525,14 @@ long  CMoteurBase::RubListSave( RUBREC_LIST *pRubList, EVNT_LIST *pEvnmtList, QS
       ++i;
      } //end while (pSqlQuery->next())
  Evnmt_UpdateToDisk(pEvnmtList);
+ /*
  if (m_Debug)
     {m_debugStr += "----------------- APRES ENREGISTREMENT : vidage RUBREC_LIST ----------------\n";
      m_debugStr += pRubList->serialize(0)   + "\n";
      m_debugStr += "----------------- APRES ENREGISTREMENT : vidage EVNT_LIST ------------------\n";
      m_debugStr += pEvnmtList->serialize(0) + "\n";
     }
+ */
  return i;
 }
 
@@ -4794,14 +4800,14 @@ int  CMoteurBase::RubListUpdate(RUBREC_LIST::iterator it, int /*mode = CMoteurBa
   */
 
   if ( (*it).m_Type  == 20110010  || (*it).m_Type== 20110011) 
-     {
+     { 
        QString debugStr = "";
-       if (m_Debug)
+       /*if (m_Debug)
           {CGestIni::Param_UpdateFromDisk("./ReplaceDataInRubList-txtbefore.txt", debugStr);
            debugStr += QString("----------------- RubListUpdate 2011()  %1-------------\n").arg(QDateTime::currentDateTime().toString("dd-MM-yyyy hh:mm:ss"));
            debugStr += (*it).serialize(1)+ "\n";
            CGestIni::Param_UpdateToDisk("./ReplaceDataInRubList-txtbefore.txt",debugStr);
-          }
+          }*/
         return FALSE;
      }
   //................................. methode QSqlCursor .....................................
