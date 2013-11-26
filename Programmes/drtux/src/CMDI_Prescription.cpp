@@ -118,10 +118,7 @@ CMDI_Prescription::CMDI_Prescription( QWidget* parent, const char* name, int wfl
     setIcon(Theme::getIconListTypePrescription().pixmap(QIconSet::Automatic,TRUE,QIconSet::On) );
     setFocusProxy( m_pFormRubPrescription );
     setCentralWidget( pQVCentral );
-
 }
-
-
 
 //---------------------------------- ~CMDI_Prescription ------------------------------------------------------------------------
 CMDI_Prescription::~CMDI_Prescription()
@@ -142,6 +139,14 @@ RUBREC_LIST::iterator CMDI_Prescription::Current_RubList_Iterator()
 int  CMDI_Prescription::reinitComboBoxWithRubList(RUBREC_LIST  *pRubList, const QString &pkToDisplay /*=""*/)
 { int index = 0;
   int nb = m_pCMoteurBase->initConboBoxWithRubList(pRubList, m_pFormRubPrescription->comboBox_RubName, QString::number(CMDI_Prescription::S_GetType()), pkToDisplay, &index);
+  if (nb<=0)
+     {m_pFormRubPrescription->hide();
+      m_pMyEditText->hide();
+     }
+  else
+     {m_pFormRubPrescription->show();
+      m_pMyEditText->show();
+     }
   if (index == -1) index =  nb-1;
   m_pFormRubPrescription->m_LastRub = -1;
   m_pFormRubPrescription->comboBox_RubName_activated(index);

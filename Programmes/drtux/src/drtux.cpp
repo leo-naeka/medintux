@@ -1560,6 +1560,7 @@ void DrTux::OnDrTuxSaveRubList()
   if(m_pC_Organiseur) m_pC_Organiseur->makeListeMonitor();
   // Informer Dock_Menu du changement
   if (m_pForm_Menu) m_pForm_Menu->getRubListAndUpdateView( &m_RubList );
+  /*
   if (G_pCApp->m_pCMoteurBase->m_Debug)
      {G_pCApp->m_pCMoteurBase->m_debugStr += "----------------- APRES RELECTURE : vidage RUBREC_LIST ----------------\n";
       G_pCApp->m_pCMoteurBase->m_debugStr += m_RubList.serialize(0) + "\n";
@@ -1567,6 +1568,7 @@ void DrTux::OnDrTuxSaveRubList()
       G_pCApp->m_pCMoteurBase->m_debugStr += m_EvnList.serialize(0) + "\n";
      }
   CGestIni::Param_UpdateToDisk(G_pCApp->m_PathAppli+"RecordLog.log", G_pCApp->m_pCMoteurBase->m_debugStr);
+  */
 }
 
 //------------------------------ RubListMakeWhithNewDoss ------------------------------------------------------------

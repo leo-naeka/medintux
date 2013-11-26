@@ -47,9 +47,9 @@
 
 //---------------------------------- CMDI_Ident --------------------------------------------------------------------------------
 CMDI_Ident::CMDI_Ident( QWidget* parent, const char* name, int wflags,
-			CMoteurBase *pCMoteurBase, RUBREC_LIST  *pRubList,
+                        CMoteurBase *pCMoteurBase, RUBREC_LIST  *pRubList,
                         const char* num_GUID, const char* id_doss,
-			const char* dossNom, const char* dossPrenom, const char* user, int type)
+                        const char* dossNom, const char* dossPrenom, const char* user, int type)
    :CMDI_Generic( parent, name, wflags , pCMoteurBase, pRubList, type) // : QMainWindow( parent, name, wflags )
 {   SetType(TYP_IDENTITE);
     m_PrefixDroit = "ie";
@@ -128,6 +128,14 @@ int     CMDI_Ident::GetCurrent_RubList_ID()
 int  CMDI_Ident::reinitComboBoxWithRubList(RUBREC_LIST  *pRubList, const QString &pkToDisplay /*=""*/)
 { int index  = 0;
   int nb     = m_pCMoteurBase->initConboBoxWithRubList(pRubList, m_pFormRubIdent->comboBox_RubName, QString::number(CMDI_Ident::S_GetType()),pkToDisplay, &index);
+  if (nb<=0)
+     {m_pFormRubIdent->hide();
+      // m_pMyEditText->hide();
+     }
+  else
+     {m_pFormRubIdent->show();
+      // m_pMyEditText->show();
+     }
   if (index == -1) index =  nb-1;
   m_pFormRubIdent->m_LastRub = -1;
   m_pFormRubIdent->comboBox_RubName_activated(index);
