@@ -453,7 +453,7 @@ int CMedicaBase::save_TraitementEnCours(QString /* pk_doss */,
                                         QString /* user */,
                                         QString /* signUser */,
                                         QPL_CPosologie /* ordoList */,
-                                        QSqlDatabase   */* dataBaseDst */ )
+                                        QSqlDatabase   * /* dataBaseDst */ )
 {return 0;
 }
 //----------------------------------------------------- Medica_GetDatasempVersion ---------------------------------------------------------------

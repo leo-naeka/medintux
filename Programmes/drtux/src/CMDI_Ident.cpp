@@ -130,11 +130,9 @@ int  CMDI_Ident::reinitComboBoxWithRubList(RUBREC_LIST  *pRubList, const QString
   int nb     = m_pCMoteurBase->initConboBoxWithRubList(pRubList, m_pFormRubIdent->comboBox_RubName, QString::number(CMDI_Ident::S_GetType()),pkToDisplay, &index);
   if (nb<=0)
      {m_pFormRubIdent->hide();
-      // m_pMyEditText->hide();
      }
   else
      {m_pFormRubIdent->show();
-      // m_pMyEditText->show();
      }
   if (index == -1) index =  nb-1;
   m_pFormRubIdent->m_LastRub = -1;

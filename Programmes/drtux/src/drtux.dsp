@@ -382,10 +382,6 @@ SOURCE=DlgDateNom.ui.h
 # End Source File
 # Begin Source File
 
-SOURCE=Dlg_AboutDrTux.ui.h
-# End Source File
-# Begin Source File
-
 SOURCE=Dlg_PosoManager.ui.h
 # End Source File
 # Begin Source File
@@ -2975,56 +2971,6 @@ BuildCmds= \
 # End Source File
 # Begin Source File
 
-SOURCE=Dlg_AboutDrTux.ui
-USERDEP_Dlg_AboutDrTux.ui="$(QTDIR)\bin\moc.exe" "$(QTDIR)\bin\uic.exe"
-
-!IF  "$(CFG)" == " - Win32 Release"
-
-# Begin Custom Build - Uic'ing Dlg_AboutDrTux.ui...
-InputPath=.\Dlg_AboutDrTux.ui
-
-BuildCmds= \
-	$(QTDIR)\bin\uic Dlg_AboutDrTux.ui -o ui\Dlg_AboutDrTux.h \
-	$(QTDIR)\bin\uic Dlg_AboutDrTux.ui -i Dlg_AboutDrTux.h -o ui\Dlg_AboutDrTux.cpp \
-	$(QTDIR)\bin\moc  ui\Dlg_AboutDrTux.h -o moc\moc_Dlg_AboutDrTux.cpp \
-
-"ui\Dlg_AboutDrTux.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
-	$(BuildCmds)
-
-"ui\Dlg_AboutDrTux.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
-	$(BuildCmds)
-
-"moc\moc_Dlg_AboutDrTux.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
-	$(BuildCmds)
-
-# End Custom Build
-
-!ELSEIF  "$(CFG)" == " - Win32 Debug"
-
-# Begin Custom Build - Uic'ing Dlg_AboutDrTux.ui...
-InputPath=.\Dlg_AboutDrTux.ui
-
-BuildCmds= \
-	$(QTDIR)\bin\uic Dlg_AboutDrTux.ui -o ui\Dlg_AboutDrTux.h \
-	$(QTDIR)\bin\uic Dlg_AboutDrTux.ui -i Dlg_AboutDrTux.h -o ui\Dlg_AboutDrTux.cpp \
-	$(QTDIR)\bin\moc  ui\Dlg_AboutDrTux.h -o moc\moc_Dlg_AboutDrTux.cpp \
-
-"ui\Dlg_AboutDrTux.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
-	$(BuildCmds)
-
-"ui\Dlg_AboutDrTux.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
-	$(BuildCmds)
-
-"moc\moc_Dlg_AboutDrTux.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
-	$(BuildCmds)
-
-# End Custom Build
-
-!ENDIF 
-
-# End Source File
-# Begin Source File
-
 SOURCE=Dlg_PosoManager.ui
 USERDEP_Dlg_PosoManager.ui="$(QTDIR)\bin\moc.exe" "$(QTDIR)\bin\uic.exe"
 
@@ -3945,10 +3891,6 @@ SOURCE=moc\moc_DlgDateNom.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=moc\moc_Dlg_AboutDrTux.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=moc\moc_Dlg_PosoManager.cpp
 # End Source File
 # Begin Source File
@@ -4078,10 +4020,6 @@ SOURCE=ui\DlgDateNom.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=ui\Dlg_AboutDrTux.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=ui\Dlg_PosoManager.cpp
 # End Source File
 # Begin Source File
@@ -4208,10 +4146,6 @@ SOURCE=ui\DlgChoixUser.h
 # Begin Source File
 
 SOURCE=ui\DlgDateNom.h
-# End Source File
-# Begin Source File
-
-SOURCE=ui\Dlg_AboutDrTux.h
 # End Source File
 # Begin Source File
 
