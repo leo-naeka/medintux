@@ -30,37 +30,19 @@
 #include <QStringList>
 #include <QVariant>
 #include <QSettings>
-
+#include <QThread>
 class QSqlQuery;
 //================================================= CForSleep ==============================================================
-#ifdef Q_WS_MAC
-    #include <qthread.h>
-    class CForSleep : public QThread
-          {public:
-                CForSleep(){};
-                ~CForSleep(){};
-                static void sleep(unsigned long secs){QThread::sleep(secs);};
-                virtual void   run(){};
-          };
-    #define SLEEP(a) CForSleep::sleep((a))
-#endif
-#ifdef Q_WS_WIN
 
-    #include <qthread.h>
-    class CForSleep : public QThread
-          {public:
-                CForSleep(){};
-                ~CForSleep(){};
-                static void sleep(unsigned long secs){QThread::sleep(secs);};
-                virtual void   run(){};
-          };
-     #define SLEEP(a) CForSleep::sleep((a))
+class CForSleep : public QThread
+      { public:
+          CForSleep(){}
+          ~CForSleep(){}
+          static  void   sleep(unsigned long secs){QThread::sleep(secs);}
+          virtual void   run(){}
+      };
+#define SLEEP(a) CForSleep::sleep((a))
 
-    // #define SLEEP(a) QTest::qWait((a)*1000);
-#endif
-#ifdef Q_WS_X11
-     #define SLEEP(a) sleep((a))
-#endif
 
 //===================================== CGestIni =============================================================================
     class CGestIni : QSettings
@@ -362,6 +344,10 @@ public:
  //............................... DATA .............................................................................
 public:
     QString *m_pParamData;
+private:
+    static long _loadFromDisk(const QString &file_ini, QByteArray &ba,    int *isUtf8_ret=0 );
+    static long _loadFromDisk(const QString &file_ini, QString &outParam, int *isUtf8_ret=0 );
+
 };
 
 #endif

@@ -40,6 +40,11 @@
 #define F_EXT ""
 #endif
 
+#ifdef Q_WS_X11
+
+#endif
+
+
 /*! \class CGestIni
  *  \brief Gestion des fichiers INI de la suite Medintux.
  * Gére le chargement des paramètres, leur recherche et l'écriture des fichiers paramètres.
@@ -179,18 +184,6 @@ QStringList CGestIni::getXmlDataList(const QString& tagName, const QString& data
  return retList;
 }
 
-//-----------------------------------------------------  Param_UpdateToDisk --------------------------
-/*! \brief sauvegarde les paramètres iniParam dans un fichier dont le chemin est spécifié.
- *  \todo Attention le fichier n'est pas fermé...
-*/
-void  CGestIni::Param_UpdateToDisk(const QString &file_ini, const QString &inParam)
-{QFile file( file_ini);
- if ( !file.open( IO_WriteOnly ) )    return;
- QTextStream ts( &file );
- ts << inParam;
- file.close();
-}
-
 //-----------------------------------------------------  findFermant -----------------------------
 /*! \brief Trouve le motif fermant correspondant au motif ouvrant
  *  \param QString &text   texte ou doit se faire la recherche
@@ -233,6 +226,29 @@ int  CGestIni::findFermant(const QString *ptext, int pos, int pos_max, const QSt
    }
  return pos-fermant_len;    // - fermant_len pour pointer avant le fermant
 }
+//-----------------------------------------------------  Param_UpdateToDisk --------------------------
+/*! \brief sauvegarde les paramètres iniParam dans un fichier dont le chemin est spécifié.
+ *  \todo Attention le fichier n'est pas fermé...
+*/
+void  CGestIni::Param_UpdateToDisk(const QString &file_ini, const QString &inParam)
+{   if (file_ini.endsWith(".ini"))
+       {  int p        = inParam.length();
+          QString endf = "";
+          while (p && (inParam.at(p-1)==' '||inParam.at(p-1)=='\t'||inParam.at(p-1)=='\r'||inParam.at(p-1)=='\n')) --p;
+          if (p>0)    endf  = inParam.mid(p-9);
+          if (p<=0 || endf != "[END_INI]")
+             {
+               QString mess = QString("ERROR CORRUPTED DATA in Param_UpdateToDisk()  integrity tag '[END_INI]' not found, initialisation file not rewrited : %1").arg(file_ini);
+               qDebug(mess);
+               return ;
+            }
+       }
+    QFile file( file_ini);
+    if ( !file.open( IO_WriteOnly ) )    return;
+    QTextStream ts( &file );
+    ts << inParam;
+    file.close();
+}
 
 //-----------------------------------------------------  Param_UpdateFromDisk ------------------------------
 /*! \brief Lit le fichier file_ini et renvoie son contenu dans outParam. L'encodage est géré.
@@ -246,23 +262,83 @@ QString  CGestIni::Param_UpdateFromDisk(const QString &file_ini)
 /*! \brief Lit le fichier file_ini et renvoie son contenu dans outParam. L'encodage est géré.
 */
 long  CGestIni::Param_UpdateFromDisk(const QString &file_ini, QString &outParam, int *isUtf8_ret /* =0 */)
+{        int len = _loadFromDisk(file_ini, outParam, isUtf8_ret );
+         if (file_ini.endsWith(".ini"))
+            {while (len && (outParam.at(len-1)==' '||outParam.at(len-1)=='\t'||outParam.at(len-1)=='\r'||outParam.at(len-1)=='\n')) --len;
+             outParam.truncate(len);
+             bool isRescue = QFile::exists ( file_ini+"_rescue" );
+             //....................... longueur zero ......................
+             if (len<=0)
+                { QString mess = QString("ERROR : Param_UpdateFromDisk() initialisation file length is zero : %1").arg(file_ini);
+                  qDebug(mess);
+                  if (isRescue)
+                     { QString mess = QString("ERROR : Param_UpdateFromDisk() initialisation file length is zero, trying with : %1").arg(file_ini+"_rescue");
+                       qDebug(mess);
+                       len = _loadFromDisk(file_ini+"_rescue", outParam, isUtf8_ret );
+                       if (len==0)
+                          { QString mess = QString("ERROR : Param_UpdateFromDisk() rescue file length is zero  %1").arg(file_ini+"_rescue");
+                            qDebug(mess);
+                          }
+                     } // if (isRescue)
+                  while (len && (outParam.at(len-1)==' '||outParam.at(len-1)=='\t'||outParam.at(len-1)=='\r'||outParam.at(len-1)=='\n')) --len;
+                  outParam.truncate(len);
+                } // if (len<=0)
+
+             //....................... tester le tag d'integrite ......................
+             if (len && !outParam.endsWith("[END_INI]") )
+                { QString mess = QString("ERROR INTEGRITY : Param_UpdateFromDisk() integrity tag '[END_INI]' not found in: %1").arg(file_ini);
+                  qDebug(mess);
+                  if (isRescue)
+                     { QString tmp_out         = "";
+                       int     tmp_isUtf8_ret  = 0;
+                       long ret                = _loadFromDisk(file_ini+"_rescue", tmp_out, &tmp_isUtf8_ret );
+                       if (ret)
+                          { mess     = QString("ERROR INTEGRITY : Param_UpdateFromDisk() using initialisation file rescue : %1").arg(file_ini+"_rescue");
+                            qDebug(mess);
+                            outParam = tmp_out;
+                            if (isUtf8_ret) *isUtf8_ret = tmp_isUtf8_ret;
+                            while (ret && (outParam.at(ret-1)==' '||outParam.at(ret-1)=='\t'||outParam.at(ret-1)=='\r'||outParam.at(ret-1)=='\n')) --ret;
+                            outParam.truncate(ret);
+                            if ( !outParam.endsWith("[END_INI]") ) 
+                               { mess = QString("ERROR INTEGRITY : Param_UpdateFromDisk() end rescue file not good '[END_INI]' added to variable end");
+                                 qDebug(mess);
+                                 outParam += "\n[END_INI]";
+                               }
+                            return ret;
+                          }
+                     } //if (isRescue)
+                  else
+                     { mess = QString("ERROR INTEGRITY : Param_UpdateFromDisk() rescue file not found : %1").arg(file_ini+"_rescue");
+                       qDebug(mess);
+                       mess = QString("ERROR INTEGRITY : Param_UpdateFromDisk() integrity tag '[END_INI]' just added to variable end, hope that is enough");
+                       qDebug(mess);
+                       outParam.append("\n[END_INI]");
+                     }
+                }
+            } // if (file_ini.endsWith(".ini"))
+         return outParam.length();
+}
+
+//-----------------------------------------------------  _loadFromDisk ------------------------------
+/*! \brief Lit le fichier file_ini et renvoie son contenu dans outParam. L'encodage est géré.
+*/
+long  CGestIni::_loadFromDisk(const QString &file_ini, QString &outParam, int *isUtf8_ret /* =0 */)
 {        //............ charger le fichier .ini ..........
          QFile *pQFile = new QFile(file_ini );
          if (pQFile==0)                                                           return  0;
          if (pQFile->open( IO_ReadOnly )==FALSE){delete pQFile;                   return  0;}
          long file_len = pQFile->size();
-         char    *text = new char[file_len+5];    // +5 pour permettre analyse utf8 qui explore trois apres
+         char    *text = new char[file_len+600];    // +5 pour permettre analyse utf8 qui explore trois apres
          if (text==0)                           {pQFile->close (); delete pQFile; return  0;}
          pQFile->readBlock (text, file_len);
          pQFile->close ();
          text[file_len] = 0;
+         //........ analyse du texte charge ......................
          int isUtf8 = IsUtf8(text, file_len);
          if ( isUtf8_ret ) *isUtf8_ret = isUtf8;
          if (isUtf8)
             {outParam    =  QString::fromUtf8 ( text ) ;
-             //outParam    = text;
-             int pos = file_ini.findRev('.');
-             if (pos!=-1 && file_ini.mid(pos,4).lower() == ".htm")
+             if (file_ini.endsWith(".htm"))
                 {outParam.replace("meta name=\"qrichtext\" content=\"charset=utf-8\"",   // obligé d'etre en content=\"1\" pour que les tabulations fonctionnent !!
                                   "meta name=\"qrichtext\" content=\"1\"");
                 }
@@ -271,7 +347,7 @@ long  CGestIni::Param_UpdateFromDisk(const QString &file_ini, QString &outParam,
          else
              outParam    = text;
          delete[]text;
-         return file_len;
+         return outParam.length();
 }
 
 //-----------------------------------------------------  IsUtf8 --------------------------------------------

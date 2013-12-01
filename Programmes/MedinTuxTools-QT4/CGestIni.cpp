@@ -48,13 +48,13 @@
 
 /*! \class CGestIni
  *  \brief Gestion des fichiers INI de la suite Medintux.
- * Gere le chargement des paramÃ¨tres, leur recherche et l'ecriture des fichiers paramÃ¨tres.
- * Les paramÃ¨tres sont sauvegardes de la sorte :
+ * Gere le chargement des paramaetres, leur recherche et l'ecriture des fichiers paramaetres.
+ * Les paramaetres sont sauvegardes de la sorte :
  * [SECTION]\\r\\n
  * Parametre = val1, val2, val3, val4, val5, val6, val7, val7, val8, val9, val10\\r\\n
- * Plusieurs sections peuvent cohabiter dans un mÃªme fichier et plusieurs paramÃ¨tres peuvent Ãªtre defini par section.
- * Cette classe gÃ¨re la compatibilte Windows, Mac, Linux pour les fichiers INI
- * \todo Un seul fichier INI pour toute la suite dans le QDir::home() qui ne contient que les donnees de connexion ï¿½  la base de donnees. Les autres paramÃ¨tres sont dans la base de donnees.
+ * Plusieurs sections peuvent cohabiter dans un ma�ªme fichier et plusieurs paramaetres peuvent a�ªtre defini par section.
+ * Cette classe gaere la compatibilte Windows, Mac, Linux pour les fichiers INI
+ * \todo Un seul fichier INI pour toute la suite dans le QDir::home() qui ne contient que les donnees de connexion a�¿½  la base de donnees. Les autres paramaetres sont dans la base de donnees.
 */
 
 //-----------------------------------------------------  CGestIni --------------------------------
@@ -101,10 +101,229 @@ void CGestIni::sync()
  *  \todo Attention le fichier n'est pas ferme ???...
 */
 void  CGestIni::Param_UpdateToDisk(const QString &file_ini, const QByteArray &ba)
-{QFile file( file_ini);
- if ( !file.open( QIODevice::WriteOnly ) )    return;
- file.write( ba );
- file.close();
+{   if (file_ini.endsWith(".ini"))
+       {  int p        = ba.length();
+          QString endf = "";
+          while (p && (ba.at(p-1)==' '||ba.at(p-1)=='\t'||ba.at(p-1)=='\r'||ba.at(p-1)=='\n')) --p;
+          if (p>0)    endf  = ba.mid(p-9);
+          if (p<=0 || endf != "[END_INI]")
+             {
+                QString mess = QString("ERROR CORRUPTED DATA in Param_UpdateToDisk()  integrity tag '[END_INI]' not found, initialisation file not rewrited : %1").arg(file_ini);
+                qDebug()<<mess;
+                return ;
+             }
+
+       }
+
+    QFile file( file_ini);
+    if ( !file.open( QIODevice::WriteOnly ) )    return;
+    file.write( ba );
+    file.close();
+}
+//-----------------------------------------------------  Param_UpdateToDisk --------------------------
+/*! \brief ecrit et sauvegarde les parametres iniParam dans un fichier dont le chemin est specifie.
+ *  \param const QString &file_ini   chemin ou doit etre ecrit le fichier
+ *  \param const QString &inParam     donnees a ecrire
+ *  \todo Attention le fichier n'est pas ferme corrrectement ???...
+*/
+void  CGestIni::Param_UpdateToDisk(const QString &file_ini, const QString &inParam)
+{   if (file_ini.endsWith(".ini"))
+       {  int p        = inParam.length();
+          QString endf = "";
+          while (p && (inParam.at(p-1)==' '||inParam.at(p-1)=='\t'||inParam.at(p-1)=='\r'||inParam.at(p-1)=='\n')) --p;
+          if (p>0)    endf  = inParam.mid(p-9);
+          if (p<=0 || endf != "[END_INI]")
+             {
+               QString mess = QString("ERROR CORRUPTED DATA in Param_UpdateToDisk()  integrity tag '[END_INI]' not found, initialisation file not rewrited : %1").arg(file_ini);
+               qDebug()<<mess;
+               return ;
+            }
+       }
+    QFile file( file_ini);
+    if ( !file.open( IO_WriteOnly ) )    return;
+    QTextStream ts( &file );
+    ts << inParam;
+    file.close();
+}
+
+//-----------------------------------------------------  Param_UpdateFromDisk ------------------------------
+/*! \brief Lit le fichier file_ini et renvoie son contenu dans outParam. L'encodage est gere.
+*/
+QString  CGestIni::Param_UpdateFromDisk(const QString &file_ini,  int *isUtf8_ret /* =0 */)
+{QString ret="";
+ Param_UpdateFromDisk(file_ini, ret, isUtf8_ret);
+ return ret;
+}
+
+//-----------------------------------------------------  Param_UpdateFromDisk ------------------------------
+/*! \brief Lit le fichier file_ini et renvoie son contenu dans outParam. L'encodage est g�r�.
+*/
+QByteArray& CGestIni::Param_UpdateFromDisk(const QString &file_ini, QByteArray &ba, int *isUtf8_ret /* =0 */)
+{        int len = _loadFromDisk(file_ini, ba, isUtf8_ret );
+         if (file_ini.endsWith(".ini"))
+            {while (len && (ba.at(len-1)==' '||ba.at(len-1)=='\t'||ba.at(len-1)=='\r'||ba.at(len-1)=='\n')) --len;
+             ba.truncate(len);
+             bool isRescue = QFile::exists ( file_ini+"_rescue" );
+             //....................... longueur zero ......................
+             if (len<=0)
+                { QString mess = QString("ERROR : Param_UpdateFromDisk() initialisation file length is zero : %1").arg(file_ini);
+                  qDebug()<<mess;
+                  if (isRescue)
+                     { QString mess = QString("ERROR : Param_UpdateFromDisk() initialisation file length is zero, trying with : %1").arg(file_ini+"_rescue");
+                       qDebug()<<mess;
+                       len = _loadFromDisk(file_ini+"_rescue", ba, isUtf8_ret );
+                       if (len==0)
+                          { QString mess = QString("ERROR : Param_UpdateFromDisk() rescue file length is zero  %1").arg(file_ini+"_rescue");
+                            qDebug()<<mess;
+                          }
+                     } // if (isRescue)
+                  while (len && (ba.at(len-1)==' '||ba.at(len-1)=='\t'||ba.at(len-1)=='\r'||ba.at(len-1)=='\n')) --len;
+                  ba.truncate(len);
+                } // if (len<=0)
+
+             //....................... tester le tag d'integrite ......................
+             if (len && !ba.endsWith("[END_INI]") )
+                { QString mess = QString("ERROR INTEGRITY : Param_UpdateFromDisk() integrity tag '[END_INI]' not found in: %1").arg(file_ini);
+                  qDebug()<<mess;
+                  if (isRescue)
+                     { QByteArray  tmp_ba_out      = "";
+                       int         tmp_isUtf8_ret  = 0;
+                       long ret                    = _loadFromDisk(file_ini+"_rescue", tmp_ba_out, &tmp_isUtf8_ret );
+                       if (ret)
+                          { mess     = QString("ERROR INTEGRITY : Param_UpdateFromDisk() using initialisation file rescue : %1").arg(file_ini+"_rescue");
+                            qDebug()<<mess;
+                            ba = tmp_ba_out;
+                            if (isUtf8_ret) *isUtf8_ret = tmp_isUtf8_ret;
+                            while (ret && (ba.at(ret-1)==' '||ba.at(ret-1)=='\t'||ba.at(ret-1)=='\r'||ba.at(ret-1)=='\n')) --ret;
+                            ba.truncate(ret);
+                            if ( !ba.endsWith("[END_INI]") )
+                               { mess = QString("ERROR INTEGRITY : Param_UpdateFromDisk() end rescue file not good '[END_INI]' added to variable end");
+                                 qDebug()<<mess;
+                                 ba += "\n[END_INI]";
+                               }
+                            return ba;
+                          }
+                     } //if (isRescue)
+                  else
+                     { mess = QString("ERROR INTEGRITY : Param_UpdateFromDisk() rescue file not found : %1").arg(file_ini+"_rescue");
+                       qDebug()<<mess;
+                       mess = QString("ERROR INTEGRITY : Param_UpdateFromDisk() integrity tag '[END_INI]' just added to variable end, hope that is enough");
+                       qDebug()<<mess;
+                       ba.append("\n[END_INI]");
+                     }
+                }
+            } // if (file_ini.endsWith(".ini"))
+         return ba;
+}
+
+//-----------------------------------------------------  Param_UpdateFromDisk ------------------------------
+/*! \brief Lit le fichier file_ini et renvoie son contenu dans outParam. L'encodage est g�r�.
+*/
+long  CGestIni::Param_UpdateFromDisk(const QString &file_ini, QString &outParam, int *isUtf8_ret /* =0 */)
+{        int len = _loadFromDisk(file_ini, outParam, isUtf8_ret );
+         if (file_ini.endsWith(".ini"))
+            {while (len && (outParam.at(len-1)==' '||outParam.at(len-1)=='\t'||outParam.at(len-1)=='\r'||outParam.at(len-1)=='\n')) --len;
+             outParam.truncate(len);
+             bool isRescue = QFile::exists ( file_ini+"_rescue" );
+             //....................... longueur zero ......................
+             if (len<=0)
+                { QString mess = QString("ERROR : Param_UpdateFromDisk() initialisation file length is zero : %1").arg(file_ini);
+                  qDebug()<<mess;
+                  if (isRescue)
+                     { QString mess = QString("ERROR : Param_UpdateFromDisk() initialisation file length is zero, trying with : %1").arg(file_ini+"_rescue");
+                       qDebug()<<mess;
+                       len = _loadFromDisk(file_ini+"_rescue", outParam, isUtf8_ret );
+                       if (len==0)
+                          { QString mess = QString("ERROR : Param_UpdateFromDisk() rescue file length is zero  %1").arg(file_ini+"_rescue");
+                            qDebug()<<mess;
+                          }
+                     } // if (isRescue)
+                  while (len && (outParam.at(len-1)==' '||outParam.at(len-1)=='\t'||outParam.at(len-1)=='\r'||outParam.at(len-1)=='\n')) --len;
+                  outParam.truncate(len);
+                } // if (len<=0)
+
+             //....................... tester le tag d'integrite ......................
+             if (len && !outParam.endsWith("[END_INI]") )
+                { QString mess = QString("ERROR INTEGRITY : Param_UpdateFromDisk() integrity tag '[END_INI]' not found in: %1").arg(file_ini);
+                  qDebug()<<mess;
+                  if (isRescue)
+                     { QString tmp_out         = "";
+                       int     tmp_isUtf8_ret  = 0;
+                       long ret                = _loadFromDisk(file_ini+"_rescue", tmp_out, &tmp_isUtf8_ret );
+                       if (ret)
+                          { mess     = QString("ERROR INTEGRITY : Param_UpdateFromDisk() using initialisation file rescue : %1").arg(file_ini+"_rescue");
+                            qDebug()<<mess;
+                            outParam = tmp_out;
+                            if (isUtf8_ret) *isUtf8_ret = tmp_isUtf8_ret;
+                            while (ret && (outParam.at(ret-1)==' '||outParam.at(ret-1)=='\t'||outParam.at(ret-1)=='\r'||outParam.at(ret-1)=='\n')) --ret;
+                            outParam.truncate(ret);
+                            if ( !outParam.endsWith("[END_INI]") )
+                               { mess = QString("ERROR INTEGRITY : Param_UpdateFromDisk() end rescue file not good '[END_INI]' added to variable end");
+                                 qDebug()<<mess;
+                                 outParam += "\n[END_INI]";
+                               }
+                            return ret;
+                          }
+                     } //if (isRescue)
+                  else
+                     { mess = QString("ERROR INTEGRITY : Param_UpdateFromDisk() rescue file not found : %1").arg(file_ini+"_rescue");
+                       qDebug()<<mess;
+                       mess = QString("ERROR INTEGRITY : Param_UpdateFromDisk() integrity tag '[END_INI]' just added to variable end, hope that is enough");
+                       qDebug()<<mess;
+                       outParam += "\n[END_INI]";
+                     }
+                }
+            } // if (file_ini.endsWith(".ini"))
+         return outParam.length();
+}
+
+//-----------------------------------------------------  _loadFromDisk ------------------------------
+/*! \brief Lit le fichier file_ini et renvoie son contenu dans outParam. L'encodage est gere.
+*/
+long  CGestIni::_loadFromDisk(const QString &file_ini, QString &outParam, int *isUtf8_ret /* =0 */)
+{        //............ charger le fichier .ini ..........
+         QFile qFile(file_ini );
+         if (qFile.open( QIODevice::ReadOnly )==FALSE)   return  0;
+         QByteArray ba = qFile.readAll();
+         qFile.close ();
+         QString ext =  QFileInfo(qFile).suffix();
+         int isUtf8  = IsUtf8(&ba);
+         if ( isUtf8_ret ) *isUtf8_ret = isUtf8;
+         if (isUtf8)
+            {outParam    =  QString::fromUtf8(ba.data(), ba.size());
+             if (ext.toLower().left(3) == "htm")
+                {outParam.replace("meta name=\"qrichtext\" content=\"charset=utf-8\"",   // oblige d'etre en content=\"1\" pour que les tabulations fonctionnent !!
+                                  "meta name=\"qrichtext\" content=\"1\"");
+                }
+             outParam.replace("&nbsp;", " ");
+            }
+         else
+            {outParam = ba;    //QString::fromLocal8Bit (ba)
+            }
+         return outParam.length();
+}
+//-----------------------------------------------------  _loadFromDisk ------------------------------
+/*! \brief Lit le fichier file_ini et renvoie son contenu dans outParam. L'encodage est gere.
+*/
+long CGestIni::_loadFromDisk(const QString &file_ini, QByteArray &ba, int *isUtf8_ret /* =0 */)
+{        if (ba.size()>0) ba.data()[0]=0;
+         QFile qFile(file_ini );
+         if (qFile.open( QIODevice::ReadOnly )==FALSE)   return  0;
+         ba = qFile.readAll();
+         qFile.close ();
+         QString ext =  QFileInfo(qFile).suffix();
+         int isUtf8  = IsUtf8(&ba);
+         if ( isUtf8_ret ) *isUtf8_ret = isUtf8;
+         if (isUtf8)
+            {QString tmp =  QString::fromUtf8 ( ba );
+             ba          =  tmp.toUtf8 ();
+             if (ext.toLower().left(3) == "htm")
+                {ba.replace("meta name=\"qrichtext\" content=\"charset=utf-8\"",   // oblige d'etre en content=\"1\" pour que les tabulations fonctionnent !!
+                            "meta name=\"qrichtext\" content=\"1\"");
+                }
+             ba.replace("&nbsp;", " ");
+            }
+         return ba.length();
 }
 //---------------------------- addXmlData ------------------------------------------------
 /*! \brief ajoute dans un fichier XML une valeur situee entre un tag de debut <tag> et de fin </tag>
@@ -215,7 +434,7 @@ bool CGestIni::setXmlData(const QString& dataName, QByteArray valeur, QString& d
  return true;
 }
 //---------------------------- getXmlDataList static --------------------------------------------------------------------
-/*! \brief retourne une QStringList de valeurs à partir d'un fichier XML et d'un tag
+/*! \brief retourne une QStringList de valeurs a  partir d'un fichier XML et d'un tag
  *   dans cet exemple la valeur serait 'et de fin' (sans les apostrophes)
  *  \param tagName :  String indiquant le nom du tag sans les </ ou < ou >
  *  \param dataXml :  String XML dans laquelle on va lire la valeur
@@ -255,20 +474,6 @@ QStringList CGestIni::getXmlDataList(const QString& tagName, const QString& data
         posDeb = dataXml.indexOf(tag, posDeb);
        }
  return retList;
-}
-
-//-----------------------------------------------------  Param_UpdateToDisk --------------------------
-/*! \brief ecrit et sauvegarde les parametres iniParam dans un fichier dont le chemin est specifie.
- *  \param const QString &file_ini   chemin ou doit etre ecrit le fichier
- *  \param const QString &inParam     donnees a ecrire
- *  \todo Attention le fichier n'est pas ferme corrrectement ???...
-*/
-void  CGestIni::Param_UpdateToDisk(const QString &file_ini, const QString &inParam)
-{QFile file( file_ini);
- if ( !file.open( QIODevice::WriteOnly ) )    return;
- QTextStream ts( &file );
- ts << inParam;
- file.close();
 }
 
 //-----------------------------------------------------  findFermant -----------------------------
@@ -312,64 +517,6 @@ int  CGestIni::findFermant(const QString &ptext, int pos, int pos_max, const QSt
         }
    }
  return pos-fermant_len;    // - fermant_len pour pointer avant le fermant
-}
-//-----------------------------------------------------  Param_UpdateFromDisk ------------------------------
-/*! \brief Lit le fichier file_ini et renvoie son contenu dans outParam. L'encodage est gere.
-*/
-QString  CGestIni::Param_UpdateFromDisk(const QString &file_ini,  int *isUtf8_ret /* =0 */)
-{QString ret="";
- Param_UpdateFromDisk(file_ini, ret, isUtf8_ret);
- return ret;
-}
-//-----------------------------------------------------  Param_UpdateFromDisk ------------------------------
-/*! \brief Lit le fichier file_ini et renvoie son contenu dans outParam. L'encodage est gere.
-*/
-QByteArray& CGestIni::Param_UpdateFromDisk(const QString &file_ini, QByteArray &ba, int *isUtf8_ret /* =0 */)
-{        if (ba.size()>0) ba.data()[0]=0;
-         QFile qFile(file_ini );
-         if (qFile.open( QIODevice::ReadOnly )==FALSE)   return  ba;
-         ba = qFile.readAll();
-         qFile.close ();
-         int isUtf8 = IsUtf8(&ba);
-         if ( isUtf8_ret ) *isUtf8_ret = isUtf8;
-         if (isUtf8)
-            {QString tmp =  QString::fromUtf8 ( ba );
-             ba          =  tmp.toUtf8 ();
-             QString ext =  QFileInfo(qFile).suffix ();
-             if (ext.toLower().left(3) == "htm")
-                {ba.replace("meta name=\"qrichtext\" content=\"charset=utf-8\"",   // oblige d'etre en content=\"1\" pour que les tabulations fonctionnent !!
-                            "meta name=\"qrichtext\" content=\"1\"");
-                }
-             ba.replace("&nbsp;", " ");
-            }
-         return ba;
-}
-
-//-----------------------------------------------------  Param_UpdateFromDisk ------------------------------
-/*! \brief Lit le fichier file_ini et renvoie son contenu dans outParam. L'encodage est gere.
-*/
-long  CGestIni::Param_UpdateFromDisk(const QString &file_ini, QString &outParam, int *isUtf8_ret /* =0 */)
-{        //............ charger le fichier .ini ..........
-         QFile qFile(file_ini );
-         if (qFile.open( QIODevice::ReadOnly )==FALSE)   return  0;
-         long file_len = qFile.size();
-         QByteArray ba = qFile.readAll();
-         qFile.close ();
-         int isUtf8 = IsUtf8(&ba);
-         if ( isUtf8_ret ) *isUtf8_ret = isUtf8;
-         if (isUtf8)
-            {outParam    =  QString::fromUtf8(ba.data(), ba.size());
-             QString ext =  QFileInfo(qFile).suffix ();
-             if (ext.toLower().left(3) == "htm")
-                {outParam.replace("meta name=\"qrichtext\" content=\"charset=utf-8\"",   // oblige d'etre en content=\"1\" pour que les tabulations fonctionnent !!
-                                  "meta name=\"qrichtext\" content=\"1\"");
-                }
-             outParam.replace("&nbsp;", " ");
-            }
-         else
-            {outParam = ba;    //QString::fromLocal8Bit (ba)
-            }
-         return file_len;
 }
 
 //-----------------------------------------------------  IsUtf8 --------------------------------------------
@@ -510,7 +657,7 @@ QString CGestIni::fromMyUTF8(const char* ptr)
                           code_deuze += pt[3]&63;
                           pt += 2;
                           if (code_deuze>=142 && code_deuze<=195)
-                             {ret += QChar (0x00CE + code_deuze-142);         // case 142: ret += QChar (0x00CE);       break;   // Ã
+                             {ret += QChar (0x00CE + code_deuze-142);         // case 142: ret += QChar (0x00CE);       break;   // a�
                              }
                           else
                              {switch (code_deuze)
@@ -556,12 +703,12 @@ QString CGestIni::fromMyUTF8(const char* ptr)
 }
 
 //-----------------------------------------------------  Param_WriteParam -----------------------------------
-/*! \brief Ecrit dans la string des paramÃ¨tres passee ï¿½  la fonction.
- *  \param param : String paramÃ¨tres dans laquelle on va ecrire. Elle sera modifiee.
+/*! \brief Ecrit dans la string des paramaetres passee a�¿½  la fonction.
+ *  \param param : String paramaetres dans laquelle on va ecrire. Elle sera modifiee.
  *  \param section : section dans laquelle on ecrit
  *  \param variable : variable concernee
- *  \param val1 -> val10 : valeurs ï¿½  ecrire.
- *  \return QString::null en cas d'erreur, sinon le String de paramÃ¨tre au complet.
+ *  \param val1 -> val10 : valeurs a�¿½  ecrire.
+ *  \return QString::null en cas d'erreur, sinon le String de paramaetre au complet.
  * Si la variable n'est pas trouvee dans la section elle est ajoutee. Si la section n'existe pas elle est ajoutee en fin de fichier.
 */
 QString CGestIni::Param_WriteParam( QString *pQstr, const char *section, const char  *variable,
@@ -631,10 +778,10 @@ QString CGestIni::Param_WriteParam( QString *pQstr, const char *section, const c
                          {deb_lgn = deb;
                           end_lgn = end;
                           while (*end_lgn && *end_lgn !=';' && *end_lgn !='\n' && *end_lgn!='\r')      // aller jusqu'au prochain marqueur de fin des valeurs
-                                {if (*end_lgn=='\\' && end_lgn[1] !=0 ) end_lgn++;                     // en sautant le caractÃ¨re d'echapement et le suivant
+                                {if (*end_lgn=='\\' && end_lgn[1] !=0 ) end_lgn++;                     // en sautant le caractaere d'echapement et le suivant
                                  end_lgn++;
                                 }
-                          while (end_lgn> end && (end_lgn[-1] ==' ' || end_lgn[-1] =='\t')) end_lgn--;  // reculer j'usqu'ï¿½  la fin de la derniere valeur
+                          while (end_lgn> end && (end_lgn[-1] ==' ' || end_lgn[-1] =='\t')) end_lgn--;  // reculer j'usqu'a�¿½  la fin de la derniere valeur
                           //........................... maintenant on peut supprimer et remplacer ........
                           pos    = deb_lgn-txt;
                           result = pQstr->left(pos) + variable + " = ";
@@ -706,7 +853,7 @@ QString CGestIni::Param_WriteParam( QString *pQstr, const char *section, const c
 }
 //-----------------------------------------------------  Param_ReadUniqueParam --------------------------------
 /*! \brief lit une valeur dans un fichier de configuration.
- *  \param txt : String paramÃ¨tres dans laquelle on va lire
+ *  \param txt : String paramaetres dans laquelle on va lire
  *  \param section : section dans laquelle on va lire
  *  \param variable : variable concernee
  *  \return QString::null la variable n'existe pas. sinon retourne la valeur
@@ -897,7 +1044,7 @@ QString CGestIni::Param_ReadParam(  const char* txt, const char *section, const 
 
 
 //-----------------------------------------------------  ExtraireValeurs -----------------------------------
-/*! \brief txt pointe sur un texte contenant differentes valeurs terminees par \r\n ou zero de fin, et separees par des virgules. Une valeur peut etre une chaine de caractÃ¨res et si elle doit comporter une virgule ou point virgule ceux ci doivent etre annonces par le caractere d'echapement qui est l'anti slash
+/*! \brief txt pointe sur un texte contenant differentes valeurs terminees par \r\n ou zero de fin, et separees par des virgules. Une valeur peut etre une chaine de caracteres et si elle doit comporter une virgule ou point virgule ceux ci doivent etre annonces par le caractere d'echapement qui est l'anti slash
 */
 char *CGestIni::Param_ExtraireValeurs(  const char* txt,
                                         QString *val1, QString *val2, QString *val3, QString *val4, QString *val5,
@@ -924,7 +1071,7 @@ char *CGestIni::Param_ExtraireValeurs(  const char* txt,
     if (*pt==0 || *pt =='\r' || *pt =='\n'|| *pt ==';') return pt;
     deb = pt;                                                                    // on devrait etre au debut du nom d'une valeur
     while (*pt && *pt !=',' && *pt !='\n' && *pt!='\r')                          // aller jusqu'a la prochaine virgule (fin de la valeur)
-       {if (*pt=='\\' && pt[1] !=0 ) ++pt;                                       // sauter le caractÃ¨re d'echapement et le suivant
+       {if (*pt=='\\' && pt[1] !=0 ) ++pt;                                       // sauter le caractaere d'echapement et le suivant
         ++pt;
        }
     end = pt;
@@ -992,7 +1139,7 @@ int  CGestIni::Param_SplitValeurs(  const QString &str,const QString &sep, QStri
 }
 
 //----------------------------------------- utf8Conv ---------------------------------------------
-/*! \brief Recupere les valeurs d'une variables (varToRetrieve) d'une section (sectionToRetrieve) du string paramÃ¨tre (outParam) dans une QStringList lst.
+/*! \brief Recupere les valeurs d'une variables (varToRetrieve) d'une section (sectionToRetrieve) du string paramaetre (outParam) dans une QStringList lst.
 */
 QString CGestIni::utf8Conv(const char* deb, long len)
 {if (IsUtf8( deb))
@@ -1035,12 +1182,12 @@ QString CGestIni::Param_RemoveSection(QString &param, QString section)
  *  \param file_ini : nom d'un fichier de parametrage ou l'on va extraire une liste.
  *  \param sectionToRetrieve : section contenant les variables dont il faut faire une liste
  *  \param varToRetrieve     : variable dont il faut faire une liste (si vide alors toutes les donnees de la section apres le signe = seront retenues)
- *                             si terminee par * alors on prend toutes les variables commençant par ce qui est avant le * de varToRetrieve
- *                             si commence par * alors on prend toutes les variables terminees  par ce qui est après le * de varToRetrieve
- *                             si vide alors toutes les lignes de la section seront retenues, alors entireDataLine est un ou deux  (ne s'arrete pas à la premiere valeur entre = et ,)
+ *                             si terminee par * alors on prend toutes les variables commencant par ce qui est avant le * de varToRetrieve
+ *                             si commence par * alors on prend toutes les variables terminees  par ce qui est apres le * de varToRetrieve
+ *                             si vide alors toutes les lignes de la section seront retenues, alors entireDataLine est un ou deux  (ne s'arrete pas a  la premiere valeur entre = et ,)
  *  \param isToStrip :  isToStrip a zero par defaut si a un, chaque element de la liste sera nettoye des espaces de debut et fin
  *  \param isUtf8 : pointeur sur un int (par defaut a  zero) qui si different de zero sera initialise a un si le fichier est en UTF8
- *  \param entireDataLine :  entireDataLine a zero par defaut seule la première valeur apres le signe egal et avant la premiere virgule sera retenue.
+ *  \param entireDataLine :  entireDataLine a zero par defaut seule la premiere valeur apres le signe egal et avant la premiere virgule sera retenue.
  *                           si a un,   toutes les donnees apres le signe = seront retenues
  *                           si a deux, toutes les donnees de la ligne seront retenues y compris ce qui est avant le signe =
  *  \return QStringList lst la liste des variables
@@ -1059,13 +1206,13 @@ QStringList CGestIni::Param_GetListFromPath(const QString &file_ini, const QStri
  *  \param file_ini : nom du fichier ou l'on va extraire une liste.
  *  \param sectionToRetrieve : section contenant les variables dont il faut faire une liste
  *  \param varToRetrieve     : variable dont il faut faire une liste (si vide alors toutes les donnees de la section apres le signe = seront retenues)
- *                             si terminee par * alors on prend toutes les variables commençant par ce qui est avant le * de varToRetrieve
- *                             si commence par * alors on prend toutes les variables terminees  par ce qui est après le * de varToRetrieve
- *                             si vide alors toutes les lignes de la section seront retenues, alors entireDataLine est un ou deux  (ne s'arrete pas à la premiere valeur entre = et ,)
+ *                             si terminee par * alors on prend toutes les variables commencant par ce qui est avant le * de varToRetrieve
+ *                             si commence par * alors on prend toutes les variables terminees  par ce qui est apres le * de varToRetrieve
+ *                             si vide alors toutes les lignes de la section seront retenues, alors entireDataLine est un ou deux  (ne s'arrete pas a  la premiere valeur entre = et ,)
  *  \param lst :        liste a initialiser et construire
  *  \param isToStrip :  isToStrip a zero par defaut si a un, chaque element de la liste sera nettoye des espaces de debut et fin
  *  \param isUtf8 : pointeur sur un int (par defaut a  zero) qui si different de zero sera initialise a un si le fichier est en UTF8
- *  \param entireDataLine :  entireDataLine a zero par defaut seule la première valeur apres le signe egal et avant la premiere virgule sera retenue.
+ *  \param entireDataLine :  entireDataLine a zero par defaut seule la premiere valeur apres le signe egal et avant la premiere virgule sera retenue.
  *                           si a un,   toutes les donnees apres le signe = seront retenues
  *                           si a deux, toutes les donnees de la ligne seront retenues y compris ce qui est avant le signe =
 */
@@ -1078,13 +1225,13 @@ void CGestIni::Param_GetListFromPath(const QString &file_ini, const QString &sec
  *  \param file_ini : nom du fichier ou l'on va extraire une liste.
  *  \param sectionToRetrieve : section contenant les variables dont il faut faire une liste
  *  \param varToRetrieve     : variable dont il faut faire une liste (si vide alors toutes les donnees de la section apres le signe = seront retenues)
- *                             si terminee par * alors on prend toutes les variables commençant par ce qui est avant le * de varToRetrieve
- *                             si commence par * alors on prend toutes les variables terminees  par ce qui est après le * de varToRetrieve
- *                             si vide alors toutes les lignes de la section seront retenues, alors entireDataLine est un ou deux  (ne s'arrete pas à la premiere valeur entre = et ,)
+ *                             si terminee par * alors on prend toutes les variables commencant par ce qui est avant le * de varToRetrieve
+ *                             si commence par * alors on prend toutes les variables terminees  par ce qui est apres le * de varToRetrieve
+ *                             si vide alors toutes les lignes de la section seront retenues, alors entireDataLine est un ou deux  (ne s'arrete pas a  la premiere valeur entre = et ,)
  *  \param lst :        liste a initialiser et construire
  *  \param isToStrip :  isToStrip a zero par defaut si a un, chaque element de la liste sera nettoye des espaces de debut et fin
  *  \param isUtf8 : pointeur sur un int (par defaut a  zero) qui si different de zero sera initialise a un si le fichier est en UTF8
- *  \param entireDataLine :  entireDataLine a zero par defaut seule la première valeur apres le signe egal et avant la premiere virgule sera retenue.
+ *  \param entireDataLine :  entireDataLine a zero par defaut seule la premiere valeur apres le signe egal et avant la premiere virgule sera retenue.
  *                           si a un,   toutes les donnees apres le signe = seront retenues
  *                           si a deux, toutes les donnees de la ligne seront retenues y compris ce qui est avant le signe =
 */
@@ -1100,12 +1247,12 @@ void CGestIni::Param_GetList(const QString &file_ini, const QString &sectionToRe
  *  \param QString &outParam : contenu d'un fichier de parametrage a annalyse ou l'on va extraire une lister.
  *  \param sectionToRetrieve : section contenant les variables dont il faut faire une liste
  *  \param varToRetrieve     : variable dont il faut faire une liste (si vide alors toutes les donnees de la section apres le signe = seront retenues)
- *                             si terminee par * alors on prend toutes les variables commençant par ce qui est avant le * de varToRetrieve
- *                             si commence par * alors on prend toutes les variables terminees  par ce qui est après le * de varToRetrieve
- *                             si vide alors toutes les lignes de la section seront retenues, alors entireDataLine est un ou deux  (ne s'arrete pas à la premiere valeur entre = et ,)
+ *                             si terminee par * alors on prend toutes les variables commencant par ce qui est avant le * de varToRetrieve
+ *                             si commence par * alors on prend toutes les variables terminees  par ce qui est apres le * de varToRetrieve
+ *                             si vide alors toutes les lignes de la section seront retenues, alors entireDataLine est un ou deux  (ne s'arrete pas a la premiere valeur entre = et ,)
  *  \param isToStrip :  isToStrip a zero par defaut si a un, chaque element de la liste sera nettoye des espaces de debut et fin
  *  \param isUtf8 : pointeur sur un int (par defaut a  zero) qui si different de zero sera initialise a un si le fichier est en UTF8
- *  \param entireDataLine :  entireDataLine a zero par defaut seule la première valeur apres le signe egal et avant la premiere virgule sera retenue.
+ *  \param entireDataLine :  entireDataLine a zero par defaut seule la premiere valeur apres le signe egal et avant la premiere virgule sera retenue.
  *                           si a un,   toutes les donnees apres le signe = seront retenues
  *                           si a deux, toutes les donnees de la ligne seront retenues y compris ce qui est avant le signe =
  *  \return QStringList lst la liste des variables
@@ -1122,12 +1269,12 @@ QStringList CGestIni::Param_GetList(QString &outParam, const QString &sectionToR
  *  \param outParam : String parametres dans laquelle l'on va extraire une liste.
  *  \param sectionToRetrieve : section contenant les variables dont il faut faire une liste
  *  \param varToRetrieve     : variable dont il faut faire une liste (si vide alors toutes les donnees de la section apres le signe = seront retenues)
- *                             si terminee par * alors on prend toutes les variables commençant par ce qui est avant le * de varToRetrieve
- *                             si commence par * alors on prend toutes les variables terminees  par ce qui est après le * de varToRetrieve
- *                             si vide alors toutes les lignes de la section seront retenues, alors entireDataLine est un ou deux  (ne s'arrete pas à la premiere valeur entre = et virgule)
+ *                             si terminee par * alors on prend toutes les variables commencant par ce qui est avant le * de varToRetrieve
+ *                             si commence par * alors on prend toutes les variables terminees  par ce qui est apres le * de varToRetrieve
+ *                             si vide alors toutes les lignes de la section seront retenues, alors entireDataLine est un ou deux  (ne s'arrete pas a la premiere valeur entre = et virgule)
  *  \param lst :        liste a initialiser et construire
  *  \param isToStrip :  isToStrip a zero par defaut si a un, chaque element de la liste sera nettoye des espaces de debut et fin
- *  \param entireDataLine :  entireDataLine a zero par defaut seule la première valeur apres le signe egal et avant la premiere virgule sera retenue.
+ *  \param entireDataLine :  entireDataLine a zero par defaut seule la premiere valeur apres le signe egal et avant la premiere virgule sera retenue.
  *                           si a un,   toutes les donnees apres le signe = seront retenues
  *                           si a deux, toutes les donnees de la ligne seront retenues y compris ce qui est avant le signe =
 */
@@ -1170,7 +1317,7 @@ void CGestIni::Param_GetList(QString &outParam, const QString &sectionToRetrieve
                                pt   = GotoEndOfLigne(pt);
                                data = QString::fromLatin1 (deb, pt-deb).trimmed();
                                if (data.length())
-                                  {if (entireDataLine==1)        // si un on coupe après le signe =  si deux toute la ligne est retenue
+                                  {if (entireDataLine==1)        // si un on coupe apres le signe =  si deux toute la ligne est retenue
                                       {int pos = data.indexOf('=');
                                        if (pos != -1) data = data.mid(pos+1);
                                       }
@@ -1199,7 +1346,7 @@ void CGestIni::Param_GetList(QString &outParam, const QString &sectionToRetrieve
                      pt   = GotoEndOfLigne(pt);
                      data = QString::fromLatin1 (deb, pt-deb).trimmed();
                      if (data.length())
-                        {if (entireDataLine!=2)        // on coupe après le signe = si pa egal a deux
+                        {if (entireDataLine!=2)        // on coupe apres le signe = si pas egal a deux
                             {int pos = data.indexOf('=');
                              if (pos != -1) data = data.mid(pos+1);
                             }
@@ -1356,7 +1503,7 @@ char *CGestIni::Param_GotoNextSection(char *pt, const char* section, QString *pQ
           if (len_section>0 && pQsection != 0)
              {*pQsection=QString::fromLatin1(deb, len_section);
              }
-          if ( section == 0)  return  GotoNextDebLigne(pt);   // pas de section donnee, on s'arrete ï¿½  la premiÃ¨re trouvee
+          if ( section == 0)  return  GotoNextDebLigne(pt);   // pas de section donnee, on s'arrete a  la premiere trouvee
           if ((long)strlen(section)==len_section && strncmp(section, deb, len_section)==0)             // SI c'est la section recherchee
              {                return  GotoNextDebLigne(pt);                            // aller ligne suivante
              } // end if (strlen(section)==len_section && strncmp(section, deb, len_section)==0)   // SI c'est la section recherchee
@@ -1403,7 +1550,7 @@ char *CGestIni::Param_ExtraireNextValeurs(char* pt, QString &var_name,
 }
 
 //------------------------------ Param_ExtraireNextValeurs ----------------------------------------
-/*! \brief Extrait les valeurs d'une variable donnee dans un string paramÃ¨tre donne.
+/*! \brief Extrait les valeurs d'une variable donnee dans un string parametre donne.
 */
 char *CGestIni::Param_ExtraireNextValeurs(char* pt, QString &var_name, char**pt_lgn, long *len,
                                              QString *val1, QString *val2, QString *val3, QString *val4, QString *val5,
@@ -1488,7 +1635,7 @@ QString CGestIni::CutStrRight(const QString &str, const QString &at)
  return str;
 }
 //------------------------------ Construct_Name_Exe -----------------------------------------
-/*! \brief construit le chemin vers l'executable du module (module) de MendinTux. GÃ¨re la compatibilite Windows/Linux/Mac.
+/*! \brief construit le chemin vers l'executable du module (module) de MendinTux. Gaere la compatibilite Windows/Linux/Mac.
 */
 QString CGestIni::Construct_Name_Exe(QString module, QString start_Argv, const QString &alternateExecName /*="" */)
 {
@@ -1520,7 +1667,7 @@ relation avec le module correspondant
 
 
 //------------------------------ Construct_Name_File_Ini -----------------------------------------
-/*! \brief construit le chemin vers le fichier ini du module (module) de MendinTux. GÃ¨re la compatibilite Windows/Linux/Mac.
+/*! \brief construit le chemin vers le fichier ini du module (module) de MendinTux. Gaere la compatibilite Windows/Linux/Mac.
 */
 QString CGestIni::Construct_Name_File_Ini(QString module, QString start_Argv, QString nom_Fichier_Alternatif ){
 /*      Signature :  String         X String X String                                                   --> String
@@ -1547,7 +1694,7 @@ QString CGestIni::Construct_Name_File_Ini(QString module, QString start_Argv, QS
 
 //------------------------------ Construct_PathBin_Module -----------------------------------------
 /*! \brief Permet la construction d'un nom complet de fichier executable en  relation avec le module correspondant
- *  \param QString  module : nom du programme dont on cherche ï¿½  construire le chemin complet si egal ï¿½  "" alors le nom du chemin sera extrait de : start_Argv
+ *  \param QString  module : nom du programme dont on cherche a�¿½  construire le chemin complet si egal a�¿½  "" alors le nom du chemin sera extrait de : start_Argv
  *  \param const QString & start_Argv : Chemin complet de demarrage du programme
  *  \param QString *base_name : adresse d'une QString qui dans laquelle si elle est differente de zero sera retourne le nom du programme SANS SON EXTENSION
  *  \return nom du module  avec le chemin complet de demarrage du proc --> nom  ini complet du module
@@ -1559,7 +1706,7 @@ QString CGestIni::Construct_PathBin_Module(const QString  &module, const QString
 //------------------------------ AbsoluteToRelativePath -----------------------------------------
 /*! \brief convertit un chemin absolu en chemin relatif par rapport a un chemin de reference, il est imperatif que les chemins d'entree soient tous en absolu.
  *  \param QString pathRef : chemin de reference par rapport auquel il faut relativiser
- *  \param QString pathToConvert : chemin ï¿½ convertir
+ *  \param QString pathToConvert : chemin a�¿½ convertir
  *  \return chemin convertit en relatif
 */
 
@@ -1749,7 +1896,7 @@ QString CGestIni::PassWordDecode(QString str_to_decode)
 
 //-----------------------------------------------------  UINTtoHex --------------------------------------------------------
 QString CGestIni::UINTtoHex( quint16 val)
-{char hex[16]={'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};   // lÃ  on peut mettre une table Bidon
+{char hex[16]={'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};   //  on peut mettre une table Bidon
  QString res="";
  res += hex[(val>>12)& 0x000F];
  res += hex[(val>>8) & 0x000F];

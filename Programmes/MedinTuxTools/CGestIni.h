@@ -27,31 +27,15 @@
 #include <qsqlquery.h>
 
 //================================================= CForSleep ==============================================================
-#ifdef Q_WS_MAC
     #include <qthread.h>
     class CForSleep : public QThread
           {public:
-                CForSleep(){};
-                ~CForSleep(){};
-                static void sleep(unsigned long secs){QThread::sleep(secs);};
-                virtual void   run(){};
+                CForSleep(){}
+                ~CForSleep(){}
+                static void sleep(unsigned long secs){QThread::sleep(secs);}
+                virtual void   run(){}
           };
     #define SLEEP(a) CForSleep::sleep((a))
-#endif
-#ifdef Q_WS_WIN
-    #include <qthread.h>
-    class CForSleep : public QThread
-          {public:
-                CForSleep(){};
-                ~CForSleep(){};
-                static void sleep(unsigned long secs){QThread::sleep(secs);};
-                virtual void   run(){};
-          };
-    #define SLEEP(a) CForSleep::sleep((a))
-#endif
-#ifdef Q_WS_X11
-     #define SLEEP(a) sleep((a))
-#endif
 
 //===================================== CGestIni =============================================================================
 class CGestIni
@@ -150,8 +134,8 @@ public:
   static  QString       retrieveStringForParam(QString &str);
   static  QStringList   listDirectory(QString start_dir, const QString &filterExt_in ="", const QString &filterName="", const QString &sep=";", bool listWithoutExt=FALSE, bool listWithDirName =FALSE);
  //............................... DATA .............................................................................
-public:
-
+private:
+  static long _loadFromDisk(const QString &file_ini, QString &outParam, int *isUtf8_ret  =0 );
 };
 
 #endif

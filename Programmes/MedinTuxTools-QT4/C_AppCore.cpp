@@ -1,6 +1,4 @@
 #include "C_AppCore.h"
-//#include "CApp.h"
-
 #include <QFileInfo>
 #include <QFile>
 
@@ -64,7 +62,7 @@ C_AppCore::C_AppCore(QString mui_name, int & argc, char ** argv)
     //.............................. initialiser le theme ..........................................
     m_PathTheme     =  "../../Themes/Default/";
     if (CGestIni::Param_ReadParam( m_IniParam.toAscii(), "Theme", "Path", &m_PathTheme) != QString::null )  // zero = pas d'erreur
-        { m_PathTheme     =  "../../Themes/Default";                                   // valeur par défaut si pas de theme explicite
+        { m_PathTheme     =  "../../Themes/Default";                                   // valeur par defaut si pas de theme explicite
         }
     if ( QDir(m_PathTheme).isRelative()) {m_PathTheme.prepend(m_PathAppli); m_PathTheme = QDir::cleanPath(m_PathTheme) + "/";}
     if (!QDir(m_PathTheme).exists())      m_PathTheme     =  "../../Themes/Default/";        // valeur par defaut
@@ -450,9 +448,9 @@ QString C_AppCore::get_Current_IP_Adr(QString *pMacAdr /* = 0 */)
                  }  // end if ( hdadr_toUse.length()==0                           &&
            }
        // if (ipadr_toUse.length()) qDebug() << QString("to use ip : %1 hd : %2").arg(ipadr_toUse , hdadr_toUse);
-       if (pMacAdr) *pMacAdr = hdadr_toUse.toUpper();
+       if (pMacAdr) {*pMacAdr      = hdadr_toUse.toUpper();
+                      G_currentMac = *pMacAdr;}
        G_currentIp  = ipadr_toUse;
-       G_currentMac = *pMacAdr;
        return ipadr_toUse;
      }
 //--------------------------------- networkInterfaceFlagToString -----------------------------------------------------------------------
