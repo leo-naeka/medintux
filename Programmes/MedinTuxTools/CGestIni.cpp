@@ -338,7 +338,8 @@ long  CGestIni::_loadFromDisk(const QString &file_ini, QString &outParam, int *i
          if ( isUtf8_ret ) *isUtf8_ret = isUtf8;
          if (isUtf8)
             {outParam    =  QString::fromUtf8 ( text ) ;
-             if (file_ini.endsWith(".htm"))
+             int pos     = file_ini.findRev('.');
+             if (pos!=-1 && file_ini.mid(pos,4).lower() == ".htm")
                 {outParam.replace("meta name=\"qrichtext\" content=\"charset=utf-8\"",   // obligé d'etre en content=\"1\" pour que les tabulations fonctionnent !!
                                   "meta name=\"qrichtext\" content=\"1\"");
                 }
