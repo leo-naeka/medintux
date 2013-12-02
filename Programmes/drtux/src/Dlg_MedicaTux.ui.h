@@ -126,9 +126,14 @@ int Dlg_MedicaTux::initDialog(CMedicaBase *pCMedBase)
      tabWidgetSelect->removePage (tabWidgetSelect->page (1));
     }
  textLabelLogo->setPixmap(image);
+ QString version = m_pCMedBase->Medica_GetDatasempVersion();
+ if (version.startsWith("ERR")) 
+    { G_pCApp->CouCou(version);
+      return 0;
+    }
  //................. generer la premiere liste ...........................................................................................
  QString title = tr("MedicaTux est connecté à  : ") + m_pCMedBase->m_DriverName + ":: " + m_pCMedBase->m_BaseName
-                 + tr("  Version : ") + m_pCMedBase->Medica_GetDatasempVersion();
+                 + tr("  Version : ") + version;
  setCaption(title);
  int nb = m_pCMedBase->Medica_GetMedicamentList( listView_Produits ,
                                                          "A",

@@ -424,7 +424,7 @@ void  CMoteurBase::ParseSQL_InsertInto(QString &text, const QString &baseLabel)
     //....................... parser ................................................
     while (run)
     {end = text.find("),(", deb);                      // chercher fin des donn\303\251es par le s\303\251parateur
-        if (end==-1)                                      // si pas trouv\303\251 chercher derniÃ¨re insertion
+        if (end==-1)                                      // si pas trouv\303\251 chercher derniere insertion
         {end = text.find(");", deb);
             if (end==-1)
                {   //Datasemp_OutMessage(logWidget,QObject::tr(" Erreur de syntaxe  INSERT INTO VALUES : ligne :  ")+ QString::number(line_number));
@@ -1008,7 +1008,7 @@ void CMoteurBase::GetPatientNomPrenomPk( bool mustBeOpenClose, const QString   &
  *  \param qsrt_prenom : Prenom a rechercher
  *  \param statusMess : message de retour
  *  \param errMess : Message d'erreur.
- *  \return nombre d'enregistrements inseres dans la QListView passee en paramÃ¨tre
+ *  \return nombre d'enregistrements inseres dans la QListView passee en parametre
 */
 long CMoteurBase::GetPatientList(       QTreeWidget     *pQlistView,
                                   const QString         &qstr_nom,
@@ -1059,7 +1059,7 @@ long CMoteurBase::GetPatientList(       QTreeWidget     *pQlistView,
   //                 pour remplir la listview
 
   int i  = 0;
-  //.................. si la requÃ¨te a un resultat ..............................................
+  //.................. si la requete a un resultat ..............................................
   if (query.isActive())
   {pQlistView->clear();
    while (query.next())
@@ -1166,7 +1166,7 @@ QString CMoteurBase::ComputeClef_Secu(const char *txt)
  *  \param qsrt_prenom : Prenom a rechercher
  *  \param statusMess : message de retour
  *  \param errMess : Message d'erreur.
- *  \return nombre d'enregistrements inseres dans la QListView passee en paramÃ¨tre
+ *  \return nombre d'enregistrements inseres dans la QListView passee en parametre
 */
 long CMoteurBase::GetPatientListFromNomPrenomSecuDtNssGeme( QTreeWidget     *pQlistView,
                                                             const QString   &qstr_nom,
@@ -1270,7 +1270,7 @@ long CMoteurBase::GetPatientListFromNomPrenomSecuDtNssGeme( QTreeWidget     *pQl
   //                 pour remplir la listview
   int i  = 0;
   int nb = 0;
-  //.................. si la requÃ¨te a un resultat ..............................................
+  //.................. si la requete a un resultat ..............................................
   if (query.isActive())
      {int nb_columns = 0;
       if (pQlistView) {pQlistView->clear(); nb_columns = pQlistView->columnCount();}
@@ -1304,7 +1304,7 @@ long CMoteurBase::GetPatientListFromNomPrenomSecuDtNssGeme( QTreeWidget     *pQl
                                     element->setText(3, Utf8_Query(query, 3 ));   // GUID
                                     break;
                                    }
-                                case 8 : // RecupÃ¨re les elÃ¨ments d'identite en plus
+                                case 8 : // Recupere les elements d'identite en plus
                                    {/*
                                     requete_ident        = "SELECT " + m_DOSS_IDENT_RUE + ", " + m_DOSS_IDENT_CODE_POST + ", \n";
                                     requete_ident       += m_DOSS_IDENT_VILLE + ", " + m_DOSS_IDENT_JFNOM + ", \n";
@@ -1532,7 +1532,7 @@ void CMoteurBase::PatientIntervenantsGetData(const char *primKeyPat , QStringLis
   requete  += "SELECT " + m_DOSS_INTERVENANTS_INTERVPK  + " FROM " + m_DOSS_INTERVENANTS_TBL_NAME   + " WHERE ";
   requete  +=             m_DOSS_INTERVENANTS_PAT_PK    + " = '"   + primKeyPat                     + "' ";
   QSqlQuery query(requete , QSqlDatabase::database(m_BaseLabel) );
-  //.................. si la requÃ¨te a un resultat ..............................................
+  //.................. si la requete a un resultat ..............................................
   if (query.isActive())
      { while (query.next())
          {pkIntervList.append( query.value( 0 ).toString());
@@ -1618,7 +1618,7 @@ QString CMoteurBase::PatientIntervenantsIsThisExist( const char* intervPk, const
 
   QSqlQuery query(requete , QSqlDatabase::database(m_BaseLabel) );
 
-  //.................. si la requÃ¨te a un resultat ..............................................
+  //.................. si la requete a un resultat ..............................................
   if (query.isActive() && query.next())
      {ret = Utf8_Query(query, 0 );
      }
@@ -1735,7 +1735,7 @@ QString CMoteurBase::PatientNoteIsThisExist(  const char *primKeyPat,
 
   QSqlQuery query(requete , QSqlDatabase::database(m_BaseLabel) );
 
-  //.................. si la requÃ¨te a un resultat ..............................................
+  //.................. si la requete a un resultat ..............................................
   if (query.isActive() && query.next())
      {ret = Utf8_Query(query, 0 );
      }
@@ -1837,7 +1837,7 @@ void CMoteurBase::PatientNoteGetData(const char *primKeyPat ,  QString& data, QS
 
   QSqlQuery query(requete , QSqlDatabase::database(m_BaseLabel) );
 
-  //.................. si la requÃ¨te a un resultat ..............................................
+  //.................. si la requete a un resultat ..............................................
   if (query.isActive() && query.next())
      {data = Utf8_Query(query, 0 );
      }
@@ -1994,36 +1994,19 @@ long CMoteurBase::PermsUserGetList(          Q3ListView *pQlistView,
      {if (errMess) errMess->setText("CMoteurBase::GetUserPermsList(): database can't be opened");
       return 0;
      }
-//  pt = SetConfBase_SetProperties(deb,  m_USER_PERMS_TBL_NAME,      "USER_PERMS_TBL_NAME",       &line , err); if (err.length())     goto SetConfBase_Error;       // nom de la table des droits des utilisateurs non prescripteurs
- //  pt = SetConfBase_SetProperties(pt,   m_USER_PERMS_PK,            "USER_PERMS_PK",             &line , err); if (err.length())     goto SetConfBase_Error;       // clef primaire de cet enregistrement
- //  pt = SetConfBase_SetProperties(pt,   m_USER_PERMS_SIGN_GUID,     "USER_PERMS_SIGN_GUID",      &line , err); if (err.length())     goto SetConfBase_Error;       // Ref au GUID du signataire autorisant cet utilisateur
- //  pt = SetConfBase_SetProperties(pt,   m_USER_PERMS_FRIEND_GUID,   "USER_PERMS_FRIEND_GUID",    &line , err); if (err.length())     goto SetConfBase_Error;       // GUID de cet utilisateur
- //  pt = SetConfBase_SetProperties(pt,   m_USER_PERMS_FRIEND_DROITS, "USER_PERMS_FRIEND_DROITS",  &line , err); if (err.length())     goto SetConfBase_Error;       // Droits que le signataire attribue a cet utilisateur
- //  pt = SetConfBase_SetProperties(pt,   m_USER_PERMS_FRIEND_BLOBS,  "USER_PERMS_FRIEND_BLOBS",   &line , err); if (err.length())     goto SetConfBase_Error;       // Configuration des autorisations fines (liste des fichiers autorises avec les droits)
- /*
- QString requete ="SELECT " + m_USER_IDENT_TBL_NAME  + "." + m_USER_IDENT_LOGIN                + ", "       // 0
-                            + m_USER_IDENT_TBL_NAME  + "." + m_USER_IDENT_NOM                  + ", "       // 1
-                            + m_USER_IDENT_TBL_NAME  + "." + m_USER_IDENT_PRENOM               + ", "       // 2
-                            + m_USER_PERMS_TBL_NAME  + "." + m_USER_PERMS_FRIEND_DROITS        + ", "       // 3
-                            + m_USER_PERMS_TBL_NAME  + "." + m_USER_PERMS_PK                   + ", "       // 4
-                            + m_USER_IDENT_TBL_NAME  + "." + m_USER_IDENT_GUID                 + " FROM "   // 5
-                            + m_USER_PERMS_TBL_NAME  + " INNER JOIN " + m_USER_IDENT_TBL_NAME  + " ON "
-                            + m_USER_IDENT_TBL_NAME  + "." + m_USER_IDENT_GUID + " = " + m_USER_PERMS_TBL_NAME + "." + m_USER_PERMS_SIGN_GUID + " WHERE "
-                            + m_USER_PERMS_SIGN_GUID + " = '" + signGUID  + "' ORDER BY " +  m_USER_IDENT_TBL_NAME  + "." + m_USER_IDENT_LOGIN;
-*/
-pQlistView->clear();
-QString requete = "SELECT "  + m_USER_PERMS_PK                + ", "                                                // 0
-                             + m_USER_PERMS_SIGN_GUID         + ", "                                                // 1
-                             + m_USER_PERMS_FRIEND_GUID       + ", "                                                // 2
-                             + m_USER_PERMS_FRIEND_DROITS     + ", "                                                // 3
-                             + m_USER_PERMS_FRIEND_BLOBS      + " FROM " + m_USER_PERMS_TBL_NAME + " WHERE "        // 4
-                             + m_USER_PERMS_SIGN_GUID         + " = '"   + signGUID +"'";
+  pQlistView->clear();
+  QString requete = "SELECT "  + m_USER_PERMS_PK                + ", "                                                // 0
+                               + m_USER_PERMS_SIGN_GUID         + ", "                                                // 1
+                               + m_USER_PERMS_FRIEND_GUID       + ", "                                                // 2
+                               + m_USER_PERMS_FRIEND_DROITS     + ", "                                                // 3
+                               + m_USER_PERMS_FRIEND_BLOBS      + " FROM " + m_USER_PERMS_TBL_NAME + " WHERE "        // 4
+                               + m_USER_PERMS_SIGN_GUID         + " = '"   + signGUID +"'";
   QSqlQuery query(requete , QSqlDatabase::database(m_BaseLabel) );
   //Param_UpdateToDisk("/home/ro/TestSql.txt", requete);
   //................ scanner les enregistrements ....................................................
   //                 pour remplir la listview
   int       nb = 0;
-  //.................. si la requÃ¨te a un resultat ..............................................
+  //.................. si la requete a un resultat ..............................................
   if (query.isActive())
      {pQlistView->clear();
       while (query.next())
@@ -2238,7 +2221,7 @@ QString CMoteurBase::GetUserDocument(QString         dataPk,
  if (text == "")     return ret;
 
  //..................... retirer les bonnes donnees ........................
- //                     a priori on considÃ¨re que le recto
+ //                     a priori on considere que le recto
  if (type == 0)
     {if (text.find("}} /r/n{{") != -1)           type = TYP_ORDONNANCE;
      else if (text.find("}}==/r/n=={{") != -1)   type = TYP_CERTIFICAT;
@@ -2425,7 +2408,7 @@ int CMoteurBase::UserDroitsCount(const QString &droitToFind , QString    *errMes
 }
 
   //------------------------------------------ GetUserList -------------------------------------------------------------------------
-  /*! \brief Fonction qui filtre, recupere et renseigne une QTreeWidget avec le nom des utilisateurs  filtree par certains critÃ¨res
+  /*! \brief Fonction qui filtre, recupere et renseigne une QTreeWidget avec le nom des utilisateurs  filtree par certains criteres
    *  \param pQlistView    *QTreeWidget  : pointeur sur la QTreeWidget a remplir avec le nom des utilisateurs
    *  \param listUserAlreadyPresent       const QStringList& :  reference sur une liste d'utilisateurs deja presents a ne pas retourner
    *  \param specialite    const QString& : (par defaut vide) si contient quelque chose alors filtrer sur la Qualite de l'utilsateur (specialite)
@@ -2468,7 +2451,7 @@ QString CMoteurBase::GetUserList(  QTreeWidget *pQlistView, const QStringList &l
 }
 
   //------------------------------------------ GetUserList -------------------------------------------------------------------------
-  /*! \brief Fonction qui filtre, recupere et renseigne une QTreeWidget avec le nom des utilisateurs filtree par certains critÃ¨res
+  /*! \brief Fonction qui filtre, recupere et renseigne une QTreeWidget avec le nom des utilisateurs filtree par certains criteres
    *  \param pQlistView    *QTreeWidget  : pointeur sur la QTreeWidget a remplir avec le nom des utilisateurs
    *  \param qstr_nom       const QString& : (par defaut vide) caracteres pour filtrer les nom des utilisateurs debutant par ces caracteres
    *  \param qstr_prenom    const QString& : (par defaut vide) caracteres pour filtrer le prenom des utilisateurs debutant par ces caracteres
@@ -2526,7 +2509,7 @@ long CMoteurBase::GetUserList(    QTreeWidget     *pQlistView,
   //................ scanner les enregistrements ....................................................
   //                 pour remplir la listview
   int nb = 0;
-  //.................. si la requÃ¨te a un resultat ..............................................
+  //.................. si la requete a un resultat ..............................................
   if (query.isActive())
      {pQlistView->clear();
       while (query.next())
@@ -2625,7 +2608,7 @@ void CMoteurBase::PermsUserFatherGetQlistView( Q3ListView* pQlistView, const QSt
                               + m_USER_IDENT_GUID                 + "  "    // 4
                               + " FROM " + m_USER_IDENT_TBL_NAME  + " WHERE " + m_USER_IDENT_DROITS + " LIKE '%-sgn%' ORDER BY " + m_USER_IDENT_LOGIN;
   QSqlQuery query(requete , QSqlDatabase::database(m_BaseLabel) );
-  //.................. si la requÃ¨te a un resultat ..............................................
+  //.................. si la requete a un resultat ..............................................
   if (query.isActive())
      {while (query.next())
         {QString login = Utf8_Query(query, 0 );
@@ -2683,7 +2666,7 @@ void CMoteurBase::PermsUserChildGetList(  QTreeWidgetItem *pQlistViewItem,  cons
   //Param_UpdateToDisk("/home/ro/TestSql.txt", requete);
   //................ scanner les enregistrements ....................................................
   //                 pour remplir la listview
-  //.................. si la requÃ¨te a un resultat ..............................................
+  //.................. si la requete a un resultat ..............................................
   if (query.isActive())
      {
       while (query.next())
@@ -2740,7 +2723,7 @@ int CMoteurBase::PermsUserSignUserListForThisUser(   const QString  &user, QStri
   QString requete = "SELECT "  + m_USER_PERMS_SIGN_GUID + ", "    +  m_USER_PERMS_FRIEND_DROITS   + " FROM " + m_USER_PERMS_TBL_NAME + " WHERE "        // 4
                                + m_USER_PERMS_FRIEND_GUID         + " = '"                        + userGUID                         + "' ;";
   QSqlQuery query(requete , QSqlDatabase::database(m_BaseLabel) );
-  //.................. si la requÃ¨te a un resultat ..............................................
+  //.................. si la requete a un resultat ..............................................
   QString sign_guid       ="";
   QString friend_droits   ="";
   QString sign_name       ="";
@@ -2763,7 +2746,7 @@ int CMoteurBase::PermsUserSignUserListForThisUser(   const QString  &user, QStri
 }
 
 //--------------------------------------------- IsThisDroitExist -------------------------------------------------------------------
-// ACTION verifie si le droit : droitToFind  (trois caractÃ¨res style med adm sgn ....) existe dans la chaine de droits : listDroits
+// ACTION verifie si le droit : droitToFind  (trois caracteres style med adm sgn ....) existe dans la chaine de droits : listDroits
 //        6 fois plus rapide que : listDroits.find(droitToFind) != -1
 bool CMoteurBase::IsThisDroitExist(const char *listDroits, const char *droitToFind)
 {if (listDroits==0) return FALSE;
@@ -2791,7 +2774,7 @@ QString CMoteurBase::PermsUserIsThisUserFriendFromGUID(   const QString  &signGU
                                + m_USER_PERMS_SIGN_GUID           + " = '"   + signGUID              + "' AND  "
                                + m_USER_PERMS_FRIEND_GUID         + " = '"   + friendGUID            + "';";
   QSqlQuery query(requete , QSqlDatabase::database(m_BaseLabel) );
-  //.................. si la requÃ¨te a un resultat ..............................................
+  //.................. si la requete a un resultat ..............................................
   if (query.isActive())
      {while (query.next())
         {droits = Utf8_Query(query, 0 );
@@ -2819,7 +2802,7 @@ void CMoteurBase::GetUserListType( QStringList &typList , QString    *errMess /*
   requete       += " ORDER BY "  + m_USER_IDENT_QUALITE;
 
   QSqlQuery query(requete , QSqlDatabase::database(m_BaseLabel) );
-  //.................. si la requÃ¨te a un resultat ..............................................
+  //.................. si la requete a un resultat ..............................................
   if (query.isActive())
      {typList.clear();
       while (query.next())
@@ -2860,7 +2843,7 @@ long CMoteurBase::InitComboWithUserDocList( Q3ComboBox       *pQ3ComboBox,
                            m_USER_DATA_TYPE    +","+
                            m_USER_DATA_PK;
           requete       += " FROM "       + m_USER_DATA_TBL_NAME       + " WHERE ";
-  //................. forme particuliÃ¨re des nouvelles rubriques a venir oÃ¹ ..................................
+  //................. forme particuliere des nouvelles rubriques a venir oÃ¹ ..................................
   //                  le libelle du document d'entete et de pied de page doit Ãªtre
   //                  de la forme : [NOM DE LA RUBRIQUE] LIBELLE DE LA RUBRIQUE (avec le # ou * et eventuels prefixages)
   if (type1.left(7) == "RUBNAME")
@@ -2895,7 +2878,7 @@ long CMoteurBase::InitComboWithUserDocList( Q3ComboBox       *pQ3ComboBox,
   QString type_doc;
   QString rubNameInTitle;
   QString subTypeInTitle;
-  //.................. si la requÃ¨te a un resultat ..............................................
+  //.................. si la requete a un resultat ..............................................
   if (query.isActive())
      {if (clear) pQ3ComboBox->clear();
       while (query.next())
@@ -2979,7 +2962,7 @@ long CMoteurBase::GetUserDocList( Q3ListView       *pQlistView,
   //................ scanner les enregistrements ....................................................
   //                 pour remplir la listview
   int nb = 0;
-  //.................. si la requÃ¨te a un resultat ..............................................
+  //.................. si la requete a un resultat ..............................................
   if (query.isActive())
      {pQlistView->clear();
       while (query.next())
@@ -3070,7 +3053,7 @@ QString CMoteurBase::IsThisUserDocExist(  int              type,
 
   QSqlQuery query(requete , QSqlDatabase::database(m_BaseLabel) );
 
-  //.................. si la requÃ¨te a un resultat ..............................................
+  //.................. si la requete a un resultat ..............................................
 
   if (query.isActive() && query.next())
      {ret = query.value(0).toString();
@@ -3108,7 +3091,7 @@ QString CMoteurBase::User_GetBestHeadFoot_ToPrintDoc( RUBREC_LIST::iterator it,
 
 
   QSqlQuery query(requete , QSqlDatabase::database(m_BaseLabel) );
-  //.................. si la requÃ¨te a un resultat ..............................................
+  //.................. si la requete a un resultat ..............................................
   QString type_modele      = "";
   QString libelle_modele   = "";
   QString type_document    = TypeDoc_To_PrintTypeDoc(  (*it).m_Type );
@@ -3124,7 +3107,7 @@ QString CMoteurBase::User_GetBestHeadFoot_ToPrintDoc( RUBREC_LIST::iterator it,
                   break;
                  }
               else if ( libelle_modele.at(0)=='#')
-                 {libelle_modele = libelle_modele.remove('#');;            // se placer aprÃ¨s le '# '
+                 {libelle_modele = libelle_modele.remove('#');;            // se placer apres le '# '
                   libelle_modele = libelle_modele.stripWhiteSpace().lower();
                   if (libelle_document.find(libelle_modele) != -1)           // si on trouve le nom du modele utilisateur dans le
                      {ret = Utf8_Query(query,0);                             // nom du document de la liste patient
@@ -3330,7 +3313,7 @@ QSqlQuery*   CMoteurBase::GetUserIdentiteFromPrimKey(const char *primKey , QStri
  for ( QStringList::Iterator it = fiedList.begin(); it != fiedList.end(); ++it )
      {requete  += *(it) + ",";
      }
- //.............. virer la derniÃ¨re virgule ....................................
+ //.............. virer la derniere virgule ....................................
  int pos = requete.findRev(',');
  if (pos !=-1) requete.remove (pos, 1);
  //............... continuer a construire la requete ...........................
@@ -4320,7 +4303,7 @@ QString  CMoteurBase::synchroIsThisIdentNoteExist(const QString &primKeyPat, QSq
 
   QSqlQuery query(requete , destMasterDB );
 
-  //.................. si la requÃ¨te a un resultat ..............................................
+  //.................. si la requete a un resultat ..............................................
   if (query.isActive() && query.next())
      {ret = query.value(0).toString();
      }
@@ -4756,7 +4739,7 @@ GetDosPrimKeyFromGUIDError:
 }
 
 //-------------------------------------- initConboBoxWithRubList -------------------------------------------------
-/*! \brief Initialise le Q3ComboBox passe en paramÃ¨tre avec les documents de la liste selon leur type.
+/*! \brief Initialise le Q3ComboBox passe en parametre avec les documents de la liste selon leur type.
  * L'utilisation de la classe CPrtQListBoxItem permet et d'inserer un item dans le Q3ComboBox et de lier ces items avec quelques donnees non affichees.
 
  * Types de documents :
@@ -5482,7 +5465,7 @@ QString CMoteurBase::VerrouilleRubrique( const QString &dossPk,
      return ret;                         // et cassos car c'est deja verrouille par un autre
     }
 
- //.................. si pas dÃ¨ja verrouille inserer notre verrou .......................................................................
+ //.................. si pas deja verrouille inserer notre verrou .......................................................................
  //.................. verouiller la table ................................................
  query.exec(QString("LOCK TABLES ") + m_VERROU_TBL_NAME + " WRITE");
  //.................. crer un curseur SQL ................................................

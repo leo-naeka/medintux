@@ -4941,9 +4941,9 @@ CMDI_Ident* DrTux::CMDI_IdentCreate (const char* num_GUID,          const char* 
         //.................. connecter les plugin de l'editeur au DrTux.............................................
     //                   pour qu'il puisse les executer
 
-    connect( m_pCMDI_Ident->m_pFormRubIdent->m_pMyEditText,         SIGNAL( Sign_Exe_Plugin(QString&, CRubRecord *pCRubRecord, const DOCUMENT_DISPLAY_MAP &currentRubIdMap)),
-             this,                                                  SLOT  ( Slot_ExePlugin(QString&,  CRubRecord *pCRubRecord, const DOCUMENT_DISPLAY_MAP &currentRubIdMap))
-           );
+    //connect( m_pCMDI_Ident->m_pFormRubIdent->m_pMyEditText,         SIGNAL( Sign_Exe_Plugin(QString&, CRubRecord *pCRubRecord, const DOCUMENT_DISPLAY_MAP &currentRubIdMap)),
+    //         this,                                                  SLOT  ( Slot_ExePlugin(QString&,  CRubRecord *pCRubRecord, const DOCUMENT_DISPLAY_MAP &currentRubIdMap))
+    //       );
     //.................. connecter les plugin de l'editeur au DrTux.............................................
     //                   pour qu'il puisse les executer
 

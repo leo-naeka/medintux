@@ -2633,8 +2633,8 @@ QString C_TokenInterpret::INTERVENANT(QStringList &arg_list) //{{INTERVENANT = M
 //-------------------------- NOM_NAISSANCE_PATIENT -------------------------------------------
 /*! \brief non documente */
 QString C_TokenInterpret::NOM_NAISSANCE_PATIENT( QStringList&)
-    {return G_mCDC->m_pMB->GetFieldValue(G_mCDC->m_pMB->m_DOSS_INDEX_TBL_NAME,  G_mCDC->m_pMB->m_DOSS_IDENT_JFNOM,
-                                         G_mCDC->m_pMB->m_DOSS_INDEX_PRIM_KEY , G_mCDC->m_IdentPrimKey);
+    {return G_mCDC->m_pMB->GetFieldValue(G_mCDC->m_pMB->m_DOSS_IDENT_TBL_NAME,  G_mCDC->m_pMB->m_DOSS_IDENT_JFNOM,
+                                         G_mCDC->m_pMB->m_DOSS_IDENT_REF_PK ,   G_mCDC->m_IdentPrimKey);
     }
 //-------------------------- NOM_PATIENT -------------------------------------------
 /*! \brief non documente */

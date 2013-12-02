@@ -461,7 +461,8 @@ int CMedicaBase::save_TraitementEnCours(QString /* pk_doss */,
 //                               CMedicaBase::Index et alors sera retourné la version de l'index MedicaBase
 QString CMedicaBase::Medica_GetDatasempVersion(VERS_MODE mode)
 {   QString version;
-    if (m_DataGet_Base->isOpen()==FALSE && m_DataGet_Base->open()==FALSE)  return 0;
+    if (m_DataGet_Base==0)                                                 return QObject::tr("ERROR : CMedicaBase::Medica_GetDatasempVersion() m_DataGet_Base =0");
+    if (m_DataGet_Base->isOpen()==FALSE && m_DataGet_Base->open()==FALSE)  return QObject::tr("ERROR : CMedicaBase::Medica_GetDatasempVersion() m_DataGet_Base can't be opened");;
     QSqlQuery sqlQuery ("SELECT DatasempVersion FROM version " , m_DataGet_Base );
     if (sqlQuery.isActive() && sqlQuery.next())
        {version = sqlQuery.value(0).toString();
