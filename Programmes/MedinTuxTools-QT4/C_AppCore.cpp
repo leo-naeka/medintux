@@ -15,7 +15,33 @@
 
 #include "Theme/Theme.h"
 #include "CGestIni.h"
+//================================================= C_SplashScreen> ==============================================================
+/*! \class C_SplashScreen
+ *  \brief base class derived from QSplashScreen.
+ *  - this Class display a splash screen
+ */
 
+void	C_SplashScreen::mousePressEvent ( QMouseEvent *e )
+{   int ret = 0;
+    emit Sign_OnClicked(e, ret);
+    if (ret) QSplashScreen::mousePressEvent ( e );
+}
+bool C_SplashScreen::event ( QEvent * e )
+{    int ret = 0;
+     if (e->type()==QEvent::MouseButtonPress) // marche po
+        {emit Sign_OnClicked( (QMouseEvent*)e, ret);
+        }
+     return QSplashScreen::event ( e );
+}
+
+//================================================= CApp ==============================================================
+/*! \class C_AppCore
+ *  \brief Main base class derived from QApplication.
+ *  - this Class must be derived and derived classe instancied in main.cpp in first position
+ *    when this class is instancied a global pointer  CApp* G_pCApp will be created.
+ *    if fatal error in class initialisation occured  CApp::pCApp()==0
+ *    so all publics functions will be accessibles by CApp::pCApp()->publicFonctions().
+ */
 
 static C_AppCore*           G_AppCore    = 0;  // contiendra l'instance globale de l'application accessible avec CApp::pCApp()
 static QString              G_currentIp  = "";

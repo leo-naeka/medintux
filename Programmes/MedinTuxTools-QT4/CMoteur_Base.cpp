@@ -97,8 +97,7 @@ CMoteurBase::CMoteurBase(const QString & driver,             // nom du driver: "
                          verifyMode /* verifyMode  = CMoteurBase::verifyBaseStruct */)
 : QObject(parent, name),                   // initialisation classique de l'objet
  C_DBVarDrTux(confData , errMess)           // initialiser les nom des variables champs de la base de donnee
-{  //QString versionWhish = QString::number(VERSION_BASE);          // version exigee de la base avec le programme actuel
-   int versionWhish  = normaliseVersion(VERSION_BASE);                               // version exigee de la base avec le programme actuel
+{  int versionWhish  = normaliseVersion(VERSION_BASE);                               // version exigee de la base avec le programme actuel
    int versionInUse  = 0;
    //.............. initialiser les variables .....................................................
    m_DestBaseLabel   = "";

@@ -177,7 +177,9 @@ bool C_KeyPressControl::eventFilter(QObject *obj, QEvent *event)
 //--------------------------------------------------------- C_Manager ---------------------------------------
 C_Manager::C_Manager(CMoteurBase *pCMoteurBase,  QWidget *parent, const QString & name)
    : QMainWindow(parent, name), m_pGUI(new Ui::C_ManagerClass), m_pCMoteurBase(pCMoteurBase)
-{  m_Apropos_Proc      = 0;
+{
+   if (G_pCApp->m_pQSplashScreen) G_pCApp->m_pQSplashScreen->showMessage(QObject::tr("Initialising Widgets and menus........."), Qt::AlignCenter | Qt::AlignCenter, Qt::black);
+   m_Apropos_Proc      = 0;
    m_List_GUI_Mode[0]  = "MODE_SELECTION_PATIENT";
    m_List_GUI_Mode[1]  = "MODE_CREATION_PATIENT";
    m_List_GUI_Mode[2]  = "MODE_MULTICRITERE";
@@ -389,7 +391,6 @@ C_Manager::C_Manager(CMoteurBase *pCMoteurBase,  QWidget *parent, const QString 
        }
 #endif // fin ENTREES_SIGEMS
    // SIGEMS_FIN ...............................................................
-
    //...................... menu a propos ............................
    m_menuInfo        = new QMenu(m_menuBar);
    m_action_A_Propos = new QAction(this);
@@ -444,6 +445,7 @@ C_Manager::C_Manager(CMoteurBase *pCMoteurBase,  QWidget *parent, const QString 
    m_AgendaDockTitle->setAlignment ( Qt::AlignHCenter|Qt::AlignVCenter );
    m_pGUI->wdg_DockWidget_Agenda->setTitleBarWidget ( m_AgendaDockTitle );
    //........... combobox ajouter un agenda utilisateur....................
+   if (G_pCApp->m_pQSplashScreen) G_pCApp->m_pQSplashScreen->showMessage(QObject::tr("Initialising Agendas........."), Qt::AlignCenter | Qt::AlignCenter, Qt::black);
    initComboBoxAgendaUser();
    //............ liste des jours ....................
    m_pAgendaQLayout = new QHBoxLayout ( m_pGUI->frame_MultiAgenda );
@@ -547,6 +549,7 @@ if (G_pCApp->readUniqueParam ( "Sesam-Vitale", "ModuleName")!= "PYXVITAL")
   }
 
  //.................. remplir la liste des patients......................
+   if (G_pCApp->m_pQSplashScreen) G_pCApp->m_pQSplashScreen->showMessage(QObject::tr("Initialising patients list........."), Qt::AlignCenter | Qt::AlignCenter, Qt::black);
    initListePatient("","");
    //.................. masquer le bouton Solde Patient si on a pas la compta......................         CZ_Cpta
    if (G_pCApp->readUniqueParam ( "Comptabilite", "Controle solde").toLower() != "oui")
@@ -567,6 +570,7 @@ if (G_pCApp->readUniqueParam ( "Sesam-Vitale", "ModuleName")!= "PYXVITAL")
    else
       {qDebug()<<tr("Ressources/QualiteBeneficiaire.tbl not found");
       }
+   if (G_pCApp->m_pQSplashScreen) G_pCApp->m_pQSplashScreen->showMessage(QObject::tr("Initialising widgets connexions........."), Qt::AlignCenter | Qt::AlignCenter, Qt::black);
    m_pGUI->comboBoxQualiteAyantDroit->insertItems(0, lst);    //Qt::CaseSensitivity
    //........................ connecter les slot de verification ...........................................................................................
    connect( m_pGUI->lineEdit_DtNss,    SIGNAL( Sign_focusOutEvent(QFocusEvent*, int &)),         this,     SLOT(   Slot_OutFocuslineEdit_DtNss(QFocusEvent*, int &)));
@@ -689,6 +693,7 @@ if (G_pCApp->readUniqueParam ( "Sesam-Vitale", "ModuleName")!= "PYXVITAL")
 
 
    //....................... nomadisme ....................................................
+   if (G_pCApp->m_pQSplashScreen) G_pCApp->m_pQSplashScreen->showMessage(QObject::tr("Initialising nomad qtatus........."), Qt::AlignCenter | Qt::AlignCenter, Qt::black);
    if (G_pCApp->m_IsGestionNomadisme)
       {m_NomadismeToolBar = addToolBar("NomadisemetoolBar"); //new QToolBar(this);
        m_NomadismeToolBar->setObjectName(QString::fromUtf8("m_NomadismeToolBar"));
@@ -788,11 +793,15 @@ if (G_pCApp->readUniqueParam ( "Sesam-Vitale", "ModuleName")!= "PYXVITAL")
             bool forceUserToBeUsed = user.startsWith('+');
             user = user.remove('+');
             if ( isCurrentUserInList==false && user == G_pCApp->m_SignUser) isCurrentUserInList = true;
-            if ( forceUserToBeUsed || m_pGUI->comboBoxAgendaUser->findText (user) != -1 )  addUserAgenda(user, QDate::currentDate());
+            if ( forceUserToBeUsed || m_pGUI->comboBoxAgendaUser->findText (user) != -1 )
+               { //if (G_pCApp->m_pQSplashScreen) G_pCApp->m_pQSplashScreen->showMessage(QObject::tr("Initialising users '%1' agendas.........").arg(user), Qt::AlignCenter | Qt::AlignCenter, Qt::black);
+                 addUserAgenda(user, QDate::currentDate());
+               }
            }
       }
    if ( ! isCurrentUserInList )
-      {addUserAgenda(G_pCApp->m_SignUser, QDate::currentDate());
+      {//if (G_pCApp->m_pQSplashScreen)G_pCApp->m_pQSplashScreen->showMessage(QObject::tr("Initialising users '%1' agendas.........").arg(G_pCApp->m_SignUser), Qt::AlignCenter | Qt::AlignCenter, Qt::black);
+       addUserAgenda(G_pCApp->m_SignUser, QDate::currentDate());
       }
    if (G_pCApp->readUniqueParam ( "Agenda", "Affichage logo Data Medical Design").toLower()== "non")  // CZA
       {m_pGUI->textLabelPixMap->hide();
@@ -6073,6 +6082,8 @@ C_Frm_Agenda *C_Manager::addUserAgenda(const QString &signUser, QDate date, QFra
       }
 
    m_pCMoteurBase->GetUserNomPrenom( signUser, nom, prenom);
+   if (G_pCApp->m_pQSplashScreen) G_pCApp->m_pQSplashScreen->showMessage(QObject::tr("Initialising agenda '%1' ....").arg(nom+" "+prenom), Qt::AlignCenter | Qt::AlignCenter, Qt::black);
+
    m_pGUI->wdg_DockWidget_Agenda->setUpdatesEnabled(false);
    QString        userDroits                 = G_pCApp->m_pCMoteurBase->GetUserPermisions(signUser);
    QString        imageFolder                = Theme::getPath()+"Agenda/";

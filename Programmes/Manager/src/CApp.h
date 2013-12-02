@@ -30,6 +30,7 @@
  #include <QProcess>
  #include <QtGui/QApplication>
 
+
 #include "../../MedinTuxTools-QT4/Agenda/CMoteurAgenda.h"
 #include "../../MedinTuxTools-QT4/CMoteur_Base.h"
 #include "../../MedinTuxTools-QT4/CCoolPopup.h"     // Gestion des popups surgissants
@@ -170,6 +171,7 @@ int                  m_IsNomadeActif;       /*!< variable stockant l'Ã©tat du no
 //........................ le message popup .................................
 CCoolPopup          *m_pCCoolPopup;              /*!< Pour afficher un message en popup surgissant en bas Ã  droite */
 int                  m_CCoolPopupTempo;          /*!< temps de persistance du menu Ã  l'Ã©cran en microsecondes */
+QSplashScreen       *m_pQSplashScreen;           /*!< splash screen */
 //......................... carte PS .............................
 #ifdef SESAM_VERSION
   C_Cps     *m_pCps;              /*!< contient les donnees de la carte cps */
@@ -180,6 +182,7 @@ int                  m_CCoolPopupTempo;          /*!< temps de persistance du me
 #endif
 
 public slots:
+     void  Slot_OnSplash_Clicked(QMouseEvent *, int &);
      void  CouCouUp(   CCoolPopup * pCCoolPopup);
      void  CouCouStop( CCoolPopup * pCCoolPopup);
      void  CouCouDestroy();

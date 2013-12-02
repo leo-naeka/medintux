@@ -8,6 +8,7 @@
 #include <qtsingleapplication.h>
 #include <QKeyEvent>
 #include <QNetworkInterface>
+#include <QSplashScreen>
 
 #ifdef Q_WS_WIN
    #define F_EXE ".exe"
@@ -16,7 +17,27 @@
 #endif
 
 #define TR QObject::tr
+//================================================= C_SplashScreen> ==============================================================
+/*! \class C_SplashScreen
+ *  \brief base class derived from QSplashScreen.
+ *  - this Class display a splash screen
+ */
 
+class C_SplashScreen: public QSplashScreen
+{
+    Q_OBJECT
+public:
+  C_SplashScreen(const QPixmap & pixmap = QPixmap(), Qt::WindowFlags f = 0)
+      : QSplashScreen(pixmap, f)
+  {
+
+  }
+protected:
+  void	mousePressEvent ( QMouseEvent *e );
+  bool  event ( QEvent * e );
+signals:
+  void Sign_OnClicked(QMouseEvent *, int &);
+};
 
 //================================================= CApp ==============================================================
 /*! \class C_AppCore
@@ -58,7 +79,7 @@ public:
      *  \param varToRetrieve     : variable dont il faut faire une liste (si vide alors toutes les donnees de la section apres le signe = seront retenues)
      *                             si terminee par * alors on prend toutes les variables commencant par ce qui est avant le * de varToRetrieve
      *                             si commence par * alors on prend toutes les variables terminees  par ce qui est apres le * de varToRetrieve
-     *                             si vide alors toutes les lignes de la section seront retenues, alors entireDataLine est un ou deux  (ne s'arrete pas Ã  la premiere valeur entre = et virgule)
+     *                             si vide alors toutes les lignes de la section seront retenues, alors entireDataLine est un ou deux  (ne s'arrete pas Ã  la premiere valeur entre = et virgule)
      *  \param lst :        liste a initialiser et construire
      *  \param isToStrip :  isToStrip a zero par defaut si a un, chaque element de la liste sera nettoye des espaces de debut et fin
      *  \param entireDataLine :  entireDataLine a zero par defaut seule la premiere valeur apres le signe egal et avant la premiere virgule sera retenue.
@@ -72,7 +93,7 @@ public:
      *  \param varToRetrieve     : variable dont il faut faire une liste (si vide alors toutes les donnees de la section apres le signe = seront retenues)
      *                             si terminee par * alors on prend toutes les variables commencant par ce qui est avant le * de varToRetrieve
      *                             si commence par * alors on prend toutes les variables terminees  par ce qui est apres le * de varToRetrieve
-     *                             si vide alors toutes les lignes de la section seront retenues, alors entireDataLine est un ou deux  (ne s'arrete pas Ã  la premiere valeur entre = et virgule)
+     *                             si vide alors toutes les lignes de la section seront retenues, alors entireDataLine est un ou deux  (ne s'arrete pas Ã  la premiere valeur entre = et virgule)
      *  \param isToStrip :  isToStrip a zero par defaut si a un, chaque element de la liste sera nettoye des espaces de debut et fin
      *  \param entireDataLine :  entireDataLine a zero par defaut seule la premiere valeur apres le signe egal et avant la premiere virgule sera retenue.
      *                           si a un,   toutes les donnees apres le signe = seront retenues

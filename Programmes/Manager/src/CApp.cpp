@@ -78,7 +78,15 @@ CApp::CApp(QString mui_name, int & argc, char ** argv)
 {   QTextCodec::setCodecForTr( QTextCodec::codecForName("utf8") );
     QString driver, baseToConnect, sqlUserName, sqlPass, hostName, port, qstr;
     QString baseCfg;
-    m_NUM_VERSION     = NUM_VERSION;
+    m_NUM_VERSION    = NUM_VERSION;
+    m_pQSplashScreen = new C_SplashScreen(Theme::getIcon("splash_Manager.png"));
+    if (m_pQSplashScreen)
+       { m_pQSplashScreen->show();
+         m_pQSplashScreen->showMessage(QObject::tr("Initialising connexions ........."),
+                                                Qt::AlignCenter | Qt::AlignCenter, Qt::black);  //This line represents the alignment of text, color and position
+         // connect( m_pQSplashScreen, SIGNAL(Sign_OnClicked(QMouseEvent *, int &)), this, SLOT(Slot_OnSplash_Clicked(QMouseEvent *, int &)) ); // marche pas
+         processEvents(); //This is used to accept a click on the screen so that user can cancel the screen
+       }
 //......................... va le falloir ..................................
 QFileInfo qfi(argv[0]);
 //......................... carte PS .......................................
@@ -151,6 +159,10 @@ QFileInfo qfi(argv[0]);
          hostName          = "";
          port              = "3306";
        }
+    if (m_pQSplashScreen) m_pQSplashScreen->showMessage( QObject::tr("%1::%2;;%3::%4::%5").arg(driver,baseToConnect,sqlUserName,hostName,port),
+                                                         Qt::AlignCenter | Qt::AlignCenter, Qt::black);  //This line represents the alignment of text, color and position
+     processEvents(); //This is used to accept a click on the screen so that user can cancel the screen
+     //SLEEP(5);
     //if (m_IsNomadeActif)
        {changeAllModuleConnectionParam(driver, baseToConnect, sqlUserName, sqlPass, hostName, port);
        }
@@ -237,6 +249,11 @@ QFileInfo qfi(argv[0]);
     QApplication::setFont(m_GuiFont);
     G_pCApp   =    this;
 }
+//------------------------ Slot_OnSplash_Clicked ---------------------------------------
+void CApp::Slot_OnSplash_Clicked(QMouseEvent *, int &)
+{QCoreApplication::quit ();
+}
+
 //------------------------ getConfigContext ---------------------------------------
 QString CApp::getConfigContext()
 { QString macAdr;

@@ -37,15 +37,26 @@
 #include <QtGui/QApplication>
 #include <QLibraryInfo>
 #include <QTranslator>
+#include <QSplashScreen>
 #include "C_Manager.h"
 #include "CApp.h"
+#include "../../MedinTuxTools-QT4/Theme/Theme.h"
 
 int main(int argc, char *argv[])
 {   int ret = -1;
     CApp cApp("Manager", argc, argv);
     if ( cApp.instanceMustBeUnique() ) return 0;
     if (G_pCApp) // n'est postionnee qu'a la fin du constructeur 'CApp' lorsque tout est OK
-       {
+       {/*
+        G_pCApp->m_pQSplashScreen = new QSplashScreen(Theme::getIcon("splash_Manager.png"));
+        if (G_pCApp->m_pQSplashScreen)
+           { //m_pQSplashScreen =  splash(Theme::getIcon("splash_Manager.png"));
+             G_pCApp->m_pQSplashScreen->show();
+             G_pCApp->m_pQSplashScreen->showMessage(QObject::tr("Loading Programs........."),
+                                                    Qt::AlignCenter | Qt::AlignCenter, Qt::black);  //This line represents the alignment of text, color and position
+             G_pCApp->processEvents(); //This is used to accept a click on the screen so that user can cancel the screen
+           }
+        */
         QTranslator qtTranslator;
         qtTranslator.load("qt_" + QLocale::system().name(), QLibraryInfo::location(QLibraryInfo::TranslationsPath));
         cApp.installTranslator(&qtTranslator);
@@ -58,6 +69,12 @@ int main(int argc, char *argv[])
 
         G_pCApp->setMainWidget (pC_Manager);
         pC_Manager->show();
+        //.......... detruire le splash screen ...........
+        if (G_pCApp->m_pQSplashScreen)
+           { G_pCApp->m_pQSplashScreen->finish(pC_Manager);
+             delete G_pCApp->m_pQSplashScreen;
+             G_pCApp->m_pQSplashScreen = 0;
+           }
         G_pCApp->setActivationWindow(pC_Manager);
         ret = G_pCApp->exec();
         delete  pC_Manager;
