@@ -47,38 +47,12 @@ int C_MUI_App::GotoDebug()
 C_MUI_App::C_MUI_App(const QString &appName, int & argc, char ** argv)
     : QApplication (  argc, argv )
 {
- //............... recuperer chemin global et nom de l'appli ............................
- // m_PathAppli = QFileInfo (argv[0]).dirPath (true) + QDir::separator(); 
- //m_PathAppli             = argv[0];
- //m_PathAppli = CGestIni::Construct_PathBin_Module("drtux",QFileInfo (qApp->argv()[0]).dirPath (true));
- //int                   i =  m_PathAppli.findRev (QDir::separator()) + 1; // si findRev == -1 -> i = 0 
- //m_NameAppli =  appName;    
- //m_PathAppli =  m_PathAppli.left(i);
- 
- //............... initialiser le gestionnaire de fichier .ini ..........................
- //m_CGestIni.Param_Init( argv[0] );   // envoyer chemin complet du programme 
- //Param_Init( argv[0] );   // envoyer chemin complet du programme 
- //............... initialiser le pointeur global de l'appli ............................
- //G_pCDrTuxApp = this;
 }
 
 //-------------------------------------------- C_MUI_App ---------------------------------------------
 C_MUI_App::C_MUI_App(int & argc, char ** argv)
 	: QApplication (  argc, argv )
-{//............... recuperer chemin global et nom de l'appli ............................
- // m_PathAppli = QFileInfo (argv[0]).dirPath (true) + QDir::separator(); 
- //m_PathAppli             = argv[0];
- //m_PathAppli = CGestIni::Construct_PathBin_Module("drtux",QFileInfo (qApp->argv()[0]).dirPath (true));
-
- //int                   i =  m_PathAppli.findRev (QDir::separator()) + 1; // si findRev == -1 -> i = 0 
- //m_NameAppli =  m_PathAppli.mid(i);    
- //m_PathAppli =  m_PathAppli.left(i);
- 
- //............... initialiser le gestionnaire de fichier .ini ..........................
- //m_CGestIni.Param_Init( argv[0] );   // envoyer chemin complet du programme 
- //Param_Init( argv[0] );   // envoyer chemin complet du programme 
- //............... initialiser le pointeur global de l'appli ............................
- //G_pCDrTuxApp = this;
+{
 }
 //-------------------------------------------- initialize --------------------------------------------------
 void C_MUI_App::initialize( bool activate)
@@ -95,8 +69,12 @@ void C_MUI_App::activateMainWidget()
 {
     QWidget *wdg = mainWidget();
     if (wdg==0)    return;
-    wdg->raise();
+    //............ ne surtout pas changer les sequences ....................
+    //             suivantes (seules a mettre les fenetres en avant plan sur Mac)
+    wdg->setWindowState(windowState() & ~Qt::WindowMinimized);
+    wdg->show();
     wdg->setActiveWindow();
+    wdg->raise();
 }
 
 

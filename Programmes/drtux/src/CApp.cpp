@@ -207,7 +207,7 @@ CApp::CApp(QString mui_name, int & argc, char ** argv)
         }
     //................................ initialiser les différents chemins Globaux ............................
     m_PathGlossaireIsLocal = "";
-    if (CGestIni::Param_ReadParam( m_DrTuxParam, "Glossaire", "Path", &m_PathGlossaire,&m_PathGlossaireIsLocal) !=0 ) // zero = pas d'erreur
+    if (CGestIni::Param_ReadParam( m_DrTuxParam, "Glossaire", "Path", &m_PathGlossaire, &m_PathGlossaireIsLocal) !=0 ) // zero = pas d'erreur
        { m_PathGlossaire =  m_PathAppli + "../../Glossaire/";
        }
     m_PathGlossaire = ResolvPathGlossaire(m_PathGlossaire);
@@ -323,7 +323,7 @@ CApp::CApp(QString mui_name, int & argc, char ** argv)
     qDebug (TR("Gestion Sesam Vitale inactive"));
 #endif
     //.......................... initialiser la liste des menus contextuels .............................
-    //                           specifiques � chaque rubrique
+    //                           specifiques a chaque rubrique
     CGestIni::Param_GetMap(m_DrTuxParam, "MenuContextuel", "",  m_MapMenuRubriques , 1);   // liste des menus permanents de chaque rubrique
 
     //......................... declarer l'application au ...............................................
@@ -341,10 +341,31 @@ CApp::CApp(QString mui_name, int & argc, char ** argv)
        }
 
     G_pCApp                  =    this;
-
+    //..............   IMPORTANT : a ne faire qu'apres initialisation de G_pCApp ........................
+    //___________________________________________________________________________________________________
+    //....................... Recuperer parametres DE LA BASE DE DONNEE..................................
+    //                            correspondant a l'user en cours
+    m_pCMoteurBase->Param_GetParam( &USER_PARAM , m_User);
+    //___________________________________________________________________________________________________
+    if ( m_PathGlossaireIsLocal.length() )       // si le chemin local doit etre utilise
+       { if ( !QFile::exists(m_PathGlossaire) )  // si n'existe pas tenter avec path glossaire defini dans USER_PARAM
+            { qDebug(tr("Local glossaire path '%1' don't exists trying with user's glossaire path").arg(m_PathGlossaire));
+              m_PathGlossaireIsLocal = "";
+              m_PathGlossaire        = "";
+            }
+         else
+            { qDebug(tr("Local glossaire path '%1' will be used.").arg(m_PathGlossaire));
+            }
+       }
+    if (m_PathGlossaire.length()==0 || m_PathGlossaireIsLocal.length()==0)
+       { 
+         if (READ_USER_PARAM( USER_PARAM, "Glossaire", "Path", &val1)==0)  // zero = pas d'erreur
+            {m_PathGlossaire = ResolvPathGlossaire(val1);
+             qDebug(tr("User's glossaire path '%1' will be used.").arg(m_PathGlossaire));
+            }
+       }
     // ............................... initialiser le pointeur de gestion des antécédents ..................................................
-    // IMPORTANT : a faire apres initialisation de G_pCApp
-    // ---------
+    //
     // qui sera utilisé par Dock_Menu, CMDI_Terrain et CDevilCrucible
     m_pAtcd_Code = new Atcd_Code(m_pCMoteurBase);
 }

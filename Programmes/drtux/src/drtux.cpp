@@ -224,11 +224,11 @@ DrTux::DrTux()
        }
     G_pCApp->m_pCMoteurBase->initRubriquesList( &m_RubList,   G_pCApp->m_NumGUID);
     G_pCApp->m_pCMoteurBase->Evnmt_InitList(    &m_EvnList,   G_pCApp->m_ID_Doss);
-    if  (G_pCApp->m_pCMoteurBase->OpenBase()==0)  return ;
+
     //___________________________________________________________________________________________________
     //....................... Recuperer parametres DE LA BASE DE DONNEE................................................
     //                            correspondant a l'user en cours
-    G_pCApp->m_pCMoteurBase->Param_GetParam( &USER_PARAM , G_pCApp->m_User);
+    // G_pCApp->m_pCMoteurBase->Param_GetParam( &USER_PARAM , G_pCApp->m_User); // deplace dans CApp
     //___________________________________________________________________________________________________
 #ifdef Q_WS_X11
     //.................... ajuster resolution d'impression .........................................
@@ -247,13 +247,6 @@ DrTux::DrTux()
             fnt.setPointSize( size ); menuBar()->setFont(fnt);
            }
        }
-     //................. recuperer le glossaire dans le fichier de configuration utilisateur ...................................
-    if (G_pCApp->m_PathGlossaireIsLocal.length()==0)
-       { if (READ_USER_PARAM(USER_PARAM, "Glossaire", "Path", &val1)==0)  // zero = pas d'erreur
-            {G_pCApp->m_PathGlossaire = G_pCApp->ResolvPathGlossaire(val1);
-            }
-       }
-
     //....................... tool bar .............................................................
     setupFileActions();
     if (m_pActionListPatDelete) m_pActionListPatDelete->setEnabled(m_IsModifiable);
