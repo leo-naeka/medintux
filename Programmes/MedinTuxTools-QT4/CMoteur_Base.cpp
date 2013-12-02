@@ -1036,8 +1036,20 @@ long CMoteurBase::GetPatientList(       QTreeWidget     *pQlistView,
   requete       += m_DOSS_INDEX_NOM + ", " + m_DOSS_INDEX_PRENOM      + ", \n";
   requete       += m_DOSS_INDEX_PRIM_KEY   + ", " + m_DOSS_INDEX_GUID + " \n";
   requete       += " FROM "                + m_DOSS_INDEX_TBL_NAME    + " \nWHERE ";
-  requete       += m_DOSS_INDEX_NOM        + " LIKE '"+ q_nom         + "%' \nAND ";
-  requete       += m_DOSS_INDEX_PRENOM     + " LIKE '"+ q_prenom      + "%' \n";
+  if (qstr_nom.startsWith("_"))
+     {if (qstr_nom.startsWith("_GUID="))
+         { requete       += m_DOSS_INDEX_GUID       + " = '"+ q_nom.mid(6)         + "' \n ";
+         }
+      else if (qstr_nom.startsWith("_PK="))
+         { requete       += m_DOSS_INDEX_PRIM_KEY   + " = '"+ q_nom.mid(4)         + "%' \n ";
+         }
+      else return 0;
+     }
+  else
+     {
+       requete       += m_DOSS_INDEX_NOM        + " LIKE '"+ q_nom         + "%' \nAND ";
+       requete       += m_DOSS_INDEX_PRENOM     + " LIKE '"+ q_prenom      + "%' \n";
+     }
   requete       += " ORDER BY "            + m_DOSS_INDEX_NOM + ","   + m_DOSS_INDEX_PRENOM + " LIMIT "+ ST_LIST_PATIENT_MAX;
 
   QSqlQuery query(requete , QSqlDatabase::database(m_BaseLabel) );
@@ -1076,7 +1088,7 @@ long CMoteurBase::GetPatientList(       QTreeWidget     *pQlistView,
                 pQTreeWidgetItem->setText(2, Utf8_Query(query, 2 ));   // PK
                 pQTreeWidgetItem->setText(3, Utf8_Query(query, 3 ));   // GUID
                 break;
-            case 8 : // RecupÃ¨re les elÃ¨ments d'identite en plus
+            case 8 : // Recupere les elements d'identite en plus
                { /*
                  requete_ident        = "SELECT " + m_DOSS_IDENT_RUE + ", " + m_DOSS_IDENT_CODE_POST + ", \n";
                  requete_ident        += m_DOSS_IDENT_VILLE + ", " + m_DOSS_IDENT_JFNOM + ", \n";
@@ -1125,7 +1137,7 @@ long CMoteurBase::GetPatientList(       QTreeWidget     *pQlistView,
   //ListViewPatient->setCurrentItem(0);   // se placer sur le premier enregistrement de la liste
   //....................... sortir le message d'erreur si besoin ..........................................
   if (statutMess)
-     {int nb = GetNbRecord(m_DOSS_INDEX_TBL_NAME).toInt();
+     {int nb      = GetNbRecord(m_DOSS_INDEX_TBL_NAME).toInt();
       QString txt = tr("Displayed %1 among %2").arg(i).arg(nb);
       //QString txt = QApplication::translate("CMoteurBase", "Displayed %1 among %2", 0, QApplication::UnicodeUTF8).arg(i).arg(nb);
       if ( i>=NB_LIST_PATIENT_MAX)

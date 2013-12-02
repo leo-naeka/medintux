@@ -370,6 +370,23 @@ void CApp::changeAllModuleConnectionParam(     const QString & /*driver*/,      
          CGestIni::Param_UpdateToDisk(path, param);
        }
 
+    //..............................medicatux.ini ..................................................................
+    path = CGestIni::Construct_Name_File_Ini("medicatux",QFileInfo (qApp->argv()[0]).dirPath (true),"");
+    if (  ! QFile::exists (path) )
+       { changeAllModuleConnectionParamMessage("medicatux.ini",path);
+       }
+    else
+       { CGestIni::Param_UpdateFromDisk(path, param);
+         CGestIni::Param_ReadParam (param,  "Connexion_Patient_Base" ,  "Parametres" , &driverName , &baseName);
+         CGestIni::Param_WriteParam(&param, "Connexion_Patient_Base" ,  "Parametres" ,  driverName ,  baseName, userName , passWord , hostName, port);
+         CGestIni::Param_ReadParam (param,  "Connexion_Theriaque" ,     "Parametres" , &driverName , &baseName);
+         CGestIni::Param_WriteParam(&param, "Connexion_Theriaque" ,     "Parametres" ,  driverName ,  baseName, userName , passWord , hostName, port);
+         CGestIni::Param_ReadParam (param,  "Connexion_Datasemp" ,      "Parametres" , &driverName , &baseName);
+         CGestIni::Param_WriteParam(&param, "Connexion_Datasemp" ,      "Parametres" ,  driverName ,  baseName, userName , passWord , hostName, port);
+         CGestIni::Param_UpdateToDisk(path, param);
+       }
+
+
     //..............................qgetdatasemp ..................................................................
     path = CGestIni::Construct_Name_File_Ini("qgetdatasemp",QFileInfo (qApp->argv()[0]).dirPath (true),"");
     if (  ! QFile::exists (path) )

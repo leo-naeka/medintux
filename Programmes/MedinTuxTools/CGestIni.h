@@ -25,9 +25,9 @@
 #include <qstringlist.h>
 #include <qmap.h>
 #include <qsqlquery.h>
-
+#include <qthread.h>
 //================================================= CForSleep ==============================================================
-    #include <qthread.h>
+
     class CForSleep : public QThread
           {public:
                 CForSleep(){}

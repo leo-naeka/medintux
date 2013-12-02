@@ -619,7 +619,7 @@ bool CMedicaBase::Medica_CreateTableFormeProduit(const QString &table_name, int 
 {bool ret;
  QString requeteDst = "";
  QSqlQuery* pSqlQueryDst = 0;
-
+ if ( m_MedicaBase==0 )                                              return false;
  if (m_MedicaBase->isOpen()==FALSE && m_MedicaBase->open()==FALSE)   return FALSE;
   //............................ effacer la table si elle existe .....................................
  if (dropBefore)
@@ -695,6 +695,7 @@ bool CMedicaBase::Medica_CreateTableATC(const QString &table_name)
 //----------------------------------------------------- Medica_GetSpecificationsPrise ---------------------------------------------------------------------------
 QString CMedicaBase::Medica_GetSpecificationsPrise(QString pk)
 { QString      requete("SELECT ");
+  if ( m_MedicaBase==0 )                                              return QString::null;
   if (m_MedicaBase->isOpen()==FALSE && m_MedicaBase->open()==FALSE)   return QString::null;
   //................. chercher données economiques pour ce code CIP...................................................
   requete +=             m_MEDICA_POSO_REPART_PRISES          +
@@ -711,14 +712,14 @@ QString CMedicaBase::Medica_GetCodeATC(QString cip,
                                       )
 {
  if ((int)(Medica_GetBaseMode() & CMedicaBase::Datasemp))
-    {if (m_DataBaseSrce->isOpen()==FALSE && m_DataBaseSrce->open()==FALSE) return QString("");
+    {if (m_DataBaseSrce->isOpen()==FALSE && m_DataBaseSrce->open()==FALSE) return "";
      //................... si accelerateurs de recherche non renseignés, les renseigner ..........................
      //                    ultra lent !!!!
      if (pkt4b.length()==0 )
         {//        0  code produit    ___
          //                              |
          QSqlQuery query(QString("SELECT f0 FROM t00 WHERE f2 = '") + cip + "'" , m_DataBaseSrce );
-         if (! (query.isActive() && query.next()))                         return QString("");
+         if (! (query.isActive() && query.next()))                         return "";
          Datasemp_GetField("t4B", "f0", query.value(0).toString(), "f2", &pkt4b);
         }
      QSqlQuery querym(QString("SELECT fA FROM t4B WHERE ge = ") + pkt4b  , m_DataBaseSrce );
@@ -726,7 +727,8 @@ QString CMedicaBase::Medica_GetCodeATC(QString cip,
     }
  else
     {QString requete("");
-     if (m_MedicaBase->isOpen()==FALSE && m_MedicaBase->open()==FALSE)     return QString("");
+     if ( m_MedicaBase==0 )                                                return "";
+     if (m_MedicaBase->isOpen()==FALSE && m_MedicaBase->open()==FALSE)     return "";
      requete       += "SELECT " + m_MEDICA_SPEC_ATC      +
                       " FROM "  + m_MEDICA_SPEC_TBL_NAME + " WHERE " + m_MEDICA_SPEC_CIP + " = '" + cip +"'";
      QSqlQuery query(requete , m_MedicaBase );
@@ -1128,7 +1130,8 @@ QString   CMedicaBase::Medica_Has_StructDataToOldXmlStruct(const QString &hasXml
 }
 //---------------------------- textTo_UP_Code ------------------------------------------------
 QString  CMedicaBase::textTo_UP_Code( QString text )
-{ if (m_MedicaBase->isOpen()==FALSE && m_MedicaBase->open()==FALSE)   return "";
+{ if (m_MedicaBase==0)                                                return "";
+  if (m_MedicaBase->isOpen()==FALSE && m_MedicaBase->open()==FALSE)   return "";
   QString      result   = "";
   QString      requete  = "";
   text                  = text.lower();
@@ -2445,7 +2448,8 @@ QString  CMedicaBase::Medica_PosologieAgeToHtml(QString s_month)
 QString CMedicaBase::Medica_GetSecabilite( const QString &cip)
 {QString    requete ("");
  //................. Preparer la requete .....................................
-  if (m_MedicaBase->isOpen()==FALSE && m_MedicaBase->open()==FALSE)   return QString("1");
+  if ( m_MedicaBase==0 )                                              return "1";
+  if (m_MedicaBase->isOpen()==FALSE && m_MedicaBase->open()==FALSE)   return "1";
   requete       += "SELECT " +  m_MEDICA_SPEC_SECABILITE       +
                    " FROM "  + m_MEDICA_SPEC_TBL_NAME          + " WHERE " + m_MEDICA_SPEC_CIP + " = '" + cip +"'";
   QSqlQuery query(requete , m_MedicaBase );
@@ -2453,13 +2457,14 @@ QString CMedicaBase::Medica_GetSecabilite( const QString &cip)
   if (query.isActive() && query.next())
      {return query.value( 0 ).toString();
      } //endif (pSqlQuery && pSqlQuery->isActive())
-  return QString("1");
+  return "1";
 }
 
 //-----------------------------------------------------  Medica_GetSpecifications -------------------------------------------
 int CMedicaBase::Medica_GetSpecifications( QString cip, QStringList &qstringList)
 { QString    requete ("");
  //................. Preparer la requete .....................................
+  if ( m_MedicaBase==0 )                                              return 0;
   if (m_MedicaBase->isOpen()==FALSE && m_MedicaBase->open()==FALSE)   return 0;
   requete       += "SELECT " +  m_MEDICA_SPEC_UP_UNIT          + "," +
                                 m_MEDICA_SPEC_PA_UNIT          + "," +
@@ -2537,6 +2542,7 @@ QString CMedicaBase::Medica_GetSpecifications(    const QString &cip,
 //----------------------------------------------------- Medica_GetLastPrimKey ---------------------------------------------------------------------------
 long CMedicaBase::Medica_GetLastPrimKey(const QString &table_name, const QString &primKeyName)
 { long last_pk = 0;
+  if ( m_MedicaBase==0 )                                              return 0;
   if (m_MedicaBase->isOpen()==FALSE && m_MedicaBase->open()==FALSE)   return 0;
   //................. chercher données ...................................................
   QSqlQuery query (QString("SELECT ") +  primKeyName    +  " FROM "  + table_name, m_MedicaBase );
@@ -2553,6 +2559,7 @@ long CMedicaBase::Medica_GetLastPrimKey(const QString &table_name, const QString
 //----------------------------------------------------- Medica_GetUnite ---------------------------------------------------------------------------
 QString CMedicaBase::Medica_GetUnite(const QString &table_name, const QString &code)
 { QString      requete("SELECT ");
+  if ( m_MedicaBase==0 )                                              return 0;
   if (m_MedicaBase->isOpen()==FALSE && m_MedicaBase->open()==FALSE)   return 0;
   //................. chercher données economiques pour ce code CIP...................................................
   requete +=             m_MEDICA_FORME_LIBELLE    +
@@ -2565,7 +2572,8 @@ QString CMedicaBase::Medica_GetUnite(const QString &table_name, const QString &c
 
 //----------------------------------------------------- Medica_UnitePriseAdd ---------------------------------------------------------------------------
 int CMedicaBase::Medica_UnitePriseAdd(const QString &table_name, const QString &libelle, const QString &pk)
-{if (m_MedicaBase->isOpen()==FALSE && m_MedicaBase->open()==FALSE)   return FALSE;
+{if ( m_MedicaBase==0 )                                              return false;
+ if (m_MedicaBase->isOpen()==FALSE && m_MedicaBase->open()==FALSE)   return FALSE;
   //............... crer un curseur SQL ..................................................
  QSqlCursor cur(table_name, TRUE, m_MedicaBase);
  if ( !cur.canInsert() )                                             return FALSE;
@@ -2580,6 +2588,7 @@ int CMedicaBase::Medica_UnitePriseAdd(const QString &table_name, const QString &
 //----------------------------------------------------- Medica_GetUniteID ---------------------------------------------------------------------------
 QString CMedicaBase::Medica_GetUniteID(const QString &table_name, const QString &libelle)
 { QString      requete("SELECT ");
+  if ( m_MedicaBase==0 )                                              return 0;
   if (m_MedicaBase->isOpen()==FALSE && m_MedicaBase->open()==FALSE)   return 0;
   //................. chercher données economiques pour ce code CIP...................................................
   requete +=             m_MEDICA_FORME_PK    +
@@ -2592,6 +2601,7 @@ QString CMedicaBase::Medica_GetUniteID(const QString &table_name, const QString 
 //----------------------------------------------------- Medica_GetUniteList ---------------------------------------------------------------------------
 long CMedicaBase::Medica_GetUnite(const QString &table_name, QStringList &unitList)
 { long nb(0);
+  if ( m_MedicaBase==0 )                                              return 0;
   if (m_MedicaBase->isOpen()==FALSE && m_MedicaBase->open()==FALSE)   return 0;
   //................. chercher données ...................................................
   QSqlQuery query (QString("SELECT ") +  m_MEDICA_FORME_LIBELLE    +  " FROM "  + table_name + " ORDER BY '" + m_MEDICA_FORME_LIBELLE + "'", m_MedicaBase );
@@ -2634,6 +2644,7 @@ int CMedicaBase::Medica_GetUnitesList( LIST_TYPE list_type, QStringList &list, i
 int CMedicaBase::Medica_GetUnitesList( const QString &table_name, QStringList &list, int mode /*=CMedicaBase::WithPK*/)
 {
   QString      requete("SELECT ");
+  if ( m_MedicaBase==0 )                                              return 0;
   if (m_MedicaBase->isOpen()==FALSE && m_MedicaBase->open()==FALSE)   return 0;
   //................. chercher données economiques pour ce code CIP...................................................
   requete +=             m_MEDICA_FORME_PK        + "," +
@@ -2656,6 +2667,7 @@ int CMedicaBase::Medica_GetUnitesList( const QString &table_name, QStringList &l
 //----------------------------------------------------- Medica_GetSchemaDePrise ---------------------------------------------------------------------------
 int CMedicaBase::Medica_GetSchemaDePrise(const QString &pk_poso, QString &nbPrises, QString &schemaPrise)
 { QString      requete("SELECT ");
+  if ( m_MedicaBase==0 )                                              return 0;
   if (m_MedicaBase->isOpen()==FALSE && m_MedicaBase->open()==FALSE)   return 0;
   //................. chercher données economiques pour ce code CIP...................................................
   requete +=             m_MEDICA_POSO_NB_PRISES        + "," +
@@ -2681,6 +2693,7 @@ int CMedicaBase::Medica_PercentError(const float &val1, const float &val2)
 //----------------------------------------------------- Medica_PosologieDeleteToBase ---------------------------------------------------------------------------
 bool CMedicaBase::Medica_PosologieDeleteToBase(const QString &primKey, const QString &tableName )
 { //............... ouvrir la base .......................................................
+  if ( m_MedicaBase==0 )                                              return false;
   if (m_MedicaBase->isOpen()==FALSE && m_MedicaBase->open()==FALSE)   return FALSE;
   //................................. methode QSqlCursor .....................................
   //                         ne pose pas de PB avec valeur avec une apostrophe
@@ -2697,6 +2710,7 @@ bool CMedicaBase::Medica_PosologieDeleteToBase(const QString &primKey, const QSt
 //----------------------------------------------------- Medica_PosologieDeleteToBaseByCIP ---------------------------------------------------------------------------
 bool CMedicaBase::Medica_PosologieDeleteToBaseByCIP(const QString &codeCIP, const QString &tableName )
 { //............... ouvrir la base .......................................................
+  if ( m_MedicaBase==0 )                                              return false;
   if (m_MedicaBase->isOpen()==FALSE && m_MedicaBase->open()==FALSE)   return FALSE;
   //................................. methode QSqlCursor .....................................
   //                         ne pose pas de PB avec valeur avec une apostrophe
@@ -2713,6 +2727,7 @@ bool CMedicaBase::Medica_PosologieDeleteToBaseByCIP(const QString &codeCIP, cons
 //----------------------------------------------------- Medica_GetPosologies ---------------------------------------------------------------------------
 void  CMedicaBase::Medica_GetPosologies(const QString &pk, CPosologie &posologie )
 {QString      requete("SELECT ");
+ if ( m_MedicaBase==0 )                                              return;
  if (m_MedicaBase->isOpen()==FALSE && m_MedicaBase->open()==FALSE)   return;
 
  //............... requete utilisant la base virtuelle .....................................................
@@ -2784,6 +2799,7 @@ long  CMedicaBase::Medica_PosologieMergePersoBase(int mode) // 0 -> on efface pa
  int     equiCoeffUnitPk;
  QString    doseUnit(""), factCorpUnit(""), equiCoeffUnit(""),  medName("");
  QString      requete("SELECT ");
+ if ( m_MedicaBase==0 )                                              return 0;
  if (m_MedicaBase->isOpen()==FALSE && m_MedicaBase->open()==FALSE)   return 0;
  //................. remplir les listes d'unités destination avec les valeurs dèjà existantes ................................
  //                  (l'ajout d'une nouvelle poso la complete au fur et à mesure)
@@ -2885,6 +2901,7 @@ long  CMedicaBase::Medica_GetPosologies(QString cip, QPL_CPosologie &list_CPosol
 {long              nb(0);
 
  QString      requete("SELECT ");
+ if ( m_MedicaBase==0 )                                              return 0;
  if (m_MedicaBase->isOpen()==FALSE && m_MedicaBase->open()==FALSE)   return 0;
 
  //............... requete utilisant la base virtuelle .....................................................
@@ -3014,6 +3031,7 @@ bool CMedicaBase::Medica_PosologieUpdateToBase(   const QString &primKey,
  //................................. methode QSqlCursor .................................
  //                         ne pose pas de PB avec valeur avec une apostrophe
  //............... crer un curseur SQL ..................................................
+ if ( m_MedicaBase==0 )                                              return false;
  if (m_MedicaBase->isOpen()==FALSE && m_MedicaBase->open()==FALSE)   return FALSE;
  bool ok = FALSE;
  QSqlCursor cur(tableName, TRUE, m_MedicaBase);
@@ -3109,7 +3127,8 @@ bool CMedicaBase::Medica_PosologieAppendToBase(const QString &libelle,
                                                const QString &extraPk,
                                                const QString &tableName
                                              )
-{        if (m_MedicaBase->isOpen()==FALSE && m_MedicaBase->open()==FALSE)   return FALSE;
+{        if ( m_MedicaBase==0 )                                              return false;
+         if (m_MedicaBase->isOpen()==FALSE && m_MedicaBase->open()==FALSE)   return FALSE;
          QSqlCursor cur( tableName, TRUE, m_MedicaBase );
          if ( cur.canInsert ())
             { //............... si OK on recupere le buffer et on le charge avec les données .........
@@ -3303,7 +3322,8 @@ bool CMedicaBase::Medica_InsertNewSpec(          const QString &cip,
 //-----------------------------------------------------  Medica_GetLibelleATC -------------------------------------------
 QString CMedicaBase::Medica_GetLibelleATC( const QString &codeATC)
 { QString      requete("SELECT ");
-  if (m_MedicaBase->isOpen()==FALSE && m_MedicaBase->open()==FALSE)   return QString("");
+  if ( m_MedicaBase==0 )                                              return "";
+  if (m_MedicaBase->isOpen()==FALSE && m_MedicaBase->open()==FALSE)   return "";
        //................. chercher données economiques pour ce code CIP...................................................
        requete +=              m_MEDICA_ATC_LIBELLE    +
                    " FROM "  + m_MEDICA_ATC_TBL_NAME   + " WHERE " + m_MEDICA_ATC_CODE + " ='" + codeATC + "'";
@@ -3325,7 +3345,8 @@ void CMedicaBase::Medica_FillQListView_ATC(QListView *pQListView )
      QListViewItem *curParentItem = 0;
      long              curLen     = 0;
      QString      requete("SELECT ");
-     if (m_MedicaBase->isOpen()==FALSE && m_MedicaBase->open()==FALSE)   return ;
+     if ( m_MedicaBase==0 )                                              return;
+     if (m_MedicaBase->isOpen()==FALSE && m_MedicaBase->open()==FALSE)   return;
          requete +=             m_MEDICA_ATC_LIBELLE  + ","          +  m_MEDICA_ATC_CODE  +
                     " FROM "  + m_MEDICA_ATC_TBL_NAME + " ORDER BY " +  m_MEDICA_ATC_CODE;
 
@@ -3425,7 +3446,8 @@ long CMedicaBase::Medica_GetMedicamentListByATC(      QListView *pQlistView ,
                                                       const QString &isDispo       // = ""
 
                                                )
-{ if (m_MedicaBase->isOpen()==FALSE && m_MedicaBase->open()==FALSE)      return 0;
+{ if ( m_MedicaBase==0 )                                                 return 0;
+  if (m_MedicaBase->isOpen()==FALSE && m_MedicaBase->open()==FALSE)      return 0;
 
   //................. Preparer la requete .....................................
   // SELECT IndexProd.LibelleMed FROM `IndexProd` inner join `SpecProd` on IndexProd.CodeCIP = SpecProd.CodeCIP where  SpecProd.atc='D10AF02'
@@ -3530,7 +3552,7 @@ QString CMedicaBase::Medica_GetMedicamentNameByCIP( const QString &cip, int prod
       case 6: table = m_MEDICA_INDEX_HERBO_TBL_NAME; break;
       case 7: table = m_MEDICA_INDEX_HOMEO_TBL_NAME; break;
     }
-
+  if ( m_MedicaBase==0 )                                                       return QString::null;
   if ( m_MedicaBase->isOpen() == FALSE && m_MedicaBase->open() == FALSE )      return QString::null;
   QString    requete("SELECT ");
   //................. Preparer la requete .....................................
@@ -3556,6 +3578,7 @@ int CMedicaBase::Medica_GetMedicamentDatasempTablesCodesByCIP( const QString &ci
       case 6: table = m_MEDICA_INDEX_HERBO_TBL_NAME; break;
       case 7: table = m_MEDICA_INDEX_HOMEO_TBL_NAME; break;
     }
+  if ( m_MedicaBase==0 )                                                       return 0;
   if ( m_MedicaBase->isOpen() == FALSE && m_MedicaBase->open() == FALSE )      return 0;
   QString    requete("SELECT ");
   //................. Preparer la requete .....................................
@@ -3640,7 +3663,8 @@ long CMedicaBase::Medica_GetMedicamentListByFamily( QListView *pQlistView     ,
 
 //----------------------------------------------------- Medica_GetProductsListFrom_SQL_String --------------------------------------------------------------
 int CMedicaBase::Medica_GetProductsListFrom_SQL_String(QListView *pQlistView, const QString &requete , int f /* = CMedicaBase::ClearList */)
-{ if (m_MedicaBase->isOpen()==FALSE && m_MedicaBase->open()==FALSE)                   return 0;
+{ if ( m_MedicaBase==0 )                                                              return 0;
+  if (m_MedicaBase->isOpen()==FALSE && m_MedicaBase->open()==FALSE)                   return 0;
   QSqlQuery query(requete , m_MedicaBase );
   //................ creer les pixmap ici car ................................................
   //                 QPixmap::fromMimeSource( "standards.png" ) est long
@@ -3685,6 +3709,7 @@ int CMedicaBase::Medica_GetProductsListFrom_SQL_String(QListView *pQlistView, co
 //----------------------------------------------- Medica_GetNbRecord ---------------------------------------------------
 QString CMedicaBase::Medica_GetNbRecord(const QString &table)
 { QString result = "";
+  if ( m_MedicaBase==0 )                                            return QString::null;
   if (m_MedicaBase->isOpen()==FALSE && m_MedicaBase->open()==FALSE) return QString::null;
 
   //................. SI un nom ou prenom est donné en entrée alors filtrer selon ...................
@@ -4786,6 +4811,7 @@ long CMedicaBase::Datasemp_GetMedicamentListBySubstance( QListView *pQlistView,
                                                        )
 { long       nb(0);
   //................. Preparer la requete .....................................
+  if ( m_MedicaBase==0 )                                                 return 0;
   if (m_MedicaBase->isOpen()==FALSE   && m_MedicaBase->open()==FALSE)    return 0;
   if (m_DataBaseSrce->isOpen()==FALSE && m_DataBaseSrce->open()==FALSE)  return 0;
   pQlistView->clear();
@@ -4830,6 +4856,7 @@ long CMedicaBase::Datasemp_GetMedicamentListByCodeIndic( QListView      *pQlistV
                                                        )
 { long       nb(0);
   //................. Preparer la requete .....................................
+  if ( m_MedicaBase==0 )                                                 return 0;
   if (m_MedicaBase->isOpen()==FALSE   && m_MedicaBase->open()==FALSE)    return 0;
   if (m_DataBaseSrce->isOpen()==FALSE && m_DataBaseSrce->open()==FALSE)  return 0;
   pQlistView->clear();
@@ -4879,6 +4906,7 @@ long CMedicaBase::Datasemp_GetMedicamentListByClassTheraVidal(      QListView *p
 {
   long progress(0);
   long       nb(0);
+  if ( m_MedicaBase==0 )                                                 return 0;
   if (m_MedicaBase->isOpen()==FALSE   && m_MedicaBase->open()==FALSE)    return 0;
   if (m_DataBaseSrce->isOpen()==FALSE && m_DataBaseSrce->open()==FALSE)  return 0;
 
@@ -5583,6 +5611,7 @@ long CMedicaBase::Datasemp_ToMedicaTux(QProgressBar *pQProgressBar)
 { if (pQProgressBar) pQProgressBar->setTotalSteps(15400); // 103237  15445
   m_Progress = 0;
   m_Run      = 1;
+  if ( m_MedicaBase==0 )                                                         return 0;
   if (m_MedicaBase->isOpen()==FALSE && m_MedicaBase->open()==FALSE)              return 0;
   m_FormeUPList.clear();
  //........................................creer la table de specifications ................................................

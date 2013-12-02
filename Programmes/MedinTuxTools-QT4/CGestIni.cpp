@@ -137,7 +137,7 @@ void  CGestIni::Param_UpdateToDisk(const QString &file_ini, const QString &inPar
                QString mess = QString("ERROR CORRUPTED DATA in Param_UpdateToDisk()  integrity tag '[END_INI]' not found, initialisation file not rewrited : %1").arg(file_ini);
                qDebug()<<mess;
                return ;
-            }
+             }
        }
     QFile file( file_ini);
     if ( !file.open( IO_WriteOnly ) )    return;
@@ -156,7 +156,7 @@ QString  CGestIni::Param_UpdateFromDisk(const QString &file_ini,  int *isUtf8_re
 }
 
 //-----------------------------------------------------  Param_UpdateFromDisk ------------------------------
-/*! \brief Lit le fichier file_ini et renvoie son contenu dans outParam. L'encodage est géré.
+/*! \brief Lit le fichier file_ini et renvoie son contenu dans outParam. L'encodage est gere.
 */
 QByteArray& CGestIni::Param_UpdateFromDisk(const QString &file_ini, QByteArray &ba, int *isUtf8_ret /* =0 */)
 {        int len = _loadFromDisk(file_ini, ba, isUtf8_ret );
@@ -217,7 +217,7 @@ QByteArray& CGestIni::Param_UpdateFromDisk(const QString &file_ini, QByteArray &
 }
 
 //-----------------------------------------------------  Param_UpdateFromDisk ------------------------------
-/*! \brief Lit le fichier file_ini et renvoie son contenu dans outParam. L'encodage est géré.
+/*! \brief Lit le fichier file_ini et renvoie son contenu dans outParam. L'encodage est gere.
 */
 long  CGestIni::Param_UpdateFromDisk(const QString &file_ini, QString &outParam, int *isUtf8_ret /* =0 */)
 {        int len = _loadFromDisk(file_ini, outParam, isUtf8_ret );
@@ -262,7 +262,7 @@ long  CGestIni::Param_UpdateFromDisk(const QString &file_ini, QString &outParam,
                                  qDebug()<<mess;
                                  outParam += "\n[END_INI]";
                                }
-                            return ret;
+                            return outParam.length();
                           }
                      } //if (isRescue)
                   else
