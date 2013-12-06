@@ -140,7 +140,7 @@ void  CGestIni::Param_UpdateToDisk(const QString &file_ini, const QString &inPar
              }
        }
     QFile file( file_ini);
-    if ( !file.open( IO_WriteOnly ) )    return;
+    if ( !file.open( QIODevice::WriteOnly ) )    return;
     QTextStream ts( &file );
     ts << inParam;
     file.close();

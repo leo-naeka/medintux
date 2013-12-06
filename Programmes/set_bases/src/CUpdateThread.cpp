@@ -259,7 +259,7 @@ long  CUpdateThread::Datasemp_UpdateDocu(QSqlDatabase *dataBase, const QString &
             requete = "";
            }
         else
-           { requete += buffer;
+           { requete += buffer+" ";
            }
        }
     if (m_Continue==0) return -3;
