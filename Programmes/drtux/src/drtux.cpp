@@ -3971,13 +3971,13 @@ QString DrTux::PluginExe(       QObject         *pQObject,
 	//    else break;
         //   }
         #ifdef Q_WS_WIN
-           Sleep (1);
+           SLEEP (1);
 	    #endif
 		#ifdef Q_WS_MAC
           // sleep (1);
         #endif
         #ifdef Q_WS_X11
-           sleep (1);
+           SLEEP (1);
         #endif
 
         QTimer timer;               // pour etre sur qu'un evenement se produise

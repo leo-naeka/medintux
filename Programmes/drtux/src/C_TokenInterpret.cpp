@@ -2296,14 +2296,9 @@ QString C_TokenInterpret::UPPER(QStringList &arg_list)
 //-------------------------- VALIDER_DOSSIER -------------------------------------------
 /*! \brief non documente */
 QString C_TokenInterpret::VALIDER_DOSSIER(QStringList & /*arg_list*/)
-    {/*
-     if (G_pCApp==0)        return QString::null;
+    {if (G_pCApp==0)                    return QString::null;
      if (G_pCApp->m_pDrTux==0)          {G_pCApp->CouCou(TR("Erreur VALIDER_DOSSIER() : DrTux non initialise"));return QString::null;}
-     if ( arg_list.count() <= 0 )        G_pCApp->m_pDrTux->SauverDossierAvantNouvelleAction(DrTux::NoInquire);
-     else {if   (arg_list[0]=="Inquire") G_pCApp->m_pDrTux->SauverDossierAvantNouvelleAction(DrTux::Inquire);
-           else                          G_pCApp->m_pDrTux->SauverDossierAvantNouvelleAction(DrTux::NoInquire);
-          }
-     */
+     G_pCApp->m_pDrTux->OnDrTuxSaveRubList();
      return QString::null;
     }
 ///////////////////////////// MACROS CALL BACK /////////////////////////////////////////////

@@ -624,7 +624,8 @@ static QString    Func_Extract_Table_D(    const QString &str_data,
   static KEY_MACRO     G_MacroTab_W[ ]  = {{"W_NOP",                          C_TokenInterpret::NOP}};
   static KEY_MACRO     G_MacroTab_X[ ]  = {{"X_NOP",                          C_TokenInterpret::NOP}};
   static KEY_MACRO     G_MacroTab_Y[ ]  = {{"Y_NOP",                          C_TokenInterpret::NOP}};
-  static KEY_MACRO     G_MacroTab_Z[ ]  = {{"Z_NOP",                          C_TokenInterpret::NOP}};
+  static KEY_MACRO     G_MacroTab_Z[ ]  = {{"ZAB",                            C_TokenInterpret::VALIDER_DOSSIER}
+                                          };
   //................... le tableau des mots reserves utilise la meme mecanique ......................
   static KEY_MACRO     G_MacroTab_WR[ ] = {{"$ALLSTRING",                     C_TokenInterpret::NOP},
                                            {"$DATEDEB",                       C_TokenInterpret::NOP},
