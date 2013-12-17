@@ -14,9 +14,9 @@
  *                              http://www.cecill.info/                           *
  *   as published by :                                                            *
  *                                                                                *
- *   Commissariat ï¿œ  l'Energie Atomique                                           *
+ *   Commissariat a  l'Energie Atomique                                           *
  *   - CEA,                                                                       *
- *                            31-33 rue de la Fï¿œdï¿œration, 75752 PARIS cedex 15.   *
+ *                            31-33 rue de la Federation, 75752 PARIS cedex 15.   *
  *                            FRANCE                                              *
  *   Centre National de la Recherche Scientifique                                 *
  *   - CNRS,                                                                      *
@@ -71,7 +71,7 @@ C_Dlg_personnes::C_Dlg_personnes(QWidget *parent)
     //........................ une petite deco (le bandeau) ...............................
     m_pUI->label_Bandeau->setPixmap (QPixmap( G_pCApp->getPathAppli() + "/Ressources/Bandeau Personnes.png" ));
     m_pUI->label_Bandeau->setScaledContents ( TRUE );
-    m_pUI->pushButton_Apropos->setIcon ( QIcon (Theme::getIcon("22x22/help.png"))) ;
+    m_pUI->m_action_A_Propos->setIcon ( QIcon (Theme::getIcon("22x22/help.png"))) ;
     //........................ initaliser les listes ......................................
     InitAllComboTelType();
     InitComboSpec();
@@ -87,7 +87,7 @@ C_Dlg_personnes::C_Dlg_personnes(QWidget *parent)
     connect( m_pUI->pushButton_Effacer,        SIGNAL( clicked ()) ,                                    this, SLOT( Slot_pushButton_Effacer_clicked()) );
     connect( m_pUI->pushButton_NouvelleFiche,  SIGNAL( clicked ()) ,                                    this, SLOT( Slot_pushButton_NouvelleFiche_clicked()) );
     connect( m_pUI->pushButton_Enregistrer,    SIGNAL( clicked ()) ,                                    this, SLOT( Slot_pushButton_Enregistrer_clicked()) );
-    connect( m_pUI->pushButton_Apropos,        SIGNAL( clicked()),                                      this, SLOT( Slot_pushButton_Apropos_clicked()) );
+    connect( m_pUI->m_action_A_Propos,         SIGNAL( clicked()),                                      this, SLOT( Slot_pushButton_Apropos_clicked()) );
     //................... effacer le header des identifiants ...................
     QHeaderView *pQHeaderView = m_pUI->treeWidget_ListeMedecins->header();
     pQHeaderView->hideSection (2);
@@ -115,6 +115,11 @@ C_Dlg_personnes::C_Dlg_personnes(QWidget *parent)
     setWindowTitle(tr("Directory - Data Medical Design - Version:")+G_pCApp->m_NUM_VERSION.remove("@").remove("#").remove("="));
     m_pUI->pushButtonOK->setEnabled(G_pCApp->argc() > 1);
     getAndSetPositions();
+    QTimer::singleShot(500, this, SLOT(Slot_ActivateMainWindow())); // pour avoir la fenetre en avant plan sur ubuntu unity
+}
+//--------------------------------------- Slot_ActivateMainWindow ---------------------------------------------------
+void C_Dlg_personnes::Slot_ActivateMainWindow()
+{   //if (G_pCApp->getDroits().length()) setWindowFlags(Qt::WindowStaysOnTopHint);
     show();
     setWindowState(windowState() & ~Qt::WindowMinimized);
     activateWindow();
@@ -125,6 +130,83 @@ C_Dlg_personnes::C_Dlg_personnes(QWidget *parent)
 C_Dlg_personnes::~C_Dlg_personnes()
 {   delete m_pUI;
 }
+
+
+//----------------------------------- Slot_pushButton_Apropos_clicked -----------------------------------------------------------------------
+void C_Dlg_personnes::Slot_pushButton_Apropos_clicked()
+{QTimer::singleShot ( 100, this,SLOT(Slot_actionAproposDisplay()) );
+}
+
+//------------------------ Slot_Apropos_Proc_finished -----------------------------------------
+void C_Dlg_personnes::Slot_Apropos_Proc_finished (int,  QProcess::ExitStatus)
+{if (m_Apropos_Proc)
+    {m_Apropos_Proc->terminate();
+     m_Apropos_Proc->waitForFinished (5000);
+     delete m_Apropos_Proc;
+     m_Apropos_Proc = 0;
+     m_pUI->m_action_A_Propos->setDisabled(FALSE);
+    }
+}
+//----------------------------------- Slot_actionAproposDisplay -----------------------------------------------------------------------
+void C_Dlg_personnes::Slot_actionAproposDisplay()
+{       QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+        QString macAdr;
+        //QString ipAdr  = G_pCApp->get_Current_IP_Adr(&macAdr);
+
+        //CGestIni::Param_UpdateToDisk(G_pCApp->pathAppli()+"Ressources/Changements.html",m_pGUI->textEdit_Changements->toHtml()
+        //                                                                                .replace("{{IP_ADR}}",  ipAdr)
+        //                                                                                .replace("{{MAC_ADR}}", macAdr)
+        //                                                                                .replace("{{PATH_INI}}",G_pCApp->pathIni()));
+        QString pathExeAPropos     = CGestIni::Construct_Name_Exe("APropos", QFileInfo (qApp->argv()[0]).path());
+        //QString pathBinRessources  = CGestIni::Construct_PathBin_Module("APropos", QFileInfo (qApp->argv()[0]).path())+"Ressources/";
+        QStringList argList;
+
+        //......................... completer les autres arguments .........................................
+        argList << "personnes";                                                     // 1  nom du module
+        argList << tr("Module for directory management");                           // 2  description courte
+        argList << G_pCApp->m_NUM_VERSION.remove("@").remove("#").remove("=")+ "  Qt : " + QT_VERSION_STR;      // 3  numero de version
+        argList << G_pCApp->getPathAppli()+"Ressources/Changements.html";                                       // 4  fichiers d�crivant les changements
+        argList <<"";                                                                                           // 5  Icone par defaut
+        argList <<"";                                                                                           // 6  aide en ligne (vide pour prendre celle par defaut)
+        argList <<"";                                                                                           // 7  apropos (on met une chaine vide pour qu'il prenne celui par d?faut)
+        argList << G_pCApp->getBDVersionNumber();                                                               // 8  numero de version de la base de donnee
+        //QProcess::startDetached (pathExeAPropos, argList);
+
+        if (m_Apropos_Proc==0)
+           {m_pUI->m_action_A_Propos->setDisabled(TRUE);
+            m_Apropos_Proc = new QProcess(this);
+            connect( m_Apropos_Proc, SIGNAL(finished ( int,  QProcess::ExitStatus)),  this, SLOT(Slot_Apropos_Proc_finished (int,  QProcess::ExitStatus)) );
+            connect( m_Apropos_Proc,  SIGNAL(error ( QProcess::ProcessError  )), G_pCApp, SLOT(Slot_error ( QProcess::ProcessError  )) );
+            m_Apropos_Proc->start(pathExeAPropos, argList);
+            m_Apropos_Proc->waitForStarted  (4000);
+            //m_Apropos_Proc->waitForFinished (-1);     // crash crash bug QT connu sauf si -1 comme paramètre
+            //..... pour contourner le bug on fait une boucle d'attente un peu sale ....
+            /*
+            G_pCApp->processEvents ();
+            while ( (procState = m_Apropos_Proc->state())== QProcess::Running ) // && QFile::exists(pathBinRessources+"~A_propos.html")
+                  { //qDebug(QString::number(procState).toAscii());
+                    QApplication::processEvents ( QEventLoop::ExcludeUserInput );
+                  }
+            */
+            //if (m_Apropos_Proc) delete m_Apropos_Proc;
+            //m_Apropos_Proc = 0;
+            //QFile::remove(pathBinRessources+"~A_propos.html");
+            //m_action_A_Propos->setDisabled(FALSE);
+           }
+       QApplication::restoreOverrideCursor();
+}
+
+//--------------------------------------- tryToStopAPropos ----------------------------------------------------------
+void C_Dlg_personnes::tryToStopAPropos()
+{Slot_Apropos_Proc_finished (0,  QProcess::NormalExit);
+ //if (m_Apropos_Proc==0) return;
+ //m_Apropos_Proc->kill();   // terminate() ne fonctionne pas
+}
+
+/*
+
+
+
 //----------------------------------- Slot_pushButton_Apropos_clicked -----------------------------------------------------------------------
 void C_Dlg_personnes::Slot_pushButton_Apropos_clicked()
 {        CGestIni::Param_UpdateToDisk(G_pCApp->getPathAppli()+"Ressources/Changements.html",m_pUI->textEdit_Changements->toHtml());
@@ -156,7 +238,7 @@ void C_Dlg_personnes::tryToStopAPropos()
 {if (m_Apropos_Proc==0) return;
  m_Apropos_Proc->kill();   // terminate() ne fonctionne pas
 }
-
+*/
 //--------------------------------------- Slot_pushButtonOK_clicked ----------------------------------------------------------
 void C_Dlg_personnes::Slot_pushButtonOK_clicked()
 {setExchangeFile();

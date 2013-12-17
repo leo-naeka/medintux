@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- Projet    : MedinTux                              -->
+<!-- Module    : medicabase                            -->
+<!-- Objet     : C_BDM_DrugListRecordArray             -->
+<!-- guru mail : sevin-roland@medintux.org             -->
+<!-- Copyright : (C) 2004-to-2013 and for the eternity -->
+<C_BDM_DrugListRecordArray>
+   <version>1</version>
+   <C_BDM_DrugListRecord>
+      <version>1</version>
+      <m_id>3602596</m_id>
+      <m_id_type>CIP</m_id_type>
+      <m_commercialName>ZOLPIDEM EG 10mg Cpr pesé B/7</m_commercialName>
+      <m_dci_1Name>TARTRATE DE ZOLPIDEM</m_dci_1Name>
+      <m_dci_2Name></m_dci_2Name>
+      <m_dci_3Name></m_dci_3Name>
+      <m_owner>DS</m_owner>
+      <m_lang>fr</m_lang>
+      <m_ucd></m_ucd>
+      <m_ucd_price>0000,01</m_ucd_price>
+      <m_atc>N05CF02</m_atc>
+      <m_generique>G</m_generique>
+      <m_statut>VH</m_statut>
+   </C_BDM_DrugListRecord>
+   <C_BDM_DrugListRecord>
+      <version>1</version>
+      <m_id>7319118</m_id>
+      <m_id_type>CIP</m_id_type>
+      <m_commercialName>VITABIO Barre céréale abricot sésame Etui/6</m_commercialName>
+      <m_dci_1Name></m_dci_1Name>
+      <m_dci_2Name></m_dci_2Name>
+      <m_dci_3Name></m_dci_3Name>
+      <m_owner>DS_A</m_owner>
+      <m_lang>fr</m_lang>
+      <m_ucd></m_ucd>
+      <m_ucd_price>0000,00</m_ucd_price>
+      <m_atc></m_atc>
+      <m_generique></m_generique>
+      <m_statut>VH</m_statut>
+   </C_BDM_DrugListRecord>
+   <C_BDM_DrugListRecord>
+      <version>1</version>
+      <m_id>7120629</m_id>
+      <m_id_type>CIP</m_id_type>
+      <m_commercialName>VALPIFORM sans gluten Biscuit cookie B/150g</m_commercialName>
+      <m_dci_1Name></m_dci_1Name>
+      <m_dci_2Name></m_dci_2Name>
+      <m_dci_3Name></m_dci_3Name>
+      <m_owner>DS_A</m_owner>
+      <m_lang>fr</m_lang>
+      <m_ucd></m_ucd>
+      <m_ucd_price>0000,00</m_ucd_price>
+      <m_atc></m_atc>
+      <m_generique></m_generique>
+      <m_statut>VH</m_statut>
+   </C_BDM_DrugListRecord>
+   <C_BDM_DrugListRecord>
+      <version>1</version>
+      <m_id>162C563C-2FEC-844D-D79F-80FB1E72802B</m_id>
+      <m_id_type>FRT</m_id_type>
+      <m_commercialName>ORTHESE THERMOMOULEE DU POUCE</m_commercialName>
+      <m_dci_1Name></m_dci_1Name>
+      <m_dci_2Name></m_dci_2Name>
+      <m_dci_3Name></m_dci_3Name>
+      <m_owner>OW</m_owner>
+      <m_lang>fr</m_lang>
+      <m_ucd></m_ucd>
+      <m_ucd_price>0000,00</m_ucd_price>
+      <m_atc></m_atc>
+      <m_generique></m_generique>
+      <m_statut>VH</m_statut>
+   </C_BDM_DrugListRecord>
+   <C_BDM_DrugListRecord>
+      <version>1</version>
+      <m_id>3057331</m_id>
+      <m_id_type>CIP</m_id_type>
+      <m_commercialName>LASILIX 20mg/2ml S inj en amp Amp/2ml</m_commercialName>
+      <m_dci_1Name>FUROSÉMIDE</m_dci_1Name>
+      <m_dci_2Name></m_dci_2Name>
+      <m_dci_3Name></m_dci_3Name>
+      <m_owner>DS</m_owner>
+      <m_lang>fr</m_lang>
+      <m_ucd></m_ucd>
+      <m_ucd_price>0000,01</m_ucd_price>
+      <m_atc>C03CA01</m_atc>
+      <m_generique>R</m_generique>
+      <m_statut>VH</m_statut>
+   </C_BDM_DrugListRecord>
+   <C_BDM_DrugListRecord>
+      <version>1</version>
+      <m_id>3658303</m_id>
+      <m_id_type>CIP</m_id_type>
+      <m_commercialName>IBUPROFENE SDZ 200mg Cpr enr Plaq/30</m_commercialName>
+      <m_dci_1Name>IBUPROFÈNE</m_dci_1Name>
+      <m_dci_2Name></m_dci_2Name>
+      <m_dci_3Name></m_dci_3Name>
+      <m_owner>DS</m_owner>
+      <m_lang>fr</m_lang>
+      <m_ucd></m_ucd>
+      <m_ucd_price>0000,01</m_ucd_price>
+      <m_atc>M01AE01</m_atc>
+      <m_generique>G</m_generique>
+      <m_statut>VH</m_statut>
+   </C_BDM_DrugListRecord>
+   <C_BDM_DrugListRecord>
+      <version>1</version>
+      <m_id>3383467</m_id>
+      <m_id_type>CIP</m_id_type>
+      <m_commercialName>FLUDITEC 2% Sp Enf Fl/125ml (DOM-TOM)</m_commercialName>
+      <m_dci_1Name>CARBOCISTÉINE</m_dci_1Name>
+      <m_dci_2Name></m_dci_2Name>
+      <m_dci_3Name></m_dci_3Name>
+      <m_owner>DS</m_owner>
+      <m_lang>fr</m_lang>
+      <m_ucd></m_ucd>
+      <m_ucd_price>0000,01</m_ucd_price>
+      <m_atc>R05CB03</m_atc>
+      <m_generique>G</m_generique>
+      <m_statut>VH</m_statut>
+   </C_BDM_DrugListRecord>
+   <C_BDM_DrugListRecord>
+      <version>1</version>
+      <m_id>A21E69A9-CC94-A146-3890-B9F845FDB689</m_id>
+      <m_id_type>FRT</m_id_type>
+      <m_commercialName>FAUTEUIL ROULANT</m_commercialName>
+      <m_dci_1Name></m_dci_1Name>
+      <m_dci_2Name></m_dci_2Name>
+      <m_dci_3Name></m_dci_3Name>
+      <m_owner>OW</m_owner>
+      <m_lang>fr</m_lang>
+      <m_ucd></m_ucd>
+      <m_ucd_price>0000,00</m_ucd_price>
+      <m_atc></m_atc>
+      <m_generique></m_generique>
+      <m_statut>VH</m_statut>
+   </C_BDM_DrugListRecord>
+   <C_BDM_DrugListRecord>
+      <version>1</version>
+      <m_id>3211105</m_id>
+      <m_id_type>CIP</m_id_type>
+      <m_commercialName>CLAMOXYL 125mg/5ml Pdr subu Fl/60ml</m_commercialName>
+      <m_dci_1Name>AMOXICILLINE ANHYDRE</m_dci_1Name>
+      <m_dci_2Name></m_dci_2Name>
+      <m_dci_3Name></m_dci_3Name>
+      <m_owner>DS</m_owner>
+      <m_lang>fr</m_lang>
+      <m_ucd></m_ucd>
+      <m_ucd_price>0000,01</m_ucd_price>
+      <m_atc>J01CA04</m_atc>
+      <m_generique>R</m_generique>
+      <m_statut>VH</m_statut>
+   </C_BDM_DrugListRecord>
+   <C_BDM_DrugListRecord>
+      <version>1</version>
+      <m_id>1234</m_id>
+      <m_id_type>FRT</m_id_type>
+      <m_commercialName>CANNES ANGLAISES</m_commercialName>
+      <m_dci_1Name>CANNES ANGLAISES</m_dci_1Name>
+      <m_dci_2Name></m_dci_2Name>
+      <m_dci_3Name></m_dci_3Name>
+      <m_owner>OW</m_owner>
+      <m_lang>fr</m_lang>
+      <m_ucd></m_ucd>
+      <m_ucd_price>0000,00</m_ucd_price>
+      <m_atc></m_atc>
+      <m_generique></m_generique>
+      <m_statut></m_statut>
+   </C_BDM_DrugListRecord>
+</C_BDM_DrugListRecordArray>

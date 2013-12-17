@@ -37,9 +37,6 @@ QTreeWidgetItem * C_DragQTreeWidget::getFirstSelectedItem()
  return 0;
 }
 //................................ keyPressEvent .................................
-enum flags  { NOT_CALL_STD_EVENT     = 0,
-              AFTER_CALL_STD_EVENT   = 1
-            };
 void C_DragQTreeWidget::keyPressEvent ( QKeyEvent * event )
 {   int call_StandardEvent_1 = C_DragQTreeWidget::AFTER_CALL_STD_EVENT;
     int call_StandardEvent_2 = C_DragQTreeWidget::AFTER_CALL_STD_EVENT;

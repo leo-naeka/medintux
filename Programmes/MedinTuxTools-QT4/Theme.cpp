@@ -91,19 +91,19 @@ QColor Theme::m_RapidAccess_FontColor_Obs     = QColor(0 , 0 , 50);
 QColor Theme::m_RapidAccess_FontColor_Prescr  = QColor(50 , 0 , 0);
 QColor Theme::m_RapidAccess_FontColor_Doc     = QColor(0 , 50 , 0);
 
-bool   Theme::m_RapidAccess_LighterBackground_Defined = FALSE;
-bool   Theme::m_RapidAccess_DarkerBackground_Defined  = FALSE;
-bool   Theme::m_RapidAccess_HighLightColor_Defined    = FALSE;
-bool   Theme::m_RapidAccess_FontColor_Ident_Defined   = FALSE;
-bool   Theme::m_RapidAccess_FontColor_Terrain_Defined = FALSE;
-bool   Theme::m_RapidAccess_FontColor_Obsr_Defined    = FALSE;
-bool   Theme::m_RapidAccess_FontColor_Prescr_Defined  = FALSE;
-bool   Theme::m_RapidAccess_FontColor_Doc_Defined     = FALSE;
+bool   Theme::m_RapidAccess_LighterBackground_Defined = false;
+bool   Theme::m_RapidAccess_DarkerBackground_Defined  = false;
+bool   Theme::m_RapidAccess_HighLightColor_Defined    = false;
+bool   Theme::m_RapidAccess_FontColor_Ident_Defined   = false;
+bool   Theme::m_RapidAccess_FontColor_Terrain_Defined = false;
+bool   Theme::m_RapidAccess_FontColor_Obsr_Defined    = false;
+bool   Theme::m_RapidAccess_FontColor_Prescr_Defined  = false;
+bool   Theme::m_RapidAccess_FontColor_Doc_Defined     = false;
 
 int     Theme::m_FontSize_Popups = -1;
 int     Theme::m_FontSize_Menus  = -1;
-bool    Theme::m_FontSize_Popups_Defined  = FALSE;
-bool    Theme::m_FontSize_Menus_Defined   = FALSE;
+bool    Theme::m_FontSize_Popups_Defined  = false;
+bool    Theme::m_FontSize_Menus_Defined   = false;
 
 
 // Viennent ensuite les méthodes statiques
@@ -426,11 +426,11 @@ QColor Theme::getFromIniFile(const char* section, const char* var, bool& finded,
 
   if ((r!="") && (g!="") && (b!=""))
   { color = QColor(r.toInt(), g.toInt(), b.toInt() );
-    finded = TRUE;
+    finded = true;
     return color; // valeur du ini
   }
   else
-  { finded = TRUE;
+  { finded = true;
     return color; // valeur par défaut
   }
 }
@@ -446,11 +446,11 @@ int Theme::getFromIniFile(const char* section, const char* var, bool& finded, in
 
   if (val!="")
   { value = val.toInt();
-    finded = TRUE;
+    finded = true;
     return value; // valeur du ini
   }
   else
-  { finded = TRUE;
+  { finded = true;
     return value; // valeur par défaut
   }
 }
@@ -508,7 +508,7 @@ int Theme::getFontSize_Popups()
 }
 
 void Theme::setFontSize_Menu(int fntSize)
-{ m_FontSize_Popups_Defined = m_FontSize_Menus_Defined = TRUE;
+{ m_FontSize_Popups_Defined = m_FontSize_Menus_Defined = true;
   m_FontSize_Popups         = m_FontSize_Menus         = fntSize;
 }
 
@@ -519,7 +519,7 @@ int Theme::getFontSize_Menus()
 
 /*! \brief Renvoie le répertoire de thème en cours. */
 QString  Theme::getPath(bool withSeparator)
-{if (withSeparator==FALSE)
+{if (withSeparator==false)
     {if (m_Path.endsWith("/")) return m_Path.left(m_Path.length()-1);
     }
  return m_Path;

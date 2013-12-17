@@ -97,7 +97,7 @@ CApp::CApp(QString mui_name, int & argc, char ** argv)
 }
 //--------------------------------------------- pCApp -------------------------------------------------------------------
 /*! \brief retourne l'instance de l'application. est a zero tant que l'initialisation n'est pas finie.
- * l'acces ultérieur aux fonctions de la classe CApp se fait par CApp::pCApp()
+ * l'acces ulterieur aux fonctions de la classe CApp se fait par CApp::pCApp()
  */
 CApp* CApp::pCApp()
 {return G_pCApp;

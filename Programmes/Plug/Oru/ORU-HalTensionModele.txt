@@ -1,0 +1,35 @@
+<passage>
+<entree>{{DT_ENTREE}}</entree>
+<sortie>{{DT_SORTIE}}</sortie>
+<ilp_c>{{GUID}}</ilp_c>
+<idpass_c>{{ID_OBS}}</idpass_c>
+<uf>{{UF_PAT}}</uf>
+<is_uhcd>{{IS_UHCD}}</is_uhcd>
+<dt_naissance>{{DT_NSS}}</dt_naissance>
+<sexe>{{SEXE}}</sexe>
+<med_traitant>{{ID_MEDTTT}}</med_traitant>
+<date_examen>{{DT_EXAM}}</date_examen>
+<date_uhcd>{{DT_UHCD}}</date_uhcd>
+<mode_admission>{{MODE_ADM}}</mode_admission>
+<transport_admission>{{TYPE_ADM}}</transport_admission>
+<medecin_urgentiste>{{ID_MEDURG}}</medecin_urgentiste>
+<salle_exam>{{ID_BOX}}</salle_exam>
+<categorie_recours>{{CAT_RECOURS}}</categorie_recours>
+<motif_recours>{{MOTIF_RECOURS}}</motif_recours>
+<code_recours>{{CIM_RECOURS}}</code_recours>
+<ccmu>{{CCMU}}</ccmu>
+<dest_souhaitee>{{DEST_SOUH}}</dest_souhaitee>
+<dest_attendue>{{DEST_ATT}}</dest_attendue>
+<ide>{{ID_IDE}}</ide>
+<moyen_transport>{{MY_TRANSP}}</moyen_transport>
+<motif_transfert>{{MOTIF_TRANSF}}</motif_transfert>
+<type_dest>{{TYP_DST}}</type_dest>
+<actes>
+    <ccam>{{CCAM}}</ccam>
+</actes>
+<diags>
+    <diag is_ppal="{{is_ppal}}">{{CIM_OUT}}</diag>
+</diags>
+<is_evenement>{{IS_EVNT}}</is_evenement>
+<lib_evenement>{{LIB_EVNT}}</lib_evenement>
+</passage>

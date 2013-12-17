@@ -28,10 +28,7 @@ DEFINES     += "SQLSYNTAX_MYSQL"
 TEMPLATE     = app
 
 include(../../MedinTuxTools-QT4/qtsingleapplication/src/qtsingleapplication.pri)
-unix {
-      # LIBS += -L/usr/lib/ -lX11 -ldl -lXext
-     }
-
+unix:!macx: LIBS += -lX11
 SOURCES += main.cpp \
     C_MW_Prescription.cpp \
     CApp.cpp \

@@ -1,0 +1,149 @@
+-- 10 12 2013 console et clavier ---------------------------------------------------
+mettre en francais le clavier.
+activer la console : icone application en haut à gauche.
+                     taper console ou terminal 
+                     cliquez sur l'icone Terminal 
+
+-- 10 12 2013 Apache MySql php ---------------------------------------------------
+Tutoriel Source : http://www.unixmen.com/install-lamp-server-apache-mysql-php-ubuntu-13-10-server/
+
+-- 10 12 2013 Apache ---------------------------------------------------
+installer Apache : sudo apt-get install apache2
+
+-- 10 12 2013 MySql ---------------------------------------------------
+installer MySql : sudo apt-get install mysql-server mysql-client
+
+-- 10 12 2013 MariaDb ---------------------------------------------------
+installer MariaDb : sudo apt-get purge mysql*
+                    sudo apt-get autoremove
+                    sudo apt-get install software-properties-common
+                    sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xcbcb082a1bb943db
+                    sudo add-apt-repository 'deb http://mariadb.biz.net.id//repo/5.5/ubuntu saucy main'
+                    sudo apt-get update 
+                    sudo apt-get install mariadb-server mariadb-client
+vérifier mariaDB : mysql -v
+                   sudo service mysql status
+
+-- 10 12 2013 PHP ---------------------------------------------------
+installer PHP :  sudo apt-get install php5 php5-mysql libapache2-mod-php5
+
+test php : 
+        Create a sample “testphp.php”
+        sudo nano /var/www/testphp.php
+           <?php
+            phpinfo();
+           ?>
+        sudo service apache2 restart
+        Navigate to  http://localhost/testphp.php
+
+-- 10 12 2013 PHP ---------------------------------------------------
+Install phpMyAdmin:  sudo apt-get install phpmyadmin
+tester en web par : http://localhost/phpmyadmin/
+
+-- 10 12 2013 qtcreator ---------------------------------------------------
+Install qtcreator : sudo apt-get install qtcreator
+
+-- 10 12 2013 libmysql++-dev ---------------------------------------------------
+sudo apt-get install libmysql++-dev
+
+Les NOUVEAUX paquets suivants seront installés :
+  libmariadbclient-dev libmysql++-dev libmysql++3 zlib1g-dev
+
+-- 10 12 2013 qt3 ---------------------------------------------------
+télécharger :  http://download.qt-project.org/archive/qt/3/qt-x11-free-3.3.8b.tar.gz
+décompactage en :    ~/Documents ce qui donne :  ~/Documents/qt-x11-free-3.3.8b
+renommer en qt3 :  mv ~/Documents/qt-x11-free-3.3.8b ~/Documents/qt3
+s'y rendre :       cd ~/Documents/qt3
+                  
+	export QTDIR=~/Documents/qt3
+	export PATH=$QTDIR/bin:$PATH
+	export MANPATH=$QTDIR/doc/man:$MANPATH
+	export LD_LIBRARY_PATH=$QTDIR/lib:$LD_LIBRARY_PATH
+	export PATH=$QTDIR/bin:$PATH
+	export MANPATH=$QTDIR/doc/man:$MANPATH
+	export LD_LIBRARY_PATH=$QTDIR/lib:$LD_LIBRARY_PATH
+
+
+rajout de #include <stddef.h> dans (https://qt-project.org/forums/viewthread/16992)
+appliquer le patch :  http://www.linuxfromscratch.org/patches/downloads/qt/qt-3.3.8.d-libpng15-1.patch
+  qt.h
+  kernel/qapplication_x11.cpp
+  kernel/qapplication.cpp
+  qvaluelist.h
+
+./configure -release -shared -thread -enable-network -enable-canvas -enable-table -enable-xml -enable-opengl -enable-sql -verbose -qt-sql-mysql -enable-iconview -enable-workspace -enable-styles -enable-dialogs -enable-widgets -enable-tools -enable-kernel -big-codecs -no-tablet -no-stl -qt-imgfmt-png -qt-imgfmt-jpeg -qt-imgfmt-mng -qt-gif -qt-style-windows -plugin-style-motif -plugin-style-platinum -plugin-style-motifplus -plugin-style-cde -plugin-style-sgi -ipv6 -cups -I/usr/include/mysql -L/usr/lib
+conclusion : qt3 se compile mais plante X à l'exécution
+
+==> test d'une autre méthode :
+
+http://launchpadlibrarian.net/86479683/libqt3-mt_3.3.8-b-8ubuntu3_amd64.deb
+
+-- 10 12 2013 qt4 ---------------------------------------------------
+
+    debhelper (>= 9)
+    dpkg-dev (>= 1.16.1)
+    flex
+    freetds-dev
+   * libasound2-dev
+   * libaudio-dev
+   * libcups2-dev       
+   * libdbus-1-dev
+   * libfreetype6-dev
+    libgl1-mesa-dev
+    libglib2.0-dev
+    libglu1-mesa-dev
+   * libgstreamer-plugins-base0.10-dev
+   * libgstreamer0.10-dev
+   * libgtk2.0-dev
+    libice-dev
+    libicu-dev
+   * libjpeg-dev
+   * libmng-dev
+   * libmysqlclient-dev
+    libpam0g-dev
+   * libpng-dev
+    libpq-dev
+    libreadline-dev
+    libsm-dev
+   * libsqlite3-dev
+   * libssl-dev
+    libtiff-dev
+   * libx11-dev
+   * libxcursor-dev
+   * libxext-dev
+   * libxft-dev
+    libxi-dev
+   * libxinerama-dev
+    libxmu-dev
+    libxrandr-dev
+   * libxrender-dev
+    libxslt1-dev
+    libxt-dev
+    libxtst-dev
+    libxv-dev
+    pkg-kde-tools (>= 0.14.2)
+    rsync
+    unixodbc-dev
+    zlib1g-dev
+
+Avant tout installer synaptic
+avec synaptic : installer xrender (pour le webkit)
+/usr/include/mysql
+/usr/lib
+
+sudo apt-get install libqt5webkit5-dev
+http://security.ubuntu.com/ubuntu/pool/main/libx/libxrender/libxrender-dev_0.9.6-2ubuntu0.1_amd64.deb
+
+télécharger : http://download.qt-project.org/archive/qt/4.8/4.8.4/qt-everywhere-opensource-src-4.8.4.tar.gz
+télécharger : http://mirrors.linsrv.net/Qt/official_releases/qt/4.8/4.8.5/qt-everywhere-opensource-src-4.8.5.tar.gz
+-I/usr/include/mysql -L/usr/lib
+
+./configure -nomake examples -nomake demos -opensource -xmlpatterns -xrender -webkit -multimedia -fast -confirm-license -debug-and-release -qt-sql-mysql -I/usr/include/mysql -L/usr/lib
+
+
+./configure -nomake examples -nomake demos -opensource -xmlpatterns -webkit -multimedia -fast -confirm-license -debug-and-release -qt-sql-mysql -I/usr/include/mysql -L/usr/lib
+
+
+To reconfigure, run 'make confclean' and 'configure'.
+
+

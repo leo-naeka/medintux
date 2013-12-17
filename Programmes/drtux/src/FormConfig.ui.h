@@ -1379,7 +1379,7 @@ void FormConfig::checkParam()
   checkFile( CCAMExe->text(),                 *lblCCAMExe,                2,FALSE);
   checkFile( CCAMIni->text(),                 *lblCCAMIni,                0,FALSE);
 
-  bool last_err = m_CheckErreur;
+  //bool last_err = m_CheckErreur;
   if (checkFile( repPdftk->text(),      *lblRepPdftk,       1,FALSE) == 0)
      { if (checkFile( DEFAUT_PDFTK,     *lblRepPdftk,       1,FALSE))
           {repPdftk->setText(DEFAUT_PDFTK);
@@ -1389,7 +1389,7 @@ void FormConfig::checkParam()
            //m_CheckErreur = last_err;
           }
      }
-  last_err = m_CheckErreur;
+  //last_err = m_CheckErreur;
   if (checkFile( appliPDF->text(),      *lblAppliPDF,      1,FALSE) == 0)
      { if (checkFile( DEFAUT_PDFVISU,   *lblAppliPDF,      1,FALSE))
           {appliPDF->setText(DEFAUT_PDFVISU);

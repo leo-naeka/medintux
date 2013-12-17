@@ -49,12 +49,12 @@
  }
 
  void C_QLineEdit::keyPressEvent ( QKeyEvent * event )
- {    int call_StandardEvent_1 = C_QLineEdit::AFTER_CALL_STD_EVENT;
+ {    int call_StandardEvent_1 = C_QLineEdit::AFTER_CALL_STD_EVENT;         //
       int call_StandardEvent_2 = C_QLineEdit::AFTER_CALL_STD_EVENT;
       emit Sign_keyPressEvent(event, call_StandardEvent_1);
       emit Sign_keyPressEvent(event, call_StandardEvent_2, this);
-      if ( call_StandardEvent_1==C_QLineEdit::AFTER_CALL_STD_EVENT ||
-           call_StandardEvent_2==C_QLineEdit::AFTER_CALL_STD_EVENT
+      if ( call_StandardEvent_1!=C_QLineEdit::NOT_CALL_STD_EVENT &&
+           call_StandardEvent_2!=C_QLineEdit::NOT_CALL_STD_EVENT
          ) QLineEdit::keyPressEvent(event);
  }
 

@@ -21,6 +21,8 @@ include(../../MedinTuxTools-QT4/qtsingleapplication/src/qtsingleapplication.pri)
 mac { LIBS +=  -L/usr/X11/lib
     }
 
+unix:!macx: LIBS += -lX11
+
 ROOT_PROJECT        = $$PWD/../
 SRC_DIR             = $${ROOT_PROJECT}/src/
 DESTDIR             = $${ROOT_PROJECT}/bin

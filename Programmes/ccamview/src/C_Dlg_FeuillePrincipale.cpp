@@ -29,8 +29,15 @@
 #ifdef Q_WS_X11
   #include <QX11Info>
 #endif
-static char NUM_VERSION[]     = "==##@@==2.14.003==@@##==";
+static char NUM_VERSION[]     = "==##@@==2.16.001==@@##==";
 static char CHANGEMENTS[]     = "==========================================================================================================<br>"
+                                "Modif RS ccam_view du 16-12-2013 Version 2.16.000<br>"
+                                "---------------------------------------------------------------------------------------------------------<br>"
+                                "- <b><u>AMELIORATION</u></b> : Affichage correct du num\303\251rde version "
+                                "<br>Mise en avant plan sous ubuntu unity correcte"
+                                "<br>fonctionne parfaitement sous Mac et ubuntu 64 bits 13.10"
+                                "<br>"
+                                "==========================================================================================================<br>"
                                 "Modif RS ccam_view du 29-03-2010 Version 2.14.003<br>"
                                 "---------------------------------------------------------------------------------------------------------<br>"
                                 "- <b><u>AMELIORATION</u></b> : Affichage correct du num\303\251rde version <br>"
@@ -195,6 +202,7 @@ C_Dlg_FeuillePrincipale::C_Dlg_FeuillePrincipale(QWidget* parent, const char* na
     else              m_GuidDrTux =  "";
     //........... remplir les combo box .........
     C_Dlg_FeuillePrincipale::critere_code(QString::null);
+    QTimer::singleShot(500, this, SLOT(Slot_ActivateMainWindow())); // pour avoir la fenetre en avant plan sur ubuntu unity
 }
 
 //------------------------------------------ C_Dlg_FeuillePrincipale -------------------------------------------------------------------------------------------
@@ -202,7 +210,14 @@ C_Dlg_FeuillePrincipale::~C_Dlg_FeuillePrincipale()
 {tryToStopAPropos();
  if (m_pcSoapI) delete m_pcSoapI;
 }
-
+//--------------------------------------- Slot_ActivateMainWindow ---------------------------------------------------
+void C_Dlg_FeuillePrincipale::Slot_ActivateMainWindow()
+{   //if (G_pCApp->getDroits().length()) setWindowFlags(Qt::WindowStaysOnTopHint);
+    show();
+    setWindowState(windowState() & ~Qt::WindowMinimized);
+    activateWindow();
+    raise();
+}
 /*$SPECIALIZATION$*/
 //------------------------------ ReplaceThesaurusTokenByValue ----------------------------------------------------------------------------
 int C_Dlg_FeuillePrincipale::ReplaceThesaurusTokenByValue( INFO_MED * pInfoMed, Q3ListViewItem * pQListViewItemActes, QString & document, int pos_deb, int len )

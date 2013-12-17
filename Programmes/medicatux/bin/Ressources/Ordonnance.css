@@ -1,0 +1,37 @@
+ <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+ <html>
+ <head>
+     <meta name="qrichtext" content="1" />
+     <style type="text/css">
+         span.mainName {
+          color:#0000FF;                                   
+          font-family: arial, verdana, sans-serif;
+          text-decoration: underline;
+          font-size: 10px;
+          font-weight: bold;
+         }
+         span.optionalName {
+           color:#0000FF;                                  
+           font-family: arial, verdana, sans-serif;
+           font-style: italic;
+           font-size: 10px;
+         }
+         span.texteNormal {
+           color:#0000FF;                                  
+           font-family: arial, verdana, sans-serif;
+           font-size: 10px;
+         }
+         span.numOrdre {
+           color:#FF0000;                                   
+           font-family: arial, verdana, sans-serif;
+           font-size: 12px;
+           font-weight: bold;
+         }
+         span.drugForme {
+           color:#0000FF;                                   
+           font-family: arial, verdana, sans-serif;
+           font-size: 10px;
+           font-weight: bold;
+         }
+     </style>
+ </head>

@@ -79,23 +79,13 @@ set MODULE=mise_a_jour
 cd ../../%MODULE%/src
 erase %MODULE%.dsw
 erase %MODULE%.dsp
-%QMAKE% -t vcapp -o %MODULE%.dsp src.pro
+%QMAKE% -t vcapp -o %MODULE%.dsp %MODULE%.pro
 cd ../../mise_a_jour/bin
 mise_a_jour.exe MSDEV  ../../%MODULE%/src/%MODULE%.dsp %MODULE%.exe
 cd ../../%MODULE%/src
 msdev %MODULE%.dsp
 
 set MODULE=set_bases
-cd ../../%MODULE%/src
-erase %MODULE%.dsw
-erase %MODULE%.dsp
-%QMAKE% -t vcapp -o %MODULE%.dsp src.pro
-cd ../../mise_a_jour/bin
-mise_a_jour.exe MSDEV  ../../%MODULE%/src/%MODULE%.dsp %MODULE%.exe
-cd ../../%MODULE%/src
-msdev %MODULE%.dsp
-
-set MODULE=manu
 cd ../../%MODULE%/src
 erase %MODULE%.dsw
 erase %MODULE%.dsp
@@ -149,7 +139,7 @@ set MODULE=qgetdatasemp
 cd ../../%MODULE%/src
 erase %MODULE%.dsw
 erase %MODULE%.dsp
-%QMAKE% -t vcapp -o %MODULE%.dsp src.pro
+%QMAKE% -t vcapp -o %MODULE%.dsp %MODULE%.pro
 cd ../../mise_a_jour/bin
 mise_a_jour.exe MSDEV  ../../%MODULE%/src/%MODULE%.dsp %MODULE%.exe
 cd ../../%MODULE%/src

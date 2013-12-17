@@ -1,0 +1,16 @@
+HTTP/1.1 200 OK
+content-type: text/xml; charset=utf-8
+date: Mon, 17 May 2004 11:06:33 GMT
+server: Apache Tomcat/4.1.27 (HTTP/1.1 Connector)
+set-cookie: JSESSIONID=077353239178731F08ED9D9004BAF090; Path=/sigems
+transfer-encoding: chunked
+
+<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+ <soapenv:Body>
+  <ns1:createActeTempResponse soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xmlns:ns1="SigeGateActeCcam">
+   <ns1:createActeTempReturn xsi:type="xsd:string">0</ns1:createActeTempReturn>
+  </ns1:createActeTempResponse>
+ </soapenv:Body>
+</soapenv:Envelope>
+

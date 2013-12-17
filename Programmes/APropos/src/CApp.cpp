@@ -11,9 +11,9 @@
  *                              http://www.cecill.info/                           *
  *   as published by :                                                            *
  *                                                                                *
- *   Commissariat ?   l'Energie Atomique                                           *
+ *   Commissariat a  l'Energie Atomique                                           *
  *   - CEA,                                                                       *
- *                            31-33 rue de la Fédération, 75752 PARIS cedex 15.   *
+ *                            31-33 rue de la Federation, 75752 PARIS cedex 15.   *
  *                            FRANCE                                              *
  *   Centre National de la Recherche Scientifique                                 *
  *   - CNRS,                                                                      *
@@ -44,8 +44,15 @@
 #include <QIODevice>
 #include <QProcess>
 #include <QTextCodec>
-#include <QMessageBox>
-#include <QCoreApplication>
+
+#if QT_VERSION >= 0x050000    // Qt 4.1.2, the QT_VERSION macro will expand to 0x040102.
+      #include <QtWidgets/QMessageBox>
+      #include <QtWidgets/QApplication>
+#else
+      #include <QMessageBox>
+      #include <QApplication>
+#endif
+
 #include <QDebug>
 #include "../../MedinTuxTools-QT4/Theme/Theme.h"
 #include "../../MedinTuxTools-QT4/CGestIni.h"
@@ -60,9 +67,9 @@ CApp::~CApp()
 //--------------------------------------------- CApp -------------------------------------------------------------------
 CApp::CApp(QString mui_name, int & argc, char ** argv)
 :QApplication(argc,argv), m_NameAppli(mui_name)
-{   QTextCodec::setCodecForTr( QTextCodec::codecForName("utf8") );
+{   // QTextCodec::setCodecForTr( QTextCodec::codecForName("utf8") );
     //.............................. recuperer le numer de vesrsion du .pro ..........................................
-    //                               le mettre dans un tableau static tagu? pour
+    //                               le mettre dans un tableau static tague pour
     //                               qu'il soit rep?rable dans le binaire
     static char NUMTAB_VERSION[]     = "==##@@=="NUM_VERSION"==@@##==";    // defini dans le .pro
     //.................... recuperer path de demarrage de l'appli ...........................
@@ -71,9 +78,9 @@ CApp::CApp(QString mui_name, int & argc, char ** argv)
     //.............................. initialiser le theme ..........................................
     m_PathTheme     =  "../../Themes/Default/";
     //if (CGestIni::Param_ReadParam( m_LocalParam.toLatin1(), "Theme", "Path", &m_PathTheme) != QString::null )  // zero = pas d'erreur
-    //   { m_PathTheme     =  "../../Themes/Default/";                                   // valeur par défaut si pas de theme explicite
+    //   { m_PathTheme     =  "../../Themes/Default/";                                   // valeur par defaut si pas de theme explicite
     //   }
-    if (!QDir(m_PathTheme).exists())     m_PathTheme     =  "../../Themes/Default/";        // valeur par défaut
+    if (!QDir(m_PathTheme).exists())     m_PathTheme     =  "../../Themes/Default/";        // valeur par defaut
     if ( QDir(m_PathTheme).isRelative()) m_PathTheme.prepend(m_PathAppli);
     m_PathTheme = QDir::cleanPath(m_PathTheme) + "/";
     Theme::setPath(m_PathTheme);
@@ -88,8 +95,8 @@ CApp::CApp(QString mui_name, int & argc, char ** argv)
     m_PathApropos     = "";
     m_PathHelp        = "";
     m_BaseVersion     = tr("sans objet");
-    if (argc==1)              // si un seul parametre alors c'est un D&D sur l'icone ou autre demande de visualisatiojn de fichier
-       { m_PathIcone       = Theme::getPath(TRUE) + "22x22/help.png";
+    if (argc==2)              // si un seul parametre alors c'est un D&D sur l'icone ou autre demande de visualisation de fichier
+       { m_PathIcone       = Theme::getPath(true) + "22x22/help.png";
          m_PathHelp        = argv[0];
        }
     //.............. recuperer si il le faut les valeurs des parametres d'appel ....................
@@ -102,7 +109,13 @@ CApp::CApp(QString mui_name, int & argc, char ** argv)
     if (argc>7)  m_PathApropos     = CGestIni::fromMyUTF8(argv[7]);
     if (argc>8)  m_BaseVersion     = CGestIni::fromMyUTF8(argv[8]);
     if (m_PathApropos.length()==0) m_PathApropos = m_PathAppli + "Ressources/A_propos.html";
-    if (m_PathHelp.length()==0)    m_PathHelp    = QDir::cleanPath(m_PathAppli + "../../Doc/" + m_ModuleName + "/") + "/index.html";
+    // qDebug()<<tr("-A- argc : ") + QString::number(argc);
+    // qDebug()<<tr("-0- m_PathHelp : ") + m_PathHelp;
+    if (m_PathHelp.length()==0)
+       { m_PathHelp    = m_PathAppli + "../../Doc/" + m_ModuleName; //qDebug()<<tr("-1- m_PathHelp : ") + m_PathHelp;
+         m_PathHelp    = QDir::cleanPath(m_PathHelp);               //qDebug()<<tr("-2- cleanPath(m_PathHelp) : ") + m_PathHelp;
+         m_PathHelp    = m_PathHelp + "/index.html";                //qDebug()<<tr("-3- m_PathHelp+/index.html : ") + m_PathHelp;
+       }
     if (m_PathIcone.length()==0 || !QFile::exists(m_PathIcone)) m_PathIcone = QDir::cleanPath(m_PathAppli + "../../Doc/" + m_ModuleName ) + "/" + m_ModuleName+".png";
     if (m_PathIcone.length()==0 || !QFile::exists(m_PathIcone)) m_PathIcone = m_PathAppli + "Ressources/null.png";
     setWindowIcon (QPixmap(m_PathIcone));

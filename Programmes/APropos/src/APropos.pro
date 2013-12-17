@@ -1,13 +1,18 @@
 # -------------------------------------------------
 # Project created by QtCreator 2010-06-03T10:21:40
 # -------------------------------------------------
-QT += network \
-      webkit \
-      sql
+QT += core \
+      gui \
+      network \
+      sql \
+      webkit
 
+
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets webkitwidgets
+message(Qt version: $$[QT_VERSION])
 #........... make the binary name and version number available in c++ code using macro definition ................
 TARGET       = APropos
-NUM_VERS     = 2.15.000
+NUM_VERS     = 2.16.000
 
 DEFINES	    += "NUM_VERSION=\"\\\"$${NUM_VERS}\\\"\""
 DEFINES	    += "NAME_APPLI=\"\\\"$${TARGET}\\\"\""
@@ -38,3 +43,9 @@ UI_DIR   = $${SRC_DIR}/ui
 MOC_DIR  = $${SRC_DIR}/moc
 RCC_DIR  = $${SRC_DIR}/rcc
 TRANSLATIONS = Manager_fr.ts
+
+greaterThan(QT_MAJOR_VERSION, 4): unix: LIBS += -L$$PWD/../../../../../../../../usr/lib/ -lsqlite
+
+
+INCLUDEPATH += $$PWD/../../../../../../../../usr/include
+DEPENDPATH  += $$PWD/../../../../../../../../usr/include

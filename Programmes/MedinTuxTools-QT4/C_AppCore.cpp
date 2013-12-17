@@ -55,7 +55,7 @@ C_AppCore::~C_AppCore()
 //--------------------------------------------- C_AppCore -------------------------------------------------------------------
 C_AppCore::C_AppCore(QString mui_name, int & argc, char ** argv)
     : QtSingleApplication(argc, argv, true) , m_NameAppli(mui_name)
-{   //QTextCodec::setCodecForTr( QTextCodec::codecForName("utf8") );
+{   QTextCodec::setCodecForTr( QTextCodec::codecForName("utf8") );
     //.............................. recuperer le numer de version du .pro ..........................................
     //                               le mettre dans un tableau static tagué pour
     //                               qu'il soit reperable dans le binaire
@@ -358,8 +358,9 @@ QString C_AppCore::localizePathIni()
      //--------------------------------------------- getAsyncModifiers -------------------------------------------------------------------
      Qt::KeyboardModifiers C_AppCore::getAsyncModifiers(int *capitalState /*=0 */)
      {
-         XkbStateRec state;
          Qt::KeyboardModifiers result;
+
+         XkbStateRec state;
 
          XkbGetState(QX11Info::display(), XkbUseCoreKbd, &state);
          if (state.base_mods & 0010)
@@ -371,6 +372,7 @@ QString C_AppCore::localizePathIni()
          if (state.base_mods & 0100)
              result |= Qt::MetaModifier;
          if (capitalState) *capitalState = state.locked_mods;
+
          return result;
      }
 #elif defined(Q_WS_MAC)

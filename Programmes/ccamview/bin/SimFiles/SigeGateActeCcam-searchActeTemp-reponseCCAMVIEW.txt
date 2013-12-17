@@ -1,0 +1,177 @@
+HTTP/1.1 200 OK
+content-type: text/xml; charset=utf-8
+date: Mon, 17 May 2004 11:06:33 GMT
+server: Apache Tomcat/4.1.27 (HTTP/1.1 Connector)
+set-cookie: JSESSIONID=077353239178731F08ED9D9004BAF090; Path=/sigems
+transfer-encoding: chunked
+
+<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <soapenv:Body>
+       <ns1:searchActeTempResponse soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xmlns:ns1="SigeGateActeCcam">
+       <ns1:searchActeTempReturn xsi:type="xsd:string">0</ns1:searchActeTempReturn>
+   <listeActes href="#id0"/>
+  </ns1:searchActeTempResponse>
+  <multiRef id="id0" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns2:WsActeCcamListe" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:ns2="urn:SigeGateActeCcam">
+   <liste xsi:type="soapenc:Array" soapenc:arrayType="ns2:WsActeCcam[6]">
+    <item href="#id1"/>
+    <item href="#id2"/>
+    <item href="#id3"/>
+    <item href="#id4"/>
+    <item href="#id5"/>
+    <item href="#id6"/>
+   </liste>
+  </multiRef>
+  <multiRef id="id2" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns3:WsActeCcam" xmlns:ns3="urn:SigeGateActeCcam" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+   <activite xsi:type="xsd:string">4</activite>
+   <associationNonPrevue xsi:type="xsd:string"></associationNonPrevue>
+   <chargeSupplementaire xsi:type="xsd:string"></chargeSupplementaire>
+   <codeActe xsi:type="xsd:string">GGJA002</codeActe>
+   <codeRejet xsi:type="xsd:string" xsi:nil="true"/>
+   <date xsi:type="xsd:string">06/02/1997</date>
+   <depassementHonoraire xsi:type="xsd:float">15.12</depassementHonoraire>
+   <enfant xsi:type="xsd:int">0</enfant>
+   <extensionDocumentaire xsi:type="xsd:string"></extensionDocumentaire>
+   <heureDebut xsi:type="xsd:string">19:45</heureDebut>
+   <idPraticien xsi:type="xsd:string">131703613</idPraticien>
+   <ippSigems xsi:type="xsd:int">19258</ippSigems>
+   <lienAvecActeExonereAnterieur xsi:type="xsd:string">N</lienAvecActeExonereAnterieur>
+   <modificateur1 xsi:type="xsd:string"></modificateur1>
+   <modificateur2 xsi:type="xsd:string"></modificateur2>
+   <modificateur3 xsi:type="xsd:string"></modificateur3>
+   <modificateur4 xsi:type="xsd:string"></modificateur4>
+   <nbOccurence xsi:type="xsd:int">1</nbOccurence>
+   <numDossier xsi:type="xsd:string">9790259</numDossier>
+   <phase xsi:type="xsd:string">0</phase>
+   <prescripteur xsi:type="xsd:string">401015540</prescripteur>
+   <remboursementExceptionnel xsi:type="xsd:string"></remboursementExceptionnel>
+   <uniteMedicale xsi:type="xsd:string" xsi:nil="true"/>
+  </multiRef>
+  <multiRef id="id3" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns4:WsActeCcam" xmlns:ns4="urn:SigeGateActeCcam" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+   <activite xsi:type="xsd:string">1</activite>
+   <associationNonPrevue xsi:type="xsd:string"></associationNonPrevue>
+   <chargeSupplementaire xsi:type="xsd:string"></chargeSupplementaire>
+   <codeActe xsi:type="xsd:string">GGJAR01</codeActe>
+   <codeRejet xsi:type="xsd:string" xsi:nil="true"/>
+   <date xsi:type="xsd:string">06/02/1997</date>
+   <depassementHonoraire xsi:type="xsd:float">15.12</depassementHonoraire>
+   <enfant xsi:type="xsd:int">1</enfant>
+   <extensionDocumentaire xsi:type="xsd:string"></extensionDocumentaire>
+   <heureDebut xsi:type="xsd:string">09:00</heureDebut>
+   <idPraticien xsi:type="xsd:string">131703613</idPraticien>
+   <ippSigems xsi:type="xsd:int">19258</ippSigems>
+   <lienAvecActeExonereAnterieur xsi:type="xsd:string">N</lienAvecActeExonereAnterieur>
+   <modificateur1 xsi:type="xsd:string"></modificateur1>
+   <modificateur2 xsi:type="xsd:string"></modificateur2>
+   <modificateur3 xsi:type="xsd:string"></modificateur3>
+   <modificateur4 xsi:type="xsd:string"></modificateur4>
+   <nbOccurence xsi:type="xsd:int">1</nbOccurence>
+   <numDossier xsi:type="xsd:string">9790259</numDossier>
+   <phase xsi:type="xsd:string">2</phase>
+   <prescripteur xsi:type="xsd:string">401015540</prescripteur>
+   <remboursementExceptionnel xsi:type="xsd:string"></remboursementExceptionnel>
+   <uniteMedicale xsi:type="xsd:string" xsi:nil="true"/>
+  </multiRef>
+  <multiRef id="id4" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns5:WsActeCcam" xmlns:ns5="urn:SigeGateActeCcam" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+   <activite xsi:type="xsd:string">4</activite>
+   <associationNonPrevue xsi:type="xsd:string"></associationNonPrevue>
+   <chargeSupplementaire xsi:type="xsd:string"></chargeSupplementaire>
+   <codeActe xsi:type="xsd:string">GGJA002</codeActe>
+   <codeRejet xsi:type="xsd:string" xsi:nil="true"/>
+   <date xsi:type="xsd:string">06/02/1997</date>
+   <depassementHonoraire xsi:type="xsd:float">15.12</depassementHonoraire>
+   <enfant xsi:type="xsd:int">2</enfant>
+   <extensionDocumentaire xsi:type="xsd:string"></extensionDocumentaire>
+   <heureDebut xsi:type="xsd:string">11:40</heureDebut>
+   <idPraticien xsi:type="xsd:string">131703613</idPraticien>
+   <ippSigems xsi:type="xsd:int">19258</ippSigems>
+   <lienAvecActeExonereAnterieur xsi:type="xsd:string">N</lienAvecActeExonereAnterieur>
+   <modificateur1 xsi:type="xsd:string"></modificateur1>
+   <modificateur2 xsi:type="xsd:string"></modificateur2>
+   <modificateur3 xsi:type="xsd:string"></modificateur3>
+   <modificateur4 xsi:type="xsd:string"></modificateur4>
+   <nbOccurence xsi:type="xsd:int">1</nbOccurence>
+   <numDossier xsi:type="xsd:string">9790259</numDossier>
+   <phase xsi:type="xsd:string">1</phase>
+   <prescripteur xsi:type="xsd:string">401015540</prescripteur>
+   <remboursementExceptionnel xsi:type="xsd:string"></remboursementExceptionnel>
+   <uniteMedicale xsi:type="xsd:string" xsi:nil="true"/>
+  </multiRef>
+  <multiRef id="id5" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns6:WsActeCcam" xmlns:ns6="urn:SigeGateActeCcam" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+   <activite xsi:type="xsd:string">1</activite>
+   <associationNonPrevue xsi:type="xsd:string"></associationNonPrevue>
+   <chargeSupplementaire xsi:type="xsd:string">2</chargeSupplementaire>
+   <codeActe xsi:type="xsd:string">GGJA003</codeActe>
+   <codeRejet xsi:type="xsd:string" xsi:nil="true"/>
+   <date xsi:type="xsd:string">06/02/1997</date>
+   <depassementHonoraire xsi:type="xsd:float">15.12</depassementHonoraire>
+   <enfant xsi:type="xsd:int">0</enfant>
+   <extensionDocumentaire xsi:type="xsd:string"></extensionDocumentaire>
+   <heureDebut xsi:type="xsd:string">11:00</heureDebut>
+   <idPraticien xsi:type="xsd:string">131069858</idPraticien>
+   <ippSigems xsi:type="xsd:int">19258</ippSigems>
+   <lienAvecActeExonereAnterieur xsi:type="xsd:string">N</lienAvecActeExonereAnterieur>
+   <modificateur1 xsi:type="xsd:string">A</modificateur1>
+   <modificateur2 xsi:type="xsd:string">B</modificateur2>
+   <modificateur3 xsi:type="xsd:string">C</modificateur3>
+   <modificateur4 xsi:type="xsd:string">D</modificateur4>
+   <nbOccurence xsi:type="xsd:int">1</nbOccurence>
+   <numDossier xsi:type="xsd:string">9790259</numDossier>
+   <phase xsi:type="xsd:string">1</phase>
+   <prescripteur xsi:type="xsd:string">401015540</prescripteur>
+   <remboursementExceptionnel xsi:type="xsd:string"></remboursementExceptionnel>
+   <uniteMedicale xsi:type="xsd:string" xsi:nil="true"/>
+  </multiRef>
+  <multiRef id="id6" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns7:WsActeCcam" xmlns:ns7="urn:SigeGateActeCcam" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+   <activite xsi:type="xsd:string">4</activite>
+   <associationNonPrevue xsi:type="xsd:string"></associationNonPrevue>
+   <chargeSupplementaire xsi:type="xsd:string"></chargeSupplementaire>
+   <codeActe xsi:type="xsd:string">GGJA002</codeActe>
+   <codeRejet xsi:type="xsd:string" xsi:nil="true"/>
+   <date xsi:type="xsd:string">06/02/1997</date>
+   <depassementHonoraire xsi:type="xsd:float">15.12</depassementHonoraire>
+   <enfant xsi:type="xsd:int">2</enfant>
+   <extensionDocumentaire xsi:type="xsd:string"></extensionDocumentaire>
+   <heureDebut xsi:type="xsd:string">11:40</heureDebut>
+   <idPraticien xsi:type="xsd:string">131069858</idPraticien>
+   <ippSigems xsi:type="xsd:int">19258</ippSigems>
+   <lienAvecActeExonereAnterieur xsi:type="xsd:string">N</lienAvecActeExonereAnterieur>
+   <modificateur1 xsi:type="xsd:string"></modificateur1>
+   <modificateur2 xsi:type="xsd:string"></modificateur2>
+   <modificateur3 xsi:type="xsd:string"></modificateur3>
+   <modificateur4 xsi:type="xsd:string"></modificateur4>
+   <nbOccurence xsi:type="xsd:int">1</nbOccurence>
+   <numDossier xsi:type="xsd:string">9790259</numDossier>
+   <phase xsi:type="xsd:string">1</phase>
+   <prescripteur xsi:type="xsd:string">401015540</prescripteur>
+   <remboursementExceptionnel xsi:type="xsd:string"></remboursementExceptionnel>
+   <uniteMedicale xsi:type="xsd:string" xsi:nil="true"/>
+  </multiRef>
+  <multiRef id="id1" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns8:WsActeCcam" xmlns:ns8="urn:SigeGateActeCcam" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+   <activite xsi:type="xsd:string">1</activite>
+   <associationNonPrevue xsi:type="xsd:string"></associationNonPrevue>
+   <chargeSupplementaire xsi:type="xsd:string"></chargeSupplementaire>
+   <codeActe xsi:type="xsd:string">GGJA001</codeActe>
+   <codeRejet xsi:type="xsd:string" xsi:nil="true"/>
+   <date xsi:type="xsd:string">07/02/1997</date>
+   <depassementHonoraire xsi:type="xsd:float">15.12</depassementHonoraire>
+   <enfant xsi:type="xsd:int">0</enfant>
+   <extensionDocumentaire xsi:type="xsd:string"></extensionDocumentaire>
+   <heureDebut xsi:type="xsd:string">09:00</heureDebut>
+   <idPraticien xsi:type="xsd:string">131069858</idPraticien>
+   <ippSigems xsi:type="xsd:int">19258</ippSigems>
+   <lienAvecActeExonereAnterieur xsi:type="xsd:string">N</lienAvecActeExonereAnterieur>
+   <modificateur1 xsi:type="xsd:string"></modificateur1>
+   <modificateur2 xsi:type="xsd:string"></modificateur2>
+   <modificateur3 xsi:type="xsd:string"></modificateur3>
+   <modificateur4 xsi:type="xsd:string"></modificateur4>
+   <nbOccurence xsi:type="xsd:int">1</nbOccurence>
+   <numDossier xsi:type="xsd:string">9790260</numDossier>
+   <phase xsi:type="xsd:string">3</phase>
+   <prescripteur xsi:type="xsd:string">401015540</prescripteur>
+   <remboursementExceptionnel xsi:type="xsd:string"></remboursementExceptionnel>
+   <uniteMedicale xsi:type="xsd:string" xsi:nil="true"/>
+  </multiRef>
+ </soapenv:Body>
+</soapenv:Envelope>
+

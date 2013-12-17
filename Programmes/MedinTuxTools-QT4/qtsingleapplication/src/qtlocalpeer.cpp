@@ -58,6 +58,7 @@ namespace QtLP_Private {
 #include "qtlockedfile_win.cpp"
 #else
 #include "qtlockedfile_unix.cpp"
+
 #endif
 }
 
@@ -93,7 +94,11 @@ QtLocalPeer::QtLocalPeer(QObject* parent, const QString &appId)
         socketName += QLatin1Char('-') + QString::number(sessionId, 16);
     }
 #else
-    socketName += QLatin1Char('-') + QString::number(::getuid(), 16);
+    #if QT_VERSION >= 0x040790    // Qt 4.1.2, the QT_VERSION macro will expand to 0x040102.
+        socketName += QLatin1Char('-') + QString::number(QtLP_Private::getuid(), 16);
+    #else
+        socketName += QLatin1Char('-') + QString::number(::getuid(), 16);
+    #endif
 #endif
 
     server = new QLocalServer(this);

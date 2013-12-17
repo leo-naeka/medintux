@@ -1,0 +1,57 @@
+HTTP/1.1 200 OK
+content-type: text/xml; charset=utf-8
+date: Wed, 26 May 2004 12:03:54 GMT
+server: Apache Tomcat/4.1.27 (HTTP/1.1 Connector)
+set-cookie: JSESSIONID=261C98DE16F5A97E4370694A299AFB29; Path=/sigems
+transfer-encoding: chunked
+
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <soapenv:Body>
+        <selectDossierResponse soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+            <selectDossierReturn xsi:type="xsd:string">
+                0
+            </selectDossierReturn>
+            <dossier href="#id0" />
+        </selectDossierResponse>
+        <multiRef id="id0" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns1:WsDossier" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:ns1="urn:SigeGateMed">
+            <dateEntree xsi:type="xsd:string">
+                20/03/2002
+            </dateEntree>
+            <dateIntervention xsi:type="xsd:string" xsi:nil="true" />
+            <dateSortiePrevue xsi:type="xsd:string">
+                27/03/2002
+            </dateSortiePrevue>
+            <dateSortieReelle xsi:type="xsd:string">
+                27/03/2002
+            </dateSortieReelle>
+            <dureeIntervention xsi:type="xsd:string" xsi:nil="true" />
+            <heureEntree xsi:type="xsd:string">
+                17:03
+            </heureEntree>
+            <heureIntervention xsi:type="xsd:string" xsi:nil="true" />
+            <idAnesthesiste xsi:type="xsd:string" xsi:nil="true" />
+            <idChirurgien xsi:type="xsd:string" xsi:nil="true" />
+            <idMedecinTraitant xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigemsAssure xsi:type="xsd:int">
+                40451
+            </ippSigemsAssure>
+            <ippSigemsPatient xsi:type="xsd:int">
+                40451
+            </ippSigemsPatient>
+            <modeTraitement xsi:type="xsd:string">
+                03
+            </modeTraitement>
+            <motif xsi:type="xsd:string" xsi:nil="true" />
+            <numero xsi:type="xsd:string">
+                0245001
+            </numero>
+            <service xsi:type="xsd:string">
+                CHIR
+            </service>
+            <typeChambre xsi:type="xsd:string">
+                CC
+            </typeChambre>
+        </multiRef>
+    </soapenv:Body>
+</soapenv:Envelope>

@@ -1,5 +1,5 @@
 
-/********************************* main.cpp *********************************
+/********************************* main.cpp **************************************
 * ...............................................................................*
 *   Project   :  MedinTux  (typographie made in france)                          *
 *   Copyright : (C) 2004-2005-2006-2007-2008-2009-2010 and for the eternity      *
@@ -14,9 +14,9 @@
 *                              http://www.cecill.info/                           *
 *   as published by :                                                            *
 *                                                                                *
-*   Commissariat �  l'Energie Atomique                                            *
+*   Commissariat a l'Energie Atomique                                            *
 *   - CEA,                                                                       *
-*                            31-33 rue de la Fédération, 75752 PARIS cedex 15.   *
+*                            31-33 rue de la Federation, 75752 PARIS cedex 15.   *
 *                            FRANCE                                              *
 *   Centre National de la Recherche Scientifique                                 *
 *   - CNRS,                                                                      *
@@ -33,9 +33,19 @@
 *         CeCILL  License (GPL compatible) for more details.                     *
 *                                                                                *
 **********************************************************************************/
-#include <QtGui/QApplication>
+#include <QtGui>
+
+#if QT_VERSION >= 0x040890    // Qt 4.1.2, the QT_VERSION macro will expand to 0x040102.
+    #include <QtWidgets/QApplication>
+    #include <QtWidgets/QMessageBox>
+#else
+    #include <QApplication>
+    #include <QMessageBox>
+#endif
+
+#include <QtCore>
 #include <QDir>
-#include <QMessageBox>
+
 #include <QTranslator>
 #include <QLibraryInfo>
 #include <QLocale>
@@ -66,6 +76,7 @@ int main(int argc, char *argv[])
      C_DlgApropos::toPDF(a.m_Description, dest);
      return 0; //a.exec();
     }
+    // qDebug()<<a.m_PathHelp;
     C_DlgApropos w(0,
                    a.m_PathAppli,
                    a.m_ModuleName,      // verbe :  MailOnly     BrowserOnly       toPDF

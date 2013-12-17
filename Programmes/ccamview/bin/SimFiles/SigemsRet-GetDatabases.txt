@@ -1,0 +1,30 @@
+HTTP/1.1 200 OK
+content-type: text/xml; charset=utf-8
+date: Fri, 14 May 2004 13:38:29 GMT
+server: Apache Tomcat/4.1.27 (HTTP/1.1 Connector)
+set-cookie: JSESSIONID=988E63B1E1375118DC5FEBDB078E92F5; Path=/sigems
+transfer-encoding: chunked
+
+<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+ <soapenv:Body>
+  <ns1:getDatabasesResponse soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xmlns:ns1="SigeGateConf">
+   <ns1:getDatabasesReturn xsi:type="xsd:string">0</ns1:getDatabasesReturn>
+   <listeDatabases href="#id0"/>
+  </ns1:getDatabasesResponse>
+  <multiRef id="id0" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns2:DatabaseIdentificationListe" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:ns2="urn:SigeGateConf">
+   <liste xsi:type="soapenc:Array" soapenc:arrayType="ns2:DatabaseIdentification[2]">
+    <item href="#id1"/>
+    <item href="#id2"/>
+   </liste>
+  </multiRef>
+  <multiRef id="id1" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns3:DatabaseIdentification" xmlns:ns3="urn:SigeGateConf" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+   <description xsi:type="xsd:string">BDD Test du d?veloppement Sigems</description>
+   <identifiant xsi:type="xsd:string">bddc</identifiant>
+  </multiRef>
+  <multiRef id="id2" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns4:DatabaseIdentification" xmlns:ns4="urn:SigeGateConf" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+   <description xsi:type="xsd:string">BDD Test de d?monstration Sigems</description>
+   <identifiant xsi:type="xsd:string">bddc_demo</identifiant>
+  </multiRef>
+ </soapenv:Body>
+</soapenv:Envelope>

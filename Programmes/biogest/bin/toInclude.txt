@@ -1,33 +1,15 @@
- <u><br><b>ATTENTION : RESULTATS NON VALIDÉS BIOLOGIQUEMENT, DONNÉS A TITRE INDICATIF</b><br>Résultats de: <b>LLEDO;JOSEPH</b> âge: <b>75 ans  </b> 
-en date du: <b>17-11-2013 à 22:34</b> Service: <b>Urgences</b></u><br> 
-fichier de référence : <b>2013-17-11-22-32-35-890_CLIR618002</b> 
-<br> <b>GB:</b> # <span style="font-weight:600;color:#FF0000"> 12220</span>  (N: de 4000 à 10000) /mm3 
-<b>N°: </b> 79.6 % 
- <b>L°: </b> 9.4 % 
- <b>M°: </b> 8.2 % 
- <b>E°: </b> 1.4 % 
- <b>B°: </b> 0.2 % 
-<br> <b>GR:</b> # <span style="font-weight:600;color:#FF0000"> 2.89</span>  (N: de 4.10 à 5.70) million/mm 
-<b> VGM: </b> 91.9 (N: de 83.0 à 95.0)  
-<br> <b>Hb:</b> # <span style="font-weight:600;color:#FF0000"> 8.7</span>  (N: de 13.6 à 17.2) g/100ml 
-<br> <b>Hc:</b> # <span style="font-weight:600;color:#FF0000"> 26.6</span>  (N: de 40.0 à 54.0) % 
-<br> <b>Plaquettes:</b> 410000 (N: de 150000 à 450000) /mm3 
- <b>Vol. Plaq.:</b> 7.1 (N: de 7.0 à 12.0)  
-<br> <b>TP:</b> # <span style="font-weight:600;color:#FF0000"> 18</span>  (N: de 70 à 999) % 
- <b>i.n.r:</b> 5.47 (NL: environ 1)  
-<br> <b>TCK: témoin</b> 33.5 <b>patient:</b> 102.6 sec.  
- <b>TCA: patient/témoin</b> 3.06   
-<br> <b>Na:</b> 138 (N: de 136 à 145) mmol/l 
-<br> <b>Ka:</b> 4.3 (N: de 3.5 à 5.1) mmol/l 
-<br> <b>Azotémie.:</b> # <span style="font-weight:600;color:#FF0000"> 0.78</span>  (N: de 0.13 à 0.43) g/l 
-<br> <b>Créat:</b> 6 (N: de 6 à 13) mg/l 
-<br> <b>Glycémie:</b> 1.11 (N: de 0.74 à 1.18) g/l 
-<br> <b>PCR:</b> # <span style="font-weight:600;color:#FF0000"> 111.0</span>  (N: inf à 7.5) mg/l 
-<br> <b>LDH:</b> # <span style="font-weight:600;color:#FF0000"> 983</span>  (N: de 266 à 500) UI/L 
- <b>CPK:</b> # <span style="font-weight:600;color:#FF0000"> 842</span>  (N: de 38 à 174) UI/L 
-<br> <b>GOT:</b> 36 (N: inf à 42) UI/L 
- <b>GPT:</b> 36 (N: inf à 40) UI/L 
-<br> <b>Myoglobinémie:</b> # <span style="font-weight:600;color:#FF0000"> 148.8</span>  (N: inf à 105.7) ng/ml  
- <b>Troponinémie:</b> &lt;0.10 (N: inf à 0.10) (0.1 à 0.8 Angor instable)(sup à 0.8 IDM) ng/ml 
-<br> <b>BNP:</b> 55 (N: inf à 100) (<100 IC peu probable)(100 à 400 IC possible)(>400 IC certaine ou EP sévère) pg/ml 
-<br> <b>D-Dimeres:</b> # <span style="font-weight:600;color:#FF0000"> 2.5</span>  (N: inf à 0.5) µg/ml 
+ <u><br><b>ATTENTION : RESULTATS NON VALIDÉS BIOLOGIQUEMENT, DONNÉS A TITRE INDICATIF</b><br>Résultats de: <b>SERRIES;ANNIE</b> âge: <b>63 ans  </b> 
+en date du: <b>03-10-2013 à 20:24</b> Service: <b>Urgences</b></u><br> 
+fichier de référence : <b>2013-03-10-20-28-04-703_CLIR919002</b> 
+<br> <b>GB:</b> 6210 (N: de 4000 à 10000) /mm3 
+<b>N°: </b> 67.3 % 
+ <b>L°: </b> 21.2 % 
+ <b>M°: </b> 6.9 % 
+ <b>E°: </b> 2.6 % 
+ <b>B°: </b> 0.4 % 
+<br> <b>GR:</b> # <span style="font-weight:600;color:#FF0000"> 3.14</span>  (N: de 4.10 à 5.70) million/mm 
+<b> VGM: </b> 91.3 (N: de 83.0 à 95.0)  
+<br> <b>Hb:</b> # <span style="font-weight:600;color:#FF0000"> 8.9</span>  (N: de 11.5 à 15.0) g/100ml 
+<br> <b>Hc:</b> # <span style="font-weight:600;color:#FF0000"> 28.7</span>  (N: de 37.0 à 47.0) % 
+<br> <b>Plaquettes:</b> 415000 (N: de 150000 à 450000) /mm3 
+ <b>Vol. Plaq.:</b> 8.0 (N: de 7.0 à 12.0)  

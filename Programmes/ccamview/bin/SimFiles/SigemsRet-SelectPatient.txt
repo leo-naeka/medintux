@@ -1,0 +1,59 @@
+HTTP/1.1 200 OK
+content-type: text/xml; charset=utf-8
+date: Fri, 14 May 2004 13:38:29 GMT
+server: Apache Tomcat/4.1.27 (HTTP/1.1 Connector)
+set-cookie: JSESSIONID=988E63B1E1375118DC5FEBDB078E92F5; Path=/sigems
+transfer-encoding: chunked
+
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <soapenv:Body>
+        <selectPatientResponse soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+            <selectPatientReturn xsi:type="xsd:string">
+                0
+            </selectPatientReturn>
+            <patient href="#id0" />
+        </selectPatientResponse>
+        <multiRef id="id0" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns1:WsPatient" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:ns1="urn:SigeGatePat">
+            <adresse1 xsi:type="xsd:string">
+                AVENUE DE VERDUN
+            </adresse1>
+            <adresse2 xsi:type="xsd:string" xsi:nil="true" />
+            <cleSecu xsi:type="xsd:string">
+                68
+            </cleSecu>
+            <codePostal xsi:type="xsd:string">
+                40800
+            </codePostal>
+            <dateNaissance xsi:type="xsd:string">
+                23/08/1907
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                10
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                DUMARTIN
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string" xsi:nil="true" />
+            <numSecu xsi:type="xsd:string">
+                2070840174204
+            </numSecu>
+            <prenom xsi:type="xsd:string">
+                JEANNE
+            </prenom>
+            <sexe xsi:type="xsd:string">
+                F
+            </sexe>
+            <telephone xsi:type="xsd:string">
+                05 53 49 19 36
+            </telephone>
+            <ville xsi:type="xsd:string">
+                AIRE SUR ADOUR
+            </ville>
+            <villeNaissance xsi:type="xsd:string">
+                MAURIES
+            </villeNaissance>
+        </multiRef>
+    </soapenv:Body>
+</soapenv:Envelope>

@@ -1,0 +1,1914 @@
+HTTP/1.1 200 OK
+content-type: text/xml; charset=utf-8
+date: Mon, 17 May 2004 11:06:33 GMT
+server: Apache Tomcat/4.1.27 (HTTP/1.1 Connector)
+set-cookie: JSESSIONID=077353239178731F08ED9D9004BAF090; Path=/sigems
+transfer-encoding: chunked
+
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <soapenv:Body>
+        <searchPatientResponse soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+            <searchPatientReturn xsi:type="xsd:string">
+                0
+            </searchPatientReturn>
+            <listePatients href="#id0" />
+        </searchPatientResponse>
+        <multiRef id="id0" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns1:WsPatientIdentificationListe" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:ns1="urn:SigeGatePat">
+            <liste xsi:type="soapenc:Array" soapenc:arrayType="ns1:WsPatientIdentification[100]">
+                <item href="#id1" />
+                <item href="#id2" />
+                <item href="#id3" />
+                <item href="#id4" />
+                <item href="#id5" />
+                <item href="#id6" />
+                <item href="#id7" />
+                <item href="#id8" />
+                <item href="#id9" />
+                <item href="#id10" />
+                <item href="#id11" />
+                <item href="#id12" />
+                <item href="#id13" />
+                <item href="#id14" />
+                <item href="#id15" />
+                <item href="#id16" />
+                <item href="#id17" />
+                <item href="#id18" />
+                <item href="#id19" />
+                <item href="#id20" />
+                <item href="#id21" />
+                <item href="#id22" />
+                <item href="#id23" />
+                <item href="#id24" />
+                <item href="#id25" />
+                <item href="#id26" />
+                <item href="#id27" />
+                <item href="#id28" />
+                <item href="#id29" />
+                <item href="#id30" />
+                <item href="#id31" />
+                <item href="#id32" />
+                <item href="#id33" />
+                <item href="#id34" />
+                <item href="#id35" />
+                <item href="#id36" />
+                <item href="#id37" />
+                <item href="#id38" />
+                <item href="#id39" />
+                <item href="#id40" />
+                <item href="#id41" />
+                <item href="#id42" />
+                <item href="#id43" />
+                <item href="#id44" />
+                <item href="#id45" />
+                <item href="#id46" />
+                <item href="#id47" />
+                <item href="#id48" />
+                <item href="#id49" />
+                <item href="#id50" />
+                <item href="#id51" />
+                <item href="#id52" />
+                <item href="#id53" />
+                <item href="#id54" />
+                <item href="#id55" />
+                <item href="#id56" />
+                <item href="#id57" />
+                <item href="#id58" />
+                <item href="#id59" />
+                <item href="#id60" />
+                <item href="#id61" />
+                <item href="#id62" />
+                <item href="#id63" />
+                <item href="#id64" />
+                <item href="#id65" />
+                <item href="#id66" />
+                <item href="#id67" />
+                <item href="#id68" />
+                <item href="#id69" />
+                <item href="#id70" />
+                <item href="#id71" />
+                <item href="#id72" />
+                <item href="#id73" />
+                <item href="#id74" />
+                <item href="#id75" />
+                <item href="#id76" />
+                <item href="#id77" />
+                <item href="#id78" />
+                <item href="#id79" />
+                <item href="#id80" />
+                <item href="#id81" />
+                <item href="#id82" />
+                <item href="#id83" />
+                <item href="#id84" />
+                <item href="#id85" />
+                <item href="#id86" />
+                <item href="#id87" />
+                <item href="#id88" />
+                <item href="#id89" />
+                <item href="#id90" />
+                <item href="#id91" />
+                <item href="#id92" />
+                <item href="#id93" />
+                <item href="#id94" />
+                <item href="#id95" />
+                <item href="#id96" />
+                <item href="#id97" />
+                <item href="#id98" />
+                <item href="#id99" />
+                <item href="#id100" />
+            </liste>
+        </multiRef>
+        <multiRef id="id33" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns2:WsPatientIdentification" xmlns:ns2="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                13/01/1931
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                17110
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                BARBIERI
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ALISTE
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                ANNE
+            </prenom>
+        </multiRef>
+        <multiRef id="id26" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns3:WsPatientIdentification" xmlns:ns3="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                20/01/1913
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                17708
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                BES
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ALBOUY
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                RACHEL
+            </prenom>
+        </multiRef>
+        <multiRef id="id3" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns4:WsPatientIdentification" xmlns:ns4="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string" xsi:nil="true" />
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                45693
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                AAAAAAAA
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                AAAAAAAAA
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                AAAAAAAA
+            </prenom>
+        </multiRef>
+        <multiRef id="id87" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns5:WsPatientIdentification" xmlns:ns5="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                15/09/1927
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                11658
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                DARBLADE
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                AUGUSTIN
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                ANDREE
+            </prenom>
+        </multiRef>
+        <multiRef id="id2" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns6:WsPatientIdentification" xmlns:ns6="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                01/01/2001
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                45752
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                TEST NOM
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                AAA
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                TEST PRÉNOM
+            </prenom>
+        </multiRef>
+        <multiRef id="id48" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns7:WsPatientIdentification" xmlns:ns7="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string" xsi:nil="true" />
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                40038
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                AMOUROUX
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                AMOUR
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                HGJ
+            </prenom>
+        </multiRef>
+        <multiRef id="id7" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns8:WsPatientIdentification" xmlns:ns8="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                02/03/1925
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                9129
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                CASTETS
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ABADIE
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                ROLANDE
+            </prenom>
+        </multiRef>
+        <multiRef id="id14" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns9:WsPatientIdentification" xmlns:ns9="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                14/09/1914
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                15695
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                DURRIEU
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ACAMAS
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                LOUISA RAYMONDE
+            </prenom>
+        </multiRef>
+        <multiRef id="id30" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns10:WsPatientIdentification" xmlns:ns10="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                28/07/1948
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                17218
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                HUESO
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ALEXIS
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                THERESE
+            </prenom>
+        </multiRef>
+        <multiRef id="id31" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns11:WsPatientIdentification" xmlns:ns11="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                01/09/1936
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                8819
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                SCAPIN
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ALFARO
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                MARGUERITE
+            </prenom>
+        </multiRef>
+        <multiRef id="id59" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns12:WsPatientIdentification" xmlns:ns12="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                19/09/1928
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                17754
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                DUPRAT
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                AOUSTOU
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                HENRIETTE
+            </prenom>
+        </multiRef>
+        <multiRef id="id82" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns13:WsPatientIdentification" xmlns:ns13="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                16/03/1936
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                6554
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                TORRIJOS
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                AUDOUARD
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                DENISE
+            </prenom>
+        </multiRef>
+        <multiRef id="id75" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns14:WsPatientIdentification" xmlns:ns14="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                14/12/1955
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                18953
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                VALADOUR
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ARS
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                MADELEINE
+            </prenom>
+        </multiRef>
+        <multiRef id="id89" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns15:WsPatientIdentification" xmlns:ns15="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                18/11/1919
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                17867
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                GARROS
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                AURENSAN
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                MARTHE
+            </prenom>
+        </multiRef>
+        <multiRef id="id92" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns16:WsPatientIdentification" xmlns:ns16="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                17/04/1945
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                12826
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                CALMEL
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                AVILA
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                MARYVONNE
+            </prenom>
+        </multiRef>
+        <multiRef id="id22" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns17:WsPatientIdentification" xmlns:ns17="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                08/11/1903
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                11768
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                BANOS
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                AINSA
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                MARGUERITE
+            </prenom>
+        </multiRef>
+        <multiRef id="id61" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns18:WsPatientIdentification" xmlns:ns18="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                21/03/1918
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                10669
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                GISQUET
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ARAMENDY
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                SUZANNE
+            </prenom>
+        </multiRef>
+        <multiRef id="id16" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns19:WsPatientIdentification" xmlns:ns19="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                07/05/1910
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                837
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                SAINT HILAIRE
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ADOUE
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                JULIA
+            </prenom>
+        </multiRef>
+        <multiRef id="id83" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns20:WsPatientIdentification" xmlns:ns20="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                30/07/1943
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                7187
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                LE POGAM
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                AUDRAN
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                MARIE LOUISE
+            </prenom>
+        </multiRef>
+        <multiRef id="id100" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns21:WsPatientIdentification" xmlns:ns21="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                08/09/1965
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                18640
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                DE OLIVEIRA PINTO
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                AZNAR
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                MARIE ADELAIDE
+            </prenom>
+        </multiRef>
+        <multiRef id="id39" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns22:WsPatientIdentification" xmlns:ns22="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                31/10/1941
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                18749
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                GARRABOS
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ALTHUISIUS
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                FERNANDE
+            </prenom>
+        </multiRef>
+        <multiRef id="id77" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns23:WsPatientIdentification" xmlns:ns23="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                14/04/1922
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                12773
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                LACABANNE
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ARTIGUES
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                HENRIETTE
+            </prenom>
+        </multiRef>
+        <multiRef id="id20" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns24:WsPatientIdentification" xmlns:ns24="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                02/11/1964
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                4163
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                VAUX
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                AGUER
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                ELISABETH
+            </prenom>
+        </multiRef>
+        <multiRef id="id95" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns25:WsPatientIdentification" xmlns:ns25="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                18/12/1957
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                10552
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                GINESTE
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                AZARETE
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                FRANCOISE
+            </prenom>
+        </multiRef>
+        <multiRef id="id70" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns26:WsPatientIdentification" xmlns:ns26="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                02/07/1914
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                3319
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                ARNAUDIN
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ARNAUDIN
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                MARCELLE
+            </prenom>
+        </multiRef>
+        <multiRef id="id63" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns27:WsPatientIdentification" xmlns:ns27="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                16/02/1918
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                4334
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                HITSE
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ARECHAVALETA
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                LUCIENNE
+            </prenom>
+        </multiRef>
+        <multiRef id="id80" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns28:WsPatientIdentification" xmlns:ns28="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                19/02/1921
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                10702
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                LAMARQUE
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                AUBERT DUTHEN
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                MARIE
+            </prenom>
+        </multiRef>
+        <multiRef id="id57" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns29:WsPatientIdentification" xmlns:ns29="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                10/04/1946
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                716
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                GIGANT
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ANTONIOLLI
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                NELLY
+            </prenom>
+        </multiRef>
+        <multiRef id="id99" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns30:WsPatientIdentification" xmlns:ns30="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                08/09/1965
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                6400
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                PINTO DE OLIVEIRA
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                AZNAR
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                MARIE ADELAIDE
+            </prenom>
+        </multiRef>
+        <multiRef id="id67" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns31:WsPatientIdentification" xmlns:ns31="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                17/09/1949
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                10913
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                BARBIERO
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ARNAUD
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                JACQUELINE
+            </prenom>
+        </multiRef>
+        <multiRef id="id79" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns32:WsPatientIdentification" xmlns:ns32="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                18/08/1916
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                1535
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                BRISAC
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                AUBAS
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                MARGUERITE
+            </prenom>
+        </multiRef>
+        <multiRef id="id29" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns33:WsPatientIdentification" xmlns:ns33="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                23/10/1960
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                14571
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                POURQUET
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ALEXIS
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                MARTINE
+            </prenom>
+        </multiRef>
+        <multiRef id="id1" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns34:WsPatientIdentification" xmlns:ns34="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                01/01/2000
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                45751
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                MONSTERLEET
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                AAA
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                SAMUEL
+            </prenom>
+        </multiRef>
+        <multiRef id="id21" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns35:WsPatientIdentification" xmlns:ns35="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                28/06/1960
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                6782
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                CAZADIS
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                AGUER
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                GINETTE
+            </prenom>
+        </multiRef>
+        <multiRef id="id56" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns36:WsPatientIdentification" xmlns:ns36="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                28/06/1928
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                18603
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                PIZZUTO
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ANTONELLO
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                TARSILLA
+            </prenom>
+        </multiRef>
+        <multiRef id="id93" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns37:WsPatientIdentification" xmlns:ns37="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                21/05/1920
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                2528
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                DAUBONS
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                AVITE
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                ALBANIE MARGUER
+            </prenom>
+        </multiRef>
+        <multiRef id="id43" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns38:WsPatientIdentification" xmlns:ns38="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                02/07/1923
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                7233
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                DESTOUET
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                AMBRESIONI
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                ALINE
+            </prenom>
+        </multiRef>
+        <multiRef id="id98" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns39:WsPatientIdentification" xmlns:ns39="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                03/04/1924
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                17138
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                DUFFAU
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                AZIDROU SOCQUE
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                RENEE
+            </prenom>
+        </multiRef>
+        <multiRef id="id84" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns40:WsPatientIdentification" xmlns:ns40="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                16/02/1927
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                15005
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                BEDU
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                AUFFRAY
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                MIREILLE
+            </prenom>
+        </multiRef>
+        <multiRef id="id50" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns41:WsPatientIdentification" xmlns:ns41="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                01/07/1929
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                2866
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                WATELLE
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ANCELIN
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                PAULE
+            </prenom>
+        </multiRef>
+        <multiRef id="id53" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns42:WsPatientIdentification" xmlns:ns42="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                18/02/1905
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                1544
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                KRESS
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ANDRE ALPHONSE
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                HELENE
+            </prenom>
+        </multiRef>
+        <multiRef id="id18" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns43:WsPatientIdentification" xmlns:ns43="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                05/12/1962
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                6038
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                CLEDES
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                AGUADO MILLAN
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                BEATRICE
+            </prenom>
+        </multiRef>
+        <multiRef id="id9" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns44:WsPatientIdentification" xmlns:ns44="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                25/02/1932
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                12416
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                BARS
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ABADIE
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                HUGUETTE
+            </prenom>
+        </multiRef>
+        <multiRef id="id15" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns45:WsPatientIdentification" xmlns:ns45="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                14/08/1939
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                16410
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                MAINAS
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ADAM
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                JEANINE
+            </prenom>
+        </multiRef>
+        <multiRef id="id44" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns46:WsPatientIdentification" xmlns:ns46="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                30/03/1921
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                11913
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                LABADIE
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                AMBRIGOT
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                RAYMONDE
+            </prenom>
+        </multiRef>
+        <multiRef id="id42" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns47:WsPatientIdentification" xmlns:ns47="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                09/02/1918
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                18961
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                ADER
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                AMAR
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                MARIE
+            </prenom>
+        </multiRef>
+        <multiRef id="id4" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns48:WsPatientIdentification" xmlns:ns48="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                10/09/1913
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                427
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                MENAGE
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ABADIE
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                HENRIETTE
+            </prenom>
+        </multiRef>
+        <multiRef id="id35" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns49:WsPatientIdentification" xmlns:ns49="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                20/09/1905
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                1418
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                DUPRAT
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ALLONNEAU
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                PAULINE
+            </prenom>
+        </multiRef>
+        <multiRef id="id12" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns50:WsPatientIdentification" xmlns:ns50="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                22/02/1932
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                15852
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                CARCHET
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ABADIE
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                LUCIENNE
+            </prenom>
+        </multiRef>
+        <multiRef id="id88" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns51:WsPatientIdentification" xmlns:ns51="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                03/12/1918
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                6153
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                MOULIE
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                AURENSAN
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                ALICE
+            </prenom>
+        </multiRef>
+        <multiRef id="id5" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns52:WsPatientIdentification" xmlns:ns52="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                15/12/1961
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                1103
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                ABADIE
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ABADIE
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                CHRISTINE
+            </prenom>
+        </multiRef>
+        <multiRef id="id78" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns53:WsPatientIdentification" xmlns:ns53="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                14/10/1925
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                468
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                QUINTAA
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ASTAU
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                LUCIENNE
+            </prenom>
+        </multiRef>
+        <multiRef id="id81" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns54:WsPatientIdentification" xmlns:ns54="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                26/07/1956
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                1487
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                MILAN
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                AUDOIT
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                BERNADETTE
+            </prenom>
+        </multiRef>
+        <multiRef id="id60" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns55:WsPatientIdentification" xmlns:ns55="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                06/09/1965
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                8866
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                RICHARD
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ARAGNOUET
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                NATHALIE
+            </prenom>
+        </multiRef>
+        <multiRef id="id40" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns56:WsPatientIdentification" xmlns:ns56="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                11/12/1924
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                6334
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                DI NATALE
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ALVAREZ
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                GINETTE
+            </prenom>
+        </multiRef>
+        <multiRef id="id94" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns57:WsPatientIdentification" xmlns:ns57="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                23/09/1911
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                7338
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                SUSSERE
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                AYRAU
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                LUCIENNE
+            </prenom>
+        </multiRef>
+        <multiRef id="id49" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns58:WsPatientIdentification" xmlns:ns58="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                02/01/1911
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                13766
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                SAINT CRICQ
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ANATOLE
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                BEATRICE
+            </prenom>
+        </multiRef>
+        <multiRef id="id68" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns59:WsPatientIdentification" xmlns:ns59="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                06/06/1917
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                5706
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                BUSQUET
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ARNAUDAS
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                MARIE LOUISE
+            </prenom>
+        </multiRef>
+        <multiRef id="id58" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns60:WsPatientIdentification" xmlns:ns60="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                23/03/1925
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                10377
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                PUYAU PUYALET
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ANTRAS
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                JOSEPHE
+            </prenom>
+        </multiRef>
+        <multiRef id="id69" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns61:WsPatientIdentification" xmlns:ns61="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                25/08/1929
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                7296
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                DESSELLE
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ARNAUDAS
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                MONELLE
+            </prenom>
+        </multiRef>
+        <multiRef id="id76" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns62:WsPatientIdentification" xmlns:ns62="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                12/12/1900
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                1557
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                ARTIGOLLE
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ARTIGOLLE
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                MARIE
+            </prenom>
+        </multiRef>
+        <multiRef id="id32" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns63:WsPatientIdentification" xmlns:ns63="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                30/11/1923
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                2941
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                COCHARD
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ALIES
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                GINETTE
+            </prenom>
+        </multiRef>
+        <multiRef id="id6" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns64:WsPatientIdentification" xmlns:ns64="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                27/11/1914
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                2617
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                POURQUE
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ABADIE
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                JEANNE
+            </prenom>
+        </multiRef>
+        <multiRef id="id91" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns65:WsPatientIdentification" xmlns:ns65="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                24/11/1926
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                7226
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                MORENO
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                AVIANI
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                CHRISTIANE
+            </prenom>
+        </multiRef>
+        <multiRef id="id62" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns66:WsPatientIdentification" xmlns:ns66="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                21/03/1918
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                14759
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                GISQUET
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ARAMENDY
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                SUZANNE
+            </prenom>
+        </multiRef>
+        <multiRef id="id55" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns67:WsPatientIdentification" xmlns:ns67="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                04/10/1910
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                3830
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                ESTEBAN DELGADO
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ANTON
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                FRANCISCA
+            </prenom>
+        </multiRef>
+        <multiRef id="id45" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns68:WsPatientIdentification" xmlns:ns68="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                30/07/1937
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                6771
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                MAGENTIS
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                AMESTOY
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                MADELEINE
+            </prenom>
+        </multiRef>
+        <multiRef id="id36" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns69:WsPatientIdentification" xmlns:ns69="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                04/08/1920
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                1199
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                MARANCY
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ALLOUCHERY
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                FRANCE
+            </prenom>
+        </multiRef>
+        <multiRef id="id11" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns70:WsPatientIdentification" xmlns:ns70="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                06/02/1965
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                14646
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                PON
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ABADIE
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                MARIANNE
+            </prenom>
+        </multiRef>
+        <multiRef id="id72" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns71:WsPatientIdentification" xmlns:ns71="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                14/12/1945
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                6423
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                PEYNEOU
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ARRAGON
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                CLAUDINE
+            </prenom>
+        </multiRef>
+        <multiRef id="id10" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns72:WsPatientIdentification" xmlns:ns72="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                15/12/1961
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                13801
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                DORBESSAN
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ABADIE
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                CHRISTINE
+            </prenom>
+        </multiRef>
+        <multiRef id="id65" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns73:WsPatientIdentification" xmlns:ns73="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                27/06/1908
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                11940
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                SAUCEDE
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ARIES
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                MARIE
+            </prenom>
+        </multiRef>
+        <multiRef id="id37" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns74:WsPatientIdentification" xmlns:ns74="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                04/08/1920
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                7571
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                MARENCY
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ALLOUCHERY
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                FRANCE
+            </prenom>
+        </multiRef>
+        <multiRef id="id27" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns75:WsPatientIdentification" xmlns:ns75="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                03/02/1920
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                13647
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                VENIER
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ALEXANDRE
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                ALICE
+            </prenom>
+        </multiRef>
+        <multiRef id="id34" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns76:WsPatientIdentification" xmlns:ns76="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                11/03/1925
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                18843
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                YVARS
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ALLEGRET
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                SEVERINE
+            </prenom>
+        </multiRef>
+        <multiRef id="id23" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns77:WsPatientIdentification" xmlns:ns77="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                07/07/1934
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                18314
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                GAUDIN
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ALARCON
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                JOSETTE
+            </prenom>
+        </multiRef>
+        <multiRef id="id64" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns78:WsPatientIdentification" xmlns:ns78="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                16/02/1918
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                8509
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                HAITSE
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ARECHAVALETA
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                LUCIENNE
+            </prenom>
+        </multiRef>
+        <multiRef id="id47" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns79:WsPatientIdentification" xmlns:ns79="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                16/04/1914
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                3670
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                FARRUGIA
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                AMMIRATI
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                MARCELLE
+            </prenom>
+        </multiRef>
+        <multiRef id="id66" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns80:WsPatientIdentification" xmlns:ns80="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                15/06/1930
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                4090
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                MARTINOU
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ARNAL
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                CHISTIAN
+            </prenom>
+        </multiRef>
+        <multiRef id="id52" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns81:WsPatientIdentification" xmlns:ns81="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                13/09/1921
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                3183
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                MARTIN
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ANDOLFO
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                JEANNE
+            </prenom>
+        </multiRef>
+        <multiRef id="id85" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns82:WsPatientIdentification" xmlns:ns82="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                13/03/1956
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                3361
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                AUGET
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                AUGET
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                FRANCOISE
+            </prenom>
+        </multiRef>
+        <multiRef id="id73" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns83:WsPatientIdentification" xmlns:ns83="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                09/12/1949
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                6398
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                GERVAIS
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ARS
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                JOCELYNE
+            </prenom>
+        </multiRef>
+        <multiRef id="id41" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns84:WsPatientIdentification" xmlns:ns84="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                10/04/1921
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                17484
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                COLOMBARD
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                AMANDIER
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                SUZANNE
+            </prenom>
+        </multiRef>
+        <multiRef id="id38" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns85:WsPatientIdentification" xmlns:ns85="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                14/05/1960
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                7752
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                MARTIN
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ALRIC
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                FREDERIQUE
+            </prenom>
+        </multiRef>
+        <multiRef id="id54" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns86:WsPatientIdentification" xmlns:ns86="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                05/04/1962
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                6018
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                MARGUINAUD
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ANTOINE
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                VERONIQUE
+            </prenom>
+        </multiRef>
+        <multiRef id="id86" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns87:WsPatientIdentification" xmlns:ns87="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                15/09/1927
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                11291
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                DARBLADE
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                AUGUSTIN
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                ANDREE
+            </prenom>
+        </multiRef>
+        <multiRef id="id97" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns88:WsPatientIdentification" xmlns:ns88="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                17/12/1942
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                15413
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                BARRIERE
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                AZIDROU
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                YOLANDE
+            </prenom>
+        </multiRef>
+        <multiRef id="id8" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns89:WsPatientIdentification" xmlns:ns89="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                12/12/1904
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                9394
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                JOUBERT
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ABADIE
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                VALENTINE
+            </prenom>
+        </multiRef>
+        <multiRef id="id71" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns90:WsPatientIdentification" xmlns:ns90="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                14/01/1923
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                11354
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                BILLARDON
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ARNE
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                COLETTE
+            </prenom>
+        </multiRef>
+        <multiRef id="id19" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns91:WsPatientIdentification" xmlns:ns91="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string" xsi:nil="true" />
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                1858
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                KADENBACH
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                AGUER
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                ANGELICA
+            </prenom>
+        </multiRef>
+        <multiRef id="id13" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns92:WsPatientIdentification" xmlns:ns92="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                08/03/1963
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                18155
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                COTTAVOZ
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ABADIE
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                FABIENNE
+            </prenom>
+        </multiRef>
+        <multiRef id="id17" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns93:WsPatientIdentification" xmlns:ns93="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string" xsi:nil="true" />
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                8721
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                ADSUAR
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ADSUAR
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                ANGELE
+            </prenom>
+        </multiRef>
+        <multiRef id="id51" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns94:WsPatientIdentification" xmlns:ns94="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                12/09/1921
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                3028
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                ANDOLFO
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ANDOLFO
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                JEANNE
+            </prenom>
+        </multiRef>
+        <multiRef id="id74" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns95:WsPatientIdentification" xmlns:ns95="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                05/01/1952
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                11681
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                THEUX
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ARS
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                MARIE CLAUDE
+            </prenom>
+        </multiRef>
+        <multiRef id="id28" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns96:WsPatientIdentification" xmlns:ns96="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                29/02/1928
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                10897
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                NALIS
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ALEXIS
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                GEORGETTE
+            </prenom>
+        </multiRef>
+        <multiRef id="id24" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns97:WsPatientIdentification" xmlns:ns97="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                27/01/1900
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                7075
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                LHOIRY
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ALBERT
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                YVETTE
+            </prenom>
+        </multiRef>
+        <multiRef id="id46" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns98:WsPatientIdentification" xmlns:ns98="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                13/12/1929
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                45698
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                ATESTNAT2
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                AMICHEL
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                AEVE
+            </prenom>
+        </multiRef>
+        <multiRef id="id90" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns99:WsPatientIdentification" xmlns:ns99="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                05/07/1920
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                4496
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                CARRERE
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                AUXION
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                SUZANNE
+            </prenom>
+        </multiRef>
+        <multiRef id="id25" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns100:WsPatientIdentification" xmlns:ns100="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                12/05/1937
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                10266
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                ALBERTI
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                ALBERTI
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                JUANITA
+            </prenom>
+        </multiRef>
+        <multiRef id="id96" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns101:WsPatientIdentification" xmlns:ns101="urn:SigeGatePat" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateNaissance xsi:type="xsd:string">
+                19/04/1913
+            </dateNaissance>
+            <ippExtern xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigems xsi:type="xsd:int">
+                8402
+            </ippSigems>
+            <nomNaissance xsi:type="xsd:string">
+                BERGEZ TAYTOLE
+            </nomNaissance>
+            <nomUsuel xsi:type="xsd:string">
+                AZIDROU
+            </nomUsuel>
+            <prenom xsi:type="xsd:string">
+                MARIE
+            </prenom>
+        </multiRef>
+    </soapenv:Body>
+</soapenv:Envelope>

@@ -155,6 +155,7 @@ public:
   void                  tryToStopAPropos();
 public slots:
   /*$PUBLIC_SLOTS$*/
+  void                  Slot_ActivateMainWindow();
   void                  Slot_actionAproposDisplay();
   virtual void          edit_Code_lostFocus();
   virtual void          fileExporter_la_table_des_mdecinsAction_activated();

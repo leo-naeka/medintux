@@ -1,0 +1,727 @@
+22-05-2013 08:52:04:524	 ================= scruteEtTraiteLaBaseDeDonnee( interval = 120) ================================
+22-05-2013 08:52:04:524	 C_ScruteDB_Thread::run() thread start 
+22-05-2013 08:52:08:528	 C_ScruteDB_Thread::run() thread finished 
+22-05-2013 08:54:04:544	 commandStarted command : CLOSE ID = 1
+22-05-2013 08:54:04:544	 5-The connection is closing down, but it is not yet closed. (The state will be Unconnected when the connection is closed.)
+22-05-2013 08:54:04:544	 commandFinished command : CLOSE ID = 1 error: 1
+22-05-2013 08:54:04:544	 1 - C_ScruteFTP::Slot_commandFinished() Tried to send a command, but there is no connection to a server.
+22-05-2013 08:54:04:544	 commandStarted command : CONNECT TO HOST ID = 2
+22-05-2013 08:54:04:544	 1-A host name lookup is in progress.
+22-05-2013 08:54:04:544	 2-An attempt to connect to the host is in progress.
+22-05-2013 08:54:04:544	 3-Connection to the host has been achieved.
+22-05-2013 08:54:04:544	 commandFinished command : CONNECT TO HOST ID = 2 error: 0
+22-05-2013 08:54:04:544	 commandStarted command : LOGIN ID = 3
+22-05-2013 08:54:04:544	 4-Connection and user login have been achieved.
+22-05-2013 08:54:04:544	 commandFinished command : LOGIN ID = 3 error: 0
+22-05-2013 08:54:04:544 commandStarted command : CD : / ID = 4
+22-05-2013 08:54:04:544 commandFinished command : CD : / ID = 4 error: 0
+22-05-2013 08:54:04:544	 ================= scruteEtTraiteLesFichiersDistants( interval = 120) ================================
+22-05-2013 08:54:04:544	 commandStarted command : LIST ID = 5
+22-05-2013 08:54:04:544	 commandFinished command : LIST ID = 5 error: 0
+22-05-2013 08:54:04:544 . ===> found 2 files to retrieve on Ftp server.
+22-05-2013 08:54:04:544 C_ScruteFTP_Thread::run() getFile started URGM0236.HPR
+22-05-2013 08:54:04:544 C_ScruteFTP_Thread::run() getFile started URGM0236.OK
+22-05-2013 08:54:04:544 commandStarted command : GET URGM0236.HPR to C:/MedinTux/sigentrees/bin/Ressources/TempFiles/2013-22-05-08-54-04-125_URGM0236.HPR ID = 6
+22-05-2013 08:54:04:544 commandFinished command : GET URGM0236.HPR to C:/MedinTux/sigentrees/bin/Ressources/TempFiles/2013-22-05-08-54-04-125_URGM0236.HPR ID = 6 error: 0
+------- 22-05-2013 08:54:04:544	 at line : 334 	 in file : C_BaseSigEntrees.cpp ---------
+
+ERROR  : C_BaseSigEntrees::CreateNewEntry() 
+Duplicate entry '132272' for key 1 QMYSQL3: Unable to execute statement
+REQUEST: INSERT INTO entrees_sigems ( 
+ES_guid_pat , ES_nom , ES_prenom , ES_sexe , ES_date_naiss , ES_num_ss , ES_date_entree , ES_blob_hpr , ES_id_primkey , ES_qualite , ES_rang_geme , ES_nom_fichier_entrees , ES_date_pec , ES_num_pat_sigems )  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?) 
+22-05-2013 08:54:04:544 commandStarted command : REMOVE : URGM0236.HPR URGM0236.HPR ID = 7
+22-05-2013 08:54:04:544 commandFinished command : REMOVE : URGM0236.HPR URGM0236.HPR ID = 7 error: 0
+22-05-2013 08:54:04:544 commandStarted command : REMOVE : URGM0236.OK URGM0236.OK ID = 8
+22-05-2013 08:54:04:544 commandFinished command : REMOVE : URGM0236.OK URGM0236.OK ID = 8 error: 0
+22-05-2013 08:54:04:544 . --> Remove local file C:/MedinTux/sigentrees/bin/Ressources/TempFiles/2013-22-05-08-54-04-125_URGM0236.HPR
+22-05-2013 08:54:04:544 C_ScruteFTP_Thread::run() thread getFile finished URGM0236.HPR code : -6- Analysed 
+22-05-2013 08:54:08:548	 ================= scruteEtTraiteLaBaseDeDonnee( interval = 120) ================================
+22-05-2013 08:54:08:548	 C_ScruteDB_Thread::run() thread start 
+22-05-2013 08:54:13:5413	 C_ScruteDB_Thread::run() thread finished 
+22-05-2013 08:56:04:564	 ================= scruteEtTraiteLesFichiersDistants( interval = 120) ================================
+22-05-2013 08:56:04:564	 commandStarted command : LIST ID = 9
+22-05-2013 08:56:04:564	 commandFinished command : LIST ID = 9 error: 0
+22-05-2013 08:56:04:564	 .     ===> no more file available on Ftp server.
+22-05-2013 08:56:04:564	 0-There is no connection to the host.
+22-05-2013 08:56:08:568	 ================= scruteEtTraiteLaBaseDeDonnee( interval = 120) ================================
+22-05-2013 08:56:08:568	 C_ScruteDB_Thread::run() thread start 
+22-05-2013 08:56:13:5613	 C_ScruteDB_Thread::run() thread finished 
+22-05-2013 08:58:04:584	 ================= scruteEtTraiteLesFichiersDistants( interval = 120) ================================
+22-05-2013 08:58:04:584	 commandStarted command : LIST ID = 10
+22-05-2013 08:58:04:584	 commandFinished command : LIST ID = 10 error: 1
+22-05-2013 08:58:04:584	 1 - C_ScruteFTP::Slot_commandFinished() Tried to send a command, but there is no connection to a server.
+22-05-2013 08:58:04:584	 .     ===> no more file available on Ftp server.
+22-05-2013 08:58:08:588	 ================= scruteEtTraiteLaBaseDeDonnee( interval = 120) ================================
+22-05-2013 08:58:08:588	 C_ScruteDB_Thread::run() thread start 
+22-05-2013 08:58:13:5813	 C_ScruteDB_Thread::run() thread finished 
+22-05-2013 09:00:04:04	 commandStarted command : CLOSE ID = 11
+22-05-2013 09:00:04:04	 5-The connection is closing down, but it is not yet closed. (The state will be Unconnected when the connection is closed.)
+22-05-2013 09:00:04:04	 commandFinished command : CLOSE ID = 11 error: 1
+22-05-2013 09:00:04:04	 1 - C_ScruteFTP::Slot_commandFinished() Tried to send a command, but there is no connection to a server.
+22-05-2013 09:00:04:04	 commandStarted command : CONNECT TO HOST ID = 12
+22-05-2013 09:00:04:04	 1-A host name lookup is in progress.
+22-05-2013 09:00:04:04	 2-An attempt to connect to the host is in progress.
+22-05-2013 09:00:04:04	 3-Connection to the host has been achieved.
+22-05-2013 09:00:04:04	 commandFinished command : CONNECT TO HOST ID = 12 error: 0
+22-05-2013 09:00:04:04	 commandStarted command : LOGIN ID = 13
+22-05-2013 09:00:04:04	 4-Connection and user login have been achieved.
+22-05-2013 09:00:04:04	 commandFinished command : LOGIN ID = 13 error: 0
+22-05-2013 09:00:04:04 commandStarted command : CD : / ID = 14
+22-05-2013 09:00:04:04 commandFinished command : CD : / ID = 14 error: 0
+22-05-2013 09:00:04:04	 ================= scruteEtTraiteLesFichiersDistants( interval = 120) ================================
+22-05-2013 09:00:04:04	 commandStarted command : LIST ID = 15
+22-05-2013 09:00:04:04	 commandFinished command : LIST ID = 15 error: 0
+22-05-2013 09:00:04:04	 .     ===> no more file available on Ftp server.
+22-05-2013 09:00:08:08	 ================= scruteEtTraiteLaBaseDeDonnee( interval = 120) ================================
+22-05-2013 09:00:08:08	 C_ScruteDB_Thread::run() thread start 
+22-05-2013 09:00:13:013	 C_ScruteDB_Thread::run() thread finished 
+22-05-2013 09:02:04:24	 ================= scruteEtTraiteLesFichiersDistants( interval = 120) ================================
+22-05-2013 09:02:04:24	 commandStarted command : LIST ID = 16
+22-05-2013 09:02:04:24	 commandFinished command : LIST ID = 16 error: 0
+22-05-2013 09:02:04:24 . ===> found 2 files to retrieve on Ftp server.
+22-05-2013 09:02:04:24 C_ScruteFTP_Thread::run() getFile started URGM0237.HPR
+22-05-2013 09:02:04:24 C_ScruteFTP_Thread::run() getFile started URGM0237.OK
+22-05-2013 09:02:04:24 commandStarted command : GET URGM0237.HPR to C:/MedinTux/sigentrees/bin/Ressources/TempFiles/2013-22-05-09-02-04-031_URGM0237.HPR ID = 17
+22-05-2013 09:02:04:24 commandFinished command : GET URGM0237.HPR to C:/MedinTux/sigentrees/bin/Ressources/TempFiles/2013-22-05-09-02-04-031_URGM0237.HPR ID = 17 error: 0
+------- 22-05-2013 09:02:04:24	 at line : 334 	 in file : C_BaseSigEntrees.cpp ---------
+
+ERROR  : C_BaseSigEntrees::CreateNewEntry() 
+Duplicate entry '118325' for key 1 QMYSQL3: Unable to execute statement
+REQUEST: INSERT INTO entrees_sigems ( 
+ES_guid_pat , ES_nom , ES_prenom , ES_sexe , ES_date_naiss , ES_num_ss , ES_date_entree , ES_blob_hpr , ES_id_primkey , ES_qualite , ES_rang_geme , ES_nom_fichier_entrees , ES_date_pec , ES_num_pat_sigems )  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?) 
+22-05-2013 09:02:04:24 commandStarted command : REMOVE : URGM0237.HPR URGM0237.HPR ID = 18
+22-05-2013 09:02:04:24 commandFinished command : REMOVE : URGM0237.HPR URGM0237.HPR ID = 18 error: 0
+22-05-2013 09:02:04:24 commandStarted command : REMOVE : URGM0237.OK URGM0237.OK ID = 19
+22-05-2013 09:02:04:24 commandFinished command : REMOVE : URGM0237.OK URGM0237.OK ID = 19 error: 0
+22-05-2013 09:02:04:24 . --> Remove local file C:/MedinTux/sigentrees/bin/Ressources/TempFiles/2013-22-05-09-02-04-031_URGM0237.HPR
+22-05-2013 09:02:04:24 C_ScruteFTP_Thread::run() thread getFile finished URGM0237.HPR code : -6- Analysed 
+22-05-2013 09:02:08:28	 ================= scruteEtTraiteLaBaseDeDonnee( interval = 120) ================================
+22-05-2013 09:02:08:28	 C_ScruteDB_Thread::run() thread start 
+22-05-2013 09:02:13:213	 C_ScruteDB_Thread::run() thread finished 
+22-05-2013 09:04:04:44	 ================= scruteEtTraiteLesFichiersDistants( interval = 120) ================================
+22-05-2013 09:04:04:44	 commandStarted command : LIST ID = 20
+22-05-2013 09:04:04:44	 commandFinished command : LIST ID = 20 error: 0
+22-05-2013 09:04:04:44	 .     ===> no more file available on Ftp server.
+22-05-2013 09:04:04:44	 0-There is no connection to the host.
+22-05-2013 09:04:08:48	 ================= scruteEtTraiteLaBaseDeDonnee( interval = 120) ================================
+22-05-2013 09:04:08:48	 C_ScruteDB_Thread::run() thread start 
+22-05-2013 09:04:13:413	 C_ScruteDB_Thread::run() thread finished 
+22-05-2013 09:06:04:64	 ================= scruteEtTraiteLesFichiersDistants( interval = 120) ================================
+22-05-2013 09:06:04:64	 commandStarted command : LIST ID = 21
+22-05-2013 09:06:04:64	 commandFinished command : LIST ID = 21 error: 1
+22-05-2013 09:06:04:64	 1 - C_ScruteFTP::Slot_commandFinished() Tried to send a command, but there is no connection to a server.
+22-05-2013 09:06:04:64	 .     ===> no more file available on Ftp server.
+22-05-2013 09:06:08:68	 ================= scruteEtTraiteLaBaseDeDonnee( interval = 120) ================================
+22-05-2013 09:06:08:68	 C_ScruteDB_Thread::run() thread start 
+22-05-2013 09:06:12:612	 C_ScruteDB_Thread::run() thread finished 
+22-05-2013 09:08:04:84	 commandStarted command : CLOSE ID = 22
+22-05-2013 09:08:04:84	 5-The connection is closing down, but it is not yet closed. (The state will be Unconnected when the connection is closed.)
+22-05-2013 09:08:04:84	 commandFinished command : CLOSE ID = 22 error: 1
+22-05-2013 09:08:04:84	 1 - C_ScruteFTP::Slot_commandFinished() Tried to send a command, but there is no connection to a server.
+22-05-2013 09:08:04:84	 commandStarted command : CONNECT TO HOST ID = 23
+22-05-2013 09:08:04:84	 1-A host name lookup is in progress.
+22-05-2013 09:08:04:84	 2-An attempt to connect to the host is in progress.
+22-05-2013 09:08:04:84	 3-Connection to the host has been achieved.
+22-05-2013 09:08:04:84	 commandFinished command : CONNECT TO HOST ID = 23 error: 0
+22-05-2013 09:08:04:84	 commandStarted command : LOGIN ID = 24
+22-05-2013 09:08:04:84	 4-Connection and user login have been achieved.
+22-05-2013 09:08:04:84	 commandFinished command : LOGIN ID = 24 error: 0
+22-05-2013 09:08:04:84 commandStarted command : CD : / ID = 25
+22-05-2013 09:08:04:84 commandFinished command : CD : / ID = 25 error: 0
+22-05-2013 09:08:04:84	 ================= scruteEtTraiteLesFichiersDistants( interval = 120) ================================
+22-05-2013 09:08:04:84	 commandStarted command : LIST ID = 26
+22-05-2013 09:08:04:84	 commandFinished command : LIST ID = 26 error: 0
+22-05-2013 09:08:04:84 . ===> found 2 files to retrieve on Ftp server.
+22-05-2013 09:08:04:84 C_ScruteFTP_Thread::run() getFile started URGM0238.HPR
+22-05-2013 09:08:04:84 C_ScruteFTP_Thread::run() getFile started URGM0238.OK
+22-05-2013 09:08:04:84 commandStarted command : GET URGM0238.HPR to C:/MedinTux/sigentrees/bin/Ressources/TempFiles/2013-22-05-09-08-04-125_URGM0238.HPR ID = 27
+22-05-2013 09:08:04:84 commandFinished command : GET URGM0238.HPR to C:/MedinTux/sigentrees/bin/Ressources/TempFiles/2013-22-05-09-08-04-125_URGM0238.HPR ID = 27 error: 0
+------- 22-05-2013 09:08:04:84	 at line : 334 	 in file : C_BaseSigEntrees.cpp ---------
+
+ERROR  : C_BaseSigEntrees::CreateNewEntry() 
+Duplicate entry '123041' for key 1 QMYSQL3: Unable to execute statement
+REQUEST: INSERT INTO entrees_sigems ( 
+ES_guid_pat , ES_nom , ES_prenom , ES_sexe , ES_date_naiss , ES_num_ss , ES_date_entree , ES_blob_hpr , ES_id_primkey , ES_qualite , ES_rang_geme , ES_nom_fichier_entrees , ES_date_pec , ES_num_pat_sigems )  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?) 
+------- 22-05-2013 09:08:04:84	 at line : 334 	 in file : C_BaseSigEntrees.cpp ---------
+
+ERROR  : C_BaseSigEntrees::CreateNewEntry() 
+Duplicate entry '118325' for key 1 QMYSQL3: Unable to execute statement
+REQUEST: INSERT INTO entrees_sigems ( 
+ES_guid_pat , ES_nom , ES_prenom , ES_sexe , ES_date_naiss , ES_num_ss , ES_date_entree , ES_blob_hpr , ES_id_primkey , ES_qualite , ES_rang_geme , ES_nom_fichier_entrees , ES_date_pec , ES_num_pat_sigems )  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?) 
+22-05-2013 09:08:04:84 commandStarted command : REMOVE : URGM0238.HPR URGM0238.HPR ID = 28
+22-05-2013 09:08:04:84 commandFinished command : REMOVE : URGM0238.HPR URGM0238.HPR ID = 28 error: 0
+22-05-2013 09:08:04:84 commandStarted command : REMOVE : URGM0238.OK URGM0238.OK ID = 29
+22-05-2013 09:08:04:84 commandFinished command : REMOVE : URGM0238.OK URGM0238.OK ID = 29 error: 0
+22-05-2013 09:08:04:84 . --> Remove local file C:/MedinTux/sigentrees/bin/Ressources/TempFiles/2013-22-05-09-08-04-125_URGM0238.HPR
+22-05-2013 09:08:04:84 C_ScruteFTP_Thread::run() thread getFile finished URGM0238.HPR code : -6- Analysed 
+22-05-2013 09:08:08:88	 ================= scruteEtTraiteLaBaseDeDonnee( interval = 120) ================================
+22-05-2013 09:08:08:88	 C_ScruteDB_Thread::run() thread start 
+22-05-2013 09:08:13:813	 C_ScruteDB_Thread::run() thread finished 
+22-05-2013 09:10:04:104	 ================= scruteEtTraiteLesFichiersDistants( interval = 120) ================================
+22-05-2013 09:10:04:104	 commandStarted command : LIST ID = 30
+22-05-2013 09:10:04:104	 commandFinished command : LIST ID = 30 error: 0
+22-05-2013 09:10:04:104 . ===> found 2 files to retrieve on Ftp server.
+22-05-2013 09:10:04:104 C_ScruteFTP_Thread::run() getFile started URGM0239.HPR
+22-05-2013 09:10:04:104 C_ScruteFTP_Thread::run() getFile started URGM0239.OK
+22-05-2013 09:10:04:104 commandStarted command : GET URGM0239.HPR to C:/MedinTux/sigentrees/bin/Ressources/TempFiles/2013-22-05-09-10-04-031_URGM0239.HPR ID = 31
+22-05-2013 09:10:04:104 commandFinished command : GET URGM0239.HPR to C:/MedinTux/sigentrees/bin/Ressources/TempFiles/2013-22-05-09-10-04-031_URGM0239.HPR ID = 31 error: 0
+------- 22-05-2013 09:10:04:104	 at line : 334 	 in file : C_BaseSigEntrees.cpp ---------
+
+ERROR  : C_BaseSigEntrees::CreateNewEntry() 
+Duplicate entry '256847' for key 1 QMYSQL3: Unable to execute statement
+REQUEST: INSERT INTO entrees_sigems ( 
+ES_guid_pat , ES_nom , ES_prenom , ES_sexe , ES_date_naiss , ES_num_ss , ES_date_entree , ES_blob_hpr , ES_id_primkey , ES_qualite , ES_rang_geme , ES_nom_fichier_entrees , ES_date_pec , ES_num_pat_sigems )  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?) 
+------- 22-05-2013 09:10:04:104	 at line : 334 	 in file : C_BaseSigEntrees.cpp ---------
+
+ERROR  : C_BaseSigEntrees::CreateNewEntry() 
+Duplicate entry '118775' for key 1 QMYSQL3: Unable to execute statement
+REQUEST: INSERT INTO entrees_sigems ( 
+ES_guid_pat , ES_nom , ES_prenom , ES_sexe , ES_date_naiss , ES_num_ss , ES_date_entree , ES_blob_hpr , ES_id_primkey , ES_qualite , ES_rang_geme , ES_nom_fichier_entrees , ES_date_pec , ES_num_pat_sigems )  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?) 
+------- 22-05-2013 09:10:04:104	 at line : 334 	 in file : C_BaseSigEntrees.cpp ---------
+
+ERROR  : C_BaseSigEntrees::CreateNewEntry() 
+Duplicate entry '255947' for key 1 QMYSQL3: Unable to execute statement
+REQUEST: INSERT INTO entrees_sigems ( 
+ES_guid_pat , ES_nom , ES_prenom , ES_sexe , ES_date_naiss , ES_num_ss , ES_date_entree , ES_blob_hpr , ES_id_primkey , ES_qualite , ES_rang_geme , ES_nom_fichier_entrees , ES_date_pec , ES_num_pat_sigems )  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?) 
+------- 22-05-2013 09:10:04:104	 at line : 334 	 in file : C_BaseSigEntrees.cpp ---------
+
+ERROR  : C_BaseSigEntrees::CreateNewEntry() 
+Duplicate entry '123041' for key 1 QMYSQL3: Unable to execute statement
+REQUEST: INSERT INTO entrees_sigems ( 
+ES_guid_pat , ES_nom , ES_prenom , ES_sexe , ES_date_naiss , ES_num_ss , ES_date_entree , ES_blob_hpr , ES_id_primkey , ES_qualite , ES_rang_geme , ES_nom_fichier_entrees , ES_date_pec , ES_num_pat_sigems )  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?) 
+22-05-2013 09:10:04:104 commandStarted command : REMOVE : URGM0239.HPR URGM0239.HPR ID = 32
+22-05-2013 09:10:04:104 commandFinished command : REMOVE : URGM0239.HPR URGM0239.HPR ID = 32 error: 0
+22-05-2013 09:10:04:104 commandStarted command : REMOVE : URGM0239.OK URGM0239.OK ID = 33
+22-05-2013 09:10:04:104 commandFinished command : REMOVE : URGM0239.OK URGM0239.OK ID = 33 error: 0
+22-05-2013 09:10:04:104 . --> Remove local file C:/MedinTux/sigentrees/bin/Ressources/TempFiles/2013-22-05-09-10-04-031_URGM0239.HPR
+22-05-2013 09:10:04:104 C_ScruteFTP_Thread::run() thread getFile finished URGM0239.HPR code : -6- Analysed 
+22-05-2013 09:10:08:108	 ================= scruteEtTraiteLaBaseDeDonnee( interval = 120) ================================
+22-05-2013 09:10:08:108	 C_ScruteDB_Thread::run() thread start 
+22-05-2013 09:10:13:1013	 C_ScruteDB_Thread::run() thread finished 
+22-05-2013 09:12:04:124	 ================= scruteEtTraiteLesFichiersDistants( interval = 120) ================================
+22-05-2013 09:12:04:124	 commandStarted command : LIST ID = 34
+22-05-2013 09:12:04:124	 commandFinished command : LIST ID = 34 error: 0
+22-05-2013 09:12:04:124	 .     ===> no more file available on Ftp server.
+22-05-2013 09:12:04:124	 0-There is no connection to the host.
+22-05-2013 09:12:08:128	 ================= scruteEtTraiteLaBaseDeDonnee( interval = 120) ================================
+22-05-2013 09:12:08:128	 C_ScruteDB_Thread::run() thread start 
+22-05-2013 09:12:13:1213	 C_ScruteDB_Thread::run() thread finished 
+22-05-2013 09:14:04:144	 ================= scruteEtTraiteLesFichiersDistants( interval = 120) ================================
+22-05-2013 09:14:04:144	 commandStarted command : LIST ID = 35
+22-05-2013 09:14:04:144	 commandFinished command : LIST ID = 35 error: 1
+22-05-2013 09:14:04:144	 1 - C_ScruteFTP::Slot_commandFinished() Tried to send a command, but there is no connection to a server.
+22-05-2013 09:14:04:144	 .     ===> no more file available on Ftp server.
+22-05-2013 09:14:08:148	 ================= scruteEtTraiteLaBaseDeDonnee( interval = 120) ================================
+22-05-2013 09:14:08:148	 C_ScruteDB_Thread::run() thread start 
+22-05-2013 09:14:13:1413	 C_ScruteDB_Thread::run() thread finished 
+22-05-2013 09:16:04:164	 commandStarted command : CLOSE ID = 36
+22-05-2013 09:16:04:164	 5-The connection is closing down, but it is not yet closed. (The state will be Unconnected when the connection is closed.)
+22-05-2013 09:16:04:164	 commandFinished command : CLOSE ID = 36 error: 1
+22-05-2013 09:16:04:164	 1 - C_ScruteFTP::Slot_commandFinished() Tried to send a command, but there is no connection to a server.
+22-05-2013 09:16:04:164	 commandStarted command : CONNECT TO HOST ID = 37
+22-05-2013 09:16:04:164	 1-A host name lookup is in progress.
+22-05-2013 09:16:04:164	 2-An attempt to connect to the host is in progress.
+22-05-2013 09:16:04:164	 3-Connection to the host has been achieved.
+22-05-2013 09:16:04:164	 commandFinished command : CONNECT TO HOST ID = 37 error: 0
+22-05-2013 09:16:04:164	 commandStarted command : LOGIN ID = 38
+22-05-2013 09:16:04:164	 4-Connection and user login have been achieved.
+22-05-2013 09:16:04:164	 commandFinished command : LOGIN ID = 38 error: 0
+22-05-2013 09:16:04:164 commandStarted command : CD : / ID = 39
+22-05-2013 09:16:04:164 commandFinished command : CD : / ID = 39 error: 0
+22-05-2013 09:16:04:164	 ================= scruteEtTraiteLesFichiersDistants( interval = 120) ================================
+22-05-2013 09:16:04:164	 commandStarted command : LIST ID = 40
+22-05-2013 09:16:04:164	 commandFinished command : LIST ID = 40 error: 0
+22-05-2013 09:16:04:164 . ===> found 2 files to retrieve on Ftp server.
+22-05-2013 09:16:04:164 C_ScruteFTP_Thread::run() getFile started URGM0240.HPR
+22-05-2013 09:16:04:164 C_ScruteFTP_Thread::run() getFile started URGM0240.OK
+22-05-2013 09:16:04:164 commandStarted command : GET URGM0240.HPR to C:/MedinTux/sigentrees/bin/Ressources/TempFiles/2013-22-05-09-16-04-156_URGM0240.HPR ID = 41
+22-05-2013 09:16:04:164 commandFinished command : GET URGM0240.HPR to C:/MedinTux/sigentrees/bin/Ressources/TempFiles/2013-22-05-09-16-04-156_URGM0240.HPR ID = 41 error: 0
+22-05-2013 09:16:04:164 commandStarted command : REMOVE : URGM0240.HPR URGM0240.HPR ID = 42
+22-05-2013 09:16:04:164 commandFinished command : REMOVE : URGM0240.HPR URGM0240.HPR ID = 42 error: 0
+22-05-2013 09:16:04:164 commandStarted command : REMOVE : URGM0240.OK URGM0240.OK ID = 43
+22-05-2013 09:16:04:164 commandFinished command : REMOVE : URGM0240.OK URGM0240.OK ID = 43 error: 0
+22-05-2013 09:16:04:164 . --> Remove local file C:/MedinTux/sigentrees/bin/Ressources/TempFiles/2013-22-05-09-16-04-156_URGM0240.HPR
+22-05-2013 09:16:04:164 C_ScruteFTP_Thread::run() thread getFile finished URGM0240.HPR code : -6- Analysed 
+22-05-2013 09:16:08:168	 ================= scruteEtTraiteLaBaseDeDonnee( interval = 120) ================================
+22-05-2013 09:16:08:168	 C_ScruteDB_Thread::run() thread start 
+22-05-2013 09:16:12:1612	 C_ScruteDB_Thread::run() thread finished 
+22-05-2013 09:18:04:184	 ================= scruteEtTraiteLesFichiersDistants( interval = 120) ================================
+22-05-2013 09:18:04:184	 commandStarted command : LIST ID = 44
+22-05-2013 09:18:04:184	 commandFinished command : LIST ID = 44 error: 0
+22-05-2013 09:18:04:184	 .     ===> no more file available on Ftp server.
+22-05-2013 09:18:04:184	 0-There is no connection to the host.
+22-05-2013 09:18:08:188	 ================= scruteEtTraiteLaBaseDeDonnee( interval = 120) ================================
+22-05-2013 09:18:08:188	 C_ScruteDB_Thread::run() thread start 
+22-05-2013 09:18:13:1813	 C_ScruteDB_Thread::run() thread finished 
+22-05-2013 09:20:04:204	 ================= scruteEtTraiteLesFichiersDistants( interval = 120) ================================
+22-05-2013 09:20:04:204	 commandStarted command : LIST ID = 45
+22-05-2013 09:20:04:204	 commandFinished command : LIST ID = 45 error: 1
+22-05-2013 09:20:04:204	 1 - C_ScruteFTP::Slot_commandFinished() Tried to send a command, but there is no connection to a server.
+22-05-2013 09:20:04:204	 .     ===> no more file available on Ftp server.
+22-05-2013 09:20:08:208	 ================= scruteEtTraiteLaBaseDeDonnee( interval = 120) ================================
+22-05-2013 09:20:08:208	 C_ScruteDB_Thread::run() thread start 
+22-05-2013 09:20:13:2013	 C_ScruteDB_Thread::run() thread finished 
+22-05-2013 09:22:04:224	 commandStarted command : CLOSE ID = 46
+22-05-2013 09:22:04:224	 5-The connection is closing down, but it is not yet closed. (The state will be Unconnected when the connection is closed.)
+22-05-2013 09:22:04:224	 commandFinished command : CLOSE ID = 46 error: 1
+22-05-2013 09:22:04:224	 1 - C_ScruteFTP::Slot_commandFinished() Tried to send a command, but there is no connection to a server.
+22-05-2013 09:22:04:224	 commandStarted command : CONNECT TO HOST ID = 47
+22-05-2013 09:22:04:224	 1-A host name lookup is in progress.
+22-05-2013 09:22:04:224	 2-An attempt to connect to the host is in progress.
+22-05-2013 09:22:04:224	 3-Connection to the host has been achieved.
+22-05-2013 09:22:04:224	 commandFinished command : CONNECT TO HOST ID = 47 error: 0
+22-05-2013 09:22:04:224	 commandStarted command : LOGIN ID = 48
+22-05-2013 09:22:04:224	 4-Connection and user login have been achieved.
+22-05-2013 09:22:04:224	 commandFinished command : LOGIN ID = 48 error: 0
+22-05-2013 09:22:04:224 commandStarted command : CD : / ID = 49
+22-05-2013 09:22:04:224 commandFinished command : CD : / ID = 49 error: 0
+22-05-2013 09:22:04:224	 ================= scruteEtTraiteLesFichiersDistants( interval = 120) ================================
+22-05-2013 09:22:04:224	 commandStarted command : LIST ID = 50
+22-05-2013 09:22:04:224	 commandFinished command : LIST ID = 50 error: 0
+22-05-2013 09:22:04:224 . ===> found 2 files to retrieve on Ftp server.
+22-05-2013 09:22:04:224 C_ScruteFTP_Thread::run() getFile started URGM0241.HPR
+22-05-2013 09:22:04:224 C_ScruteFTP_Thread::run() getFile started URGM0241.OK
+22-05-2013 09:22:04:224 commandStarted command : GET URGM0241.HPR to C:/MedinTux/sigentrees/bin/Ressources/TempFiles/2013-22-05-09-22-04-109_URGM0241.HPR ID = 51
+22-05-2013 09:22:04:224 commandFinished command : GET URGM0241.HPR to C:/MedinTux/sigentrees/bin/Ressources/TempFiles/2013-22-05-09-22-04-109_URGM0241.HPR ID = 51 error: 0
+22-05-2013 09:22:04:224 commandStarted command : REMOVE : URGM0241.HPR URGM0241.HPR ID = 52
+22-05-2013 09:22:04:224 commandFinished command : REMOVE : URGM0241.HPR URGM0241.HPR ID = 52 error: 0
+22-05-2013 09:22:04:224 commandStarted command : REMOVE : URGM0241.OK URGM0241.OK ID = 53
+22-05-2013 09:22:04:224 commandFinished command : REMOVE : URGM0241.OK URGM0241.OK ID = 53 error: 0
+22-05-2013 09:22:04:224 . --> Remove local file C:/MedinTux/sigentrees/bin/Ressources/TempFiles/2013-22-05-09-22-04-109_URGM0241.HPR
+22-05-2013 09:22:04:224 C_ScruteFTP_Thread::run() thread getFile finished URGM0241.HPR code : -6- Analysed 
+22-05-2013 09:22:08:228	 ================= scruteEtTraiteLaBaseDeDonnee( interval = 120) ================================
+22-05-2013 09:22:08:228	 C_ScruteDB_Thread::run() thread start 
+22-05-2013 09:22:13:2213	 C_ScruteDB_Thread::run() thread finished 
+22-05-2013 09:24:04:244	 ================= scruteEtTraiteLesFichiersDistants( interval = 120) ================================
+22-05-2013 09:24:04:244	 commandStarted command : LIST ID = 54
+22-05-2013 09:24:04:244	 commandFinished command : LIST ID = 54 error: 0
+22-05-2013 09:24:04:244	 .     ===> no more file available on Ftp server.
+22-05-2013 09:24:04:244	 0-There is no connection to the host.
+22-05-2013 09:24:08:248	 ================= scruteEtTraiteLaBaseDeDonnee( interval = 120) ================================
+22-05-2013 09:24:08:248	 C_ScruteDB_Thread::run() thread start 
+22-05-2013 09:24:12:2412	 C_ScruteDB_Thread::run() thread finished 
+22-05-2013 09:26:04:264	 ================= scruteEtTraiteLesFichiersDistants( interval = 120) ================================
+22-05-2013 09:26:04:264	 commandStarted command : LIST ID = 55
+22-05-2013 09:26:04:264	 commandFinished command : LIST ID = 55 error: 1
+22-05-2013 09:26:04:264	 1 - C_ScruteFTP::Slot_commandFinished() Tried to send a command, but there is no connection to a server.
+22-05-2013 09:26:04:264	 .     ===> no more file available on Ftp server.
+22-05-2013 09:26:08:268	 ================= scruteEtTraiteLaBaseDeDonnee( interval = 120) ================================
+22-05-2013 09:26:08:268	 C_ScruteDB_Thread::run() thread start 
+22-05-2013 09:26:13:2613	 C_ScruteDB_Thread::run() thread finished 
+22-05-2013 09:28:04:284	 commandStarted command : CLOSE ID = 56
+22-05-2013 09:28:04:284	 5-The connection is closing down, but it is not yet closed. (The state will be Unconnected when the connection is closed.)
+22-05-2013 09:28:04:284	 commandFinished command : CLOSE ID = 56 error: 1
+22-05-2013 09:28:04:284	 1 - C_ScruteFTP::Slot_commandFinished() Tried to send a command, but there is no connection to a server.
+22-05-2013 09:28:04:284	 commandStarted command : CONNECT TO HOST ID = 57
+22-05-2013 09:28:04:284	 1-A host name lookup is in progress.
+22-05-2013 09:28:04:284	 2-An attempt to connect to the host is in progress.
+22-05-2013 09:28:04:284	 3-Connection to the host has been achieved.
+22-05-2013 09:28:04:284	 commandFinished command : CONNECT TO HOST ID = 57 error: 0
+22-05-2013 09:28:04:284	 commandStarted command : LOGIN ID = 58
+22-05-2013 09:28:04:284	 4-Connection and user login have been achieved.
+22-05-2013 09:28:04:284	 commandFinished command : LOGIN ID = 58 error: 0
+22-05-2013 09:28:04:284 commandStarted command : CD : / ID = 59
+22-05-2013 09:28:04:284 commandFinished command : CD : / ID = 59 error: 0
+22-05-2013 09:28:04:284	 ================= scruteEtTraiteLesFichiersDistants( interval = 120) ================================
+22-05-2013 09:28:04:284	 commandStarted command : LIST ID = 60
+22-05-2013 09:28:04:284	 commandFinished command : LIST ID = 60 error: 0
+22-05-2013 09:28:04:284	 .     ===> no more file available on Ftp server.
+22-05-2013 09:28:08:288	 ================= scruteEtTraiteLaBaseDeDonnee( interval = 120) ================================
+22-05-2013 09:28:08:288	 C_ScruteDB_Thread::run() thread start 
+22-05-2013 09:28:13:2813	 C_ScruteDB_Thread::run() thread finished 
+22-05-2013 09:30:04:304	 ================= scruteEtTraiteLesFichiersDistants( interval = 120) ================================
+22-05-2013 09:30:04:304	 commandStarted command : LIST ID = 61
+22-05-2013 09:30:04:304	 commandFinished command : LIST ID = 61 error: 0
+22-05-2013 09:30:04:304	 .     ===> no more file available on Ftp server.
+22-05-2013 09:30:04:304	 0-There is no connection to the host.
+22-05-2013 09:30:08:308	 ================= scruteEtTraiteLaBaseDeDonnee( interval = 120) ================================
+22-05-2013 09:30:08:308	 C_ScruteDB_Thread::run() thread start 
+22-05-2013 09:30:13:3013	 C_ScruteDB_Thread::run() thread finished 
+22-05-2013 09:32:04:324	 ================= scruteEtTraiteLesFichiersDistants( interval = 120) ================================
+22-05-2013 09:32:04:324	 commandStarted command : LIST ID = 62
+22-05-2013 09:32:04:324	 commandFinished command : LIST ID = 62 error: 1
+22-05-2013 09:32:04:324	 1 - C_ScruteFTP::Slot_commandFinished() Tried to send a command, but there is no connection to a server.
+22-05-2013 09:32:04:324	 .     ===> no more file available on Ftp server.
+22-05-2013 09:32:08:328	 ================= scruteEtTraiteLaBaseDeDonnee( interval = 120) ================================
+22-05-2013 09:32:08:328	 C_ScruteDB_Thread::run() thread start 
+22-05-2013 09:32:13:3213	 C_ScruteDB_Thread::run() thread finished 
+22-05-2013 09:34:04:344	 commandStarted command : CLOSE ID = 63
+22-05-2013 09:34:04:344	 5-The connection is closing down, but it is not yet closed. (The state will be Unconnected when the connection is closed.)
+22-05-2013 09:34:04:344	 commandFinished command : CLOSE ID = 63 error: 1
+22-05-2013 09:34:04:344	 1 - C_ScruteFTP::Slot_commandFinished() Tried to send a command, but there is no connection to a server.
+22-05-2013 09:34:04:344	 commandStarted command : CONNECT TO HOST ID = 64
+22-05-2013 09:34:04:344	 1-A host name lookup is in progress.
+22-05-2013 09:34:04:344	 2-An attempt to connect to the host is in progress.
+22-05-2013 09:34:04:344	 3-Connection to the host has been achieved.
+22-05-2013 09:34:04:344	 commandFinished command : CONNECT TO HOST ID = 64 error: 0
+22-05-2013 09:34:04:344	 commandStarted command : LOGIN ID = 65
+22-05-2013 09:34:04:344	 4-Connection and user login have been achieved.
+22-05-2013 09:34:04:344	 commandFinished command : LOGIN ID = 65 error: 0
+22-05-2013 09:34:04:344 commandStarted command : CD : / ID = 66
+22-05-2013 09:34:04:344 commandFinished command : CD : / ID = 66 error: 0
+22-05-2013 09:34:04:344	 ================= scruteEtTraiteLesFichiersDistants( interval = 120) ================================
+22-05-2013 09:34:04:344	 commandStarted command : LIST ID = 67
+22-05-2013 09:34:04:344	 commandFinished command : LIST ID = 67 error: 0
+22-05-2013 09:34:04:344	 .     ===> no more file available on Ftp server.
+22-05-2013 09:34:08:348	 ================= scruteEtTraiteLaBaseDeDonnee( interval = 120) ================================
+22-05-2013 09:34:08:348	 C_ScruteDB_Thread::run() thread start 
+22-05-2013 09:34:13:3413	 C_ScruteDB_Thread::run() thread finished 
+22-05-2013 09:36:04:364	 ================= scruteEtTraiteLesFichiersDistants( interval = 120) ================================
+22-05-2013 09:36:04:364	 commandStarted command : LIST ID = 68
+22-05-2013 09:36:04:364	 commandFinished command : LIST ID = 68 error: 0
+22-05-2013 09:36:04:364 . ===> found 2 files to retrieve on Ftp server.
+22-05-2013 09:36:04:364 C_ScruteFTP_Thread::run() getFile started URGM0242.HPR
+22-05-2013 09:36:04:364 C_ScruteFTP_Thread::run() getFile started URGM0242.OK
+22-05-2013 09:36:04:364 commandStarted command : GET URGM0242.HPR to C:/MedinTux/sigentrees/bin/Ressources/TempFiles/2013-22-05-09-36-04-046_URGM0242.HPR ID = 69
+22-05-2013 09:36:04:364 commandFinished command : GET URGM0242.HPR to C:/MedinTux/sigentrees/bin/Ressources/TempFiles/2013-22-05-09-36-04-046_URGM0242.HPR ID = 69 error: 0
+------- 22-05-2013 09:36:04:364	 at line : 334 	 in file : C_BaseSigEntrees.cpp ---------
+
+ERROR  : C_BaseSigEntrees::CreateNewEntry() 
+Duplicate entry '226429' for key 1 QMYSQL3: Unable to execute statement
+REQUEST: INSERT INTO entrees_sigems ( 
+ES_guid_pat , ES_nom , ES_prenom , ES_sexe , ES_date_naiss , ES_num_ss , ES_date_entree , ES_blob_hpr , ES_id_primkey , ES_qualite , ES_rang_geme , ES_nom_fichier_entrees , ES_date_pec , ES_num_pat_sigems )  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?) 
+22-05-2013 09:36:04:364 commandStarted command : REMOVE : URGM0242.HPR URGM0242.HPR ID = 70
+22-05-2013 09:36:04:364 commandFinished command : REMOVE : URGM0242.HPR URGM0242.HPR ID = 70 error: 0
+22-05-2013 09:36:04:364 commandStarted command : REMOVE : URGM0242.OK URGM0242.OK ID = 71
+22-05-2013 09:36:04:364 commandFinished command : REMOVE : URGM0242.OK URGM0242.OK ID = 71 error: 0
+22-05-2013 09:36:04:364 . --> Remove local file C:/MedinTux/sigentrees/bin/Ressources/TempFiles/2013-22-05-09-36-04-046_URGM0242.HPR
+22-05-2013 09:36:04:364 C_ScruteFTP_Thread::run() thread getFile finished URGM0242.HPR code : -6- Analysed 
+22-05-2013 09:36:08:368	 ================= scruteEtTraiteLaBaseDeDonnee( interval = 120) ================================
+22-05-2013 09:36:08:368	 C_ScruteDB_Thread::run() thread start 
+22-05-2013 09:36:12:3612	 C_ScruteDB_Thread::run() thread finished 
+22-05-2013 09:38:04:384	 ================= scruteEtTraiteLesFichiersDistants( interval = 120) ================================
+22-05-2013 09:38:04:384	 commandStarted command : LIST ID = 72
+22-05-2013 09:38:04:384	 commandFinished command : LIST ID = 72 error: 0
+22-05-2013 09:38:04:384	 .     ===> no more file available on Ftp server.
+22-05-2013 09:38:04:384	 0-There is no connection to the host.
+22-05-2013 09:38:08:388	 ================= scruteEtTraiteLaBaseDeDonnee( interval = 120) ================================
+22-05-2013 09:38:08:388	 C_ScruteDB_Thread::run() thread start 
+22-05-2013 09:38:13:3813	 C_ScruteDB_Thread::run() thread finished 
+22-05-2013 09:40:04:404	 ================= scruteEtTraiteLesFichiersDistants( interval = 120) ================================
+22-05-2013 09:40:04:404	 commandStarted command : LIST ID = 73
+22-05-2013 09:40:04:404	 commandFinished command : LIST ID = 73 error: 1
+22-05-2013 09:40:04:404	 1 - C_ScruteFTP::Slot_commandFinished() Tried to send a command, but there is no connection to a server.
+22-05-2013 09:40:04:404	 .     ===> no more file available on Ftp server.
+22-05-2013 09:40:08:408	 ================= scruteEtTraiteLaBaseDeDonnee( interval = 120) ================================
+22-05-2013 09:40:08:408	 C_ScruteDB_Thread::run() thread start 
+22-05-2013 09:40:13:4013	 C_ScruteDB_Thread::run() thread finished 
+22-05-2013 09:42:04:424	 commandStarted command : CLOSE ID = 74
+22-05-2013 09:42:04:424	 5-The connection is closing down, but it is not yet closed. (The state will be Unconnected when the connection is closed.)
+22-05-2013 09:42:04:424	 commandFinished command : CLOSE ID = 74 error: 1
+22-05-2013 09:42:04:424	 1 - C_ScruteFTP::Slot_commandFinished() Tried to send a command, but there is no connection to a server.
+22-05-2013 09:42:04:424	 commandStarted command : CONNECT TO HOST ID = 75
+22-05-2013 09:42:04:424	 1-A host name lookup is in progress.
+22-05-2013 09:42:04:424	 2-An attempt to connect to the host is in progress.
+22-05-2013 09:42:04:424	 3-Connection to the host has been achieved.
+22-05-2013 09:42:04:424	 commandFinished command : CONNECT TO HOST ID = 75 error: 0
+22-05-2013 09:42:04:424	 commandStarted command : LOGIN ID = 76
+22-05-2013 09:42:04:424	 4-Connection and user login have been achieved.
+22-05-2013 09:42:04:424	 commandFinished command : LOGIN ID = 76 error: 0
+22-05-2013 09:42:04:424 commandStarted command : CD : / ID = 77
+22-05-2013 09:42:04:424 commandFinished command : CD : / ID = 77 error: 0
+22-05-2013 09:42:04:424	 ================= scruteEtTraiteLesFichiersDistants( interval = 120) ================================
+22-05-2013 09:42:04:424	 commandStarted command : LIST ID = 78
+22-05-2013 09:42:04:424	 commandFinished command : LIST ID = 78 error: 0
+22-05-2013 09:42:04:424	 .     ===> no more file available on Ftp server.
+22-05-2013 09:42:08:428	 ================= scruteEtTraiteLaBaseDeDonnee( interval = 120) ================================
+22-05-2013 09:42:08:428	 C_ScruteDB_Thread::run() thread start 
+22-05-2013 09:42:13:4213	 C_ScruteDB_Thread::run() thread finished 
+22-05-2013 09:44:04:444	 ================= scruteEtTraiteLesFichiersDistants( interval = 120) ================================
+22-05-2013 09:44:04:444	 commandStarted command : LIST ID = 79
+22-05-2013 09:44:04:444	 commandFinished command : LIST ID = 79 error: 0
+22-05-2013 09:44:04:444	 .     ===> no more file available on Ftp server.
+22-05-2013 09:44:04:444	 0-There is no connection to the host.
+22-05-2013 09:44:08:448	 ================= scruteEtTraiteLaBaseDeDonnee( interval = 120) ================================
+22-05-2013 09:44:08:448	 C_ScruteDB_Thread::run() thread start 
+22-05-2013 09:44:13:4413	 C_ScruteDB_Thread::run() thread finished 
+22-05-2013 09:46:04:464	 ================= scruteEtTraiteLesFichiersDistants( interval = 120) ================================
+22-05-2013 09:46:04:464	 commandStarted command : LIST ID = 80
+22-05-2013 09:46:04:464	 commandFinished command : LIST ID = 80 error: 1
+22-05-2013 09:46:04:464	 1 - C_ScruteFTP::Slot_commandFinished() Tried to send a command, but there is no connection to a server.
+22-05-2013 09:46:04:464	 .     ===> no more file available on Ftp server.
+22-05-2013 09:46:08:468	 ================= scruteEtTraiteLaBaseDeDonnee( interval = 120) ================================
+22-05-2013 09:46:08:468	 C_ScruteDB_Thread::run() thread start 
+22-05-2013 09:46:12:4612	 C_ScruteDB_Thread::run() thread finished 
+22-05-2013 09:48:04:484	 commandStarted command : CLOSE ID = 81
+22-05-2013 09:48:04:484	 5-The connection is closing down, but it is not yet closed. (The state will be Unconnected when the connection is closed.)
+22-05-2013 09:48:04:484	 commandFinished command : CLOSE ID = 81 error: 1
+22-05-2013 09:48:04:484	 1 - C_ScruteFTP::Slot_commandFinished() Tried to send a command, but there is no connection to a server.
+22-05-2013 09:48:04:484	 commandStarted command : CONNECT TO HOST ID = 82
+22-05-2013 09:48:04:484	 1-A host name lookup is in progress.
+22-05-2013 09:48:04:484	 2-An attempt to connect to the host is in progress.
+22-05-2013 09:48:04:484	 3-Connection to the host has been achieved.
+22-05-2013 09:48:04:484	 commandFinished command : CONNECT TO HOST ID = 82 error: 0
+22-05-2013 09:48:04:484	 commandStarted command : LOGIN ID = 83
+22-05-2013 09:48:04:484	 4-Connection and user login have been achieved.
+22-05-2013 09:48:04:484	 commandFinished command : LOGIN ID = 83 error: 0
+22-05-2013 09:48:04:484 commandStarted command : CD : / ID = 84
+22-05-2013 09:48:04:484 commandFinished command : CD : / ID = 84 error: 0
+22-05-2013 09:48:04:484	 ================= scruteEtTraiteLesFichiersDistants( interval = 120) ================================
+22-05-2013 09:48:04:484	 commandStarted command : LIST ID = 85
+22-05-2013 09:48:04:484	 commandFinished command : LIST ID = 85 error: 0
+22-05-2013 09:48:04:484 . ===> found 2 files to retrieve on Ftp server.
+22-05-2013 09:48:04:484 C_ScruteFTP_Thread::run() getFile started URGM0243.HPR
+22-05-2013 09:48:04:484 C_ScruteFTP_Thread::run() getFile started URGM0243.OK
+22-05-2013 09:48:04:484 commandStarted command : GET URGM0243.HPR to C:/MedinTux/sigentrees/bin/Ressources/TempFiles/2013-22-05-09-48-04-109_URGM0243.HPR ID = 86
+22-05-2013 09:48:04:484 commandFinished command : GET URGM0243.HPR to C:/MedinTux/sigentrees/bin/Ressources/TempFiles/2013-22-05-09-48-04-109_URGM0243.HPR ID = 86 error: 0
+22-05-2013 09:48:04:484 commandStarted command : REMOVE : URGM0243.HPR URGM0243.HPR ID = 87
+22-05-2013 09:48:04:484 commandFinished command : REMOVE : URGM0243.HPR URGM0243.HPR ID = 87 error: 0
+22-05-2013 09:48:04:484 commandStarted command : REMOVE : URGM0243.OK URGM0243.OK ID = 88
+22-05-2013 09:48:04:484 commandFinished command : REMOVE : URGM0243.OK URGM0243.OK ID = 88 error: 0
+22-05-2013 09:48:04:484 . --> Remove local file C:/MedinTux/sigentrees/bin/Ressources/TempFiles/2013-22-05-09-48-04-109_URGM0243.HPR
+22-05-2013 09:48:04:484 C_ScruteFTP_Thread::run() thread getFile finished URGM0243.HPR code : -6- Analysed 
+22-05-2013 09:48:08:488	 ================= scruteEtTraiteLaBaseDeDonnee( interval = 120) ================================
+22-05-2013 09:48:08:488	 C_ScruteDB_Thread::run() thread start 
+22-05-2013 09:48:13:4813	 C_ScruteDB_Thread::run() thread finished 
+22-05-2013 09:50:04:504	 ================= scruteEtTraiteLesFichiersDistants( interval = 120) ================================
+22-05-2013 09:50:04:504	 commandStarted command : LIST ID = 89
+22-05-2013 09:50:04:504	 commandFinished command : LIST ID = 89 error: 0
+22-05-2013 09:50:04:504	 .     ===> no more file available on Ftp server.
+22-05-2013 09:50:04:504	 0-There is no connection to the host.
+22-05-2013 09:50:08:508	 ================= scruteEtTraiteLaBaseDeDonnee( interval = 120) ================================
+22-05-2013 09:50:08:508	 C_ScruteDB_Thread::run() thread start 
+22-05-2013 09:50:13:5013	 C_ScruteDB_Thread::run() thread finished 
+22-05-2013 09:52:04:524	 ================= scruteEtTraiteLesFichiersDistants( interval = 120) ================================
+22-05-2013 09:52:04:524	 commandStarted command : LIST ID = 90
+22-05-2013 09:52:04:524	 commandFinished command : LIST ID = 90 error: 1
+22-05-2013 09:52:04:524	 1 - C_ScruteFTP::Slot_commandFinished() Tried to send a command, but there is no connection to a server.
+22-05-2013 09:52:04:524	 .     ===> no more file available on Ftp server.
+22-05-2013 09:52:08:528	 ================= scruteEtTraiteLaBaseDeDonnee( interval = 120) ================================
+22-05-2013 09:52:08:528	 C_ScruteDB_Thread::run() thread start 
+22-05-2013 09:52:13:5213	 C_ScruteDB_Thread::run() thread finished 
+22-05-2013 09:54:04:544	 commandStarted command : CLOSE ID = 91
+22-05-2013 09:54:04:544	 5-The connection is closing down, but it is not yet closed. (The state will be Unconnected when the connection is closed.)
+22-05-2013 09:54:04:544	 commandFinished command : CLOSE ID = 91 error: 1
+22-05-2013 09:54:04:544	 1 - C_ScruteFTP::Slot_commandFinished() Tried to send a command, but there is no connection to a server.
+22-05-2013 09:54:04:544	 commandStarted command : CONNECT TO HOST ID = 92
+22-05-2013 09:54:04:544	 1-A host name lookup is in progress.
+22-05-2013 09:54:04:544	 2-An attempt to connect to the host is in progress.
+22-05-2013 09:54:04:544	 3-Connection to the host has been achieved.
+22-05-2013 09:54:04:544	 commandFinished command : CONNECT TO HOST ID = 92 error: 0
+22-05-2013 09:54:04:544	 commandStarted command : LOGIN ID = 93
+22-05-2013 09:54:04:544	 4-Connection and user login have been achieved.
+22-05-2013 09:54:04:544	 commandFinished command : LOGIN ID = 93 error: 0
+22-05-2013 09:54:04:544 commandStarted command : CD : / ID = 94
+22-05-2013 09:54:04:544 commandFinished command : CD : / ID = 94 error: 0
+22-05-2013 09:54:04:544	 ================= scruteEtTraiteLesFichiersDistants( interval = 120) ================================
+22-05-2013 09:54:04:544	 commandStarted command : LIST ID = 95
+22-05-2013 09:54:04:544	 commandFinished command : LIST ID = 95 error: 0
+22-05-2013 09:54:04:544	 .     ===> no more file available on Ftp server.
+22-05-2013 09:54:08:548	 ================= scruteEtTraiteLaBaseDeDonnee( interval = 120) ================================
+22-05-2013 09:54:08:548	 C_ScruteDB_Thread::run() thread start 
+22-05-2013 09:54:13:5413	 C_ScruteDB_Thread::run() thread finished 
+22-05-2013 09:56:04:564	 ================= scruteEtTraiteLesFichiersDistants( interval = 120) ================================
+22-05-2013 09:56:04:564	 commandStarted command : LIST ID = 96
+22-05-2013 09:56:04:564	 commandFinished command : LIST ID = 96 error: 0
+22-05-2013 09:56:04:564	 .     ===> no more file available on Ftp server.
+22-05-2013 09:56:04:564	 0-There is no connection to the host.
+22-05-2013 09:56:08:568	 ================= scruteEtTraiteLaBaseDeDonnee( interval = 120) ================================
+22-05-2013 09:56:08:568	 C_ScruteDB_Thread::run() thread start 
+22-05-2013 09:56:12:5612	 C_ScruteDB_Thread::run() thread finished 
+22-05-2013 09:58:04:584	 ================= scruteEtTraiteLesFichiersDistants( interval = 120) ================================
+22-05-2013 09:58:04:584	 commandStarted command : LIST ID = 97
+22-05-2013 09:58:04:584	 commandFinished command : LIST ID = 97 error: 1
+22-05-2013 09:58:04:584	 1 - C_ScruteFTP::Slot_commandFinished() Tried to send a command, but there is no connection to a server.
+22-05-2013 09:58:04:584	 .     ===> no more file available on Ftp server.
+22-05-2013 09:58:08:588	 ================= scruteEtTraiteLaBaseDeDonnee( interval = 120) ================================
+22-05-2013 09:58:08:588	 C_ScruteDB_Thread::run() thread start 
+22-05-2013 09:58:13:5813	 C_ScruteDB_Thread::run() thread finished 
+22-05-2013 10:00:04:04	 commandStarted command : CLOSE ID = 98
+22-05-2013 10:00:04:04	 5-The connection is closing down, but it is not yet closed. (The state will be Unconnected when the connection is closed.)
+22-05-2013 10:00:04:04	 commandFinished command : CLOSE ID = 98 error: 1
+22-05-2013 10:00:04:04	 1 - C_ScruteFTP::Slot_commandFinished() Tried to send a command, but there is no connection to a server.
+22-05-2013 10:00:04:04	 commandStarted command : CONNECT TO HOST ID = 99
+22-05-2013 10:00:04:04	 1-A host name lookup is in progress.
+22-05-2013 10:00:04:04	 2-An attempt to connect to the host is in progress.
+22-05-2013 10:00:04:04	 3-Connection to the host has been achieved.
+22-05-2013 10:00:04:04	 commandFinished command : CONNECT TO HOST ID = 99 error: 0
+22-05-2013 10:00:04:04	 commandStarted command : LOGIN ID = 100
+22-05-2013 10:00:04:04	 4-Connection and user login have been achieved.
+22-05-2013 10:00:04:04	 commandFinished command : LOGIN ID = 100 error: 0
+22-05-2013 10:00:04:04 commandStarted command : CD : / ID = 101
+22-05-2013 10:00:04:04 commandFinished command : CD : / ID = 101 error: 0
+22-05-2013 10:00:04:04	 ================= scruteEtTraiteLesFichiersDistants( interval = 120) ================================
+22-05-2013 10:00:04:04	 commandStarted command : LIST ID = 102
+22-05-2013 10:00:04:04	 commandFinished command : LIST ID = 102 error: 0
+22-05-2013 10:00:04:04	 .     ===> no more file available on Ftp server.
+22-05-2013 10:00:08:08	 ================= scruteEtTraiteLaBaseDeDonnee( interval = 120) ================================
+22-05-2013 10:00:08:08	 C_ScruteDB_Thread::run() thread start 
+22-05-2013 10:00:13:013	 C_ScruteDB_Thread::run() thread finished 
+22-05-2013 10:02:04:24	 ================= scruteEtTraiteLesFichiersDistants( interval = 120) ================================
+22-05-2013 10:02:04:24	 commandStarted command : LIST ID = 103
+22-05-2013 10:02:04:24	 commandFinished command : LIST ID = 103 error: 0
+22-05-2013 10:02:04:24	 .     ===> no more file available on Ftp server.
+22-05-2013 10:02:04:24	 0-There is no connection to the host.
+22-05-2013 10:02:08:28	 ================= scruteEtTraiteLaBaseDeDonnee( interval = 120) ================================
+22-05-2013 10:02:08:28	 C_ScruteDB_Thread::run() thread start 
+22-05-2013 10:02:13:213	 C_ScruteDB_Thread::run() thread finished 
+22-05-2013 10:04:04:44	 ================= scruteEtTraiteLesFichiersDistants( interval = 120) ================================
+22-05-2013 10:04:04:44	 commandStarted command : LIST ID = 104
+22-05-2013 10:04:04:44	 commandFinished command : LIST ID = 104 error: 1
+22-05-2013 10:04:04:44	 1 - C_ScruteFTP::Slot_commandFinished() Tried to send a command, but there is no connection to a server.
+22-05-2013 10:04:04:44	 .     ===> no more file available on Ftp server.
+22-05-2013 10:04:08:48	 ================= scruteEtTraiteLaBaseDeDonnee( interval = 120) ================================
+22-05-2013 10:04:08:48	 C_ScruteDB_Thread::run() thread start 
+22-05-2013 10:04:13:413	 C_ScruteDB_Thread::run() thread finished 
+22-05-2013 10:06:04:64	 commandStarted command : CLOSE ID = 105
+22-05-2013 10:06:04:64	 5-The connection is closing down, but it is not yet closed. (The state will be Unconnected when the connection is closed.)
+22-05-2013 10:06:04:64	 commandFinished command : CLOSE ID = 105 error: 1
+22-05-2013 10:06:04:64	 1 - C_ScruteFTP::Slot_commandFinished() Tried to send a command, but there is no connection to a server.
+22-05-2013 10:06:04:64	 commandStarted command : CONNECT TO HOST ID = 106
+22-05-2013 10:06:04:64	 1-A host name lookup is in progress.
+22-05-2013 10:06:04:64	 2-An attempt to connect to the host is in progress.
+22-05-2013 10:06:04:64	 3-Connection to the host has been achieved.
+22-05-2013 10:06:04:64	 commandFinished command : CONNECT TO HOST ID = 106 error: 0
+22-05-2013 10:06:04:64	 commandStarted command : LOGIN ID = 107
+22-05-2013 10:06:04:64	 4-Connection and user login have been achieved.
+22-05-2013 10:06:04:64	 commandFinished command : LOGIN ID = 107 error: 0
+22-05-2013 10:06:04:64 commandStarted command : CD : / ID = 108
+22-05-2013 10:06:04:64 commandFinished command : CD : / ID = 108 error: 0
+22-05-2013 10:06:04:64	 ================= scruteEtTraiteLesFichiersDistants( interval = 120) ================================
+22-05-2013 10:06:04:64	 commandStarted command : LIST ID = 109
+22-05-2013 10:06:04:64	 commandFinished command : LIST ID = 109 error: 0
+22-05-2013 10:06:04:64	 .     ===> no more file available on Ftp server.
+22-05-2013 10:06:08:68	 ================= scruteEtTraiteLaBaseDeDonnee( interval = 120) ================================
+22-05-2013 10:06:08:68	 C_ScruteDB_Thread::run() thread start 
+22-05-2013 10:06:13:613	 C_ScruteDB_Thread::run() thread finished 
+22-05-2013 10:08:04:84	 ================= scruteEtTraiteLesFichiersDistants( interval = 120) ================================
+22-05-2013 10:08:04:84	 commandStarted command : LIST ID = 110
+22-05-2013 10:08:04:84	 commandFinished command : LIST ID = 110 error: 0
+22-05-2013 10:08:04:84	 .     ===> no more file available on Ftp server.
+22-05-2013 10:08:04:84	 0-There is no connection to the host.
+22-05-2013 10:08:08:88	 ================= scruteEtTraiteLaBaseDeDonnee( interval = 120) ================================
+22-05-2013 10:08:08:88	 C_ScruteDB_Thread::run() thread start 
+22-05-2013 10:08:13:813	 C_ScruteDB_Thread::run() thread finished 
+22-05-2013 10:10:04:104	 ================= scruteEtTraiteLesFichiersDistants( interval = 120) ================================
+22-05-2013 10:10:04:104	 commandStarted command : LIST ID = 111
+22-05-2013 10:10:04:104	 commandFinished command : LIST ID = 111 error: 1
+22-05-2013 10:10:04:104	 1 - C_ScruteFTP::Slot_commandFinished() Tried to send a command, but there is no connection to a server.
+22-05-2013 10:10:04:104	 .     ===> no more file available on Ftp server.
+22-05-2013 10:10:08:108	 ================= scruteEtTraiteLaBaseDeDonnee( interval = 120) ================================
+22-05-2013 10:10:08:108	 C_ScruteDB_Thread::run() thread start 
+22-05-2013 10:10:13:1013	 C_ScruteDB_Thread::run() thread finished 
+22-05-2013 10:12:04:124	 commandStarted command : CLOSE ID = 112
+22-05-2013 10:12:04:124	 5-The connection is closing down, but it is not yet closed. (The state will be Unconnected when the connection is closed.)
+22-05-2013 10:12:04:124	 commandFinished command : CLOSE ID = 112 error: 1
+22-05-2013 10:12:04:124	 1 - C_ScruteFTP::Slot_commandFinished() Tried to send a command, but there is no connection to a server.
+22-05-2013 10:12:04:124	 commandStarted command : CONNECT TO HOST ID = 113
+22-05-2013 10:12:04:124	 1-A host name lookup is in progress.
+22-05-2013 10:12:04:124	 2-An attempt to connect to the host is in progress.
+22-05-2013 10:12:04:124	 3-Connection to the host has been achieved.
+22-05-2013 10:12:04:124	 commandFinished command : CONNECT TO HOST ID = 113 error: 0
+22-05-2013 10:12:04:124	 commandStarted command : LOGIN ID = 114
+22-05-2013 10:12:04:124	 4-Connection and user login have been achieved.
+22-05-2013 10:12:04:124	 commandFinished command : LOGIN ID = 114 error: 0
+22-05-2013 10:12:04:124 commandStarted command : CD : / ID = 115
+22-05-2013 10:12:04:124 commandFinished command : CD : / ID = 115 error: 0
+22-05-2013 10:12:04:124	 ================= scruteEtTraiteLesFichiersDistants( interval = 120) ================================
+22-05-2013 10:12:04:124	 commandStarted command : LIST ID = 116
+22-05-2013 10:12:04:124	 commandFinished command : LIST ID = 116 error: 0
+22-05-2013 10:12:04:124 . ===> found 2 files to retrieve on Ftp server.
+22-05-2013 10:12:04:124 C_ScruteFTP_Thread::run() getFile started URGM0244.HPR
+22-05-2013 10:12:04:124 C_ScruteFTP_Thread::run() getFile started URGM0244.OK
+22-05-2013 10:12:04:124 commandStarted command : GET URGM0244.HPR to C:/MedinTux/sigentrees/bin/Ressources/TempFiles/2013-22-05-10-12-04-109_URGM0244.HPR ID = 117
+22-05-2013 10:12:04:124 commandFinished command : GET URGM0244.HPR to C:/MedinTux/sigentrees/bin/Ressources/TempFiles/2013-22-05-10-12-04-109_URGM0244.HPR ID = 117 error: 0
+22-05-2013 10:12:04:124 commandStarted command : REMOVE : URGM0244.HPR URGM0244.HPR ID = 118
+22-05-2013 10:12:04:124 commandFinished command : REMOVE : URGM0244.HPR URGM0244.HPR ID = 118 error: 0
+22-05-2013 10:12:04:124 commandStarted command : REMOVE : URGM0244.OK URGM0244.OK ID = 119
+22-05-2013 10:12:04:124 commandFinished command : REMOVE : URGM0244.OK URGM0244.OK ID = 119 error: 0
+22-05-2013 10:12:04:124 . --> Remove local file C:/MedinTux/sigentrees/bin/Ressources/TempFiles/2013-22-05-10-12-04-109_URGM0244.HPR
+22-05-2013 10:12:04:124 C_ScruteFTP_Thread::run() thread getFile finished URGM0244.HPR code : -6- Analysed 
+22-05-2013 10:12:08:128	 ================= scruteEtTraiteLaBaseDeDonnee( interval = 120) ================================
+22-05-2013 10:12:08:128	 C_ScruteDB_Thread::run() thread start 
+22-05-2013 10:12:13:1213	 C_ScruteDB_Thread::run() thread finished 
+22-05-2013 10:14:04:144	 ================= scruteEtTraiteLesFichiersDistants( interval = 120) ================================
+22-05-2013 10:14:04:144	 commandStarted command : LIST ID = 120
+22-05-2013 10:14:04:144	 commandFinished command : LIST ID = 120 error: 0
+22-05-2013 10:14:04:144	 .     ===> no more file available on Ftp server.
+22-05-2013 10:14:04:144	 0-There is no connection to the host.
+22-05-2013 10:14:08:148	 ================= scruteEtTraiteLaBaseDeDonnee( interval = 120) ================================
+22-05-2013 10:14:08:148	 C_ScruteDB_Thread::run() thread start 
+22-05-2013 10:14:13:1413	 C_ScruteDB_Thread::run() thread finished 
+22-05-2013 10:16:04:164	 ================= scruteEtTraiteLesFichiersDistants( interval = 120) ================================
+22-05-2013 10:16:04:164	 commandStarted command : LIST ID = 121
+22-05-2013 10:16:04:164	 commandFinished command : LIST ID = 121 error: 1
+22-05-2013 10:16:04:164	 1 - C_ScruteFTP::Slot_commandFinished() Tried to send a command, but there is no connection to a server.
+22-05-2013 10:16:04:164	 .     ===> no more file available on Ftp server.
+22-05-2013 10:16:08:168	 ================= scruteEtTraiteLaBaseDeDonnee( interval = 120) ================================
+22-05-2013 10:16:08:168	 C_ScruteDB_Thread::run() thread start 
+22-05-2013 10:16:13:1613	 C_ScruteDB_Thread::run() thread finished 
+22-05-2013 10:18:04:184	 commandStarted command : CLOSE ID = 122
+22-05-2013 10:18:04:184	 5-The connection is closing down, but it is not yet closed. (The state will be Unconnected when the connection is closed.)
+22-05-2013 10:18:04:184	 commandFinished command : CLOSE ID = 122 error: 1
+22-05-2013 10:18:04:184	 1 - C_ScruteFTP::Slot_commandFinished() Tried to send a command, but there is no connection to a server.
+22-05-2013 10:18:04:184	 commandStarted command : CONNECT TO HOST ID = 123
+22-05-2013 10:18:04:184	 1-A host name lookup is in progress.
+22-05-2013 10:18:04:184	 2-An attempt to connect to the host is in progress.
+22-05-2013 10:18:04:184	 3-Connection to the host has been achieved.
+22-05-2013 10:18:04:184	 commandFinished command : CONNECT TO HOST ID = 123 error: 0
+22-05-2013 10:18:04:184	 commandStarted command : LOGIN ID = 124
+22-05-2013 10:18:04:184	 4-Connection and user login have been achieved.
+22-05-2013 10:18:04:184	 commandFinished command : LOGIN ID = 124 error: 0
+22-05-2013 10:18:04:184 commandStarted command : CD : / ID = 125
+22-05-2013 10:18:04:184 commandFinished command : CD : / ID = 125 error: 0
+22-05-2013 10:18:04:184	 ================= scruteEtTraiteLesFichiersDistants( interval = 120) ================================
+22-05-2013 10:18:04:184	 commandStarted command : LIST ID = 126
+22-05-2013 10:18:04:184	 commandFinished command : LIST ID = 126 error: 0
+22-05-2013 10:18:04:184 . ===> found 2 files to retrieve on Ftp server.
+22-05-2013 10:18:04:184 C_ScruteFTP_Thread::run() getFile started URGM0245.HPR
+22-05-2013 10:18:04:184 C_ScruteFTP_Thread::run() getFile started URGM0245.OK
+22-05-2013 10:18:04:184 commandStarted command : GET URGM0245.HPR to C:/MedinTux/sigentrees/bin/Ressources/TempFiles/2013-22-05-10-18-04-234_URGM0245.HPR ID = 127
+22-05-2013 10:18:04:184 commandFinished command : GET URGM0245.HPR to C:/MedinTux/sigentrees/bin/Ressources/TempFiles/2013-22-05-10-18-04-234_URGM0245.HPR ID = 127 error: 0
+------- 22-05-2013 10:18:04:184	 at line : 334 	 in file : C_BaseSigEntrees.cpp ---------
+
+ERROR  : C_BaseSigEntrees::CreateNewEntry() 
+Duplicate entry '256837' for key 1 QMYSQL3: Unable to execute statement
+REQUEST: INSERT INTO entrees_sigems ( 
+ES_guid_pat , ES_nom , ES_prenom , ES_sexe , ES_date_naiss , ES_num_ss , ES_date_entree , ES_blob_hpr , ES_id_primkey , ES_qualite , ES_rang_geme , ES_nom_fichier_entrees , ES_date_pec , ES_num_pat_sigems )  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?) 
+22-05-2013 10:18:04:184 commandStarted command : REMOVE : URGM0245.HPR URGM0245.HPR ID = 128
+22-05-2013 10:18:04:184 commandFinished command : REMOVE : URGM0245.HPR URGM0245.HPR ID = 128 error: 0
+22-05-2013 10:18:04:184 commandStarted command : REMOVE : URGM0245.OK URGM0245.OK ID = 129
+22-05-2013 10:18:04:184 commandFinished command : REMOVE : URGM0245.OK URGM0245.OK ID = 129 error: 0
+22-05-2013 10:18:04:184 C_ScruteFTP_Thread::run() thread getFile finished URGM0245.HPR code : -6- Analysed 
+22-05-2013 10:18:08:188	 ================= scruteEtTraiteLaBaseDeDonnee( interval = 120) ================================
+22-05-2013 10:18:08:188	 C_ScruteDB_Thread::run() thread start 
+22-05-2013 10:18:13:1813	 C_ScruteDB_Thread::run() thread finished 
+22-05-2013 10:20:04:204	 ================= scruteEtTraiteLesFichiersDistants( interval = 120) ================================
+22-05-2013 10:20:04:204	 commandStarted command : LIST ID = 130
+22-05-2013 10:20:04:204	 commandFinished command : LIST ID = 130 error: 0
+22-05-2013 10:20:04:204 . ===> found 2 files to retrieve on Ftp server.
+22-05-2013 10:20:04:204 C_ScruteFTP_Thread::run() getFile started URGM0246.HPR
+22-05-2013 10:20:04:204 C_ScruteFTP_Thread::run() getFile started URGM0246.OK
+22-05-2013 10:20:04:204 commandStarted command : GET URGM0246.HPR to C:/MedinTux/sigentrees/bin/Ressources/TempFiles/2013-22-05-10-20-04-062_URGM0246.HPR ID = 131
+22-05-2013 10:20:04:204 commandFinished command : GET URGM0246.HPR to C:/MedinTux/sigentrees/bin/Ressources/TempFiles/2013-22-05-10-20-04-062_URGM0246.HPR ID = 131 error: 0
+------- 22-05-2013 10:20:04:204	 at line : 334 	 in file : C_BaseSigEntrees.cpp ---------
+
+ERROR  : C_BaseSigEntrees::CreateNewEntry() 
+Duplicate entry '105207' for key 1 QMYSQL3: Unable to execute statement
+REQUEST: INSERT INTO entrees_sigems ( 
+ES_guid_pat , ES_nom , ES_prenom , ES_sexe , ES_date_naiss , ES_num_ss , ES_date_entree , ES_blob_hpr , ES_id_primkey , ES_qualite , ES_rang_geme , ES_nom_fichier_entrees , ES_date_pec , ES_num_pat_sigems )  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?) 
+------- 22-05-2013 10:20:04:204	 at line : 334 	 in file : C_BaseSigEntrees.cpp ---------
+
+ERROR  : C_BaseSigEntrees::CreateNewEntry() 
+Duplicate entry '256837' for key 1 QMYSQL3: Unable to execute statement
+REQUEST: INSERT INTO entrees_sigems ( 
+ES_guid_pat , ES_nom , ES_prenom , ES_sexe , ES_date_naiss , ES_num_ss , ES_date_entree , ES_blob_hpr , ES_id_primkey , ES_qualite , ES_rang_geme , ES_nom_fichier_entrees , ES_date_pec , ES_num_pat_sigems )  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?) 
+------- 22-05-2013 10:20:04:204	 at line : 334 	 in file : C_BaseSigEntrees.cpp ---------
+
+ERROR  : C_BaseSigEntrees::CreateNewEntry() 
+Duplicate entry '155246' for key 1 QMYSQL3: Unable to execute statement
+REQUEST: INSERT INTO entrees_sigems ( 
+ES_guid_pat , ES_nom , ES_prenom , ES_sexe , ES_date_naiss , ES_num_ss , ES_date_entree , ES_blob_hpr , ES_id_primkey , ES_qualite , ES_rang_geme , ES_nom_fichier_entrees , ES_date_pec , ES_num_pat_sigems )  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?) 
+22-05-2013 10:20:04:204 commandStarted command : REMOVE : URGM0246.HPR URGM0246.HPR ID = 132
+22-05-2013 10:20:04:204 commandFinished command : REMOVE : URGM0246.HPR URGM0246.HPR ID = 132 error: 0
+22-05-2013 10:20:04:204 commandStarted command : REMOVE : URGM0246.OK URGM0246.OK ID = 133
+22-05-2013 10:20:04:204 commandFinished command : REMOVE : URGM0246.OK URGM0246.OK ID = 133 error: 0
+22-05-2013 10:20:04:204 C_ScruteFTP_Thread::run() thread getFile finished URGM0246.HPR code : -6- Analysed 
+22-05-2013 10:20:08:208	 ================= scruteEtTraiteLaBaseDeDonnee( interval = 120) ================================
+22-05-2013 10:20:08:208	 C_ScruteDB_Thread::run() thread start 
+22-05-2013 10:20:13:2013	 C_ScruteDB_Thread::run() thread finished 
+22-05-2013 10:22:04:224	 ================= scruteEtTraiteLesFichiersDistants( interval = 120) ================================
+22-05-2013 10:22:04:224	 commandStarted command : LIST ID = 134
+22-05-2013 10:22:04:224	 commandFinished command : LIST ID = 134 error: 0
+22-05-2013 10:22:04:224	 .     ===> no more file available on Ftp server.
+22-05-2013 10:22:04:224	 0-There is no connection to the host.
+22-05-2013 10:22:08:228	 ================= scruteEtTraiteLaBaseDeDonnee( interval = 120) ================================
+22-05-2013 10:22:08:228	 C_ScruteDB_Thread::run() thread start 
+22-05-2013 10:22:13:2213	 C_ScruteDB_Thread::run() thread finished 

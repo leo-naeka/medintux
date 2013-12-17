@@ -28,7 +28,12 @@
 
  #include <QObject>
  #include <QProcess>
- #include <QtGui/QApplication>
+
+#if QT_VERSION >= 0x040890    // Qt 4.1.2, the QT_VERSION macro will expand to 0x040102.
+    #include <QtWidgets/QApplication>
+#else
+    #include <QApplication>
+#endif
 
 #ifdef Q_WS_WIN
    #define F_EXE ".exe"

@@ -102,7 +102,7 @@ public:
    *  \param ofset :  QString ofset de decalage vers la droite par defaut vide
    *  \param mustBeB64Protected :  si true la valeur sera convertie et inscrite en base 64.
   */
-  static void addXmlData(const QString& dName, QByteArray data, QString &modeleXML, bool mustBeB64Protected=FALSE, const QString &ofset ="" );
+  static void addXmlData(const QString& dName, QByteArray data, QString &modeleXML, bool mustBeB64Protected=false, const QString &ofset ="" );
 
   //---------------------------- getXmlData --------------------------------------------------------------------
   /*! \brief retourne dans un fichier XML une valeur situee entre un tag de debut <tag> et de fin </tag>
@@ -307,7 +307,7 @@ public:
   static  QString       AbsoluteToRelativePath(QString pathRef, QString pathToConvert);
   static  QString       formatStringForParam(QString &str);
   static  QString       retrieveStringForParam(QString &str);
-  static  QStringList   listDirectory(QString start_dir, const QString &filterExt="", const QString &filterName="", const QString &sep=";", bool listWithoutExt=FALSE);
+  static  QStringList   listDirectory(QString start_dir, const QString &filterExt="", const QString &filterName="", const QString &sep=";", bool listWithoutExt=false);
   static  quint16       HexToUINT( const char *str);
   static  QString       UINTtoHex( quint16 val);
   static  QString       PassWordDecode(QString str_to_decode);

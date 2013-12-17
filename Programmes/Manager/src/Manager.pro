@@ -7,7 +7,7 @@ QT += network \
     xml \
     qt3support
 TARGET = Manager
-NUM_VERS     = 2.16.000
+NUM_VERS     = 2.16.001
 NAME_DOM     = MedinTux
 NAME_ORG     = Data Medical Design
 DEFINES     += "NUM_VERSION=\"\\\"$${NUM_VERS}\\\"\""
@@ -16,7 +16,7 @@ DEFINES     += "NAME_ORGANISATION=\"\\\"$${NAME_ORG}\\\"\""
 DEFINES     += "NAME_DOMAINE=\"\\\"$${NAME_DOM}\\\"\""
 DEFINES     += "SQLSYNTAX_MYSQL"
 TEMPLATE     = app
-
+message(Qt version: $$[QT_VERSION])
 OBJECTS_DIR = ../src/obj
 MOC_DIR = ../src/moc
 UI_DIR = ../src/ui
@@ -45,6 +45,8 @@ message( "=============================================================" )
 include(../../MedinTuxTools-QT4/qtsingleapplication/src/qtsingleapplication.pri)
 mac { LIBS +=  -L/usr/X11/lib
     }
+
+unix:!macx: LIBS += -lX11
 
 SOURCES += main.cpp \
     CApp.cpp \
@@ -127,3 +129,5 @@ OTHER_FILES += ../bin/Ressources/Changements.html \
     ../bin/Manager.ini \
     ../bin/DataBase.cfg \
     ../bin/DataBaseAgenda.cfg
+
+

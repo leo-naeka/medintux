@@ -726,40 +726,9 @@ QString  C_DlgMainDialog::tryToFindQt3()
  QString ret = QString::null;
  if        (QFile::exists("/usr/lib/qt/bin/qmake"))   ret = "/usr/lib/qt";
  else if   (QFile::exists("/usr/lib/qt3/bin/qmake"))  ret = "/usr/lib/qt3";
+ else if   (QFile::exists("/usr/bin/qmake"))          ret = "/usr";
  return    ret;
 #endif
-}
-
-//----------------------------------------- tryToFindSdkQt4 ---------------------------------------------
-QString  C_DlgMainDialog::tryToFindSdkQt4()
-{
-#ifdef Q_OS_MACX
- QStringList listOptDir = CGestIni::listDirectory("/usr/local/Trolltech", "", "Qt-", "|", FALSE, TRUE);
- int         lastIndex  = -1;
- int             lastN  = 0;
- int                  n = 0;
- for (int i=0; i<listOptDir.count(); ++i)
-     {if ( (n = keepOnlyNumber(listOptDir[i]).toInt())>lastN)
-         {lastN     = n;
-          lastIndex = i;
-         }
-     }
- if (lastIndex != -1)   return listOptDir[lastIndex].prepend("/usr/local/Trolltech/");
- else                   return QString::null;
-#else
- QStringList listOptDir = CGestIni::listDirectory("/opt", "", "qtsdk-", "|", FALSE, TRUE);
- int         lastIndex  = -1;
- int             lastN  = 0;
- int                  n = 0;
- for (int i=0; i< (int)listOptDir.count(); ++i)
-     {if ( (n = keepOnlyNumber(listOptDir[i]).toInt())>lastN)
-         {lastN     = n;
-          lastIndex = i;
-         }
-     }
- if (lastIndex != -1)   return listOptDir[lastIndex].prepend("/opt/");
- else                   return QString::null;
- #endif
 }
 
 //----------------------------------------- keepOnlyNumber ---------------------------------------------
@@ -874,6 +843,44 @@ QString C_DlgMainDialog::getTargetSrcPath(const QString &target)
     return main_path;
 }
 
+//----------------------------------------- tryToFindSdkQt4 ---------------------------------------------
+QString  C_DlgMainDialog::tryToFindSdkQt4()
+{
+#ifdef Q_OS_MACX
+ QStringList listOptDir = CGestIni::listDirectory("/usr/local/Trolltech", "", "Qt-", "|", FALSE, TRUE);
+ int         lastIndex  = -1;
+ int             lastN  = 0;
+ int                  n = 0;
+ for (int i=0; i<listOptDir.count(); ++i)
+     {if ( (n = keepOnlyNumber(listOptDir[i]).toInt())>lastN)
+         {lastN     = n;
+          lastIndex = i;
+         }
+     }
+ if (lastIndex != -1)   return listOptDir[lastIndex].prepend("/usr/local/Trolltech/");
+ else                   return QString::null;
+#else
+ QString           prefix  = "/opt/";            // on teste si cette version du sdk Qt4 (mandriva) existe
+ QString           sufix   = "/qt/";             // on teste si cette version du sdk Qt4 (mandriva) existe
+ QStringList    listOptDir = CGestIni::listDirectory("/opt", "", "qtsdk-", "|", FALSE, TRUE);
+ if ( listOptDir.count()==0)                     // si pas trouvee on teste si cette version du sdk Qt4 (ubuntu ou autres 4.8.5) existe
+    { listOptDir = CGestIni::listDirectory("/usr/local/Trolltech", "", "Qt-", "|", FALSE, TRUE);
+      prefix     = "/usr/local/Trolltech/";
+      sufix      = "";
+    }
+ int         lastIndex  = -1;
+ int             lastN  = 0;
+ int                  n = 0;
+ for (int i=0; i< (int)listOptDir.count(); ++i)
+     {if ( (n = keepOnlyNumber(listOptDir[i]).toInt())>lastN)
+         {lastN     = n;
+          lastIndex = i;
+         }
+     }
+ if (lastIndex != -1)   return listOptDir[lastIndex].prepend(prefix)+sufix;
+ else                   return QString::null;
+ #endif
+}
 //----------------------------------------- Compilation -----------------------------------------------------------------
 void C_DlgMainDialog::Compilation(const QString &path, const QString & target)
 {   pushButton_SetBases->hide();
@@ -890,11 +897,11 @@ void C_DlgMainDialog::Compilation(const QString &path, const QString & target)
 #endif
 #ifdef Q_WS_X11
     bool isQT4Here                =  QFile::exists(sdkDir+"bin/qmake");            // pour GG
-    if (!isQT4Here) isQT4Here     =  QFile::exists(sdkDir+"qt");        // si cela ne marche pas pour les autres
     os                            =  "Linux";
 #endif
 
 #ifdef Q_WS_WIN
+    bool isQT4Here                = false;
     os                            =  "Windows";
 #endif
 
@@ -944,8 +951,26 @@ void C_DlgMainDialog::Compilation(const QString &path, const QString & target)
             "./MakeAllMac.sh '" + m_CurrentCompil + "' '" + lineEdit_Qt3->text() + "'";
             qDebug(script);
         #else
+            QString qtdir = lineEdit_Qt3->text().stripWhiteSpace();
+            script  =  "#! /bin/sh\n"
+                       "#----- DEB FOR LINUX --------\n"
+                       "  QTDIR=\"";
+            script += qtdir + "\"\n export QTDIR\n";
+            script += "  PATH=$PATH\":"  + qtdir +"/bin\"\n export PATH"        // si on met \r\n   le bash se bache
+            "\n#----- END FOR LINUX --------\n"
+            //"DYLD_LIBRARY_PATH=$QTDIR/lib:$DYLD_LIBRARY_PATH\n"
+            //"DYLD_LIBRARY_PATH=$QTDIR/plugins/sqldrivers:$DYLD_LIBRARY_PATH\n"
+            //"DYLD_LIBRARY_PATH=/usr/local/mysql/lib:$DYLD_LIBRARY_PATH\n"
+            //"INCLUDE=/usr/local/mysql/include:$INCLUDE\n"
+            "QMAKESPEC=$QTDIR/mkspecs/linux-g++\n"
+            "export QMAKESPEC\n"
+            "export INCLUDE\n"
+            "cd '"+G_pCApp->m_PathAppli+"'\n"
+            "./MakeAllMac.sh '" + m_CurrentCompil + "' '" + lineEdit_Qt3->text() + "'";
+            /*
             script =  "#! /bin/sh\n "
                       "./MakeAllMac.sh '" + m_CurrentCompil + "' '" + lineEdit_Qt3->text() + "'";
+            */
         #endif
             CGestIni::Param_UpdateToDisk(G_pCApp->m_PathAppli+"makeModule.sh", script);
             execute(G_pCApp->m_PathAppli + "makeModule.sh");
@@ -986,10 +1011,12 @@ void C_DlgMainDialog::Compilation(const QString &path, const QString & target)
            #else
             script = "#!/bin/bash\n"
                      "LD_LIBRARY_PATH={{sdkDir}}lib/qtcreator:\n"
-                     "PATH={{sdkDir}}qt/bin:/usr/bin:/bin:/usr/X11R6/bin/:\n"
-                     "QTDIR={{sdkDir}}qt\n"
-                     "QT_PLUGIN_PATH={{sdkDir}}qt/plugins\n"
+                     "PATH={{sdkDir}}bin:/usr/bin:/bin:/usr/X11R6/bin/:\n"
+                     "QTDIR={{sdkDir}}\n"
+                     "QT_PLUGIN_PATH={{sdkDir}}plugins\n"
+                     "QMAKESPEC=$QTDIR/mkspecs/linux-g++\n"
                      "PWD={{sdkDir}}bin\n"
+                     "export QMAKESPEC\n"
                      "export QT_PLUGIN_PATH\n"
                      "export PWD\n"
                      "export QTDIR\n"
@@ -3281,7 +3308,7 @@ void C_DlgMainDialog::pushButton_InstallSesam_clicked()
         pos  = galss.find("Index=",pos);
         if (pos != -1)
            {pos += 6;
-            end  = pos; while(end<galss.length() && galss[end] != '\r' && galss[end] != '\n') ++end;
+            end  = pos; while(end< (int) galss.length() && galss[end] != '\r' && galss[end] != '\n') ++end;
             QString portCom  = comboBox_PortLecteurWin->currentText();
             if (portCom.length())
                {//int pSepEnd  = portCom.find("=");

@@ -987,7 +987,8 @@ QString Dlg_MedicaTux::Get_OrdoXmlStruct()
  staille = textLabel_Taille->text();
  return m_pCMedBase->Medica_PosologieListToXMLOrdoStruct(m_CPosologieOrdoList,
                                                          QString::number(m_pCMedBase->Medica_ExtractNumber(spoids)) ,
-                                                         QString::number(m_pCMedBase->Medica_ExtractNumber(staille))
+                                                         QString::number(m_pCMedBase->Medica_ExtractNumber(staille)),
+                                                         ""
                                                         );
 }
 

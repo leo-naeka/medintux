@@ -283,7 +283,7 @@ long  CGestIni::Param_UpdateFromDisk(const QString &file_ini, QString &outParam,
 long  CGestIni::_loadFromDisk(const QString &file_ini, QString &outParam, int *isUtf8_ret /* =0 */)
 {        //............ charger le fichier .ini ..........
          QFile qFile(file_ini );
-         if (qFile.open( QIODevice::ReadOnly )==FALSE)   return  0;
+         if (qFile.open( QIODevice::ReadOnly )==false)   return  0;
          QByteArray ba = qFile.readAll();
          qFile.close ();
          QString ext =  QFileInfo(qFile).suffix();
@@ -308,7 +308,7 @@ long  CGestIni::_loadFromDisk(const QString &file_ini, QString &outParam, int *i
 long CGestIni::_loadFromDisk(const QString &file_ini, QByteArray &ba, int *isUtf8_ret /* =0 */)
 {        if (ba.size()>0) ba.data()[0]=0;
          QFile qFile(file_ini );
-         if (qFile.open( QIODevice::ReadOnly )==FALSE)   return  0;
+         if (qFile.open( QIODevice::ReadOnly )==false)   return  0;
          ba = qFile.readAll();
          qFile.close ();
          QString ext =  QFileInfo(qFile).suffix();
@@ -335,7 +335,7 @@ long CGestIni::_loadFromDisk(const QString &file_ini, QByteArray &ba, int *isUtf
  *  \param mustBeB64Protected :  si true la valeur sera convertie et inscrite en base 64.
 */
 
-void CGestIni::addXmlData(const QString& _tagXml, QByteArray valeur, QString &modeleXML, bool mustBeB64Protected /* =FALSE */, const QString &ofset /* ="" */)
+void CGestIni::addXmlData(const QString& _tagXml, QByteArray valeur, QString &modeleXML, bool mustBeB64Protected /* =false */, const QString &ofset /* ="" */)
 {QString tagXml      = _tagXml;
  QString dataToPlace = "";
  valeur.replace('&',"&amp;");
@@ -363,7 +363,7 @@ void CGestIni::addXmlData(const QString& _tagXml, QByteArray valeur, QString &mo
 */
 
 QString CGestIni::getXmlData(const QString& dataName, const QString& dataXml, int *nextPos)
-{bool mustBeB64Protected = FALSE;
+{bool mustBeB64Protected = false;
  int posEnd  = -1;
  int posDeb  =  0;
 
@@ -371,13 +371,13 @@ QString CGestIni::getXmlData(const QString& dataName, const QString& dataXml, in
  if (nextPos) {posDeb  = dataXml.indexOf(tag, *nextPos);*nextPos=0;}  // on  remet a zero au cas ou tag pas trouve (recommencer a zero)
  else         {posDeb  = dataXml.indexOf(tag);}
  if (posDeb==-1)         return QString::null;
- if (dataXml.at(posDeb-1)=='_') {posDeb += tag.length(); mustBeB64Protected = TRUE; tag = tag.prepend("</_");}
+ if (dataXml.at(posDeb-1)=='_') {posDeb += tag.length(); mustBeB64Protected = true; tag = tag.prepend("</_");}
  else                           {posDeb += tag.length(); tag = tag.prepend("</");}
  posEnd  = dataXml.indexOf(tag, posDeb);
  if (posEnd==-1)         return QString::null;
  if (nextPos) *nextPos = posEnd + tag.length();
  QString retour = "";
- if (mustBeB64Protected) retour = QString( QByteArray::fromBase64( dataXml.mid(posDeb,posEnd-posDeb).toAscii() ) );
+ if (mustBeB64Protected) retour = QString( QByteArray::fromBase64( dataXml.mid(posDeb,posEnd-posDeb).toLatin1() ) );
  else                    retour = dataXml.mid(posDeb,posEnd-posDeb);
  retour.replace("&gt;",">");
  retour.replace("&lt;","<");
@@ -409,7 +409,7 @@ bool CGestIni::setXmlData(const QString& dataName, const QString &valeur, QStrin
 */
 
 bool CGestIni::setXmlData(const QString& dataName, QByteArray valeur, QString& dataXml, int noConvertCharToHtml /* =0 */)
-{bool mustBeB64Protected = FALSE;
+{bool mustBeB64Protected = false;
  int posEnd  = -1;
  int posDeb  =  0;
  if (noConvertCharToHtml == 0)
@@ -421,7 +421,7 @@ bool CGestIni::setXmlData(const QString& dataName, QByteArray valeur, QString& d
  /*if (nextPos) {posDeb  = dataXml.indexOf(tag, *nextPos);*nextPos=0;}  // on  remet a zero au cas ou tag pas trouve (recommencer a zero)
  else        */ {posDeb  = dataXml.indexOf(tag);}
  if (posDeb==-1)         return false;
- if (dataXml.at(posDeb-1)=='_') {posDeb += tag.length(); mustBeB64Protected = TRUE; tag = tag.prepend("</_");}
+ if (dataXml.at(posDeb-1)=='_') {posDeb += tag.length(); mustBeB64Protected = true; tag = tag.prepend("</_");}
  else                           {posDeb += tag.length(); tag = tag.prepend("</");}
  posEnd  = dataXml.indexOf(tag, posDeb);
  if (posEnd==-1)         return false;
@@ -443,7 +443,7 @@ bool CGestIni::setXmlData(const QString& dataName, QByteArray valeur, QString& d
  *  \return QStringList qui est la liste de valeurs a rechercher.
 */
 QStringList CGestIni::getXmlDataList(const QString& tagName, const QString& dataXml, int *nextPos /* =0 */)
-{bool mustBeB64Protected = FALSE;
+{bool mustBeB64Protected = false;
  int posEnd    = -1;
  int posDeb    =  0;
  QString tag   =  tagName+'>';
@@ -454,13 +454,13 @@ QStringList CGestIni::getXmlDataList(const QString& tagName, const QString& data
  else         {posDeb  = dataXml.indexOf(tag);}
 
  while (posDeb != -1)
-       {if (dataXml.at(posDeb-1)=='_') {posDeb += tag.length(); mustBeB64Protected = TRUE; tag = tag.prepend("</_");}
+       {if (dataXml.at(posDeb-1)=='_') {posDeb += tag.length(); mustBeB64Protected = true; tag = tag.prepend("</_");}
         else                           {posDeb += tag.length(); tag = tag.prepend("</");}
         posEnd  = dataXml.indexOf(tag, posDeb);
         if (posEnd==-1)         return retList;
 
 
-        if (mustBeB64Protected) toAdd = QString( QByteArray::fromBase64( dataXml.mid(posDeb,posEnd-posDeb).toAscii() ) );
+        if (mustBeB64Protected) toAdd = QString( QByteArray::fromBase64( dataXml.mid(posDeb,posEnd-posDeb).toLatin1() ) );
         else                    toAdd = dataXml.mid(posDeb,posEnd-posDeb);
 
         posDeb = posEnd + tag.length();      // on se place apres le tag de fin donc a la prochaine position
@@ -721,7 +721,7 @@ QString CGestIni::Param_WriteParam( QString *pQstr, const char *section, const c
  QString result    = "";
  QString tmp       = "";
 
- QByteArray ba     = pQstr->toAscii ();
+ QByteArray ba     = pQstr->toLatin1 ();
  char* txt         = ba.data();
  char *pt          = txt;
  char *deb         = 0;
@@ -1285,7 +1285,7 @@ void CGestIni::Param_GetList(QString &outParam, const QString &sectionToRetrieve
  QString        data    = "";
  QString      section   = "";
  QString     var_name   = "";
- QByteArray       ba    = outParam.toAscii ();
+ QByteArray       ba    = outParam.toLatin1();
  char             *pt   = ba.data();
  char             *pt_s = 0;
  char             *deb  = 0;
@@ -1761,7 +1761,7 @@ QString CGestIni::AbsoluteToRelativePath(QString pathRef, QString pathToConvert)
 
 //-------------------------- listDirectory -------------------------------------------
 /*! \brief non documente */
-QStringList CGestIni::listDirectory(QString start_dir, const QString &filterExt_in/*=""*/, const QString &filterName/*=""*/, const QString &sep/*=";"*/, bool listWithoutExt/*=FALSE*/)
+QStringList CGestIni::listDirectory(QString start_dir, const QString &filterExt_in/*=""*/, const QString &filterName/*=""*/, const QString &sep/*=";"*/, bool listWithoutExt/*=false*/)
 {   QStringList    ret;
     QString        filterExt = filterExt_in;
     QStringList filterList;
@@ -1791,17 +1791,17 @@ QStringList CGestIni::listDirectory(QString start_dir, const QString &filterExt_
                    {
                    }
            else if (fi.isFile() && fname[0] != '.')
-                   {bool ok = TRUE;
+                   {bool ok = true;
 
                     if (extList.count())
-                       {ok = FALSE;
+                       {ok = false;
                         ut = extList.indexOf(ext);
-                        if (ut !=  -1) ok = TRUE;
+                        if (ut !=  -1) ok = true;
                        }
                     if (ok && filterList.count())
-                       {ok = FALSE;
-                        for ( ut = 0; ut != filterList.count () && ok==FALSE; ++ut )
-                            {if (fname.indexOf(filterList[ut]) != -1) ok = TRUE;
+                       {ok = false;
+                        for ( ut = 0; ut != filterList.count () && ok==false; ++ut )
+                            {if (fname.indexOf(filterList[ut]) != -1) ok = true;
                             }
                        }
                     if (ok)
@@ -1824,7 +1824,7 @@ QString CGestIni::PassWordEncode(QString &pass)
 {char encoded_car;
  char pt_magic_key[]    = "les linges qui sechent mouillent les cordes";
  QString encoded_str    = "";
- QByteArray       ba    = pass.toAscii ();
+ QByteArray       ba    = pass.toLatin1();
  char             *pt   = ba.data();
  int         len_pass   = ba.length();
 
@@ -1864,7 +1864,7 @@ QString CGestIni::PassWordDecode(QString str_to_decode)
  int len_pass        = str_to_decode.length();
  int      pos        = 0;
  while ( pos < len_pass)
-     {decoded_car  =  HexToUINT( str_to_decode.mid(pos,4).toAscii());
+     {decoded_car  =  HexToUINT( str_to_decode.mid(pos,4).toLatin1());
       decoded_car  =  decoded_car ^ pt_magic_key[pos/4];
       decoded_str +=  decoded_car;
       pos         += 4;

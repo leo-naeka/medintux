@@ -14,9 +14,9 @@
  *                              http://www.cecill.info/                           *
  *   as published by :                                                            *
  *                                                                                *
- *   Commissariat �  l'Energie Atomique                                            *
+ *   Commissariat a l'Energie Atomique                                            *
  *   - CEA,                                                                       *
- *                            31-33 rue de la Fédération, 75752 PARIS cedex 15.   *
+ *                            31-33 rue de la Federation, 75752 PARIS cedex 15.   *
  *                            FRANCE                                              *
  *   Centre National de la Recherche Scientifique                                 *
  *   - CNRS,                                                                      *
@@ -85,7 +85,10 @@ private:
 private slots:
     virtual void accept();
     virtual void reject();
+    void         Slot_ActivateMainWindow();
     void         Slot_pushButton_Apropos_clicked();
+    void         Slot_actionAproposDisplay();
+    void         Slot_Apropos_Proc_finished (int,  QProcess::ExitStatus);
     void         Slot_FiltrerListe(const QString &text);
     void         Slot_comboBox_FiltreListe_currentIndexChanged(int index);
     void         Slot_treeWidget_ListeMedecins_itemClicked( QTreeWidgetItem *pQTreeWidgetItem , int);

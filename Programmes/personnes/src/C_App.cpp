@@ -14,9 +14,9 @@
  *                              http://www.cecill.info/                           *
  *   as published by :                                                            *
  *                                                                                *
- *   Commissariat à  l'Energie Atomique                                           *
+ *   Commissariat a  l'Energie Atomique                                           *
  *   - CEA,                                                                       *
- *                            31-33 rue de la Fédération, 75752 PARIS cedex 15.   *
+ *                            31-33 rue de la Federation, 75752 PARIS cedex 15.   *
  *                            FRANCE                                              *
  *   Centre National de la Recherche Scientifique                                 *
  *   - CNRS,                                                                      *
@@ -53,7 +53,7 @@
 #define   NEXT_LINE(a)             while( *(a) && *(a)!='\r' && *(a)!='\n')(a)++; while( *(a) && (*(a)=='\r'|| *(a)=='\n'))(a)++
 
 C_App* G_pCApp = 0;  // contiendra l'instance globale de l'application
-static char NUM_VERSION[]     = "==##@@==2.15.000==@@##==";
+static char NUM_VERSION[]     = "==##@@==2.16.000==@@##==";
 
 //--------------------------------------------- C_App -------------------------------------------------------------------
 C_App::C_App( int & argc, char ** argv)
@@ -72,8 +72,7 @@ C_App::C_App( int & argc, char ** argv)
      m_pReconnectTimer      = 0;
      if (argc>3) m_Start_ID = argv[3];
      if (argc>4) m_Droits   = argv[4];
-     //.................. lire le fichier ini pour en retirer les paramÃªtres de connexion ...............
-     QFileInfo qfi(argv[0]);
+     //.................. lire le fichier ini pour en retirer les paramÃªtres de connexion ...............     
      m_PathAppli   = CGestIni::Construct_PathBin_Module("personnes", QFileInfo (argv[0]).canonicalPath());
      QString    fn = CGestIni::Construct_Name_File_Ini("personnes",  QFileInfo (argv[0]).canonicalPath(),"");
      m_LocalParam  = CGestIni::Param_UpdateFromDisk(fn);

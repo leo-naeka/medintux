@@ -78,8 +78,8 @@ C_DlgApropos::C_DlgApropos(QWidget *parent,
   m_Wdg_Changements =	ui->tabWidget->widget ( 2 );
   m_Wdg_Help        =   ui->tabWidget->widget ( 3 );
 
-  QWebSettings::globalSettings()->setAttribute(QWebSettings::JavascriptCanOpenWindows,TRUE);
-  QWebSettings::globalSettings()->setAttribute(QWebSettings::JavascriptCanAccessClipboard,TRUE);
+  QWebSettings::globalSettings()->setAttribute(QWebSettings::JavascriptCanOpenWindows,true);
+  QWebSettings::globalSettings()->setAttribute(QWebSettings::JavascriptCanAccessClipboard,true);
   ui->webView_Help->page()->setLinkDelegationPolicy ( QWebPage::DelegateAllLinks );      //QWebPage::DelegateAllLinks
   ui->webView_Apropos->page()->setLinkDelegationPolicy ( QWebPage::DelegateAllLinks );   //QWebPage::DelegateAllLinks
 
@@ -100,7 +100,7 @@ C_DlgApropos::C_DlgApropos(QWidget *parent,
   connect( ui->pushButton_Changements,   SIGNAL(clicked()), this, SLOT(Slot_ShowChangements()));
 
   //........... enregistrement numero de version ...................................
-  ui->pushButtonrecordNumVers->setEnabled(FALSE);
+  ui->pushButtonrecordNumVers->setEnabled(false);
   //........... web tools ...................................
   ui->pushButton_Home->setIcon  ( Theme::getIcon("22x22/home.png") ) ;
   ui->pushButton_Print->setIcon ( Theme::getIcon("22x22/fileprint.png") ) ;
@@ -300,7 +300,7 @@ void C_DlgApropos::Slot_On_webView_Help_loadStarted()
 //--------------------------------- Slot_On_webView_Help_loadProgress -----------------------------------------------------------------------
 void C_DlgApropos::Slot_On_webView_Help_loadProgress(int progress)
 {ui->progressBarWebView->setValue(progress);
- ui->pushButton_Stop->setEnabled(TRUE);
+ ui->pushButton_Stop->setEnabled(true);
  ui->progressBarWebView->show();
  ui->label_Status->show();
 }
@@ -309,7 +309,7 @@ void C_DlgApropos::Slot_On_webView_Help_loadProgress(int progress)
 void C_DlgApropos::Slot_On_webView_Help_loadFinished(bool )
 {ui->progressBarWebView->hide();
  ui->label_Status->hide();
- ui->pushButton_Stop->setEnabled(FALSE);
+ ui->pushButton_Stop->setEnabled(false);
 }
 
 //--------------------------------- Slot_LocationEdit_returnPressed -----------------------------------------------------------------------
@@ -368,7 +368,7 @@ void C_DlgApropos::Slot_GetNumVersionFromBin()
                                                      tr("Binary (*)"));
     if (fileName.length()==0)                       return;
     QFile qFile(fileName );
-    if (qFile.open( QIODevice::ReadOnly )==FALSE)   return;
+    if (qFile.open( QIODevice::ReadOnly )==false)   return;
     long file_len = qFile.size();
     QByteArray ba = qFile.readAll(); ba.resize(file_len+1); ba.data()[file_len]=0;
     qFile.close ();
@@ -383,7 +383,7 @@ void C_DlgApropos::Slot_GetNumVersionFromBin()
     if (numVers.length()==0)                        return;
     ui->label_FileName->setText(fileName);
     ui->lineEdit_NumVers->setText(numVers);
-    ui->pushButtonrecordNumVers->setEnabled(TRUE);
+    ui->pushButtonrecordNumVers->setEnabled(true);
 
 }
 //-----------------------------------------------------  Slot_pushButtonrecordNumVers_clicked -------------------------------------------
@@ -415,7 +415,7 @@ void C_DlgApropos::Slot_pushButtonrecordNumVers_clicked (bool)
        }
     //................  lire le fichier executable en memoire .......................
     QFile qFile(fileName );
-    if (qFile.open( QIODevice::ReadOnly )==FALSE)
+    if (qFile.open( QIODevice::ReadOnly )==false)
        {QMessageBox::warning ( this, tr("Modifier un num\303\251ro de version"),
                                      tr("Le fichier ex\303\251cutable :  <b>%1</b> <br>ne peut \303\252tre ouvert en lecture").arg(fileName),
                                      QMessageBox::Ok );
@@ -459,7 +459,7 @@ void C_DlgApropos::Slot_pushButtonrecordNumVers_clicked (bool)
     ba.remove(deb,lenReplace);
     ba.insert(deb,numVers.trimmed());
     //................  enregistrer le fichier executable sur disque .......................
-    if (qFile.open( QIODevice::WriteOnly )==FALSE)
+    if (qFile.open( QIODevice::WriteOnly )==false)
        {QMessageBox::warning ( this, tr("Modifier un num\303\251ro de version"),
                                      tr("Le fichier ex\303\251cutable :  <b>%1</b> <br>ne peut \303\252tre ouvert en \303\251criture").arg(fileName),
                                      QMessageBox::Ok );

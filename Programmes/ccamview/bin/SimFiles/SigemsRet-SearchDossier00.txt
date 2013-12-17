@@ -1,0 +1,212 @@
+HTTP/1.1 200 OK
+content-type: text/xml; charset=utf-8
+date: Mon, 24 May 2004 16:32:16 GMT
+server: Apache Tomcat/4.1.27 (HTTP/1.1 Connector)
+set-cookie: JSESSIONID=5ABD0DBCD4B1A1368F028B1F1F306768; Path=/sigems
+transfer-encoding: chunked
+
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <soapenv:Body>
+        <searchDossierResponse soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+            <searchDossierReturn xsi:type="xsd:string">
+                0
+            </searchDossierReturn>
+            <listeDossiers href="#id0" />
+        </searchDossierResponse>
+        <multiRef id="id0" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns1:WsDossierListe" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:ns1="urn:SigeGateMed">
+            <liste xsi:type="soapenc:Array" soapenc:arrayType="ns1:WsDossier[5]">
+                <item href="#id1" />
+                <item href="#id2" />
+                <item href="#id3" />
+                <item href="#id4" />
+                <item href="#id5" />
+            </liste>
+        </multiRef>
+        <multiRef id="id4" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns2:WsDossier" xmlns:ns2="urn:SigeGateMed" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateEntree xsi:type="xsd:string">
+                13/02/1997
+            </dateEntree>
+            <dateIntervention xsi:type="xsd:string" xsi:nil="true" />
+            <dateSortiePrevue xsi:type="xsd:string">
+                14/02/1997
+            </dateSortiePrevue>
+            <dateSortieReelle xsi:type="xsd:string">
+                14/02/1997
+            </dateSortieReelle>
+            <dureeIntervention xsi:type="xsd:string" xsi:nil="true" />
+            <heureEntree xsi:type="xsd:string">
+                10
+            </heureEntree>
+            <heureIntervention xsi:type="xsd:string" xsi:nil="true" />
+            <idAnesthesiste xsi:type="xsd:string" xsi:nil="true" />
+            <idChirurgien xsi:type="xsd:string" xsi:nil="true" />
+            <idMedecinTraitant xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigemsAssure xsi:type="xsd:int">
+                17802
+            </ippSigemsAssure>
+            <ippSigemsPatient xsi:type="xsd:int">
+                17801
+            </ippSigemsPatient>
+            <modeTraitement xsi:type="xsd:string">
+                19
+            </modeTraitement>
+            <motif xsi:type="xsd:string" xsi:nil="true" />
+            <numero xsi:type="xsd:string">
+                9799068
+            </numero>
+            <service xsi:type="xsd:string">
+                CHIM
+            </service>
+            <typeChambre xsi:type="xsd:string" xsi:nil="true" />
+        </multiRef>
+        <multiRef id="id5" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns3:WsDossier" xmlns:ns3="urn:SigeGateMed" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateEntree xsi:type="xsd:string">
+                06/03/1997
+            </dateEntree>
+            <dateIntervention xsi:type="xsd:string" xsi:nil="true" />
+            <dateSortiePrevue xsi:type="xsd:string">
+                06/03/1997
+            </dateSortiePrevue>
+            <dateSortieReelle xsi:type="xsd:string">
+                06/03/1997
+            </dateSortieReelle>
+            <dureeIntervention xsi:type="xsd:string" xsi:nil="true" />
+            <heureEntree xsi:type="xsd:string">
+                10
+            </heureEntree>
+            <heureIntervention xsi:type="xsd:string" xsi:nil="true" />
+            <idAnesthesiste xsi:type="xsd:string" xsi:nil="true" />
+            <idChirurgien xsi:type="xsd:string" xsi:nil="true" />
+            <idMedecinTraitant xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigemsAssure xsi:type="xsd:int">
+                17802
+            </ippSigemsAssure>
+            <ippSigemsPatient xsi:type="xsd:int">
+                17801
+            </ippSigemsPatient>
+            <modeTraitement xsi:type="xsd:string">
+                19
+            </modeTraitement>
+            <motif xsi:type="xsd:string" xsi:nil="true" />
+            <numero xsi:type="xsd:string">
+                9799095
+            </numero>
+            <service xsi:type="xsd:string">
+                CHIM
+            </service>
+            <typeChambre xsi:type="xsd:string" xsi:nil="true" />
+        </multiRef>
+        <multiRef id="id3" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns4:WsDossier" xmlns:ns4="urn:SigeGateMed" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateEntree xsi:type="xsd:string">
+                18/02/1997
+            </dateEntree>
+            <dateIntervention xsi:type="xsd:string" xsi:nil="true" />
+            <dateSortiePrevue xsi:type="xsd:string">
+                18/02/1997
+            </dateSortiePrevue>
+            <dateSortieReelle xsi:type="xsd:string">
+                06/03/1997
+            </dateSortieReelle>
+            <dureeIntervention xsi:type="xsd:string" xsi:nil="true" />
+            <heureEntree xsi:type="xsd:string">
+                10
+            </heureEntree>
+            <heureIntervention xsi:type="xsd:string" xsi:nil="true" />
+            <idAnesthesiste xsi:type="xsd:string" xsi:nil="true" />
+            <idChirurgien xsi:type="xsd:string" xsi:nil="true" />
+            <idMedecinTraitant xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigemsAssure xsi:type="xsd:int">
+                17802
+            </ippSigemsAssure>
+            <ippSigemsPatient xsi:type="xsd:int">
+                17801
+            </ippSigemsPatient>
+            <modeTraitement xsi:type="xsd:string">
+                07
+            </modeTraitement>
+            <motif xsi:type="xsd:string" xsi:nil="true" />
+            <numero xsi:type="xsd:string">
+                9790319
+            </numero>
+            <service xsi:type="xsd:string">
+                EXTE
+            </service>
+            <typeChambre xsi:type="xsd:string" xsi:nil="true" />
+        </multiRef>
+        <multiRef id="id2" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns5:WsDossier" xmlns:ns5="urn:SigeGateMed" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateEntree xsi:type="xsd:string">
+                07/02/1997
+            </dateEntree>
+            <dateIntervention xsi:type="xsd:string" xsi:nil="true" />
+            <dateSortiePrevue xsi:type="xsd:string">
+                07/02/1997
+            </dateSortiePrevue>
+            <dateSortieReelle xsi:type="xsd:string">
+                06/03/1997
+            </dateSortieReelle>
+            <dureeIntervention xsi:type="xsd:string" xsi:nil="true" />
+            <heureEntree xsi:type="xsd:string">
+                10
+            </heureEntree>
+            <heureIntervention xsi:type="xsd:string" xsi:nil="true" />
+            <idAnesthesiste xsi:type="xsd:string" xsi:nil="true" />
+            <idChirurgien xsi:type="xsd:string" xsi:nil="true" />
+            <idMedecinTraitant xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigemsAssure xsi:type="xsd:int">
+                17802
+            </ippSigemsAssure>
+            <ippSigemsPatient xsi:type="xsd:int">
+                17801
+            </ippSigemsPatient>
+            <modeTraitement xsi:type="xsd:string">
+                07
+            </modeTraitement>
+            <motif xsi:type="xsd:string" xsi:nil="true" />
+            <numero xsi:type="xsd:string">
+                9790260
+            </numero>
+            <service xsi:type="xsd:string">
+                EXTE
+            </service>
+            <typeChambre xsi:type="xsd:string" xsi:nil="true" />
+        </multiRef>
+        <multiRef id="id1" soapenc:root="0" soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xsi:type="ns6:WsDossier" xmlns:ns6="urn:SigeGateMed" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+            <dateEntree xsi:type="xsd:string">
+                06/02/1997
+            </dateEntree>
+            <dateIntervention xsi:type="xsd:string" xsi:nil="true" />
+            <dateSortiePrevue xsi:type="xsd:string">
+                06/02/1997
+            </dateSortiePrevue>
+            <dateSortieReelle xsi:type="xsd:string">
+                07/02/1997
+            </dateSortieReelle>
+            <dureeIntervention xsi:type="xsd:string" xsi:nil="true" />
+            <heureEntree xsi:type="xsd:string">
+                10
+            </heureEntree>
+            <heureIntervention xsi:type="xsd:string" xsi:nil="true" />
+            <idAnesthesiste xsi:type="xsd:string" xsi:nil="true" />
+            <idChirurgien xsi:type="xsd:string" xsi:nil="true" />
+            <idMedecinTraitant xsi:type="xsd:string" xsi:nil="true" />
+            <ippSigemsAssure xsi:type="xsd:int">
+                17802
+            </ippSigemsAssure>
+            <ippSigemsPatient xsi:type="xsd:int">
+                17801
+            </ippSigemsPatient>
+            <modeTraitement xsi:type="xsd:string">
+                07
+            </modeTraitement>
+            <motif xsi:type="xsd:string" xsi:nil="true" />
+            <numero xsi:type="xsd:string">
+                9790259
+            </numero>
+            <service xsi:type="xsd:string">
+                EXTE
+            </service>
+            <typeChambre xsi:type="xsd:string" xsi:nil="true" />
+        </multiRef>
+    </soapenv:Body>
+</soapenv:Envelope>
