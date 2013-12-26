@@ -83,7 +83,9 @@ CDevilCrucible::CDevilCrucible(QString                *pDocument     ,       // 
                                VAR_MAP *               pVariables,           // 8 pointeur sur la liste des variables (zero par defaut)
                                ACTION_TYPE             isJustForWatch        // 9 defaut = CDevilCrucible::DoAll indique que c'est juste pour la visualisation ou to faire
                               )
-{m_pCurDisplayDocMap  = pCurDisplayDocMap;
+{m_pCurDisplayDocMap  = new DOCUMENT_DISPLAY_MAP;
+ m_pCurDisplayDocMap->copy(pCurDisplayDocMap);
+
  m_pRubList           = pRubList;
  m_pMB                = pCMoteurBase;
  m_pMD                = pCMedicaBase;
@@ -114,8 +116,26 @@ if (p !=-1) pDocument->truncate(p);
 /*! \brief destructeur de la classe */
 CDevilCrucible::~CDevilCrucible()
 {if (m_VariablesToDelete && m_pVariables) delete m_pVariables;
+ if (m_pCurDisplayDocMap) delete m_pCurDisplayDocMap;
 }
 
+/*! \brief destructeur de la classe */
+void CDevilCrucible::regenerateDisplayMap()
+{    m_pCurDisplayDocMap->clear();
+     if (G_pCApp==0)           return;
+     if (G_pCApp->m_pDrTux==0) return;
+     DOCUMENT_DISPLAY_MAP mapDoc;
+     G_pCApp->m_pDrTux->MapActiveID_Doc(mapDoc);
+     m_pCurDisplayDocMap->copy(mapDoc);
+     /* CMDI_Generic *pCMDI_Generic = (CMDI_Generic*) */ G_pCApp->m_pDrTux->GetCurrentRubrique(0, 0, &m_pCRubCurrentRecord);
+    /*
+     // G_pCApp->m_pDrTux->MapActiveID_Doc(mapDoc);
+     // G_mCDC->m_pCurDisplayDocMap->copy(mapDoc);
+     // * G_mCDC->m_pCurDisplayDocMap = G_pCApp->m_pDrTux->GetMapActiveID_Doc();
+     //  G_pCApp->m_pDrTux->MapActiveID_Doc(mapDoc);
+    */
+
+}
 
 //----------------------------------------  DoMixture -------------------------------------------------
 /*! \brief Fusionne les champs de fusion un document donnée en entrée par: QString &document cette fonction demande un contexte sur l'observation en cours afin de tenir compte de l'utilisateur ayant créé cette observation ainsi que des elements propres à l'observation: elements du contenu etc....

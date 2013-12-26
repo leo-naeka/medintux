@@ -714,23 +714,6 @@ void C_DlgMainDialog::pushButton_Qt3_clicked()
  if (optDir.length()) lineEdit_Qt3->setText(optDir);
 }
 
-//----------------------------------------- tryToFindQt3 ---------------------------------------------
-QString  C_DlgMainDialog::tryToFindQt3()
-{
-#ifdef Q_OS_MACX
- QString ret = QString::null;
- if        (QFile::exists(QDir::cleanDirPath(G_pCApp->m_PathAppli+"../../Qt/bin/qmake")))   ret = QDir::cleanDirPath(G_pCApp->m_PathAppli+"../../Qt");
- else if   (QFile::exists("/usr/lib/qt3/bin/qmake"))  ret = "/usr/lib/qt3";
- return    ret;
-#else
- QString ret = QString::null;
- if        (QFile::exists("/usr/lib/qt/bin/qmake"))   ret = "/usr/lib/qt";
- else if   (QFile::exists("/usr/lib/qt3/bin/qmake"))  ret = "/usr/lib/qt3";
- else if   (QFile::exists("/usr/bin/qmake"))          ret = "/usr";
- return    ret;
-#endif
-}
-
 //----------------------------------------- keepOnlyNumber ---------------------------------------------
 QString  C_DlgMainDialog::keepOnlyNumber(const QString &strIn)
 {int       i = 0;
@@ -842,6 +825,24 @@ QString C_DlgMainDialog::getTargetSrcPath(const QString &target)
           }
     return main_path;
 }
+//----------------------------------------- tryToFindQt3 ---------------------------------------------
+QString  C_DlgMainDialog::tryToFindQt3()
+{
+#ifdef Q_OS_MACX
+ QString ret = QString::null;
+ if        (QFile::exists(QDir::cleanDirPath(G_pCApp->m_PathAppli+"../../Qt/bin/qmake")))   ret = QDir::cleanDirPath(G_pCApp->m_PathAppli+"../../Qt");
+ else if   (QFile::exists("/usr/lib/qt3/bin/qmake"))  ret = "/usr/lib/qt3";
+ return    ret;
+#else
+ QString ret    = QString::null;
+ QString toTest = QDir::cleanDirPath(G_pCApp->m_PathAppli + "../../../qt3_l64");
+ if        (QFile::exists(toTest+"/bin/qmake"))       return toTest;
+ if        (QFile::exists("/usr/lib/qt/bin/qmake"))   ret = "/usr/lib/qt";
+ else if   (QFile::exists("/usr/lib/qt3/bin/qmake"))  ret = "/usr/lib/qt3";
+ else if   (QFile::exists("/usr/bin/qmake"))          ret = "/usr";
+ return    ret;
+#endif
+}
 
 //----------------------------------------- tryToFindSdkQt4 ---------------------------------------------
 QString  C_DlgMainDialog::tryToFindSdkQt4()
@@ -860,14 +861,24 @@ QString  C_DlgMainDialog::tryToFindSdkQt4()
  if (lastIndex != -1)   return listOptDir[lastIndex].prepend("/usr/local/Trolltech/");
  else                   return QString::null;
 #else
- QString           prefix  = "/opt/";            // on teste si cette version du sdk Qt4 (mandriva) existe
- QString           sufix   = "/qt/";             // on teste si cette version du sdk Qt4 (mandriva) existe
- QStringList    listOptDir = CGestIni::listDirectory("/opt", "", "qtsdk-", "|", FALSE, TRUE);
+ //............ rechercher bon path qt ...................................
+ QString           prefix  = QDir::cleanDirPath(G_pCApp->m_PathAppli + "../../../qt4_l64");
+ QString           sufix   = "";
+ QStringList    listOptDir = CGestIni::listDirectory(prefix, "", "Qt-", "|", FALSE, TRUE);
+ prefix                   += "/";
+
  if ( listOptDir.count()==0)                     // si pas trouvee on teste si cette version du sdk Qt4 (ubuntu ou autres 4.8.5) existe
-    { listOptDir = CGestIni::listDirectory("/usr/local/Trolltech", "", "Qt-", "|", FALSE, TRUE);
-      prefix     = "/usr/local/Trolltech/";
-      sufix      = "";
-    }
+    { prefix  = "/opt/";            // on teste si cette version du sdk Qt4 (mandriva) existe
+      sufix   = "/qt/";             // on teste si cette version du sdk Qt4 (mandriva) existe
+      listOptDir = CGestIni::listDirectory("/opt", "", "qtsdk-", "|", FALSE, TRUE);
+
+      if ( listOptDir.count()==0)                     // si pas trouvee on teste si cette version du sdk Qt4 (ubuntu ou autres 4.8.5) existe
+         { prefix     = "/usr/local/Trolltech";
+           listOptDir = CGestIni::listDirectory(prefix, "", "Qt-", "|", FALSE, TRUE);
+           prefix    += "/";
+           sufix      = "";
+         }
+  }
  int         lastIndex  = -1;
  int             lastN  = 0;
  int                  n = 0;

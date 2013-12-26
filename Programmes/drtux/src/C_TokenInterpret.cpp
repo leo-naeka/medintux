@@ -2299,6 +2299,32 @@ QString C_TokenInterpret::VALIDER_DOSSIER(QStringList & /*arg_list*/)
     {if (G_pCApp==0)                    return QString::null;
      if (G_pCApp->m_pDrTux==0)          {G_pCApp->CouCou(TR("Erreur VALIDER_DOSSIER() : DrTux non initialise"));return QString::null;}
      G_pCApp->m_pDrTux->OnDrTuxSaveRubList();
+     G_mCDC->regenerateDisplayMap();
+     if (G_pCApp==0)           return "";
+     if (G_pCApp->m_pDrTux==0) return "";
+     
+     //DOCUMENT_DISPLAY_MAP mapDoc;
+     //G_pCApp->m_pDrTux->MapActiveID_Doc(mapDoc);
+     //G_mCDC->m_pCurDisplayDocMap->copy(mapDoc);
+     // *G_mCDC->m_pCurDisplayDocMap = G_pCApp->m_pDrTux->GetMapActiveID_Doc();
+     //  G_pCApp->m_pDrTux->MapActiveID_Doc(mapDoc);
+     /* 
+     G_mCDC->     CRubRecord             *m_pCRubCurrentRecord;/ *!< current  rubrique record  (if exist) * /
+     VAR_MAP                *m_pVariables;        / *!< contiendra la liste des variables locales des scripts * /
+     CMoteurBase            *m_pMB;               / *!< pointer to CMoteurBase class to provide database functions manipulation's * /
+     QString                 m_IdentPrimKey;      / *!< patient identity primary key on m_DOSS_IDENT_TBL_NAME * /
+     QString                 m_UserDocPk;         / *!< current  user primary key on m_USER_IDENT_TBL_NAME from document user * /
+     RUBREC_LIST            *m_pRubList;          / *!< pointer to RUBREC_LIST documents list of the patient * /
+     const DOCUMENT_DISPLAY_MAP   *m_pCurDisplayDocMap; / *!< pointer to DOCUMENT_DISPLAY_MAP, current displaying documents list * /
+     CMedicaBase            *m_pMD;               / *!< pointer to CMedicaBase class to provide drugs database functions manipulation's * /
+     QString                *m_pDocument;         / *!< QString pointer to the text to be modified * /
+     QString                 m_UserActuelPk;      / * !< current  user primary key on m_USER_IDENT_TBL_NAME from actual   user * /
+     int                     m_isJustForWatch;    / *!< to specifie that fusion must be doo just for see * /
+   */
+ //........ il vaut mieux recuperer la rubrique avant Slot_ExeMixture () .......
+ //         car si zero Slot_ExeMixture() la recherche a chaque fois
+ //         et l'operation est longue
+
      return QString::null;
     }
 ///////////////////////////// MACROS CALL BACK /////////////////////////////////////////////
@@ -3031,7 +3057,18 @@ QString C_TokenInterpret::VILLE_MEDECIN(QStringList &)
     {return G_mCDC->m_pMB->GetFieldValue(G_mCDC->m_pMB->m_USER_IDENT_TBL_NAME, G_mCDC->m_pMB->m_USER_IDENT_VILLE,
                                          G_mCDC->m_pMB->m_USER_IDENT_PRIMKEY , G_mCDC->m_UserDocPk);
     }
-
+//-------------------------- WAIT_CURSOR -------------------------------------------
+/*! \brief non documente */
+QString C_TokenInterpret::WAIT_CURSOR (QStringList &arg_list)
+    {
+          if (arg_list[0]=="RESTORE"||arg_list[0]=="NORMAL")
+             { QApplication::restoreOverrideCursor();
+             }
+          else
+             {QApplication::setOverrideCursor ( Qt::WaitCursor );
+             }
+          return "";
+    }
 
 /////////////////////////////////// FONCTIONS DE SERVICE ////////////////////////////
 //----------------------- Func_Extract_TTT ------------------------------------------

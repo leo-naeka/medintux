@@ -15,7 +15,7 @@ DEFINES     += "NAME_ORGANISATION=\"\\\"$${NAME_ORG}\\\"\""
 DEFINES     += "NAME_DOMAINE=\"\\\"$${NAME_DOM}\\\"\""
 TEMPLATE     = app
 
-
+message(Qt version: $$[QT_VERSION])
 include(../../MedinTuxTools-QT4/qtsingleapplication/src/qtsingleapplication.pri)
 
 mac { LIBS +=  -L/usr/X11/lib

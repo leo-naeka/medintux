@@ -356,7 +356,6 @@ typedef CRubEvntList EVNT_LIST; /*!< Liste des des rapports hierarchiques entre 
 */
 
 //====================================== CRubRecord =========================================================================
-
 class CRubRecord : public QByteArray
 {
     //------------------------------------------------ constructeur destructeur ------------------------------------------------
@@ -578,7 +577,47 @@ QCString serialize(int withXmlHead)
 // cette QMap permet d'associer un pointeur sur un contenu de rubrique : *CRubRecord   �
 // une clef : QString qui contient le nom : 'Observation' , 'Prescription',  'Terrain'  etc ...
 // de la rubrique en cours dans laquelle est affich� : CRubRecord
+//====================================== CRubEvntList =========================================================================
+/*! \class CRubEvntList
+ *  \brief Classe de liste de données pour stocker les relations hierarchiques entre les documents du dossier médical.
+ * la structure est la representation de la table : Evnmt_Liens avec le pk de l'enregistrement
+ * si le m_Pk commence par # alors les caracteres qui suivent sont celui  d'un pk provisoire unique qui sert a
+ * reperer un enregistrement nouveau lors la mise à jour definitive du pk lors d'un enregistrement des donnees
+*/
+class DOCUMENT_DISPLAY_MAP : public QMap <QString, CRubRecord*>
+{
 
-typedef QMap<QString, CRubRecord*> DOCUMENT_DISPLAY_MAP;
+ public:
+    DOCUMENT_DISPLAY_MAP()
+           : QMap <QString, CRubRecord*>()
+    {
+    }
+
+//-------------------------------------------- serialize ---------------------------------------------------------
+/*! \brief Fonction qui retourne une chaine contenant la serialisation de la liste
+ *  \param withXmlHead    int : si zero le header XML ne sera pa ajoute en tete
+ *  \return QString :     qui est la serialisation de la liste
+*/
+void copy( const QMap  <QString, CRubRecord*> &map)
+{ clear();
+  QMapConstIterator <QString, CRubRecord*> it; 
+  for  ( it = map.begin(); it != map.end(); ++it ) 
+       {  insert ( it.key(), it.data() );
+       }
+}
+//-------------------------------------------- serialize ---------------------------------------------------------
+/*! \brief Fonction qui retourne une chaine contenant la serialisation de la liste
+ *  \param withXmlHead    int : si zero le header XML ne sera pa ajoute en tete
+ *  \return QString :     qui est la serialisation de la liste
+*/
+void copy( const QMap  <QString, CRubRecord*> *map)
+{ clear();
+  QMapConstIterator <QString, CRubRecord*> it;
+  for  ( it = map->begin(); it != map->end(); ++it ) 
+       {  insert ( it.key(), it.data() );
+       }
+}
+};
+// typedef QMap<QString, CRubRecord*> DOCUMENT_DISPLAY_MAP;
 #endif
 

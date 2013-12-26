@@ -1594,8 +1594,10 @@ CRubRecord*   CApp::AddNewDocument(CMDI_Generic* pCMDI, const QString &strData_i
 
  //.......................... faire les fusions si nécessaire .............................................
  (*it).m_LastErr = "";
+ DOCUMENT_DISPLAY_MAP mapDoc;
+ m_pDrTux->MapActiveID_Doc(mapDoc);
  m_VAR_MAP.insert("$SCRIPT_STATUS", rubName + "_$FUSION_CREATE");
- m_pDrTux->FusionneDocument(html_Data, m_User, it, m_pDrTux->GetMapActiveID_Doc()); // data = data.replace('0xa0','0x20');
+ m_pDrTux->FusionneDocument(html_Data, m_User, it, mapDoc); // data = data.replace('0xa0','0x20');
  m_VAR_MAP.insert("$SCRIPT_STATUS", rubName + "_$FUSION_END");
 
  if ((*it).m_LastErr[0]=='_'||html_Data.find("__ERREUR Fusion :__") != -1)
@@ -1667,8 +1669,10 @@ void   CApp::DoActionWithThisDocument(CMDI_Generic* pCMDI, const QString &verbe,
          else                                                 return;                                                                     // annuler ou fichier invalide
         }
      //.......................... faire les fusions si nécessaire .............................................
+     DOCUMENT_DISPLAY_MAP mapDoc;
+     m_pDrTux->MapActiveID_Doc(mapDoc);
      m_VAR_MAP.insert("$SCRIPT_STATUS",pCMDI->GetRubName()+"_$FUSION_ADD_"+verbe);
-     m_pDrTux->FusionneDocument(strData, m_User, it,  m_pDrTux->GetMapActiveID_Doc()); // data = data.replace('0xa0','0x20');
+     m_pDrTux->FusionneDocument(strData, m_User, it,  mapDoc); // data = data.replace('0xa0','0x20');
      m_VAR_MAP.insert("$SCRIPT_STATUS",pCMDI->GetRubName()+"_$FUSION_END");
 
      if (verbe == TR("Tout")) pMyEditText->selectAll();

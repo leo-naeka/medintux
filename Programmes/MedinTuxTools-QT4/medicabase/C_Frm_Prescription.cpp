@@ -2113,10 +2113,10 @@ C_Frm_PosologieHitList::C_Frm_PosologieHitList (const QStringList   &grammarHitL
    pos_y     = m_LineEditIndic->y() + m_LineEditIndic->height() + m_marge;
    int but_w = (geometry_rect.width()-m_marge*2)/2 ;
    int but_x = m_marge;
-   m_Button_Add_Fav = new CMyColorButton(backGroundColor,this,tr("Ajouter un favoris|HitList : m_Button_Add"));
+   m_Button_Add_Fav = new CMyColorButton(backGroundColor,this,tr("Ajouter aux favoris|HitList : m_Button_Add"));
    m_Button_Add_Fav->setGeometry(but_x,pos_y,but_w,h_button);            but_x += but_w;  m_Button_Add_Fav->setFont(m_fGrd);
 
-   m_Button_Del_Fav = new CMyColorButton(backGroundColor,this,tr("Retirer un favoris|HitList : m_Button_Del"));
+   m_Button_Del_Fav = new CMyColorButton(backGroundColor,this,tr("Retirer un favori|HitList : m_Button_Del"));
    m_Button_Del_Fav->setGeometry(but_x,pos_y,but_w,h_button);            but_x += but_w;  m_Button_Del_Fav->setFont(m_fGrd);
 
    connect( m_ButtonHitClose, SIGNAL( clicked (bool)  ),  this , SLOT( Slot_ButtonHitClose_Clicked(bool) ));

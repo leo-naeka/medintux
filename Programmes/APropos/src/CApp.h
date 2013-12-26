@@ -71,7 +71,7 @@ QString              m_PathApropos;         /*!< chemin de la page html de l'ong
 QString              m_PathIcone;           /*!< chemin de l'icone du module a afficher */
 QString              m_PathHelp;            /*!< chemin de la page html de l'onglet d'aide */
 QString              m_PathTheme;           /*!< chemin du repertoire de themes */
-QString              m_BaseVersion;         /*!< numero de version de la base de données a afficher */
+QString              m_BaseVersion;         /*!< numero de version de la base de donnees a afficher */
 };
 
 extern CApp* G_pCApp;                                 /*!< pointeur global sur l'application */

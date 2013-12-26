@@ -1,13 +1,13 @@
 QT += core gui \
     network \
     webkit \
-    sql \
-    xml
+    sql
 
+message(Qt version: $$[QT_VERSION])
 ROOT_PROJECT = $$PWD/../
 SRC_DIR      = $${ROOT_PROJECT}/src/
 DESTDIR      = $${ROOT_PROJECT}/bin
-LIBS        += /usr/lib/libX11.so.6
+
 #........... make the binary name and version number available in c++ code using macro definition ................
 TARGET       = synoptux
 NUM_VERS     = 2.15.001
@@ -18,10 +18,6 @@ DEFINES     += "NAME_APPLI=\"\\\"$${TARGET}\\\"\""
 DEFINES     += "NAME_ORGANISATION=\"\\\"$${NAME_ORG}\\\"\""
 DEFINES     += "NAME_DOMAINE=\"\\\"$${NAME_DOM}\\\"\""
 TEMPLATE     = app
-
-# include( $${SRC_DIR}/config.pri)
-# include( $${SOURCES_LIBS_PATH}/aggregation.pri)
-# include( $${SOURCES_LIBS_PATH}/extensionsystem.pri )
 
 include(../../MedinTuxTools-QT4/qtsingleapplication/src/qtsingleapplication.pri)
 
@@ -70,6 +66,9 @@ HEADERS = mainwindow.h \
     C_Dlg_Changements.h \
     C_ClickableLed.h
 
+mac:        LIBS += -L/usr/X11/lib
+unix:!macx: LIBS += -lX11
+
 RESOURCES = synoptux.qrc
 
 FORMS += box.ui \
@@ -96,3 +95,5 @@ mac:OBJECTS_DIR   = $${SRC_DIR}/obj/mac
 UI_DIR   = $${SRC_DIR}/ui
 MOC_DIR  = $${SRC_DIR}/moc
 RCC_DIR  = $${SRC_DIR}/rcc
+
+

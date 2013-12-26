@@ -247,6 +247,8 @@ void C_Dlg_MainDialog::Slot_On_pushButton_Effacer()
 void C_Dlg_MainDialog::Test_And_RemoveDir(QString src_Dir,  QString dirList_To_remove,  QString motifList_To_Erase)
 {
     //........................ explorer la source .......................................
+    if (QDir(src_Dir).isRelative()) src_Dir.prepend(m_PathAppli);
+    src_Dir = QDir::cleanDirPath(src_Dir);
     QDir cur_dir( src_Dir );
     cur_dir.setFilter( QDir::All | QDir::NoSymLinks | QDir::Hidden );
     QStringList         dirToRmList  = QStringList::split(";",dirList_To_remove);

@@ -11,6 +11,8 @@ QT += core gui \
     xml \
     multimedia
 
+message(Qt version: $$[QT_VERSION])
+
 ROOT_PROJECT        = $$PWD/../
 SRC_DIR             = $${ROOT_PROJECT}/src/
 DESTDIR             = $${ROOT_PROJECT}/bin/

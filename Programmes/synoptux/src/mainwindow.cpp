@@ -545,7 +545,6 @@ void MainWindow::AfficherLesTaches(C_Wdg_Box *dlgBox, QString /*codeBox*/, QStri
 
         // Recherche des etats possibles de la tache en cours et creation de boutons
         int        nbBouton   = 0;
-        bool    premierEtat   = false;
         dernierEtat           = "N";
         QString couleurDefaut = "#FFFFFF";
         requeteEtat  = QString (" SELECT ET_Libelle_etat, ET_Couleur_etat , ET_Tache_terminee, ET_Code_etat"    // 0-1-2-3
@@ -594,8 +593,7 @@ void MainWindow::AfficherLesTaches(C_Wdg_Box *dlgBox, QString /*codeBox*/, QStri
                 {// ce bouton reprend le libelle de l'etat en cours au moment de l'affichage.
                 style = "Menu_Etat_Tache_EnCours";
                 if (etatEnCours.length() < 1)
-                    {premierEtat = true;
-                     etatEnCours = queryb.value(0).toString();
+                    {etatEnCours = queryb.value(0).toString();
                      style = "Menu_Etat_Tache";
                     }
                 QString truc = queryb.value(0).toString();
@@ -610,7 +608,6 @@ void MainWindow::AfficherLesTaches(C_Wdg_Box *dlgBox, QString /*codeBox*/, QStri
                     if (statusReplier) bouttonEtatTache->setVisible(false);
                     bouttonEtatTache->setMinimumHeight(m_Hauteur_Taches);
                     bouttonEtatTache->setMaximumWidth((m_Largeur_Box - m_Largeur_Tache )); // ???
-                   // if (premierEtat) BoutonOpaque(BouttonEtatTache, 1, queryb.value(1).toString());
                     connect(bouttonEtatTache, SIGNAL(clicked()), m_EtatMapper, SLOT(map()));
                     m_EtatMapper->setMapping(bouttonEtatTache, bouttonEtatTache);
                     horizonLayoutTache->addWidget(bouttonEtatTache);

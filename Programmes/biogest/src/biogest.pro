@@ -11,7 +11,7 @@ QT += core gui \
 ROOT_PROJECT        = $$PWD/../
 SRC_DIR             = $${ROOT_PROJECT}/src/
 DESTDIR             = $${ROOT_PROJECT}/bin
-
+message(Qt version: $$[QT_VERSION])
 #........... make the binary name and version number available in c++ code using macro definition ................
 TARGET       = biogest
 NUM_VERS     = 2.16.000
@@ -30,7 +30,7 @@ include(../../MedinTuxTools-QT4/qtsingleapplication/src/qtsingleapplication.pri)
 
 mac { LIBS +=  -L/usr/X11/lib
     }
-
+unix:!macx: LIBS += -lX11
 SOURCES += main.cpp \
     C_Dlg_BioGest.cpp \
     C_DSVar.cpp \

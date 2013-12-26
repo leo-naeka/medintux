@@ -10,7 +10,7 @@ QT += core gui \
 ROOT_PROJECT        = $$PWD/../
 SRC_DIR             = $${ROOT_PROJECT}/src/
 DESTDIR             = $${ROOT_PROJECT}/bin
-
+message(Qt version: $$[QT_VERSION])
 #........... make the binary name and version number available in c++ code using macro definition ................
 TARGET       = SigEntrees
 NUM_VERS     = 2.15.000
@@ -21,6 +21,10 @@ DEFINES     += "NAME_APPLI=\"\\\"$${TARGET}\\\"\""
 DEFINES     += "NAME_ORGANISATION=\"\\\"$${NAME_ORG}\\\"\""
 DEFINES     += "NAME_DOMAINE=\"\\\"$${NAME_DOM}\\\"\""
 TEMPLATE     = app
+
+mac { LIBS +=  -L/usr/X11/lib
+    }
+unix:!macx: LIBS += -lX11
 
 # include( $${SRC_DIR}/config.pri)
 # include( $${SOURCES_LIBS_PATH}/aggregation.pri)

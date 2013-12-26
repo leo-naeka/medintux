@@ -306,6 +306,7 @@ class C_TokenInterpret
   static QString VALIDER_DOSSIER               (QStringList &arg_list);
   static QString VILLE_MEDECIN                 (QStringList &arg_list);
   static QString VILLE_PATIENT                 (QStringList &arg_list);
+  static QString WAIT_CURSOR                   (QStringList &arg_list);
 //.......... eviter message Not Used ............
   int justForUsed() {return forUse_G_MacroTab_List();}
 
@@ -621,7 +622,9 @@ static QString    Func_Extract_Table_D(    const QString &str_data,
                                            {"VILLE_MEDECIN",                  C_TokenInterpret::VILLE_MEDECIN},
                                            {"VILLE_PATIENT",                  C_TokenInterpret::VILLE_PATIENT}
                                           };
-  static KEY_MACRO     G_MacroTab_W[ ]  = {{"W_NOP",                          C_TokenInterpret::NOP}};
+  static KEY_MACRO     G_MacroTab_W[ ]  = {{"WAIT_CURSOR",                    C_TokenInterpret::WAIT_CURSOR},
+                                           {"WC",                             C_TokenInterpret::WAIT_CURSOR}
+                                          };
   static KEY_MACRO     G_MacroTab_X[ ]  = {{"X_NOP",                          C_TokenInterpret::NOP}};
   static KEY_MACRO     G_MacroTab_Y[ ]  = {{"Y_NOP",                          C_TokenInterpret::NOP}};
   static KEY_MACRO     G_MacroTab_Z[ ]  = {{"ZAB",                            C_TokenInterpret::VALIDER_DOSSIER}

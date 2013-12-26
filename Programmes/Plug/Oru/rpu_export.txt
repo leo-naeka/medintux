@@ -1,4 +1,5 @@
 {{\
+{{WAIT_CURSOR}}\
 {{REM =......................... verifier si la macro doit etre active ..............................}}\
 {{REM =                          CAD si le fichier rpu doit etre genere                              }}\
 {{REM =                          la macro est inactive si : la mention                               }}\
@@ -70,7 +71,7 @@
 {{REM =..................... recuperer date heure sortie .................................................}}\
 {{:: VAR_SET(rpu_dt_hr_sortie,{{:: RB({{:: CS({{:: Extract (Observation,Date SU :,H. départ SU :)}})}},-,/)}} {{:: CS({{:: Extract (Observation,H. départ SU :,EOL)}})}})}}\
 {{REM =..................... recuperer mode sortie .................................................}}\
-{{:: Extract (Observation,Circonstances :,EOL)>rpu_mode_sortie}}\
+{{:: Extract (Observation,Type de sortie :,EOL)>rpu_mode_sortie}}\
 {{:: IO($rpu_mode_sortie,-)>rpu_i}}\
 {{:: LEFT($rpu_mode_sortie,$rpu_i)-rpu_mode_sortie}}\
 {{:: VAR_SET(rpu_mode_sortie,{{::#SI(S,$rpu_mode_sortie,=,H,6,{{::#SI(S,$rpu_mode_sortie,=,T,7,{{::#SI(S,$rpu_mode_sortie,=,D,9,8)}})}})}})}}\
@@ -86,7 +87,7 @@
 {{:: {{VAR=rpu_is_active}}VAR_SET(rpu_path_exchg,{{:: RB(../../Plug/Oru/xml/RPU-{{NOM_PRENOM_PATIENT}}_{{GUID}}_{{VAR=rpu_dt_entree}}T{{:: RB($rpu_hr_entree,h,h)}}.xml, ,-)}})}}\
 {{:: {{VAR=rpu_is_active}}RF( ../../Plug/Oru/RPU-PassageModele.txt,$rpu_path_exchg,rpu_dt_evnt,rpu_cd_post,rpu_ville,rpu_dt_nss,rpu_sexe,rpu_dt_hr_entree,rpu_mode_entree,rpu_provenance,rpu_trans_mode,rpu_trans_pec,rpu_motif,rpu_gravite,rpu_diag_princ,rpu_diag_assoc_list,rpu_cam_list,rpu_dt_hr_sortie,rpu_mode_sortie,rpu_destination,rpu_orientation)}}\
 {{:: {{VAR=rpu_is_active}}exe_process (WaitEnd ,../../Plug/Oru/QNetCopy,$ToAbsPath{{VAR=rpu_path_exchg}},//192.168.100.22/rpu$)}}
-
+{{:: WAIT_CURSOR (RESTORE)}}\
 }}<br/>
 <b>rpu_is_active : </b> '{{VAR=rpu_is_active}}'<br/>
 <b>rpu_nbSec : </b> '{{VAR=rpu_nbSec}}'<br/>
