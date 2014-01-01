@@ -163,6 +163,8 @@ CREATE TABLE  `DrTuxTest`.`Personnes` (
   `Tel_Abr_3` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `Site` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `Couleur` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `NumRPPS` varchar(10)  CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ClefRPPS` varchar(40) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`ID_PrimKey`),
   KEY `Nom` (`Nom`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
@@ -173,8 +175,8 @@ CREATE TABLE  `DrTuxTest`.`Personnes` (
 
 /*!40000 ALTER TABLE `Personnes` DISABLE KEYS */;
 LOCK TABLES `Personnes` WRITE;
-INSERT INTO `DrTuxTest`.`Personnes` VALUES  ('6BE6AE4A-577E-3E4C-8C18-EEB2D55D6CDE','','admin','DEFAULT','','-ata-adm-gln-cec-coc-doc-iec-obc-orc-etc-idc-clc-gld-gls-cep-cop-dop-iep-obp-orp-clp-idg-cem-com-orm-glc-atc-tvc-ttc-agc-cer-cor-orr-adr-ccc-bmc-agm-cic-lac-med-clv-atv-cev-cov-dov-iev-obv-orv-agv-tvv-ttv-idv-sgn','M','01','123456789','Admin','User','Avenue du Général Salan','99 MEDECINE GENERALE','13170','MEDINTUX VILLE','      ','      ','      ','',4,'','Maintenance informatique','','Mr','','','','','','','',NULL,' '),
- ('0a6b4a78-8e71-4eb1-a286-363ad8e975f2','','','','','','M','','111111111111111','POURFERLAVESSEL','Vladimir','Quai du détergent','','84220','GORDES','12 12 12 12 12 12 12','      ','      ','lemail@fournisseur.fr',5,'Cabinet de 8h00 à 12h00 Lundi Mardi Jeudi Vendredi Samedi\nVisite l\'AM de 13h00 à 16h00 Lundi Mardi Jeudi Vendredi','Maintenance informatique',NULL,'Dr','Cher','Cabinet','','','1245','','',NULL,' ');
+INSERT INTO `DrTuxTest`.`Personnes` VALUES  ('6BE6AE4A-577E-3E4C-8C18-EEB2D55D6CDE','','admin','DEFAULT','','-ata-adm-gln-cec-coc-doc-iec-obc-orc-etc-idc-clc-gld-gls-cep-cop-dop-iep-obp-orp-clp-idg-cem-com-orm-glc-atc-tvc-ttc-agc-cer-cor-orr-adr-ccc-bmc-agm-cic-lac-med-clv-atv-cev-cov-dov-iev-obv-orv-agv-tvv-ttv-idv-sgn','M','01','123456789','Admin','User','Avenue du Général Salan','99 MEDECINE GENERALE','13170','MEDINTUX VILLE','      ','      ','      ','',4,'','Maintenance informatique','','Mr','','','','','','','',NULL,' ',' ',' '),
+ ('0a6b4a78-8e71-4eb1-a286-363ad8e975f2','','','','','','M','','111111111111111','POURFERLAVESSEL','Vladimir','Quai du détergent','','84220','GORDES','12 12 12 12 12 12 12','      ','      ','lemail@fournisseur.fr',5,'Cabinet de 8h00 à 12h00 Lundi Mardi Jeudi Vendredi Samedi\nVisite l\'AM de 13h00 à 16h00 Lundi Mardi Jeudi Vendredi','Maintenance informatique',NULL,'Dr','Cher','Cabinet','','','1245','','',NULL,' ',' ',' ');
 UNLOCK TABLES;
 /*!40000 ALTER TABLE `Personnes` ENABLE KEYS */;
 
@@ -40261,7 +40263,8 @@ INSERT INTO `DrTuxTest`.`version` VALUES  (1,'1.00'),
  (3,'2.10'),
  (4,'2.13'),
  (5,'2.14'),
- (6,'2.15');
+ (6,'2.15'),
+ (7,'2.16.000');
 UNLOCK TABLES;
 /*!40000 ALTER TABLE `version` ENABLE KEYS */;
 

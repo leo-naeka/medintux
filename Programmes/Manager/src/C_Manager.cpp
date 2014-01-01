@@ -691,7 +691,6 @@ if (G_pCApp->readUniqueParam ( "Sesam-Vitale", "ModuleName")!= "PYXVITAL")
    connect( m_Button_Affichage_EnCours,       SIGNAL(clicked()),                                                     this, SLOT(Slot_Type_Affichage_Change()) );
    connect( m_actionSpecifique,               SIGNAL(triggered ( bool )),                                            this, SLOT(Slot_launchSpecificJob (bool)) );
 
-
    //....................... nomadisme ....................................................
    if (G_pCApp->m_pQSplashScreen) G_pCApp->m_pQSplashScreen->showMessage(QObject::tr("Initialising nomad qtatus........."), Qt::AlignCenter | Qt::AlignCenter, Qt::black);
    if (G_pCApp->m_IsGestionNomadisme)
@@ -2198,7 +2197,12 @@ if (guid.length()== 0)
          }
    }
 else      //if (guid.length()== 0)
-   {Slot_LauchPatient(guid);
+   { long nb = m_pCMoteurBase->GetPatientList(  m_pGUI->listView_Patient,  // appel GetPatientList(...) indispensable (BUG JLdajon)
+                                                QString("_GUID=")+guid,
+                                                "",
+                                                m_pGUI->textLabel_StateList
+                                             );
+     if (nb) Slot_LauchPatient(guid);
    }
 }
 

@@ -1023,7 +1023,8 @@ long CMoteurBase::GetPatientList(       QTreeWidget     *pQlistView,
      {if (errMess) *errMess = tr("CMoteurBase::GetPatientList(): data base can't be open");
       return 0;
      }
-  QString requete, requete_ident;
+  QString requete;
+  //QString requete_ident;
   if (qstr_nom != ""||qstr_prenom!="")
      {q_nom    = qstr_nom;
       q_prenom = qstr_prenom;

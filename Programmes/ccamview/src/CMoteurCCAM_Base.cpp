@@ -248,7 +248,8 @@ QString CMoteurCCAM_Base::GetCCAM_Version()
     char *pt_deb = (char*)(const char*) version;
     char *pt     = pt_deb;
     while (pt && *pt && *pt =='0')  {++pt;};
-    return (version.mid(pt-pt_deb));
+    int v = version.mid(pt-pt_deb).toInt()-1;
+    return (QString::number(v));
 }
 
 //-----------------------------------------------------  GetActesParMotsClef -------------------------------------------
