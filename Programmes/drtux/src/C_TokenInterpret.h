@@ -175,6 +175,7 @@ class C_TokenInterpret
   static QString REPLACE_IN_FILE               (QStringList &arg_list);
   static QString RUBRIQUE_SHOW                 (QStringList &arg_list);
   static QString SET_DOC_DATE_FIN              (QStringList &arg_list);
+  static QString SET_DOC_DATE_DEB              (QStringList &arg_list);
   static QString SET_DOC_PROP_0                (QStringList &arg_list);
   static QString SET_DOC_PROP_1                (QStringList &arg_list);
   static QString SET_DOC_PROP_2                (QStringList &arg_list);
@@ -247,6 +248,7 @@ class C_TokenInterpret
   static QString INTERVENANT                   (QStringList &arg_list);
   static QString INCLUDE                       (QStringList &arg_list);
   static QString INCLUDE                       (QStringList &arg_list, QString &path);
+  static QString IS_DATE_VALID                 (QStringList &arg_list);
   static QString MESSAGE_ALERT                 (QStringList &arg_list);
   static QString MESSAGE_POPUP                 (QStringList &arg_list);
   static QString NOM_MEDECIN                   (QStringList &arg_list);
@@ -489,7 +491,9 @@ static QString    Func_Extract_Table_D(    const QString &str_data,
                                            {"INSERT_IMAGE",                   C_TokenInterpret::INSERT_IMAGE},
                                            {"INTERVENANT",                    C_TokenInterpret::INTERVENANT},
                                            {"INTITULE",                       C_TokenInterpret::INTITULE},
-                                           {"IO",                             C_TokenInterpret::INDEX_OF}
+                                           {"IO",                             C_TokenInterpret::INDEX_OF},
+                                           {"ISDV",                           C_TokenInterpret::IS_DATE_VALID},
+                                           {"IS_DATE_VALID",                  C_TokenInterpret::IS_DATE_VALID}
                                           };
   static KEY_MACRO     G_MacroTab_J[ ] =  {{"J_NOP",                          C_TokenInterpret::NOP}};
   static KEY_MACRO     G_MacroTab_K[ ] =  {{"K_NOP",                          C_TokenInterpret::NOP}};
@@ -556,7 +560,9 @@ static QString    Func_Extract_Table_D(    const QString &str_data,
                                            };
   static KEY_MACRO     G_MacroTab_S[ ] =  {{"SAVE_CURRENT_DOC",               C_TokenInterpret::SAVE_CURRENT_DOC},
                                            {"SAVE_LAST_IMAGE_NAME",           C_TokenInterpret::SAVE_LAST_IMAGE_NAME},
+                                           {"SET_DATE_DOC",                   C_TokenInterpret::SET_DOC_DATE_DEB},
                                            {"SET_DOC_DATE_FIN",               C_TokenInterpret::SET_DOC_DATE_FIN},
+                                           {"SET_DOC_DATE_DEB",               C_TokenInterpret::SET_DOC_DATE_DEB},
                                            {"SET_DOC_PROP_0",                 C_TokenInterpret::SET_DOC_PROP_0},
                                            {"SET_DOC_PROP_1",                 C_TokenInterpret::SET_DOC_PROP_1},
                                            {"SET_DOC_PROP_2",                 C_TokenInterpret::SET_DOC_PROP_2},

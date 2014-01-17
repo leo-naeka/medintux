@@ -79,7 +79,7 @@ class CRubEvntPair
  QCString serialize(int withXmlHead)
     {QString           xmlHead = "<?xml version=\"1.0\"  encoding=\"ISO-8859-1\" standalone=\"yes\" ?>";
      if (!withXmlHead) xmlHead = "";
-     return QCString( xmlHead)                +
+     return QCString(  xmlHead)               +
                      "\n<CRubEvntPair>"       +
                      "\n   <m_Pere>"   +QCString( m_Pere                    )     +  "</m_Pere>"
                      "\n   <m_PkDoc>"  +QCString( m_PkDoc                   )     +  "</m_PkDoc>"

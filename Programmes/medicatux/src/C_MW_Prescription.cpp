@@ -45,6 +45,7 @@
 #include "../../MedinTuxTools-QT4/C_DragQTreeWidget/C_DragQTreeWidget.h"
 #include "../../MedinTuxTools-QT4/medicabase/C_BaseMedica.h"
 #include "../../MedinTuxTools-QT4/medicabase/C_BDM_TheriaquePlugin.h"
+#include "../../MedinTuxTools-QT4/medicabase/C_BDM_GenericPlugin.h"
 #include "../../MedinTuxTools-QT4/medicabase/C_BDM_DatasempPlugin.h"
 #include "../../MedinTuxTools-QT4/medicabase/C_Frm_Prescription.h"
 #include "../../MedinTuxTools-QT4/medicabase/C_PatientCtx.h"
@@ -93,10 +94,10 @@ C_MW_Prescription::C_MW_Prescription(QWidget *parent) :
     m_pGUI->pushButton_CustomListMenu->setIcon( Theme::getIcon("medicatux/menu_left.png") ) ;
     m_pGUI->pushButton_CustomListMenu->setFlat(true);
 
-    m_pGUI->toolBox_ListesProduits->setItemIcon ( toolWidgetIndexByTabObjectName(m_pGUI->toolBox_ListesProduits, "page_CustomList"),  Theme::getIcon("medicatux/toolbox_custom.png") );
-    m_pGUI->toolBox_ListesProduits->setItemIcon ( toolWidgetIndexByTabObjectName(m_pGUI->toolBox_ListesProduits, "page_Favoris"),     Theme::getIcon("medicatux/toolbox_withposo.png") );
-    m_pGUI->toolBox_ListesProduits->setItemIcon ( toolWidgetIndexByTabObjectName(m_pGUI->toolBox_ListesProduits, "page_Historique"),  Theme::getIcon("medicatux/toolbox_historique.png") );
-    m_pGUI->toolBox_ListesProduits->setItemIcon ( toolWidgetIndexByTabObjectName(m_pGUI->toolBox_ListesProduits, "page_Accessoires"), Theme::getIcon("medicatux/toolbox_accessoires.png") );
+    m_pGUI->toolBox_ListesProduits->setItemIcon ( "page_CustomList",  Theme::getIcon("medicatux/toolbox_custom.png") );
+    m_pGUI->toolBox_ListesProduits->setItemIcon ( "page_Favoris",     Theme::getIcon("medicatux/toolbox_withposo.png") );
+    m_pGUI->toolBox_ListesProduits->setItemIcon ( "page_Historique",  Theme::getIcon("medicatux/toolbox_historique.png") );
+    // m_pGUI->toolBox_ListesProduits->setItemIcon ( "page_Accessoires", Theme::getIcon("medicatux/toolbox_accessoires.png") );
 
     //..........//////// navigateur internet ////////....................
     QWebSettings::globalSettings()->setAttribute(QWebSettings::JavascriptCanOpenWindows,TRUE);
@@ -123,7 +124,8 @@ C_MW_Prescription::C_MW_Prescription(QWidget *parent) :
     m_webView_Info->settings()->setAttribute( QWebSettings::JavascriptEnabled, true);
     m_webView_Info->settings()->setLocalStoragePath ( CApp::pCApp()->pathAppli()+"/Ressources/HtmlCache/" );
     m_pGUI->gridLayout_5->addWidget(m_webView_Info, 0, 0, 1, 1);
-
+    //........... liste des plugins .............................................
+    m_pGUI->comboBox_choixBase->addItems(CApp::pCApp()->getParamList("DBM_connectors","name",1));
     //..........//////// barre de menus ////////....................
     m_pGUI->pushButton_RetrySite->setIcon        ( Theme::getIcon(CApp::pCApp()->applicationName()+"/RelancerModele.png") ) ;
     m_pGUI->pushButton_UpdateCache->setIcon      ( Theme::getIcon(CApp::pCApp()->applicationName()+"/UpdateInBase.png") ) ;
@@ -223,6 +225,7 @@ C_MW_Prescription::C_MW_Prescription(QWidget *parent) :
     m_pGUI->treeWidget_Favoris->setMimeType("text/medintux_prd_drag");
     m_pGUI->treeWidget_Favoris->setSortingEnabled(true);
     m_pGUI->treeWidget_Favoris->setAlternatingRowColors ( TRUE );
+    m_pGUI->treeWidget_Favoris->setSelectionMode(QAbstractItemView::ExtendedSelection);
 
     m_pGUI->treeWidget_CustomDrugsList->setMimeType("text/medintux_prd_drag");
     m_pGUI->treeWidget_CustomDrugsList->setSortingEnabled(true);
@@ -359,10 +362,10 @@ C_MW_Prescription::C_MW_Prescription(QWidget *parent) :
 
     //............................... le systeme de gestion des onglets ...........................................................
     m_Button_TabCorner     = new CMyColorButton(QApplication::palette ( this ).color(this->backgroundRole()), Theme::getIcon("medicatux/tabSet.png"), QRect(QRect(0,0,16,16)));
+    connect( m_Button_TabCorner,                      SIGNAL(clicked ( bool )),                       this,   SLOT(Slot_m_Button_TabCorner_clicked(bool)) );
     m_pGUI->tabWidget_HAS_Infos->setCornerWidget ( m_Button_TabCorner);
     connect( m_pGUI->tabWidget_HAS_Infos,             SIGNAL(currentChanged (int )) ,                 this,   SLOT(Slot_tabWidget_Main_currentChanged( int )) );
-    connect( m_pGUI->tabWidget_HAS_Infos,             SIGNAL(tabCloseRequested (int )) ,              this,   SLOT(Slot_tabWidget_Main_CloseRequested( int )) );
-    connect( m_Button_TabCorner,                      SIGNAL(clicked ( bool )),                       this,   SLOT(Slot_m_Button_TabCorner_clicked(bool)) );
+
     //............................... le systeme des listes de classification ...........................................................
     connect( m_pGUI->toolBox_classifications,         SIGNAL(currentChanged ( int )),                 this,   SLOT(Slot_toolBox_classifications_currentChanged(int)) );
     connect( m_pGUI->toolBox_ListesProduits,          SIGNAL(currentChanged ( int )),                 this,   SLOT(Slot_toolBox_ListesProduits_currentChanged(int)) );
@@ -576,9 +579,6 @@ void C_MW_Prescription::Slot_toolBox_classifications_currentChanged(int index)
 { QWidget *pQWidget  = m_pGUI->toolBox_classifications->widget ( index );
   QString  name      = pQWidget->objectName();
   QString id         = "";
-  // if ( name == "page_ATC" && m_pGUI->treeWidget_ATC->topLevelItemCount()==0)
-  //   {  m_pC_BDM_Api->fill_ATC_treeWidget(m_pGUI->treeWidget_ATC);
-  //   }
   QTreeWidget  *pQTreeWidget = currrentProductListTreeWidget();
   if ( pQTreeWidget     == 0 ) return;
   QTreeWidgetItem *pQTreeWidgetItem = pQTreeWidget->currentItem();
@@ -598,61 +598,7 @@ void C_MW_Prescription::Slot_toolBox_classifications_currentChanged(int index)
 
 //--------------------------------- Slot_m_Button_TabCorner_clicked -----------------------------------------------------------------------
 void C_MW_Prescription::Slot_m_Button_TabCorner_clicked(bool)
-{   int nbToFind      = 0;
-    //........ parser la QMap des removed pour creer le menu ................
-    //         des rubriques a activer
-    QMenu *pQMenu     = new QMenu(this);
-    QMapIterator<QString, QWidget*> it(m_RemovedTabWidgets);
-    while (it.hasNext())
-      { it.next();
-        ThemePopup::addOptionMenu(pQMenu, tr("  %1  - Activer : %2").arg(it.key(),  it.key()));
-        ++nbToFind;
-       }
-
-    //........ actionner le menu ................
-    if (nbToFind)
-       { QAction *QAction = pQMenu->exec(this->cursor().pos());
-         if (QAction)
-            { QString key = QAction->data().toString();
-              QWidget *pTab_QWidget = m_RemovedTabWidgets[key];
-              if (pTab_QWidget)
-                 { m_pGUI->tabWidget_HAS_Infos->addTab(pTab_QWidget, key);
-                   m_RemovedTabWidgets.remove(key);
-                   m_pGUI->tabWidget_HAS_Infos->setCurrentWidget(pTab_QWidget);
-                 }
-            }
-       }
-}
-//--------------------------------- activeTabWidgetByObjectName -----------------------------------------------------------------------
-QWidget * C_MW_Prescription::activeTabWidgetByObjectName(QTabWidget * pQTabWidget, const QString & widget_page_object_name)
-{
- //............ rechercher le widget de la page ....................
- //             dans la liste des removed
- QWidget *pTab_QWidgetToRetrieve = 0;
- QMapIterator<QString, QWidget *>  it (m_RemovedTabWidgets) ;
- while ( it.hasNext() )
-       { it.next();
-         QWidget *pTab_QWidget = it.value();
-         if ( pTab_QWidget->objectName() == widget_page_object_name )
-            { pTab_QWidgetToRetrieve = pTab_QWidget;
-              break;
-            }
-       } // while (it.hasNext())
- if ( pTab_QWidgetToRetrieve==0 )  return 0;
- //............. si trouve l'ajouter au QTabWidget ...........
- QString key =  it.key();           // la clef est le titre de l'objet dans la QTabWidget et non son objectName()
- pQTabWidget->addTab( pTab_QWidgetToRetrieve, key );
- //............. l'enlever de la liste des removed ...........
- m_RemovedTabWidgets.remove( key );
- return pTab_QWidgetToRetrieve;
-}
-
-//--------------------------------- Slot_tabWidget_Main_CloseRequested -----------------------------------------------------------------------
-void C_MW_Prescription::Slot_tabWidget_Main_CloseRequested( int index)
-{   if ( m_pGUI->tabWidget_HAS_Infos->count () <= 1) return;               // laisser au moins un onglet
-    QWidget *pTab_QWidget =  m_pGUI->tabWidget_HAS_Infos->widget(index);
-    m_RemovedTabWidgets.insert(m_pGUI->tabWidget_HAS_Infos->tabText ( index ), pTab_QWidget);
-    m_pGUI->tabWidget_HAS_Infos->removeTab (index );
+{   m_pGUI->tabWidget_HAS_Infos->doPageChoiceMenu( this );
 }
 
 //--------------------------------- currrentProductListTreeWidget -----------------------------------------------------------------------
@@ -801,7 +747,6 @@ void C_MW_Prescription::Slot_tabWidget_Main_currentChanged( int index)
        {  QString mask         = CGestIni::Param_UpdateFromDisk(CApp::pCApp()->pathAppli()+"/Ressources/OrdoMask/OrdoMask.xml");
           m_pGUI->textEdit_ordonnance->setText(ordoToHtml(mask));
        }
-
 }
 
 //--------------------------------- prescriptionToXML ----------------------------------------------------------------------------
@@ -1239,41 +1184,45 @@ void C_MW_Prescription::drugsList_ContextMenuRequested(QTreeWidget *pQTreeWidget
          optionList     << "=3=#medicatux/monographie.png#"           + tr("show monographie for this product");
          optionList     << "-----------";
          if (pageName == "page_CustomList")
-            { optionList << "=4=#medicatux/objectDel.png#"            + tr("Remove selected items from '%1'.").arg(listName);
+            { optionList << "=4=#medicatux/objectDel.png#"            + tr("Remove selected items from custom drugs list '%1'.").arg(listName);
             }
-         else
-            { optionList << "=2=#medicatux/sequenceadd.png#"          + tr("Add this item to '%1'.").arg(listName);
+         if (m_pGUI->comboBox_customList->count())
+            { optionList << ">customDrugsList<"+tr("#medicatux/sequenceadd.png#Add this item to custom drugs list");   // menu d'appel du sous menu
+              for (int id=0; id<m_pGUI->comboBox_customList->count();++id)                                             // options du sous menu
+                  { QString item = m_pGUI->comboBox_customList->itemText(id);  // nom de la custom drugs list
+                    optionList << "<customDrugsList>=_"+item+"="+ item;        // l'identification de l'option (entre deux signes =) est : _ suivi du nom de la liste
+                  }
             }
        }
     if (pageName == "page_CustomList")
        { optionList << "-----------";
-         optionList << "=5=#medicatux/edit.png#"                      + tr("create new free item for '%1'.").arg(listName);
+         optionList << "=5=#medicatux/edit.png#"                      + tr("create new free item for custom drugs list '%1'.").arg(listName);
          if (pQTreeWidget->selectedItems().size())
              optionList << "=6=#medicatux/export_list.png#"           + tr("Export selected items from  '%1'.").arg(listName);
          optionList << "=7=#medicatux/import_list.png#"               + tr("Import items for '%1'.").arg(listName);
          optionList << "-----------";
-         optionList << "=8=#medicatux/create_list.png#"               + tr("Create a new list.");
-         optionList << "=9=#medicatux/remove_list.png#"               + tr("Remove  '%1'.").arg(listName);
+         optionList << "=8=#medicatux/create_list.png#"               + tr("Create a new custom drugs list.");
+         optionList << "=9=#medicatux/remove_list.png#"               + tr("Remove custom drugs list '%1'.").arg(listName);
 
        }
     if (optionList.size()==0) return;
 
     optionList     << "-----------";
-    optionList     << "=180=#medicatux/QuitterMenu.png#"         + tr("Quit this menu.");
-
+    optionList     << "=0=#medicatux/QuitterMenu.png#"         + tr("Quit this menu.");
+    //........................ si commence par _ alors une liste custom ..............................
+    //                         a ete cliquee
     QString option = ThemePopup(optionList,this, " border: 1px solid #8f8f91; border-radius: 6px; font-size: 11px;").DoPopupList();
+    if (option.startsWith('_') && pQTreeWidgetItem)
+       { QList < C_BDM_DrugListRecord > drugsList =  makeDrugsListRecords_From_QTreeWidgetProducts(pQTreeWidget, 1);
+         add_Product_to_CustomProductsList(userName, option.mid(1), drugsList);
+         return;
+       }
     switch(option.toInt())
     {  case 1:             //...... Add this product to current prescription ......
             { QList<QTreeWidgetItem *> itemsList = pQTreeWidget->selectedItems();
               for ( i=0; i<itemsList.size(); ++i )
                   {treeWidget_Produits_itemDoubleClicked ( itemsList.at(i) , 0  );
                   }
-            } break;
-       case 2:             //...... Add this item to this list ......
-            { QList < C_BDM_DrugListRecord > drugsList;
-              if (pQTreeWidgetItem->text( COL_ORG )=="DS_A") drugsList << C_BDM_DrugListRecord_From_QTreeWidgetProductsItem (pQTreeWidgetItem);
-              else                                           drugsList = m_pC_BDM_Api->selectProductsList ( pQTreeWidgetItem->text( COL_ID ), C_BDM_PluginI::cip_filter, 1);   // aller chercher dans liste des medocs un enregistremet correspondant au cip
-              add_Product_to_CustomProductsList(userName, listName, drugsList);
             } break;
        case 3:             //...... show monographie for this product ......
             { show_ProductMonographie(C_BDM_DrugListRecord_From_QTreeWidgetProductsItem (pQTreeWidgetItem));
@@ -1292,7 +1241,7 @@ void C_MW_Prescription::drugsList_ContextMenuRequested(QTreeWidget *pQTreeWidget
                     { QString productsStr = "<font size=7pts color=#ff0000><b>";
                       for ( i=0; i<nb; ++i )
                           { productsStr += "<br />&nbsp;&nbsp;&nbsp;&nbsp;'" + drugsList.at(i).commercialName() + "'";
-                          } // endif (drugsList.size())
+                          }
                       productsStr += "<br /></b></font>";
                       message = tr("Remove all the following %1 selected products.<br />"
                                    "from <font color=#0000ff><b>'%2'</b></font> drugs list .Do you want this?").arg(productsStr, listName);
@@ -1310,7 +1259,7 @@ void C_MW_Prescription::drugsList_ContextMenuRequested(QTreeWidget *pQTreeWidget
              if (ret==QMessageBox::Apply)
                 { for (i=0; i<nb; ++i)
                       { m_pC_BDM_Api->del_Product_from_CustomProductsList(userName, listName, drugsList.at(i));
-                      } // endif (drugsList.size())
+                      }
                   changeCurrentCustomList(userName, listName);     // on recharge la liste
                 } // endif (ret==QMessageBox::Apply)
             } break;
@@ -1358,16 +1307,17 @@ void C_MW_Prescription::drugsList_ContextMenuRequested(QTreeWidget *pQTreeWidget
     }
 }
 
-//--------------------------------------- add_Product_to_CustomProductsList( -------------------------------------------------------
+//--------------------------------------- add_Product_to_CustomProductsList -------------------------------------------------------
 int  C_MW_Prescription::add_Product_to_CustomProductsList(const QString &userName, const QString &listName, QList < C_BDM_DrugListRecord > &drugsList)
-{
+{//............ activer eventuellement la liste ..........................
+ if (m_pGUI->comboBox_customList->currentText() != listName) Slot_comboBox_customList_activated(listName);
  //............ ajouter la liste de drogue en base ........................
  if ( m_pC_BDM_Api->add_Product_to_CustomProductsList(userName, listName, drugsList) )
     { //.......... ajouter les nouveaux a la treewidget ......................
       QList < QTreeWidgetItem* >  itemsList;
       if (  fill_treeWidget_ProductsFromDrugList(m_pGUI->treeWidget_CustomDrugsList, drugsList, &itemsList))
          {
-            m_pGUI->toolBox_ListesProduits->setCurrentIndex ( toolWidgetIndexByTabObjectName(m_pGUI->toolBox_ListesProduits, "page_CustomList"));
+            m_pGUI->toolBox_ListesProduits->setCurrentItem (  "page_CustomList");
             //............. selectionner les nouveaux arrivants ....................
             for (int i = 0; i < itemsList.size(); ++i)
                 { QTreeWidgetItem *item = itemsList.at(i);
@@ -1458,13 +1408,13 @@ void C_MW_Prescription::treeWidget_Produits_itemClicked ( QTreeWidgetItem * pQTr
        }
 
     pQWIdget = m_pGUI->toolBox_classifications->currentWidget();
-    if (pQWIdget == toolWidgetByTabObjectName(m_pGUI->toolBox_classifications, "page_Indications"))
+    if (pQWIdget == m_pGUI->toolBox_classifications->toolWidgetByTabObjectName("page_Indications"))
        {  fillTreeWidgetIndications( cip );
        }
-    else if (pQWIdget == toolWidgetByTabObjectName(m_pGUI->toolBox_classifications, "page_Composition"))
+    else if (pQWIdget == m_pGUI->toolBox_classifications->toolWidgetByTabObjectName( "page_Composition"))
        {  fillTreeWidgetComposition(cip);
        }
-    else if (pQWIdget == toolWidgetByTabObjectName(m_pGUI->toolBox_classifications, "page_ATC"))
+    else if (pQWIdget == m_pGUI->toolBox_classifications->toolWidgetByTabObjectName( "page_ATC"))
        { QString atc =  pQTreeWidgetItem->text(COL_ATC);
          if (atc.length()==0 && cip.length() && m_pC_BDM_Api) atc = m_pC_BDM_Api->ATC_from_CIP(cip);
          setListATC_onCode ( atc);
@@ -1494,8 +1444,8 @@ void C_MW_Prescription::Slot_treeWidget_PatientDrugs_itemDoubleClicked ( QTreeWi
 //------------------------------------ treeWidget_Produits_itemDoubleClicked --------------------------------------------------
 void C_MW_Prescription::treeWidget_Produits_itemDoubleClicked ( QTreeWidgetItem *pQTreeWidgetItem , int  )
 {   if (pQTreeWidgetItem==0) return;
-    QWidget                 *pTab_QWidget = tabWidgetByTabObjectName(    m_pGUI->tabWidget_HAS_Infos, "tab_Prescription");
-    if ( pTab_QWidget == 0 ) pTab_QWidget = activeTabWidgetByObjectName( m_pGUI->tabWidget_HAS_Infos, "tab_Prescription");
+    QWidget                 *pTab_QWidget =  m_pGUI->tabWidget_HAS_Infos->tabWidgetByTabObjectName(  "tab_Prescription");
+    if ( pTab_QWidget == 0 ) pTab_QWidget =  m_pGUI->tabWidget_HAS_Infos->activeTabWidgetByObjectName( "tab_Prescription");
     if ( pTab_QWidget == 0 ) return;
     m_pGUI->tabWidget_HAS_Infos->setCurrentWidget ( pTab_QWidget );
     Slot_add_product_In_C_Frm_Prescription(pQTreeWidgetItem);
@@ -1646,19 +1596,10 @@ C_BDM_DrugListRecord C_MW_Prescription::C_BDM_DrugListRecord_From_QTreeWidgetPro
 //--------------------------------------- setCustomDrugListComboOn_ListName -------------------------------------------------------
 void C_MW_Prescription::setCustomDrugListComboOn_ListName(const QString &_userName, const QString &listName)
 {int index = m_pGUI->comboBox_customList->findText ( listName );
-#ifdef Q_WS_MAC
-    QString userName     = _userName;
-#endif
-#ifdef Q_WS_WIN
-    QString userName     = _userName.toLower();
-#endif
-#ifdef Q_WS_X11
-    QString userName     = _userName;
-#endif
  if (index != -1)
-    {changeCurrentCustomList(userName, listName);
+    {changeCurrentCustomList(_userName, listName);
      m_pGUI->comboBox_customList->setCurrentIndex(index);
-     index = toolWidgetIndexByTabObjectName(m_pGUI->toolBox_ListesProduits, "page_CustomList");
+     index = m_pGUI->toolBox_ListesProduits->toolWidgetIndexByTabObjectName("page_CustomList");
      m_pGUI->toolBox_ListesProduits->setItemText ( index, tr("Products list for %1").arg(listName) );
     }
 }
@@ -1666,16 +1607,8 @@ void C_MW_Prescription::setCustomDrugListComboOn_ListName(const QString &_userNa
 //--------------------------------------- changeCurrentCustomList -------------------------------------------------------
 void C_MW_Prescription::changeCurrentCustomList(const QString &_userName, const QString &listName)
 {
-#ifdef Q_WS_MAC
-   QString userName     = _userName;
-#endif
-#ifdef Q_WS_WIN
-   QString userName     = _userName.toLower();
-#endif
-#ifdef Q_WS_X11
-   QString userName     = _userName;
-#endif
-   QList < C_BDM_DrugListRecord > drugsList = m_pC_BDM_Api->selectCustomProductsList(userName,  listName,"", C_BDM_PluginI::no_filter);
+
+   QList < C_BDM_DrugListRecord > drugsList = m_pC_BDM_Api->selectCustomProductsList(_userName,  listName,"", C_BDM_PluginI::no_filter);
    m_pGUI->treeWidget_CustomDrugsList->clear();
    fill_treeWidget_ProductsFromDrugList(m_pGUI->treeWidget_CustomDrugsList, drugsList);
 }
@@ -1703,13 +1636,13 @@ void C_MW_Prescription::fillCustomDrugListCombo(const QString &_userName)
            { listName = customList.at(0);
              CApp::pCApp()->writeParam((CApp::pCApp()->applicationName() +"_TabManager").toAscii(), "Custom Products List", listName.toAscii());
            }
-       setCustomDrugListComboOn_ListName( userName, listName);
+       setCustomDrugListComboOn_ListName( _userName, listName);
      }
 }
 
 //--------------------------------------- fillTreeWidgetComposition -------------------------------------------------------
 void C_MW_Prescription::fillTreeWidgetComposition(const QString &cip)
-{QWidget *pQWidget = toolWidgetByTabObjectName(m_pGUI->toolBox_classifications, "page_Composition");
+{QWidget *pQWidget = m_pGUI->toolBox_classifications->toolWidgetByTabObjectName( "page_Composition");
  if (  pQWidget != m_pGUI->toolBox_classifications->currentWidget () )  return;           // si pas la page courante cela ne la concerne pas
  if (  m_pC_BDM_Api==0 )                                                return;
  if (! m_pC_BDM_Api->isValid() )                                        return;
@@ -1750,8 +1683,7 @@ void C_MW_Prescription::Slot_treeWidget_Composition_itemClicked ( QTreeWidgetIte
     m_pGUI->treeWidget_Produits->clear();
     int nb = fill_treeWidget_ProductsFromDrugList(m_pGUI->treeWidget_Produits, drugsList);
     if ( nb )
-       { QWidget *pQWidget = toolWidgetByTabObjectName(m_pGUI->toolBox_ListesProduits, "page_Produits");
-         if (pQWidget) m_pGUI->toolBox_ListesProduits->setCurrentWidget ( pQWidget );
+       { m_pGUI->toolBox_ListesProduits->setCurrentItem ( "page_Produits" );
        }
     m_pGUI->label_ListMedoc->setText(tr("%1 sur %2 produit(s)").arg(QString::number(nb),QString::number(m_pC_BDM_Api->drugsList_Size())));
     m_pC_BDM_Api->outMessage(tr("Plugin '%1' Slot_treeWidget_Composition_itemClicked() en : %2").arg(m_pC_BDM_Api->plugin_name(),   QTime (0, 0, 0, 0 ).addMSecs(debTime.msecsTo(QTime::currentTime())).toString("mm:ss:zzz") ));
@@ -1825,8 +1757,7 @@ void C_MW_Prescription::Slot_treeWidget_Indications_itemClicked ( QTreeWidgetIte
      m_pGUI->treeWidget_Produits->clear();
      int nb = fill_treeWidget_ProductsFromDrugList(m_pGUI->treeWidget_Produits, drugsList);
      if (nb)
-        {  QWidget *pQWidget = toolWidgetByTabObjectName(m_pGUI->toolBox_ListesProduits, "page_Produits");
-           if (pQWidget) m_pGUI->toolBox_ListesProduits->setCurrentWidget ( pQWidget );
+        {  m_pGUI->toolBox_ListesProduits->setCurrentItem ( "page_Produits" );
         }
      m_pGUI->label_ListMedoc->setText(tr("%1 sur %2 produit(s)").arg(QString::number(nb),QString::number(m_pC_BDM_Api->drugsList_Size())));
      m_pC_BDM_Api->outMessage(tr("Plugin '%1' Slot_treeWidget_Indications_itemClicked() fill treeWidget_Produits en : %2").arg(m_pC_BDM_Api->plugin_name(),   QTime (0, 0, 0, 0 ).addMSecs(debTime.msecsTo(QTime::currentTime())).toString("mm:ss:zzz") ));
@@ -2060,40 +1991,7 @@ void C_MW_Prescription::setPositionsFromIniFile()
     m_pGUI->treeWidget_Indications->header()->showSection(4);
 
     // setFontFromIniFile(); deja fait lors creation C_Frm_Prescription
-    /*
-    //....... config polices .....................
-    QString pixSize    = "11";
-    QString family     = "Arial";
-    QFont   initialFnt = this->font();
-#ifdef Q_WS_MAC
-    QString section    = "medicatux MacFontParam";
-#endif
-#ifdef Q_WS_WIN
-    QString section    = "medicatux WinFontParam";
-#endif
-#ifdef Q_WS_X11
-    QString section    = "medicatux LinFontParam";
-#endif
-    if (CApp::pCApp()->readParam(section.toAscii(), "posologieEditor", &pixSize, &family)==QString::null)  // zero = pas d'erreur
-       { initialFnt.setPixelSize(pixSize.toInt());
-         initialFnt.setFamily(family);
-         if (m_pC_Frm_Prescription) m_pC_Frm_Prescription->setFont(initialFnt);
-       }
-    if (CApp::pCApp()->readParam(section.toAscii(), "interface", &pixSize, &family)==QString::null)  // zero = pas d'erreur
-       { initialFnt.setPixelSize(pixSize.toInt());
-         initialFnt.setFamily(family);
-         this->setFont(initialFnt);
-       }
- */
-    /* marche po ??!!
-    if (CApp::pCApp()->readParam("medicatux geometry", "list products header", &val1)==QString::null)  // zero = pas d'erreur
-       {QHeaderView *pQHeaderView = m_pGUI->treeWidget_Produits->header ();
-        QByteArray             ba = QByteArray::fromBase64(val1.toAscii());
-        if (pQHeaderView->restoreState(ba))
-           {pQHeaderView->updateGeometry();
-           }
-      }
-    */
+
     setMainTabWidgetConfig();
 }
 //--------------------------------- setFontFromIniFile -----------------------------------------------------------------------
@@ -2138,24 +2036,19 @@ void C_MW_Prescription::setMainTabWidgetConfig()
     int       index   = -1;
     QStringList list  = CApp::pCApp()->getParamList( section , "inactiveTab", 1);
     for (int i = 0; i<list.size(); ++i)
-        { QWidget *pTab_QWidget = tabWidgetByTabText(m_pGUI->tabWidget_HAS_Infos, list[i], &index);
-          if (pTab_QWidget)
-             {  m_RemovedTabWidgets.insert(list[i], pTab_QWidget);
-                m_pGUI->tabWidget_HAS_Infos->removeTab (index );
-             }
+        { m_pGUI->tabWidget_HAS_Infos->tabWidgetByTabText(list[i], &index);
+          m_pGUI->tabWidget_HAS_Infos->Slot_CloseRequested(index);
         }
+
     //............. activer l'onglet par defaut ..............................................................
     //              attention : la c'est l'objectName qui est stocke
-    index = tabWidgetIndexByTabObjectName(m_pGUI->tabWidget_HAS_Infos, defaultTab);
-    if (index != -1) m_pGUI->tabWidget_HAS_Infos->setCurrentIndex ( index );
+    m_pGUI->tabWidget_HAS_Infos->setCurrentItem ( defaultTab );
     //............. activer la liste des produits par defaut ..............................................................
     //              attention : la c'est l'objectName qui est stocke
-    index = toolWidgetIndexByTabObjectName(m_pGUI->toolBox_ListesProduits, defaultProductsList);
-    if (index != -1) m_pGUI->toolBox_ListesProduits->setCurrentIndex ( index );
+    m_pGUI->toolBox_ListesProduits->setCurrentItem ( defaultProductsList );
     //............. activer la liste des classifications par defaut ..............................................................
     //              attention : la c'est l'objectName qui est stocke
-    index = toolWidgetIndexByTabObjectName(m_pGUI->toolBox_classifications, defaultClassificationList);
-    if (index != -1) m_pGUI->toolBox_classifications->setCurrentIndex ( index );
+    m_pGUI->toolBox_classifications->setCurrentItem ( defaultClassificationList );
     //............. activer la combo accessoires ..............................................................
     index = m_pGUI->comboBox_FamillesProduits->findText(defaultAccessoryList);
     if (index != -1) { m_pGUI->comboBox_FamillesProduits->setCurrentIndex(index);
@@ -2165,12 +2058,7 @@ void C_MW_Prescription::setMainTabWidgetConfig()
 
 //--------------------------------- writeMainTabWidgetConfig -----------------------------------------------------------------------
 void C_MW_Prescription::writeMainTabWidgetConfig()
-{ QStringList list;
-  QMapIterator<QString, QWidget*> it(m_RemovedTabWidgets);
-  while (it.hasNext())
-       { it.next();
-         list << it.key();
-       }
+{ QStringList list     = m_pGUI->tabWidget_HAS_Infos->removedList();
   QByteArray section   = (CApp::pCApp()->applicationName() +"_TabManager").toAscii();
   QWidget *pQWidget    = m_pGUI->toolBox_ListesProduits->currentWidget();
   if (pQWidget)
@@ -2210,7 +2098,7 @@ void C_MW_Prescription::Slot_On_comboBox_choixBase(const QString &namePlugin)
  *  \return C_BDM_PluginI * pointer on plugin or zero if error
  */
 
-C_BDM_PluginI *C_MW_Prescription::set_BDM_Plugin(const QString &_namePlugin)   // theriaque datasemp
+C_BDM_PluginI *C_MW_Prescription::set_BDM_Plugin(const QString &_namePlugin)   // theriaque datasemp C_BDM_GENERICPLUGIN
 {   QTime debTime       = QTime::currentTime();
     QTime debGTime      = QTime::currentTime();
     QString namePlugin  = _namePlugin.toUpper().trimmed();
@@ -2220,7 +2108,8 @@ C_BDM_PluginI *C_MW_Prescription::set_BDM_Plugin(const QString &_namePlugin)   /
     QMap<QString, C_BDM_PluginI*>::const_iterator it = CApp::pCApp()->m_pC_BDM_PluginI_Map.find(namePlugin);
     //.............. si non trouve on initialise le plugin ...............................
     if (it == CApp::pCApp()->m_pC_BDM_PluginI_Map.constEnd() )  // si pas trouve le creer et le rajouter a la liste
-       {    QString confData =   QString("[BDM_Configuration]\n"
+       {
+            QString confData =   QString("[BDM_Configuration]\n"
                                          "     PathAppli     = %2\n"
                                          "     PathIni       = %3\n").arg( CApp::pCApp()->pathAppli() , CApp::pCApp()->pathIni());
             if (namePlugin=="THERIAQUE")
@@ -2228,6 +2117,13 @@ C_BDM_PluginI *C_MW_Prescription::set_BDM_Plugin(const QString &_namePlugin)   /
                  pC_BDM_PluginI = new C_BDM_TheriaquePlugin(confData, "MAIN_", 0, m_pGUI->textEdit_Monitor, m_pQProgressBar);
                  m_pC_BDM_Api->outMessage(tr("Database '%1' creation en : %2").arg(namePlugin,   QTime (0, 0, 0, 0 ).addMSecs(debTime.msecsTo(QTime::currentTime())).toString("mm:ss:zzz") ));
                }
+
+            else if (namePlugin=="C_BDM_GENERICPLUGIN")
+              { debTime  = QTime::currentTime();
+                pC_BDM_PluginI =  new C_BDM_GenericPlugin(confData, "MAIN_", 0, m_pGUI->textEdit_Monitor, m_pQProgressBar);
+                m_pC_BDM_Api->outMessage(tr("Database '%1' creation en : %2").arg(namePlugin,   QTime (0, 0, 0, 0 ).addMSecs(debTime.msecsTo(QTime::currentTime())).toString("mm:ss:zzz") ));
+              }
+
             else if (namePlugin=="DATASEMP")
                { debTime  = QTime::currentTime();
                  pC_BDM_PluginI =  new C_BDM_DatasempPlugin(confData, "MAIN_", 0, m_pGUI->textEdit_Monitor, m_pQProgressBar);
@@ -2255,33 +2151,47 @@ C_BDM_PluginI *C_MW_Prescription::set_BDM_Plugin(const QString &_namePlugin)   /
       {pC_BDM_PluginI = it.value();
       }
 
-    //....................... activer ce plugin dans tous les objets qui en dependent ..................
+    //....................... activer ce plugin dans tous les objets qui en depcomboBox_choixBaseendent ..................
     if ( pC_BDM_PluginI && pC_BDM_PluginI->isInitialised() && m_pC_BDM_Api)
        {
           m_pC_BDM_Api->connectToDataSource( pC_BDM_PluginI );             // donner au controleur le plugin
           CApp::pCApp()->set_BDM_Plugin(pC_BDM_PluginI);                   // set_BDM_Plugin est defini dans C_Macro.h dont CApp est derive
           m_pC_BDM_Api->addOwner(pC_BDM_PluginI->owner());                 // n'est rajoute que si n'existe pas
-          int indexPage = toolWidgetIndexByTabObjectName(m_pGUI->toolBox_ListesProduits, "page_Produits");
-          m_pGUI->toolBox_ListesProduits->setItemText ( indexPage, tr("Products %1").arg(_namePlugin) );
-          m_pGUI->toolBox_ListesProduits->setItemIcon ( indexPage, m_pC_BDM_Api->plugin_icon() );
-          debTime  = QTime::currentTime();
-          //......... remplissage des listes ......................
-          //QString objName = m_pGUI->toolBox_classifications->currentWidget()->objectName();
-          //if (objName=="page_ATC" )
-             { m_pC_BDM_Api->fill_ATC_treeWidget(m_pGUI->treeWidget_ATC);
-               m_pC_BDM_Api->outMessage(tr("Database '%1' fill_ATC_treeWidget() en : %2").arg(namePlugin,   QTime (0, 0, 0, 0 ).addMSecs(debTime.msecsTo(QTime::currentTime())).toString("mm:ss:zzz") ));
+          if (m_pC_BDM_Api->drugsList_Size()==0)   //  cas du plugin generique (pas de base medicamenteuse)
+             { m_pGUI->toolBox_ListesProduits->unactiveItemByObjectName("page_Accessoires");
+               m_pGUI->toolBox_ListesProduits->unactiveItemByObjectName("page_Produits");
+               m_pGUI->toolBox_classifications->unactiveItemByObjectName("page_Composition");
+               m_pGUI->toolBox_classifications->unactiveItemByObjectName("page_ATC");
              }
-          fill_only_showed_treeWidgets( m_pGUI->toolBox_ListesProduits->currentWidget()->objectName() );
+          else
+             { m_pGUI->toolBox_ListesProduits->activeItemByObjectName("page_Produits");
+               m_pGUI->toolBox_classifications->activeItemByObjectName("page_Composition");
+               m_pGUI->toolBox_classifications->activeItemByObjectName("page_ATC");
+               if (namePlugin=="DATASEMP")
+                  { m_pGUI->toolBox_ListesProduits->activeItemByObjectName("page_Accessoires");
+                    m_pGUI->toolBox_ListesProduits->setItemIcon ( "page_Accessoires", Theme::getIcon("medicatux/toolbox_accessoires.png") ); // pourquoi pert il son icone ??
+                  }
+               else
+                  { m_pGUI->toolBox_ListesProduits->unactiveItemByObjectName("page_Accessoires");
+                  }
+               int indexPage = m_pGUI->toolBox_ListesProduits->toolWidgetIndexByTabObjectName("page_Produits");
+               m_pGUI->toolBox_ListesProduits->setItemText ( indexPage, tr("Products %1").arg(_namePlugin) );
+               m_pGUI->toolBox_ListesProduits->setItemIcon ( indexPage, m_pC_BDM_Api->plugin_icon() );
+               debTime  = QTime::currentTime();
+               //......... remplissage des listes ......................
+               m_pC_BDM_Api->fill_ATC_treeWidget(m_pGUI->treeWidget_ATC);  // ATC doit toujours etre remplie
+               m_pC_BDM_Api->outMessage(tr("Database '%1' fill_ATC_treeWidget() en : %2").arg(namePlugin, QTime (0, 0, 0, 0 ).addMSecs(debTime.msecsTo(QTime::currentTime())).toString("mm:ss:zzz") ));
+             }
           debTime  = QTime::currentTime();
-
-          m_pC_BDM_Api->outMessage(tr("Database '%1' Slot_lineEdit_DrugsSearch_textChanged() en : %2").arg(namePlugin,   QTime (0, 0, 0, 0 ).addMSecs(debTime.msecsTo(QTime::currentTime())).toString("mm:ss:zzz") ));
-          m_pC_BDM_Api->outMessage(tr("Database '%1' connect\303\251e en : %2").arg(namePlugin,   QTime (0, 0, 0, 0 ).addMSecs(debGTime.msecsTo(QTime::currentTime())).toString("mm:ss:zzz") ));
+          fill_only_showed_treeWidgets( m_pGUI->toolBox_ListesProduits->currentWidget()->objectName() );
+          m_pC_BDM_Api->outMessage(tr("Database '%1' Slot_lineEdit_DrugsSearch_textChanged() en : %2").arg(namePlugin, QTime (0, 0, 0, 0 ).addMSecs(debTime.msecsTo(QTime::currentTime())).toString("mm:ss:zzz") ));
           QString section = "medicatux data source";
           CApp::pCApp()->writeParam(section.toAscii(), "name", namePlugin.toAscii());
           if (m_pC_Frm_Prescription)
              { m_pC_Frm_Prescription->Slot_evaluateAllInteractions();
                m_pC_Frm_Prescription->set_Thread_DBM_Plugin( namePlugin );
              }
+          m_pC_BDM_Api->outMessage(tr("Database '%1' connect\303\251e en : %2").arg(namePlugin,   QTime (0, 0, 0, 0 ).addMSecs(debGTime.msecsTo(QTime::currentTime())).toString("mm:ss:zzz") ));
        }
     else
        {pC_BDM_PluginI = 0;
@@ -2351,8 +2261,6 @@ void C_MW_Prescription::patientCtxToInterface(C_PatientCtx *pC_PatientCtx)
       item->setText(7,lifeEventList.at(i).dateFin());
       m_pGUI->treeWidget_ATCD->addTopLevelItem(item);
      }
- //............... placer la liste des pathologies du patient dans les indications .................
- //fillTreeWidgetIndicationsFromPatientContext();
 }
 //------------------------ Slot_retranslateUi ---------------------------------------
 void C_MW_Prescription::Slot_retranslateUi()
@@ -2596,7 +2504,7 @@ void C_MW_Prescription::Slot_prescription_zoom_menu_triggered ( QAction* pQActio
     }
 }
 
-//------------------------------------ C_MW_Prescription -------------------------------
+//------------------------------------ Slot_onQuit -------------------------------
 void C_MW_Prescription::Slot_onQuit()
 {   m_webView_Mono->stop();
     m_runMacroForAll = 0;
@@ -2612,7 +2520,7 @@ void C_MW_Prescription::Slot_onQuit()
 void C_MW_Prescription::Slot_treeWidget_ATC_itemClicked ( QTreeWidgetItem *pQTreeWidgetItem , int   )
 {if (pQTreeWidgetItem==0) return;
  if (m_pC_BDM_Api==0)     return;
- QWidget                 *pTab_QWidget = toolWidgetByTabObjectName(    m_pGUI->toolBox_ListesProduits, "page_Produits");   // zero si retire
+ QWidget                 *pTab_QWidget =  m_pGUI->toolBox_ListesProduits->toolWidgetByTabObjectName("page_Produits");   // zero si retire
  if ( pTab_QWidget == 0 ) return;
  m_pGUI->toolBox_ListesProduits->setCurrentWidget ( pTab_QWidget );
  int nb = m_pC_BDM_Api->selectProductsList(m_pGUI->treeWidget_Produits, pQTreeWidgetItem->text(1), C_BDM_PluginI::atc_filter , 20000 /* m_drugListMax */);
@@ -3028,8 +2936,8 @@ void C_MW_Prescription::Slot_ProductNumberClicked(C_Frm_Produit *pC_Frm_Produit)
 //------------------------------------ show_ProductMonographie --------------------------------------------------
 void C_MW_Prescription::show_ProductMonographie(const C_BDM_DrugListRecord & drugListRecord)
 {
- QWidget                 *pTab_QWidget = tabWidgetByTabObjectName(    m_pGUI->tabWidget_HAS_Infos, "tab_Monographie");   // zero si retire
- if ( pTab_QWidget == 0 ) pTab_QWidget = activeTabWidgetByObjectName( m_pGUI->tabWidget_HAS_Infos, "tab_Monographie");   // aller chercher dans la liste des retires
+ QWidget                 *pTab_QWidget = m_pGUI->tabWidget_HAS_Infos->tabWidgetByTabObjectName("tab_Monographie");      // zero si retire
+ if ( pTab_QWidget == 0 ) pTab_QWidget = m_pGUI->tabWidget_HAS_Infos->activeTabWidgetByObjectName("tab_Monographie");   // aller chercher dans la liste des retires
  if ( pTab_QWidget == 0 ) return;
  m_pGUI->tabWidget_HAS_Infos->setCurrentWidget ( pTab_QWidget );
  int      i           = 0;
@@ -3075,54 +2983,6 @@ void C_MW_Prescription::show_ProductMonographie(const C_BDM_DrugListRecord & dru
  C_Utils_Log::outMessage( m_pGUI->textEdit_Monitor, tr(" Time to get TOTAL  Monographie of %1 = %2").arg(id,  QTime (0, 0, 0, 0 ).addMSecs(tm_deb.msecsTo(QTime::currentTime())).toString("mm:ss:zzz") ));
  m_webView_Info->setHtml(html, QUrl::fromLocalFile(m_pC_BDM_Api->plugin_image_source() ));
  m_last_drugListRecord = drugListRecord;
-}
-
-//------------------------------------ toolWidgetByTabObjectName --------------------------------------------------
-QWidget * C_MW_Prescription::toolWidgetByTabObjectName(	QToolBox *pQTabWidget, const QString &name)
-{int nb = pQTabWidget->count();
- for (int i=0; i<nb; ++i)
-     {QWidget *pTab_QWidget = pQTabWidget->widget(i);
-      if (pTab_QWidget->objectName()==name) return pTab_QWidget;
-     }
- return 0;
-}
-//------------------------------------ toolWidgetIndexByTabObjectName --------------------------------------------------
-int C_MW_Prescription::toolWidgetIndexByTabObjectName(QToolBox* pQTabWidget, const QString &name)
-{int nb = pQTabWidget->count();
- for (int i=0; i<nb; ++i)
-     {QWidget *pTab_QWidget = pQTabWidget->widget(i);
-      if (pTab_QWidget->objectName()==name) return i;
-     }
- return -1;
-}
-//------------------------------------ tabWidgetByTabText --------------------------------------------------
-QWidget * C_MW_Prescription::tabWidgetByTabText(QTabWidget* pQTabWidget, const QString &text, int *index  /* = 0 */)
-{int nb = pQTabWidget->count();
- for (int i=0; i<nb; ++i)
-     {if (pQTabWidget->tabText(i)==text)
-         {if (index) *index = i;
-          return pQTabWidget->widget(i);
-         }
-     }
- return 0;
-}
-//------------------------------------ tabWidgetByTabObjectName --------------------------------------------------
-QWidget * C_MW_Prescription::tabWidgetByTabObjectName(QTabWidget* pQTabWidget, const QString &name)
-{int nb = pQTabWidget->count();
- for (int i=0; i<nb; ++i)
-     {QWidget *pTab_QWidget = pQTabWidget->widget(i);
-      if (pTab_QWidget->objectName()==name) return pTab_QWidget;
-     }
- return 0;
-}
-//------------------------------------ tabWidgetIndexByTabObjectName --------------------------------------------------
-int C_MW_Prescription::tabWidgetIndexByTabObjectName(QTabWidget* pQTabWidget, const QString &name)
-{int nb = pQTabWidget->count();
- for (int i=0; i<nb; ++i)
-     {QWidget *pTab_QWidget = pQTabWidget->widget(i);
-      if (pTab_QWidget->objectName()==name) return i;
-     }
- return -1;
 }
 
 //------------------------------------ initDrugListFilter --------------------------------------------------

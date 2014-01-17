@@ -65,9 +65,9 @@ public:
       *  of our connected database. A way is to see if table selection is possible. Its not very fast ...
       *  \return tablesList
       */
-    QStringList  tablesList();
+    QStringList   tablesList();
 
-    QSqlDatabase       database();
+    QSqlDatabase  database();
     //............ utilities .............................
     QString     isThisValueLikeInTable(       const QString &tableName, const QString &fieldToTest, const QString &test_value,     const QString fieldToRetrieve = "" , const QString &wand  = "" );
     QStringList isThisValueLikeInTable_ToList(const QString &tableName, const QString &fieldToTest, const QString &test_value,     const QString fieldToRetrieve = "" , const QString &wand  = "");

@@ -1304,47 +1304,6 @@ int C_BDM_Api::connectToDataSource( C_BDM_PluginI *pC_BDM_PluginI)
  return 1;
 }
 
-
-//-------------------------------- customProductsTableName [static] ------------------------------------------------------
-/*! \brief create custom drugs list table name from userName and listName
- *  \param QString userName the user name for this custom list.
- *  \param QString listName the name for this custom list.
- *  \param QString prefix to name this table.
- *  \return QString wich is table name
- */
-QString C_BDM_Api::customProductsTableName(const QString &userName, const QString &listName, const QString &prefix /* = "perso_drugslist" */)
-{return prefix+"_"+listName+"_"+userName;
-}
-
-//-------------------------------- createCustomProductsList ------------------------------------------------------
-/*! \brief create custom drugs list
- *  \param QString userName the user name for this custom list.
- *  \param QString listName the name for this custom list.
- *  \return 1/all is ok 0/list not created
- */
-int C_BDM_Api::createCustomProductsList(const QString &userName, const QString &listName)
-{
- if ( createTable("CREATE TABLE `" + customProductsTableName(userName,listName) + "` ("
-                "`"+m_BDM_DRUGLIST_PK        +"` BIGINT  NOT NULL AUTO_INCREMENT,"
-                "`"+m_BDM_DRUGLIST_OWNER     +"` VARCHAR(40) ,"
-                "`"+m_BDM_DRUGLIST_LANG      +"` VARCHAR(4)  ,"
-                "`"+m_BDM_DRUGLIST_ID        +"` VARCHAR(40) ,"
-                "`"+m_BDM_DRUGLIST_TYPE_ID   +"` VARCHAR(8)  ,"
-                "`"+m_BDM_DRUGLIST_ATC       +"` VARCHAR(7)  ,"
-                "`"+m_BDM_DRUGLIST_LIBELLE   +"` VARCHAR(128),"
-                "`"+m_BDM_DRUGLIST_DCI_1     +"` VARCHAR(128),"
-                "`"+m_BDM_DRUGLIST_DCI_2     +"` VARCHAR(128),"
-                "`"+m_BDM_DRUGLIST_DCI_3     +"` VARCHAR(128),"
-                "`"+m_BDM_DRUGLIST_UCD       +"` VARCHAR(7)  ,"
-                "`"+m_BDM_DRUGLIST_UCD_PRICE +"` CHAR(15)    ,"
-                "`"+m_BDM_DRUGLIST_GENERIQUE +"` VARCHAR(1)  ,"
-                "`"+m_BDM_DRUGLIST_STATUT    +"` VARCHAR(100)  ,"
-                "`"+m_BDM_DRUGLIST_SPEC_FK   +"` BIGINT      ,"
-                "PRIMARY KEY (`"+m_BDM_DRUGLIST_PK+"`)"
-                ")"
-                )==0) return 0;
- return 1;
-}
 //-------------------------------- createCustomMonographieTable ------------------------------------------------------
 /*! \brief create custom monographie table
  *  \return 1/all is ok 0/list not created
@@ -1495,7 +1454,7 @@ int C_BDM_Api::add_Monographie_to_CustomMonographie(const QString &libelle, cons
              { outSQL_error( queryInsert, "ERREUR  : C_BDM_Api::add_Monographie_to_CustomMonographie() queryInsert", prepare, __FILE__, __LINE__);
                return 0;
              }
-      }
+        }
     return 1;
 }
 //-------------------------------- update_CustomMonographie --------------------------------------------
@@ -1554,23 +1513,67 @@ bool C_BDM_Api::delete_CustomMonographie(const QString &pk)
     return true;
 }
 
+//-------------------------------- customProductsTableName [static] ------------------------------------------------------
+/*! \brief create custom drugs list table name from userName and listName
+ *  \param QString userName the user name for this custom list.
+ *  \param QString listName the name for this custom list.
+ *  \param QString prefix to name this table.
+ *  \return QString wich is table name
+ */
+// le PB : le nommage des tables sous W ne respecte pas forcement les Maj/Min
+//         lorsque l'on cree une table MachinTrucBIDULE il sera cree machintrucbidule.
+//         Lors du listage des tables ce sera machintrucbidule qui sera retourne
+//         donc pour contourner ce delice incertain que nous offre W TOUT SERA EN MINUSCULE
+QString C_BDM_Api::customProductsTableName(const QString &userName, const QString &listName, const QString &prefix /* = "perso_drugslist" */)
+{return (prefix+"_"+listName+"_"+userName).toLower();
+}
+
+//-------------------------------- createCustomProductsList ------------------------------------------------------
+/*! \brief create custom drugs list
+ *  \param QString userName the user name for this custom list.
+ *  \param QString listName the name for this custom list.
+ *  \return 1/all is ok 0/list not created
+ */
+// le PB : le nommage des tables sous W ne respecte pas forcement les Maj/Min
+//         lorsque l'on cree une table MachinTrucBIDULE il sera cree machintrucbidule.
+//         Lors du listage des tables ce sera machintrucbidule qui sera retourne
+//         donc pour contourner ce delice incertain que nous offre W TOUT SERA EN MINUSCULE
+int C_BDM_Api::createCustomProductsList(const QString &userName, const QString &listName)
+{
+ if ( createTable("CREATE TABLE `" + customProductsTableName(userName,listName) + "` ("
+                "`"+m_BDM_DRUGLIST_PK        +"` BIGINT  NOT NULL AUTO_INCREMENT,"
+                "`"+m_BDM_DRUGLIST_OWNER     +"` VARCHAR(40) ,"
+                "`"+m_BDM_DRUGLIST_LANG      +"` VARCHAR(4)  ,"
+                "`"+m_BDM_DRUGLIST_ID        +"` VARCHAR(40) ,"
+                "`"+m_BDM_DRUGLIST_TYPE_ID   +"` VARCHAR(8)  ,"
+                "`"+m_BDM_DRUGLIST_ATC       +"` VARCHAR(7)  ,"
+                "`"+m_BDM_DRUGLIST_LIBELLE   +"` VARCHAR(128),"
+                "`"+m_BDM_DRUGLIST_DCI_1     +"` VARCHAR(128),"
+                "`"+m_BDM_DRUGLIST_DCI_2     +"` VARCHAR(128),"
+                "`"+m_BDM_DRUGLIST_DCI_3     +"` VARCHAR(128),"
+                "`"+m_BDM_DRUGLIST_UCD       +"` VARCHAR(7)  ,"
+                "`"+m_BDM_DRUGLIST_UCD_PRICE +"` CHAR(15)    ,"
+                "`"+m_BDM_DRUGLIST_GENERIQUE +"` VARCHAR(1)  ,"
+                "`"+m_BDM_DRUGLIST_STATUT    +"` VARCHAR(100)  ,"
+                "`"+m_BDM_DRUGLIST_SPEC_FK   +"` BIGINT      ,"
+                "PRIMARY KEY (`"+m_BDM_DRUGLIST_PK+"`)"
+                ")"
+                )==0) return 0;
+ return 1;
+}
+
 //-------------------------------- deleteCustomProductsList ------------------------------------------------------
 /*! \brief delete custom drugs list
  *  \param QString userName the user name of this custom list.
  *  \param QString listName the name of this custom list.
  *  \return 1/all is ok 0/list not deleted
  */
-int C_BDM_Api::deleteCustomProductsList(const QString &_userName, const QString &listName)
+// le PB : le nommage des tables sous W ne respecte pas forcement les Maj/Min
+//         lorsque l'on cree une table MachinTrucBIDULE il sera cree machintrucbidule.
+//         Lors du listage des tables ce sera machintrucbidule qui sera retourne
+//         donc pour contourner ce delice incertain que nous offre W TOUT SERA EN MINUSCULE
+int C_BDM_Api::deleteCustomProductsList(const QString &userName, const QString &listName)
 {
-#ifdef Q_WS_MAC
-    QString userName     = _userName;
-#endif
-#ifdef Q_WS_WIN
-    QString userName     = _userName.toLower();
-#endif
-#ifdef Q_WS_X11
-    QString userName     = _userName;
-#endif
  return dropTable( customProductsTableName(userName,listName) );
 }
 
@@ -1579,28 +1582,22 @@ int C_BDM_Api::deleteCustomProductsList(const QString &_userName, const QString 
  *  \param  QString userName the user name
  *  \return QStringList of custom drugs list for this user
  */
+// le PB : le nommage des tables sous W ne respecte pas forcement les Maj/Min
+//         lorsque l'on cree une table MachinTrucBIDULE il sera cree machintrucbidule.
+//         Lors du listage des tables ce sera machintrucbidule qui sera retourne
+//         donc pour contourner ce delice incertain que nous offre W TOUT SERA EN MINUSCULE
 QStringList C_BDM_Api::getListCustomProductsList(const QString &_userName)
 {
-#ifdef Q_WS_MAC
-    QString userName     = _userName;
-#endif
-#ifdef Q_WS_WIN
-    QString userName     = _userName.toLower();
-#endif
-#ifdef Q_WS_X11
-    QString userName     = _userName;
-#endif
+ QString     userName  = _userName.toLower();
+ QString     tableName = "";
  QStringList tableList = database().tables(QSql::Tables );
  QStringList retList;
  for (int i=0; i<tableList.size();++i)
-     {
-       #ifdef Q_WS_WIN
-          QString tableName = tableList[i].toLower();
-       #else
-          QString tableName = tableList[i];
-       #endif
-      if (tableName.startsWith("perso_drugslist_") && tableName.endsWith(userName))
-         { QString nameToDisplay = CGestIni::CutStrLeft(tableName.mid(16), "_"+userName);
+     {tableName = tableList[i];
+      if ( tableName.startsWith("perso_drugslist_") && tableName.endsWith(userName) )
+         { int posToCut          = tableName.indexOf("_"+userName);
+           QString nameToDisplay = tableList[i].left(posToCut);
+           nameToDisplay         = nameToDisplay.mid(16,1).toUpper()+ nameToDisplay.mid(17); // pour faire plus jouli on met la premiere lettre en Maj
            if (retList.indexOf(nameToDisplay) == -1 && isThisTableExist(tableName)) retList.append(nameToDisplay);
          }
      }
@@ -1616,15 +1613,6 @@ QStringList C_BDM_Api::getListCustomProductsList(const QString &_userName)
  */
 int C_BDM_Api::add_Product_to_CustomProductsList(const QString &_userName, const QString &listName, const QList < C_BDM_DrugListRecord > &drugsList)
 {
-#ifdef Q_WS_MAC
-    QString userName     = _userName;
-#endif
-#ifdef Q_WS_WIN
-    QString userName     = _userName.toLower();
-#endif
-#ifdef Q_WS_X11
-    QString userName     = _userName;
-#endif
     if (drugsList.size()==0)
        { outMessage( QObject::tr("ERREUR : C_BDM_Api::add_Product_to_CustomProductsList() empty drugs list"), __FILE__, __LINE__);            return 0;
        }
@@ -1632,7 +1620,7 @@ int C_BDM_Api::add_Product_to_CustomProductsList(const QString &_userName, const
        { outMessage( QObject::tr("ERREUR : C_BDM_Api::add_Product_to_CustomProductsList() database can not be opened"), __FILE__, __LINE__);  return 0;
        }
     //......................... on renseigne la liste ...................................
-    QString prepare  =              (" INSERT INTO "+customProductsTableName(userName,listName) +"( "
+    QString prepare  =              (" INSERT INTO "+customProductsTableName(_userName,listName) +"( "
                                      "`"+m_BDM_DRUGLIST_OWNER     +"`,"     // 0
                                      "`"+m_BDM_DRUGLIST_LANG      +"`,"     // 1
                                      "`"+m_BDM_DRUGLIST_ID        +"`,"     // 2
@@ -1680,17 +1668,8 @@ int C_BDM_Api::add_Product_to_CustomProductsList(const QString &_userName, const
  *  \param const C_BDM_DrugListRecord &drugListRecord product to remove
  *  \return true/all is ok false/product not deleted
  */
-bool C_BDM_Api::del_Product_from_CustomProductsList(const QString &_userName, const QString &listName, const C_BDM_DrugListRecord &drugListRecord)
+bool C_BDM_Api::del_Product_from_CustomProductsList(const QString &userName, const QString &listName, const C_BDM_DrugListRecord &drugListRecord)
 {
-#ifdef Q_WS_MAC
-    QString userName     = _userName;
-#endif
-#ifdef Q_WS_WIN
-    QString userName     = _userName.toLower();
-#endif
-#ifdef Q_WS_X11
-    QString userName     = _userName;
-#endif
      QSqlQuery query( database() );
      QString requete    =         " DELETE FROM " + customProductsTableName(userName,listName)           +
                                   " WHERE "       + m_BDM_DRUGLIST_ID      + "='" + drugListRecord.id()      + "' "+
@@ -1714,15 +1693,7 @@ bool C_BDM_Api::del_Product_from_CustomProductsList(const QString &_userName, co
  */
 QString C_BDM_Api::makeSelectCustomProductsListQuery(const QString &_userName, const QString &listName, const    QString &text, C_BDM_PluginI::flags filterFlag)
 {
-#ifdef Q_WS_MAC
-    QString userName     = _userName;
-#endif
-#ifdef Q_WS_WIN
-    QString userName     = _userName.toLower();
-#endif
-#ifdef Q_WS_X11
-    QString userName     = _userName;
-#endif
+
  QString        requete =         " SELECT "
                                   "`"+m_BDM_DRUGLIST_OWNER     +"`,"     // 0
                                   "`"+m_BDM_DRUGLIST_LANG      +"`,"     // 1
@@ -1738,7 +1709,7 @@ QString C_BDM_Api::makeSelectCustomProductsListQuery(const QString &_userName, c
                                   "`"+m_BDM_DRUGLIST_GENERIQUE +"`,"     // 11
                                   "`"+m_BDM_DRUGLIST_STATUT    +"`,"     // 12
                                   "`"+m_BDM_DRUGLIST_SPEC_FK   +"` "     // 13
-                                  " FROM " + customProductsTableName(userName,listName) ;
+                                  " FROM " + customProductsTableName(_userName,listName) ;
 
  if (filterFlag&C_BDM_PluginI::cip_list)
     {requete  +=  QString(" WHERE  %1 IN (%2) ").arg(m_BDM_DRUGLIST_ID, text);        // liste de cip de la forme 'cip1','cip2','cip3'
@@ -1789,24 +1760,16 @@ QString C_BDM_Api::makeSelectCustomProductsListQuery(const QString &_userName, c
 const QList < C_BDM_DrugListRecord > C_BDM_Api::selectCustomProductsList(const QString &_userName,  const QString &listName,
                                                                          const QString &text,       C_BDM_PluginI::flags filterFlag /* =    = C_BDM_PluginI::all_filter */ )
 {
-#ifdef Q_WS_MAC
-    QString userName     = _userName;
-#endif
-#ifdef Q_WS_WIN
-    QString userName     = _userName.toLower();
-#endif
-#ifdef Q_WS_X11
-    QString userName     = _userName;
-#endif
 
     QList < C_BDM_DrugListRecord > productsList;
     if (!database().isOpen() && database().open()== FALSE)
        { outMessage( QObject::tr("ERREUR : C_BDM_Api::selectCustomProductsList() database can not be opened"), __FILE__, __LINE__);  return productsList;
        }
-    QString     requete = makeSelectCustomProductsListQuery(userName, listName, text, filterFlag);
+    QString     requete = makeSelectCustomProductsListQuery( _userName, listName, text, filterFlag );
     QSqlQuery query (requete , database() );
     outSQL_error( query, "ERREUR  : C_BDM_Api::selectCustomProductsList()", requete, __FILE__, __LINE__);
-    if (query.isActive() )
+
+    if ( query.isActive() )
        {while (query.next())
               {QString prix = "00000000" + query.value(10).toString(); prix = prix.right(6); prix.insert(4,',');
                productsList.append( C_BDM_DrugListRecord(query.value(2).toString(),

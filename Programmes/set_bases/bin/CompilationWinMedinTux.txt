@@ -52,13 +52,13 @@ cd ../../mise_a_jour/bin
 mise_a_jour.exe MSDEV  ../../comptabilite/check_dus/check_dus.dsp check_dus.exe
 cd ../../comptabilite/check_dus
 msdev %MODULE%.dsp
-
+msdev %MODULE%.dsp /MAKE "%MODULE% – Win32 Release" /REBUILD
 
 set MODULE=comptabilite
 cd ../../comptabilite/compta
 erase %MODULE%.dsw
 erase %MODULE%.dsp
-%QMAKE% -t vcapp -o %MODULE%.dsp compta.pro
+%QMAKE% -t vcapp -o %MODULE%.dsp %MODULE%.pro
 cd ../../mise_a_jour/bin
 mise_a_jour.exe MSDEV  ../../comptabilite/compta/comptabilite.dsp comptabilite.exe
 cd ../../comptabilite/compta
@@ -153,7 +153,10 @@ erase %MODULE%.dsp
 cd ../../mise_a_jour/bin
 mise_a_jour.exe MSDEV  ../../%MODULE%/src/%MODULE%.dsp %MODULE%.exe
 cd ../../%MODULE%/src
-msdev %MODULE%.dsp
+msdev %MODULE%.dsp /MAKE /CLEAN
+msdev %MODULE%.dsp /MAKE ALL
+
+
 
 set MODULE=ccamview
 cd ../../%MODULE%/src
@@ -184,7 +187,8 @@ erase %MODULE%.dsp
 cd ../../mise_a_jour/bin
 mise_a_jour.exe MSDEV  ../../%MODULE%/src/%MODULE%.dsp %MODULE%.exe
 cd ../../%MODULE%/src
-msdev %MODULE%.dsp
+msdev %MODULE%.dsp /MAKE /CLEAN
+msdev %MODULE%.dsp /MAKE ALL
 
 
 set MODULE=qmedicabase

@@ -13,16 +13,7 @@
 #include "../../MedinTuxTools-QT4/CGestIni.h"
 #include "../../MedinTuxTools-QT4/medicabase/C_InterResultPair.h"
 
-typedef struct  { int     m_ge;
-                  int     m_cip;
-                  int     m_id_1;
-                  int     m_id_2;
-                  QString m_level;
-                  QString m_product;
-                  QString m_drugName;
-                  QString m_document;
-                  int     m_cip2;
-                } INTER_STRUCT;
+
 
 class QDomElement;
 //===================================== C_BDM_DatasempPlugin ==============================

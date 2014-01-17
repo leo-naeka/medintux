@@ -1563,7 +1563,53 @@ void DrTux::OnDrTuxSaveRubList()
   CGestIni::Param_UpdateToDisk(G_pCApp->m_PathAppli+"RecordLog.log", G_pCApp->m_pCMoteurBase->m_debugStr);
   */
 }
+//------------------------------ initAllRubriquesComboWithRubList ------------------------------------------------------------
+// si pour une raison ou une autre il faut mettre a jour la liste des combo box de chaque fenetre
+// exemple la date d'une rubrique est modifiee par une macro donc ll'ordre
+//
+void DrTux::initAllRubriquesComboWithRubList()
+{ //.............. réinitialiser les affichages des rubriques  ...................
+ QString                pk           = "";
+ int                    i            =  0;
+ QWidgetList   windowsList           =  m_pQWorkSpaceRub->windowList();
+ CPrtQListBoxItem *pCPrtQListBoxItem =  0;
+ QMap<int,QString>::Iterator            mit;
+ QMap <int, QString>                    map_activeRubTypeAndPk;
+ 
+ // Dock_Menu a-t-il qq chose à sauvegarder ?
+ if (m_pForm_Menu) m_pForm_Menu->checkItemToSave();
 
+ //.............. mettre à jour la liste des rubriques avec le contenu des éditeurs ...................
+ for ( i =  0; i < int(windowsList.count()); ++i )
+     { CMDI_Generic *pCMDI_Generic = (CMDI_Generic*) windowsList.at(i);
+       pCPrtQListBoxItem           = pCMDI_Generic->GetCurrentDocItem();
+       if ( pCPrtQListBoxItem )          // si c'est un enregistrement de rubrique active
+       // if ( (id = pCMDI_Generic->GetCurrent_RubList_ID()) !=-1)  
+          { //............. on mape le type de la rubrique avec le pk des rubriques actives .....................
+            //              les Pk peuvent etre provisoires et seront changes lors de l'enregistement par les vrais
+            if (pCPrtQListBoxItem) map_activeRubTypeAndPk[pCMDI_Generic->GetType()] = pCPrtQListBoxItem->GetUser();  // OUI c'est le boxon le Pk est dans le user de CPrtQListBoxItem.
+            pCMDI_Generic->IfModified_SaveInRubList();
+          }
+     }
+ //.................... recharger les combo de chaque rubrique ..................................................
+ //
+ for ( i =  0; i < int(windowsList.count()); ++i )
+     { QString pkToActivate                        =  "";
+       CMDI_Generic *pCMDI_Generic                 =  (CMDI_Generic*) windowsList.at(i);
+       //....... chercher si le Pk actif de cette rubrique dans la liste construite..............................
+       //        et relevee plus haut de la map liant le type de rubrique avec le pk de l'enregistrement actif 
+       mit                                         =  map_activeRubTypeAndPk.find(pCMDI_Generic->GetType());
+       //....... un record est identifie comme actif si : ....................
+       //        son type fait partie des type de rubriques actives
+       //        le Pk (provisoire ou pas) associe a cette rubrique active
+       //        est le meme que le record
+       if ( mit  != map_activeRubTypeAndPk.end() )
+          { pk = mit.data ();
+            if (pk!="-1") pkToActivate = pk;       // si ne satisfait pas aux conditions on ne retient pas ce record comme celui actif dans une rubrique
+          }
+       pCMDI_Generic->reinitComboBoxWithRubList(&m_RubList, pkToActivate);
+     }
+}
 //------------------------------ RubListMakeWhithNewDoss ------------------------------------------------------------
 void DrTux::RubListMakeWhithNewDoss()
 {m_RubList.clear();                                      // effacer la liste

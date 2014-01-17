@@ -68,7 +68,7 @@
 */
 
 CApp* G_pCApp = 0;  // contiendra l'instance globale de l'application
-static char NUM_VERSION[]     = "==##@@==2.16.004==@@##==";
+static char NUM_VERSION[]     = "==##@@==2.16.005==@@##==";
 //--------------------------------------------- CApp -------------------------------------------------------------------
 CApp::~CApp()
 {

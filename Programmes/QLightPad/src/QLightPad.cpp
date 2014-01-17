@@ -64,10 +64,11 @@
 #include "../../MedinTuxTools/CGenTools.h"
 #include "../../MedinTuxTools/CGestIni.h"
 #include "../../MedinTuxTools/Theme.h"
+#include "../../MedinTuxTools/ThemePopup.h"
 
 // "Si Dieu existe, j'espère qu'il a une bonne excuse." -+- W. Allen -+-
 extern QString             GlobalPathAppli;
-static char NUM_VERSION[]     = "==##@@==2.14.001==@@##==";
+static char NUM_VERSION[]     = "==##@@==2.16.000==@@##==";
 //------------------------------------------------------- QLightPad -------------------------------------
 QLightPad::QLightPad( QWidget *parent, const char *name ,  int argc, char ** argv)
     : QMainWindow( parent, name )
@@ -261,6 +262,11 @@ void QLightPad::setupFileActions()
     connect( a, SIGNAL( activated() ), this, SLOT( fileSave() ) );
     a->addTo( tb );
     a->addTo( menu );
+    a = new QAction( tr( "Positionner l'entête meta" ), QPixmap(GlobalPathAppli +"QLightPadSys/ImageSaveMeta.png" ), tr( "Positionner l'entête meta..." ), CTRL + Key_S, this, "fileSaveMeta" );
+    connect( a, SIGNAL( activated() ), this, SLOT( fileSaveMeta() ) );
+    a->addTo( tb );
+    a->addTo( menu );
+
     a = new QAction( tr( "Enregistrer Sous" ), tr( "&Enregistrer Sous..." ), 0, this, "fileSaveAs" );
     connect( a, SIGNAL( activated() ), this, SLOT( fileSaveAs() ) );
     a->addTo( menu );
@@ -1070,9 +1076,36 @@ void QLightPad::fileSave()
  if (!edit) return;
  fileSave(edit, edit->m_Filter);
 }
+//------------------------------------------------------- fileSaveMeta -------------------------------------
+void QLightPad::fileSaveMeta()
+{MyEditText *edit =  currentEditor();
+ if (!edit) return;
+ QString metaTags    = CGestIni::Param_UpdateFromDisk(GlobalPathAppli +"QLightPadSys/metaTags.txt").remove("\r");
+ QStringList metaList = QStringList::split ("\n", metaTags, FALSE );
+ QStringList popList;
+ //............ reperer utf8 ou pas ........................
+ QString txt (edit->text());
+ edit->m_IsUTF8 = CGestIni::IsUtf8( txt ); 
+ //........... creer la liste en fonction .................
+ for (int i=0; i<(int)metaList.size(); ++i)
+    { QString item = metaList[i];
+      if (edit->m_IsUTF8)
+         {if (item.startsWith("utf-8|")) popList.append(item.mid(6));
+         }
+      else
+         {if (item.startsWith("latin1|")) popList.append(item.mid(7));
+         }
+    }
+  //.............. actionner le popup ...................
+ ThemePopup *pPopup = new ThemePopup(popList, this, "lePopup");
+ if (pPopup==0) return;
+ QString option = pPopup->DoPopupList();
+ if (option.length()==0) return;
+ fileSave(edit, option);
+}
 
 //------------------------------------------------------- fileSave -------------------------------------
-void QLightPad::fileSave(MyEditText *edit, QString /*filter*/)
+void QLightPad::fileSave(MyEditText *edit, const QString &metaTag)
 {
     if ( !edit )                             return;
     QString fn;
@@ -1156,7 +1189,12 @@ void QLightPad::fileSave(MyEditText *edit, QString /*filter*/)
             CHtmlTools::setTextDefaultAtribut(txt, "text",          edit->m_DefaultTextColor);
             CHtmlTools::setTextDefaultAtribut(txt, "bgcolor",       edit->m_DefaultBackgroundColor);
             QString codec = ts.codec()->name();
-            if (codec.lower() == "utf-8")
+            if (metaTag.length())
+               {txt.replace("meta name=\"qrichtext\" content=\"1\"",metaTag);
+                if (codec.lower() == "utf-8") m_tabWidget->setTabIconSet ( edit, QIconSet (QPixmap(GlobalPathAppli +"QLightPadSys/LedUTF8.png" )) ) ;
+                else                          m_tabWidget->setTabIconSet ( edit, QIconSet (QPixmap("")) ) ;
+               }
+            else if (codec.lower() == "utf-8")
                {txt.replace("meta name=\"qrichtext\" content=\"1\"","meta name=\"qrichtext\" content=\"charset=utf-8\"");
                 edit->m_IsUTF8 = 1;
                 m_tabWidget->setTabIconSet ( edit, QIconSet (QPixmap(GlobalPathAppli +"QLightPadSys/LedUTF8.png" )) ) ;

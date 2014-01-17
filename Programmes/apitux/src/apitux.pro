@@ -18,10 +18,10 @@ TEMPLATE     = app
 message(Qt version: $$[QT_VERSION])
 include(../../MedinTuxTools-QT4/qtsingleapplication/src/qtsingleapplication.pri)
 
-mac { LIBS +=  -L/usr/X11/lib
-    }
+unix:LIBS += -lX11
+# win32:OBJECTS_DIR = $${SRC_DIR}/obj/win32
+mac:LIBS +=  -L/usr/X11/lib
 
-unix:!macx: LIBS += -lX11
 
 ROOT_PROJECT        = $$PWD/../
 SRC_DIR             = $${ROOT_PROJECT}/src/

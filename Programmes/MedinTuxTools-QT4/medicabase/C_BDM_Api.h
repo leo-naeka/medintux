@@ -25,7 +25,16 @@ class QTimer;
 class QSqlQuery;
 class C_PatientCtx;
 
-
+typedef struct  { int     m_ge;
+                  int     m_cip;
+                  int     m_id_1;
+                  int     m_id_2;
+                  QString m_level;
+                  QString m_product;
+                  QString m_drugName;
+                  QString m_document;
+                  int     m_cip2;
+                } INTER_STRUCT;
 
 //=================== C_CompositionItem ===================================
 /*! \class C_CompositionItem

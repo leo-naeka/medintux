@@ -43,10 +43,10 @@ else:message( "============= pas de Support de Sesam Vitale ============" )
 message( "| Manager is a MedinTux software by Data Medical Design |" )
 message( "=============================================================" )
 include(../../MedinTuxTools-QT4/qtsingleapplication/src/qtsingleapplication.pri)
-mac { LIBS +=  -L/usr/X11/lib
-    }
 
-unix:!macx: LIBS += -lX11
+unix:LIBS += -lX11
+# win32:OBJECTS_DIR = $${SRC_DIR}/obj/win32
+mac:LIBS +=  -L/usr/X11/lib
 
 SOURCES += main.cpp \
     CApp.cpp \

@@ -2405,7 +2405,6 @@ void FormRubTerrain::pushButtonRubDateChange_clicked()
 
  if ( dlg->exec() == QDialog::Accepted )
     { //................... remettre a jour le comboBox ................................
-//       pCPrtQListBoxItem->SetType((*it).m_Date);
       pCPrtQListBoxItem->SetDate((*it).m_Date);
       pCPrtQListBoxItem->setText((*it).m_Date.left(10) + " " +(*it).m_Libelle );
       //................... mettre le document en modified (en replacant les data ds rubrique liste) ......................

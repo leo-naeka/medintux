@@ -79,7 +79,16 @@ CApp::CApp(QString mui_name, int & argc, char ** argv)
     QString driver, baseToConnect, sqlUserName, sqlPass, hostName, port, qstr;
     QString baseCfg;
     m_NUM_VERSION    = NUM_VERSION;
-    m_pQSplashScreen = new C_SplashScreen(Theme::getIcon("splash_Manager.png"));
+#ifdef Q_WS_X11
+       m_pQSplashScreen = new C_SplashScreen(Theme::getIcon("splash_Manager.png"));
+#endif
+#ifdef Q_WS_MAC
+       m_pQSplashScreen = new C_SplashScreen(Theme::getIcon("splash_Manager.png"));
+#endif
+#ifdef  Q_WS_WIN
+       m_pQSplashScreen = new C_SplashScreen(Theme::getIcon("splash_Manager.png"));
+#endif
+
     if (m_pQSplashScreen)
        { m_pQSplashScreen->show();
          m_pQSplashScreen->showMessage(QObject::tr("Initialising connexions ........."),
@@ -159,9 +168,11 @@ QFileInfo qfi(argv[0]);
          hostName          = "";
          port              = "3306";
        }
-    if (m_pQSplashScreen) m_pQSplashScreen->showMessage( QObject::tr("%1::%2;;%3::%4::%5").arg(driver,baseToConnect,sqlUserName,hostName,port),
+    if (m_pQSplashScreen)
+       { m_pQSplashScreen->showMessage( QObject::tr("%1::%2;;%3::%4::%5").arg(driver,baseToConnect,sqlUserName,hostName,port),
                                                          Qt::AlignCenter | Qt::AlignCenter, Qt::black);  //This line represents the alignment of text, color and position
-     processEvents(); //This is used to accept a click on the screen so that user can cancel the screen
+         processEvents(); //This is used to accept a click on the screen so that user can cancel the screen
+       }
      //SLEEP(5);
     //if (m_IsNomadeActif)
        {changeAllModuleConnectionParam(driver, baseToConnect, sqlUserName, sqlPass, hostName, port);

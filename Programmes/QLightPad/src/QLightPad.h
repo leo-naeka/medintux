@@ -60,12 +60,13 @@ private:
     MyEditText *currentEditor() const;
     int         closeEditor(MyEditText *edit, int saveRequest = CSaveRequest::SaveCurrentRequest);
     void        doConnections( QTextEdit *e );
-    void        fileSave(MyEditText *edit, QString filter="");
+    void        fileSave(MyEditText *edit, const QString &metaTag="");
     void        tryToStopAPropos();
 private slots:
     void fileNew();
     void fileOpen();
     void fileSave();
+    void fileSaveMeta();
     void fileSaveAs();
     void filePrint();
     void fileClose();

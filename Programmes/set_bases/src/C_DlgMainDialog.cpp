@@ -276,19 +276,21 @@ C_DlgMainDialog::C_DlgMainDialog(QWidget* parent, const char* name, bool modal, 
     textLabel_MacOS->hide();
 #ifdef Q_WS_WIN
     /*if (QFile::exists("C:/MedinTuxRo.txt"))      pushButtonMakeSQL->hide();  */ // pas de bash sous W
-    pushButton_compilation->hide();
-    comboBox_Executables->hide();
+    //pushButton_compilation->hide();
+    //comboBox_Executables->hide();
     textLabel_RootField->hide();
     lineEdit_RootPass->hide();
     comboBox_PortLecteur->hide();
     lineEdit_SesamPath->setText("C:\\");
     lineEdit_BinaryPath->setText("C:\\WINDOWS");
-    pushButton_Qt4Sdk->hide();
-    lineEdit_Qt4Sdk->hide();
-    lineEdit_Qt3->hide();
-    pushButton_Qt3->hide();
+    lineEdit_Qt3->setText(tryToFindQt3());
+    lineEdit_Qt4Sdk->setText(tryToFindSdkQt4());
+    //pushButton_Qt4Sdk->hide();
+    //lineEdit_Qt4Sdk->hide();
+    //lineEdit_Qt3->hide();
+    //pushButton_Qt3->hide();
     textLabel_WindPathField->setText(tr("Répertoire WINDOWS "));
-    tabWidget_Instal->removePage(m_pTabQWidgetCompil);
+    //tabWidget_Instal->removePage(m_pTabQWidgetCompil);
     // textLabel_MacOS->setText(m_SousAppleSeMettreEnModeAdmin);   // pour tester sous W
     // textLabel_MacOS->show();                                    // pour tester sous W
 #endif
@@ -706,12 +708,60 @@ void C_DlgMainDialog::destroy()
 //----------------------------------------- pushButton_Qt4Sdk_clicked ---------------------------------------------
 void C_DlgMainDialog::pushButton_Qt4Sdk_clicked()
 {QString optDir =  QFileDialog::getExistingDirectory (lineEdit_Qt4Sdk->text(), this, "findqt4sdk", tr("Chercher le répertoire du Sdk QT4") ) ;
- if (optDir.length()) lineEdit_Qt4Sdk->setText(optDir);
+#ifdef Q_WS_WIN
+ if (optDir.length() && QFile::exists(optDir + "/bin/qmake")) 
+#else
+ if (optDir.length() && QFile::exists(optDir + "/bin/qmake.exe")) 
+#endif
+
+    { lineEdit_Qt4Sdk->setText(optDir);
+#ifdef Q_WS_WIN
+      QString key = "WinQt4Dir";
+#endif
+#ifdef Q_WS_X11
+      QString key = "X11Qt4Dir";
+#endif
+#ifdef Q_OS_MACX
+      QString key = "MacQt4Dir";
+#endif
+      CGestIni::Param_WriteParam( &G_pCApp->m_ParamData,  "Compilation", key ,optDir);
+    }
+ else
+    {QMessageBox::information( this, tr( "MedinTux demande votre attention" ),
+                                     tr( "Ce chemin '%1' n'est pas celui de Qt. \n"
+                                         "La compilation avec celui-ci est impossible.").arg(optDir) ,
+                                     tr( "&ok"), 0, 0, 1, 1 
+                             ) ;
+    }
 }
 //----------------------------------------- pushButton_Qt3_clicked ---------------------------------------------
 void C_DlgMainDialog::pushButton_Qt3_clicked()
 {QString optDir =  QFileDialog::getExistingDirectory (lineEdit_Qt3->text(), this, "findqt3", tr("Chercher le répertoire de QT3") ) ;
- if (optDir.length()) lineEdit_Qt3->setText(optDir);
+#ifdef Q_WS_WIN
+ if (optDir.length() && QFile::exists(optDir + "/bin/qmake")) 
+#else
+ if (optDir.length() && QFile::exists(optDir + "/bin/qmake.exe")) 
+#endif
+
+    { lineEdit_Qt3->setText(optDir);
+#ifdef Q_WS_WIN
+      QString key = "WinQt3Dir";
+#endif
+#ifdef Q_WS_X11
+      QString key = "X11Qt3Dir";
+#endif
+#ifdef Q_OS_MACX
+      QString key = "MacQt3Dir";
+#endif
+      CGestIni::Param_WriteParam( &G_pCApp->m_ParamData,  "Compilation", key ,optDir);
+    }
+ else
+    {QMessageBox::information( this, tr( "MedinTux demande votre attention" ),
+                                     tr( "Ce chemin '%1' n'est pas celui de Qt. \n"
+                                         "La compilation avec celui-ci est impossible.").arg(optDir) ,
+                                     tr( "&ok"), 0, 0, 1, 1 
+                             ) ;
+    }
 }
 
 //----------------------------------------- keepOnlyNumber ---------------------------------------------
@@ -818,7 +868,7 @@ QString C_DlgMainDialog::getTargetSrcPath(const QString &target)
         {main_path = qDir.path() + "/comptabilite/check_dus";
         }
      else if ( target=="comptabilite" )
-        {main_path = qDir.path() + "/comptabilite/compta";
+        {main_path = qDir.path() + "/comptabilite/comptabilite";
         }
      else
           {main_path = qDir.path() + QDir::separator() + target + QDir::separator() +"src";
@@ -828,12 +878,25 @@ QString C_DlgMainDialog::getTargetSrcPath(const QString &target)
 //----------------------------------------- tryToFindQt3 ---------------------------------------------
 QString  C_DlgMainDialog::tryToFindQt3()
 {
+#ifdef Q_WS_WIN
+    QString qt3Path = "";
+    if ( ! (CGestIni::Param_ReadParam(G_pCApp->m_ParamData,  "Compilation", "WinQt3Dir", &qt3Path) !=0 // zero = pas d'erreur
+            &&  QFile::exists(qt3Path + "/bin/qmake.exe")
+           )  
+       )
+       {qt3Path = "C:/Qt3/3.3.4";
+       }
+    return qt3Path;
+#endif
+
 #ifdef Q_OS_MACX
  QString ret = QString::null;
  if        (QFile::exists(QDir::cleanDirPath(G_pCApp->m_PathAppli+"../../Qt/bin/qmake")))   ret = QDir::cleanDirPath(G_pCApp->m_PathAppli+"../../Qt");
  else if   (QFile::exists("/usr/lib/qt3/bin/qmake"))  ret = "/usr/lib/qt3";
  return    ret;
-#else
+#endif
+
+#ifdef Q_WS_X11
  QString ret    = QString::null;
  QString toTest = QDir::cleanDirPath(G_pCApp->m_PathAppli + "../../../qt3_l64");
  if        (QFile::exists(toTest+"/bin/qmake"))       return toTest;
@@ -847,6 +910,18 @@ QString  C_DlgMainDialog::tryToFindQt3()
 //----------------------------------------- tryToFindSdkQt4 ---------------------------------------------
 QString  C_DlgMainDialog::tryToFindSdkQt4()
 {
+
+#ifdef Q_WS_WIN
+    QString qt4Path = "";
+    if ( ! (CGestIni::Param_ReadParam(G_pCApp->m_ParamData,  "Compilation", "WinQt4Dir", &qt4Path) !=0 // zero = pas d'erreur
+            &&  QFile::exists(qt4Path + "/bin/qmake.exe")
+           )  
+       )
+       {qt4Path = "C:/Qt4/qt";
+       }
+    return qt4Path;
+#endif
+
 #ifdef Q_OS_MACX
  QStringList listOptDir = CGestIni::listDirectory("/usr/local/Trolltech", "", "Qt-", "|", FALSE, TRUE);
  int         lastIndex  = -1;
@@ -860,7 +935,9 @@ QString  C_DlgMainDialog::tryToFindSdkQt4()
      }
  if (lastIndex != -1)   return listOptDir[lastIndex].prepend("/usr/local/Trolltech/");
  else                   return QString::null;
-#else
+#endif
+
+#ifdef Q_WS_X11
  //............ rechercher bon path qt ...................................
  QString           prefix  = QDir::cleanDirPath(G_pCApp->m_PathAppli + "../../../qt4_l64");
  QString           sufix   = "";
@@ -912,7 +989,7 @@ void C_DlgMainDialog::Compilation(const QString &path, const QString & target)
 #endif
 
 #ifdef Q_WS_WIN
-    bool isQT4Here                = false;
+    bool isQT4Here                = QFile::exists(sdkDir+"bin/qmake.exe");
     os                            =  "Windows";
 #endif
 
@@ -929,7 +1006,7 @@ void C_DlgMainDialog::Compilation(const QString &path, const QString & target)
 
     //.................... corriger les versions des UI du module en cours .....................
     QDir::setCurrent ( path );
-    if ( (target == "QFseVitale"||target == "qgetdatasemp") && IsSesamVersionExist() )
+    if ( (target == "QFseVitale") && IsSesamVersionExist() )
        {if (isQT3) G_pCApp->RemoveAllDesignerVersion(getTargetSrcPath("QFseVitale"));
        }
     else
@@ -942,6 +1019,29 @@ void C_DlgMainDialog::Compilation(const QString &path, const QString & target)
     if (isQT3)
        {    QApplication::setOverrideCursor( QCursor( Qt::WaitCursor ) );
             toLog( tr ("<br>============= Compilation de <font color=#ffa800><b> '%1' </b></font> sur <font color=#00e5e8><b>%2</b></font> <font color=#ff0000><b>(librairie QT3)</b></font> en cours ... =============").arg(target,os));
+         #ifdef Q_WS_WIN
+            QString qtdir = lineEdit_Qt3->text().stripWhiteSpace();
+            QString disk  = G_pCApp->m_PathAppli.left(2);
+            script  =  QString ("echo \"================= compilation de %4 ===========================\"\r\n"
+                                "%1\r\n"
+                                "cd %2\r\n"
+                                "set QMAKE=%3\\bin\\qmake\r\n"
+                                "set QMAKESPEC=win32-msvc\r\n"
+                                "set MODULE=%4\r\n").arg(disk,G_pCApp->m_PathAppli,qtdir, target);
+
+            script +=           "cd ../../%MODULE%/src\r\n"
+                                "echo \"================= se plaver dans %MODULE%/src ===========================\"\r\n"
+                                "erase %MODULE%.dsw\r\n"
+                                "erase %MODULE%.dsp\r\n"
+                                "if exist %MODULE%.pro %QMAKE% -t vcapp -o %MODULE%.dsp %MODULE%.pro\r\n"
+                                "if exist src.pro %QMAKE% -t vcapp -o %MODULE%.dsp src.pro\r\n"
+                                "cd ../../mise_a_jour/bin\r\n"
+                                "mise_a_jour.exe MSDEV  ../../%MODULE%/src/%MODULE%.dsp %MODULE%.exe\r\n"
+                                "cd ../../%MODULE%/src\r\n"
+                                "msdev %MODULE%.dsp /MAKE /CLEAN\r\n"
+                                "msdev %MODULE%.dsp /MAKE ALL\r\n";          
+         #endif
+
          #ifdef  Q_WS_MAC
             QString qtdir = lineEdit_Qt3->text().stripWhiteSpace();
             script  =  "#! /bin/sh\n"
@@ -960,8 +1060,8 @@ void C_DlgMainDialog::Compilation(const QString &path, const QString & target)
             "export INCLUDE\n"
             "cd '"+G_pCApp->m_PathAppli+"'\n"
             "./MakeAllMac.sh '" + m_CurrentCompil + "' '" + lineEdit_Qt3->text() + "'";
-            qDebug(script);
-        #else
+        #endif
+        #ifdef Q_WS_X11
             QString qtdir = lineEdit_Qt3->text().stripWhiteSpace();
             script  =  "#! /bin/sh\n"
                        "#----- DEB FOR LINUX --------\n"
@@ -983,10 +1083,23 @@ void C_DlgMainDialog::Compilation(const QString &path, const QString & target)
                       "./MakeAllMac.sh '" + m_CurrentCompil + "' '" + lineEdit_Qt3->text() + "'";
             */
         #endif
+        #ifdef Q_WS_WIN
+            CGestIni::Param_UpdateToDisk(G_pCApp->m_PathAppli+"makeModuleQt3.bat", script);
+            system(G_pCApp->m_PathAppli+"makeModuleQt3.bat");
+            updateExit();
+            //m_proc = new QProcess(this);  if (m_proc == 0 ) return;
+ 
+            //m_proc->addArgument("cmd");      // QProcess::startDetached (QString ("cmd /c start ") + scriptToDo ); //START.EXE /B /MIN leScriptAmasquer.CMD
+            //m_proc->addArgument(QString ("cmd /c start ") + script);    
+            //m_proc->start();       
+            //pushButton_compilation->setText(tr("&Interrompre la compilation des exécutables en cours"));
+            //m_MakeExeRun = MAKE_EXE_RUN;
+        #else 
             CGestIni::Param_UpdateToDisk(G_pCApp->m_PathAppli+"makeModule.sh", script);
             execute(G_pCApp->m_PathAppli + "makeModule.sh");
             pushButton_compilation->setText(tr("&Interrompre la compilation des exécutables en cours"));
             m_MakeExeRun = MAKE_EXE_RUN;
+        #endif
        }
    else if (QFile::exists(modulePath + "src/"+target+".pro"))
        {if (isQT4Here)
@@ -996,7 +1109,9 @@ void C_DlgMainDialog::Compilation(const QString &path, const QString & target)
             //toLog( tr ("<br> Remove <font color=#ff0000><b>QT4</b></font> de<font color=#ffa800><b> %1 </b></font>en cours ...").arg(modulePath+"src/makeQT4Module.sh"));
             QApplication::setOverrideCursor( QCursor( Qt::WaitCursor ) );
             QDir::setCurrent ( modulePath + "src" );
-           #ifdef  Q_WS_MAC
+        #ifdef  Q_WS_WIN
+        #endif
+        #ifdef  Q_WS_MAC
             script = "#!/bin/bash\n"
                      "LD_LIBRARY_PATH={{sdkDir}}lib\n"
                      "PATH={{sdkDir}}bin:/usr/bin:/bin:/usr/X11R6/bin/:\n"
@@ -1019,7 +1134,8 @@ void C_DlgMainDialog::Compilation(const QString &path, const QString & target)
              else                    script += "strip ../../{{target}}/bin/{{target}}.app/Contents/MacOS/{{target}}\n";
              script.replace("{{sdkDir}}",sdkDir);
              script.replace("{{target}}",target);
-           #else
+        #endif
+        #ifdef  Q_WS_X11
             script = "#!/bin/bash\n"
                      "LD_LIBRARY_PATH={{sdkDir}}lib/qtcreator:\n"
                      "PATH={{sdkDir}}bin:/usr/bin:/bin:/usr/X11R6/bin/:\n"
@@ -1042,13 +1158,15 @@ void C_DlgMainDialog::Compilation(const QString &path, const QString & target)
 
              script.replace("{{sdkDir}}",sdkDir);
              script.replace("{{target}}",target);
-            #endif
-
+        #endif
+        #ifdef Q_WS_WIN
+        #else 
              CGestIni::Param_UpdateToDisk(modulePath+"src/makeQT4Module.sh", script);
              execute(modulePath+"src/makeQT4Module.sh", modulePath+"src/");
 //             QFile::remove ( modulePath+"src/makeQT4Module.sh" );
              pushButton_compilation->setText(tr("&Interrompre la compilation des ex\303\251cutables en cours"));
              m_MakeExeRun = MAKE_EXE_RUN;
+        #endif
            }
          else
            {toLog( tr ("<br>============= Compilation <font color=#ff0000><b>QT4</b></font> de<font color=#ffa800><b> %1 </b></font>Avort\303\251e (sdk QT4 Absent) ... =============").arg(target));
@@ -1089,36 +1207,45 @@ bool C_DlgMainDialog::IsThisExecutableExist(const QString &exe_name)
 	//............... la formation du path est alambiquee pour .....................
 	//                pouvoir etre juste aussi bien qaund set_bases demarre de .app que de MacOS
     if (exe_name.left(6)=="guinch")
-       {path   = G_pCApp->m_PathAppli +"../../Manager/bin/guinch";
-        path   = QDir::cleanDirPath(path);
+       { path   = G_pCApp->m_PathAppli +"../../Manager/bin/guinch";
+         path   = QDir::cleanDirPath(path);
 #ifdef Q_OS_MACX
-        path += ".app/Contents/MacOS/guinch";
+         path += ".app/Contents/MacOS/guinch";
+#endif
+#ifdef Q_WS_WIN
+         path += ".exe";
 #endif
        }
-	else if ("compta-plugins")
-	   {path   = G_pCApp->m_PathAppli +"../../comptabilite/bin/compta-plugins";
-        path   = QDir::cleanDirPath(path);
+	else if (exe_name.left(14) == "compta-plugins")
+	   { path   = G_pCApp->m_PathAppli +"../../comptabilite/bin/compta-plugins";
+         path   = QDir::cleanDirPath(path);
 #ifdef Q_OS_MACX
-        path += ".app/Contents/MacOS/compta-plugins";
+         path += ".app/Contents/MacOS/compta-plugins";
 #endif
-      }
-	else if ("check_dus.app")
-	   {path   = G_pCApp->m_PathAppli +"../../comptabilite/bin/check_dus.app";
-        path   = QDir::cleanDirPath(path);
+#ifdef Q_WS_WIN
+         path += ".exe";
+#endif
+       }
+	else if (exe_name.left(9) == "check_dus")
+	   { path   = G_pCApp->m_PathAppli +"../../comptabilite/bin/check_dus";
+         path   = QDir::cleanDirPath(path);
 #ifdef Q_OS_MACX
-        path += ".app/Contents/MacOS/check_dus.app";
+         path += ".app/Contents/MacOS/check_dus";
 #endif
-      }
+#ifdef Q_WS_WIN
+         path += ".exe";
+#endif
+       }
     else
-       {path   =  CGestIni::Construct_Name_Exe(exe_name, folder);
-	    pos    =  path.find(exe_name);
-		if (pos==-1) return FALSE;
-	    path   =  G_pCApp->m_PathAppli +"../../" + path.mid(pos);
-		path   =  QDir::cleanDirPath(path);
+       { path   =  CGestIni::Construct_Name_Exe(exe_name, folder);
+	     pos    =  path.find(exe_name);
+		 if (pos==-1) return FALSE;
+	     path   =  G_pCApp->m_PathAppli +"../../" + path.mid(pos);
+		 path   =  QDir::cleanDirPath(path);
        }
     if (  ! QFile::exists (path) )
-       {toLog( tr("Cet exécutable <font color=#ff0000><b>'%1'</b></font> n'existe pas ").arg(exe_name) );
-        return FALSE;
+       { toLog( tr("Cet exécutable <font color=#ff0000><b>'%1'</b></font> n'existe pas ").arg(exe_name) );
+         return FALSE;
        }
     toLog( tr("Cet exécutable <font color=#ffa800><b>'%1'</b></font> existe déjà ").arg(exe_name) );
     return TRUE;
@@ -1130,9 +1257,15 @@ void C_DlgMainDialog::execute(const QString &command, const QString curDir /*=""
 {   if (curDir.length()==0) QDir::setCurrent ( G_pCApp->m_PathAppli );
     else                    QDir::setCurrent ( curDir );
     m_proc = new QProcess(this);  if (m_proc == 0 ) return;
+#ifdef Q_WS_WIN
+    m_proc->addArgument(QString("cmd /c start %1").arg(command));      // QProcess::startDetached (QString ("cmd /c start ") + scriptToDo ); //START.EXE /B /MIN leScriptAmasquer.CMD
+    //m_proc->addArgument("/c start");
+    //m_proc->addArgument(command);    
+#else
     m_proc->addArgument("bash");
     m_proc->addArgument(command);
     //connect(m_proc, SIGNAL(processExited ()),  this, SLOT(EndCompilation()));
+#endif
     connect(m_proc, SIGNAL(readyReadStderr()), this, SLOT(updateError()));
     connect(m_proc, SIGNAL(readyReadStdout()), this, SLOT(updateText()));
     connect(m_proc, SIGNAL(processExited()),   this, SLOT(updateExit()));
@@ -1186,7 +1319,16 @@ void C_DlgMainDialog::logOutCompil(const QByteArray &data)
 //----------------------------------------- updateExit --------------------------------------------------------------------
 void C_DlgMainDialog::updateExit()
 {
-    if (m_proc->normalExit()) {
+ #ifdef Q_WS_WIN
+        pushButton_SetBases->show();
+        comboBox_Executables->show();
+        comboBox_Bases->show();
+        pushButton_LancerDrTux->show();
+        progressBar_Load->show();
+        QApplication::restoreOverrideCursor();        
+ #else
+    if (m_proc->normalExit()) 
+       {
 
         QDateTime dtEnd= QDateTime::currentDateTime();
         long    s = m_dtDebComp.secsTo (dtEnd);
@@ -1210,6 +1352,7 @@ void C_DlgMainDialog::updateExit()
         if (pos != -1) toWriteOnDisk = toWriteOnDisk.mid(pos);
         CGestIni::Param_UpdateToDisk(G_pCApp->m_PathAppli+"Compilation_"+m_CurrentCompil+".log", toWriteOnDisk);
         m_MakeExeRun = MAKE_EXE_NOTRUN;
+
         //............. strip de l'executable ....................
         QDir::setCurrent ( G_pCApp->m_PathAppli );
         QString script =  "#! /bin/sh\r\n ./stripall.sh " + m_CurrentCompil;
@@ -1227,6 +1370,7 @@ void C_DlgMainDialog::updateExit()
         pushButton_LancerDrTux->show();
         progressBar_Load->show();
     }
+#endif
 }
 //----------------------------------------- pushButton_SetBases_clicked --------------------------------------------------------------------
 void C_DlgMainDialog::pushButton_SetBases_clicked()

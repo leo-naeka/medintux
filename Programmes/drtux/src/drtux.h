@@ -316,6 +316,7 @@ public:
     void            ExeScript(QString &text);
     QString         On_CustomAction(QString& script, C_UserQAction *pQAction);
     void            OnChangePathGlossaire(QString & dir);
+    void            initAllRubriquesComboWithRubList();
     void            connectAllCustomQAction();
     //........................ creation des fenêtres MDI ......................................
     //                         dans l'espace rubrique:  m_pQWorkSpaceRub

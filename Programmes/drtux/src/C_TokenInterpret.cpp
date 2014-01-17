@@ -939,14 +939,25 @@ QTime C_TokenInterpret::hhmmssToQTime(const QString & heure )
   return QTime( h,  m,  s,  ms );
 }
 
+// -------------------- IS_DATE_VALID -------------------------------------------
+/*! \brief non documente */
+QString C_TokenInterpret::IS_DATE_VALID(QStringList &arg_list)
+{if (arg_list.count()<=0) return TR("::IS_DATE_VALID() 1er argument manquant");
+ QDateTime   dt = QDateTime::fromString ( arg_list[0], Qt::ISODate );
+ if ( dt.isValid ()  )               return "1";
+ else                                return "0";
+}
+
 // -------------------- GET_DOC_DATE_FIN -------------------------------------------
 /*! \brief non documente */
-QString C_TokenInterpret::GET_DOC_DATE_FIN(QStringList &)
-    {if (G_mCDC->m_pCRubCurrentRecord)
-        {return G_mCDC->m_pCRubCurrentRecord->m_Fin;
-        }
-     return QString("");
-    }
+QString C_TokenInterpret::GET_DOC_DATE_FIN(QStringList &arg_list)
+{ if (G_mCDC->m_pCRubCurrentRecord==0)  return "";
+  QDateTime   dt = QDateTime::fromString ( G_mCDC->m_pCRubCurrentRecord->m_Fin, Qt::ISODate );
+  if ( ! dt.isValid ()  )               return "";
+  if ( arg_list.count() )               return dt.toString(arg_list[0].stripWhiteSpace());
+  return dt.toString("yyyy-MM-dd hh:mm:ss");
+}
+
 //-------------------------- GET_DOC_PROP_0 -------------------------------------------
 /*! \brief non documente */
 QString C_TokenInterpret::GET_DOC_PROP_0(QStringList &)
@@ -1806,16 +1817,10 @@ QString C_TokenInterpret::REPLACE_IN_FILE(QStringList &arg_list)
  QString   dstFile  = G_pCApp->resolvePath(arg_list[1].stripWhiteSpace());         // nom de du fichier image de remplacement
  CGestIni::Param_UpdateFromDisk(srcFile, str);
  for (int i=2; i<nb; ++i)
-     {by = arg_list[i].stripWhiteSpace();  // nom de la variable ou nom d'un fichier (n'ayons peur de rien)
-      //if (value.startsWith("$File"))
-      //   {value = G_pCApp->resolvePath(value.mid(5));
-      //    value = CGestIni::Param_UpdateFromDisk(value);
-      //   }
-      //else
-         {toReplace = QString("{{%1}}").arg(by);      // ce qu'il y a a remplacer dans le fichier est le nom de la variable encadre de {{}}
-          by        = (*G_mCDC->m_pVariables)[by];    // la valeur est le contenu de la variable
-         }
-      str.replace(toReplace,by);
+     { by = arg_list[i].stripWhiteSpace();  // nom de la variable ou nom d'un fichier (n'ayons peur de rien)
+       toReplace = QString("{{%1}}").arg(by);      // ce qu'il y a a remplacer dans le fichier est le nom de la variable encadre de {{}}
+       by        = (*G_mCDC->m_pVariables)[by];    // la valeur est le contenu de la variable
+       str.replace(toReplace,by);
      }
  CGestIni::Param_UpdateToDisk(dstFile, str);
  return QString("");
@@ -1888,8 +1893,8 @@ QString C_TokenInterpret::REPLACE_IMAGE(QStringList &arg_list)
 /*! \brief non documente */
 QString C_TokenInterpret::RUBRIQUE_SHOW(QStringList &arg_list)
     {int      nb = arg_list.count();
-     if (nb<1)                                        return TR("::RUBRIQUE_SHOW() rubrique name omited");           //{{GET LAST IMAGE NAME}}
-     if (G_pCApp->m_pDrTux==0) return TR("::RUBRIQUE_SHOW() G_pCApp->m_pDrTux==0 ");
+     if (nb<1)                   return TR("::RUBRIQUE_SHOW() rubrique name omited");           //{{GET LAST IMAGE NAME}}
+     if (G_pCApp->m_pDrTux==0)   return TR("::RUBRIQUE_SHOW() G_pCApp->m_pDrTux==0 ");
 
      QString rubrique            = arg_list[0].stripWhiteSpace();
      QString val                 = "t";
@@ -1902,11 +1907,30 @@ QString C_TokenInterpret::RUBRIQUE_SHOW(QStringList &arg_list)
      else
         {if (pCMDI_Generic==0) G_pCApp->m_pDrTux->OnActiverOrCreateRubrique(rubrique);
          pCMDI_Generic = (CMDI_Generic*) G_pCApp->m_pDrTux->IsExistRubrique(rubrique);
-         if (pCMDI_Generic==0) return TR("::RUBRIQUE_SHOW() la rubrique de destination: \"") + rubrique + TR("\" n'a pu être cree");
+         if (pCMDI_Generic==0)   return TR("::RUBRIQUE_SHOW() la rubrique de destination: \"") + rubrique + TR("\" n'a pu être cree");
          pCMDI_Generic->hide();
         }
      return QString("");
     }
+//-------------------------- SET_DOC_DATE_DEB -------------------------------------------
+/*! \brief non documente */
+QString C_TokenInterpret::SET_DOC_DATE_DEB(QStringList &arg_list)
+{ if (G_mCDC->m_isJustForWatch==CDevilCrucible::JustForWatch) return QString("");
+  int nb = arg_list.count();
+  if (nb<1)                 return TR("::SET_DOC_DATE_DEB() date omited");
+
+  QString date = arg_list[0].stripWhiteSpace();
+  QDateTime dt = QDateTime::fromString ( date, Qt::ISODate );
+
+  if ( !dt.isValid () )     return TR("::SET_DOC_DATE_DEB() invalid date '%1' ").arg(date);
+
+  if (G_mCDC->m_pCRubCurrentRecord)
+     { G_mCDC->m_pCRubCurrentRecord->m_Date = date;
+       if (G_pCApp->m_pDrTux==0)          {G_pCApp->CouCou(TR("Erreur VALIDER_DOSSIER() : DrTux non initialise"));return QString::null;}
+       G_pCApp->m_pDrTux-> initAllRubriquesComboWithRubList();
+     }
+   return QString("");
+}
 
 //-------------------------- SET_DOC_DATE_FIN -------------------------------------------
 /*! \brief non documente */
@@ -2470,6 +2494,7 @@ QString C_TokenInterpret::DATE_VISITE(QStringList &)
         }
      return QString::null;
     }
+
 //-------------------------- DATE_DOCUMENT -------------------------------------------
 /*! \brief non documente */
 QString C_TokenInterpret::DATE_DOCUMENT(QStringList &arg_list)
@@ -2490,8 +2515,8 @@ QString C_TokenInterpret::DATE_DOCUMENT(QStringList &arg_list)
      if (format.length()==0)  return TR("Syntax error in DATE DOCUMENT format date  missed after 'FORMAT'");
      //int  id = GetIDCurrentDoc(typ_doc.toLong());
      CRubRecord  *pCRubRecord;
-     if (doc_typ.upper() == "THIS") pCRubRecord = G_mCDC->m_pCRubCurrentRecord;
-     else                           pCRubRecord = GetIDCurrentDoc(doc_typ);
+     if (doc_typ=='*' ||doc_typ.upper() == "THIS") pCRubRecord = G_mCDC->m_pCRubCurrentRecord;
+     else                                          pCRubRecord = GetIDCurrentDoc(doc_typ);
      if (pCRubRecord==0)      return TR("Syntax error in DATE DOCUMENT Document type : '") + doc_typ + "' not found";
      QDateTime    qdt =  pCRubRecord->getDateTime(); // QDate::fromString ( pCRubRecord->m_Date, Qt::ISODate ); // pCRubRecord->getDateTime()
      return  qdt.toString (format);
@@ -2873,8 +2898,9 @@ QString C_TokenInterpret::TITRE_PS(QStringList &)
 //-------------------------- TITRE_PATIENT -------------------------------------------
 /*! \brief non documente */
 QString C_TokenInterpret::TITRE_PATIENT(QStringList &)
-    {QString resolvToken = G_mCDC->m_pMB->GetFieldValue(G_mCDC->m_pMB->m_DOSS_IDENT_TBL_NAME, G_mCDC->m_pMB->m_DOSS_IDENT_TITRE,
-                                                        G_mCDC->m_pMB->m_DOSS_IDENT_REF_PK ,  G_mCDC->m_IdentPrimKey);
+    {QString resolvToken = "";
+     // QString resolvToken = G_mCDC->m_pMB->GetFieldValue(G_mCDC->m_pMB->m_DOSS_IDENT_TBL_NAME, G_mCDC->m_pMB->m_DOSS_IDENT_TITRE,
+     //                                                    G_mCDC->m_pMB->m_DOSS_IDENT_REF_PK ,  G_mCDC->m_IdentPrimKey);
      if (resolvToken=="")
         {QVariant qvar;
          G_mCDC->m_pMB->GetFieldValue(G_mCDC->m_pMB->m_DOSS_IDENT_TBL_NAME, G_mCDC->m_pMB->m_DOSS_IDENT_NSS,

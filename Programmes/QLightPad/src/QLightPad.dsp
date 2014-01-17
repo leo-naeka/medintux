@@ -41,7 +41,7 @@ RSC=rc.exe
 # PROP Output_Dir "Release"
 # PROP Intermediate_Dir "Release"
 # PROP Target_Dir ""
-# ADD CPP -MD /W3 /I "..\src" /I "$(QTDIR)\include" /I "..\..\MedinTuxTools" /I "../../MedinTuxTools" /I "..\..\drtux\src" /I "../../drtux/src" /I "." /I "moc" /I "C:\Qt3\3.3.4\mkspecs\win32-msvc" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D FOR_MEDINTUX /D QT_DLL /D QT_THREAD_SUPPORT /D "QT_NO_DEBUG" /FD /c -nologo -Zm200 -GX -O1 
+# ADD CPP -MD /W3 /I "..\src" /I "$(QTDIR)\include" /I "ui" /I "." /I "..\..\MedinTuxTools" /I "..\..\drtux\src" /I "." /I "moc" /I "C:\Qt3\3.3.4\mkspecs\win32-msvc" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D UNICODE /D FOR_MEDINTUX /D QLIGHTPAD /D QT_DLL /D QT_THREAD_SUPPORT /D "QT_NO_DEBUG" /FD /c -nologo -Zm200 -GX -O1 
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD RSC /l 0x409 /d "NDEBUG"
 BSC32=bscmake.exe
@@ -62,7 +62,7 @@ LINK32=link.exe
 # PROP Output_Dir "Debug"
 # PROP Intermediate_Dir "obj"
 # PROP Target_Dir ""
-# ADD CPP -MDd /W3 /GZ /ZI /Od /I "..\src" /I "$(QTDIR)\include" /I "..\..\MedinTuxTools" /I "../../MedinTuxTools" /I "..\..\drtux\src" /I "../../drtux/src" /I "." /I "moc" /I "C:\Qt3\3.3.4\mkspecs\win32-msvc" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D FOR_MEDINTUX /D QT_DLL /D QT_THREAD_SUPPORT /FD /c -nologo -Zm200 -GX -Zi  
+# ADD CPP -MDd /W3 /GZ /ZI /Od /I "..\src" /I "$(QTDIR)\include" /I "ui" /I "." /I "..\..\MedinTuxTools" /I "..\..\drtux\src" /I "." /I "moc" /I "C:\Qt3\3.3.4\mkspecs\win32-msvc" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D UNICODE /D FOR_MEDINTUX /D QLIGHTPAD /D QT_DLL /D QT_THREAD_SUPPORT /FD /c -nologo -Zm200 -GX -Zi  
 # ADD MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD RSC /l 0x409 /d "_DEBUG"
 BSC32=bscmake.exe
@@ -83,6 +83,10 @@ LINK32=link.exe
 # Begin Source File
 
 SOURCE=QLightPad.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\drtux\src\C_DlgListFieldMngr.cpp
 # End Source File
 # Begin Source File
 
@@ -248,6 +252,43 @@ BuildCmds= \
 	$(QTDIR)\bin\moc QLightPad.h -o moc\moc_QLightPad.cpp \
 
 "moc\moc_QLightPad.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\drtux\src\C_DlgListFieldMngr.h
+
+USERDEP_=""$(QTDIR)\bin\moc.exe""
+
+!IF  "$(CFG)" == " - Win32 Release"
+
+# Begin Custom Build - Moc'ing ..\..\drtux\src\C_DlgListFieldMngr.h...
+InputPath=.\..\..\drtux\src\C_DlgListFieldMngr.h
+
+
+BuildCmds= \
+	$(QTDIR)\bin\moc ..\..\drtux\src\C_DlgListFieldMngr.h -o moc\moc_C_DlgListFieldMngr.cpp \
+
+"moc\moc_C_DlgListFieldMngr.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == " - Win32 Debug"
+
+# Begin Custom Build - Moc'ing ..\..\drtux\src\C_DlgListFieldMngr.h...
+InputPath=.\..\..\drtux\src\C_DlgListFieldMngr.h
+
+
+BuildCmds= \
+	$(QTDIR)\bin\moc ..\..\drtux\src\C_DlgListFieldMngr.h -o moc\moc_C_DlgListFieldMngr.cpp \
+
+"moc\moc_C_DlgListFieldMngr.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 
 # End Custom Build
@@ -490,14 +531,14 @@ USERDEP_DLG_InsertLink.ui="$(QTDIR)\bin\moc.exe" "$(QTDIR)\bin\uic.exe"
 InputPath=.\DLG_InsertLink.ui
 
 BuildCmds= \
-	$(QTDIR)\bin\uic DLG_InsertLink.ui -o DLG_InsertLink.h \
-	$(QTDIR)\bin\uic DLG_InsertLink.ui -i DLG_InsertLink.h -o DLG_InsertLink.cpp \
-	$(QTDIR)\bin\moc  DLG_InsertLink.h -o moc\moc_DLG_InsertLink.cpp \
+	$(QTDIR)\bin\uic DLG_InsertLink.ui -o ui\DLG_InsertLink.h \
+	$(QTDIR)\bin\uic DLG_InsertLink.ui -i DLG_InsertLink.h -o ui\DLG_InsertLink.cpp \
+	$(QTDIR)\bin\moc  ui\DLG_InsertLink.h -o moc\moc_DLG_InsertLink.cpp \
 
-"DLG_InsertLink.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
+"ui\DLG_InsertLink.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
 	$(BuildCmds)
 
-"DLG_InsertLink.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
+"ui\DLG_InsertLink.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
 	$(BuildCmds)
 
 "moc\moc_DLG_InsertLink.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
@@ -511,14 +552,14 @@ BuildCmds= \
 InputPath=.\DLG_InsertLink.ui
 
 BuildCmds= \
-	$(QTDIR)\bin\uic DLG_InsertLink.ui -o DLG_InsertLink.h \
-	$(QTDIR)\bin\uic DLG_InsertLink.ui -i DLG_InsertLink.h -o DLG_InsertLink.cpp \
-	$(QTDIR)\bin\moc  DLG_InsertLink.h -o moc\moc_DLG_InsertLink.cpp \
+	$(QTDIR)\bin\uic DLG_InsertLink.ui -o ui\DLG_InsertLink.h \
+	$(QTDIR)\bin\uic DLG_InsertLink.ui -i DLG_InsertLink.h -o ui\DLG_InsertLink.cpp \
+	$(QTDIR)\bin\moc  ui\DLG_InsertLink.h -o moc\moc_DLG_InsertLink.cpp \
 
-"DLG_InsertLink.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
+"ui\DLG_InsertLink.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
 	$(BuildCmds)
 
-"DLG_InsertLink.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
+"ui\DLG_InsertLink.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
 	$(BuildCmds)
 
 "moc\moc_DLG_InsertLink.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
@@ -540,14 +581,14 @@ USERDEP_DLG_InsertAncre.ui="$(QTDIR)\bin\moc.exe" "$(QTDIR)\bin\uic.exe"
 InputPath=.\DLG_InsertAncre.ui
 
 BuildCmds= \
-	$(QTDIR)\bin\uic DLG_InsertAncre.ui -o DLG_InsertAncre.h \
-	$(QTDIR)\bin\uic DLG_InsertAncre.ui -i DLG_InsertAncre.h -o DLG_InsertAncre.cpp \
-	$(QTDIR)\bin\moc  DLG_InsertAncre.h -o moc\moc_DLG_InsertAncre.cpp \
+	$(QTDIR)\bin\uic DLG_InsertAncre.ui -o ui\DLG_InsertAncre.h \
+	$(QTDIR)\bin\uic DLG_InsertAncre.ui -i DLG_InsertAncre.h -o ui\DLG_InsertAncre.cpp \
+	$(QTDIR)\bin\moc  ui\DLG_InsertAncre.h -o moc\moc_DLG_InsertAncre.cpp \
 
-"DLG_InsertAncre.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
+"ui\DLG_InsertAncre.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
 	$(BuildCmds)
 
-"DLG_InsertAncre.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
+"ui\DLG_InsertAncre.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
 	$(BuildCmds)
 
 "moc\moc_DLG_InsertAncre.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
@@ -561,14 +602,14 @@ BuildCmds= \
 InputPath=.\DLG_InsertAncre.ui
 
 BuildCmds= \
-	$(QTDIR)\bin\uic DLG_InsertAncre.ui -o DLG_InsertAncre.h \
-	$(QTDIR)\bin\uic DLG_InsertAncre.ui -i DLG_InsertAncre.h -o DLG_InsertAncre.cpp \
-	$(QTDIR)\bin\moc  DLG_InsertAncre.h -o moc\moc_DLG_InsertAncre.cpp \
+	$(QTDIR)\bin\uic DLG_InsertAncre.ui -o ui\DLG_InsertAncre.h \
+	$(QTDIR)\bin\uic DLG_InsertAncre.ui -i DLG_InsertAncre.h -o ui\DLG_InsertAncre.cpp \
+	$(QTDIR)\bin\moc  ui\DLG_InsertAncre.h -o moc\moc_DLG_InsertAncre.cpp \
 
-"DLG_InsertAncre.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
+"ui\DLG_InsertAncre.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
 	$(BuildCmds)
 
-"DLG_InsertAncre.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
+"ui\DLG_InsertAncre.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
 	$(BuildCmds)
 
 "moc\moc_DLG_InsertAncre.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
@@ -590,14 +631,14 @@ USERDEP_DLG_InsertEmail.ui="$(QTDIR)\bin\moc.exe" "$(QTDIR)\bin\uic.exe"
 InputPath=.\DLG_InsertEmail.ui
 
 BuildCmds= \
-	$(QTDIR)\bin\uic DLG_InsertEmail.ui -o DLG_InsertEmail.h \
-	$(QTDIR)\bin\uic DLG_InsertEmail.ui -i DLG_InsertEmail.h -o DLG_InsertEmail.cpp \
-	$(QTDIR)\bin\moc  DLG_InsertEmail.h -o moc\moc_DLG_InsertEmail.cpp \
+	$(QTDIR)\bin\uic DLG_InsertEmail.ui -o ui\DLG_InsertEmail.h \
+	$(QTDIR)\bin\uic DLG_InsertEmail.ui -i DLG_InsertEmail.h -o ui\DLG_InsertEmail.cpp \
+	$(QTDIR)\bin\moc  ui\DLG_InsertEmail.h -o moc\moc_DLG_InsertEmail.cpp \
 
-"DLG_InsertEmail.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
+"ui\DLG_InsertEmail.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
 	$(BuildCmds)
 
-"DLG_InsertEmail.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
+"ui\DLG_InsertEmail.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
 	$(BuildCmds)
 
 "moc\moc_DLG_InsertEmail.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
@@ -611,14 +652,14 @@ BuildCmds= \
 InputPath=.\DLG_InsertEmail.ui
 
 BuildCmds= \
-	$(QTDIR)\bin\uic DLG_InsertEmail.ui -o DLG_InsertEmail.h \
-	$(QTDIR)\bin\uic DLG_InsertEmail.ui -i DLG_InsertEmail.h -o DLG_InsertEmail.cpp \
-	$(QTDIR)\bin\moc  DLG_InsertEmail.h -o moc\moc_DLG_InsertEmail.cpp \
+	$(QTDIR)\bin\uic DLG_InsertEmail.ui -o ui\DLG_InsertEmail.h \
+	$(QTDIR)\bin\uic DLG_InsertEmail.ui -i DLG_InsertEmail.h -o ui\DLG_InsertEmail.cpp \
+	$(QTDIR)\bin\moc  ui\DLG_InsertEmail.h -o moc\moc_DLG_InsertEmail.cpp \
 
-"DLG_InsertEmail.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
+"ui\DLG_InsertEmail.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
 	$(BuildCmds)
 
-"DLG_InsertEmail.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
+"ui\DLG_InsertEmail.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
 	$(BuildCmds)
 
 "moc\moc_DLG_InsertEmail.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
@@ -640,14 +681,14 @@ USERDEP_DLG_Browser.ui="$(QTDIR)\bin\moc.exe" "$(QTDIR)\bin\uic.exe"
 InputPath=.\DLG_Browser.ui
 
 BuildCmds= \
-	$(QTDIR)\bin\uic DLG_Browser.ui -o DLG_Browser.h \
-	$(QTDIR)\bin\uic DLG_Browser.ui -i DLG_Browser.h -o DLG_Browser.cpp \
-	$(QTDIR)\bin\moc  DLG_Browser.h -o moc\moc_DLG_Browser.cpp \
+	$(QTDIR)\bin\uic DLG_Browser.ui -o ui\DLG_Browser.h \
+	$(QTDIR)\bin\uic DLG_Browser.ui -i DLG_Browser.h -o ui\DLG_Browser.cpp \
+	$(QTDIR)\bin\moc  ui\DLG_Browser.h -o moc\moc_DLG_Browser.cpp \
 
-"DLG_Browser.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
+"ui\DLG_Browser.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
 	$(BuildCmds)
 
-"DLG_Browser.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
+"ui\DLG_Browser.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
 	$(BuildCmds)
 
 "moc\moc_DLG_Browser.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
@@ -661,14 +702,14 @@ BuildCmds= \
 InputPath=.\DLG_Browser.ui
 
 BuildCmds= \
-	$(QTDIR)\bin\uic DLG_Browser.ui -o DLG_Browser.h \
-	$(QTDIR)\bin\uic DLG_Browser.ui -i DLG_Browser.h -o DLG_Browser.cpp \
-	$(QTDIR)\bin\moc  DLG_Browser.h -o moc\moc_DLG_Browser.cpp \
+	$(QTDIR)\bin\uic DLG_Browser.ui -o ui\DLG_Browser.h \
+	$(QTDIR)\bin\uic DLG_Browser.ui -i DLG_Browser.h -o ui\DLG_Browser.cpp \
+	$(QTDIR)\bin\moc  ui\DLG_Browser.h -o moc\moc_DLG_Browser.cpp \
 
-"DLG_Browser.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
+"ui\DLG_Browser.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
 	$(BuildCmds)
 
-"DLG_Browser.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
+"ui\DLG_Browser.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
 	$(BuildCmds)
 
 "moc\moc_DLG_Browser.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
@@ -690,14 +731,14 @@ USERDEP_DLG_BodyAttributs.ui="$(QTDIR)\bin\moc.exe" "$(QTDIR)\bin\uic.exe"
 InputPath=.\DLG_BodyAttributs.ui
 
 BuildCmds= \
-	$(QTDIR)\bin\uic DLG_BodyAttributs.ui -o DLG_BodyAttributs.h \
-	$(QTDIR)\bin\uic DLG_BodyAttributs.ui -i DLG_BodyAttributs.h -o DLG_BodyAttributs.cpp \
-	$(QTDIR)\bin\moc  DLG_BodyAttributs.h -o moc\moc_DLG_BodyAttributs.cpp \
+	$(QTDIR)\bin\uic DLG_BodyAttributs.ui -o ui\DLG_BodyAttributs.h \
+	$(QTDIR)\bin\uic DLG_BodyAttributs.ui -i DLG_BodyAttributs.h -o ui\DLG_BodyAttributs.cpp \
+	$(QTDIR)\bin\moc  ui\DLG_BodyAttributs.h -o moc\moc_DLG_BodyAttributs.cpp \
 
-"DLG_BodyAttributs.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
+"ui\DLG_BodyAttributs.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
 	$(BuildCmds)
 
-"DLG_BodyAttributs.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
+"ui\DLG_BodyAttributs.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
 	$(BuildCmds)
 
 "moc\moc_DLG_BodyAttributs.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
@@ -711,14 +752,14 @@ BuildCmds= \
 InputPath=.\DLG_BodyAttributs.ui
 
 BuildCmds= \
-	$(QTDIR)\bin\uic DLG_BodyAttributs.ui -o DLG_BodyAttributs.h \
-	$(QTDIR)\bin\uic DLG_BodyAttributs.ui -i DLG_BodyAttributs.h -o DLG_BodyAttributs.cpp \
-	$(QTDIR)\bin\moc  DLG_BodyAttributs.h -o moc\moc_DLG_BodyAttributs.cpp \
+	$(QTDIR)\bin\uic DLG_BodyAttributs.ui -o ui\DLG_BodyAttributs.h \
+	$(QTDIR)\bin\uic DLG_BodyAttributs.ui -i DLG_BodyAttributs.h -o ui\DLG_BodyAttributs.cpp \
+	$(QTDIR)\bin\moc  ui\DLG_BodyAttributs.h -o moc\moc_DLG_BodyAttributs.cpp \
 
-"DLG_BodyAttributs.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
+"ui\DLG_BodyAttributs.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
 	$(BuildCmds)
 
-"DLG_BodyAttributs.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
+"ui\DLG_BodyAttributs.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
 	$(BuildCmds)
 
 "moc\moc_DLG_BodyAttributs.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
@@ -740,14 +781,14 @@ USERDEP_DLG_SaveRequest.ui="$(QTDIR)\bin\moc.exe" "$(QTDIR)\bin\uic.exe"
 InputPath=.\DLG_SaveRequest.ui
 
 BuildCmds= \
-	$(QTDIR)\bin\uic DLG_SaveRequest.ui -o DLG_SaveRequest.h \
-	$(QTDIR)\bin\uic DLG_SaveRequest.ui -i DLG_SaveRequest.h -o DLG_SaveRequest.cpp \
-	$(QTDIR)\bin\moc  DLG_SaveRequest.h -o moc\moc_DLG_SaveRequest.cpp \
+	$(QTDIR)\bin\uic DLG_SaveRequest.ui -o ui\DLG_SaveRequest.h \
+	$(QTDIR)\bin\uic DLG_SaveRequest.ui -i DLG_SaveRequest.h -o ui\DLG_SaveRequest.cpp \
+	$(QTDIR)\bin\moc  ui\DLG_SaveRequest.h -o moc\moc_DLG_SaveRequest.cpp \
 
-"DLG_SaveRequest.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
+"ui\DLG_SaveRequest.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
 	$(BuildCmds)
 
-"DLG_SaveRequest.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
+"ui\DLG_SaveRequest.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
 	$(BuildCmds)
 
 "moc\moc_DLG_SaveRequest.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
@@ -761,14 +802,14 @@ BuildCmds= \
 InputPath=.\DLG_SaveRequest.ui
 
 BuildCmds= \
-	$(QTDIR)\bin\uic DLG_SaveRequest.ui -o DLG_SaveRequest.h \
-	$(QTDIR)\bin\uic DLG_SaveRequest.ui -i DLG_SaveRequest.h -o DLG_SaveRequest.cpp \
-	$(QTDIR)\bin\moc  DLG_SaveRequest.h -o moc\moc_DLG_SaveRequest.cpp \
+	$(QTDIR)\bin\uic DLG_SaveRequest.ui -o ui\DLG_SaveRequest.h \
+	$(QTDIR)\bin\uic DLG_SaveRequest.ui -i DLG_SaveRequest.h -o ui\DLG_SaveRequest.cpp \
+	$(QTDIR)\bin\moc  ui\DLG_SaveRequest.h -o moc\moc_DLG_SaveRequest.cpp \
 
-"DLG_SaveRequest.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
+"ui\DLG_SaveRequest.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
 	$(BuildCmds)
 
-"DLG_SaveRequest.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
+"ui\DLG_SaveRequest.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
 	$(BuildCmds)
 
 "moc\moc_DLG_SaveRequest.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
@@ -790,14 +831,14 @@ USERDEP_..\..\MedinTuxTools\DLG_InsertList.ui="$(QTDIR)\bin\moc.exe" "$(QTDIR)\b
 InputPath=.\..\..\MedinTuxTools\DLG_InsertList.ui
 
 BuildCmds= \
-	$(QTDIR)\bin\uic ..\..\MedinTuxTools\DLG_InsertList.ui -o ..\..\MedinTuxTools\DLG_InsertList.h \
-	$(QTDIR)\bin\uic ..\..\MedinTuxTools\DLG_InsertList.ui -i DLG_InsertList.h -o ..\..\MedinTuxTools\DLG_InsertList.cpp \
-	$(QTDIR)\bin\moc  ..\..\MedinTuxTools\DLG_InsertList.h -o moc\moc_DLG_InsertList.cpp \
+	$(QTDIR)\bin\uic ..\..\MedinTuxTools\DLG_InsertList.ui -o ui\DLG_InsertList.h \
+	$(QTDIR)\bin\uic ..\..\MedinTuxTools\DLG_InsertList.ui -i DLG_InsertList.h -o ui\DLG_InsertList.cpp \
+	$(QTDIR)\bin\moc  ui\DLG_InsertList.h -o moc\moc_DLG_InsertList.cpp \
 
-"..\..\MedinTuxTools\DLG_InsertList.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
+"ui\DLG_InsertList.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
 	$(BuildCmds)
 
-"..\..\MedinTuxTools\DLG_InsertList.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
+"ui\DLG_InsertList.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
 	$(BuildCmds)
 
 "moc\moc_DLG_InsertList.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
@@ -811,14 +852,14 @@ BuildCmds= \
 InputPath=.\..\..\MedinTuxTools\DLG_InsertList.ui
 
 BuildCmds= \
-	$(QTDIR)\bin\uic ..\..\MedinTuxTools\DLG_InsertList.ui -o ..\..\MedinTuxTools\DLG_InsertList.h \
-	$(QTDIR)\bin\uic ..\..\MedinTuxTools\DLG_InsertList.ui -i DLG_InsertList.h -o ..\..\MedinTuxTools\DLG_InsertList.cpp \
-	$(QTDIR)\bin\moc  ..\..\MedinTuxTools\DLG_InsertList.h -o moc\moc_DLG_InsertList.cpp \
+	$(QTDIR)\bin\uic ..\..\MedinTuxTools\DLG_InsertList.ui -o ui\DLG_InsertList.h \
+	$(QTDIR)\bin\uic ..\..\MedinTuxTools\DLG_InsertList.ui -i DLG_InsertList.h -o ui\DLG_InsertList.cpp \
+	$(QTDIR)\bin\moc  ui\DLG_InsertList.h -o moc\moc_DLG_InsertList.cpp \
 
-"..\..\MedinTuxTools\DLG_InsertList.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
+"ui\DLG_InsertList.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
 	$(BuildCmds)
 
-"..\..\MedinTuxTools\DLG_InsertList.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
+"ui\DLG_InsertList.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
 	$(BuildCmds)
 
 "moc\moc_DLG_InsertList.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
@@ -840,14 +881,14 @@ USERDEP_..\..\MedinTuxTools\DlgListOff_Listes.ui="$(QTDIR)\bin\moc.exe" "$(QTDIR
 InputPath=.\..\..\MedinTuxTools\DlgListOff_Listes.ui
 
 BuildCmds= \
-	$(QTDIR)\bin\uic ..\..\MedinTuxTools\DlgListOff_Listes.ui -o ..\..\MedinTuxTools\DlgListOff_Listes.h \
-	$(QTDIR)\bin\uic ..\..\MedinTuxTools\DlgListOff_Listes.ui -i DlgListOff_Listes.h -o ..\..\MedinTuxTools\DlgListOff_Listes.cpp \
-	$(QTDIR)\bin\moc  ..\..\MedinTuxTools\DlgListOff_Listes.h -o moc\moc_DlgListOff_Listes.cpp \
+	$(QTDIR)\bin\uic ..\..\MedinTuxTools\DlgListOff_Listes.ui -o ui\DlgListOff_Listes.h \
+	$(QTDIR)\bin\uic ..\..\MedinTuxTools\DlgListOff_Listes.ui -i DlgListOff_Listes.h -o ui\DlgListOff_Listes.cpp \
+	$(QTDIR)\bin\moc  ui\DlgListOff_Listes.h -o moc\moc_DlgListOff_Listes.cpp \
 
-"..\..\MedinTuxTools\DlgListOff_Listes.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
+"ui\DlgListOff_Listes.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
 	$(BuildCmds)
 
-"..\..\MedinTuxTools\DlgListOff_Listes.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
+"ui\DlgListOff_Listes.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
 	$(BuildCmds)
 
 "moc\moc_DlgListOff_Listes.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
@@ -861,14 +902,14 @@ BuildCmds= \
 InputPath=.\..\..\MedinTuxTools\DlgListOff_Listes.ui
 
 BuildCmds= \
-	$(QTDIR)\bin\uic ..\..\MedinTuxTools\DlgListOff_Listes.ui -o ..\..\MedinTuxTools\DlgListOff_Listes.h \
-	$(QTDIR)\bin\uic ..\..\MedinTuxTools\DlgListOff_Listes.ui -i DlgListOff_Listes.h -o ..\..\MedinTuxTools\DlgListOff_Listes.cpp \
-	$(QTDIR)\bin\moc  ..\..\MedinTuxTools\DlgListOff_Listes.h -o moc\moc_DlgListOff_Listes.cpp \
+	$(QTDIR)\bin\uic ..\..\MedinTuxTools\DlgListOff_Listes.ui -o ui\DlgListOff_Listes.h \
+	$(QTDIR)\bin\uic ..\..\MedinTuxTools\DlgListOff_Listes.ui -i DlgListOff_Listes.h -o ui\DlgListOff_Listes.cpp \
+	$(QTDIR)\bin\moc  ui\DlgListOff_Listes.h -o moc\moc_DlgListOff_Listes.cpp \
 
-"..\..\MedinTuxTools\DlgListOff_Listes.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
+"ui\DlgListOff_Listes.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
 	$(BuildCmds)
 
-"..\..\MedinTuxTools\DlgListOff_Listes.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
+"ui\DlgListOff_Listes.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
 	$(BuildCmds)
 
 "moc\moc_DlgListOff_Listes.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
@@ -890,14 +931,14 @@ USERDEP_..\..\MedinTuxTools\DlgGetString.ui="$(QTDIR)\bin\moc.exe" "$(QTDIR)\bin
 InputPath=.\..\..\MedinTuxTools\DlgGetString.ui
 
 BuildCmds= \
-	$(QTDIR)\bin\uic ..\..\MedinTuxTools\DlgGetString.ui -o ..\..\MedinTuxTools\DlgGetString.h \
-	$(QTDIR)\bin\uic ..\..\MedinTuxTools\DlgGetString.ui -i DlgGetString.h -o ..\..\MedinTuxTools\DlgGetString.cpp \
-	$(QTDIR)\bin\moc  ..\..\MedinTuxTools\DlgGetString.h -o moc\moc_DlgGetString.cpp \
+	$(QTDIR)\bin\uic ..\..\MedinTuxTools\DlgGetString.ui -o ui\DlgGetString.h \
+	$(QTDIR)\bin\uic ..\..\MedinTuxTools\DlgGetString.ui -i DlgGetString.h -o ui\DlgGetString.cpp \
+	$(QTDIR)\bin\moc  ui\DlgGetString.h -o moc\moc_DlgGetString.cpp \
 
-"..\..\MedinTuxTools\DlgGetString.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
+"ui\DlgGetString.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
 	$(BuildCmds)
 
-"..\..\MedinTuxTools\DlgGetString.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
+"ui\DlgGetString.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
 	$(BuildCmds)
 
 "moc\moc_DlgGetString.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
@@ -911,14 +952,14 @@ BuildCmds= \
 InputPath=.\..\..\MedinTuxTools\DlgGetString.ui
 
 BuildCmds= \
-	$(QTDIR)\bin\uic ..\..\MedinTuxTools\DlgGetString.ui -o ..\..\MedinTuxTools\DlgGetString.h \
-	$(QTDIR)\bin\uic ..\..\MedinTuxTools\DlgGetString.ui -i DlgGetString.h -o ..\..\MedinTuxTools\DlgGetString.cpp \
-	$(QTDIR)\bin\moc  ..\..\MedinTuxTools\DlgGetString.h -o moc\moc_DlgGetString.cpp \
+	$(QTDIR)\bin\uic ..\..\MedinTuxTools\DlgGetString.ui -o ui\DlgGetString.h \
+	$(QTDIR)\bin\uic ..\..\MedinTuxTools\DlgGetString.ui -i DlgGetString.h -o ui\DlgGetString.cpp \
+	$(QTDIR)\bin\moc  ui\DlgGetString.h -o moc\moc_DlgGetString.cpp \
 
-"..\..\MedinTuxTools\DlgGetString.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
+"ui\DlgGetString.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
 	$(BuildCmds)
 
-"..\..\MedinTuxTools\DlgGetString.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
+"ui\DlgGetString.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
 	$(BuildCmds)
 
 "moc\moc_DlgGetString.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
@@ -940,14 +981,14 @@ USERDEP_..\..\MedinTuxTools\DlgMyMessageBox.ui="$(QTDIR)\bin\moc.exe" "$(QTDIR)\
 InputPath=.\..\..\MedinTuxTools\DlgMyMessageBox.ui
 
 BuildCmds= \
-	$(QTDIR)\bin\uic ..\..\MedinTuxTools\DlgMyMessageBox.ui -o ..\..\MedinTuxTools\DlgMyMessageBox.h \
-	$(QTDIR)\bin\uic ..\..\MedinTuxTools\DlgMyMessageBox.ui -i DlgMyMessageBox.h -o ..\..\MedinTuxTools\DlgMyMessageBox.cpp \
-	$(QTDIR)\bin\moc  ..\..\MedinTuxTools\DlgMyMessageBox.h -o moc\moc_DlgMyMessageBox.cpp \
+	$(QTDIR)\bin\uic ..\..\MedinTuxTools\DlgMyMessageBox.ui -o ui\DlgMyMessageBox.h \
+	$(QTDIR)\bin\uic ..\..\MedinTuxTools\DlgMyMessageBox.ui -i DlgMyMessageBox.h -o ui\DlgMyMessageBox.cpp \
+	$(QTDIR)\bin\moc  ui\DlgMyMessageBox.h -o moc\moc_DlgMyMessageBox.cpp \
 
-"..\..\MedinTuxTools\DlgMyMessageBox.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
+"ui\DlgMyMessageBox.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
 	$(BuildCmds)
 
-"..\..\MedinTuxTools\DlgMyMessageBox.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
+"ui\DlgMyMessageBox.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
 	$(BuildCmds)
 
 "moc\moc_DlgMyMessageBox.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
@@ -961,14 +1002,14 @@ BuildCmds= \
 InputPath=.\..\..\MedinTuxTools\DlgMyMessageBox.ui
 
 BuildCmds= \
-	$(QTDIR)\bin\uic ..\..\MedinTuxTools\DlgMyMessageBox.ui -o ..\..\MedinTuxTools\DlgMyMessageBox.h \
-	$(QTDIR)\bin\uic ..\..\MedinTuxTools\DlgMyMessageBox.ui -i DlgMyMessageBox.h -o ..\..\MedinTuxTools\DlgMyMessageBox.cpp \
-	$(QTDIR)\bin\moc  ..\..\MedinTuxTools\DlgMyMessageBox.h -o moc\moc_DlgMyMessageBox.cpp \
+	$(QTDIR)\bin\uic ..\..\MedinTuxTools\DlgMyMessageBox.ui -o ui\DlgMyMessageBox.h \
+	$(QTDIR)\bin\uic ..\..\MedinTuxTools\DlgMyMessageBox.ui -i DlgMyMessageBox.h -o ui\DlgMyMessageBox.cpp \
+	$(QTDIR)\bin\moc  ui\DlgMyMessageBox.h -o moc\moc_DlgMyMessageBox.cpp \
 
-"..\..\MedinTuxTools\DlgMyMessageBox.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
+"ui\DlgMyMessageBox.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
 	$(BuildCmds)
 
-"..\..\MedinTuxTools\DlgMyMessageBox.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
+"ui\DlgMyMessageBox.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
 	$(BuildCmds)
 
 "moc\moc_DlgMyMessageBox.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
@@ -990,14 +1031,14 @@ USERDEP_..\..\drtux\src\DlgListFieldMngr.ui="$(QTDIR)\bin\moc.exe" "$(QTDIR)\bin
 InputPath=.\..\..\drtux\src\DlgListFieldMngr.ui
 
 BuildCmds= \
-	$(QTDIR)\bin\uic ..\..\drtux\src\DlgListFieldMngr.ui -o ..\..\drtux\src\DlgListFieldMngr.h \
-	$(QTDIR)\bin\uic ..\..\drtux\src\DlgListFieldMngr.ui -i DlgListFieldMngr.h -o ..\..\drtux\src\DlgListFieldMngr.cpp \
-	$(QTDIR)\bin\moc  ..\..\drtux\src\DlgListFieldMngr.h -o moc\moc_DlgListFieldMngr.cpp \
+	$(QTDIR)\bin\uic ..\..\drtux\src\DlgListFieldMngr.ui -o ui\DlgListFieldMngr.h \
+	$(QTDIR)\bin\uic ..\..\drtux\src\DlgListFieldMngr.ui -i DlgListFieldMngr.h -o ui\DlgListFieldMngr.cpp \
+	$(QTDIR)\bin\moc  ui\DlgListFieldMngr.h -o moc\moc_DlgListFieldMngr.cpp \
 
-"..\..\drtux\src\DlgListFieldMngr.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
+"ui\DlgListFieldMngr.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
 	$(BuildCmds)
 
-"..\..\drtux\src\DlgListFieldMngr.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
+"ui\DlgListFieldMngr.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
 	$(BuildCmds)
 
 "moc\moc_DlgListFieldMngr.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
@@ -1011,14 +1052,14 @@ BuildCmds= \
 InputPath=.\..\..\drtux\src\DlgListFieldMngr.ui
 
 BuildCmds= \
-	$(QTDIR)\bin\uic ..\..\drtux\src\DlgListFieldMngr.ui -o ..\..\drtux\src\DlgListFieldMngr.h \
-	$(QTDIR)\bin\uic ..\..\drtux\src\DlgListFieldMngr.ui -i DlgListFieldMngr.h -o ..\..\drtux\src\DlgListFieldMngr.cpp \
-	$(QTDIR)\bin\moc  ..\..\drtux\src\DlgListFieldMngr.h -o moc\moc_DlgListFieldMngr.cpp \
+	$(QTDIR)\bin\uic ..\..\drtux\src\DlgListFieldMngr.ui -o ui\DlgListFieldMngr.h \
+	$(QTDIR)\bin\uic ..\..\drtux\src\DlgListFieldMngr.ui -i DlgListFieldMngr.h -o ui\DlgListFieldMngr.cpp \
+	$(QTDIR)\bin\moc  ui\DlgListFieldMngr.h -o moc\moc_DlgListFieldMngr.cpp \
 
-"..\..\drtux\src\DlgListFieldMngr.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
+"ui\DlgListFieldMngr.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
 	$(BuildCmds)
 
-"..\..\drtux\src\DlgListFieldMngr.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
+"ui\DlgListFieldMngr.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
 	$(BuildCmds)
 
 "moc\moc_DlgListFieldMngr.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
@@ -1040,14 +1081,14 @@ USERDEP_DLG_A_propos.ui="$(QTDIR)\bin\moc.exe" "$(QTDIR)\bin\uic.exe"
 InputPath=.\DLG_A_propos.ui
 
 BuildCmds= \
-	$(QTDIR)\bin\uic DLG_A_propos.ui -o DLG_A_propos.h \
-	$(QTDIR)\bin\uic DLG_A_propos.ui -i DLG_A_propos.h -o DLG_A_propos.cpp \
-	$(QTDIR)\bin\moc  DLG_A_propos.h -o moc\moc_DLG_A_propos.cpp \
+	$(QTDIR)\bin\uic DLG_A_propos.ui -o ui\DLG_A_propos.h \
+	$(QTDIR)\bin\uic DLG_A_propos.ui -i DLG_A_propos.h -o ui\DLG_A_propos.cpp \
+	$(QTDIR)\bin\moc  ui\DLG_A_propos.h -o moc\moc_DLG_A_propos.cpp \
 
-"DLG_A_propos.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
+"ui\DLG_A_propos.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
 	$(BuildCmds)
 
-"DLG_A_propos.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
+"ui\DLG_A_propos.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
 	$(BuildCmds)
 
 "moc\moc_DLG_A_propos.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
@@ -1061,14 +1102,14 @@ BuildCmds= \
 InputPath=.\DLG_A_propos.ui
 
 BuildCmds= \
-	$(QTDIR)\bin\uic DLG_A_propos.ui -o DLG_A_propos.h \
-	$(QTDIR)\bin\uic DLG_A_propos.ui -i DLG_A_propos.h -o DLG_A_propos.cpp \
-	$(QTDIR)\bin\moc  DLG_A_propos.h -o moc\moc_DLG_A_propos.cpp \
+	$(QTDIR)\bin\uic DLG_A_propos.ui -o ui\DLG_A_propos.h \
+	$(QTDIR)\bin\uic DLG_A_propos.ui -i DLG_A_propos.h -o ui\DLG_A_propos.cpp \
+	$(QTDIR)\bin\moc  ui\DLG_A_propos.h -o moc\moc_DLG_A_propos.cpp \
 
-"DLG_A_propos.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
+"ui\DLG_A_propos.h" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
 	$(BuildCmds)
 
-"DLG_A_propos.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
+"ui\DLG_A_propos.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
 	$(BuildCmds)
 
 "moc\moc_DLG_A_propos.cpp" : "$(SOURCE)" "$(INTDIR)" "$(OUTDIR)"
@@ -1104,6 +1145,10 @@ SOURCE=moc\moc_MyEditText.cpp
 # Begin Source File
 
 SOURCE=moc\moc_QLightPad.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=moc\moc_C_DlgListFieldMngr.cpp
 # End Source File
 # Begin Source File
 
@@ -1176,100 +1221,100 @@ SOURCE=moc\moc_DLG_A_propos.cpp
 
 # Begin Source File
 
-SOURCE=DLG_InsertLink.cpp
+SOURCE=ui\DLG_InsertLink.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=DLG_InsertAncre.cpp
+SOURCE=ui\DLG_InsertAncre.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=DLG_InsertEmail.cpp
+SOURCE=ui\DLG_InsertEmail.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=DLG_Browser.cpp
+SOURCE=ui\DLG_Browser.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=DLG_BodyAttributs.cpp
+SOURCE=ui\DLG_BodyAttributs.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=DLG_SaveRequest.cpp
+SOURCE=ui\DLG_SaveRequest.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\MedinTuxTools\DLG_InsertList.cpp
+SOURCE=ui\DLG_InsertList.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\MedinTuxTools\DlgListOff_Listes.cpp
+SOURCE=ui\DlgListOff_Listes.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\MedinTuxTools\DlgGetString.cpp
+SOURCE=ui\DlgGetString.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\MedinTuxTools\DlgMyMessageBox.cpp
+SOURCE=ui\DlgMyMessageBox.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\drtux\src\DlgListFieldMngr.cpp
+SOURCE=ui\DlgListFieldMngr.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=DLG_A_propos.cpp
+SOURCE=ui\DLG_A_propos.cpp
 # End Source File
 
 # Begin Source File
 
-SOURCE=DLG_InsertLink.h
+SOURCE=ui\DLG_InsertLink.h
 # End Source File
 # Begin Source File
 
-SOURCE=DLG_InsertAncre.h
+SOURCE=ui\DLG_InsertAncre.h
 # End Source File
 # Begin Source File
 
-SOURCE=DLG_InsertEmail.h
+SOURCE=ui\DLG_InsertEmail.h
 # End Source File
 # Begin Source File
 
-SOURCE=DLG_Browser.h
+SOURCE=ui\DLG_Browser.h
 # End Source File
 # Begin Source File
 
-SOURCE=DLG_BodyAttributs.h
+SOURCE=ui\DLG_BodyAttributs.h
 # End Source File
 # Begin Source File
 
-SOURCE=DLG_SaveRequest.h
+SOURCE=ui\DLG_SaveRequest.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\MedinTuxTools\DLG_InsertList.h
+SOURCE=ui\DLG_InsertList.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\MedinTuxTools\DlgListOff_Listes.h
+SOURCE=ui\DlgListOff_Listes.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\MedinTuxTools\DlgGetString.h
+SOURCE=ui\DlgGetString.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\MedinTuxTools\DlgMyMessageBox.h
+SOURCE=ui\DlgMyMessageBox.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\drtux\src\DlgListFieldMngr.h
+SOURCE=ui\DlgListFieldMngr.h
 # End Source File
 # Begin Source File
 
-SOURCE=DLG_A_propos.h
+SOURCE=ui\DLG_A_propos.h
 # End Source File
 
 

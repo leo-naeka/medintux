@@ -88,7 +88,8 @@ void  C_BDM_DatasempPlugin::setLogWidget      ( QTextEdit *logWidget        )
 }
 //-------------------------------- setProgressWidget ------------------------------------------------------
 void  C_BDM_DatasempPlugin::setProgressWidget ( QProgressBar *pQProgressBar )
-{setProgressWidget(pQProgressBar);
+{//setProgressWidget(pQProgressBar);
+ C_BaseCommon::setProgressWidget(pQProgressBar);
 }
 
 //-------------------------------- dataSourceVersion ------------------------------------------------------

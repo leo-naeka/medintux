@@ -112,12 +112,13 @@ private:
 
     void     setCustomDrugListComboOn_ListName(const QString &userName, const QString &listName);
     void     changeCurrentCustomList(const QString &userName, const QString &listName);
-    QWidget *activeTabWidgetByObjectName(QTabWidget * pQTabWidget, const QString & widget_page_object_name);
-    QWidget *toolWidgetByTabObjectName(QToolBox* pQTabWidget, const QString &name);
-    int      toolWidgetIndexByTabObjectName(QToolBox* pQTabWidget, const QString &name);
-    QWidget *tabWidgetByTabObjectName(QTabWidget* pQTabWidget, const QString &name);
-    int      tabWidgetIndexByTabObjectName(QTabWidget* pQTabWidget, const QString &name);
-    QWidget *tabWidgetByTabText(QTabWidget* pQTabWidget, const QString &text, int *index = 0);
+    // QWidget *activeTabWidgetByObjectName (QTabWidget * pQTabWidget, const QString & widget_page_object_name, QMap<QString,  QWidget *> &removedObject); // ici la clef est le titre du tab (on recherche l'objet par son titre dans un menu)
+
+    // QWidget *toolWidgetByTabObjectName(QToolBox* pQTabWidget, const QString &name, int *index  = 0 );
+    // int      toolWidgetIndexByTabObjectName(QToolBox* pQTabWidget, const QString &name);
+    //QWidget *tabWidgetByTabObjectName(QTabWidget* pQTabWidget, const QString &name);
+    //int      tabWidgetIndexByTabObjectName(QTabWidget* pQTabWidget, const QString &name);
+    //QWidget *tabWidgetByTabText(QTabWidget* pQTabWidget, const QString &text, int *index = 0);
     void     save_treeWidgetState    (const QString &sufix, QTreeWidget *pQTreeWidget);
     void     restore_treeWidgetState (const QString &sufix, QTreeWidget *pQTreeWidget);
     void     show_ProductMonographie (const C_BDM_DrugListRecord & drugListRecord);
@@ -185,7 +186,7 @@ private:
     QProcess            *m_Apropos_Proc;
     C_BDM_DrugListRecord m_last_drugListRecord;
     CMyColorButton      *m_Button_TabCorner;
-    QMap <QString, QWidget *>    m_RemovedTabWidgets;
+
 public slots:
     void Slot_onQuit();
 
@@ -218,7 +219,7 @@ private slots:
     void Slot_toolBox_ListesProduits_currentChanged(int index);
 
     void Slot_tabWidget_Main_currentChanged( int index);
-    void Slot_tabWidget_Main_CloseRequested( int index);
+    // void Slot_tabWidget_Main_CloseRequested( int index);
     void Slot_m_Button_TabCorner_clicked(bool);
 
     void Slot_comboBox_FamillesProduits_activated( int );

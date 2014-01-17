@@ -1,5 +1,5 @@
- /********************************* ThemePopup.h **********************************
- *  #include "ThemePopup.h"                                                       *
+ /*********************************************************************************
+ *                                                                                *
  * ...............................................................................*
  *   Project   :  MedinTux  (typographie made in france)                          *
  *   Copyright : (C) 2004-2005-2006-2007-2008-2009-2010 and for the eternity      *
@@ -33,33 +33,32 @@
  *         CeCILL  License (GPL compatible) for more details.                     *
  *                                                                                *
  **********************************************************************************/
-#ifndef THEMEPOPUP_H
-#define THEMEPOPUP_H
 
-#include <QMenu>
-#include <qobject.h>
-#include <QStringList>
-#include <qfont.h>
-#include "Theme.h"
+#ifndef C_QTABWIDGET_H
+#define C_QTABWIDGET_H
 
-/** \class ThemePopup
- *  \brief Reimplementation du constructeur de QPopupMenu pour permettre la mise en place du theme de popup.
- *  Cette sera utile lors du passe e Qt4 car si toutes les applis utilisent ThemePopup a la place de QPopupMenu , une seule classe sera a reecrire.
+#include <QTabWidget>
+#include <QMap>
 
-        @author Eric MAEKER <eric.maeker@free.fr>
-        @author Roland Sevin <roland-sevin@medintux.org>
-*/
-class ThemePopup : public QMenu
+class C_QTabWidget : public QTabWidget
 {
     Q_OBJECT
-
 public:
-    ThemePopup(QWidget * parent = 0, const QString & style="");
-    ThemePopup(QStringList &list, QWidget * parent = 0, const QString & style="", const QString& sep = "|", int toMask = 0);
-    static  void addOptionMenu(QMenu* pQMenu, const QString &optionsTitle);
-    QString DoPopupList(const QString & style="");
-    static  QIcon    getIconFromOption(QString & optionText);
-    static  QString  getIconIdentifiantOption(QString & optionText);
+    explicit    C_QTabWidget(QWidget *parent = 0);
+    QWidget   * activeTabWidgetByObjectName( const QString & widget_page_object_name);
+    QWidget   * tabWidgetByTabObjectName( const QString &name, int *index = 0);
+    int         tabWidgetIndexByTabObjectName( const QString &name);
+    QWidget   * tabWidgetByTabText(const QString &text, int *index = 0);
+    void        doPageChoiceMenu( QWidget * parent );
+    QWidget   * setCurrentItem (  const QString &pageName );
+    QStringList removedList();
+signals:
+
+public slots:
+    void Slot_CloseRequested( int index);
+private:
+    QMap <QString, QWidget *>  m_removedObject;
+
 };
 
-#endif
+#endif // C_QTABWIDGET_H
