@@ -338,7 +338,7 @@
 </tabstops>
 <includes>
     <include location="global" impldecl="in declaration">qtable.h</include>
-    <include location="local" impldecl="in declaration">../compta/Listes.h</include>
+    <include location="local" impldecl="in declaration">../comptabilite/Listes.h</include>
     <include location="global" impldecl="in declaration">qmessagebox.h</include>
     <include location="local" impldecl="in implementation">acte_selection.ui.h</include>
 </includes>

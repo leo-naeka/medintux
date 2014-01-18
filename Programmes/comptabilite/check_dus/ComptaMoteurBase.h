@@ -54,8 +54,8 @@
 
 #include <qdatetime.h>
 
-#include "../compta/Listes.h"
-#include "../compta/Defines.h"
+#include "../comptabilite/Listes.h"
+#include "../comptabilite/Defines.h"
 #include "../../MedinTuxTools/CGestIni.h"
 
 

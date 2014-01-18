@@ -2,20 +2,20 @@ TEMPLATE = app
 
 SOURCES += main.cpp \
 ../../MedinTuxTools/CGestIni.cpp \
-../compta/Listes.cpp \
-../compta/Tools.cpp \
+../comptabilite/Listes.cpp \
+../comptabilite/Tools.cpp \
  CApp_Plug.cpp \
  ComptaMoteurBase.cpp
 HEADERS += ../../MedinTuxTools/CGestIni.h \
-../compta/Listes.h \
-../compta/Tools.h \
-../compta/g_ui/acte_selection.ui.h \
-../compta/Defines.h \
+../comptabilite/Listes.h \
+../comptabilite/Tools.h \
+../comptabilite/g_ui/acte_selection.ui.h \
+../comptabilite/Defines.h \
  CApp_Plug.h \
- ../compta/g_ui/FormPlugins.ui.h \
+ ../comptabilite/g_ui/FormPlugins.ui.h \
  ComptaMoteurBase.h
-FORMS += ../compta/g_ui/acte_selection.ui \
- ../compta/g_ui/FormPlugins.ui
+FORMS += ../comptabilite/g_ui/acte_selection.ui \
+ ../comptabilite/g_ui/FormPlugins.ui
 LANGAGE = C++
 CONFIG += release \
 qt \

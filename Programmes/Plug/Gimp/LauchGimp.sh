@@ -1,1 +1,1 @@
-open -Wna Gimp {{DstImage}}
+open -Wna Gimp '/Users/rolandsevin/Documents/medintux/Programmes/tmp/a89114d1-2595-4232-a2ed-062a71920830-h400w500.png'

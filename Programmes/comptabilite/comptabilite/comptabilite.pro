@@ -1,6 +1,6 @@
 # Fichier g���par le module QMake de KDevelop. 
 # -------------------------------------------------- 
-# Sous dossier relatif au dossier principal du projet: ./compta
+# Sous dossier relatif au dossier principal du projet: ./comptabilite
 # Cible: une application??:  ../bin/comptabilite
 
 LANGAGE = C++

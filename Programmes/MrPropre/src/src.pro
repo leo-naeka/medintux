@@ -12,8 +12,10 @@ SOURCES += main.cpp \
            ../../MedinTuxTools/CGestIni.cpp 
 TEMPLATE = app
 UI_DIR = ui
-CONFIG += release \
-warn_on \
+CONFIG += warn_on \
 thread \
-qt
+qt \
+ debug
 TARGET = ../bin/MrPropre
+CONFIG -= release
+

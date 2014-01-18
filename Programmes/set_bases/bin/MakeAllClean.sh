@@ -72,7 +72,7 @@ fi
                  src_rep=./check_dus
              else
                  if [ $module == 'comptabilite' ]; then
-                     src_rep=./compta
+                     src_rep=./comptabilite
                  else
                      if [ $module == 'guinch' ]; then
                           src_rep=./guinch

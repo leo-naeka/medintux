@@ -868,8 +868,8 @@
     <tabstop>buttonHelp</tabstop>
 </tabstops>
 <includes>
-    <include location="local" impldecl="in declaration">../compta/Listes.h</include>
-    <include location="local" impldecl="in declaration">../compta/ui/acte_selection.h</include>
+    <include location="local" impldecl="in declaration">../comptabilite/Listes.h</include>
+    <include location="local" impldecl="in declaration">../comptabilite/ui/acte_selection.h</include>
     <include location="local" impldecl="in implementation">FormPlugins_bkUp.ui.h</include>
 </includes>
 <variables>

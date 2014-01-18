@@ -520,7 +520,7 @@ QString CGestIni::Param_WriteParam(QString *pQstr, const char *section, const ch
                //                           la section est trouvée mais pas la variable on la rajoute
                tmp = "";
                while (pt>txt && (pt[-1]=='\r'||pt[-1]=='\n' ||pt[-1]=='\t'||pt[-1]==' ')) pt--;  // nettoyer avant eliminer espaces et  CR/LF avant
-               tmp = tmp + "\r\n";
+               tmp = tmp + "\n";
                tmp = tmp + "  " + variable + " = ";
                if (val1)     tmp  = tmp +         val1;
                if (val2)     tmp  = tmp + " , " + val2;
@@ -532,7 +532,7 @@ QString CGestIni::Param_WriteParam(QString *pQstr, const char *section, const ch
                if (val8)     tmp  = tmp + " , " + val8;
                if (val9)     tmp  = tmp + " , " + val9;
                if (val10)    tmp  = tmp + " , " + val10;
-               tmp     = tmp + "\r\n\r\n";
+               tmp     = tmp + "\n\n";
                pos     = pt-txt;
                result  = pQstr->left(pos) + tmp ;
                while (*pt && (*pt=='\r' || *pt=='\n' || *pt=='\t' || *pt==' ')) ++pt;           // nettoyer apres eliminer espaces et  CR/LF apres
@@ -549,7 +549,7 @@ QString CGestIni::Param_WriteParam(QString *pQstr, const char *section, const ch
 
  //................pas de section trouvée on la rajoute ...........................................
  tmp = "\r\n\r\n[";
- tmp = tmp + section + "]\r\n  " + variable + " = ";
+ tmp = tmp + section + "]\n  " + variable + " = ";
  if (val1)     tmp  = tmp +         val1;
  if (val2)     tmp  = tmp + " , " + val2;
  if (val3)     tmp  = tmp + " , " + val3;
@@ -560,7 +560,7 @@ QString CGestIni::Param_WriteParam(QString *pQstr, const char *section, const ch
  if (val8)     tmp  = tmp + " , " + val8;
  if (val9)     tmp  = tmp + " , " + val9;
  if (val10)    tmp  = tmp + " , " + val10;
- tmp     =  tmp  + "\r\n";
+ tmp     =  tmp  + "\n";
  //.............. eliminer tous les espaces rn tab  arrieres .......................
  pos = pQstr->length();
  while (pos>0)
@@ -568,8 +568,23 @@ QString CGestIni::Param_WriteParam(QString *pQstr, const char *section, const ch
         if (c=='\t' || c=='\r'|| c=='\n'|| c==' ') --pos;
         else                                       break;
        }
- pQstr->truncate(pos);
- result  = *pQstr + tmp;
+ pQstr->truncate(pos);  
+ //.............. si fichier avec [END_INI] le replace en fin de fichier  .......................
+ if (pQstr->mid(pos-9,9)=="[END_INI]") 
+    { pQstr->truncate(pos-9);
+      pos -=9;
+      //.............. reeliminer tous les espaces rn tab  arrieres .......................
+      while (pos>0)
+       {QChar c= pQstr->at(pos-1);
+        if (c=='\t' || c=='\r'|| c=='\n'|| c==' ') --pos;
+        else                                       break;
+       }
+      pQstr->truncate(pos); 
+      result  = *pQstr + tmp + "\n[END_INI]";
+    }
+ else  //.......  il n' y a pas [END_INI] (cas des fichiers non .ini) ...................
+    { result  = *pQstr + tmp ;
+    }
  *pQstr  = result;
  return result;
 }
@@ -858,12 +873,6 @@ void CGestIni::Param_GetMap(QString &outParam, const QString &sectionToRetrieve,
         }
      }
 }
-//----------------------------------------- Param_GetList ---------------------------------------------
-//void CGestIni::Param_GetList(const QString &file_ini, QStringList &lst, int *isUtf8 )
-//{QString outParam;
-// Param_UpdateFromDisk( file_ini,  outParam,  isUtf8 );
-// Param_GetList( outParam, lst );
-//}
 
 //------------------------------ Param_RemoveSection -----------------------------------------
 /*! \brief enlève une section.
@@ -882,7 +891,7 @@ QString CGestIni::Param_RemoveSection(QString &param, QString section)
                           }
          if (pos_end != -1)
             { param = param.remove(pos_deb, pos_end-pos_deb);
-              param = param.insert(pos_deb,"\r\n\r\n");
+              param = param.insert(pos_deb,"\n\n");
             }
          else
             { param.truncate(pos_deb);

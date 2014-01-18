@@ -117,7 +117,7 @@ fi
                   src_rep=./check_dus
              else
                   if [ $module == 'comptabilite' ]; then
-                       src_rep=./compta
+                       src_rep=./comptabilite
                   else
                        if [ $module == 'guinch' ]; then
                             src_rep=./guinch
@@ -130,8 +130,13 @@ fi
 
          cd "$src_rep"
          # ......................... on fait le qmake (soit sur src.pro si existe soit sur  $module.pro  si existe) ...................
+         if [ $COMPIL_MODE != 'MAKE_ONLY' ];then
+            echo -e "..... on efface les makefiles ......."
+            rm 'Makefile'
+            rm 'makefile'
+         fi
          if test -f src.pro; then
-             $QMAKE src.pro 
+             $QMAKE src.pro
              echo -e "..... on fait $QMAKE src.pro ......."
          else 
              $QMAKE $module.pro 

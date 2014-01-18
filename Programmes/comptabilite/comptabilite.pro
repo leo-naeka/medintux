@@ -1,4 +1,4 @@
-SUBDIRS += compta \
+SUBDIRS += comptabilite \
 compta-plugins \
 check_dus
 TEMPLATE = subdirs 

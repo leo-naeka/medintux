@@ -1,1 +1,2 @@
-02.16.000
+Erreur Get Version() initialisaton de la base non possible, installation des bases non correcte 
+Echec de la connexion à   Driver : QMYSQL3 base : DrTuxTest avec root@localhost:3306

@@ -25,8 +25,26 @@ Pour QT4 recopier le contenu de :
 Pour QT4 Placer au debut de la variable d'environnement PATH :
 
 	C:\Qt4\2009.03\qt\bin;
+c:\qt4\qt\bin\qmake.exe -spec c:\Qt4W\qt\mkspecs\win32-g++ -win32 CONFIG+=debug_and_release -o Makefile medicatux.pro
+
+set MODULE=medicatux
+set QTDIR=c:\qt4\qt
+set QMAKE=%QTDIR%\bin\qmake.exe
+set QMAKESPEC=%QTDIR%\mkspecs\win32-g++
+set PATH=%PATH%;%QTDIR%\bin;%QTDIR%\..\mingw\bin
+cd ../../%MODULE%/src
+%QMAKE% -spec %QMAKESPEC% -win32 CONFIG+=release -o Makefile %MODULE%.pro
+%QTDIR%\..\mingw\bin\mingw32-make.exe Makefile
 
 
+c:\qt4\qt\bin\qmake.exe -spec c:\Qt4W\qt\mkspecs\win32-g++ -win32 CONFIG+=debug_and_release -o Makefile medicatux.pro
+erase %MODULE%.dsw
+erase %MODULE%.dsp
+%QMAKE% -t vcapp -o %MODULE%.dsp src.pro
+cd ../../mise_a_jour/bin
+mise_a_jour.exe MSDEV  ../../%MODULE%/src/%MODULE%.dsp %MODULE%.exe
+cd ../../%MODULE%/src
+msdev %MODULE%.dsp
 
 qmake -t vcapp -o set_bases.dsp src.pro
 

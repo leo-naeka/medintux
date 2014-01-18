@@ -21,7 +21,7 @@
 
 #include <qapplication.h>
 #include <qobject.h>
-#include "../compta/ui/FormPlugins.h"
+#include "../comptabilite/ui/FormPlugins.h"
 #include <qmessagebox.h>
 #include <qtextcodec.h>
 #include <qstringlist.h> 

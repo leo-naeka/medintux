@@ -265,7 +265,7 @@ void C_Dlg_MainDialog::Test_And_RemoveDir(QString src_Dir,  QString dirList_To_r
                 {
                 }
         else if (fi->isDir() && fname != "." )
-                {if (dirToRmList.findIndex(fname) != -1)
+                {if (isThisDirMustBeErase(fname, dirToRmList))
                     EraseDirectory(src_Dir + "/" + fname);
                  else
                     Test_And_RemoveDir( src_Dir + "/" + fname, dirList_To_remove, motifList_To_Erase);
@@ -276,7 +276,25 @@ void C_Dlg_MainDialog::Test_And_RemoveDir(QString src_Dir,  QString dirList_To_r
         ++it;
     }
 }
+//----------------------------------------- isThisDirMustBeErase ---------------------------------------------
+bool C_Dlg_MainDialog::isThisDirMustBeErase( const QString &dname, const QStringList &dirToRmList)
+{ 
+  for (int i=0; i< (int)dirToRmList.count(); ++i)
+      {QString motifMusBeInDirToErase = dirToRmList[i];
+       if (motifMusBeInDirToErase.length()==0) return false;
+       int modeTest = 3;                                                                                     // est egal
+       if (motifMusBeInDirToErase.endsWith("*") && motifMusBeInDirToErase.startsWith("*"))   modeTest = 1;   // contient
+       else if (motifMusBeInDirToErase.startsWith("*"))                                      modeTest = 2;   // finit par
+       else if (motifMusBeInDirToErase.endsWith("*"))                                        modeTest = 0;   // commence par
 
+       motifMusBeInDirToErase = motifMusBeInDirToErase.remove("*");
+       if      (modeTest==0 && dname.startsWith(motifMusBeInDirToErase)) return TRUE; // commence par
+       else if (modeTest==2 && dname.endsWith(motifMusBeInDirToErase))   return TRUE; // finit par
+       else if (modeTest==1 && dname.find(motifMusBeInDirToErase)!=-1)   return TRUE; // contient
+       else if (modeTest==3 && dname==motifMusBeInDirToErase)            return TRUE; // est egal
+      }
+ return FALSE;
+}
 //----------------------------------------- isThisFileMustBeErase ---------------------------------------------
 bool C_Dlg_MainDialog::isThisFileMustBeErase( const QString &fname, const QStringList &fileToRmList)
 {

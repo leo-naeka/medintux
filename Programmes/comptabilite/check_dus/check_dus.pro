@@ -1,13 +1,13 @@
 SOURCES += ComptaMoteurBase.cpp \
 main.cpp \
 CApp_Dus.cpp \
-../compta/Listes.cpp \
- ../compta/Tools.cpp \
+../comptabilite/Listes.cpp \
+ ../comptabilite/Tools.cpp \
  ../../MedinTuxTools/CGestIni.cpp
 HEADERS += ComptaMoteurBase.h \
 CApp_Dus.h \
-../compta/Listes.h \
- ../compta/Tools.h \
+../comptabilite/Listes.h \
+ ../comptabilite/Tools.h \
  ../../MedinTuxTools/CGestIni.h
 TEMPLATE = app
 

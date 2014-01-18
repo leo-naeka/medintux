@@ -32,7 +32,7 @@
 #include <qstring.h>
 #include "../../../MedinTuxTools/CGestIni.h"
 #include "ComptaMoteurBase.h"
-#include "../compta/Listes.h"
+#include "../comptabilite/Listes.h"
 #include <qfileinfo.h>
 #include <qdir.h>
 #include <qtextcodec.h>

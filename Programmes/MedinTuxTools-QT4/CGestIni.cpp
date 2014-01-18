@@ -112,9 +112,7 @@ void  CGestIni::Param_UpdateToDisk(const QString &file_ini, const QByteArray &ba
                 qDebug()<<mess;
                 return ;
              }
-
        }
-
     QFile file( file_ini);
     if ( !file.open( QIODevice::WriteOnly ) )    return;
     file.write( ba );
@@ -847,7 +845,30 @@ QString CGestIni::Param_WriteParam( QString *pQstr, const char *section, const c
  if (val9)     tmp  = tmp + " , " + val9;
  if (val10)    tmp  = tmp + " , " + val10;
  tmp     =  tmp  + "\n";
- result  = *pQstr + tmp;
+ //.............. eliminer tous les espaces rn tab  arrieres .......................
+ pos = pQstr->length();
+ while (pos>0)
+       {QChar c= pQstr->at(pos-1);
+        if (c=='\t' || c=='\r'|| c=='\n'|| c==' ') --pos;
+        else                                       break;
+       }
+ pQstr->truncate(pos);   // [END_INI]
+ //.............. si fichier avec [END_INI] le replace en fin de fichier  .......................
+ if (pQstr->mid(pos-9,9)=="[END_INI]") 
+    { pQstr->truncate(pos-9);
+      pos -=9;
+      //.............. reeliminer tous les espaces rn tab  arrieres .......................
+      while (pos>0)
+       {QChar c= pQstr->at(pos-1);
+        if (c=='\t' || c=='\r'|| c=='\n'|| c==' ') --pos;
+        else                                       break;
+       }
+      pQstr->truncate(pos); 
+      result  = *pQstr + tmp + "\n[END_INI]";
+    }
+ else  //.......  il n' y a pas [END_INI] (cas des fichiers non .ini) ...................
+    { result  = *pQstr + tmp ;
+    }
  *pQstr  = result;
  return result;
 }
@@ -1371,10 +1392,10 @@ void CGestIni::replaceList(QString &outParam, const QString &sectionToSet, const
 {QString line        = "";
  QString sectionName = "";
  QString varname     = "";
- int     pos;
- int     end;
- int     posNext = 0;
- int     posDeb  = 0;
+ int     pos         = 0;
+ int     end         = 0;
+ int     posNext     = 0;
+ int     posDeb      = 0;
  int     posNextSave = 0;
 
  //.................. aller dans la section ...........................................
@@ -1396,11 +1417,11 @@ void CGestIni::replaceList(QString &outParam, const QString &sectionToSet, const
  posDeb = posNext;
  while  ( posNext  < outParam.length() )        // on lit une ligne de texte
     { posNext       = readNextLine(outParam, posNext, line);
-      if ( (pos     = gotoNextNotBlank(line, 0)) == line.length() )       continue;        // on y cherche le premier caractere utile
-      if (line[pos]=='[')                                                 break;           // on arrete si debut d'une autre section
-      if (line[pos]==';')                                                 continue;        // si commentaire on saute la ligne
-      if (line[pos]=='/' && line[pos+1]=='/')                             continue;        // si commentaire on saute la ligne
-      if ( (end = line.indexOf('=',pos)) ==-1)                            continue;        // si pas de signe egal trouve on continue
+      if ( (pos     = gotoNextNotBlank(line, 0)) == line.length() )       continue;       // on y cherche le premier caractere utile
+      if (line[pos]=='[')                                                 break;          // on arrete si debut d'une autre section
+      if (line[pos]==';')                                                 continue;       // si commentaire on saute la ligne
+      if (line[pos]=='/' && line[pos+1]=='/')                             continue;       // si commentaire on saute la ligne
+      if ( (end = line.indexOf('=',pos)) ==-1)                            continue;       // si pas de signe egal trouve on continue
       varname = line.mid(pos,end-pos).trimmed();
       if (varname==varToSet)
          {outParam.remove(posDeb,posNext-posDeb); // on efface la ligne
