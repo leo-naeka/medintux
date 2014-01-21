@@ -39,6 +39,7 @@
 #include <QByteArray>
 #include <QPrintDialog>
 #include <QPrinter>
+#include <QTimer>
 #include <QDir>
 #include <QMessageBox>
 #include <QDataStream>
@@ -173,10 +174,11 @@ C_DlgApropos::C_DlgApropos(QWidget *parent,
   setWindowTitle(title);
   setPageHelp(m_PathPageHelp);
   ui->pushButtonClose->setFocus();
-  setWindowState(windowState() & ~Qt::WindowMinimized);
-  show();
-  activateWindow();
-  raise();
+  QTimer::singleShot(500, this, SLOT(Slot_ActivateMainWindow())); // pour avoir la fenetre en avant plan sur ubuntu unity
+  //setWindowState(windowState() & ~Qt::WindowMinimized);
+  //show();
+  //activateWindow();
+  //raise();
   //QStringList argList = QCoreApplication::arguments () ;
   //QString argum = "";
   //for (int i=0; i<argList.count();++i)
@@ -185,7 +187,14 @@ C_DlgApropos::C_DlgApropos(QWidget *parent,
   //ui->textBrowser_Changements->setText(argum);
 
 }
-
+//--------------------------------------- Slot_ActivateMainWindow ---------------------------------------------------
+void C_DlgApropos::Slot_ActivateMainWindow()
+{   //if (G_pCApp->getDroits().length()) setWindowFlags(Qt::WindowStaysOnTopHint);
+    show();
+    setWindowState(windowState() & ~Qt::WindowMinimized);
+    activateWindow();
+    raise();
+}
 //-----------------------------------------------------  ~C_DlgApropos -------------------------------------------
 C_DlgApropos::~C_DlgApropos()
 {   QFile::remove(m_PathAppli+"Ressources/~A_propos.html");

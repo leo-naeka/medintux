@@ -164,6 +164,8 @@ QLightPad::QLightPad( QWidget *parent, const char *name ,  int argc, char ** arg
   #elif defined(Q_WS_MAC)
      if (QFile::exists("/Utilisateurs/ro/Documents/MedinTuxRo.txt")) m_debug = 1;
   #endif
+  
+  setIcon( QPixmap (GlobalPathAppli + "QLightPadSys/QLightPad.png"));
 }
 //------------------------------------------------------- QLightPad -------------------------------------
 QLightPad::~QLightPad()

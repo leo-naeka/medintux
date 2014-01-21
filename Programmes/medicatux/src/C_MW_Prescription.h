@@ -191,6 +191,8 @@ public slots:
     void Slot_onQuit();
 
 private slots:
+    void Slot_ActivateMainWindow();
+    void Slot_ActivateInfoWindow();
     //..................... le bandeau de prescription ..........................................
     void Slot_m_action_APropos ();
     void Slot_toolButton_zoomUpReleased();

@@ -21,6 +21,7 @@ class apidialog : public QDialog, public Ui::ApiDialog
     public slots:
         void setUsersCombo();
     protected slots:
+        void Slot_ActivateMainWindow();
         bool dansdocuments();
         void configdialog();
         void changeLabel();

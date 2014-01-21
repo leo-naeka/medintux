@@ -168,9 +168,9 @@ void Dlg_MedicaAdjustPoso::initDialog( CPosologie &cPosologieIn,
      textEditNote->setText(m_PosoIn.m_MEDICA_POSO_DIVERS);
     }
  //..................... positionner ajustement de la dose .................................................................
- slider_VarPoso->setValue ( abs (m_PosoIn.m_PosoAdjust)-1 ); // m_PosoAdjust 1 à 100  slider_VarPoso 0 à 99
+ slider_VarPoso->setValue ( (m_PosoIn.m_PosoAdjust<0?-m_PosoIn.m_PosoAdjust:m_PosoIn.m_PosoAdjust)-1 ); // m_PosoAdjust 1 à 100  slider_VarPoso 0 à 99
  //..................... Poso ajustée au slider ou DE à DE affiché .........................................................
- if (cPosologieIn.m_PosoAdjust < 0)   // il faut tester cPosologieIn car m_PosoIn a été mal positionné lors d'une onnexion
+ if (cPosologieIn.m_PosoAdjust < 0)   // il faut tester cPosologieIn car m_PosoIn a été mal positionné lors d'une connexion
     {slider_VarPoso->setEnabled(FALSE);
      pushButton_A->toggle ();
     }

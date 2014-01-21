@@ -41,6 +41,7 @@
 #include <qsqlcursor.h>
 #include <qcursor.h>
 #include <qtimer.h>
+// #include <qdebug.h>
 #include "CApp.h"
 #include "../../MedinTuxTools/CGestIni.h"
 
@@ -61,6 +62,10 @@ CApp::CApp(int & argc, char ** argv)
    m_DisplayFilePosLabel   = 0;
    m_QProgressBar          = 0;
    m_bufferSize            = 15000000;
+   if (argc>1 && QString(argv[1]) == "BASE_INSTALL")   m_justInstallBase = 1;
+   else                                                m_justInstallBase = 0;
+   // qDebug(QString("argc : %1  'arv[0]' : %2 m_justInstallBase : %3").arg(QString::number(argc),argv[0],QString::number(m_justInstallBase)));
+   // qDebug(QString("argc : %1  'arv[1]' : %2 m_justInstallBase : %3").arg(QString::number(argc),argv[1],QString::number(m_justInstallBase)));
    //.................. recuperer parametres sesam-vitale ...............................................
    CGestIni::Param_UpdateFromDisk(m_ParamPath, m_ParamData);
    m_bufferSize            = CGestIni::Param_ReadUniqueParam(m_ParamData, "Parametres", "sql_buffer").toLong();

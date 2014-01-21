@@ -389,6 +389,15 @@ C_DlgMainDialog::C_DlgMainDialog(QWidget* parent, const char* name, bool modal, 
     tabWidget_Nomadisme->removePage(m_pTabQWidgetReverse);
     setIcon( Theme::getIcon( "32x32/set_bases.png") );
 
+#ifdef Q_WS_X11
+    if ( G_pCApp->m_justInstallBase )
+       { pushButton_SetBases->show();
+         tabWidget_Instal->setTabEnabled ( m_pTabQWidgetBases,  TRUE );
+         tabWidget_Instal->setCurrentPage(tabWidget_Instal->indexOf(m_pTabQWidgetBases));
+         QTimer::singleShot( 100, this, SLOT(Slot_TimedSetBase()) );
+       }
+#endif
+
 #ifdef Q_OS_MACX        //../../../../.MedinTuxLogoFondBleu.png
     //............... si on demarre d'un .dmg d'installation max .......................................
     if (QFile::exists(G_pCApp->m_PathAppli+"../../../../.MedinTuxLogoFondBleu.png"))
@@ -2290,28 +2299,6 @@ void C_DlgMainDialog::pushButtonConnexionAppl_clicked()
         CGestIni::Param_UpdateFromDisk(path, param);
         CGestIni::Param_ReadParam (  param,  "Connexion" ,     "Parametres" , &driverName , &baseName);
         CGestIni::Param_WriteParam( &param,  "Connexion" ,     "Parametres" ,  driverName ,  baseName, userName , passWord , hostName, port);
-        CGestIni::Param_ReadParam (  param,  "ConnexionBase" , "Parametres" , &driverName , &baseName);
-        CGestIni::Param_WriteParam( &param,  "ConnexionBase" , "Parametres" ,  driverName ,  baseName, userName , passWord , hostName, port);
-        CGestIni::Param_ReadParam(   param,  "DrTuxTest",      "Master",      &driverName, &baseName);
-        CGestIni::Param_WriteParam( &param,  "DrTuxTest",      "Master",       driverName,  baseName,  userName,  passWord,  hostName, port);
-        CGestIni::Param_ReadParam(   param,  "DrTuxTest",      "Nomade",      &driverName, &baseName);
-        CGestIni::Param_WriteParam( &param,  "DrTuxTest",      "Nomade",       driverName,  baseName,  userName,  passWord,  hostName, port);
-        CGestIni::Param_ReadParam (  param,  "Connexion" ,     "Reverse" ,    &driverName , &baseName);
-        CGestIni::Param_WriteParam( &param,  "Connexion" ,     "Reverse" ,     driverName , baseName, userName_3 , passWord_3 , hostName_3, port_3);
-        CGestIni::Param_ReadParam(   param,  "DrTuxTest",      "Parametres",  &driverName, &baseName);
-        CGestIni::Param_WriteParam( &param,  "DrTuxTest",      "Parametres",   driverName,  baseName,  userName,  passWord,  hostName, port);
-        CGestIni::Param_ReadParam(   param,  "MedicaTuxTest",  "Connexion",   &driverName, &baseName);
-        CGestIni::Param_WriteParam( &param,  "MedicaTuxTest",  "Connexion",    driverName,  baseName,  userName,  passWord,  hostName, port);
-        CGestIni::Param_ReadParam(   param,  "BaseGetTest",    "Connexion",   &driverName, &baseName);
-        CGestIni::Param_WriteParam( &param,  "BaseGetTest",    "Connexion",    driverName,  baseName,  userName,  passWord,  hostName, port);
-        CGestIni::Param_ReadParam(   param,  "CIM10Test",      "Connexion",   &driverName, &baseName);
-        CGestIni::Param_WriteParam( &param,  "CIM10Test",      "Connexion",    driverName,  baseName,  userName,  passWord,  hostName, port);
-        CGestIni::Param_ReadParam(   param,  "CCAMTest",       "Connexion",   &driverName, &baseName);
-        CGestIni::Param_WriteParam( &param,  "CCAMTest",       "Connexion",    driverName,  baseName,  userName,  passWord,  hostName, port);
-        CGestIni::Param_ReadParam(   param,  "Datasemp",       "Connexion",   &driverName, &baseName);
-        CGestIni::Param_WriteParam( &param,  "Datasemp",       "Connexion",    driverName,  baseName,  userName,  passWord,  hostName, port);
-        CGestIni::Param_ReadParam(   param,  "qlaboftp",       "Connexion",   &driverName, &baseName);
-        CGestIni::Param_WriteParam( &param,  "qlaboftp",       "Connexion",    driverName,  baseName,  userName,  passWord,  hostName, port);
         CGestIni::Param_UpdateToDisk(path, param);
         G_pCApp->Datasemp_OutMessage(textEdit_Message,param);
        }

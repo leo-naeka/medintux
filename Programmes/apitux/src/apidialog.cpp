@@ -113,13 +113,17 @@ apidialog::apidialog(QWidget * parent, Qt::WindowFlags f )
   {
         qWarning() << __FILE__ << QString::number(__LINE__) << "unable to connect sigUsersCombo to setUsersCombo" ;
       }
-  show();   // le show() doit se faire ici pour que setWindowState(); activateWindow(); raise(); fonctionnent
-  setWindowState(windowState() & ~Qt::WindowMinimized);
-  activateWindow();
-  raise();
-  
-}//constructeur
 
+  QTimer::singleShot(500, this, SLOT(Slot_ActivateMainWindow())); // pour avoir la fenetre en avant plan sur ubuntu unity
+}
+//--------------------------------------- Slot_ActivateMainWindow ---------------------------------------------------
+void apidialog::Slot_ActivateMainWindow()
+{   show();
+    setWindowState(windowState() & ~Qt::WindowMinimized);
+    activateWindow();
+    raise();
+}
+//------------------------ apidialog -----------------------------------------
 apidialog::~apidialog(){
     m_compteur  = 0 ;
     m_texteblob = "";
@@ -167,20 +171,13 @@ void apidialog::Slot_APropos ()
     argList <<"";                                                                                           // 7  apropos (on met une chaine vide pour qu'il prenne celui par d?faut)
     argList <<"";                                                                                           // 8  numero de version de la base de donnee
     if (m_Apropos_Proc==0)
-       { //bool ws = isMinimized();
-         //showMinimized ();
+       { 
          m_Apropos_Proc = new QProcess(this);
          if (m_Apropos_Proc)
-            {//QProcess::finished ( int exitCode, QProcess::ExitStatus exitStatus )   [signal]
-             connect( m_Apropos_Proc, SIGNAL(finished ( int,  QProcess::ExitStatus)),  this, SLOT(Slot_Apropos_Proc_finished (int,  QProcess::ExitStatus)) );
+            {connect( m_Apropos_Proc, SIGNAL(finished ( int,  QProcess::ExitStatus)),  this, SLOT(Slot_Apropos_Proc_finished (int,  QProcess::ExitStatus)) );
              m_Apropos_Proc->start(pathExeAPropos, argList);
              m_Apropos_Proc->waitForStarted  (4000);
-             //m_Apropos_Proc->waitForFinished (-1);
-             //delete m_Apropos_Proc;
-             //m_Apropos_Proc = 0;
-             //QFile::remove(pathBinRessources+"~A_propos.html");
             }
-         //if ( !ws) showNormal();
        }
 }
 ////////////////////////////////////////////////////////////////////////////////

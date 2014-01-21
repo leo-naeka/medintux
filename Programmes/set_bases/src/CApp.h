@@ -134,7 +134,7 @@ class CApp :  public QApplication ,  public CSetupBase
     QString       m_ParamPath;
     QString       m_ParamData;
     QSqlDatabase *m_MySQL_DataBase;
-
+    int           m_justInstallBase;
 public slots:
      //--------------------------------------------- quit -------------------------------------------------------------------
      /*! \brief surcharge du Slot quit afin d'envoyer le message Sign_QuitterRequired permettant a ceux qui s'y connectent de sauver les meubles \
@@ -151,6 +151,7 @@ private:
      QLabel          *m_DisplayFilePosLabel;
      QProgressBar    *m_QProgressBar;
      QDateTime        m_startTime;
+     
 signals:
      void  Sign_QuitterRequired();
 };

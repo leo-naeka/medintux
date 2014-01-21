@@ -405,12 +405,14 @@ void CApp::changeAllModuleConnectionParam(     const QString & /*driver*/,      
        }
     else
        { CGestIni::Param_UpdateFromDisk(path, param);
-         CGestIni::Param_ReadParam (param,  "Connexion_Patient_Base" ,  "Parametres" , &driverName , &baseName);
-         CGestIni::Param_WriteParam(&param, "Connexion_Patient_Base" ,  "Parametres" ,  driverName ,  baseName, userName , passWord , hostName, port);
-         CGestIni::Param_ReadParam (param,  "Connexion_Theriaque" ,     "Parametres" , &driverName , &baseName);
-         CGestIni::Param_WriteParam(&param, "Connexion_Theriaque" ,     "Parametres" ,  driverName ,  baseName, userName , passWord , hostName, port);
-         CGestIni::Param_ReadParam (param,  "Connexion_Datasemp" ,      "Parametres" , &driverName , &baseName);
-         CGestIni::Param_WriteParam(&param, "Connexion_Datasemp" ,      "Parametres" ,  driverName ,  baseName, userName , passWord , hostName, port);
+         CGestIni::Param_ReadParam (param,  "Connexion_C_BDM_GenericPlugin" ,  "Parametres" , &driverName , &baseName);
+         CGestIni::Param_WriteParam(&param, "Connexion_C_BDM_GenericPlugin" ,  "Parametres" ,  driverName ,  baseName, userName , passWord , hostName, port);
+         CGestIni::Param_ReadParam (param,  "Connexion_Patient_Base" ,         "Parametres" , &driverName , &baseName);
+         CGestIni::Param_WriteParam(&param, "Connexion_Patient_Base" ,         "Parametres" ,  driverName ,  baseName, userName , passWord , hostName, port);
+         CGestIni::Param_ReadParam (param,  "Connexion_Theriaque" ,            "Parametres" , &driverName , &baseName);
+         CGestIni::Param_WriteParam(&param, "Connexion_Theriaque" ,            "Parametres" ,  driverName ,  baseName, userName , passWord , hostName, port);
+         CGestIni::Param_ReadParam (param,  "Connexion_Datasemp" ,             "Parametres" , &driverName , &baseName);
+         CGestIni::Param_WriteParam(&param, "Connexion_Datasemp" ,             "Parametres" ,  driverName ,  baseName, userName , passWord , hostName, port);
          CGestIni::Param_UpdateToDisk(path, param);
        }
 

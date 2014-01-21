@@ -1272,6 +1272,7 @@ public:
     QString                  dragGetListDrugsName();
     void                     set_DropedXmlDatas(const QString &xmlDatas) {m_XmlDatas=xmlDatas;}
     void                     clear_DropedXmlDatas()                      {m_XmlDatas="";}
+    QWidget                 *alertView()                                 {return m_infoTexEdit;}
 private:
 
     C_BDM_Api            *m_pC_BDM_Api;                    /*!< pointeur sur C_BDM_Api api des la base de donnees medicamenteuse */

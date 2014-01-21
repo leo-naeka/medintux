@@ -78,6 +78,7 @@ private:
     QString m_PathPageHelp;
 
 private slots:
+    void Slot_ActivateMainWindow();            // pour avoir la fenetre en avant plan sur ubuntu unity
     void Slot_On_webView_Help_statusBarMessage (const QString &text);
     void Slot_On_webView_Help_loadStarted();
     void Slot_On_webView_Help_loadProgress(int progress);

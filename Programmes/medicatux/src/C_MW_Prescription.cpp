@@ -317,7 +317,7 @@ C_MW_Prescription::C_MW_Prescription(QWidget *parent) :
     connect( m_pGUI->treeWidget_Indications, SIGNAL(itemClicked ( QTreeWidgetItem * , int  )),        this, SLOT(Slot_treeWidget_Indications_itemClicked ( QTreeWidgetItem * , int   )) );
     connect( m_pGUI->treeWidget_Composition, SIGNAL(itemClicked ( QTreeWidgetItem * , int  )),        this, SLOT(Slot_treeWidget_Composition_itemClicked ( QTreeWidgetItem * , int   )) );
 
-    connect( m_pGUI->treeWidget_ATC,          SIGNAL(itemClicked ( QTreeWidgetItem * , int  )),        this, SLOT(Slot_treeWidget_ATC_itemClicked ( QTreeWidgetItem * , int   )) );
+    connect( m_pGUI->treeWidget_ATC,          SIGNAL(itemClicked ( QTreeWidgetItem * , int  )),       this, SLOT(Slot_treeWidget_ATC_itemClicked ( QTreeWidgetItem * , int   )) );
     //......................................... WEB VIEW ....................................................................
     connect( m_pGUI->lineEdit_url,            SIGNAL(returnPressed()),                      this, SLOT(Slot_LocationEdit_returnPressed()));
     connect( m_pGUI->lineEdit_find,           SIGNAL(returnPressed()),                      this, SLOT(Slot_WebFindEdit_returnPressed()));
@@ -331,7 +331,7 @@ C_MW_Prescription::C_MW_Prescription(QWidget *parent) :
     connect( m_webView_Mono,            SIGNAL(linkClicked ( const QUrl &  )),     this,  SLOT(Slot_webView_Mono_linkClicked ( const QUrl &  )));  // marche po
 
     // connect( m_webView_Info,                  SIGNAL(urlChanged (  const QUrl &  )),        this, SLOT(Slot_webView_Info_urlChanged ( const QUrl &  )));
-    connect( m_webView_Info,                  SIGNAL(linkClicked ( const QUrl &  )),        this, SLOT(Slot_webView_Info_linkClicked ( const QUrl &  )));  // marche po
+    connect( m_webView_Info,                  SIGNAL(linkClicked ( const QUrl &  )),      this, SLOT(Slot_webView_Info_linkClicked ( const QUrl &  )));  // marche po
 
     connect( m_pGUI->pushButton_Home,         SIGNAL(clicked ( bool )),                   this, SLOT(Slot_actionWebHome  (bool)) );
     connect( m_pGUI->pushButton_Print,        SIGNAL(clicked ( bool )),                   this, SLOT(Slot_actionWebPrint (bool)) );
@@ -369,7 +369,6 @@ C_MW_Prescription::C_MW_Prescription(QWidget *parent) :
     //............................... le systeme des listes de classification ...........................................................
     connect( m_pGUI->toolBox_classifications,         SIGNAL(currentChanged ( int )),                 this,   SLOT(Slot_toolBox_classifications_currentChanged(int)) );
     connect( m_pGUI->toolBox_ListesProduits,          SIGNAL(currentChanged ( int )),                 this,   SLOT(Slot_toolBox_ListesProduits_currentChanged(int)) );
-
 
     init_comboBox_BiblioURL();
 
@@ -445,13 +444,34 @@ C_MW_Prescription::C_MW_Prescription(QWidget *parent) :
     fillCustomDrugListCombo("BDM");
 
     setPositionsFromIniFile();
-    //setWindowFlags(Qt::WindowStaysOnTopHint);
-    //............ ne surtout pas changer les sequences ....................
+    //......... on active les fenetres avec QTimer (ubuntu unity oblige) .........
+    // setWindowFlags(Qt::WindowStaysOnTopHint);
+    // setWindowState(windowState() & ~Qt::WindowMinimized);
+    // show();
+    // activateWindow();
+    // raise();
+    QTimer::singleShot(5, this, SLOT(Slot_ActivateInfoWindow())); // pour avoir la fenetre en avant plan sur ubuntu unity
+}
+//--------------------------------------- Slot_ActivateMainWindow ---------------------------------------------------
+void C_MW_Prescription::Slot_ActivateMainWindow()
+{   //............ ne surtout pas changer les sequences ....................
     //             suivantes (seules a mettre les fenetres en avant plan sur Mac)
     setWindowState(windowState() & ~Qt::WindowMinimized);
     show();
     activateWindow();
     raise();
+}
+//--------------------------------------- Slot_ActivateMainWindow ---------------------------------------------------
+void C_MW_Prescription::Slot_ActivateInfoWindow()
+{if ( m_pC_Frm_Prescription !=0 )
+       { if( m_pC_Frm_Prescription->alertView() !=0 )
+           { m_pC_Frm_Prescription->alertView()->setWindowState(windowState() & ~Qt::WindowMinimized);
+             m_pC_Frm_Prescription->alertView()->show();
+             m_pC_Frm_Prescription->alertView()->activateWindow();
+             m_pC_Frm_Prescription->alertView()->raise();
+           }  
+       }
+ QTimer::singleShot(5, this, SLOT(Slot_ActivateMainWindow())); // pour avoir la fenetre en avant plan sur ubuntu unity
 }
 //--------------------------------- getInputGrammarList -----------------------------------------------------------------------
 QStringList C_MW_Prescription::getInputGrammarList()
@@ -1061,7 +1081,7 @@ void C_MW_Prescription::Slot_comboBox_FamillesProduits_activated( int familleInd
 void C_MW_Prescription::Slot_lineEdit_AccessoiresSearch_textChanged (const QString &text)
 {Datasemp_fill_treeWidget_Accessoires(m_pGUI->treeWidget_Accessoires, m_pGUI->comboBox_FamillesProduits->currentIndex()+2, text);
 }
-//--------------------------------------- Slot_treeWidget_CustomDrugsList_itemClicked -------------------------------------------------------
+//--------------------------------------- Slot_lineEdit_AccessoiresSearch_keyPressEvent -------------------------------------------------------
 void C_MW_Prescription::Slot_lineEdit_AccessoiresSearch_keyPressEvent(QKeyEvent *event, int &callStandardEvent)
 {lineEdit_searchProducts_keyPressEvent(m_pGUI->treeWidget_Accessoires, event, callStandardEvent);
 }
@@ -2363,7 +2383,9 @@ void C_MW_Prescription::Slot_add_product_In_C_Frm_Prescription(QTreeWidgetItem *
 }
 //------------------------ can_use_API ---------------------------------------
 bool C_MW_Prescription::can_use_API( QTreeWidgetItem * pQTreeWidgetItem )
-{return pQTreeWidgetItem->text(COL_ID_TYP)=="CIP";
+{if (m_pC_BDM_Api==0)                   return false;
+ if (m_pC_BDM_Api->drugsList_Size()<=0) return false;
+ return ( pQTreeWidgetItem->text(COL_ID_TYP)=="CIP" ) ;
 }
 
 //------------------------ Slot_child_LeaveLastEditZone ---------------------------------------
